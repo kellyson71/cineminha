@@ -1,4 +1,54 @@
 {
+ "2026-09-28": [
+  {
+   "id": "psirico-lepo-lepo",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Lepo Lepo",
+   "a": "Psirico",
+   "album": "Tá Quente #Fiqueemcasa",
+   "ano": 2014,
+   "dz": {
+    "t": 3586976221,
+    "a": 1116539
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 465892,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-29": [
   {
    "id": "zeca-pagodinho-deixa-a-vida-me-levar",
@@ -53,6 +103,211 @@
    ],
    "pais": "BR",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "don-omar-lucenzo-danza-kuduro",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Danza Kuduro",
+   "a": "Lucenzo",
+   "album": "Danza Kuduro 2019 (Luigi Ramirez Remix)",
+   "ano": 2019,
+   "dz": {
+    "t": 682065132,
+    "a": 379167
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 776890,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "grupo-revelacao-ta-escrito",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tá Escrito",
+   "a": "Grupo Revelação",
+   "album": "Ao Vivo No Morro",
+   "ano": 2009,
+   "dz": {
+    "t": 96076196,
+    "a": 16893
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 741297,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "justin-bieber-baby",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Baby",
+   "a": "Justin Bieber",
+   "album": "My World 2.0",
+   "ano": 2010,
+   "dz": {
+    "t": 5606967,
+    "a": 288166
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 878036,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "kana-boon-silhouette",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Silhouette",
+   "a": "KANA-BOON",
+   "album": "Silhouette",
+   "ano": 2014,
+   "dz": {
+    "t": 976040302,
+    "a": 4726033
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 694957,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -29958,6 +30213,268 @@
    ],
    "pais": "US",
    "decada": 1970,
+   "tags_ok": true
+  },
+  {
+   "id": "red-hot-chili-peppers-californication",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Californication",
+   "a": "Red Hot Chili Peppers",
+   "album": "Californication (Deluxe Edition)",
+   "ano": 2004,
+   "dz": {
+    "t": 725274,
+    "a": 182
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 957783,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "skank-garota-nacional",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Garota Nacional",
+   "a": "Skank",
+   "album": "O Samba Poconé",
+   "ano": 1996,
+   "dz": {
+    "t": 14897306,
+    "a": 13545
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 702350,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "toquinho-aquarela",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Aquarela",
+   "a": "Toquinho",
+   "album": "Chico E Vinícius Para Crianças",
+   "ano": 1983,
+   "dz": {
+    "t": 71561407,
+    "a": 80624
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 591006,
+   "generos": [
+    "Infantil"
+   ],
+   "pais": "BR",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "queen-bohemian-rhapsody",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Bohemian Rhapsody",
+   "a": "Queen",
+   "album": "A Night At The Opera",
+   "ano": 1975,
+   "dz": {
+    "t": 4091937401,
+    "a": 412
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 958949,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1970,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-07": [
+  {
+   "id": "jorge-ben-jor-taj-mahal",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Taj Mahal",
+   "a": "Jorge Ben Jor",
+   "album": "Africa Brasil",
+   "ano": 1982,
+   "dz": {
+    "t": 6951800,
+    "a": 4917
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 552463,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1980,
    "tags_ok": true
   }
  ]
