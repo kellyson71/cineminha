@@ -827,12 +827,13 @@ function buildPlayer(id, tile) {
     timer = setTimeout(() => {
       if (!settings.hidden || root.querySelector(':focus-visible')) return reveal()
       tile.el.classList.remove('player-visible')
-    }, 2500)
+    }, matchMedia('(pointer: coarse)').matches ? 4000 : 2500)
   }
   tile.el.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') reveal() })
   tile.el.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') reveal() })
   tile.el.addEventListener('focusin', reveal)
-  tile.el.addEventListener('pointerleave', () => { if (settings.hidden && !root.querySelector(':focus-visible')) { clearTimeout(timer); tile.el.classList.remove('player-visible') } })
+  // só o mouse: no toque, o pointerleave dispara toda vez que o dedo sai da tela e escondia os controles
+  tile.el.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && settings.hidden && !root.querySelector(':focus-visible')) { clearTimeout(timer); tile.el.classList.remove('player-visible') } })
   tile.el.addEventListener('keydown', e => { if (e.target === tile.el && ['Space','Enter'].includes(e.code) && playerInfo(id)?.kind === 'arquivo') { e.preventDefault(); playerCommand(id, 'toggle'); reveal() } })
   tile.reveal = reveal
   tile.player = { root, play, center, seek, time, volume, mute, subs, gear, quality, rate, rateLabel, upload, settings }
@@ -926,12 +927,14 @@ function addTile(id, stream, localVideo) {
   const badge = el('div', { className: 'tile__paused' }, icon('pause'), el('span', { textContent: 'Pausado' }))
   const preview = el('img', { className: 'tile__preview', alt: '', hidden: true })
   const node = el('div', { className: 'tile' + (localVideo ? ' tile--file' : ''), tabIndex: 0 }, video, preview, sub, badge, label)
-  node.addEventListener('pointerdown', e => { node._ptr = e.pointerType })
+  // guarda se os controles já estavam à mostra ANTES do toque: o foco do toque (focusin) já os mostra,
+  // e sem isso o mesmo toque mostrava e escondia na hora (a barra piscava escura e o toque "não pegava")
+  node.addEventListener('pointerdown', e => { node._ptr = e.pointerType; node._vis = node.classList.contains('player-visible') })
   node.addEventListener('click', e => {
     if (e.target.closest('button, input, select, label, .player-controls')) return
     // toque: primeiro mostra os controles; com eles à mostra, tocar no vídeo esconde (não pausa para todos)
     if (node._ptr && node._ptr !== 'mouse' && t.reveal) {
-      if (!node.classList.contains('player-visible')) { t.reveal(); return }
+      if (!node._vis) { t.reveal(); return }
       if (playerInfo(id)?.kind === 'arquivo') { node.classList.remove('player-visible'); return }
     }
     if (playerInfo(id)?.kind === 'arquivo') { playerCommand(id, 'toggle'); return }
@@ -3210,10 +3213,13 @@ function setPalco(on) {
   tiles.forEach(t => t.fit?.())
   if (on) {
     theater.querySelector('.palco-aviso')?.remove()
-    theater.append(el('div', { className: 'palco-aviso', innerHTML: 'Palco · <b>duplo clique no fundo</b>, <b>Esc</b> ou <b>G</b> para voltar' }))
+    theater.append(el('div', { className: 'palco-aviso', innerHTML: matchMedia('(hover: none)').matches ? 'Toque de novo no <b>mesmo botão</b> para voltar' : 'Palco · <b>duplo clique no fundo</b>, <b>Esc</b> ou <b>G</b> para voltar' }))
     setTimeout(() => theater.querySelector('.palco-aviso')?.remove(), 3300)
     poke()
-  } else theater.classList.remove('idle')
+  } else {
+    theater.classList.remove('idle')
+    if (fsPalco) { fsPalco = false; theater.classList.remove('fs-palco'); setIcon(iconOf($('#btnFs')), 'maximize') }
+  }
 }
 $('#btnPalco').addEventListener('click', () => setPalco(!theater.classList.contains('palco')))
 // duplo clique no jogo (no fundo, não em carta ou botão) entra no palco; duplo clique fora do jogo sai
@@ -3224,9 +3230,15 @@ theater.addEventListener('dblclick', e => {
   if (theater.classList.contains('palco')) setPalco(false)
   else if (noJogo) { getSelection()?.removeAllRanges(); setPalco(true) }
 })
+// Tablet/celular sem tela cheia de elemento (iPad antigo, iPhone) ou que recusa o pedido: usa o palco,
+// que tem o mesmo layout. Antes o botão simplesmente não fazia nada.
+let fsPalco = false
 function toggleFs() {
   if (document.fullscreenElement) return document.exitFullscreen()
-  theater.requestFullscreen?.().catch(() => {})
+  if (fsPalco && theater.classList.contains('palco')) return setPalco(false)
+  const fallback = () => { if (document.fullscreenElement) return; setPalco(true); fsPalco = true; theater.classList.add('fs-palco'); setIcon(iconOf($('#btnFs')), 'minimize') }
+  if (!theater.requestFullscreen) return fallback()
+  try { theater.requestFullscreen().catch(fallback) } catch { fallback() }
 }
 $('#btnFs').addEventListener('click', toggleFs)
 document.addEventListener('fullscreenchange', () => {

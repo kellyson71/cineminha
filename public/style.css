@@ -126,7 +126,7 @@ svg[data-icon] { width: 18px; height: 18px; flex: none; }
 .theater.no-chat .chat { display: none; }
 .stage { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
 
-.screen { padding: 8px; width: 100%; max-width: calc((100dvh - 360px) * 16 / 9 + 16px); min-width: min(100%, 520px); align-self: center; }
+.screen { padding: 8px; width: 100%; max-width: calc((100vh - 360px) * 16 / 9 + 16px); max-width: calc((100svh - 360px) * 16 / 9 + 16px); min-width: min(100%, 520px); align-self: center; }
 .screen__inner { position: relative; background: #000; aspect-ratio: 16 / 9; overflow: hidden; border-radius: calc(var(--radius) - 6px); }
 
 /* Telas: uma ocupa tudo; várias viram grade; clicando numa ela vira foco e as outras miniaturas */
@@ -704,7 +704,7 @@ body.lights-off .theater:is(:fullscreen, .palco) .toolbar, body.lights-off .thea
 .stage > .screen { order: 1; }
 .stage > .row { order: 2; }
 .stage > .toolbar { order: 3; }
-.row { --seat-h: clamp(84px, 10vw, 120px); position: relative; z-index: 6; width: 100%; max-width: calc((100dvh - 360px) * 16 / 9 + 16px); min-width: min(100%, 520px); align-self: center; justify-content: flex-start; margin: calc(var(--seat-h) * -.55 - 12px) 0 -4px; padding-left: clamp(10px, 2vw, 26px); pointer-events: none; }
+.row { --seat-h: clamp(84px, 10vw, 120px); position: relative; z-index: 6; width: 100%; max-width: calc((100vh - 360px) * 16 / 9 + 16px); max-width: calc((100svh - 360px) * 16 / 9 + 16px); min-width: min(100%, 520px); align-self: center; justify-content: flex-start; margin: calc(var(--seat-h) * -.55 - 12px) 0 -4px; padding-left: clamp(10px, 2vw, 26px); pointer-events: none; }
 .row__seats { align-items: flex-start; width: auto; }
 .row__line { justify-content: start; width: auto; transform-origin: 0 100%; }
 .row .seat, .row .seat-empty { pointer-events: auto; }
@@ -1120,8 +1120,8 @@ html.auto body.locked > :not(.gate) { filter: none; }
 /* Modo teatro: largura toda, tela limitada pela altura da janela, chat embaixo */
 .theater.teatro:not(:fullscreen, .palco) { max-width: none; grid-template-columns: minmax(0, 1fr); }
 .theater.teatro:not(:fullscreen, .palco) .screen,
-.theater.teatro:not(:fullscreen, .palco) .row { max-width: min(100%, calc((100dvh - 190px) * 16 / 9 + 16px)); }
-.theater.teatro:not(:fullscreen, .palco) .chat { position: relative; top: 0; height: 380px; width: 100%; max-width: min(100%, calc((100dvh - 190px) * 16 / 9 + 16px)); justify-self: center; }
+.theater.teatro:not(:fullscreen, .palco) .row { max-width: min(100%, calc((100vh - 190px) * 16 / 9 + 16px)); max-width: min(100%, calc((100svh - 190px) * 16 / 9 + 16px)); }
+.theater.teatro:not(:fullscreen, .palco) .chat { position: relative; top: 0; height: 380px; width: 100%; max-width: min(100%, calc((100vh - 190px) * 16 / 9 + 16px)); max-width: min(100%, calc((100svh - 190px) * 16 / 9 + 16px)); justify-self: center; }
 #btnTeatro[aria-pressed="true"] { border-color: var(--accent); color: var(--accent-hi); }
 .theater:is(:fullscreen, .palco) #btnTeatro { display: none; }
 @media (max-width: 1000px) { #btnTeatro { display: none; } }
@@ -1495,7 +1495,7 @@ body.lights-off .theater:is(:fullscreen, .palco):not(.chat-fixo).idle .chat { op
 .diagm__ev--saiu span { color: #ffd58a; }
 .diagm__ev--admin span { color: #9cc8ff; }
 .diagm__vazio { color: rgba(241,241,244,.5); font-size: .8rem; }
-.stage > .callbar { order: 4; width: 100%; max-width: calc((100dvh - 360px) * 16 / 9 + 16px); align-self: center; margin-top: 0; }
+.stage > .callbar { order: 4; width: 100%; max-width: calc((100vh - 360px) * 16 / 9 + 16px); max-width: calc((100svh - 360px) * 16 / 9 + 16px); align-self: center; margin-top: 0; }
 
 /* Menu de configurações: preferências e botões */
 .settings .btn--block { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
@@ -2038,3 +2038,16 @@ body.palco-on { overflow: hidden; }
 .trocajogo__op.forte:hover { background: #f05358; }
 .trocajogo__op.perigo b { color: #ff8a8e; }
 .trocajogo__op.leve { align-items: center; border-color: transparent; background: none; }
+
+/* ===== Tablet ===== */
+/* tela cheia virou palco (navegador sem tela cheia de elemento): o botão do palco seria um segundo "sair" igual */
+.theater.fs-palco #btnPalco { display: none; }
+/* tablet deitado (até ~1240px) em tela cheia: a barra centralizada ficava por baixo do chat flutuante
+   e os botões da direita não davam para tocar; encosta a barra à esquerda do chat */
+@media (min-width: 901px) and (max-width: 1240px) and (min-height: 501px) {
+  .theater:is(:fullscreen, .palco):not(.chat-fixo):not(.no-chat) .toolbar { left: auto; right: calc(min(340px, 32vw) + 28px); transform: none; }
+}
+/* toque não tem hover: com as luzes apagadas a barra e o chat ficavam a meia-luz e acendiam/apagavam a cada toque */
+@media (hover: none) {
+  body.lights-off .toolbar, body.lights-off .chat { opacity: 1; filter: none; }
+}
