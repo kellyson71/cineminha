@@ -2049,6 +2049,72 @@
    "tags_ok": true
   }
  ],
+ "2026-10-19": [
+  {
+   "id": "neil-diamond-sweet-caroline",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sweet Caroline",
+   "a": "Neil Diamond",
+   "album": "50th Anniversary Collection",
+   "ano": 1972,
+   "dz": {
+    "t": 145434430,
+    "a": 3094
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "folk-country"
+    ],
+    "decada": 1960,
+    "vibes": [
+     "festa",
+     "hino",
+     "nostalgia"
+    ],
+    "fama": 3
+   },
+   "rank": 746173,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 1970,
+   "tags_ok": true
+  }
+ ],
  "2026-10-20": [
   {
    "id": "mc-marcinho-glamurosa",
@@ -2097,6 +2163,225 @@
     "Soul & Funk"
    ],
    "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "marisa-monte-amor-i-love-you",
+   "n": 1,
+   "origem": "parecida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Amor I Love You / Citação: Trecho da Obra Intitulada \"Primo Basilio\" De Eça de Queiroz Declamado por Arnaldo Antunes",
+   "a": "Marisa Monte",
+   "album": "Memórias, Crônicas e Declarações de Amor",
+   "ano": 2000,
+   "dz": {
+    "t": 953826662,
+    "a": 13523
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 692889,
+   "generos": [
+    "MPB"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "arctic-monkeys-do-i-wanna-know",
+   "n": 2,
+   "origem": "parecida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Do I Wanna Know?",
+   "a": "Arctic Monkeys",
+   "album": "AM",
+   "ano": 2013,
+   "dz": {
+    "t": 70322130,
+    "a": 1182
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 931645,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "michel-telo-ai-se-eu-te-pego",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ai Se Eu Te Pego (Ao Vivo)",
+   "a": "Michel Teló",
+   "album": "Ai Se Eu Te Pego (Ao Vivo)",
+   "ano": 2011,
+   "dz": {
+    "t": 2266742737,
+    "a": 379486
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 803843,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "beyonce-baby-boy-feat-sean-paul",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Baby Boy (feat. Sean Paul)",
+   "a": "Beyoncé",
+   "album": "Dangerously In Love",
+   "ano": 2003,
+   "dz": {
+    "t": 609381,
+    "a": 145
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rnb-soul",
+     "pop"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "festa",
+     "nostalgia"
+    ],
+    "fama": 4
+   },
+   "rank": 741202,
+   "generos": [
+    "Pop",
+    "R&B"
+   ],
+   "pais": "US",
    "decada": 2000,
    "tags_ok": true
   }
@@ -21794,6 +22079,278 @@
    ],
    "pais": "US",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-fioti-bum-bum-tam-tam",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Bum Bum Tam Tam",
+   "a": "MC Fioti",
+   "album": "Bum Bum Tam Tam",
+   "ano": 2017,
+   "dz": {
+    "t": 438850292,
+    "a": 10833242
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 696651,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "don-omar-danza-kuduro",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Danza Kuduro",
+   "a": "Don Omar",
+   "album": "Meet The Orphans",
+   "ano": 2010,
+   "dz": {
+    "t": 7600267,
+    "a": 725
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 587358,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "PR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "mamonas-assassinas-pelados-em-santos",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pelados Em Santos",
+   "a": "Mamonas Assassinas",
+   "album": "Mamonas Assassinas",
+   "ano": 1995,
+   "dz": {
+    "t": 3105903,
+    "a": 698
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 622482,
+   "generos": [],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "mitski-first-love-late-spring",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "First Love/Late Spring",
+   "a": "Mitski",
+   "album": "Bury Me At Makeout Creek",
+   "ano": 2014,
+   "dz": {
+    "t": 116405480,
+    "a": 6630050
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "indie",
+     "rock"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "triste",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 663107,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-24": [
+  {
+   "id": "elton-john-rocket-man-i-think-it-s-going-to-be-a-long-long-t",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Rocket Man (I Think It's Going To Be A Long, Long Time)",
+   "a": "Elton John",
+   "album": "Honky Chateau",
+   "ano": 1973,
+   "dz": {
+    "t": 1144863,
+    "a": 413
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "pop",
+     "rock"
+    ],
+    "decada": 1970,
+    "vibes": [
+     "nostalgia",
+     "hino",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 862452,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 1970,
    "tags_ok": true
   }
  ]
