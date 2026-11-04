@@ -1,6 +1,16 @@
 #!/bin/sh
-# Publica em produção. O version.json novo faz quem está na sala atualizar sozinho.
+# Publica em produção pelo git: a Vercel faz o deploy sozinha a cada push na main.
+# A sala recarrega só quando o código do app muda (o build calcula a versão pelo hash dos .js/.css/.html de public/),
+# então dados novos não derrubam ninguém.
+#   ./deploy.sh "mensagem"   commita tudo e publica
+#   ./deploy.sh --dados      só as músicas do Faixa a Faixa (rotina diária e leva.py)
 cd "$(dirname "$0")"
-# --dados: só dados novos (ex.: dias do Faixa a Faixa). Não troca a versão, então ninguém na sala recarrega.
-[ "$1" = "--dados" ] || printf '{"v":"%s"}\n' "$(date +%s)" > public/version.json
-npx -y vercel@latest deploy --prod --yes --force 2>&1 | tail -3
+if [ "$1" = "--dados" ]; then
+  git add public/jogos/faixa
+  if git diff --cached --quiet; then echo "nada novo para publicar"; exit 0; fi
+  git commit -q -m "Faixa a Faixa: novas músicas"
+else
+  git add -A
+  git diff --cached --quiet || git commit -q -m "${1:-Atualiza o site}"
+fi
+git push -q origin main && echo "publicado: a Vercel faz o deploy em instantes"
