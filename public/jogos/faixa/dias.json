@@ -1,4 +1,74 @@
 {
+ "2026-10-07": [
+  {
+   "id": "tame-impala-borderline",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Borderline",
+   "a": "Tame Impala",
+   "album": "The Slow Rush",
+   "ano": 2020,
+   "dz": {
+    "t": 872345282,
+    "a": 134790
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "AU",
+    "generos": [
+     "indie",
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "chill",
+     "viral"
+    ],
+    "fama": 4
+   },
+   "rank": 900260,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "AU",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-10-08": [
   {
    "id": "linkin-park-numb",
@@ -2046,6 +2116,271 @@
    ],
    "pais": "US",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "the-weeknd-i-was-never-there",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I Was Never There",
+   "a": "The Weeknd",
+   "album": "My Dear Melancholy,",
+   "ano": 2019,
+   "dz": {
+    "t": 675343172,
+    "a": 4050205
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "CA",
+    "generos": [
+     "rnb-soul",
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "triste",
+     "viral",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 816997,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "CA",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "ray-charles-hit-the-road-jack",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hit the Road Jack",
+   "a": "Ray Charles",
+   "album": "Greatest Hits, Vol.1",
+   "ano": 1989,
+   "dz": {
+    "t": 62882810,
+    "a": 1342
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rnb-soul",
+     "jazz-blues"
+    ],
+    "decada": 1960,
+    "vibes": [
+     "festa",
+     "hino",
+     "nostalgia"
+    ],
+    "fama": 4
+   },
+   "rank": 800913,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "flo-rida-right-round",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Right Round",
+   "a": "Flo Rida",
+   "album": "R.O.O.T.S. (Route of Overcoming the Struggle)",
+   "ano": 2009,
+   "dz": {
+    "t": 4162078,
+    "a": 64333
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "rap"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "festa",
+     "energia"
+    ],
+    "fama": 5
+   },
+   "rank": 942552,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "tame-impala-the-less-i-know-the-better",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Less I Know The Better",
+   "a": "Tame Impala",
+   "album": "Currents",
+   "ano": 2015,
+   "dz": {
+    "t": 103052662,
+    "a": 134790
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "AU",
+    "generos": [
+     "indie",
+     "rock"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "viral",
+     "chill",
+     "festa"
+    ],
+    "fama": 5
+   },
+   "rank": 941238,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "AU",
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -24888,6 +25223,330 @@
    ],
    "pais": "CA",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "kaleo-way-down-we-go",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Way down We Go",
+   "a": "KALEO",
+   "album": "Way down We Go",
+   "ano": 2015,
+   "dz": {
+    "t": 104936008,
+    "a": 1138351
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "IS",
+    "generos": [
+     "rock",
+     "indie"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "energia",
+     "triste"
+    ],
+    "fama": 4
+   },
+   "rank": 887335,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "IS",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "cage-the-elephant-ain-t-no-rest-for-the-wicked",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ain't No Rest For The Wicked",
+   "a": "Cage The Elephant",
+   "album": "Cage The Elephant",
+   "ano": 2008,
+   "dz": {
+    "t": 1280074172,
+    "a": 214810
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rock",
+     "indie"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "nostalgia",
+     "chill"
+    ],
+    "fama": 3
+   },
+   "rank": 683922,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "timmy-trumpet-freaks",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Freaks (Radio Edit)",
+   "a": "Timmy Trumpet",
+   "album": "Freaks (Radio Edit)",
+   "ano": 2014,
+   "dz": {
+    "t": 1554183562,
+    "a": 661247
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "AU",
+    "generos": [
+     "eletronica"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "festa",
+     "energia"
+    ],
+    "fama": 4
+   },
+   "rank": 730016,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "AU",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "xama-malvadao-3",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Malvadão 3",
+   "a": "Xamã",
+   "album": "Malvadão 3",
+   "ano": 2021,
+   "dz": {
+    "t": 1558829232,
+    "a": 4545763
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "rap",
+     "trap"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "viral",
+     "festa",
+     "chill"
+    ],
+    "fama": 5
+   },
+   "rank": 616167,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-29": [
+  {
+   "id": "rex-orange-county-sunflower",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sunflower",
+   "a": "Rex Orange County",
+   "album": "Sunflower",
+   "ano": 2017,
+   "dz": {
+    "t": 1864388887,
+    "a": 11361878
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "indie",
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "chill",
+     "romantica"
+    ],
+    "fama": 3
+   },
+   "rank": 606314,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
    "tags_ok": true
   }
  ]
