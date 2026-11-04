@@ -2049,6 +2049,58 @@
    "tags_ok": true
   }
  ],
+ "2026-10-20": [
+  {
+   "id": "mc-marcinho-glamurosa",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Glamurosa",
+   "a": "MC Marcinho",
+   "album": "As 10 Mais",
+   "ano": 2001,
+   "dz": {
+    "t": 553853832,
+    "a": 444082
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 629393,
+   "generos": [
+    "Soul & Funk"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
  "2026-10-21": [
   {
    "id": "bruno-marrone-dormi-na-praca",
@@ -2093,6 +2145,212 @@
    ],
    "pais": "IT",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "charlie-brown-jr-so-os-loucos-sabem",
+   "n": 1,
+   "origem": "parecida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Só Os Loucos Sabem",
+   "a": "Charlie Brown Jr.",
+   "album": "Camisa 10 joga bola até na chuva",
+   "ano": 2009,
+   "dz": {
+    "t": 15738365,
+    "a": 8691
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "1.webm"
+    }
+   ],
+   "rank": 812343,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "kali-uchis-moonlight",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Moonlight",
+   "a": "Kali Uchis",
+   "album": "Red Moon In Venus",
+   "ano": 2023,
+   "dz": {
+    "t": 2166050207,
+    "a": 6043160
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rnb-soul",
+     "pop"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "viral",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 718021,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "backstreet-boys-i-want-it-that-way",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I Want It That Way",
+   "a": "Backstreet Boys",
+   "album": "Millennium",
+   "ano": 1999,
+   "dz": {
+    "t": 13141170,
+    "a": 330
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 899965,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "banda-eva-eva",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Eva (Ao Vivo)",
+   "a": "Banda Eva",
+   "album": "Veja Alto, Ouça Colorido - Ao Vivo",
+   "ano": 1997,
+   "dz": {
+    "t": 1589139392,
+    "a": 14531
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 470226,
+   "generos": [
+    "Axé/Forró"
+   ],
+   "pais": "BR",
+   "decada": 1990,
    "tags_ok": true
   }
  ],
@@ -21264,6 +21522,278 @@
    ],
    "pais": "BR",
    "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "shakira-hips-don-t-lie",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hips Don't Lie",
+   "a": "Shakira",
+   "album": "Anniversary | Oral Fixation (20th) and Pies Descalzos (30th) LIVE",
+   "ano": 2006,
+   "dz": {
+    "t": 3663852612,
+    "a": 160
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 874825,
+   "generos": [
+    "Pop",
+    "Pop Latino"
+   ],
+   "pais": "CO",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "nirvana-smells-like-teen-spirit",
+   "n": 2,
+   "origem": "parecida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Smells Like Teen Spirit",
+   "a": "Nirvana",
+   "album": "Nevermind (Remastered)",
+   "ano": 2011,
+   "dz": {
+    "t": 13791930,
+    "a": 415
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 985641,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "smash-mouth-all-star",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "All Star",
+   "a": "Smash Mouth",
+   "album": "All Star Smash Hits",
+   "ano": 1997,
+   "dz": {
+    "t": 917717,
+    "a": 1179
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 807187,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "bee-gees-stayin-alive",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Stayin' Alive",
+   "a": "Bee Gees",
+   "album": "Staying Alive (Original Motion Picture Soundtrack)",
+   "ano": 1977,
+   "dz": {
+    "t": 406815322,
+    "a": 1450
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 645432,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "GB",
+   "decada": 1970,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-23": [
+  {
+   "id": "regina-spektor-two-birds",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Two Birds",
+   "a": "Regina Spektor",
+   "album": "Far",
+   "ano": 2009,
+   "dz": {
+    "t": 3820941,
+    "a": 1568
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "indie",
+     "pop"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "nostalgia",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 638213,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
    "tags_ok": true
   }
  ]
