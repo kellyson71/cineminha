@@ -2049,6 +2049,53 @@
    "tags_ok": true
   }
  ],
+ "2026-10-21": [
+  {
+   "id": "bruno-marrone-dormi-na-praca",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dormi na Praça Ao Vivo",
+   "a": "Bruno & Marrone",
+   "album": "Acústico - Ao Vivo",
+   "ano": 2001,
+   "dz": {
+    "t": 13304041,
+    "a": 15055
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 779446,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "IT",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
  "2026-10-22": [
   {
    "id": "britney-spears-toxic",
@@ -2098,6 +2145,224 @@
    ],
    "pais": "US",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "psy-gangnam-style",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Gangnam Style (강남스타일)",
+   "a": "Psy",
+   "album": "Gangnam Style (강남스타일)",
+   "ano": 2012,
+   "dz": {
+    "t": 60726278,
+    "a": 398073
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 776504,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "mother-mother-hayloft",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hayloft II",
+   "a": "Mother Mother",
+   "album": "Inside (Deluxe)",
+   "ano": 2022,
+   "dz": {
+    "t": 1619556982,
+    "a": 380362
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "CA",
+    "generos": [
+     "indie",
+     "rock"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "viral",
+     "energia"
+    ],
+    "fama": 4
+   },
+   "rank": 650390,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "CA",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "rouge-ragatanga",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ragatanga (Asereje) Versão Editada",
+   "a": "Rouge",
+   "album": "Rouge",
+   "ano": 2002,
+   "dz": {
+    "t": 433394132,
+    "a": 13671951
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 570901,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "anitta-show-das-poderosas",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Show das Poderosas",
+   "a": "Anitta",
+   "album": "Anitta",
+   "ano": 2013,
+   "dz": {
+    "t": 68530321,
+    "a": 4390053
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 534891,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -20747,6 +21012,258 @@
    "generos": [],
    "pais": null,
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "roupa-nova-whisky-a-go-go",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Whisky à Go-Go (Ao Vivo)",
+   "a": "Roupa Nova",
+   "album": "Novela Hits",
+   "ano": 1984,
+   "dz": {
+    "t": 13244021,
+    "a": 16476
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 659333,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "lulu-santos-toda-forma-de-amor",
+   "n": 2,
+   "origem": "parecida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Toda Forma de Amor",
+   "a": "Lulu Santos",
+   "album": "Toda Forma De Amor",
+   "ano": 1988,
+   "dz": {
+    "t": 13540014,
+    "a": 13584
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 647017,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "raca-negra-cheia-de-manias",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cheia de Manias",
+   "a": "Raça Negra",
+   "album": "Deezer Sessions",
+   "ano": 2005,
+   "dz": {
+    "t": 705328182,
+    "a": 315082
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 707389,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "the-pointer-sisters-i-m-so-excited",
+   "n": 4,
+   "origem": "parecida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I'm So Excited",
+   "a": "The Pointer Sisters",
+   "album": "So Excited! (Expanded Edition)",
+   "ano": 1982,
+   "dz": {
+    "t": 346967941,
+    "a": 6243
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 884987,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 1980,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-22": [
+  {
+   "id": "alceu-valenca-anunciacao",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Anunciação",
+   "a": "Alceu Valença",
+   "album": "20 Grandes Sucessos De Alceu Valença",
+   "ano": 1983,
+   "dz": {
+    "t": 1581835,
+    "a": 110746
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 725333,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1980,
    "tags_ok": true
   }
  ]
