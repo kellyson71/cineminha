@@ -2049,6 +2049,336 @@
    "tags_ok": true
   }
  ],
+ "2026-10-16": [
+  {
+   "id": "ze-neto-cristiano-notificacao-preferida-ao-vivo",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Notificação Preferida (Ao Vivo)",
+   "a": "Zé Neto & Cristiano",
+   "album": "Esquece o Mundo Lá Fora (Ao Vivo | Deluxe)",
+   "ano": 2018,
+   "dz": {
+    "t": 524693182,
+    "a": 5895828
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "sertanejo"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "sofrencia",
+     "festa",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 769756,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "corinne-bailey-rae-put-your-records-on",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Put Your Records On",
+   "a": "Corinne Bailey Rae",
+   "album": "Corinne Bailey Rae",
+   "ano": 2006,
+   "dz": {
+    "t": 3119484,
+    "a": 3595
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "pop",
+     "rnb-soul"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "chill",
+     "nostalgia"
+    ],
+    "fama": 4
+   },
+   "rank": 738519,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "tenacious-d-baby-one-more-time-from-kung-fu-panda-4",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "...Baby One More Time (from Kung Fu Panda 4)",
+   "a": "Tenacious D",
+   "album": "Kung Fu Panda 4 (Original Motion Picture Soundtrack)",
+   "ano": 2024,
+   "dz": {
+    "t": 2674697362,
+    "a": 445
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rock",
+     "trilha"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "energia",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 617213,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "teddy-swims-lose-control",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Lose Control",
+   "a": "Teddy Swims",
+   "album": "I've Tried Everything But Therapy (Part 1)",
+   "ano": 2023,
+   "dz": {
+    "t": 2319265555,
+    "a": 64927672
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rnb-soul",
+     "pop"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "sofrencia",
+     "triste",
+     "hino"
+    ],
+    "fama": 3
+   },
+   "rank": 923960,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "system-of-a-down-lonely-day",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Lonely Day",
+   "a": "System of a Down",
+   "album": "Hypnotize",
+   "ano": 2005,
+   "dz": {
+    "t": 546578,
+    "a": 458
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "metal",
+     "rock"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "triste",
+     "emo",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 954191,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
  "2026-10-17": [
   {
    "id": "mother-mother-burning-pile",
@@ -24233,6 +24563,331 @@
    ],
    "pais": "BR",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-weeknd-die-for-you",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Die For You",
+   "a": "The Weeknd",
+   "album": "Starboy",
+   "ano": 2016,
+   "dz": {
+    "t": 136889432,
+    "a": 4050205
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "CA",
+    "generos": [
+     "rnb-soul",
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "romantica",
+     "viral",
+     "hino"
+    ],
+    "fama": 4
+   },
+   "rank": 918224,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "CA",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "elton-john-goodbye-yellow-brick-road-remastered-2014",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Goodbye Yellow Brick Road (Remastered 2014)",
+   "a": "Elton John",
+   "album": "Goodbye Yellow Brick Road (Remastered)",
+   "ano": 1973,
+   "dz": {
+    "t": 75859736,
+    "a": 413
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "pop",
+     "rock"
+    ],
+    "decada": 1970,
+    "vibes": [
+     "nostalgia",
+     "hino"
+    ],
+    "fama": 3
+   },
+   "rank": 805977,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1970,
+   "tags_ok": true
+  },
+  {
+   "id": "the-rare-occasions-notion",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Notion",
+   "a": "The Rare Occasions",
+   "album": "Notion",
+   "ano": 2016,
+   "dz": {
+    "t": 1572200162,
+    "a": 5780936
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "indie",
+     "rock"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "viral",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 850085,
+   "generos": [
+    "Alternativo",
+    "Rock",
+    "Indie rock/Rock pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "michael-jackson-you-rock-my-world",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "You Rock My World (Radio Edit)",
+   "a": "Michael Jackson",
+   "album": "Number Ones",
+   "ano": 2001,
+   "dz": {
+    "t": 13129211,
+    "a": 259
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "rnb-soul"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "nostalgia",
+     "romantica"
+    ],
+    "fama": 4
+   },
+   "rank": 906456,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-28": [
+  {
+   "id": "mother-mother-arms-tonite",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Arms Tonite",
+   "a": "Mother Mother",
+   "album": "O My Heart",
+   "ano": 2008,
+   "dz": {
+    "t": 123465376,
+    "a": 380362
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "CA",
+    "generos": [
+     "indie",
+     "rock"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "viral",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 526911,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "CA",
+   "decada": 2000,
    "tags_ok": true
   }
  ]
