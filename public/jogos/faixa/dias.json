@@ -1,4 +1,61 @@
 {
+ "2026-09-29": [
+  {
+   "id": "zeca-pagodinho-deixa-a-vida-me-levar",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Deixa A Vida Me Levar",
+   "a": "Zeca Pagodinho",
+   "album": "A Arte De Zeca Pagodinho",
+   "ano": 2002,
+   "dz": {
+    "t": 112660002,
+    "a": 188053
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 630306,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
  "2026-09-30": [
   {
    "id": "kelly-key-baba",
@@ -46,6 +103,192 @@
    "generos": [
     "Pop"
    ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "e-o-tchan-danca-da-cordinha",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dança Da Cordinha",
+   "a": "É O Tchan",
+   "album": "Axé Bahia",
+   "ano": 1996,
+   "dz": {
+    "t": 518483012,
+    "a": 167531
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 511025,
+   "generos": [
+    "Axé/Forró"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-leozinho-ela-so-pensa-em-beijar",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ela Só Pensa em Beijar (Se Ela Dança Eu Danço) Rmx DJ Marlboro",
+   "a": "MC Leozinho",
+   "album": "Funk Brasil 08 Bem Funk by DJ Marlboro",
+   "ano": 2005,
+   "dz": {
+    "t": 2383797415,
+    "a": 241813
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 598770,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "lucenzo-danza-kuduro",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Danza Kuduro",
+   "a": "Lucenzo",
+   "album": "Danza Kuduro 2019 (Luigi Ramirez Remix)",
+   "ano": 2013,
+   "dz": {
+    "t": 682065132,
+    "a": 379167
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 776890,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "exaltasamba-me-apaixonei-pela-pessoa-errada",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Me Apaixonei Pela Pessoa Errada",
+   "a": "Exaltasamba",
+   "album": "Cartão Postal",
+   "ano": 2006,
+   "dz": {
+    "t": 3457524,
+    "a": 243657
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 677509,
+   "generos": [],
    "pais": "BR",
    "decada": 2000,
    "tags_ok": true
@@ -29447,6 +29690,274 @@
    ],
    "pais": "GB",
    "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "revelacao-deixa-acontecer",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Deixa Acontecer",
+   "a": "Grupo Revelação",
+   "album": "Virou Religião",
+   "ano": 2001,
+   "dz": {
+    "t": 13304453,
+    "a": 16893
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 708987,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-amo-noite-e-dia",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Amo Noite E Dia",
+   "a": "Jorge & Mateus",
+   "album": "Amo Noite E Dia",
+   "ano": 2010,
+   "dz": {
+    "t": 9436813,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 648761,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "shakira-waka-waka-this-time-for-africa",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Waka Waka (This Time for Africa) (feat. Freshlyground)",
+   "a": "Shakira",
+   "album": "Party Hits: Summer Edition",
+   "ano": 2010,
+   "dz": {
+    "t": 68473089,
+    "a": 160
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 920103,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CO",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "toby-fox-megalovania",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "MEGALOVANIA",
+   "a": "Toby Fox",
+   "album": "UNDERTALE Soundtrack",
+   "ano": 2015,
+   "dz": {
+    "t": 413935242,
+    "a": 10468691
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 664872,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-06": [
+  {
+   "id": "earth-wind-fire-september",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "September",
+   "a": "Earth, Wind & Fire",
+   "album": "September",
+   "ano": 1979,
+   "dz": {
+    "t": 487484142,
+    "a": 248
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 934544,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 1970,
    "tags_ok": true
   }
  ]
