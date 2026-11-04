@@ -186,9 +186,9 @@
 "quando": "2026-11-03"
 },
 "calcinha-preta-voce-nao-vale-nada": {
-"ok": true,
+"ok": false,
 "fama": 4,
-"motivo": "sugerida (parecidas)",
+"motivo": "Deezer: sem prévia ou pouco conhecida",
 "t": "Você Não Vale Nada",
 "a": "Calcinha Preta",
 "quando": "2026-11-03"
@@ -234,11 +234,2649 @@
 "quando": "2026-11-03"
 },
 "bbno-lalala": {
-"ok": true,
+"ok": false,
 "fama": 4,
-"motivo": "sugerida (parecidas)",
+"motivo": "Deezer: sem prévia ou pouco conhecida",
 "t": "Lalala",
 "a": "bbno$",
 "quando": "2026-11-03"
+},
+"bakamitai-taxi-driver-edition": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "BAKAMITAI - Taxi Driver Edition",
+"a": "桐生一馬(黒田崇矢)"
+},
+"celly-campello-estupido-cupido": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Estúpido Cupido",
+"a": "Celly Campello"
+},
+"k-naan-bang-bang": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bang Bang",
+"a": "K'NAAN"
+},
+"yaya-orchestra-giorno-s-theme": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Giorno's Theme",
+"a": "Yaya Orchestra"
+},
+"le-tigre-deceptacon": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Deceptacon",
+"a": "Le Tigre"
+},
+"sidney-magal-meu-sangue-ferve-por-voce": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Meu Sangue Ferve Por Você",
+"a": "Sidney Magal"
+},
+"djonga-corra": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "CORRA",
+"a": "Djonga"
+},
+"joaquim-e-manuel-boate-azul": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Boate Azul",
+"a": "Joaquim e Manuel"
+},
+"stuck-in-the-sound-lets-go": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Let’s Go",
+"a": "Stuck in the Sound"
+},
+"toquinho-carolina-carol-bela": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Carolina, Carol Bela",
+"a": "Toquinho"
+},
+"leslie-parrish-killing-my-love": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "KILLING MY LOVE",
+"a": "Leslie Parrish"
+},
+"banda-do-mar-mais-ninguem": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mais Ninguém",
+"a": "Banda do Mar"
+},
+"carameii-megalovania": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Megalovania",
+"a": "Carameii"
+},
+"tommy-richman-million-dollar-baby": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "MILLION DOLLAR BABY",
+"a": "Tommy Richman"
+},
+"paul-engemann-scarface-push-it-to-the-limit": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Scarface (Push It to the Limit)",
+"a": "Paul Engemann"
+},
+"beach-house-space-song": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Space Song",
+"a": "Beach House"
+},
+"black-sabbath-electric-funeral-2012-remaster": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Electric Funeral (2012 Remaster)",
+"a": "Black Sabbath"
+},
+"mc-suave-oudri-kanda-larrai": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Oudri Kanda Larrai",
+"a": "MC Suave"
+},
+"50-cent-best-friend": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Best Friend",
+"a": "50 Cent"
+},
+"exhastedd-misery-cpr": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Misery CPR",
+"a": "Exhastedd"
+},
+"atarashii-gakko-otonablue": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "OTONABLUE",
+"a": "ATARASHII GAKKO!"
+},
+"gorillaz-rhinestone-eyes": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Rhinestone Eyes",
+"a": "Gorillaz"
+},
+"hanumankind-big-dawgs": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Big Dawgs",
+"a": "Hanumankind"
+},
+"dvrst-close-eyes": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Close Eyes",
+"a": "DVRST"
+},
+"rosa-neon-ombrim": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Ombrim",
+"a": "Rosa Neon"
+},
+"sawano-hiroyuki-vogel-im-kafig": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Vogel Im Kafig",
+"a": "Sawano Hiroyuki"
+},
+"menor-valeu-amigo-ao-vivo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Valeu Amigo - Ao Vivo",
+"a": "Menor"
+},
+"pornograffitti-the-day": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "THE DAY",
+"a": "PornoGraffitti"
+},
+"set-it-off-partners-in-crime-feat-ash-costello": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Partners in Crime (feat. Ash Costello)",
+"a": "Set It Off"
+},
+"vacations-young": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Young",
+"a": "Vacations"
+},
+"mc-saci-aquariano-nato": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Aquariano Nato",
+"a": "MC Saci"
+},
+"fernando-mendes-voce-nao-me-ensinou-a-te-esquecer": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Você Não Me Ensinou A Te Esquecer",
+"a": "Fernando Mendes"
+},
+"alan-silvestri-portals": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Portals",
+"a": "Alan Silvestri"
+},
+"mc-mazzie-ele-te-bota-soca-soca": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Ele Te Bota Soca Soca",
+"a": "MC Mazzie"
+},
+"yung-lixo-booty-call": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Booty Call",
+"a": "YUNG LIXO"
+},
+"chico-buarque-valsinha": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Valsinha",
+"a": "Chico Buarque"
+},
+"men-i-trust-show-me-how": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Show Me How",
+"a": "Men I Trust"
+},
+"yot-club-ykwim": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "YKWIM?",
+"a": "Yot Club"
+},
+"lil-lixo-namorada-2d": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Namorada 2d",
+"a": "Lil' Lixo"
+},
+"engelbert-humperdinck-a-man-without-love": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "A Man Without Love",
+"a": "Engelbert Humperdinck"
+},
+"fifty-fifty-cupid-twin-ver": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Cupid - Twin Ver.",
+"a": "FIFTY FIFTY"
+},
+"friedrich-habetler-giorno-s-theme-giorno-approved": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Giorno's Theme - Giorno Approved",
+"a": "Friedrich Habetler"
+},
+"vide-club-amor-plastico": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Amor plastico",
+"a": "VIDE CLUB"
+},
+"spiderbait-black-betty-single-edit": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Black Betty - Single Edit",
+"a": "Spiderbait"
+},
+"laura-shigihara-loonboon": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Loonboon",
+"a": "Laura Shigihara"
+},
+"8d-tunes-bloody-marry-8d-audio": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bloody Marry (8D Audio)",
+"a": "8D Tunes"
+},
+"lyn-rivers-in-the-desert": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Rivers In the Desert",
+"a": "Lyn"
+},
+"slovenska-filharmonia-requiem-in-d-minor-k-626-sequence-vi-l": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Requiem In D Minor, K. 626: Sequence: VI. Lacrimosa Dies Illa",
+"a": "Slovenská filharmónia"
+},
+"black-eyed-peas-let-s-get-it-started": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Let's Get It Started",
+"a": "Black Eyed Peas"
+},
+"duncan-cox-fallen-down": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Fallen Down",
+"a": "Duncan Cox"
+},
+"frank-sinatra-i-love-you-baby": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "I Love You Baby",
+"a": "Frank Sinatra"
+},
+"selvagens-a-procura-de-lei-bem-vindo-ao-brasil-na-maloca-dra": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bem-Vindo ao Brasil - Na Maloca Dragão",
+"a": "Selvagens à Procura de Lei"
+},
+"yung-lixo-nunca-paro": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Nunca Paro",
+"a": "YUNG LIXO"
+},
+"louis-armstrong-it-s-been-a-long-long-time": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "It's Been A Long, Long Time",
+"a": "Louis Armstrong"
+},
+"o-terno-a-historia-mais-velha-do-mundo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "A História Mais Velha do Mundo",
+"a": "O Terno"
+},
+"barbatuques-baiana": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Baianá",
+"a": "Barbatuques"
+},
+"never-get-used-to-people-life-letters": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Life Letters",
+"a": "Never Get Used To People"
+},
+"kaliii-area-codes": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Area Codes",
+"a": "Kaliii"
+},
+"dj-topo-quando-voce-se-foi-chorei-sorri-sou-rei": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "QUANDO VOCÊ SE FOI CHOREI (SORRI, SOU REI)",
+"a": "DJ TOPO"
+},
+"blue-swede-hooked-on-a-feeling": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Hooked On A Feeling",
+"a": "Blue Swede"
+},
+"camille-le-festin": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Le Festin",
+"a": "Camille"
+},
+"yago-oproprio-imprevisto": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Imprevisto",
+"a": "Yago Oproprio"
+},
+"roar-i-can-t-handle-change": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "I Can't Handle Change",
+"a": "Roar"
+},
+"siinamota-young-girl-a": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Young Girl A",
+"a": "Siinamota"
+},
+"mc-leozinho-ela-so-pensa-em-beijar-se-ela-danca-eu-danco-rmx": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Ela Só Pensa em Beijar (Se Ela Dança Eu Danço) Rmx DJ Marlboro",
+"a": "MC Leozinho"
+},
+"percival-schuttenbach-steel-for-humans": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "...Steel For Humans",
+"a": "Percival Schuttenbach"
+},
+"imxgine-see-you-again-okay-okay-la-la-la-part-loop": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "See You Again - okay okay, la la la part loop",
+"a": "ImXgine"
+},
+"calcinha-preta-versos-e-promessas-tem-mais-alguem": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Versos e Promessas (Tem Mais Alguém)",
+"a": "Calcinha Preta"
+},
+"grouplove-back-in-the-90-s": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Back in the 90's",
+"a": "GROUPLOVE"
+},
+"rogerio-skylab-o-meu-pau-fica-duro": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "O meu pau fica duro",
+"a": "Rogério Skylab"
+},
+"oasis-stop-crying-your-heart-out": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Stop Crying Your Heart Out",
+"a": "Oasis"
+},
+"gustavo-santaolalla-the-last-of-us": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "The Last of Us",
+"a": "Gustavo Santaolalla"
+},
+"giuseppe-verdi-requiem-ii-dies-irae": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Requiem: II. Dies Irae",
+"a": "Giuseppe Verdi"
+},
+"aphex-twin-qkthr": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "QKThr",
+"a": "Aphex Twin"
+},
+"os-baroes-da-pisadinha-unha-de-gel": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Unha de Gel",
+"a": "Os Barões Da Pisadinha"
+},
+"thxsomch-spit-in-my-face": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "SPIT IN MY FACE!",
+"a": "ThxSoMch"
+},
+"creepy-nuts-bling-bang-bang-born": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bling-Bang-Bang-Born",
+"a": "Creepy Nuts"
+},
+"masatoshi-ono-departure": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "departure!",
+"a": "Masatoshi Ono"
+},
+"los-reyes-bamboleo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bamboleo",
+"a": "Los Reyes"
+},
+"bibi-babydoll-automotivo-bibi-fogosa": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Automotivo Bibi Fogosa",
+"a": "Bibi Babydoll"
+},
+"luckhaos-eu-sou-mais-louco-que-todos-voces": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Eu sou mais louco que todos vocês",
+"a": "Luckhaos"
+},
+"ricky-montgomery-mr-loverman": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mr. Loverman",
+"a": "Ricky Montgomery"
+},
+"elizeth-cardoso-naquela-mesa": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Naquela Mesa",
+"a": "Elizeth Cardoso"
+},
+"engelbert-humperdinck-can-t-take-my-eyes-off-you": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Can't Take My Eyes Off You",
+"a": "Engelbert Humperdinck"
+},
+"cursedevil-tuca-donka": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "TUCA DONKA",
+"a": "CURSEDEVIL"
+},
+"o-grilo-sambinha": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Sambinha",
+"a": "O Grilo"
+},
+"luiz-gonzaga-o-chero-da-carolina": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "O Chêro da Carolina",
+"a": "Luiz Gonzaga"
+},
+"braga-boys-a-bomba": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "A Bomba",
+"a": "Braga Boys"
+},
+"mc-kitinho-primeiro-beck-ela-me-mamou": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Primeiro Beck Ela Me Mamou",
+"a": "Mc Kitinho"
+},
+"miracle-musical-murders": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Murders",
+"a": "Miracle Musical"
+},
+"kitty-kallen-it-s-been-a-long-long-time-with-harry-james-his": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "It's Been a Long, Long Time (with Harry James & His Orchestra)",
+"a": "Kitty Kallen"
+},
+"the-chainsmokers-something-just-like-this": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Something Just Like This",
+"a": "The Chainsmokers"
+},
+"dschinghis-khan-moscow": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Moscow",
+"a": "Dschinghis Khan"
+},
+"young-god-montagem-coral": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Montagem Coral",
+"a": "young god"
+},
+"dj-gudog-beat-magico-que-mexe-com-a-sua-mente-2": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "BEAT MÁGICO QUE MEXE COM A SUA MENTE 2",
+"a": "DJ GUDOG"
+},
+"vacations-friends": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Friends",
+"a": "Vacations"
+},
+"junior-senior-move-your-feet": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Move Your Feet",
+"a": "Junior Senior"
+},
+"antonio-barros-e-proibido-cochilar": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "É Proibido Cochilar",
+"a": "ANTÔNIO BARROS"
+},
+"clara-nunes-voce-passa-eu-acho-graca": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Você Passa Eu Acho Graça",
+"a": "Clara Nunes"
+},
+"ween-ocean-man": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Ocean Man",
+"a": "Ween"
+},
+"toby-fox-fallen-down": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Fallen Down",
+"a": "Toby Fox"
+},
+"lou-garcia-nao-fosse-tao-tarde-speed": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Não Fosse Tão Tarde (Speed)",
+"a": "Lou Garcia"
+},
+"pabllo-vittar-a-ceia": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "A Ceia",
+"a": "Pabllo Vittar"
+},
+"mariana-aydar-feira-de-mangaio": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Feira de Mangaio",
+"a": "Mariana Aydar"
+},
+"i-dont-know-how-but-they-found-me-choke": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Choke",
+"a": "I DONT KNOW HOW BUT THEY FOUND ME"
+},
+"sparky-deathcap-september": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "September",
+"a": "Sparky Deathcap"
+},
+"mick-gordon-bfg-division": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bfg Division",
+"a": "Mick Gordon"
+},
+"luiz-caldas-haja-amor": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Haja Amor",
+"a": "Luiz Caldas"
+},
+"wesley-gonzaga-mega-a-cura-antidepressiva": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mega a Cura Antidepressiva",
+"a": "Wesley Gonzaga"
+},
+"vinicius-de-moraes-pela-luz-dos-olhos-teus": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Pela Luz Dos Olhos Teus",
+"a": "Vinícius de Moraes"
+},
+"jorge-mateus-namorando-com-saudade": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Namorando Com Saudade",
+"a": "Jorge & Mateus"
+},
+"brns-past-lives": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Past Lives",
+"a": "BØRNS"
+},
+"mc-gw-se-me-da-eu-vou-ter-que-comer": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Se Me da Eu Vou Ter Que Comer",
+"a": "Mc Gw"
+},
+"kordhell-murder-in-my-mind": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Murder In My Mind",
+"a": "Kordhell"
+},
+"konai-te-vi-na-rua-ontem": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Te Vi na Rua Ontem",
+"a": "Konai"
+},
+"ilmari-hakkola-bad-piggies-theme": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bad Piggies Theme",
+"a": "Ilmari Hakkola"
+},
+"kenshi-yonezu-kick-back": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "KICK BACK",
+"a": "Kenshi Yonezu"
+},
+"street-corner-renaissance-life-could-be-a-dream": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Life Could Be A Dream",
+"a": "Street Corner Renaissance"
+},
+"jack-stauber-s-micropop-baby-hotline": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Baby Hotline",
+"a": "Jack Stauber's Micropop"
+},
+"taron-egerton-i-m-still-standing": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "I'm Still Standing",
+"a": "Taron Egerton"
+},
+"yoshihisa-hirano-kingdom-of-predators": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Kingdom of Predators",
+"a": "Yoshihisa Hirano"
+},
+"jack-black-peaches": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Peaches",
+"a": "Jack Black"
+},
+"black-eyed-peas-let-s-get-it-started-spike-mix": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Let's Get It Started - Spike Mix",
+"a": "Black Eyed Peas"
+},
+"d-orange-verte-polish-cow": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Polish Cow",
+"a": "D orange Verte"
+},
+"serebro-mimimi": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mimimi",
+"a": "SEREBRO"
+},
+"kxllswxtch-waste": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "WASTE",
+"a": "KXLLSWXTCH"
+},
+"my-singing-monsters-plant-island": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Plant Island",
+"a": "My Singing Monsters"
+},
+"toshifumi-hinata-reflections": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Reflections",
+"a": "Toshifumi Hinata"
+},
+"dj-jeeh-fdc-puta-mexicana": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Puta Mexicana",
+"a": "DJ Jeeh FDC"
+},
+"nelson-goncalves-naquela-mesa": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Naquela Mesa",
+"a": "Nelson Gonçalves"
+},
+"lucas-cooper-great-fairy-fountain-from-ocarina-of-time": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Great Fairy Fountain (From \"Ocarina of Time\")",
+"a": "Lucas Cooper"
+},
+"2wei-survivor": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Survivor",
+"a": "2WEI"
+},
+"pequeno-cidadao-o-sol-e-a-lua": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "O Sol e a Lua",
+"a": "Pequeno Cidadão"
+},
+"koji-kondo-lost-woods-from-legend-of-zelda-ocarina-of-time": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Lost Woods (From \"Legend of Zelda: Ocarina of Time\")",
+"a": "Koji Kondo"
+},
+"shadxwbxrn-shadow-dance": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "SHADOW DANCE",
+"a": "SHADXWBXRN"
+},
+"cavetown-devil-town": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Devil Town",
+"a": "Cavetown"
+},
+"patrulha-crina-negra": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Crina Negra",
+"a": "Patrulha"
+},
+"carrapicho-tic-tic-tac": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Tic, Tic, Tac",
+"a": "Carrapicho"
+},
+"flavio-jose-filho-do-dono": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Filho do Dono",
+"a": "Flávio José"
+},
+"kill-eva-psycho-dreams": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Psycho Dreams",
+"a": "Kill Eva"
+},
+"grover-washington-just-the-two-of-us": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Just the Two of Us",
+"a": "Grover Washington"
+},
+"veneris-gigachad-phonk": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "GigaChad Phonk",
+"a": "veneris"
+},
+"altego-toxic-pony": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Toxic Pony",
+"a": "ALTÉGO"
+},
+"6ynthmane-brazilian-danca-phonk": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "BRAZILIAN DANÇA PHONK",
+"a": "6YNTHMANE"
+},
+"marcio-simoes-principe-ali": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Príncipe Ali",
+"a": "Márcio Simões"
+},
+"pentatonix-take-on-me": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Take On Me",
+"a": "Pentatonix"
+},
+"kordhell-live-another-day": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Live Another Day",
+"a": "Kordhell"
+},
+"": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Мой мармеладный",
+"a": "Катя Лель"
+},
+"molina-hey-kids": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Hey Kids",
+"a": "Molina"
+},
+"lebanon-hanover-gallowdance": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Gallowdance",
+"a": "Lebanon Hanover"
+},
+"grupo-envolvencia-esqueci-de-te-esquecer-grades-do-coracao-d": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Esqueci De Te Esquecer / Grades Do Coração / Deixa Acontecer - Ao Vivo",
+"a": "Grupo Envolvência"
+},
+"the-kira-justice-patolino-o-mago": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Patolino: O Mago",
+"a": "The Kira Justice"
+},
+"phantogram-black-out-days": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Black Out Days",
+"a": "Phantogram"
+},
+"the-last-shadow-puppets-sweet-dreams-tn": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Sweet Dreams, TN",
+"a": "The Last Shadow Puppets"
+},
+"tom-jobim-garota-de-ipanema": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Garota de Ipanema",
+"a": "Tom Jobim"
+},
+"interworld-metamorphosis": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "METAMORPHOSIS",
+"a": "INTERWORLD"
+},
+"kordhell-vuk-vuk": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "VUK VUK",
+"a": "Kordhell"
+},
+"friedrich-habetler-giorno-s-theme": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Giorno's Theme",
+"a": "Friedrich Habetler"
+},
+"sim-under-the-tree": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Under the Tree",
+"a": "SiM"
+},
+"dj-gudog-beat-magico-que-mexe-com-a-sua-mente": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "BEAT MÁGICO QUE MEXE COM A SUA MENTE",
+"a": "DJ GUDOG"
+},
+"pablo-bilu-bilu": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bilu, Bilu",
+"a": "Pablo"
+},
+"dayglow-can-i-call-you-tonight": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Can I Call You Tonight?",
+"a": "Dayglow"
+},
+"christopher-lennertz-i-can-do-anything-finale": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "I Can Do Anything / Finale",
+"a": "Christopher Lennertz"
+},
+"marco-brasil-filho-welcome-to-the-mato": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Welcome To The Mato",
+"a": "Marco Brasil Filho"
+},
+"bishop-briggs-we-will-rock-you": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "We Will Rock You",
+"a": "Bishop Briggs"
+},
+"cartola-acontece": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Acontece",
+"a": "Cartola"
+},
+"mc-rd-piui-tic-tac": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Piui Tic Tac",
+"a": "Mc Rd"
+},
+"joey-valence-brae-punk-tactics": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Punk Tactics",
+"a": "Joey Valence & Brae"
+},
+"tiny-tim-tip-toe-thru-the-tulips-with-me": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Tip Toe Thru' the Tulips with Me",
+"a": "Tiny Tim"
+},
+"junko-yagami-bay-city": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "黄昏のBAY CITY",
+"a": "Junko Yagami"
+},
+"altamira-vem-ca": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Vem Cá",
+"a": "Altamira"
+},
+"mae-stephens-if-we-ever-broke-up": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "If We Ever Broke Up",
+"a": "Mae Stephens"
+},
+"ryan-gosling-i-m-just-ken": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "I'm Just Ken",
+"a": "Ryan Gosling"
+},
+"katya-lel-speed-up": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Мой мармеладный (Speed Up)",
+"a": "Katya Lel"
+},
+"grupo-envolvencia-evidencias-um-degrau-na-escada-ao-vivo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Evidências / Um Degrau Na Escada - Ao Vivo",
+"a": "Grupo Envolvência"
+},
+"matt-maltese-as-the-world-caves-in": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "As the World Caves In",
+"a": "Matt Maltese"
+},
+"sawano-hiroyuki-attack-on-titan": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Attack on Titan",
+"a": "Sawano Hiroyuki"
+},
+"furacao-2000-mimosa-2000": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mimosa 2000",
+"a": "Furacão 2000"
+},
+"gerry-rafferty-baker-street": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Baker Street",
+"a": "Gerry Rafferty"
+},
+"sim-the-rumbling": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "The Rumbling",
+"a": "SiM"
+},
+"mc-kaique-da-vp-taca-a-xereca-pra-mim": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Taca a Xereca pra Mim",
+"a": "MC Kaique da VP"
+},
+"favourite-worst-nightmare-arctic-monkeys": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Arctic Monkeys",
+"a": "Favourite Worst Nightmare"
+},
+"set-it-off-wolf-in-sheep-s-clothing-feat-william-beckett": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Wolf in Sheep's Clothing (feat. William Beckett)",
+"a": "Set It Off"
+},
+"jimmy-gnecco-it-has-to-be-this-way-platinum-mix": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "It Has To Be This Way - Platinum Mix",
+"a": "Jimmy Gnecco"
+},
+"gooseworx-theme-from-the-amazing-digital-circus": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Theme from The Amazing Digital Circus",
+"a": "Gooseworx"
+},
+"fuub-super-idol": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Super Idol",
+"a": "Fuub"
+},
+"kardinal-offishall-dangerous": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Dangerous",
+"a": "Kardinal Offishall"
+},
+"feat-ado": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "ラブカ？ (feat. Ado)",
+"a": "柊キライ"
+},
+"dj-jeeh-fdc-forte-forte-de-lacoste-pra-comecar-o-final-de-se": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Forte Forte de Lacoste - Pra Começar o Final de Semana",
+"a": "DJ Jeeh FDC"
+},
+"late-night-drive-home-freaks": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Freaks",
+"a": "late night drive home"
+},
+"playaphonk-phonky-town": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "PHONKY TOWN",
+"a": "PlayaPhonk"
+},
+"os-baroes-da-pisadinha-romantizou": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Romantizou",
+"a": "Os Barões Da Pisadinha"
+},
+"supercombo-amianto": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Amianto",
+"a": "Supercombo"
+},
+"jaxomy-pedro": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Pedro",
+"a": "Jaxomy"
+},
+"jeremy-soule-dragonborn": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Dragonborn",
+"a": "Jeremy Soule"
+},
+"mild-high-club-homage": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Homage",
+"a": "Mild High Club"
+},
+"claudya-deixa-eu-dizer": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Deixa Eu Dizer",
+"a": "Claudya"
+},
+"j-p-n-amend": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Amend",
+"a": "j^p^n"
+},
+"gloria-gaynor-can-t-take-my-eyes-off-of-you-black-box-mix": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Can't Take My Eyes Off of You - Black Box Mix",
+"a": "Gloria Gaynor"
+},
+"hans-zimmer-interstellar-cornfield-chase": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Interstellar Cornfield Chase",
+"a": "Hans Zimmer"
+},
+"fbc-delirios": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Delírios",
+"a": "FBC"
+},
+"a-boa-fada-da-musica-de-ninar-se-esta-rua-fosse-minha": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Se Esta Rua Fosse Minha",
+"a": "A Boa Fada da Música de Ninar"
+},
+"puterrier-marolento": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Marolento",
+"a": "Puterrier"
+},
+"raffaella-carra-pedro": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Pedro",
+"a": "Raffaella Carrà"
+},
+"hatsune-miku-ievan-polkka": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Ievan Polkka",
+"a": "Hatsune Miku"
+},
+"cults-gilded-lily": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Gilded Lily",
+"a": "Cults"
+},
+"toby-fox-undertale": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Undertale",
+"a": "Toby Fox"
+},
+"orquestra-e-coro-cid-flabanda-hino-do-vasco-da-gama": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Hino do Vasco da Gama",
+"a": "Orquestra e Coro Cid (Flabanda)"
+},
+"bonde-do-malandro-wilson-vai": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Wilson Vai",
+"a": "Bonde do Malandro"
+},
+"2wei-gangsta-s-paradise": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Gangsta's Paradise",
+"a": "2WEI"
+},
+"valorant-die-for-you": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Die For You",
+"a": "VALORANT"
+},
+"jim-croce-time-in-a-bottle": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Time in a Bottle",
+"a": "Jim Croce"
+},
+"puterrier-putaria-2000": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Putaria 2000",
+"a": "Puterrier"
+},
+"casey-edwards-devil-trigger": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Devil Trigger",
+"a": "Casey Edwards"
+},
+"the-platters-only-you-and-you-alone": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Only You (And You Alone)",
+"a": "The Platters"
+},
+"herb-alpert-the-tijuana-brass-ladyfingers": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Ladyfingers",
+"a": "Herb Alpert & The Tijuana Brass"
+},
+"two-door-cinema-club-what-you-know": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "What You Know",
+"a": "Two Door Cinema Club"
+},
+"adele-set-fire-to-the-rain": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Set Fire to the Rain",
+"a": "Adele"
+},
+"nobodyknows-hero-s-come-back": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Hero's Come Back!!",
+"a": "nobodyknows+"
+},
+"home-we-re-finally-landing": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "We're Finally Landing",
+"a": "Home"
+},
+"home-made-kazoku": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "サンキュー！！",
+"a": "Home Made Kazoku"
+},
+"nueki-mexican-phonk-eki": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mexican Phonk Eki",
+"a": "NUEKI"
+},
+"mc-tato-luz-do-luar": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Luz do Luar",
+"a": "Mc Tato"
+},
+"varien-can-you-feel-my-heart": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Can You Feel My Heart",
+"a": "Varien"
+},
+"sergio-mendes-brasil-66-mais-que-nada": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mais Que Nada",
+"a": "Sergio Mendes & Brasil '66"
+},
+"diogo-defante-jerry": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Jerry",
+"a": "Diogo Defante"
+},
+"piano-fantasia-song-for-denise": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Song for Denise",
+"a": "Piano Fantasia"
+},
+"grupo-envolvencia-praieiro-ao-vivo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Praieiro - Ao Vivo",
+"a": "Grupo Envolvência"
+},
+"fistikia-official-spit-in-my-face": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "spit in my face",
+"a": "Fistikia Official"
+},
+"supercombo-infame": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Infame",
+"a": "Supercombo"
+},
+"creepy-nuts-daten": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "堕天 - Daten",
+"a": "Creepy Nuts"
+},
+"fulo-de-mandacaru-fogo-sem-fuzil-ao-vivo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Fogo Sem Fuzil - Ao Vivo",
+"a": "Fulô de Mandacaru"
+},
+"dj-olliver-e-tuf-tuf-pof-pof-vapo-vapo-o-dia-inteiro": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "É Tuf Tuf Pof Pof Vapo Vapo o Dia Inteiro",
+"a": "Dj Olliver"
+},
+"mussa-rap-do-minecraft": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Rap do Minecraft",
+"a": "MUSSA"
+},
+"grupo-envolvencia-ta-rocheda-notificacao-preferida-ao-vivo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Tá Rocheda / Notificação Preferida - Ao Vivo",
+"a": "Grupo Envolvência"
+},
+"the-ink-spots-i-don-t-want-to-set-the-world-on-fire": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "I Don't Want To Set The World On Fire",
+"a": "The Ink Spots"
+},
+"lyn-life-will-change": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Life Will Change",
+"a": "Lyn"
+},
+"bellini-samba-de-amigo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Samba De Amigo",
+"a": "Bellini"
+},
+"dominguinhos-feira-de-mangaio": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Feira de Mangaio",
+"a": "Dominguinhos"
+},
+"fujii-kaze-shinunoga-e-wa": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Shinunoga E-Wa",
+"a": "Fujii Kaze"
+},
+"dj-marcao-019-automotivo-toma-sequencia-de-rock-n-roll": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Automotivo Toma Sequência De Rock N Roll",
+"a": "DJ Marcão 019"
+},
+"dj-nk3-automotivo-super-mario-world-2": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Automotivo Super Mario World 2",
+"a": "DJ NK3"
+},
+"falamansa-xote-da-alegria": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Xote da Alegria",
+"a": "Falamansa"
+},
+"o-terno-ai-ai-como-eu-me-iludo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Ai, Ai, Como Eu Me Iludo",
+"a": "O Terno"
+},
+"bennett-vois-sur-ton-chemin-techno-mix": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Vois sur ton chemin - Techno Mix",
+"a": "BENNETT"
+},
+"clarissa-nada-contra-ciume": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "nada contra (ciúme)",
+"a": "Clarissa"
+},
+"barbara-lewis-baby-i-m-yours": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Baby, I'm Yours",
+"a": "Barbara Lewis"
+},
+"emilio-santiago-verdade-chinesa": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Verdade Chinesa",
+"a": "Emílio Santiago"
+},
+"duster-me-and-the-birds": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Me and the Birds",
+"a": "Duster"
+},
+"mts-no-beat-ai-que-delicia-o-verao": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Ai Que Delicia o Verão",
+"a": "Mts No Beat"
+},
+"nightmare-the-world": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "the WORLD",
+"a": "NIGHTMARE"
+},
+"mc-pipokinha-bota-na-pipokinha-feat-dj-felypinho-013": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bota na Pipokinha (feat. DJ FELYPINHO 013)",
+"a": "MC Pipokinha"
+},
+"clarice-falcao-de-todos-os-loucos-do-mundo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "De Todos Os Loucos Do Mundo",
+"a": "Clarice Falcão"
+},
+"sawano-hiroyuki-you-see-big-girl-t-t": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "You See Big Girl / T:T",
+"a": "Sawano Hiroyuki"
+},
+"ed-helms-how-bad-can-i-be": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "How Bad Can I Be?",
+"a": "Ed Helms"
+},
+"cults-always-forever": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Always Forever",
+"a": "Cults"
+},
+"i-monster-who-is-she": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Who Is She ?",
+"a": "I Monster"
+},
+"edson-hudson-o-grande-amor-da-minha-vida-convite-de-casament": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "O Grande Amor da Minha Vida (Convite de Casamento) - Ao Vivo",
+"a": "Edson & Hudson"
+},
+"patati-patata-comer-comer": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Comer Comer",
+"a": "Patati Patatá"
+},
+"manoel-gomes-eu-vou-deixar-de-ser-besta": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Eu Vou Deixar de Ser Besta",
+"a": "Manoel Gomes"
+},
+"bibi-babydoll-onlyfans": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Onlyfans",
+"a": "Bibi Babydoll"
+},
+"percival-schuttenbach-silver-for-monsters": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Silver For Monsters...",
+"a": "Percival Schuttenbach"
+},
+"vitor-kley-tudo-me-lembra-voce-ao-vivo": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Tudo Me Lembra Você - Ao Vivo",
+"a": "Vitor Kley"
+},
+"dominic-fike-mama-s-boy": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mama's Boy",
+"a": "Dominic Fike"
+},
+"mr-kitty-after-dark": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "After Dark",
+"a": "Mr.Kitty"
+},
+"army-of-lovers-crucified": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Crucified",
+"a": "Army Of Lovers"
+},
+"skoomy-aruarian-dance": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Aruarian Dance",
+"a": "skoomy"
+},
+"hiroaki-tommy-tominaga-jojo-sono-chino-sadame": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "JOJO SONO CHINO SADAME",
+"a": "Hiroaki Tommy Tominaga"
+},
+"vienna-mozart-orchestra-lacrimosa": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Lacrimosa",
+"a": "Vienna Mozart Orchestra"
+},
+"kate-bush-army-dreamers-2018-remaster": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Army Dreamers - 2018 Remaster",
+"a": "Kate Bush"
+},
+"perlla-tremendo-vacilao": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Tremendo Vacilão",
+"a": "Perlla"
+},
+"toquinho-o-velho-e-a-flor": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "O Velho e a Flor",
+"a": "Toquinho"
+},
+"mamas-papas-california-dreamin": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "California Dreamin'",
+"a": "Mamas & Papas"
+},
+"caramella-girls-caramelldansen": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Caramelldansen",
+"a": "Caramella Girls"
+},
+"spandau-ballet-gold-2003-remaster": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Gold - 2003 Remaster",
+"a": "Spandau Ballet"
+},
+"the-inside-outtakes-bo-burnham": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bo Burnham",
+"a": "THE INSIDE OUTTAKES"
+},
+"the-chipettes-hot-n-cold": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Hot N Cold",
+"a": "The Chipettes"
+},
+"pablo-por-que-homem-nao-chora": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Por Que Homem Não Chora",
+"a": "Pablo"
+},
+"iron-master-rap-do-ben-10-forca-alienigena-universo-no-meu-p": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Rap do Ben 10 (Força Alienígena) Universo no Meu Pulso",
+"a": "Iron Master"
+},
+"casey-edwards-bury-the-light": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Bury the Light",
+"a": "Casey Edwards"
+},
+"zwe1hvndxr-lovely-bastards": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "LOVELY BASTARDS",
+"a": "ZWE1HVNDXR"
+},
+"o-grilo-serenata-existencialista": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Serenata Existencialista",
+"a": "O Grilo"
+},
+"richard-carter-le-monde-from-talk-to-me": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Le Monde - From Talk to Me",
+"a": "Richard Carter"
+},
+"ritchie-valens-we-belong-together": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "We Belong Together",
+"a": "Ritchie Valens"
+},
+"adhes-marry-on-a-cross": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Marry on a cross",
+"a": "Adhes"
+},
+"johann-sebastian-bach-cello-suite-no-1-in-g-major-bwv-1007-i": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Cello Suite No. 1 in G Major, BWV 1007: I. Prélude",
+"a": "Johann Sebastian Bach"
+},
+"miki-matsubara-mayonaka-no-door-stay-with-me": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Mayonaka no Door / Stay With Me",
+"a": "Miki Matsubara"
+},
+"sapientdream-past-lives": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Past Lives",
+"a": "sapientdream"
+},
+"dj-brunin-xm-automotivo-holiday": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Automotivo Holiday",
+"a": "Dj Brunin XM"
+},
+"jao-vou-morrer-sozinho": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Vou Morrer Sozinho",
+"a": "Jão"
+},
+"o-grilo-malvadona": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "MALVADONA",
+"a": "O Grilo"
+},
+"frankie-valli-can-t-take-my-eyes-off-you": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Can't Take My Eyes off You",
+"a": "Frankie Valli"
+},
+"angra-wuthering-heights": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Wuthering Heights",
+"a": "ANGRA"
+},
+"yugo-kanno-il-vento-d-oro": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "il vento d'oro",
+"a": "Yugo Kanno"
+},
+"duran-duran-invisible": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "INVISIBLE",
+"a": "Duran Duran"
+},
+"hensonn-sahara": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Sahara",
+"a": "Hensonn"
+},
+"dmitri-shostakovich-jazz-suite-no-2-vi-waltz-2": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Jazz Suite No. 2: VI. Waltz 2",
+"a": "Dmitri Shostakovich"
+},
+"selvagens-a-procura-de-lei-brasileiro": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Brasileiro",
+"a": "Selvagens à Procura de Lei"
+},
+"saulo-vasconcellos-de-nada": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "De nada",
+"a": "Saulo Vasconcellos"
+},
+"ant-who-is-she": {
+"ok": false,
+"fama": 2,
+"motivo": "Versão remixada de I Monster.",
+"t": "Who is she?",
+"a": "ANT",
+"quando": "2026-11-04"
+},
+"dupe-flor-de-tangerina-cangaco-sessions-acustico": {
+"ok": false,
+"fama": 2,
+"motivo": "Cover acústico de Alceu Valença.",
+"t": "Flor de Tangerina (Cangaço Sessions) - Acústico",
+"a": "DUPÊ",
+"quando": "2026-11-04"
+},
+"dupe-bring-me-to-life-cangaco-sessions-vol-2-deluxe-acustico": {
+"ok": false,
+"fama": 2,
+"motivo": "Cover acústico de Evanescence.",
+"t": "Bring Me To Life (Cangaço Sessions, Vol. 2 Deluxe) - Acústico",
+"a": "DUPÊ",
+"quando": "2026-11-04"
+},
+"sign-crushes-motorist-better": {
+"ok": false,
+"fama": 1,
+"motivo": "Artista indie e slowcore nichado.",
+"t": "Better",
+"a": "sign crushes motorist",
+"quando": "2026-11-04"
+},
+"murart-acerola-acustico-de-quarto": {
+"ok": false,
+"fama": 2,
+"motivo": "Artista pequeno e viral passageiro.",
+"t": "Acerola - Acústico de Quarto",
+"a": "Murart",
+"quando": "2026-11-04"
+},
+"ivo-mozart-vagalumes-acustico": {
+"ok": false,
+"fama": 4,
+"motivo": "Versão acústica, não a original.",
+"t": "Vagalumes - Acústico",
+"a": "Ivo Mozart",
+"quando": "2026-11-04"
+},
+"denji-chainsaw-man-temos-um-contrato": {
+"ok": false,
+"fama": 1,
+"motivo": "Rap geek de anime nichado.",
+"t": "Temos Um Contrato",
+"a": "Denji (Chainsaw Man)",
+"quando": "2026-11-04"
+},
+"siames-the-wolf": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "The Wolf",
+"a": "SIAMES"
+},
+"e-o-tchan-segura-o-tchan": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Segura o Tchan",
+"a": "É o Tchan",
+"quando": "2026-11-04"
+},
+"bonde-do-tigrao-cerol-na-mao": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Cerol na Mão",
+"a": "Bonde do Tigrão",
+"quando": "2026-11-04"
+},
+"sandy-junior-a-lenda": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "A Lenda",
+"a": "Sandy & Junior",
+"quando": "2026-11-04"
+},
+"pitty-na-sua-estante": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Na Sua Estante",
+"a": "Pitty",
+"quando": "2026-11-04"
+},
+"nx-zero-razoes-e-emocoes": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Razões e Emoções",
+"a": "NX Zero",
+"quando": "2026-11-04"
+},
+"cpm-22-um-minuto-para-o-fim-do-mundo": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Um Minuto Para o Fim do Mundo",
+"a": "CPM 22",
+"quando": "2026-11-04"
+},
+"molejo-cilada": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Cilada",
+"a": "Molejo",
+"quando": "2026-11-04"
+},
+"exaltasamba-ta-vendo-aquela-lua": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Tá Vendo Aquela Lua",
+"a": "Exaltasamba",
+"quando": "2026-11-04"
+},
+"luan-santana-meteoro": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Meteoro",
+"a": "Luan Santana",
+"quando": "2026-11-04"
+},
+"marilia-mendonca-infiel": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Infiel",
+"a": "Marília Mendonça",
+"quando": "2026-11-04"
+},
+"mc-kevinho-olha-a-explosao": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Olha a Explosão",
+"a": "MC Kevinho",
+"quando": "2026-11-04"
+},
+"queen-don-t-stop-me-now": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Don't Stop Me Now",
+"a": "Queen",
+"quando": "2026-11-04"
+},
+"the-black-eyed-peas-i-gotta-feeling": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "I Gotta Feeling",
+"a": "The Black Eyed Peas",
+"quando": "2026-11-04"
+},
+"rihanna-umbrella": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Umbrella",
+"a": "Rihanna",
+"quando": "2026-11-04"
+},
+"the-killers-mr-brightside": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Mr. Brightside",
+"a": "The Killers",
+"quando": "2026-11-04"
+},
+"bruno-mars-locked-out-of-heaven": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Locked Out of Heaven",
+"a": "Bruno Mars",
+"quando": "2026-11-04"
+},
+"make-up-pegasus-fantasy": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Pegasus Fantasy",
+"a": "Make-Up",
+"quando": "2026-11-04"
+},
+"miucha-pela-luz-dos-olhos-teus-bonus-track": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Pela Luz dos Olhos Teus - Bonus Track",
+"a": "Miúcha"
+},
+"mc-kevin-sentimento": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Sentimento",
+"a": "Mc Kevin"
+},
+"yuki-hayashi-you-say-run": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "You Say Run",
+"a": "Yuki Hayashi"
+},
+"weird-al-yankovic-polka-face": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Polka Face",
+"a": "\"Weird Al\" Yankovic"
+},
+"restart-menina-estranha": {
+"ok": false,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Menina Estranha",
+"a": "Restart"
+},
+"charlie-brown-jr-proibida-pra-mim": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Proibida Pra Mim",
+"a": "Charlie Brown Jr.",
+"quando": "2026-11-04"
+},
+"pitty-mascara": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Máscara",
+"a": "Pitty",
+"quando": "2026-11-04"
+},
+"mc-joao-baile-de-favela": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Baile de Favela",
+"a": "MC João",
+"quando": "2026-11-04"
+},
+"jorge-ben-jor-pais-tropical": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "País Tropical",
+"a": "Jorge Ben Jor",
+"quando": "2026-11-04"
+},
+"racionais-mc-s-vida-loka-parte-2": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Vida Loka (Parte 2)",
+"a": "Racionais MC's",
+"quando": "2026-11-04"
+},
+"eduardo-souto-neto-tema-da-vitoria": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Tema da Vitória",
+"a": "Eduardo Souto Neto",
+"quando": "2026-11-04"
+},
+"britney-spears-baby-one-more-time": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "...Baby One More Time",
+"a": "Britney Spears",
+"quando": "2026-11-04"
+},
+"eminem-without-me": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Without Me",
+"a": "Eminem",
+"quando": "2026-11-04"
+},
+"black-eyed-peas-i-gotta-feeling": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "I Gotta Feeling",
+"a": "Black Eyed Peas",
+"quando": "2026-11-04"
+},
+"avicii-wake-me-up": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Wake Me Up",
+"a": "Avicii",
+"quando": "2026-11-04"
+},
+"hironobu-kageyama-cha-la-head-cha-la": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Cha-La Head-Cha-La",
+"a": "Hironobu Kageyama",
+"quando": "2026-11-04"
+},
+"pitty-admiravel-chip-novo": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Admirável Chip Novo",
+"a": "Pitty",
+"quando": "2026-11-04"
+},
+"sandy-junior-quando-voce-passa": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Quando Você Passa",
+"a": "Sandy & Junior",
+"quando": "2026-11-04"
+},
+"ivete-sangalo-festa": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Festa",
+"a": "Ivete Sangalo",
+"quando": "2026-11-04"
+},
+"so-pra-contrariar-depois-do-prazer": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Depois do Prazer",
+"a": "Só Pra Contrariar",
+"quando": "2026-11-04"
+},
+"claudinho-buchecha-nosso-sonho": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Nosso Sonho",
+"a": "Claudinho & Buchecha",
+"quando": "2026-11-04"
+},
+"beyonce-crazy-in-love": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Crazy in Love",
+"a": "Beyoncé",
+"quando": "2026-11-04"
+},
+"tim-maia-descobridor-dos-sete-mares": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Descobridor dos Sete Mares",
+"a": "Tim Maia",
+"quando": "2026-11-04"
+},
+"elis-regina-como-nossos-pais": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Como Nossos Pais",
+"a": "Elis Regina",
+"quando": "2026-11-04"
+},
+"wesley-safadao-camarote": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Camarote",
+"a": "Wesley Safadão",
+"quando": "2026-11-04"
+},
+"koji-kondo-super-mario-bros-theme": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Super Mario Bros. Theme",
+"a": "Koji Kondo",
+"quando": "2026-11-04"
+},
+"pitty-me-adora": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Me Adora",
+"a": "Pitty",
+"quando": "2026-11-04"
+},
+"racionais-mc-s-vida-loka-pt-2": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Vida Loka, Pt. 2",
+"a": "Racionais MC's",
+"quando": "2026-11-04"
+},
+"netinho-milla": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Milla",
+"a": "Netinho",
+"quando": "2026-11-04"
+},
+"ivete-sangalo-sorte-grande": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Sorte Grande",
+"a": "Ivete Sangalo",
+"quando": "2026-11-04"
+},
+"jovem-dionisio-acorda-pedrinho": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Acorda Pedrinho",
+"a": "Jovem Dionisio",
+"quando": "2026-11-04"
+},
+"oasis-wonderwall": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Wonderwall",
+"a": "Oasis",
+"quando": "2026-11-04"
+},
+"the-white-stripes-seven-nation-army": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Seven Nation Army",
+"a": "The White Stripes",
+"quando": "2026-11-04"
+},
+"beyonce-single-ladies-put-a-ring-on-it": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Single Ladies (Put a Ring on It)",
+"a": "Beyoncé",
+"quando": "2026-11-04"
+},
+"daddy-yankee-gasolina": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Gasolina",
+"a": "Daddy Yankee",
+"quando": "2026-11-04"
+},
+"adele-rolling-in-the-deep": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Rolling in the Deep",
+"a": "Adele",
+"quando": "2026-11-04"
+},
+"e-o-tchan-danca-da-cordinha": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Dança da Cordinha",
+"a": "É o Tchan",
+"quando": "2026-11-04"
+},
+"raimundos-mulher-de-fases": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Mulher de Fases",
+"a": "Raimundos",
+"quando": "2026-11-04"
+},
+"eminem-lose-yourself": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Lose Yourself",
+"a": "Eminem",
+"quando": "2026-11-04"
+},
+"banda-calypso-a-lua-me-traiu": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "A Lua Me Traiu",
+"a": "Banda Calypso",
+"quando": "2026-11-04"
+},
+"gusttavo-lima-balada": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Balada",
+"a": "Gusttavo Lima",
+"quando": "2026-11-04"
+},
+"kelly-key-baba": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Baba",
+"a": "Kelly Key",
+"quando": "2026-11-04"
+},
+"cidinho-doca-rap-da-felicidade": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Rap da Felicidade",
+"a": "Cidinho & Doca",
+"quando": "2026-11-04"
+},
+"xuxa-ilarie": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Ilariê",
+"a": "Xuxa",
+"quando": "2026-11-04"
+},
+"eurythmics-sweet-dreams-are-made-of-this": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Sweet Dreams (Are Made of This)",
+"a": "Eurythmics",
+"quando": "2026-11-04"
+},
+"revelacao-deixa-acontecer": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Deixa Acontecer",
+"a": "Revelação",
+"quando": "2026-11-04"
+},
+"mc-leozinho-ela-so-pensa-em-beijar": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Ela Só Pensa em Beijar",
+"a": "MC Leozinho",
+"quando": "2026-11-04"
+},
+"jorge-mateus-amo-noite-e-dia": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Amo Noite e Dia",
+"a": "Jorge & Mateus",
+"quando": "2026-11-04"
+},
+"lucenzo-danza-kuduro": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Danza Kuduro",
+"a": "Lucenzo",
+"quando": "2026-11-04"
+},
+"earth-wind-fire-september": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "September",
+"a": "Earth, Wind & Fire",
+"quando": "2026-11-04"
+},
+"exaltasamba-me-apaixonei-pela-pessoa-errada": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Me Apaixonei Pela Pessoa Errada",
+"a": "Exaltasamba",
+"quando": "2026-11-04"
+},
+"zeca-pagodinho-deixa-a-vida-me-levar": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Deixa a Vida Me Levar",
+"a": "Zeca Pagodinho",
+"quando": "2026-11-04"
+},
+"falamansa-rindo-a-toa": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Rindo à Toa",
+"a": "Falamansa",
+"quando": "2026-11-04"
+},
+"skank-garota-nacional": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Garota Nacional",
+"a": "Skank",
+"quando": "2026-11-04"
+},
+"don-omar-lucenzo-danza-kuduro": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Danza Kuduro",
+"a": "Don Omar, Lucenzo",
+"quando": "2026-11-04"
+},
+"shakira-waka-waka-this-time-for-africa": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Waka Waka (This Time for Africa)",
+"a": "Shakira",
+"quando": "2026-11-04"
+},
+"toby-fox-megalovania": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Megalovania",
+"a": "Toby Fox",
+"quando": "2026-11-04"
+},
+"grupo-revelacao-ta-escrito": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Tá Escrito",
+"a": "Grupo Revelação",
+"quando": "2026-11-04"
+},
+"mc-cidinho-mc-doca-rap-da-felicidade": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Rap da Felicidade",
+"a": "MC Cidinho & MC Doca",
+"quando": "2026-11-04"
+},
+"falamansa-xote-dos-milagres": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Xote dos Milagres",
+"a": "Falamansa",
+"quando": "2026-11-04"
+},
+"avril-lavigne-complicated": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Complicated",
+"a": "Avril Lavigne",
+"quando": "2026-11-04"
+},
+"banda-eva-pequena-eva": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Pequena Eva",
+"a": "Banda Eva",
+"quando": "2026-11-04"
+},
+"justin-bieber-baby": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Baby",
+"a": "Justin Bieber",
+"quando": "2026-11-04"
+},
+"kana-boon-silhouette": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Silhouette",
+"a": "KANA-BOON",
+"quando": "2026-11-04"
+},
+"toquinho-aquarela": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Aquarela",
+"a": "Toquinho",
+"quando": "2026-11-04"
+},
+"red-hot-chili-peppers-californication": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Californication",
+"a": "Red Hot Chili Peppers",
+"quando": "2026-11-04"
+},
+"e-o-tchan-segure-o-tchan": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Segure o Tchan",
+"a": "É o Tchan!",
+"quando": "2026-11-04"
+},
+"queen-bohemian-rhapsody": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Bohemian Rhapsody",
+"a": "Queen",
+"quando": "2026-11-04"
+},
+"legiao-urbana-pais-e-filhos": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Pais e Filhos",
+"a": "Legião Urbana",
+"quando": "2026-11-04"
+},
+"latino-festa-no-ape": {
+"ok": false,
+"fama": 4,
+"motivo": "Deezer: sem prévia ou pouco conhecida",
+"t": "Festa no Apê",
+"a": "Latino",
+"quando": "2026-11-04"
+},
+"the-immortals-techno-syndrome": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Techno Syndrome",
+"a": "The Immortals",
+"quando": "2026-11-04"
+},
+"psirico-lepo-lepo": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Lepo Lepo",
+"a": "Psirico",
+"quando": "2026-11-04"
+},
+"jorge-ben-jor-taj-mahal": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Taj Mahal",
+"a": "Jorge Ben Jor",
+"quando": "2026-11-04"
+},
+"rbd-salvame": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Sálvame",
+"a": "RBD",
+"quando": "2026-11-04"
+},
+"survivor-eye-of-the-tiger": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Eye of the Tiger",
+"a": "Survivor",
+"quando": "2026-11-04"
+},
+"the-rembrandts-i-ll-be-there-for-you": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "I'll Be There for You",
+"a": "The Rembrandts",
+"quando": "2026-11-04"
+},
+"cpm-22-dias-atras": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Dias Atrás",
+"a": "CPM 22",
+"quando": "2026-11-04"
+},
+"paramore-misery-business": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Misery Business",
+"a": "Paramore",
+"quando": "2026-11-04"
+},
+"lmfao-party-rock-anthem": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Party Rock Anthem",
+"a": "LMFAO",
+"quando": "2026-11-04"
+},
+"foster-the-people-pumped-up-kicks": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "Pumped Up Kicks",
+"a": "Foster the People",
+"quando": "2026-11-04"
+},
+"50-cent-in-da-club": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "In Da Club",
+"a": "50 Cent",
+"quando": "2026-11-04"
+},
+"queen-we-will-rock-you": {
+"ok": true,
+"fama": 4,
+"motivo": "sugerida (icones)",
+"t": "We Will Rock You",
+"a": "Queen",
+"quando": "2026-11-04"
 }
 }
