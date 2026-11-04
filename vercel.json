@@ -1,7 +1,7 @@
 {
   "framework": null,
   "installCommand": "true",
-  "buildCommand": "true",
+  "buildCommand": "printf '{\"v\":\"%s\"}\\n' \"${VERCEL_GIT_COMMIT_SHA:-$(date +%s)}\" > public/version.json",
   "outputDirectory": "public",
   "headers": [
     {
