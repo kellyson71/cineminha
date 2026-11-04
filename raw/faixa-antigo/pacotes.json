@@ -1,0 +1,816 @@
+{
+ "originais": {
+  "musicas": [
+   {
+    "id": "evanescence-bring-me-to-life",
+    "t": "Bring Me to Life",
+    "a": "Evanescence",
+    "capa": "capa.jpg",
+    "inicio": 52.0,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "base",
+      "nome": "Guitarra base",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "resto",
+      "nome": "Resto da banda",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "radiohead-creep",
+    "t": "Creep",
+    "a": "Radiohead",
+    "capa": "capa.jpg",
+    "inicio": 106.0,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "base",
+      "nome": "Guitarra base",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "resto",
+      "nome": "Resto da banda",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "nirvana-come-as-you-are-live-from-mtv-unplugged",
+    "t": "Come As You Are (Live from MTV Unplugged)",
+    "a": "Nirvana",
+    "capa": "capa.jpg",
+    "inicio": 50.0,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "base",
+      "nome": "Guitarra base",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "3.webm"
+     }
+    ]
+   },
+   {
+    "id": "ram-jam-black-betty",
+    "t": "Black Betty",
+    "a": "Ram Jam",
+    "capa": "capa.jpg",
+    "inicio": 73.0,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "base",
+      "nome": "Guitarra base",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "resto",
+      "nome": "Resto da banda",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "ac-dc-thunderstruck-live",
+    "t": "Thunderstruck (Live)",
+    "a": "AC/DC",
+    "capa": "capa.jpg",
+    "inicio": 182.4,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "base",
+      "nome": "Guitarra base",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "resto",
+      "nome": "Resto da banda",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "tom-petty-runnin-down-a-dream",
+    "t": "Runnin' Down a Dream",
+    "a": "Tom Petty",
+    "capa": "capa.jpg",
+    "inicio": 31.0,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "base",
+      "nome": "Guitarra base",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "resto",
+      "nome": "Resto da banda",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "the-daughters-of-eve-hey-lover",
+    "t": "Hey Lover!",
+    "a": "The Daughters of Eve",
+    "capa": "capa.jpg",
+    "inicio": 43.2,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "resto",
+      "nome": "Resto da banda",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "3.webm"
+     }
+    ]
+   },
+   {
+    "id": "ac-dc-back-in-black-live",
+    "t": "Back in Black (Live)",
+    "a": "AC/DC",
+    "capa": "capa.jpg",
+    "inicio": 22.9,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "base",
+      "nome": "Guitarra base",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "resto",
+      "nome": "Resto da banda",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   }
+  ]
+ },
+ "ia": {
+  "musicas": [
+   {
+    "id": "chitaozinho-xororo-evidencias",
+    "t": "Evidências",
+    "a": "Chitãozinho & Xororó",
+    "capa": "capa.jpg",
+    "inicio": 97.5,
+    "segundos_ia": 55,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "tim-maia-o-descobridor-dos-sete-mares",
+    "t": "O Descobridor dos Sete Mares",
+    "a": "Tim Maia",
+    "capa": "capa.jpg",
+    "inicio": 44.5,
+    "segundos_ia": 38,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "skank-ainda-gosto-dela",
+    "t": "Ainda Gosto Dela",
+    "a": "Skank",
+    "capa": "capa.jpg",
+    "inicio": 70.0,
+    "segundos_ia": 42,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "charlie-brown-jr-ceu-azul",
+    "t": "Céu Azul",
+    "a": "Charlie Brown Jr",
+    "capa": "capa.jpg",
+    "inicio": 109.0,
+    "segundos_ia": 41,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "3.webm"
+     }
+    ]
+   },
+   {
+    "id": "lulu-santos-tempos-modernos",
+    "t": "Tempos Modernos",
+    "a": "Lulu Santos",
+    "capa": "capa.jpg",
+    "inicio": 83.9,
+    "segundos_ia": 38,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "harry-styles-as-it-was",
+    "t": "As It Was",
+    "a": "Harry Styles",
+    "capa": "capa.jpg",
+    "inicio": 100.0,
+    "segundos_ia": 39,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "piano",
+      "nome": "Piano",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "4.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "5.webm"
+     }
+    ]
+   },
+   {
+    "id": "a-ha-take-on-me",
+    "t": "Take on Me",
+    "a": "a-ha",
+    "capa": "capa.jpg",
+    "inicio": 19.0,
+    "segundos_ia": 37,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "rose-bruno-mars-apt",
+    "t": "APT.",
+    "a": "ROSÉ & Bruno Mars",
+    "capa": "capa.jpg",
+    "inicio": 35.5,
+    "segundos_ia": 37,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "the-weeknd-blinding-lights",
+    "t": "Blinding Lights",
+    "a": "The Weeknd",
+    "capa": "capa.jpg",
+    "inicio": 30.0,
+    "segundos_ia": 55,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "linkin-park-in-the-end",
+    "t": "In the End",
+    "a": "Linkin Park",
+    "capa": "capa.jpg",
+    "inicio": 57.8,
+    "segundos_ia": 40,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   },
+   {
+    "id": "radiohead-creep",
+    "t": "Creep",
+    "a": "Radiohead",
+    "capa": "capa.jpg",
+    "inicio": 106.0,
+    "segundos_ia": 46,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "3.webm"
+     }
+    ]
+   },
+   {
+    "id": "evanescence-bring-me-to-life",
+    "t": "Bring Me to Life",
+    "a": "Evanescence",
+    "capa": "capa.jpg",
+    "inicio": 52.0,
+    "segundos_ia": 32,
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "voz",
+      "nome": "Voz",
+      "arq": "4.webm"
+     }
+    ]
+   }
+  ]
+ },
+ "midi": {
+  "musicas": [
+   {
+    "id": "a-ha-take-on-me",
+    "t": "Take on Me",
+    "a": "a-ha",
+    "capa": "capa.jpg",
+    "inicio": 68.6,
+    "midi": "A HA.Take on me  K.mid",
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "piano",
+      "nome": "Piano",
+      "arq": "3.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "4.webm"
+     },
+     {
+      "tipo": "melodia",
+      "nome": "Melodia",
+      "arq": "5.webm"
+     }
+    ]
+   },
+   {
+    "id": "michael-jackson-billie-jean",
+    "t": "Billie Jean",
+    "a": "Michael Jackson",
+    "capa": "capa.jpg",
+    "inicio": 205.4,
+    "midi": "Michael Jackson - Billie Jean.mid",
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "outros",
+      "nome": "Outros",
+      "arq": "3.webm"
+     }
+    ]
+   },
+   {
+    "id": "guns-n-roses-sweet-child-o-mine",
+    "t": "Sweet Child o' Mine",
+    "a": "Guns N' Roses",
+    "capa": "capa.jpg",
+    "inicio": 105.1,
+    "midi": "Guns n Roses - Sweet Child O Mine.mid",
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     }
+    ]
+   },
+   {
+    "id": "kiss-i-was-made-for-lovin-you",
+    "t": "I Was Made for Lovin' You",
+    "a": "KISS",
+    "capa": "capa.jpg",
+    "inicio": 52.8,
+    "midi": "THE KISS.I was made for lovin you K.mid",
+    "camadas": [
+     {
+      "tipo": "bateria",
+      "nome": "Bateria",
+      "arq": "0.webm"
+     },
+     {
+      "tipo": "baixo",
+      "nome": "Baixo",
+      "arq": "1.webm"
+     },
+     {
+      "tipo": "guitarra",
+      "nome": "Guitarra",
+      "arq": "2.webm"
+     },
+     {
+      "tipo": "melodia",
+      "nome": "Melodia",
+      "arq": "3.webm"
+     }
+    ]
+   }
+  ]
+ }
+}

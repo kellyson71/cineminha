@@ -1,0 +1,108 @@
+/* Tema Pulp Fiction: revista pulp barata dos anos 50 + neon de lanchonete.
+   Amarelo do título, vermelho da sombra, papel amarelado e retícula de impressão. */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap");
+
+.tema-pulp-fiction {
+  --pf-yellow: #ffcf1f;
+  --pf-red: #c8201a;
+  --pf-red-dark: #7d110d;
+  --pf-paper: #efdfbd;
+  --bg: #0c0806;
+  --surface: #16100c;
+  --surface-2: #211710;
+  --card: var(--pf-paper);
+  --card-fg: #1b120c;
+  --card-soft: #6d5840;
+  --card-line: rgba(27,18,12,.24);
+  --field-bg: rgba(255,248,230,.55);
+  --fg: #f5e8cc;
+  --fg-soft: rgba(245,232,204,.72);
+  --fg-faint: rgba(245,232,204,.45);
+  --line: rgba(245,232,204,.14);
+  --accent: #d7261e;
+  --accent-hi: #ef3a2f;
+  --focus: var(--pf-yellow);
+  --live: #ef3a2f;
+  --speak: var(--pf-yellow);
+  --speak-glow: rgba(255,207,31,.6);
+  --pop-bg: rgba(22,15,11,.97);
+  --font-display: "Anton", Impact, "Arial Narrow", sans-serif;
+  --display-weight: 400;
+  --display-spacing: .015em;
+  background:
+    radial-gradient(90% 60% at 50% -10%, rgba(200,32,26,.28), transparent 60%),
+    radial-gradient(60% 50% at 100% 100%, rgba(255,207,31,.06), transparent 70%),
+    var(--bg);
+}
+/* retícula de gráfica nas bordas da página */
+.tema-pulp-fiction::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(circle, rgba(239,58,47,.22) 1.1px, transparent 1.8px) 0 0 / 7px 7px;
+  -webkit-mask-image: radial-gradient(120% 85% at 50% 45%, transparent 50%, #000 100%);
+  mask-image: radial-gradient(120% 85% at 50% 45%, transparent 50%, #000 100%);
+}
+
+/* Título: amarelo com sombra vermelha em degraus, levemente inclinado (como na capa) */
+.tema-pulp-fiction .brand {
+  color: var(--pf-yellow);
+  font-size: clamp(1.9rem, 4.4vw, 2.8rem);
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  text-shadow: 1px 1px 0 var(--pf-red), 2px 2px 0 var(--pf-red), 3px 3px 0 var(--pf-red), 4px 4px 0 var(--pf-red-dark), 5px 5px 0 var(--pf-red-dark), 7px 8px 14px rgba(0,0,0,.6);
+}
+.tema-pulp-fiction .brand--ink { color: var(--pf-yellow); font-size: clamp(2.4rem, 9vw, 3.4rem); }
+/* selinho de preço da revista */
+.tema-pulp-fiction .top__brand { position: relative; }
+.tema-pulp-fiction .top__brand::after {
+  content: "10¢"; display: grid; place-items: center; align-self: center; flex: none;
+  width: 40px; height: 40px; margin-left: 4px; border-radius: 50%;
+  background: var(--pf-yellow); color: var(--pf-red); border: 2px solid var(--pf-red);
+  font: 400 .95rem/1 var(--font-display); transform: rotate(12deg);
+  box-shadow: 3px 3px 0 rgba(0,0,0,.5);
+}
+.tema-pulp-fiction .top__sub { font-family: "Special Elite", monospace; color: var(--fg-soft); }
+.tema-pulp-fiction .top { border-bottom: 2px solid rgba(255,207,31,.18); }
+
+/* Botões: cantos mais secos, principal em vermelho com borda amarela fina */
+.tema-pulp-fiction .btn { border-radius: 8px; }
+.tema-pulp-fiction .btn--primary { background: var(--accent); border-color: var(--pf-yellow); color: #fff8e6; }
+.tema-pulp-fiction .btn.on-air { border-color: var(--pf-yellow); color: var(--pf-yellow); }
+
+/* Tela: moldura escura com filete amarelo, como borda de capa */
+.tema-pulp-fiction .screen { background: #0a0705; border: 1px solid rgba(255,207,31,.25); box-shadow: 0 0 0 4px #0a0705, 0 0 0 5px rgba(200,32,26,.45), 0 24px 70px rgba(0,0,0,.6); }
+.tema-pulp-fiction .theater:fullscreen .screen { border: 0; box-shadow: none; }
+
+/* Sala vazia: verbete de dicionário (texto nosso) em máquina de escrever */
+.tema-pulp-fiction .empty__box h2 { color: var(--pf-yellow); text-transform: uppercase; font-weight: 400; letter-spacing: .02em; text-shadow: 2px 2px 0 var(--pf-red), 4px 4px 0 var(--pf-red-dark); }
+.tema-pulp-fiction .empty__box::after {
+  content: "pulp (s.) 1. massa mole e úmida.  2. revista de histórias baratas, impressa em papel áspero.";
+  display: block; max-width: 34ch; margin: 14px auto 0; font: .82rem/1.45 "Special Elite", monospace; color: rgba(245,232,204,.75); white-space: pre-line;
+}
+
+/* Chat: cabeçalho em letra de capa */
+.tema-pulp-fiction .chat { background: linear-gradient(180deg, #1b130e, #120c09); border-color: rgba(255,207,31,.14); }
+.tema-pulp-fiction .chat__head { color: var(--pf-yellow); font-family: var(--font-display); letter-spacing: .06em; }
+
+/* Entrada (ingresso) como capa de revista: papel amarelado, título amarelo com sombra */
+.tema-pulp-fiction .lobby__bg {
+  background:
+    radial-gradient(circle, rgba(239,58,47,.16) 1.1px, transparent 1.8px) 0 0 / 7px 7px,
+    radial-gradient(80% 60% at 50% 20%, rgba(200,32,26,.45), rgba(12,8,6,.96) 70%),
+    #0c0806;
+}
+.tema-pulp-fiction .lobby__bg::after { background: linear-gradient(to bottom, transparent 40%, #0c0806 92%); }
+.tema-pulp-fiction .ticket { border: 2px solid var(--card-fg); border-radius: 6px; box-shadow: 8px 8px 0 var(--pf-red), 0 24px 80px #000a; background: linear-gradient(180deg, rgba(255,255,255,.18), transparent 40%), var(--pf-paper); }
+.tema-pulp-fiction .ticket__film { color: var(--pf-yellow); text-transform: uppercase; -webkit-text-stroke: 1px var(--card-fg); text-shadow: 2px 2px 0 var(--pf-red), 4px 4px 0 var(--card-fg); }
+.tema-pulp-fiction .ticket__kicker, .tema-pulp-fiction .ticket__rating { font-family: "Special Elite", monospace; }
+.tema-pulp-fiction .ticket__stub { background: var(--pf-yellow); color: var(--pf-red); border-left-color: var(--card-fg); }
+.tema-pulp-fiction .lobby__title { color: var(--pf-yellow); text-transform: uppercase; text-shadow: 2px 2px 0 var(--pf-red), 4px 4px 0 var(--pf-red-dark); }
+.tema-pulp-fiction .field span, .tema-pulp-fiction .who legend { font-family: "Special Elite", monospace; }
+
+/* Quem fala: brilho amarelo (já vem de --speak); nome em máquina de escrever */
+.tema-pulp-fiction .seat__name { font-family: "Special Elite", monospace; }
+
+@media (max-width: 640px) { .tema-pulp-fiction .top__brand::after { display: none; } }
+.tema-pulp-fiction .ticket__main { color: var(--card-fg); }
+.tema-pulp-fiction .ticket__meta b { color: var(--card-fg); }
+.tema-pulp-fiction .ticket__meta small { color: var(--card-soft); }
+.tema-pulp-fiction .ticket__rating { color: var(--pf-red-dark); font-weight: 700; }

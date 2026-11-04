@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<base href="/">
+<script>/* já entrou antes neste navegador: não mostra a tela de entrada enquanto reconecta (atualização não pisca) */
+try { if (localStorage.getItem('cine.conta') && !location.hash.includes('ticket=')) document.documentElement.classList.add('auto') } catch {}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cineminha</title>
+<meta name="theme-color" content="#0c0c0f">
+<link rel="icon" href="assets/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="modulepreload" href="vendor/trystero.js">
+</head>
+<body class="locked">
+
+<div id="gate" class="gate lobby">
+  <div class="lobby__bg" aria-hidden="true"></div>
+  <form id="gateForm" class="lobby__inner" autocomplete="off">
+    <header class="lobby__head">
+      <span class="lobby__kicker"><svg data-icon="clapperboard"></svg><span id="lobbyWhen">Sessão de hoje</span></span>
+      <img class="lobby__poster" id="lobbyPoster" alt="" hidden>
+      <h1 class="lobby__title" id="lobbyTitle">Cineminha</h1>
+      <p class="lobby__sub" id="lobbySub"></p>
+      <img class="gate__logo" data-cfg="logo" alt="" hidden>
+    </header>
+    <label class="field lobby__pw" id="pwField">
+      <span>Senha da sala</span>
+      <input id="pw" type="password" placeholder="• • •">
+    </label>
+    <fieldset class="who" id="who">
+      <legend>Quem é você?</legend>
+    </fieldset>
+    <label class="field guestname" id="guestField" hidden>
+      <span>Seu nome</span>
+      <input id="guestName" maxlength="24" placeholder="Como te chamam?">
+    </label>
+    <p id="gateErr" class="gate__err" hidden></p>
+    <button class="btn btn--primary lobby__go" type="submit"><svg data-icon="ticket"></svg>Entrar na sala</button>
+  </form>
+</div>
+
+<div id="micModal" class="gate" hidden>
+  <div class="paper gate__card mic-card" role="dialog" aria-labelledby="micTitle">
+    <svg data-icon="mic" class="mic-card__icon"></svg>
+    <h2 id="micTitle">Microfone</h2>
+    <p>Sem ele os outros não te ouvem. Dá para mutar a qualquer momento (tecla M).</p>
+    <button class="btn btn--primary btn--block" id="micRetry" type="button">Permitir microfone</button>
+    <button class="btn btn--block mic-card__skip" id="micSkip" type="button">Agora não</button>
+  </div>
+</div>
+
+<div id="seatModal" class="gate" hidden>
+  <div class="paper gate__card mic-card" role="dialog" aria-labelledby="seatTitle">
+    <h2 id="seatTitle">Quem é você?</h2>
+    <p id="seatMsg"></p>
+    <div class="seatpicks" id="seatChoices"></div>
+  </div>
+</div>
+
+<div id="fileModal" class="gate" hidden>
+  <div class="paper gate__card mic-card file-card" role="dialog" aria-labelledby="fileTitle">
+    <svg data-icon="film" class="mic-card__icon"></svg>
+    <h2 id="fileTitle">Esse arquivo não é compatível</h2>
+    <p class="file-card__name" id="fileName"></p>
+    <ul class="file-card__checks">
+      <li id="fileVideo"><svg data-icon="monitor"></svg><span></span></li>
+      <li id="fileAudio"><svg data-icon="volume-2"></svg><span></span></li>
+    </ul>
+    <p>Escolha um arquivo <b>MP4</b> ou <b>WebM</b> com vídeo <b>H.264</b> e som <b>AAC</b>. O tamanho não importa: filmes de 5 GB funcionam normalmente.</p>
+    <button class="btn btn--primary btn--block" id="fileOther" type="button">Escolher outro arquivo</button>
+    <button class="btn btn--block mic-card__skip" id="fileGo" type="button">Projetar mesmo assim (sem som)</button>
+    <button class="btn btn--block mic-card__skip" id="fileCancel" type="button">Cancelar</button>
+  </div>
+</div>
+
+<div id="inviteModal" class="gate" hidden>
+  <form class="paper gate__card invite-card" id="inviteForm" role="dialog" aria-modal="true" aria-labelledby="invTitle" autocomplete="off">
+    <header class="invite-head"><div><span class="invite-eyebrow">CINEMINHA · CONVITE</span><h2 id="invTitle">Chama pra sessão.</h2></div><button type="button" class="invite-close" id="invClose" title="Fechar"><svg data-icon="x"></svg></button></header>
+    <div class="movie-search">
+      <label for="invFilme" class="invite-label">O que vamos assistir? <small>opcional</small></label>
+      <div class="movie-search__field"><svg data-icon="search"></svg><input id="invFilme" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="invMovies" maxlength="100" placeholder="Buscar um filme…"></div>
+      <div id="invMovies" class="movie-results" role="listbox" aria-label="Filmes" hidden></div>
+      <p id="invSearchHint" class="invite-hint" aria-live="polite" hidden></p>
+    </div>
+    <div id="invPreview" class="invite-preview" hidden></div>
+    <fieldset class="invite-card__who"><legend>Quem vem? <small id="invCount">Todo mundo</small></legend><div id="invWho" class="invite-avatars"></div></fieldset>
+    <p class="invite-hint" id="invMode">Sem selecionar ninguém, o convite é para todo mundo.</p>
+    <div id="invOut" class="invite-links" aria-live="polite" hidden></div>
+    <footer class="invite-footer"><small id="invFooter">É só entrar. Sem marcar hora.</small><button class="btn btn--primary" type="submit" id="invGo"><svg data-icon="ticket"></svg><span>Gerar ingresso</span></button></footer>
+  </form>
+</div>
+
+<div id="salaModal" class="gate" hidden>
+  <form class="paper gate__card sala-card" id="salaForm" role="dialog" aria-labelledby="salaTitle" autocomplete="off">
+    <svg data-icon="armchair" class="mic-card__icon"></svg>
+    <h2 id="salaTitle">Arrumar a sala</h2>
+    <p>Reserve poltronas para cada pessoa ou para convidados. Quem não tem lugar reservado senta na primeira livre, e cada um pode trocar de lugar clicando na própria poltrona.</p>
+    <div class="sala-card__opts">
+      <label class="field"><span>Poltronas por fileira</span><input id="salaPer" type="number" min="1" max="16"></label>
+      <label class="field"><span>Total de poltronas</span><input id="salaTotal" type="number" min="1" max="60"></label>
+    </div>
+    <label class="check sala-card__check"><input type="checkbox" id="salaVazias"><span><b>Mostrar poltronas vazias</b><small>Senão, a fileira mostra só quem está na sala</small></span></label>
+    <div class="salagrid" id="salaGrid"></div>
+    <button class="btn btn--primary btn--block" type="submit">Salvar para todos</button>
+    <button class="btn btn--block mic-card__skip" type="button" id="salaClose">Cancelar</button>
+  </form>
+</div>
+
+<div id="diaryModal" class="gate" hidden>
+  <div class="paper gate__card diary-card" role="dialog" aria-labelledby="diaryTitle">
+    <header class="diary-card__head"><svg data-icon="book-open"></svg><h2 id="diaryTitle">Diário de sessões</h2><button type="button" class="diary-card__x" id="diaryX" title="Fechar"><svg data-icon="x"></svg></button></header>
+    <ol class="diary" id="diaryList"></ol>
+  </div>
+</div>
+
+<div id="contaModal" class="gate" hidden>
+  <form class="paper gate__card conta-card" id="contaForm" role="dialog" aria-labelledby="contaTitle" autocomplete="off">
+    <header class="conta-card__head">
+      <label class="conta-card__pfp" title="Trocar foto"><span id="contaFoto"></span><i><svg data-icon="camera"></svg></i><input type="file" id="contaFile" accept="image/*" hidden></label>
+      <div><h2 id="contaTitle">Minha conta</h2><p id="contaSub"></p></div>
+    </header>
+    <div class="conta-card__row" id="contaFotoRow">
+      <button type="button" class="btn btn--ghost" id="contaFotoBtn"><svg data-icon="camera"></svg>Trocar foto</button>
+      <button type="button" class="btn btn--ghost" id="contaFotoReset">Voltar à original</button>
+    </div>
+    <label class="conta-card__row conta-card__cor" id="contaCorRow"><span>Cor do nome no chat</span><input type="color" id="contaCor"></label>
+
+    <label title="Você liga quando quiser (tecla M)" class="check"><input type="checkbox" id="prefMuted"><span><b>Entrar com o microfone mudo</b></span></label>
+    <label title="Quando quem projeta tiver legenda" class="check"><input type="checkbox" id="prefSubs"><span><b>Legendas ligadas</b></span></label>
+    <label title="Quem senta à sua esquerda soa à esquerda" class="check"><input type="checkbox" id="prefSpatial"><span><b>Espacial</b></span></label>
+    <label title="Sugere ajustes quando o filme abafa a conversa" class="check"><input type="checkbox" id="prefNudges"><span><b>Avisos de volume</b></span></label>
+    
+    <button class="btn btn--primary btn--block" type="submit">Salvar</button>
+    <button class="btn btn--block mic-card__skip" type="button" id="contaSair"><svg data-icon="log-out"></svg>Sair da conta</button>
+    <button class="btn btn--block mic-card__skip" type="button" id="contaClose">Fechar</button>
+  </form>
+</div>
+
+<div id="kicked" class="gate" hidden>
+  <div class="paper gate__card mic-card" role="dialog">
+    <svg data-icon="door-open" class="mic-card__icon"></svg>
+    <h2>Você saiu da sala</h2>
+    <p id="kickedMsg">O admin te tirou da sala.</p>
+    <button class="btn btn--primary btn--block" type="button" onclick="location.reload()">Entrar de novo</button>
+  </div>
+</div>
+
+<header class="top">
+  <div class="top__brand">
+    <h1 class="brand" data-cfg="nome">Cineminha</h1>
+    <div class="top__linha"><span class="top__tempo" id="sessTempo" hidden><svg data-icon="clock"></svg>sessão <b>começou agora</b></span><span class="top__sub" data-cfg="subtitulo"></span></div>
+  </div>
+  <button type="button" class="btn btn--icon btn--ghost top__diary" id="btnDiary" title="Diário: o que já vimos"><svg data-icon="book-open"></svg></button>
+  <img class="top__logo" data-cfg="logo" alt="" hidden>
+  <div class="popwrap chan">
+    <button type="button" class="chan__btn" id="btnCanal" title="Trocar de canal" aria-expanded="false" aria-haspopup="true"><svg data-icon="hash"></svg><span id="canalNome">Principal</span><i class="chan__dot" id="canalDot" hidden></i><svg data-icon="chevron-down"></svg></button>
+    <div class="pop chan__pop" id="canalPop" hidden>
+      <h3>Canais</h3>
+      <ul class="chan__list" id="canalList"></ul>
+      <form class="chan__new" id="canalForm"><input id="canalInput" maxlength="32" placeholder="Novo canal" aria-label="Nome do novo canal" autocomplete="off"><button type="submit" class="btn btn--icon btn--ghost" title="Criar canal"><svg data-icon="plus"></svg></button></form>
+    </div>
+  </div>
+  <div class="invite-split"><button type="button" class="btn btn--ghost" id="btnInvite" title="Gerar e copiar convite geral"><svg data-icon="ticket"></svg><span>Convidar</span></button><button type="button" class="invite-split__options" id="btnInviteDetails" title="Personalizar convite" aria-label="Personalizar convite"><svg data-icon="settings"></svg></button></div>
+  <span id="netStatus" class="status"><i></i><b>Conectando…</b></span>
+  <div class="top-account">
+    <button type="button" id="btnProfile" class="top-profile" title="Minha conta"><span id="topPfp"></span><span id="topName">Você</span></button>
+    <div id="settingsHome">      <div class="popwrap top-settings" id="settingsWrap">
+        <button class="btn btn--icon btn--ghost" id="btnSettings" title="Configurações" aria-expanded="false"><svg data-icon="settings"></svg></button>
+        <div class="pop settings" id="settings" hidden>
+          <button title="Minha conta · foto e preferências" type="button" class="settings__me" id="btnConta"><span id="contaPfp"></span><span><b id="contaNome">Você</b></span><svg data-icon="chevron-right"></svg></button>
+          <h3>Voz</h3>
+          <div class="seg" role="radiogroup" aria-label="Modo de voz">
+            <label><input type="radio" name="vmode" value="open"><span>Microfone aberto</span></label>
+            <label><input type="radio" name="vmode" value="ptt"><span>Aperte para falar</span></label>
+          </div>
+          <label class="srow" id="pttRow"><svg data-icon="keyboard"></svg><span>Tecla</span><button type="button" class="btn btn--ghost keycap" id="pttKey">V</button></label>
+          <label class="srow"><svg data-icon="mic"></svg><select id="micDevice" aria-label="Microfone"><option value="">Microfone padrão</option></select></label>
+          <div id="setPrefs" class="setprefs"></div>
+          <h3 id="admHeading" hidden>Admin</h3>
+          <div id="admLogin" class="srow" hidden><input id="admPw" type="password" placeholder="Senha de admin"><button type="button" class="btn btn--ghost" id="admGo">Entrar</button></div>
+          <div id="admTools" hidden>
+            <div class="srow"><input id="admMsg" maxlength="140" placeholder="Aviso fixo para todos"><button type="button" class="btn btn--ghost" id="admSend" title="Enviar aviso"><svg data-icon="megaphone"></svg></button></div>
+            <button type="button" class="btn btn--ghost btn--block" id="admSala"><svg data-icon="armchair"></svg>Arrumar a sala</button>
+            <button type="button" class="btn btn--ghost btn--block" id="admInvite"><svg data-icon="ticket"></svg>Criar convite</button>
+            <button type="button" class="btn btn--ghost btn--block" id="admFim"><svg data-icon="clapperboard"></svg>Finalizar sessão</button>
+            <button type="button" class="btn btn--ghost btn--block" id="admDiag"><svg data-icon="activity"></svg>Diagnóstico da conexão</button>
+            <button type="button" class="btn btn--ghost btn--block" id="admClear"><svg data-icon="trash-2"></svg>Limpar o chat de todos</button>
+            
+          </div>
+          <button type="button" class="btn btn--ghost btn--block" id="logout"><svg data-icon="log-out"></svg>Sair da conta</button>
+        </div>
+      </div>
+</div>
+    <button type="button" id="topLogout" class="btn btn--icon btn--ghost" title="Sair da conta"><svg data-icon="log-out"></svg></button>
+  </div>
+</header>
+
+<div id="banner" class="banner" hidden><svg data-icon="megaphone"></svg><span id="bannerText"></span><button class="banner__x" id="bannerX" title="Remover aviso" hidden><svg data-icon="x"></svg></button></div>
+
+<main id="theater" class="theater">
+  <section class="stage">
+    <div id="sharer" class="live" hidden></div>
+    <div class="screen paper">
+      <div class="screen__inner" id="screenInner">
+        <div id="tiles" class="tiles"></div>
+        <div id="empty" class="empty">
+          <div class="empty__bg" aria-hidden="true"></div>
+          <div class="empty__box">
+            <h2>Ninguém projetando</h2>
+            <p>A sessão começa quando alguém projeta. Escolha <b>Projetar</b> na barra abaixo.</p>
+
+          </div>
+        </div>
+        <div class="curtain" aria-hidden="true"><i class="curtain__l"></i><i class="curtain__r"></i></div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+        <div id="nudges" class="nudges" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="popwrap">
+        <button class="btn btn--project" id="btnShare" aria-expanded="false"><svg data-icon="projector"></svg><span>Projetar</span></button>
+        <div class="pop sharemenu" id="shareMenu" hidden>
+          <button title="Para filme numa aba, jogo ou app" type="button" class="menuitem" id="shareScreen"><svg data-icon="monitor"></svg><span><b>Tela ou janela</b></span></button>
+          <button title=".mp4 / .mkv / .webm, qualidade máxima" type="button" class="menuitem" id="shareFile"><svg data-icon="film"></svg><span><b>Arquivo</b></span></button>
+          <input type="file" id="fileInput" accept="video/*,.mkv" hidden>
+          <div class="sharemenu__junto">
+            <span class="sharemenu__lbl"><svg data-icon="users"></svg>Assistir junto, sem transmitir</span>
+            <form id="midiaForm" class="midia-form" autocomplete="off"><input id="midiaUrl" placeholder="Link do YouTube (Spotify vai para a rádio)" inputmode="url"><button type="submit" class="btn btn--primary btn--icon" title="Abrir para todos"><svg data-icon="play"></svg></button></form>
+          </div>
+          <label title="60 fps e o mínimo de atraso" class="check"><input type="checkbox" id="gameMode"><span><b>Modo jogo</b></span></label>
+          <label title="Som do PC: escolha “Monitor of Cineminha · Filme”" class="sel"><span><b>Som extra</b></span><select id="extraAudio"><option value="">Nenhum</option></select></label>
+        </div>
+      </div>
+      <button class="btn btn--ghost" id="btnTrocar" title="Trocar a tela, janela ou aba projetada sem parar a transmissão" hidden><svg data-icon="monitor-up"></svg><span>Trocar</span></button>
+      <button class="btn btn--icon btn--ghost" id="btnReload" title="Recarregar a projeção (se travou)" hidden><svg data-icon="refresh-cw"></svg></button>
+      <button class="btn btn--ghost" id="btnPause" title="Pedir pausa para quem projeta (P)" hidden><svg data-icon="pause"></svg><span>Pausa aí</span></button>
+      <button class="btn btn--icon btn--ghost" id="btnSubs" title="Legendas" aria-pressed="true" hidden><svg data-icon="captions"></svg></button>
+      <span class="toolbar__grow"></span>
+      <div class="popwrap">
+        <button class="btn btn--icon btn--ghost" id="btnReact" title="Reações (R)" aria-expanded="false"><svg data-icon="smile-plus"></svg></button>
+        <div class="reactgrid" id="reactGrid" hidden>
+          <div class="reactgrid__tabs" role="tablist">
+            <button type="button" class="reactgrid__tab" data-tab="emoji" aria-selected="true">Reações</button>
+            <button type="button" class="reactgrid__tab" data-tab="memes" aria-selected="false">Memes</button>
+            <button type="button" class="reactgrid__tab" data-tab="sons" aria-selected="false">Sons</button>
+          </div>
+          <div class="reactgrid__emoji" id="reactEmoji"></div>
+          <p class="gifs__by reactgrid__credit">Emoji animados: Noto Emoji (Google), CC BY 4.0</p>
+          <div class="reactgrid__memesbox" id="reactMemesBox" hidden><label class="gifs__search"><svg data-icon="search"></svg><input id="memesQ" placeholder="Buscar meme" autocomplete="off"></label><form class="memenovo" id="memeNovo" hidden><img id="memeNovoImg" alt=""><div class="memenovo__campos"><input id="memeNovoNome" maxlength="40" placeholder="Nome do meme" required autocomplete="off"><input id="memeNovoTags" maxlength="120" placeholder="Palavras para achar (opcional)" autocomplete="off"><div class="memenovo__botoes"><button type="button" class="memenovo__cancel" id="memeNovoCancel">Cancelar</button><button class="memenovo__ok" id="memeNovoSalvar">Adicionar</button></div></div></form><div class="reactgrid__memes" id="reactMemes"><button type="button" class="reactgrid__meme reactgrid__memeadd" id="memeAdd" title="Adicionar um meme para todo mundo"><span><svg data-icon="image-plus"></svg>Adicionar</span></button></div><input type="file" id="memeFile" accept="image/*" hidden><p class="gifs__msg" id="memesNada" hidden>Nenhum meme com esse nome.</p></div>
+          <div class="reactgrid__sons" id="reactSons" hidden>
+            <label class="gifs__search"><svg data-icon="search"></svg><input id="sonsQ" placeholder="Buscar no MyInstants" autocomplete="off"></label>
+            <div class="sons__chips" id="sonsChips"></div>
+            <div class="sons__grid" id="sonsGrid"></div>
+            <p class="sons__hint"><svg data-icon="headphones"></svg>ouve só você · toque no nome para tocar para todos · volume ajustado sozinho</p>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn--icon btn--ghost" id="btnJogo" title="Jogos: Faixa a Faixa e Coup"><svg data-icon="gamepad-2"></svg></button>
+      <div class="popwrap">
+        <button class="btn btn--icon btn--ghost radiobtn" id="btnRadio" title="Rádio da sala: música de fundo para todos" aria-expanded="false"><svg data-icon="music"></svg><img class="radiobtn__capa" alt=""><span class="radiobtn__eq"><i></i><i></i><i></i></span></button>
+        <div class="pop radio" id="radio" hidden></div>
+      </div>
+      <button class="btn btn--somstop" id="btnSomStop" type="button" title="Parar o som para todos" hidden><svg data-icon="square"></svg><span>Parar som</span></button>
+      <div class="popwrap">
+        <button class="btn btn--icon btn--ghost" id="btnMixer" title="Áudio da sala e das pessoas" aria-expanded="false"><svg data-icon="sliders-horizontal"></svg></button>
+        <div class="pop mixer" id="mixer" hidden>
+
+          <label class="mrow mrow--geral" title="Volume de tudo (filme, vozes, sons, rádio). Duplo clique volta a 100%"><svg data-icon="volume-2"></svg><span>Geral</span><input id="masterVol" type="range" min="0" max="1" step="0.01" value="1"><output id="masterOut">100%</output></label>
+          <label class="mrow" title="Duplo clique volta a 100%"><svg data-icon="film"></svg><span>Filme</span><input id="vol" type="range" min="0" max="2" step="0.01" value="1"><output id="volOut">100%</output></label>
+          <label class="mrow" title="Duplo clique volta a 100%"><svg data-icon="users"></svg><span>Vozes</span><input id="vvol" type="range" min="0" max="2" step="0.01" value="1"><output id="vvolOut">100%</output></label>
+          <label class="mrow" title="Sons da aba Sons das reações"><svg data-icon="volume-2"></svg><span>Sons</span><input id="boardVol" type="range" min="0" max="1.5" step="0.01"><output id="boardOut"></output></label>
+          <label class="mrow"><svg data-icon="bell"></svg><span>Efeitos</span><input id="sfxVol" type="range" min="0" max="1" step="0.01"><output id="sfxOut"></output></label>
+          <label class="mrow" title="Rádio da sala (só para você)"><svg data-icon="music"></svg><span>Rádio</span><input id="radioVol" type="range" min="0" max="1" step="0.01"><output id="radioOut"></output></label>
+          <h3 id="mixPeopleH" class="sr-only">Pessoas</h3>
+          <div id="mixPeople"></div>
+          <label title="Volta ao volume escolhido quando a conversa para" class="check mixer__opt"><input type="checkbox" id="duckOpt"><span><b>Baixar durante falas</b></span></label>
+          <label title="Quem senta à sua esquerda soa mais à esquerda (melhor com fone)" class="check mixer__opt"><input type="checkbox" id="spatialOpt"><span><b>Espacial</b></span></label>
+          <label title="Sugere ajustes quando o filme abafa a conversa ou alguém fala baixo" class="check mixer__opt mixer__opt--2"><input type="checkbox" id="nudgeOpt"><span><b>Avisos de volume</b></span></label>
+          
+        </div>
+      </div>
+      <div class="voicectl">
+        <div class="voice-control popwrap">
+          <button class="btn btn--icon" id="btnMic" title="Microfone"><svg data-icon="mic"></svg></button>
+          <button type="button" class="voice-options" id="btnMicOptions" title="Opções do microfone" aria-label="Opções do microfone" aria-haspopup="dialog" aria-controls="audioMenu" aria-expanded="false"><svg data-icon="chevron-down"></svg></button>
+        </div>
+        <div class="voice-control popwrap">
+          <button class="btn btn--icon" id="btnDeaf" title="Desativar todo o áudio (D)" aria-pressed="false"><svg data-icon="headphones"></svg></button>
+          <button type="button" class="voice-options" id="btnDeafOptions" title="Opções de áudio" aria-label="Opções de áudio" aria-haspopup="dialog" aria-controls="audioMenu" aria-expanded="false"><svg data-icon="chevron-down"></svg></button>
+        </div>
+      </div>
+      <div id="settingsFsHome"></div>
+      <button class="btn btn--icon" id="btnChat" title="Mostrar/ocultar chat (C)"><svg data-icon="message-square"></svg></button>
+      <button class="btn btn--icon" id="btnTeatro" title="Modo teatro (T): tela mais larga, chat embaixo" aria-pressed="false"><svg data-icon="rectangle-horizontal"></svg></button>
+      <button class="btn btn--icon" id="btnFs" title="Tela cheia (F)"><svg data-icon="maximize"></svg></button>
+    </div>
+
+    <div class="row"><div class="row__seats" id="seats"></div></div>
+    <div class="callbar" id="callbar" hidden></div>
+  </section>
+
+  <div id="fx" class="fx" aria-hidden="true"></div>
+  <div id="credits" class="credits" hidden>
+    <button type="button" class="credits__x" id="creditsX" title="Fechar (Esc)"><svg data-icon="x"></svg></button>
+    <div class="credits__roll" id="creditsRoll"></div>
+  </div>
+
+  <aside class="chat paper" id="chat">
+    <button type="button" class="chat__modo" id="chatModo" title="Fixar o chat à direita"><svg data-icon="panel-right"></svg></button>
+    <header class="chat__head">
+      <svg data-icon="message-square"></svg>
+      <h2>Chat</h2>
+    </header>
+    <ol class="chat__list" id="chatList"></ol>
+    <div class="gifs" id="gifs" hidden>
+      <div class="gifs__tabs" role="tablist">
+        <button type="button" class="gifs__tab" data-kind="gifs" aria-selected="true">GIFs</button>
+        <button type="button" class="gifs__tab" data-kind="stickers" aria-selected="false">Figurinhas</button>
+        <button type="button" class="gifs__close" id="gifClose" title="Fechar"><svg data-icon="x"></svg></button>
+      </div>
+      <label class="gifs__search"><svg data-icon="search"></svg><input id="gifQ" placeholder="Buscar no GIPHY" autocomplete="off"></label>
+      <div class="gifs__grid" id="gifGrid"></div>
+      <p class="gifs__by">Powered by GIPHY</p>
+    </div>
+    <div class="chat__reply" id="replyBar" hidden>
+      <svg data-icon="reply"></svg><span>Respondendo a <b id="replyName"></b></span>
+      <button type="button" id="replyX" title="Cancelar resposta (Esc)"><svg data-icon="x"></svg></button>
+    </div>
+    <form class="chat__form" id="chatForm">
+      <button class="chat__tool" type="button" id="btnGif" title="GIFs e figurinhas"><svg data-icon="sticker"></svg></button>
+      <button class="chat__tool" type="button" id="btnImg" title="Enviar imagem (ou cole no campo)"><svg data-icon="image-plus"></svg></button><input type="file" id="imgFile" accept="image/*" hidden>
+      <input id="chatInput" maxlength="500" placeholder="Mensagem" autocomplete="off">
+      <button class="chat__send" type="submit" title="Enviar"><svg data-icon="send"></svg></button>
+    </form>
+  </aside>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+raw
+tools
+node_modules
+.env*
+.agents
+tests
+tmp
+design-kit
+RESUMO.md
+PLANO-UI.md
+deploy.sh
+desktop

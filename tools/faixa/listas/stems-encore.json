@@ -1,0 +1,5970 @@
+[
+ {
+  "t": "In the End",
+  "a": "Linkin Park",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 3,
+  "md5": "24697ac2f06de8c9e20ab312965b07cf",
+  "chart": "In the End — Linkin Park",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Numb",
+  "a": "Linkin Park",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 8,
+  "md5": "658a389ba1cdc082a4baead4a11f234f",
+  "chart": "Numb — Linkin Park",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "This Love",
+  "a": "Maroon 5",
+  "fama": 5,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 3,
+  "md5": "aa3a341d263c860bd8e91e13a76b2ad1",
+  "chart": "This Love — Maroon 5",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Everybody Wants To Rule The World",
+  "a": "Tears For Fears",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 1,
+  "md5": "5b20ecbeed4bb29f35428375efed84e0",
+  "chart": "Everybody Wants to Rule the World — Tears for Fears",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Viva La Vida",
+  "a": "Coldplay",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 3,
+  "md5": "9c12db3a8d1fbc9044c36029cd6d9818",
+  "chart": "Viva la Vida — Coldplay",
+  "charter": "golacotiel, Harmonix",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Dream On",
+  "a": "Aerosmith",
+  "fama": 5,
+  "generos": [
+   "rock"
+  ],
+  "charts": 7,
+  "md5": "ce0e28c3e640d759e4f4d3f91802db5c",
+  "chart": "Dream On (Live) — Aerosmith",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "I'm Still Standing",
+  "a": "Elton John",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "d32ae013d4802cd6ec71118ca96444e3",
+  "chart": "I'm Still Standing — Elton John",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Somewhere I Belong",
+  "a": "Linkin Park",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 7,
+  "md5": "c49b0b46d4f1c7c8c52bf48ae76ce77f",
+  "chart": "Somewhere I Belong — Linkin Park",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Free Bird",
+  "a": "Lynyrd Skynyrd",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 10,
+  "md5": "39fb39fb45c885ab718a1a9380a5635a",
+  "chart": "Free Bird — Lynyrd Skynyrd",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Aerials",
+  "a": "System Of A Down",
+  "fama": 4,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 7,
+  "md5": "cce203743bba26bafd45981a64f811f7",
+  "chart": "Aerials — System of a Down",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Heart Of Glass",
+  "a": "Blondie",
+  "fama": 4,
+  "generos": [
+   "disco-dance",
+   "rock"
+  ],
+  "charts": 1,
+  "md5": "b79953a69d4c93baf4ac0cbecd116840",
+  "chart": "Heart of Glass — Blondie",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "(I Just) Died In Your Arms",
+  "a": "Cutting Crew",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 1,
+  "md5": "14d47885bd9a9838cde1552e6afc1bc4",
+  "chart": "(I Just) Died in Your Arms — Cutting Crew",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Helena",
+  "a": "My Chemical Romance",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 5,
+  "md5": "0b945fd3d63d1bda616d2e380a8e60bd",
+  "chart": "Helena — My Chemical Romance",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "I Ran",
+  "a": "A Flock Of Seagulls",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 5,
+  "md5": "5d9015b2d49ff18566adbc475123fa72",
+  "chart": "I Ran (So Far Away) — A Flock of Seagulls",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Hell Above",
+  "a": "Pierce The Veil",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "93cb964f6a1694839a9350e48e956f3e",
+  "chart": "Hell Above/May These Noises Startle You In Your Sleep Tonight — Pierce The Veil",
+  "charter": "Greenassassin58",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Beat It",
+  "a": "Michael Jackson",
+  "fama": 5,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 4,
+  "md5": "5771fec370e0de3112f738cecbf57b81",
+  "chart": "Beat It — Michael Jackson",
+  "charter": "Neversoft",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Back In Black",
+  "a": "AC/DC",
+  "fama": 5,
+  "generos": [
+   "rock"
+  ],
+  "charts": 4,
+  "md5": "a46b7fab395bc7bd98ae19ad47bcf41b",
+  "chart": "Back in Black (Live) — AC/DC",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Bring Me To Life",
+  "a": "Evanescence",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 10,
+  "md5": "a3219560d15b67fbbfa21e63766103e1",
+  "chart": "Bring Me to Life (Add Keyboard) — Evanescence",
+  "charter": "Harmonix; Austin Tomlinson",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Creep",
+  "a": "Radiohead",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 1,
+  "md5": "a5074c86bcc83298eea3428e8889c7de",
+  "chart": "Creep — Radiohead",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Thunderstruck",
+  "a": "AC/DC",
+  "fama": 5,
+  "generos": [
+   "rock"
+  ],
+  "charts": 5,
+  "md5": "85ef6dfb7485682a1c22ccd7845cc624",
+  "chart": "Thunderstruck (Live) — AC/DC",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Song 2",
+  "a": "Blur",
+  "fama": 5,
+  "generos": [
+   "rock"
+  ],
+  "charts": 3,
+  "md5": "bdfd5e8c157fbe4674dde043019a9906",
+  "chart": "Song 2 — Blur",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Toxicity",
+  "a": "System Of A Down",
+  "fama": 5,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 8,
+  "md5": "0c0be4e91070bd16870aabeb23554f96",
+  "chart": "Toxicity — System of a Down",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Should I Stay or Should I Go",
+  "a": "The Clash",
+  "fama": 5,
+  "generos": [
+   "rock"
+  ],
+  "charts": 4,
+  "md5": "7dba732716406336f1a40d89ea794af8",
+  "chart": "Should I Stay or Should I Go — The Clash",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "I Was Made For Lovin' You",
+  "a": "KISS",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "disco-dance"
+  ],
+  "charts": 2,
+  "md5": "5b9cef1b8a16b9b2aa8afa96a6764ab9",
+  "chart": "I Was Made for Lovin' You — Kiss",
+  "charter": "Neversoft",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Highway to Hell",
+  "a": "AC/DC",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 3,
+  "md5": "cb20d811eae23fdcd84d59e2b2edc25b",
+  "chart": "Highway to Hell (Live) — AC/DC",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Everlong",
+  "a": "Foo Fighters",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 7,
+  "md5": "1e6e3165c978dd360a867ae6895607a4",
+  "chart": "Everlong — Foo Fighters",
+  "charter": "Delcatty16",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "I Want to Know What Love Is - 1999 Remaster",
+  "a": "Foreigner",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 1,
+  "md5": "d2e6ddbe849dc7e4b3f966850709e3db",
+  "chart": "I Want to Know What Love Is — Foreigner",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "teclado",
+   "voz"
+  ]
+ },
+ {
+  "t": "Take Me Out",
+  "a": "Franz Ferdinand",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 6,
+  "md5": "4cce51c250f8306106df43c8a44d09c3",
+  "chart": "Take Me Out — Franz Ferdinand",
+  "charter": "Mickelräven",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Too Sweet",
+  "a": "Hozier",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rnb-soul"
+  ],
+  "charts": 2,
+  "md5": "5b52392d71c87605e1a9a85c9c88426c",
+  "chart": "Too Sweet — Hozier",
+  "charter": "4EverfreeBrony",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Arabella",
+  "a": "Arctic Monkeys",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 3,
+  "md5": "46435d347af08813495b658334808e97",
+  "chart": "Arabella — Arctic Monkeys",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "The Trooper - 2015 Remaster",
+  "a": "Iron Maiden",
+  "fama": 4,
+  "generos": [
+   "metal"
+  ],
+  "charts": 3,
+  "md5": "3d94a4ad0cd669d304d10bb007b95edf",
+  "chart": "The Trooper — Iron Maiden",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Psychosocial",
+  "a": "Slipknot",
+  "fama": 4,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 6,
+  "md5": "f3ffe909373cf1ee6c4ef780df7b7db4",
+  "chart": "Psychosocial — Slipknot",
+  "charter": "Harmonix, BrianTD9192",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Duality",
+  "a": "Slipknot",
+  "fama": 4,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 4,
+  "md5": "07d7b0952fb043b7c624d5e1144bcdcd",
+  "chart": "Duality — Slipknot",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Rock And Roll All Nite",
+  "a": "KISS",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 4,
+  "md5": "df622582b6ff51cf0233c7387f24adba",
+  "chart": "Rock and Roll All Nite — Kiss",
+  "charter": "Neversoft",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Supermassive Black Hole",
+  "a": "Muse",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 3,
+  "md5": "fac037d9ab1db552310fb87e768ec12f",
+  "chart": "Supermassive Black Hole — Muse",
+  "charter": "Neversoft",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Tongue Tied",
+  "a": "GROUPLOVE",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "md5": "b05fd5b9cc588d2091f4e8d4b9fbf9cf",
+  "chart": "Tongue Tied — Grouplove",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Clint Eastwood",
+  "a": "Gorillaz",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rap"
+  ],
+  "charts": 1,
+  "md5": "7fdbcaa669ec09ff8096837f9676fb12",
+  "chart": "Clint Eastwood — Gorillaz",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Tek It",
+  "a": "Cafuné",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "53fc01a12cd52f31f0e560846e22fbcc",
+  "chart": "Tek It (Speed Up) — Cafuné",
+  "charter": "ItzHallbert",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Black Betty",
+  "a": "Ram Jam",
+  "fama": 3,
+  "generos": [
+   "rock"
+  ],
+  "charts": 1,
+  "md5": "4f0ef3149a4f9bac5f12e03542f63952",
+  "chart": "Black Betty — Ram Jam",
+  "charter": "Neversoft",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Call Me",
+  "a": "Blondie",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "disco-dance"
+  ],
+  "charts": 1,
+  "md5": "580bd2d9d57f510ad267a3daae60e7e7",
+  "chart": "Call Me — Blondie",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Out of My League",
+  "a": "Fitz and The Tantrums",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "md5": "1d2707300031f31d6bda9de8bb8284e2",
+  "chart": "League of Legends: Out of My League [Cover] — Fitz and the Tantrums [The Warp Zone]",
+  "charter": "C.H. Río de la Plata",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Freaks",
+  "a": "Surf Curse",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 5,
+  "md5": "a3bd98a875a05051b2ddb15443ece322",
+  "chart": "Freaks — Surf Curse",
+  "charter": "Mickelräven",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "SPECIALZ",
+  "a": "King Gnu",
+  "fama": 3,
+  "generos": [
+   "kpop-jpop",
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "8f643cfcd5880e507561c9b1c3186447",
+  "chart": "SPECIALZ [TV Size] — King Gnu",
+  "charter": "C.H. Uruguay",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Talking In Your Sleep (2023 Remaster)",
+  "a": "The Romantics",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 4,
+  "md5": "09944e0da16cf5397e40c3afa27e5072",
+  "chart": "Talking In Your Sleep — The Romantics",
+  "charter": "Mickelräven",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "I Don't Care",
+  "a": "Fall Out Boy",
+  "fama": 3,
+  "generos": [
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "5402bbed94eaf527594a8587ebce5555",
+  "chart": "I Don't Care — Fall Out Boy",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Shut up My Moms Calling",
+  "a": "Hotel Ugly",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rnb-soul"
+  ],
+  "charts": 1,
+  "md5": "edd97f7d4580999e082e8092fac9e658",
+  "chart": "Shut up My Moms Calling — Hotel Ugly",
+  "charter": "LMBECIL1832",
+  "faixas": [
+   "bateria",
+   "baixo",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Runnin' Down A Dream",
+  "a": "Tom Petty",
+  "fama": 2,
+  "generos": [
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "483bc8ac1c27fe40ac282d160d9527eb",
+  "chart": "Runnin' Down a Dream — Tom Petty",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "base",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Fell In Love With a Girl",
+  "a": "The White Stripes",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "a943a2a6894333bca460f7be6569b766",
+  "chart": "Fell in Love with a Girl — The White Stripes",
+  "charter": "Harmonix",
+  "faixas": [
+   "bateria",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Blue Orchid",
+  "a": "The White Stripes",
+  "fama": 3,
+  "generos": [
+   "rock"
+  ],
+  "charts": 4,
+  "md5": "3212973fbc28b873c0f4c0b032967f69",
+  "chart": "Blue Orchid — The White Stripes",
+  "charter": "Neversoft",
+  "faixas": [
+   "bateria",
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "Sweet Child O' Mine",
+  "a": "Guns N' Roses",
+  "fama": 5,
+  "generos": [
+   "rock"
+  ],
+  "charts": 4,
+  "md5": "2a9bbe8fcb20c9fc3dc3c9337442fa8a",
+  "chart": "Sweet Child O' Mine — Guns n' Roses (WaveGroup)",
+  "charter": "Harmonix",
+  "faixas": [
+   "baixo",
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Welcome To The Jungle",
+  "a": "Guns N' Roses",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 4,
+  "md5": "6e7e910c1c576eb5064a989e07d7841f",
+  "chart": "Welcome To The Jungle — Guns N' Roses",
+  "charter": "Neversoft",
+  "faixas": [
+   "base",
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Chamber Of Reflection",
+  "a": "Mac DeMarco",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "md5": "390ee3fe30dd57cd3afa554612342ed2",
+  "chart": "Chamber of Reflection [Cover] — Mac DeMarco [Your Anxiety Buddy]",
+  "charter": "C.H. Río de la Plata",
+  "faixas": [
+   "guitarra",
+   "voz"
+  ]
+ },
+ {
+  "t": "As It Was",
+  "a": "Harry Styles",
+  "fama": 5,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 3,
+  "md5": "17171d7b6ccfc7ea5202b588d6ce8a67",
+  "chart": "As It Was — Harry Styles",
+  "charter": "zaK",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Money",
+  "a": "Pink Floyd",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 1,
+  "md5": "2daf55654f55dc95005c7d9013a6924c",
+  "chart": "Money — Pink Floyd",
+  "charter": "GHX",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Bones",
+  "a": "Imagine Dragons",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 1,
+  "md5": "b2b0fc8c3b3399fbe0e26341a3fc97f4",
+  "chart": "Bones — Imagine Dragons",
+  "charter": "Picquerist",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "After Dark",
+  "a": "Mr.Kitty",
+  "fama": 4,
+  "generos": [
+   "eletronica",
+   "indie"
+  ],
+  "charts": 2,
+  "md5": "8a5a0591f19e82f551bf84f13c7ac5b8",
+  "chart": "After Dark — Mr.Kitty",
+  "charter": "metalli3212",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Dark Red",
+  "a": "Steve Lacy",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rnb-soul"
+  ],
+  "charts": 1,
+  "md5": "2f4c1f90aa8a764aea87aa9fbd14a984",
+  "chart": "Dark Red — Steve Lacy",
+  "charter": "Picquerist",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Courtesy Call",
+  "a": "Thousand Foot Krutch",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 5,
+  "md5": "3c96dc40495cfff9ab05236d2c104249",
+  "chart": "This is a Warning (Intro) / Courtesy Call — Thousand Foot Krutch",
+  "charter": "MercuryHg34",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Feel Invincible",
+  "a": "Skillet",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 2,
+  "md5": "6a3ffecec2f2681eba1c042a706a3a36",
+  "chart": "Feel Invincible — Skillet",
+  "charter": "Capta1n_GuitarHero",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Arms Tonite",
+  "a": "Mother Mother",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 1,
+  "md5": "465ae9970a8f81e86a4a4911ed503853",
+  "chart": "Arms Tonite — Mother Mother",
+  "charter": "Haggis",
+  "faixas": [
+   "bateria"
+  ]
+ },
+ {
+  "t": "Ocean Man",
+  "a": "Ween",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 3,
+  "md5": "fd0e8aa921a30ef7e60ec5a01e956201",
+  "chart": "Ocean Man — Ween",
+  "charter": "Drihscol",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Notion",
+  "a": "The Rare Occasions",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 1,
+  "md5": "0c6799a5bf0d25546e3678a66b89e03b",
+  "chart": "Notion — The Rare Occasions",
+  "charter": "Picquerist",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Loser",
+  "a": "Tame Impala",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 1,
+  "md5": "956620d9cd12e6d5a7526d551e655808",
+  "chart": "Loser — Tame Impala",
+  "charter": "Chainsaw Octopus",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Spectacular Spider-Man Theme (From \"The Spectacular Spider-Man\")",
+  "a": "The Tender Box",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 1,
+  "md5": "e68598e69353c3fbad2388ba5c227e47",
+  "chart": "The Spectacular Spider-Man — The Tender Box",
+  "charter": "Picquerist",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Dracula",
+  "a": "Tame Impala",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "cff93e346a22bd45e1ea426b098b629f",
+  "chart": "Dracula — Tame Impala",
+  "charter": "Chainsaw Octopus",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "We Own the Night",
+  "a": "Dance Gavin Dance",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 2,
+  "md5": "1e283318bb8362a7c1ead81ef9612759",
+  "chart": "We Own the Night — Dance Gavin Dance",
+  "charter": "Miscellany",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "99.9",
+  "a": "MOB CHOIR",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 2,
+  "md5": "e301f2b88fe12feeab4206a45420b864",
+  "chart": "99.9 feat. (sajou no hana) — MOB CHOIR",
+  "charter": "metalli3212",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "E1M1 - At Dooms Gate (from \"Doom\")",
+  "a": "FamilyJules",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 1,
+  "md5": "885b58e9a4dc3f10a2c133f29d5ff13b",
+  "chart": "E1M1 - At Dooms Gate (from Doom) — FamilyJules\\\\ToxicxEternity",
+  "charter": "metalli3212",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Absolute Territory",
+  "a": "Ken Ashcorp",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 2,
+  "md5": "cf7ee29248c2f44a3795b1f38aa9dbc3",
+  "chart": "Absolute Territory — Ken Ashcorp",
+  "charter": "metalli3212",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Goya No Machiawase",
+  "a": "Hello Sleepwalkers",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 3,
+  "md5": "613bc1c05abcabc35840d58b2eecaa78",
+  "chart": "Goya no Machiawase — Hello Sleepwalkers",
+  "charter": "RdNetwork",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Predator - World Ender Remix",
+  "a": "Pentakill",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 1,
+  "md5": "daea0031741963c0a4cc90ca572320bc",
+  "chart": "Predator — Pentakill",
+  "charter": "Miscellany",
+  "faixas": [
+   "guitarra"
+  ]
+ },
+ {
+  "t": "Vou Deixar",
+  "a": "Skank",
+  "fama": 5,
+  "generos": [
+   "rock-nacional",
+   "pop"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Vamos Fugir",
+  "a": "Skank",
+  "fama": 5,
+  "generos": [
+   "rock-nacional",
+   "reggae"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Exagerado",
+  "a": "Cazuza",
+  "fama": 5,
+  "generos": [
+   "rock-nacional",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Céu Azul",
+  "a": "Charlie Brown Jr.",
+  "fama": 5,
+  "generos": [
+   "rock-nacional"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Malandragem",
+  "a": "Cássia Eller",
+  "fama": 5,
+  "generos": [
+   "rock-nacional",
+   "mpb"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Tempo Perdido",
+  "a": "Legião Urbana",
+  "fama": 5,
+  "generos": [
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Metamorfose Ambulante",
+  "a": "Raul Seixas",
+  "fama": 5,
+  "generos": [
+   "rock-nacional"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "O Astronauta de Mármore (Starman)",
+  "a": "Nenhum De Nós",
+  "fama": 5,
+  "generos": [
+   "rock-nacional",
+   "mpb"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Adventure of a Lifetime",
+  "a": "Coldplay",
+  "fama": 5,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Lonely Day",
+  "a": "System Of A Down",
+  "fama": 5,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 6,
+  "faixas": []
+ },
+ {
+  "t": "It's My Life",
+  "a": "Bon Jovi",
+  "fama": 5,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Somebody That I Used To Know",
+  "a": "Gotye",
+  "fama": 5,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Anna Júlia",
+  "a": "Los Hermanos",
+  "fama": 5,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Hymn for the Weekend",
+  "a": "Coldplay",
+  "fama": 5,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Heat Waves",
+  "a": "Glass Animals",
+  "fama": 5,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Enemy - From the series Arcane League of Legends",
+  "a": "Imagine Dragons",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 3,
+  "faixas": []
+ },
+ {
+  "t": "The Less I Know The Better",
+  "a": "Tame Impala",
+  "fama": 5,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Feel Good Inc.",
+  "a": "Gorillaz",
+  "fama": 5,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Beggin'",
+  "a": "Måneskin",
+  "fama": 5,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Enemy",
+  "a": "Imagine Dragons",
+  "fama": 5,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 3,
+  "faixas": []
+ },
+ {
+  "t": "Boys Don't Cry",
+  "a": "The Cure",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "No. 1 Party Anthem",
+  "a": "Arctic Monkeys",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Space Song",
+  "a": "Beach House",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Sparks",
+  "a": "Coldplay",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Come As You Are",
+  "a": "Nirvana",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Ainda Gosto Dela",
+  "a": "Skank",
+  "fama": 4,
+  "generos": [
+   "rock-nacional",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Menina Veneno",
+  "a": "Ritchie",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Tempos Modernos",
+  "a": "Lulu Santos",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Starman",
+  "a": "David Bowie",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Feel It Still",
+  "a": "Portugal. The Man",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "O Astronauta de Mármore",
+  "a": "Nenhum De Nós",
+  "fama": 4,
+  "generos": [
+   "rock-nacional"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Iron Man",
+  "a": "Black Sabbath",
+  "fama": 4,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Sucker for Pain",
+  "a": "Lil Wayne",
+  "fama": 4,
+  "generos": [
+   "rap",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "There Is a Light That Never Goes Out - 2011 Remaster",
+  "a": "The Smiths",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Lovers Rock",
+  "a": "TV Girl",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "idontwannabeyouanymore",
+  "a": "Billie Eilish",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Dois Rios",
+  "a": "Skank",
+  "fama": 4,
+  "generos": [
+   "rock-nacional",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "The Pretender",
+  "a": "Foo Fighters",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "BIRDS OF A FEATHER",
+  "a": "Billie Eilish",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Da Ya Think I'm Sexy?",
+  "a": "Rod Stewart",
+  "fama": 4,
+  "generos": [
+   "disco-dance",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "What You Know",
+  "a": "Two Door Cinema Club",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 4,
+  "faixas": []
+ },
+ {
+  "t": "A Place for My Head",
+  "a": "Linkin Park",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "You're Gonna Go Far, Kid",
+  "a": "The Offspring",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Stop Crying Your Heart Out",
+  "a": "Oasis",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Apocalypse",
+  "a": "Cigarettes After Sex",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "O Sol",
+  "a": "Jota Quest",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock-nacional"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Hooked On A Feeling",
+  "a": "Blue Swede",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Come and Get Your Love - Single Version",
+  "a": "Redbone",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Take My Breath Away - Love Theme from \"Top Gun\"",
+  "a": "Berlin",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Eyes Without A Face",
+  "a": "Billy Idol",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Lovefool",
+  "a": "The Cardigans",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Holding Out for a Hero - Single Version",
+  "a": "Bonnie Tyler",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Way down We Go",
+  "a": "KALEO",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Sex, Drugs, Etc.",
+  "a": "Beach Weather",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Borderline",
+  "a": "Tame Impala",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "KICK BACK",
+  "a": "Kenshi Yonezu",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 4,
+  "faixas": []
+ },
+ {
+  "t": "Rocket Man (I Think It's Going To Be A Long, Long Time)",
+  "a": "Elton John",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Washing Machine Heart",
+  "a": "Mitski",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Arctic Monkeys",
+  "a": "Favourite Worst Nightmare",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "House of Memories",
+  "a": "Panic! At The Disco",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Piloto Automático",
+  "a": "Supercombo",
+  "fama": 4,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "until i found you",
+  "a": "pearl",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Another Love",
+  "a": "Tom Odell",
+  "fama": 4,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Sing For The Moment",
+  "a": "Eminem",
+  "fama": 4,
+  "generos": [
+   "rap",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Snap Out Of It",
+  "a": "Arctic Monkeys",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Chain - 2004 Remaster",
+  "a": "Fleetwood Mac",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Menina Estranha",
+  "a": "Restart",
+  "fama": 4,
+  "generos": [
+   "rock-nacional",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Eleanor Rigby",
+  "a": "The Beatles",
+  "fama": 4,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Little Dark Age",
+  "a": "MGMT",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "I WANNA BE YOUR SLAVE",
+  "a": "Måneskin",
+  "fama": 4,
+  "generos": [
+   "rock"
+  ],
+  "charts": 3,
+  "faixas": []
+ },
+ {
+  "t": "Hayloft",
+  "a": "Mother Mother",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Amianto",
+  "a": "Supercombo",
+  "fama": 4,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Rhinestone Eyes",
+  "a": "Gorillaz",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Life Goes On",
+  "a": "Oliver Tree",
+  "fama": 4,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "rises the moon",
+  "a": "Liana Flores",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "folk-country"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "the perfect pair",
+  "a": "beabadoobee",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Heart To Heart",
+  "a": "Mac DeMarco",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "What Would I Do?",
+  "a": "Strawberry Guy",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "For the First Time",
+  "a": "Mac DeMarco",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Duvet",
+  "a": "bôa",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Estúpido Cupido",
+  "a": "Celly Campello",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Mais Ninguém",
+  "a": "Banda do Mar",
+  "fama": 3,
+  "generos": [
+   "mpb",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "The Emptiness Machine",
+  "a": "Linkin Park",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 7,
+  "faixas": []
+ },
+ {
+  "t": "Hero",
+  "a": "Skillet",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Monster",
+  "a": "Skillet",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "DARE",
+  "a": "Gorillaz",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Deceptacon",
+  "a": "Le Tigre",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Smile",
+  "a": "Lily Allen",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Love Is A Long Road",
+  "a": "Tom Petty",
+  "fama": 3,
+  "generos": [
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Sirius",
+  "a": "The Alan Parsons Project",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Scarface (Push It to the Limit)",
+  "a": "Paul Engemann",
+  "fama": 3,
+  "generos": [
+   "disco-dance",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Freaks",
+  "a": "late night drive home",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Wuthering Heights",
+  "a": "ANGRA",
+  "fama": 3,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Wuthering Heights",
+  "a": "Kate Bush",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Sweet Dreams, TN",
+  "a": "The Last Shadow Puppets",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Exit Music (For A Film)",
+  "a": "Radiohead",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Electric Funeral (2012 Remaster)",
+  "a": "Black Sabbath",
+  "fama": 3,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Babydoll",
+  "a": "Dominic Fike",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Show Me How",
+  "a": "Men I Trust",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Good Looking",
+  "a": "Suki Waterhouse",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Serenata Existencialista",
+  "a": "O Grilo",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Army Dreamers - 2018 Remaster",
+  "a": "Kate Bush",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Shades Of Cool",
+  "a": "Lana Del Rey",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Afterlife (from the Netflix Series \"Devil May Cry\")",
+  "a": "Evanescence",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Best Friend",
+  "a": "Rex Orange County",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Great Gig in the Sky",
+  "a": "Pink Floyd",
+  "fama": 3,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Black Out Days",
+  "a": "Phantogram",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "We're Finally Landing",
+  "a": "Home",
+  "fama": 3,
+  "generos": [
+   "eletronica",
+   "indie"
+  ],
+  "charts": 3,
+  "faixas": []
+ },
+ {
+  "t": "WILDFLOWER",
+  "a": "Billie Eilish",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Baker Street",
+  "a": "Gerry Rafferty",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "nada contra (ciúme)",
+  "a": "Clarissa",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Taking What's Not Yours",
+  "a": "TV Girl",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Who is She?",
+  "a": "I Monster",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Heavy Is the Crown",
+  "a": "Linkin Park",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 7,
+  "faixas": []
+ },
+ {
+  "t": "Can I Call You Tonight?",
+  "a": "Dayglow",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Me and the Birds",
+  "a": "Duster",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "INVISIBLE",
+  "a": "Duran Duran",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Ain't No Rest for the Wicked",
+  "a": "Cage The Elephant",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Bfg Division",
+  "a": "Mick Gordon",
+  "fama": 3,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Crush",
+  "a": "Cigarettes After Sex",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "...Baby One More Time (from Kung Fu Panda 4)",
+  "a": "Tenacious D",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "trilha"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "The Rumbling",
+  "a": "SiM",
+  "fama": 3,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Bury the Light",
+  "a": "Casey Edwards",
+  "fama": 3,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Two Birds",
+  "a": "Regina Spektor",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Teddy Picker",
+  "a": "Arctic Monkeys",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Salvatore",
+  "a": "Lana Del Rey",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "MALVADONA",
+  "a": "O Grilo",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "World's Smallest Violin",
+  "a": "AJR",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "the WORLD",
+  "a": "NIGHTMARE",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "departure!",
+  "a": "Masatoshi Ono",
+  "fama": 3,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "A História Mais Velha do Mundo",
+  "a": "O Terno",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "mpb"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Other Side Of Paradise",
+  "a": "Glass Animals",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Past Lives",
+  "a": "sapientdream",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Amor plastico",
+  "a": "VIDE CLUB",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Bo Burnham",
+  "a": "THE INSIDE OUTTAKES",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Little Dark Age (Reverb) - Remix",
+  "a": "Bull Beats",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "America, Fuck Yeah/America Medley",
+  "a": "Trey Parker",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "internet-meme"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Hayloft II",
+  "a": "Mother Mother",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Back in the 90's",
+  "a": "GROUPLOVE",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Black Friday",
+  "a": "Tom Odell",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Rivers In the Desert",
+  "a": "Lyn",
+  "fama": 3,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Amour plastique",
+  "a": "Videoclub",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ai, Ai, Como Eu Me Iludo",
+  "a": "O Terno",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "mpb"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "We Belong Together",
+  "a": "Ritchie Valens",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Brasileiro",
+  "a": "Selvagens à Procura de Lei",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Daylight",
+  "a": "David Kushner",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Infame",
+  "a": "Supercombo",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Infrunami",
+  "a": "Steve Lacy",
+  "fama": 3,
+  "generos": [
+   "rnb-soul",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Mama's Boy",
+  "a": "Dominic Fike",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Psycho Dreams",
+  "a": "Kill Eva",
+  "fama": 3,
+  "generos": [
+   "eletronica",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Amend",
+  "a": "j^p^n",
+  "fama": 3,
+  "generos": [
+   "eletronica",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "JOJO SONO CHINO SADAME",
+  "a": "Hiroaki Tommy Tominaga",
+  "fama": 3,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Goodbye Yellow Brick Road",
+  "a": "Elton John",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "September",
+  "a": "Sparky Deathcap",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "folk-country"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Blue Hair",
+  "a": "TV Girl",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Freebird Kingsman - Movie Version",
+  "a": "Ak47 - Anton",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "trilha"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Retrato de um Playboy (Parte II)",
+  "a": "Gabriel O Pensador",
+  "fama": 3,
+  "generos": [
+   "rap",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "O meu pau fica duro",
+  "a": "Rogério Skylab",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "mpb"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Giorno's Theme - Giorno Approved",
+  "a": "Friedrich Habetler",
+  "fama": 3,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Giorno's Theme",
+  "a": "Friedrich Habetler",
+  "fama": 3,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Black Sheep - Brie Larson Vocal Version",
+  "a": "Metric",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "trilha"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Jealous",
+  "a": "Eyedress",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Sambinha",
+  "a": "O Grilo",
+  "fama": 3,
+  "generos": [
+   "mpb",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Devil Town",
+  "a": "Cavetown",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "First Love/Late Spring",
+  "a": "Mitski",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Life on Mars? - 2015 Remaster",
+  "a": "David Bowie",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Gilded Lily",
+  "a": "Cults",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Can You Feel My Heart",
+  "a": "Varien",
+  "fama": 3,
+  "generos": [
+   "eletronica",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Partners in Crime",
+  "a": "Set It Off",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Não Fosse Tão Tarde (Speed)",
+  "a": "Lou Garcia",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Punk Tactics",
+  "a": "Joey Valence & Brae",
+  "fama": 3,
+  "generos": [
+   "rap",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Jerry",
+  "a": "Diogo Defante",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "internet-meme"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "One More Hour",
+  "a": "Tame Impala",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Black Betty - Single Edit",
+  "a": "Spiderbait",
+  "fama": 3,
+  "generos": [
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Homage",
+  "a": "Mild High Club",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Verbatim",
+  "a": "Mother Mother",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Gallowdance",
+  "a": "Lebanon Hanover",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "spit in my face",
+  "a": "Fistikia Official",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Something About You",
+  "a": "Eyedress",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rnb-soul"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "It Has To Be This Way - Platinum Mix",
+  "a": "Jimmy Gnecco",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Money",
+  "a": "The Drums",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Young",
+  "a": "Vacations",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Diet Mountain Dew",
+  "a": "Lana Del Rey",
+  "fama": 3,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Choke",
+  "a": "I DONT KNOW HOW BUT THEY FOUND ME",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Bang Bang Bang Bang",
+  "a": "Sohodolls",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Baby Hotline",
+  "a": "Jack Stauber's Micropop",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Devil Trigger",
+  "a": "Casey Edwards",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Under the Tree",
+  "a": "SiM",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "THE DAY",
+  "a": "PornoGraffitti",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Friends",
+  "a": "Vacations",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Automotivo Toma Sequência De Rock N Roll",
+  "a": "DJ Marcão 019",
+  "fama": 3,
+  "generos": [
+   "funk-br",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Disfruto",
+  "a": "Carla Morrison",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ylang Ylang - Lo-Fi Remix",
+  "a": "aAp Vision",
+  "fama": 3,
+  "generos": [
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Run Boy Run - Instrumental",
+  "a": "Woodkid",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "SPIT IN MY FACE!",
+  "a": "ThxSoMch",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Marry on a cross",
+  "a": "Adhes",
+  "fama": 3,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Line Without a Hook",
+  "a": "Ricky Montgomery",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Who is she?",
+  "a": "ANT|QUE",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Past Lives",
+  "a": "BØRNS",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ska",
+  "a": "Os Paralamas Do Sucesso",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Bem-Vindo ao Brasil - Na Maloca Dragão",
+  "a": "Selvagens à Procura de Lei",
+  "fama": 3,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "We Will Rock You",
+  "a": "Bishop Briggs",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Murders",
+  "a": "Miracle Musical",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Patolino: O Mago",
+  "a": "The Kira Justice",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Life Letters",
+  "a": "Never Get Used To People",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Let’s Go",
+  "a": "Stuck in the Sound",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "My Ordinary Life",
+  "a": "The Living Tombstone",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Sunflower",
+  "a": "Rex Orange County",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Always Forever",
+  "a": "Cults",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "YKWIM?",
+  "a": "Yot Club",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Hey Kids",
+  "a": "Molina",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Swing Lynn",
+  "a": "Harmless",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "As the World Caves In",
+  "a": "Matt Maltese",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Mr. Loverman",
+  "a": "Ricky Montgomery",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "I Can't Handle Change",
+  "a": "Roar",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Burning Pile",
+  "a": "Mother Mother",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Wolf",
+  "a": "SIAMES",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Wolf in Sheep's Clothing",
+  "a": "Set It Off",
+  "fama": 3,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Fitzpleasure",
+  "a": "alt-J",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Black Out Days - Future Islands Remix",
+  "a": "Phantogram",
+  "fama": 3,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Party Tonight",
+  "a": "J-ROCK'S",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Hey Lover",
+  "a": "The Daughters Of Eve",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Supremacy",
+  "a": "Muse",
+  "fama": 2,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Controllah",
+  "a": "Gorillaz",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Cure For Me - Slower & Reverb",
+  "a": "KLWCI",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Forever you and me windmill windmill for the land",
+  "a": "LEMNKS",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Staring",
+  "a": "Tipling Rock",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Greenback Boogie (Suits Version)",
+  "a": "Ima Robot",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Bring Me To Life (Cangaço Sessions, Vol. 2 Deluxe)",
+  "a": "DUPÊ",
+  "fama": 2,
+  "generos": [
+   "forro-axe",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Star Love",
+  "a": "late night drive home",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "AIZO",
+  "a": "King Gnu",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "kpop-jpop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Andei Andei (Incidental: Le Bolívia)",
+  "a": "BRAZA",
+  "fama": 2,
+  "generos": [
+   "reggae",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ela Partiu",
+  "a": "Since 1978",
+  "fama": 2,
+  "generos": [
+   "mpb",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Carta aos Desinteressados",
+  "a": "Esteban Tavares",
+  "fama": 2,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "FUNK METAL - SE FOR MAGRINHA",
+  "a": "DJ RIK SP",
+  "fama": 2,
+  "generos": [
+   "funk-br",
+   "metal"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "FUNK METAL - CULPA DA CACHAÇA",
+  "a": "DJ RIK SP",
+  "fama": 2,
+  "generos": [
+   "funk-br",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "welcome and goodbye",
+  "a": "Dream",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Sonne - Best Part",
+  "a": "Six Dior",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "i was only temporary",
+  "a": "my head is empty",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "the perfect pair",
+  "a": "jalenrekt",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "So Far So Fake",
+  "a": "Pierce The Veil",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Digital Silence",
+  "a": "Peter McPoland",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Kicking Cars",
+  "a": "Panchiko",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Television / So Far So Good",
+  "a": "Rex Orange County",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "踊り子",
+  "a": "Vaundy",
+  "fama": 2,
+  "generos": [
+   "kpop-jpop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Phantom Liberty",
+  "a": "Dawid Podsiadło",
+  "fama": 2,
+  "generos": [
+   "trilha",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Die In a Fire",
+  "a": "The Living Tombstone",
+  "fama": 2,
+  "generos": [
+   "eletronica",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "A Good Song Never Dies",
+  "a": "Saint Motel",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 3,
+  "faixas": []
+ },
+ {
+  "t": "Joseph Joestar Theme (Overdrive) - Cover",
+  "a": "Samuel Kim",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "metal"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Bad Apple!!!",
+  "a": "FalKKonE",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "O Children",
+  "a": "Nick Cave & The Bad Seeds",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "A Night To Remember",
+  "a": "beabadoobee",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Me and the Devil",
+  "a": "Soap&Skin",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Beauty Of Annihilation",
+  "a": "Elena Siegman",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Feel Good Inc x Chamber of Reflection",
+  "a": "The Hiroshima",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "internet-meme"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Calling After Me",
+  "a": "Wallows",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Banho de Piscina",
+  "a": "Clarice Falcão",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "mpb"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Moonlight on the River",
+  "a": "Mac DeMarco",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Oh Ana",
+  "a": "Mother Mother",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Headlock",
+  "a": "Imogen Heap",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Babooshka",
+  "a": "Kate Bush",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Tira a Roupa",
+  "a": "O Grilo",
+  "fama": 2,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Coin-Operated Boy",
+  "a": "The Dresden Dolls",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Daydream In Blue",
+  "a": "I Monster",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Line - from the series Arcane League of Legends",
+  "a": "Twenty One Pilots",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "trilha"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Feel It (From “Invincible”)",
+  "a": "d4vd",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rnb-soul"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Untitled #13 (Super Slowed)",
+  "a": "glwzbll",
+  "fama": 2,
+  "generos": [
+   "eletronica",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Plage Coquillage (First Kiss Song)",
+  "a": "Tao",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Bad Apple!! - English Remaster",
+  "a": "RichaadEB",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 5,
+  "faixas": []
+ },
+ {
+  "t": "Angel Of Small Death & The Codeine Scene",
+  "a": "Hozier",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Nobody",
+  "a": "Skindred",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "reggae"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Crime And Punishment",
+  "a": "Ado",
+  "fama": 2,
+  "generos": [
+   "kpop-jpop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Russian Girl",
+  "a": "Женя Любич",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "スマイリーを探して",
+  "a": "Serani Poji",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Hell Is Forever",
+  "a": "Andrew Underberg",
+  "fama": 2,
+  "generos": [
+   "trilha",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Night Begins to Shine",
+  "a": "B.E.R.",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "trilha"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Silhouette",
+  "a": "Pastel Ghost",
+  "fama": 2,
+  "generos": [
+   "eletronica",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Simpsonwave (You look lonely)",
+  "a": "mikeeysmind",
+  "fama": 2,
+  "generos": [
+   "eletronica",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "La Vie En Rose",
+  "a": "Emily Watts",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "HUNTING FOR YOUR DREAM",
+  "a": "GALNERYUS",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 6,
+  "faixas": []
+ },
+ {
+  "t": "Snakes (from the series Arcane League of Legends)",
+  "a": "MIYAVI",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "From the Start",
+  "a": "Good Kid",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 4,
+  "faixas": []
+ },
+ {
+  "t": "Клетка",
+  "a": "Molchat Doma",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Let It Happen",
+  "a": "rumpelknowsmore",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Brutus (Instrumental)",
+  "a": "The Buttress",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rap"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Libet's Delay",
+  "a": "busina",
+  "fama": 2,
+  "generos": [
+   "eletronica",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Paint It Black",
+  "a": "Sebastian Böhm",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Kill The Crown",
+  "a": "2WEI",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "trilha"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "You Really Got Me",
+  "a": "League of Legends: Wild Rift",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Hit the Road Jack",
+  "a": "2WEI",
+  "fama": 2,
+  "generos": [
+   "trilha",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "i'm still standing",
+  "a": "90degrees",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "sonne best part",
+  "a": "Alex Montana",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Feed the Machine",
+  "a": "Poor Man's Poison",
+  "fama": 2,
+  "generos": [
+   "folk-country",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Ecstasy (Apple of My Eye)",
+  "a": "Strawberry Switchblade",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Majestic",
+  "a": "Wax Fang",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Versus",
+  "a": "Heaven Pierce Her",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "metal"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Luigi - 7 Weeks & 3 Days Remix",
+  "a": "Julian Mendez",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Molchat Doma Dark",
+  "a": "TEMPEREX",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "my fault",
+  "a": "Zeph",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "A Cruel Angel's Thesis (Neon Genesis Evangelion Theme Rework)",
+  "a": "Ginger Root",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Legend Of Zelda: Gerudo Valley",
+  "a": "Jonnas Heisenberg",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Fine",
+  "a": "Lemon Demon",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Tudo Que Eu Sempre Sonhei",
+  "a": "Pullovers",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Meet the Frownies",
+  "a": "Mr Twin Sister",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "I Love You Like An Alcoholic",
+  "a": "The Taxpayers",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "folk-country"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Guitarrada",
+  "a": "O Grilo",
+  "fama": 2,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Grão de Areia",
+  "a": "Rubel",
+  "fama": 2,
+  "generos": [
+   "mpb",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Settle Down",
+  "a": "Ricky Montgomery",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Morto",
+  "a": "O Terno",
+  "fama": 2,
+  "generos": [
+   "rock-nacional",
+   "mpb"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Bury the Light - Instrumental Cover",
+  "a": "The Nameless Juan",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Bury The Light",
+  "a": "Andrew Baena",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Gigachad x Bury the Light",
+  "a": "Carameii",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "internet-meme"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Bury The Light - Epic Version",
+  "a": "Carameii",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ludwig, the Holy Blade (from Bloodborne: The Old Hunters)",
+  "a": "Geoffplaysguitar",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "\"DEVILS NEVER CRY\"(スタッフロール)",
+  "a": "Capcom Sound Team",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "I Am The Dog",
+  "a": "Sir Chloe",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "shy little frog",
+  "a": "Sushisingz",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Fahrradsattel",
+  "a": "Pisse",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "When I",
+  "a": "Steve Lacy",
+  "fama": 2,
+  "generos": [
+   "rnb-soul",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "TRANZIT (Love Song For A Dead Man)",
+  "a": "Purpose 115",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Only Thing They Fear is You (From \"Doom: Eternal\")",
+  "a": "FamilyJules",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Teen Titans Theme",
+  "a": "The Shake Ups",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ultimate Battle",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "You Say Run",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "My Hero Academia",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Kakyoin's Theme",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Demon Slayer Opening \"Gurenge\"",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "You Say Run (From \"My Hero Academia\")",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Awaken (Pillar Men Theme)",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Coffin Dance (Dio Cut)",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "internet-meme"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Gyro Zeppeli (Instrumental)",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "究極の聖戦バトル",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Steel Ball Run Johnny Joestar Theme",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ultra Instinct Mastered",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "United State of Smash",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Only Thing They Fear Is You",
+  "a": "verxn",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Jobless Monday",
+  "a": "Mitski",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Dream Girl",
+  "a": "Crisaunt",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Novocaine",
+  "a": "The Unlikely Candidates",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Uragirimonono Requiem - Diavolo Ver.",
+  "a": "Yugo Kanno",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Juliet",
+  "a": "Cavetown",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Play with Fire",
+  "a": "Sam Tinnesz",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Nothing's New",
+  "a": "Rio Romeo",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Garbage Truck",
+  "a": "Sex Bob-Omb",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "trilha"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "ChuChu Lovely MuniMuni MuraMura PrinPrin Boron Nururu ReroRero",
+  "a": "MAXIMUM THE HORMONE",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Cupid",
+  "a": "Jack Stauber's Micropop",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Not Into You {slow//reverb} - Remix",
+  "a": "Brooksie",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "My Time",
+  "a": "Omori",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Double Jump",
+  "a": "Joey Valence & Brae",
+  "fama": 2,
+  "generos": [
+   "rap",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "This Fffire (from \"Cyberpunk Edgerunners\")",
+  "a": "Power Trackz 4.0",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Goodbye",
+  "a": "MeiaUm",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "see you again",
+  "a": "bbygirl",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Gospel",
+  "a": "MarchFourth Marching Band",
+  "fama": 2,
+  "generos": [
+   "jazz-blues",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Blue hair - speed up",
+  "a": "Gunk human",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Gyro Zeppeli",
+  "a": "Friedrich Habetler",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Dark Beach - Speed",
+  "a": "Ren",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Melting",
+  "a": "Xanemusic",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "ENEMY x MY WAR",
+  "a": "Plodentata",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Hidden in the Sand - Lo-Fi Remix",
+  "a": "aAp Vision",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Falsa Valsa",
+  "a": "Adorável Clichê",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Judgement",
+  "a": "ASH DA HERO",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Eu Não Sou Boa Influência pra Você",
+  "a": "Seu Pereira e Coletivo 401",
+  "fama": 2,
+  "generos": [
+   "mpb",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Only Thing I Know For Real - Are Japanese Goblins",
+  "a": "Jetstream ZAMN!",
+  "fama": 2,
+  "generos": [
+   "internet-meme",
+   "metal"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Leni (Crystal Castles vs GoodBooks)",
+  "a": "GoodBooks",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Doom Crossing: Eternal Horizons",
+  "a": "The Chalkeaters",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "internet-meme"
+  ],
+  "charts": 3,
+  "faixas": []
+ },
+ {
+  "t": "Hansel",
+  "a": "Sodikken",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Giga Doom Chad Slayer",
+  "a": "Aaron F. Bianchi Jupiter",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "internet-meme"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Silver Bullet",
+  "a": "Casey Edwards",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Enemies",
+  "a": "The Score",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ibara",
+  "a": "Ado",
+  "fama": 2,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "JoJo's Theme (Doom Version)",
+  "a": "Aahiden",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Meathook (Original Soundtrack Doom Eternal)",
+  "a": "Saheli",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "trilha"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "My Heart Is Cold",
+  "a": "Bad History",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "internet-meme"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "As the world caves in (Outro)",
+  "a": "Semi",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Fighting With The Melody",
+  "a": "Jimmy Urine",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Mr. Blue Sky",
+  "a": "Weezer",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "ポラリス",
+  "a": "BLUE ENCOUNT",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "空に歌えば",
+  "a": "amazarashi",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Happy Death Day",
+  "a": "Xdinary Heroes",
+  "fama": 2,
+  "generos": [
+   "kpop-jpop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Trigger Of Love",
+  "a": "JAWNY",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "The Bay",
+  "a": "Yot Club",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Intolewd",
+  "a": "Matt Maltese",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Better Than Me",
+  "a": "The Brobecks",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "madhouse",
+  "a": "Matt Maltese",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Red Sun - Maniac Agenda Mix",
+  "a": "Jason Charles Miller",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Faces",
+  "a": "Crumb",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Do It All The Time",
+  "a": "I DONT KNOW HOW BUT THEY FOUND ME",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Summer Nights",
+  "a": "SIAMES",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock"
+  ],
+  "charts": 2,
+  "faixas": []
+ },
+ {
+  "t": "Who's Ready for Tomorrow",
+  "a": "RAT BOY",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Crucified",
+  "a": "Ghost",
+  "fama": 2,
+  "generos": [
+   "metal",
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Medieval",
+  "a": "FINNEAS",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Keep It Tucked",
+  "a": "ThxSoMch",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "limbo",
+  "a": "slō",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "KICK BACK \"Chainsaw Man\"",
+  "a": "HelloROMIX",
+  "fama": 2,
+  "generos": [
+   "anime-games",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "who is she (speed)",
+  "a": "INDRAGERSN",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "I'm in Love",
+  "a": "YUNG LIXO",
+  "fama": 2,
+  "generos": [
+   "rap",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Waiting to Fly",
+  "a": "YUNG LIXO",
+  "fama": 2,
+  "generos": [
+   "rap",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "99 Problems",
+  "a": "Hugo",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "folk-country"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Yoruwahonoka",
+  "a": "Eve",
+  "fama": 2,
+  "generos": [
+   "kpop-jpop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "My Demons",
+  "a": "Youth Never Dies",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Competição de Ego",
+  "a": "O Grilo",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Mind Over Matter",
+  "a": "Speedy Radio",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "dumb dumb",
+  "a": "mazie",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Umbrella",
+  "a": "All Time Low",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Call me Cruella",
+  "a": "Florence + The Machine",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "trilha"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Ghost Chroma",
+  "a": "YUNG LIXO",
+  "fama": 2,
+  "generos": [
+   "rap",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Orfanato",
+  "a": "Zimbra",
+  "fama": 2,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "This Is It",
+  "a": "Oh The Larceny",
+  "fama": 2,
+  "generos": [
+   "rock"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Dead Inside",
+  "a": "Younger Hunger",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "I Know What It´s Like",
+  "a": "Yonlu",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "folk-country"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Humiliation",
+  "a": "Yonlu",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "folk-country"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Suicide Song",
+  "a": "Yonlu",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "folk-country"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Mecânica Celeste Aplicada",
+  "a": "Yonlu",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "folk-country"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Inês",
+  "a": "O Grilo",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "rock-nacional"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "We Could Be The Same - Istanbul",
+  "a": "maNga",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "metal"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Alarm",
+  "a": "The Score",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Who’s In Control",
+  "a": "Set It Off",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "cut my fingers off",
+  "a": "Ethan Bortnick",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "Another Level",
+  "a": "Oh The Larceny",
+  "fama": 2,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Figure You Out",
+  "a": "VOILÀ",
+  "fama": 2,
+  "generos": [
+   "pop",
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Black Out Days Sped Up",
+  "a": "Sped Demon",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "eletronica"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "My Time",
+  "a": "bo en",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "anime-games"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Só Sei Dançar Com Você",
+  "a": "GabrielMzero",
+  "fama": 2,
+  "generos": [
+   "mpb",
+   "indie"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Raging on a Sunday",
+  "a": "Bohnes",
+  "fama": 2,
+  "generos": [
+   "rock",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Azul",
+  "a": "Zimbra",
+  "fama": 2,
+  "generos": [
+   "rock-nacional",
+   "indie"
+  ],
+  "charts": 1,
+  "faixas": []
+ },
+ {
+  "t": "The Loser",
+  "a": "Verzache",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Imaginary Friends",
+  "a": "Des Rocs",
+  "fama": 2,
+  "generos": [
+   "rock"
+  ],
+  "charts": 0,
+  "faixas": []
+ },
+ {
+  "t": "Mr. Fear",
+  "a": "SIAMES",
+  "fama": 2,
+  "generos": [
+   "indie",
+   "pop"
+  ],
+  "charts": 0,
+  "faixas": []
+ }
+]

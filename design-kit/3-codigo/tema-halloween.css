@@ -1,0 +1,71 @@
+/* Tema Halloween: jornal recortado, papel rasgado, abóbora e morcego */
+@import url("https://fonts.googleapis.com/css2?family=Special+Elite&family=UnifrakturMaguntia&display=swap");
+
+.tema-halloween {
+  --bg: #0e0c0a;
+  --card: #ebe2cf;
+  --card-fg: #1b1713;
+  --card-soft: #5b5248;
+  --card-line: rgba(27,23,19,.32);
+  --field-bg: rgba(255,255,255,.55);
+  --fg: #ebe2cf;
+  --fg-soft: rgba(235,226,207,.72);
+  --fg-faint: rgba(235,226,207,.45);
+  --line: rgba(235,226,207,.2);
+  --accent: #c4161c;
+  --accent-hi: #e0262c;
+  --focus: #ff3b30;
+  --live: #ff3b30;
+  --speak: #ffd779;
+  --speak-glow: rgba(255,222,150,.65);
+  --pop-bg: rgba(14,12,10,.94);
+  --font-display: "UnifrakturMaguntia", serif;
+  --display-weight: 400;
+  --display-spacing: 0;
+  --torn: polygon(0 1%, 4% 0, 9% 1.2%, 15% .2%, 22% 1%, 30% 0, 38% 1.4%, 46% .3%, 55% 1.1%, 63% 0, 71% 1.2%, 80% .2%, 88% 1%, 95% 0, 100% 1.5%, 99.4% 10%, 100% 22%, 99.2% 35%, 100% 50%, 99.3% 64%, 100% 78%, 99.4% 90%, 100% 98.6%, 94% 100%, 86% 98.9%, 77% 100%, 68% 98.8%, 59% 99.8%, 50% 98.7%, 41% 100%, 32% 98.9%, 23% 99.9%, 14% 98.8%, 6% 100%, 0 99%, .7% 88%, 0 75%, .8% 62%, 0 48%, .6% 34%, 0 20%, .8% 9%);
+  background:
+    radial-gradient(120% 80% at 50% 0%, transparent 40%, rgba(0,0,0,.75) 100%),
+    url(newspaper.jpg) center / 900px auto repeat,
+    var(--bg);
+  background-blend-mode: normal, luminosity, normal;
+}
+.tema-halloween::before { content: ""; position: fixed; inset: 0; z-index: -1; background: rgba(14,12,10,.9); pointer-events: none; }
+
+/* Papel rasgado no lugar dos cartões */
+.tema-halloween .paper { background: none; border: 0; border-radius: 0; isolation: isolate; }
+.tema-halloween .paper::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: url(paper.jpg) center / 600px auto, linear-gradient(180deg, #ebe2cf, #d8ccb2);
+  background-blend-mode: multiply;
+  clip-path: var(--torn);
+}
+.tema-halloween .paper::after { content: ""; position: absolute; inset: 6px -6px -8px 6px; z-index: -2; background: rgba(0,0,0,.55); clip-path: var(--torn); }
+.tema-halloween .screen { padding: 12px; }
+.tema-halloween .screen__inner { border-radius: 0; }
+.tema-halloween .chat { color: #ece4d6; --fg: #ece4d6; }
+.tema-halloween .chat::before { background: linear-gradient(rgba(16,13,11,.86), rgba(16,13,11,.86)), url(paper.jpg) center / 600px auto, #d8ccb2; }
+.tema-halloween .chat::after { background: rgba(0,0,0,.6); }
+.tema-halloween .chat__head h2 { font-size: 1.7rem; }
+
+.tema-halloween .brand { text-shadow: 0 0 24px rgba(196,22,28,.35); font-size: clamp(1.9rem, 4.5vw, 2.9rem); }
+.tema-halloween .brand--ink { text-shadow: none; font-size: clamp(2.4rem, 9vw, 3.4rem); }
+.tema-halloween .top { border-bottom: 3px double var(--line); }
+.tema-halloween .top__brand::after { content: ""; width: clamp(44px, 5vw, 64px); aspect-ratio: 1.6; align-self: center; background: url(bat.png) center / contain no-repeat; transform: rotate(-8deg); filter: drop-shadow(0 0 1px rgba(235,226,207,.9)) drop-shadow(0 0 8px rgba(235,226,207,.45)); }
+.tema-halloween .gate__logo { filter: invert(1); mix-blend-mode: multiply; }
+.tema-halloween .field span, .tema-halloween .who legend { font-family: "Special Elite", monospace; font-weight: 400; }
+.tema-halloween .who input:checked + span { background: var(--card-fg); color: var(--card); }
+.tema-halloween .btn { border-radius: 8px; }
+
+/* Abóbora no canto da tela */
+.tema-halloween .screen::after { }
+.tema-halloween .stage { position: relative; }
+.tema-halloween .screen > .screen__inner::before { content: none; }
+.tema-halloween .screen { overflow: visible; }
+.tema-halloween .stage::before { content: ""; position: absolute; z-index: 9; width: clamp(56px, 6vw, 90px); aspect-ratio: 1; left: -18px; top: 6px; background: url(pumpkin1.png) center / contain no-repeat; transform: rotate(-12deg); pointer-events: none; }
+.tema-halloween .theater:fullscreen .stage::before { display: none; }
+.tema-halloween .empty__bg { background: url(poster.jpg) center / cover; opacity: .25; filter: grayscale(.5); }
+.tema-halloween .empty__box h2 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); font-weight: 400; }
+.tema-halloween .theater:fullscreen .screen::before, .tema-halloween .theater:fullscreen .screen::after { display: none; }
+.tema-halloween .theater:fullscreen .chat::before { clip-path: none; }
+.tema-halloween .theater:fullscreen .chat::after { display: none; }
+@media (max-width: 640px) { .tema-halloween .top__brand::after, .tema-halloween .stage::before { display: none; } }

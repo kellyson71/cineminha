@@ -1,0 +1,5 @@
+Artes dos versos reutilizadas dos arquivos da Oficina da Steam fornecidos pelo usuário.
+As marcas e artes pertencem aos respectivos titulares.
+Fonte: https://steamcommunity.com/sharedfiles/filedetails/?id=2598815148
+verso-vermelho.png: https://cloud-3.steamusercontent.com/ugc/1700661206764368542/27888056E6AAC9E36EAE5EE5A8AC69A5263EA0AA/
+verso-branco.png: https://cloud-3.steamusercontent.com/ugc/1700661088535659273/45B25BA65C13D4FC856A96E73599C296EDB73CCE/

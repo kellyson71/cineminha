@@ -1,0 +1,50 @@
+{
+  "framework": null,
+  "installCommand": "true",
+  "buildCommand": "true",
+  "outputDirectory": "public",
+  "headers": [
+    {
+      "source": "/version.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
+      "source": "/vendor/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:slug([a-z0-9][a-z0-9-]*)",
+      "destination": "/api/ingresso?s=:slug"
+    },
+    {
+      "source": "/:slug([a-z0-9][a-z0-9-]*)/:p([a-z0-9]{1,12})",
+      "destination": "/api/ingresso?s=:slug"
+    }
+  ],
+  "functions": {
+    "api/ingresso.js": {
+      "includeFiles": "public/index.html"
+    }
+  }
+}

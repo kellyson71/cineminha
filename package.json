@@ -1,0 +1,13 @@
+{
+ "name": "cineminha",
+ "private": true,
+ "scripts": {
+  "vendor": "esbuild node_modules/trystero/dist/index.mjs --bundle --format=esm --minify --outfile=public/vendor/trystero.js"
+ },
+ "devDependencies": {
+  "@sapphi-red/web-noise-suppressor": "^0.4.1",
+  "esbuild": "^0.28.2",
+  "trystero": "^0.26.0"
+ },
+ "type": "module"
+}

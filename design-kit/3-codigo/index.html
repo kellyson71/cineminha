@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cineminha</title>
+<meta name="theme-color" content="#0c0c0f">
+<link rel="icon" href="assets/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="modulepreload" href="vendor/trystero.js">
+</head>
+<body class="locked">
+
+<div id="gate" class="gate">
+  <form id="gateForm" class="paper gate__card" autocomplete="off">
+    <h1 class="brand brand--ink" data-cfg="nome">Cineminha</h1>
+    <img class="gate__logo" data-cfg="logo" alt="" hidden>
+    <label class="field" id="pwField">
+      <span>Senha da sala</span>
+      <input id="pw" type="password" placeholder="• • •">
+    </label>
+    <fieldset class="who" id="who">
+      <legend>Quem é você?</legend>
+    </fieldset>
+    <label class="field guestname" id="guestField" hidden>
+      <span>Seu nome</span>
+      <input id="guestName" maxlength="24" placeholder="Como te chamam?">
+    </label>
+    <p id="gateErr" class="gate__err" hidden></p>
+    <button class="btn btn--primary btn--block" type="submit">Entrar</button>
+  </form>
+</div>
+
+<div id="micModal" class="gate" hidden>
+  <div class="paper gate__card mic-card" role="dialog" aria-labelledby="micTitle">
+    <svg data-icon="mic" class="mic-card__icon"></svg>
+    <h2 id="micTitle">Microfone</h2>
+    <p>Sem ele os outros não te ouvem. Dá para mutar a qualquer momento (tecla M).</p>
+    <button class="btn btn--primary btn--block" id="micRetry" type="button">Permitir microfone</button>
+    <button class="btn btn--block mic-card__skip" id="micSkip" type="button">Agora não</button>
+  </div>
+</div>
+
+<div id="seatModal" class="gate" hidden>
+  <div class="paper gate__card mic-card" role="dialog" aria-labelledby="seatTitle">
+    <h2 id="seatTitle">Quem é você?</h2>
+    <p id="seatMsg"></p>
+    <div class="seatpicks" id="seatChoices"></div>
+  </div>
+</div>
+
+<div id="kicked" class="gate" hidden>
+  <div class="paper gate__card mic-card" role="dialog">
+    <svg data-icon="door-open" class="mic-card__icon"></svg>
+    <h2>Você saiu da sala</h2>
+    <p id="kickedMsg">O admin te tirou da sala.</p>
+    <button class="btn btn--primary btn--block" type="button" onclick="location.reload()">Entrar de novo</button>
+  </div>
+</div>
+
+<header class="top">
+  <div class="top__brand">
+    <h1 class="brand" data-cfg="nome">Cineminha</h1>
+    <span class="top__sub" data-cfg="subtitulo"></span>
+  </div>
+  <img class="top__logo" data-cfg="logo" alt="" hidden>
+  <span id="netStatus" class="status"><i></i><b>Conectando…</b></span>
+</header>
+
+<div id="banner" class="banner" hidden><svg data-icon="megaphone"></svg><span id="bannerText"></span><button class="banner__x" id="bannerX" title="Remover aviso" hidden><svg data-icon="x"></svg></button></div>
+
+<main id="theater" class="theater">
+  <section class="stage">
+    <div id="sharer" class="live" hidden></div>
+    <div class="screen paper">
+      <div class="screen__inner" id="screenInner">
+        <div id="tiles" class="tiles"></div>
+        <div id="empty" class="empty">
+          <div class="empty__bg" aria-hidden="true"></div>
+          <div class="empty__box">
+            <h2>Ninguém transmitindo</h2>
+            <p>Transmita sua <b>tela</b> (com som da aba ou do PC) ou um <b>arquivo de vídeo</b> direto, com qualidade máxima.</p>
+            <button class="btn btn--primary" id="btnShare2" type="button"><svg data-icon="monitor-up"></svg>Transmitir</button>
+          </div>
+        </div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+        <div id="notes" class="notes" aria-live="polite"></div>
+        <div id="reacts" class="reacts" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="popwrap">
+        <button class="btn btn--primary" id="btnShare" aria-expanded="false"><svg data-icon="monitor-up"></svg><span>Transmitir</span></button>
+        <div class="pop sharemenu" id="shareMenu" hidden>
+          <button type="button" class="menuitem" id="shareScreen"><svg data-icon="monitor"></svg><span><b>Tela, janela ou aba</b><small>Para filme numa aba, jogo ou app</small></span></button>
+          <button type="button" class="menuitem" id="shareFile"><svg data-icon="film"></svg><span><b>Arquivo de vídeo</b><small>.mp4 / .mkv / .webm, qualidade máxima</small></span></button>
+          <input type="file" id="fileInput" accept="video/*,.mkv" hidden>
+          <label class="check"><input type="checkbox" id="gameMode"><span><b>Modo jogo</b><small>60 fps e o mínimo de atraso</small></span></label>
+          <label class="sel"><span><b>Som extra</b><small>Som do PC: escolha “Monitor of Cineminha · Filme”</small></span><select id="extraAudio"><option value="">Nenhum</option></select></label>
+        </div>
+      </div>
+      <label class="vol" title="Volume da transmissão (duplo clique volta a 100%)"><svg data-icon="volume-2"></svg><input id="vol" type="range" min="0" max="2" step="0.05" value="1" aria-label="Volume da transmissão"><output id="volOut">100%</output></label>
+      <label class="vol" title="Volume das vozes (clique num boneco para ajustar cada pessoa)"><svg data-icon="users"></svg><input id="vvol" type="range" min="0" max="2" step="0.05" value="1" aria-label="Volume das vozes"><output id="vvolOut">100%</output></label>
+      <button class="btn btn--icon btn--ghost" id="btnReload" title="Recarregar a transmissão (se travou)" hidden><svg data-icon="refresh-cw"></svg></button>
+      <button class="btn btn--ghost" id="btnPause" title="Pedir pausa para quem transmite (P)" hidden><svg data-icon="pause"></svg><span>Pausa aí</span></button>
+      <button class="btn btn--icon btn--ghost" id="btnSubs" title="Legendas" aria-pressed="true" hidden><svg data-icon="captions"></svg></button>
+      <span class="toolbar__grow"></span>
+      <div class="popwrap">
+        <button class="btn btn--icon btn--ghost" id="btnReact" title="Reações (R)" aria-expanded="false"><svg data-icon="smile-plus"></svg></button>
+        <div class="reactgrid" id="reactGrid" hidden></div>
+      </div>
+      <button class="btn btn--icon" id="btnMic" title="Microfone"><svg data-icon="mic"></svg></button>
+      <div class="popwrap">
+        <button class="btn btn--icon btn--ghost" id="btnSettings" title="Configurações" aria-expanded="false"><svg data-icon="settings"></svg></button>
+        <div class="pop settings" id="settings" hidden>
+          <h3>Sons</h3>
+          <label class="srow"><svg data-icon="bell"></svg><span>Avisos</span><input id="sfxVol" type="range" min="0" max="1" step="0.05"><output id="sfxOut"></output></label>
+          <h3>Voz</h3>
+          <div class="seg" role="radiogroup" aria-label="Modo de voz">
+            <label><input type="radio" name="vmode" value="open"><span>Microfone aberto</span></label>
+            <label><input type="radio" name="vmode" value="ptt"><span>Aperte para falar</span></label>
+          </div>
+          <label class="srow" id="pttRow"><svg data-icon="keyboard"></svg><span>Tecla</span><button type="button" class="btn btn--ghost keycap" id="pttKey">V</button></label>
+          <label class="srow"><svg data-icon="mic"></svg><select id="micDevice" aria-label="Microfone"><option value="">Microfone padrão</option></select></label>
+          <h3>Admin</h3>
+          <div id="admLogin" class="srow"><input id="admPw" type="password" placeholder="Senha de admin"><button type="button" class="btn btn--ghost" id="admGo">Entrar</button></div>
+          <div id="admTools" hidden>
+            <div class="srow"><input id="admMsg" maxlength="140" placeholder="Aviso fixo para todos"><button type="button" class="btn btn--ghost" id="admSend" title="Enviar aviso"><svg data-icon="megaphone"></svg></button></div>
+            <button type="button" class="btn btn--ghost btn--block" id="admClear"><svg data-icon="trash-2"></svg>Limpar o chat de todos</button>
+            <p class="hint">Para mutar, tirar alguém ou parar uma tela, clique no boneco da pessoa.</p>
+          </div>
+          <button type="button" class="btn btn--ghost btn--block" id="logout"><svg data-icon="log-out"></svg>Trocar de pessoa</button>
+        </div>
+      </div>
+      <button class="btn btn--icon" id="btnChat" title="Mostrar/ocultar chat (C)"><svg data-icon="message-square"></svg></button>
+      <button class="btn btn--icon" id="btnFs" title="Tela cheia (F)"><svg data-icon="maximize"></svg></button>
+    </div>
+
+    <div class="row"><div class="row__seats" id="seats"></div></div>
+  </section>
+
+  <aside class="chat paper" id="chat">
+    <header class="chat__head">
+      <h2>Chat</h2>
+      <span id="peerInfo"></span>
+    </header>
+    <ol class="chat__list" id="chatList"></ol>
+    <div class="gifs" id="gifs" hidden>
+      <div class="gifs__tabs" role="tablist">
+        <button type="button" class="gifs__tab" data-kind="gifs" aria-selected="true">GIFs</button>
+        <button type="button" class="gifs__tab" data-kind="stickers" aria-selected="false">Figurinhas</button>
+        <button type="button" class="gifs__close" id="gifClose" title="Fechar"><svg data-icon="x"></svg></button>
+      </div>
+      <label class="gifs__search"><svg data-icon="search"></svg><input id="gifQ" placeholder="Buscar no GIPHY" autocomplete="off"></label>
+      <div class="gifs__grid" id="gifGrid"></div>
+      <p class="gifs__by">Powered by GIPHY</p>
+    </div>
+    <form class="chat__form" id="chatForm">
+      <button class="btn btn--icon btn--ghost" type="button" id="btnGif" title="GIFs e figurinhas"><svg data-icon="sticker"></svg></button>
+      <input id="chatInput" maxlength="500" placeholder="Mensagem ou link de GIF" autocomplete="off">
+      <button class="btn btn--primary btn--icon" type="submit" title="Enviar"><svg data-icon="send"></svg></button>
+    </form>
+  </aside>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
