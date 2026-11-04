@@ -1,4 +1,69 @@
 {
+ "2026-10-06": [
+  {
+   "id": "billy-idol-eyes-without-a-face",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Eyes Without A Face",
+   "a": "Billy Idol",
+   "album": "Rebel Yell",
+   "ano": 1983,
+   "dz": {
+    "t": 353398321,
+    "a": 2111
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "rock",
+     "pop"
+    ],
+    "decada": 1980,
+    "vibes": [
+     "nostalgia",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 947449,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1980,
+   "tags_ok": true
+  }
+ ],
  "2026-10-07": [
   {
    "id": "tame-impala-borderline",
@@ -65,6 +130,265 @@
     "Alternativo"
    ],
    "pais": "AU",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "tv-girl-lovers-rock",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Lovers Rock",
+   "a": "TV Girl",
+   "album": "French Exit",
+   "ano": 2014,
+   "dz": {
+    "t": 1751426027,
+    "a": 1683410
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "indie",
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "romantica",
+     "viral"
+    ],
+    "fama": 4
+   },
+   "rank": 867480,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-kid-laroi-stay-with-justin-bieber",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "STAY",
+   "a": "The Kid Laroi",
+   "album": "STAY",
+   "ano": 2021,
+   "dz": {
+    "t": 1425844092,
+    "a": 51204222
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "AU",
+    "generos": [
+     "pop",
+     "trap"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "viral",
+     "festa",
+     "energia"
+    ],
+    "fama": 5
+   },
+   "rank": 943988,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Pop",
+    "Indie Pop/Folk"
+   ],
+   "pais": "AU",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "henrique-diego-raspao-feat-simone-simaria-ao-vivo",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Raspão (feat. Simone & Simaria) Ao Vivo",
+   "a": "Henrique & Diego",
+   "album": "De Braços Abertos (Ao Vivo)",
+   "ano": 2016,
+   "dz": {
+    "t": 144388354,
+    "a": 3029951
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "sertanejo"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "sofrencia",
+     "festa"
+    ],
+    "fama": 4
+   },
+   "rank": 674089,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-levin-ela-me-falou-que-quer-rave",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ela Me Falou Que Quer Rave",
+   "a": "MC Levin",
+   "album": "Ela Me Falou Que Quer Rave",
+   "ano": 2021,
+   "dz": {
+    "t": 3917469721,
+    "a": 49197872
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "funk-br",
+     "eletronica"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "festa",
+     "viral",
+     "energia"
+    ],
+    "fama": 4
+   },
+   "rank": 550649,
+   "generos": [],
+   "pais": "BR",
    "decada": 2020,
    "tags_ok": true
   }
@@ -25546,6 +25870,325 @@
     "Pop"
    ],
    "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "djavan-oceano",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Oceano",
+   "a": "Djavan",
+   "album": "Djavan",
+   "ano": 1989,
+   "dz": {
+    "t": 74617609,
+    "a": 14687
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "mpb"
+    ],
+    "decada": 1980,
+    "vibes": [
+     "romantica",
+     "nostalgia",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 709709,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "ze-vaqueiro-coladin-minha-deusa",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Coladin (Minha Deusa)",
+   "a": "Zé Vaqueiro",
+   "album": "Indícios",
+   "ano": 2022,
+   "dz": {
+    "t": 1970794597,
+    "a": 68221232
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "forro-axe",
+     "sertanejo"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "festa",
+     "romantica"
+    ],
+    "fama": 3
+   },
+   "rank": 753717,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "bruno-marrone-vidro-fume-ao-vivo",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Vidro Fumê Ao Vivo",
+   "a": "Bruno & Marrone",
+   "album": "Pela Porta da Frente",
+   "ano": 2012,
+   "dz": {
+    "t": 56892231,
+    "a": 15055
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "sertanejo"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "sofrencia",
+     "romantica"
+    ],
+    "fama": 3
+   },
+   "rank": 634464,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "IT",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "lil-nas-x-industry-baby-feat-jack-harlow",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "INDUSTRY BABY",
+   "a": "Lil Nas X",
+   "album": "INDUSTRY BABY",
+   "ano": 2021,
+   "dz": {
+    "t": 1439691952,
+    "a": 15166511
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rap",
+     "pop"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "festa",
+     "viral",
+     "energia"
+    ],
+    "fama": 4
+   },
+   "rank": 839649,
+   "generos": [
+    "Rap/Hip Hop",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-30": [
+  {
+   "id": "lady-gaga-bloody-mary",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Bloody Mary",
+   "a": "Lady Gaga",
+   "album": "Born This Way (International Special Edition Version)",
+   "ano": 2011,
+   "dz": {
+    "t": 11747937,
+    "a": 75491
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "disco-dance"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "viral",
+     "festa",
+     "energia"
+    ],
+    "fama": 4
+   },
+   "rank": 910447,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
    "decada": 2010,
    "tags_ok": true
   }
