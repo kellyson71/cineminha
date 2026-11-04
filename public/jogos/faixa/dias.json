@@ -1,4 +1,56 @@
 {
+ "2026-10-03": [
+  {
+   "id": "queen-don-t-stop-me-now",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Don't Stop Me Now",
+   "a": "Queen",
+   "album": "Jazz",
+   "ano": 1978,
+   "dz": {
+    "t": 4092329741,
+    "a": 412
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 942478,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1970,
+   "tags_ok": true
+  }
+ ],
  "2026-10-04": [
   {
    "id": "bruno-barretto-farra-pinga-e-foguete",
@@ -65,6 +117,210 @@
    ],
    "pais": "IT",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "alcione-voce-me-vira-a-cabeca-me-tira-do-serio",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Você Me Vira A Cabeça (Me Tira Do Sério)",
+   "a": "Alcione",
+   "album": "A Paixão Tem Memória",
+   "ano": 2006,
+   "dz": {
+    "t": 4670056,
+    "a": 15846
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "pagode-samba",
+     "mpb"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "sofrencia",
+     "hino",
+     "festa"
+    ],
+    "fama": 4
+   },
+   "rank": 645514,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "the-killers-mr-brightside",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Mr. Brightside",
+   "a": "The Killers",
+   "album": "Nu Rock",
+   "ano": 2003,
+   "dz": {
+    "t": 953097,
+    "a": 897
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 936416,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "nx-zero-razoes-e-emocoes",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Razões E Emoções",
+   "a": "NX Zero",
+   "album": "NX Zero",
+   "ano": 2006,
+   "dz": {
+    "t": 125972637,
+    "a": 1209354
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 647016,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "the-black-eyed-peas-i-gotta-feeling",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I Gotta Feeling",
+   "a": "Black Eyed Peas",
+   "album": "THE E.N.D. (THE ENERGY NEVER DIES) (Deluxe Version)",
+   "ano": 2009,
+   "dz": {
+    "t": 4619466,
+    "a": 1020109
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 928910,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
    "tags_ok": true
   }
  ],
@@ -27456,6 +27712,271 @@
    ],
    "pais": "SE",
    "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "marilia-mendonca-infiel",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Infiel (Ao Vivo)",
+   "a": "Marília Mendonça",
+   "album": "Marília Mendonça (Ao Vivo)",
+   "ano": 2015,
+   "dz": {
+    "t": 119849606,
+    "a": 7068771
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 726985,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "bruno-mars-locked-out-of-heaven",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Locked out of Heaven",
+   "a": "Bruno Mars",
+   "album": "Unorthodox Jukebox",
+   "ano": 2012,
+   "dz": {
+    "t": 62724015,
+    "a": 429675
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 963294,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "rihanna-umbrella",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Umbrella",
+   "a": "Rihanna",
+   "album": "Good Girl Gone Bad: Reloaded",
+   "ano": 2007,
+   "dz": {
+    "t": 925106,
+    "a": 564
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 958984,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "molejo-cilada",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cilada",
+   "a": "Molejo",
+   "album": "Disco de Platina",
+   "ano": 1996,
+   "dz": {
+    "t": 74224214,
+    "a": 281161
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 620407,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-02": [
+  {
+   "id": "exaltasamba-ta-vendo-aquela-lua",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tá Vendo Aquela Lua",
+   "a": "Exaltasamba",
+   "album": "25 Anos (Ao Vivo)",
+   "ano": 2010,
+   "dz": {
+    "t": 100327064,
+    "a": 243657
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 682215,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2010,
    "tags_ok": true
   }
  ]
