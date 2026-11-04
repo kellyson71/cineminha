@@ -1,4 +1,73 @@
 {
+ "2026-10-04": [
+  {
+   "id": "bruno-barretto-farra-pinga-e-foguete",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Farra, Pinga e Foguete",
+   "a": "Bruno & Barretto",
+   "album": "Farra, Pinga e Foguete",
+   "ano": 2015,
+   "dz": {
+    "t": 102162156,
+    "a": 8145492
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "sertanejo"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "festa",
+     "hino"
+    ],
+    "fama": 4
+   },
+   "rank": 540015,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "IT",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-10-05": [
   {
    "id": "ricky-martin-livin-la-vida-loca",
@@ -62,6 +131,251 @@
    ],
    "pais": "PR",
    "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "nenhum-de-nos-o-astronauta-de-marmore-starman",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "O Astronauta de Mármore (Starman)",
+   "a": "Nenhum De Nós",
+   "album": "Cardume",
+   "ano": 1987,
+   "dz": {
+    "t": 142337041,
+    "a": 114140
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "rock-nacional",
+     "mpb"
+    ],
+    "decada": 1980,
+    "vibes": [
+     "nostalgia",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 696429,
+   "generos": [],
+   "pais": null,
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "timbaland-give-it-to-me",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Give It To Me",
+   "a": "Timbaland",
+   "album": "Shock Value",
+   "ano": 2007,
+   "dz": {
+    "t": 4685512,
+    "a": 9662
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "rnb-soul"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "festa",
+     "hino",
+     "nostalgia"
+    ],
+    "fama": 4
+   },
+   "rank": 802754,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "djavan-flor-de-lis",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Flor de Lis Ao Vivo",
+   "a": "Djavan",
+   "album": "Djavan",
+   "ano": 1999,
+   "dz": {
+    "t": 74636764,
+    "a": 14687
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "mpb",
+     "jazz-blues"
+    ],
+    "decada": 1970,
+    "vibes": [
+     "nostalgia",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 568377,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "tom-odell-another-love",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Another Love",
+   "a": "Tom Odell",
+   "album": "Long Way Down (Deluxe)",
+   "ano": 2012,
+   "dz": {
+    "t": 65723649,
+    "a": 4044787
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "pop",
+     "indie"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "triste",
+     "hino",
+     "romantica"
+    ],
+    "fama": 4
+   },
+   "rank": 992716,
+   "generos": [
+    "Pop",
+    "Pop internacional",
+    "Rock",
+    "Singer & Songwriter"
+   ],
+   "pais": "GB",
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -26823,6 +27137,325 @@
    ],
    "pais": "BR",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "ice-cube-you-know-how-we-do-it",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "You Know How We Do It",
+   "a": "Ice Cube",
+   "album": "Greatest Hits",
+   "ano": 1993,
+   "dz": {
+    "t": 3099875,
+    "a": 2353
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rap"
+    ],
+    "decada": 1990,
+    "vibes": [
+     "chill"
+    ],
+    "fama": 3
+   },
+   "rank": 772654,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "lana-del-rey-salvatore",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Salvatore",
+   "a": "Lana Del Rey",
+   "album": "Honeymoon",
+   "ano": 2015,
+   "dz": {
+    "t": 107394244,
+    "a": 1424821
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "indie"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "chill",
+     "romantica"
+    ],
+    "fama": 3
+   },
+   "rank": 872618,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "alcione-a-loba",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "A Loba",
+   "a": "Alcione",
+   "album": "A Paixão Tem Memória",
+   "ano": 1997,
+   "dz": {
+    "t": 4670062,
+    "a": 15846
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "pagode-samba",
+     "mpb"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "sofrencia",
+     "festa",
+     "hino"
+    ],
+    "fama": 4
+   },
+   "rank": 649341,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "eyedress-jealous",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Jealous",
+   "a": "Eyedress",
+   "album": "Jealous",
+   "ano": 2019,
+   "dz": {
+    "t": 3482970601,
+    "a": 5272195
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "PH",
+    "generos": [
+     "indie",
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "triste",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 746313,
+   "generos": [
+    "Alternativo",
+    "Indie Rock",
+    "Rock"
+   ],
+   "pais": "PH",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-01": [
+  {
+   "id": "abba-dancing-queen",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dancing Queen",
+   "a": "ABBA",
+   "album": "ABBA Gold",
+   "ano": 1986,
+   "dz": {
+    "t": 884025,
+    "a": 180
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "SE",
+    "generos": [
+     "disco-dance",
+     "pop"
+    ],
+    "decada": 1970,
+    "vibes": [
+     "festa",
+     "nostalgia",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 941096,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "SE",
+   "decada": 1980,
    "tags_ok": true
   }
  ]
