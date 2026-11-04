@@ -47,6 +47,107 @@
    "pais": "BR",
    "decada": 2010,
    "tags_ok": true
+  },
+  {
+   "id": "the-immortals-techno-syndrome",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Techno Syndrome (Mortal Kombat)",
+   "a": "The Immortals",
+   "album": "Mortal Kombat: The Album",
+   "ano": 1998,
+   "dz": {
+    "t": 441426162,
+    "a": 10484
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 551043,
+   "generos": [
+    "Electro"
+   ],
+   "pais": "BE",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "survivor-eye-of-the-tiger",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Eye of the Tiger",
+   "a": "Survivor",
+   "album": "Rocky IV",
+   "ano": 1990,
+   "dz": {
+    "t": 576431,
+    "a": 39
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 898987,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true
   }
  ],
  "2026-09-29": [
@@ -30475,6 +30576,156 @@
    ],
    "pais": "BR",
    "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "cpm-22-dias-atras",
+   "n": 1,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dias Atrás",
+   "a": "CPM 22",
+   "album": "CPM22 - 20 Anos",
+   "ano": 2002,
+   "dz": {
+    "t": 106297606,
+    "a": 13544
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 682650,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "foster-the-people-pumped-up-kicks",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Pumped Up Kicks",
+   "a": "Foster the People",
+   "album": "Torches",
+   "ano": 2010,
+   "dz": {
+    "t": 15546830,
+    "a": 417037
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 896811,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "avril-lavigne-complicated",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Complicated",
+   "a": "Avril Lavigne",
+   "album": "Let Go",
+   "ano": 2002,
+   "dz": {
+    "t": 15587465,
+    "a": 35
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 871298,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2000,
    "tags_ok": true
   }
  ]
