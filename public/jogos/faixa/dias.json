@@ -2049,6 +2049,336 @@
    "tags_ok": true
   }
  ],
+ "2026-10-17": [
+  {
+   "id": "mother-mother-burning-pile",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Burning Pile",
+   "a": "Mother Mother",
+   "album": "O My Heart",
+   "ano": 2008,
+   "dz": {
+    "t": 123465360,
+    "a": 380362
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "CA",
+    "generos": [
+     "indie",
+     "rock"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "viral",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 617184,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "CA",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "chico-buarque-joao-e-maria",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Joao e maria - Joao and Maria",
+   "a": "Chico Buarque",
+   "album": "Umas E Outras",
+   "ano": 1990,
+   "dz": {
+    "t": 77645148,
+    "a": 3543
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "mpb"
+    ],
+    "decada": 1970,
+    "vibes": [
+     "romantica",
+     "nostalgia",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 604581,
+   "generos": [
+    "MPB"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "tom-odell-black-friday",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Black Friday",
+   "a": "Tom Odell",
+   "album": "Black Friday",
+   "ano": 2023,
+   "dz": {
+    "t": 2425782965,
+    "a": 4044787
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "pop",
+     "indie"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "triste",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 739270,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "GB",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "maroon-5-moves-like-jagger-studio-recording-from-the-voice-p",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Moves Like Jagger (Studio Recording From \"The Voice\" Performance)",
+   "a": "Maroon 5",
+   "album": "Hands All Over (Revised International Deluxe)",
+   "ano": 2011,
+   "dz": {
+    "t": 12724819,
+    "a": 1188
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "disco-dance"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "festa",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 949565,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jain-makeba",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Makeba",
+   "a": "Jain",
+   "album": "Zanaka",
+   "ano": 2015,
+   "dz": {
+    "t": 109176426,
+    "a": 5951582
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "FR",
+    "generos": [
+     "pop",
+     "disco-dance"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "festa",
+     "viral",
+     "energia"
+    ],
+    "fama": 4
+   },
+   "rank": 849637,
+   "generos": [
+    "Pop",
+    "Pop internacional",
+    "Rock"
+   ],
+   "pais": "FR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-10-18": [
   {
    "id": "joji-glimpse-of-us",
@@ -23582,6 +23912,327 @@
    ],
    "pais": null,
    "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "tyler-new-magic-wand",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "NEW MAGIC WAND",
+   "a": "Tyler, The Creator",
+   "album": "IGOR",
+   "ano": 2019,
+   "dz": {
+    "t": 681009692,
+    "a": 1194083
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rap"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "energia",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 659445,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "madcon-don-t-worry-with-ray-dalton-radio-edit",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Don't Worry (with Ray Dalton) (Radio Edit)",
+   "a": "Madcon",
+   "album": "Don't Worry (feat. Ray Dalton)",
+   "ano": 2015,
+   "dz": {
+    "t": 97094250,
+    "a": 74787
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "NO",
+    "generos": [
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "festa",
+     "nostalgia"
+    ],
+    "fama": 3
+   },
+   "rank": 900064,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "NO",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "joji-gimme-love",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Gimme Love",
+   "a": "Joji",
+   "album": "Nectar",
+   "ano": 2020,
+   "dz": {
+    "t": 2613280942,
+    "a": 5078097
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "JP",
+    "generos": [
+     "pop",
+     "eletronica"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "triste",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 645944,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "steve-lacy-dark-red",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dark Red",
+   "a": "Steve Lacy",
+   "album": "Steve Lacy's Demo",
+   "ano": 2017,
+   "dz": {
+    "t": 1860754817,
+    "a": 65574
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "indie",
+     "rnb-soul"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "viral",
+     "romantica",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 878688,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-27": [
+  {
+   "id": "charlie-brown-jr-ceu-azul-ao-vivo",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Céu Azul",
+   "a": "Charlie Brown Jr.",
+   "album": "Música Popular Caiçara, Vol. 2 (Ao Vivo)",
+   "ano": 2012,
+   "dz": {
+    "t": 1509938122,
+    "a": 8691
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "rock-nacional"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "nostalgia",
+     "romantica",
+     "chill"
+    ],
+    "fama": 5
+   },
+   "rank": 756902,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "BR",
+   "decada": 2010,
    "tags_ok": true
   }
  ]
