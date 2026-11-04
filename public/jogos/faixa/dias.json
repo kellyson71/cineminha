@@ -1,4 +1,70 @@
 {
+ "2026-10-05": [
+  {
+   "id": "ricky-martin-livin-la-vida-loca",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Livin' la Vida Loca",
+   "a": "Ricky Martin",
+   "album": "Ricky Martin",
+   "ano": 1999,
+   "dz": {
+    "t": 13704591,
+    "a": 2789
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "PR",
+    "generos": [
+     "latina",
+     "pop"
+    ],
+    "decada": 1990,
+    "vibes": [
+     "festa",
+     "energia",
+     "nostalgia"
+    ],
+    "fama": 4
+   },
+   "rank": 713429,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "PR",
+   "decada": 1990,
+   "tags_ok": true
+  }
+ ],
  "2026-10-06": [
   {
    "id": "billy-idol-eyes-without-a-face",
@@ -61,6 +127,246 @@
    ],
    "pais": "GB",
    "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "spice-girls-wannabe",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Wannabe",
+   "a": "Spice Girls",
+   "album": "Spice",
+   "ano": 1996,
+   "dz": {
+    "t": 3133738,
+    "a": 785
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "pop"
+    ],
+    "decada": 1990,
+    "vibes": [
+     "festa",
+     "nostalgia",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 956057,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "the-notorious-b-i-g-big-poppa-2007-remaster",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Big Poppa (2007 Remaster)",
+   "a": "The Notorious B.I.G.",
+   "album": "Greatest Hits",
+   "ano": 1994,
+   "dz": {
+    "t": 3616650,
+    "a": 2519
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rap"
+    ],
+    "decada": 1990,
+    "vibes": [
+     "nostalgia",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 802294,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "mother-mother-verbatim",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Verbatim",
+   "a": "Mother Mother",
+   "album": "Touch Up",
+   "ano": 2007,
+   "dz": {
+    "t": 123465546,
+    "a": 380362
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "CA",
+    "generos": [
+     "indie",
+     "rock"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "viral",
+     "emo"
+    ],
+    "fama": 3
+   },
+   "rank": 648253,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "CA",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "skillet-feel-invincible",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Feel Invincible",
+   "a": "Skillet",
+   "album": "Unleashed",
+   "ano": 2016,
+   "dz": {
+    "t": 129345066,
+    "a": 9315
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rock",
+     "metal"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 716065,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -26189,6 +26495,333 @@
     "Pop"
    ],
    "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "tv-girl-blue-hair",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Blue Hair",
+   "a": "TV Girl",
+   "album": "Death of a Party Girl",
+   "ano": 2018,
+   "dz": {
+    "t": 1751423727,
+    "a": 1683410
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "indie",
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "triste",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 814441,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-living-tombstone-my-ordinary-life",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "My Ordinary Life",
+   "a": "The Living Tombstone",
+   "album": "My Ordinary Life",
+   "ano": 2017,
+   "dz": {
+    "t": 434224272,
+    "a": 4845061
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "indie",
+     "eletronica"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "viral",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 761700,
+   "generos": [
+    "Electro",
+    "Dance"
+   ],
+   "pais": "IL",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "don-toliver-tore-up",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "TORE UP",
+   "a": "Don Toliver",
+   "album": "HARDSTONE PSYCHO",
+   "ano": 2024,
+   "dz": {
+    "t": 2845944302,
+    "a": 13631667
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "trap",
+     "rap"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "festa",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 740311,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "alceu-valenca-flor-de-tangerina",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Flor de Tangerina",
+   "a": "Alceu Valença",
+   "album": "Flor de Tangerina",
+   "ano": 2002,
+   "dz": {
+    "t": 122319426,
+    "a": 110746
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "mpb",
+     "forro-axe"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "festa",
+     "romantica"
+    ],
+    "fama": 3
+   },
+   "rank": 595591,
+   "generos": [
+    "MPB"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-31": [
+  {
+   "id": "grupo-revelacao-o-queiroz-live-at-hsbc-arena-rio-de-janeiro-",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ô Queiroz (Live At HSBC Arena/Rio de Janeiro RJ -Brazil/2012)",
+   "a": "Grupo Revelação",
+   "album": "360º Ao Vivo",
+   "ano": 2012,
+   "dz": {
+    "t": 61085566,
+    "a": 16893
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "pagode-samba"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "festa",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 564065,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": "BR",
    "decada": 2010,
    "tags_ok": true
   }
