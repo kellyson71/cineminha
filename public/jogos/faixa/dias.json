@@ -2049,6 +2049,327 @@
    "tags_ok": true
   }
  ],
+ "2026-10-18": [
+  {
+   "id": "joji-glimpse-of-us",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Glimpse of Us",
+   "a": "Joji",
+   "album": "SMITHEREENS",
+   "ano": 2022,
+   "dz": {
+    "t": 3065110361,
+    "a": 5078097
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "JP",
+    "generos": [
+     "pop",
+     "rnb-soul"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "triste",
+     "viral",
+     "romantica"
+    ],
+    "fama": 4
+   },
+   "rank": 801482,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "jamiroquai-canned-heat",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Canned Heat (Remastered 2006)",
+   "a": "Jamiroquai",
+   "album": "High Times: Singles 1992-2006",
+   "ano": 1984,
+   "dz": {
+    "t": 1884719687,
+    "a": 7
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "disco-dance",
+     "pop"
+    ],
+    "decada": 1990,
+    "vibes": [
+     "festa",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 677105,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "ace-of-base-all-that-she-wants",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "All That She Wants",
+   "a": "Ace of Base",
+   "album": "Happy Nation (U.S. Version) (Remastered)",
+   "ano": 1992,
+   "dz": {
+    "t": 94676692,
+    "a": 474
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "SE",
+    "generos": [
+     "pop",
+     "disco-dance"
+    ],
+    "decada": 1990,
+    "vibes": [
+     "nostalgia",
+     "festa"
+    ],
+    "fama": 4
+   },
+   "rank": 841076,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "SE",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "pharrell-williams-happy-from-despicable-me-2",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Happy (From \"Despicable Me 2\")",
+   "a": "Pharrell Williams",
+   "album": "G I R L",
+   "ano": 2013,
+   "dz": {
+    "t": 701326562,
+    "a": 103
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "rnb-soul"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "festa",
+     "viral",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 923864,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "almir-sater-tocando-em-frente",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tocando Em Frente",
+   "a": "Almir Sater",
+   "album": "Além do Tempo",
+   "ano": 2015,
+   "dz": {
+    "t": 106055266,
+    "a": 13839
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "sertanejo",
+     "folk-country"
+    ],
+    "decada": 1990,
+    "vibes": [
+     "hino",
+     "nostalgia",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 533078,
+   "generos": [
+    "Trilhas de filmes",
+    "Trilhas sonoras de TV"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-10-19": [
   {
    "id": "neil-diamond-sweet-caroline",
@@ -2112,6 +2433,261 @@
    ],
    "pais": "US",
    "decada": 1970,
+   "tags_ok": true
+  },
+  {
+   "id": "victor-leo-borboletas",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Borboletas",
+   "a": "Victor & Leo",
+   "album": "Borboletas",
+   "ano": 2008,
+   "dz": {
+    "t": 13245343,
+    "a": 320206
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "sertanejo"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "romantica",
+     "nostalgia",
+     "sofrencia"
+    ],
+    "fama": 5
+   },
+   "rank": 733518,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "doja-cat-paint-the-town-red",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Paint The Town Red",
+   "a": "Doja Cat",
+   "album": "Paint The Town Red",
+   "ano": 2023,
+   "dz": {
+    "t": 2387373015,
+    "a": 5578942
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "rap"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "festa",
+     "viral"
+    ],
+    "fama": 4
+   },
+   "rank": 916724,
+   "generos": [
+    "Rap/Hip Hop",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "the-smiths-there-is-a-light-that-never-goes-out-2011-remaste",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "There Is a Light That Never Goes Out (2011 Remaster)",
+   "a": "The Smiths",
+   "album": "The Queen Is Dead",
+   "ano": 1986,
+   "dz": {
+    "t": 13785973,
+    "a": 1297
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "rock",
+     "indie"
+    ],
+    "decada": 1980,
+    "vibes": [
+     "nostalgia",
+     "emo"
+    ],
+    "fama": 4
+   },
+   "rank": 568434,
+   "generos": [
+    "Alternativo",
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "alan-silvestri-the-avengers",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Avengers",
+   "a": "Alan Silvestri",
+   "album": "The Avengers (Original Motion Picture Soundtrack)",
+   "ano": 2012,
+   "dz": {
+    "t": 17840804,
+    "a": 791
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "trilha",
+     "classica"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "hino",
+     "energia"
+    ],
+    "fama": 4
+   },
+   "rank": 676584,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "US",
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -22351,6 +22927,661 @@
    ],
    "pais": "GB",
    "decada": 1970,
+   "tags_ok": true
+  },
+  {
+   "id": "jungle-back-on-74",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Back On 74",
+   "a": "Jungle",
+   "album": "Volcano",
+   "ano": 2023,
+   "dz": {
+    "t": 2181330357,
+    "a": 436163
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "disco-dance",
+     "rnb-soul"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "chill",
+     "festa",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 842784,
+   "generos": [
+    "Electro",
+    "Dance",
+    "Disco"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "hans-zimmer-cornfield-chase",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cornfield Chase",
+   "a": "Hans Zimmer",
+   "album": "Interstellar (Original Motion Picture Soundtrack) (Expanded Edition)",
+   "ano": 2014,
+   "dz": {
+    "t": 1137370842,
+    "a": 1935
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    }
+   ],
+   "tg": {
+    "pais": "DE",
+    "generos": [
+     "trilha",
+     "classica"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "hino",
+     "chill",
+     "triste"
+    ],
+    "fama": 4
+   },
+   "rank": 870201,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-pedrinho-gol-bolinha-gol-quadrado-2",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Gol Bolinha, Gol Quadrado 2",
+   "a": "Mc Pedrinho",
+   "album": "Gol Bolinha, Gol Quadrado 2",
+   "ano": 2023,
+   "dz": {
+    "t": 2302853825,
+    "a": 5895822
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "funk-br"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "festa",
+     "viral"
+    ],
+    "fama": 3
+   },
+   "rank": 565014,
+   "generos": [],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "chico-buarque-cotidiano",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cotidiano",
+   "a": "Chico Buarque",
+   "album": "Construção",
+   "ano": 1971,
+   "dz": {
+    "t": 2237166,
+    "a": 3543
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "mpb"
+    ],
+    "decada": 1970,
+    "vibes": [
+     "nostalgia",
+     "chill"
+    ],
+    "fama": 3
+   },
+   "rank": 603936,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1970,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-25": [
+  {
+   "id": "laufey-from-the-start",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "From The Start",
+   "a": "Laufey",
+   "album": "From The Start",
+   "ano": 2023,
+   "dz": {
+    "t": 2238153377,
+    "a": 12369444
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "IS",
+    "generos": [
+     "jazz-blues",
+     "pop"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "romantica",
+     "viral",
+     "chill"
+    ],
+    "fama": 4
+   },
+   "rank": 848444,
+   "generos": [
+    "Jazz"
+   ],
+   "pais": "IS",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "sam-smith-unholy-feat-kim-petras",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Unholy",
+   "a": "Sam Smith",
+   "album": "Unholy",
+   "ano": 2022,
+   "dz": {
+    "t": 1905751117,
+    "a": 1097709
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "pop"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "viral",
+     "festa"
+    ],
+    "fama": 4
+   },
+   "rank": 987649,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-kevin-o-chris-evoluiu",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Evoluiu",
+   "a": "MC Kevin o Chris",
+   "album": "Evoluiu",
+   "ano": 2019,
+   "dz": {
+    "t": 647902822,
+    "a": 50258612
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "funk-br"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "festa",
+     "energia",
+     "viral"
+    ],
+    "fama": 5
+   },
+   "rank": 599543,
+   "generos": [
+    "Soul & Funk"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "linkin-park-heavy-is-the-crown",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Heavy Is the Crown",
+   "a": "Linkin Park",
+   "album": "From Zero",
+   "ano": 2024,
+   "dz": {
+    "t": 3068802281,
+    "a": 92
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rock",
+     "metal"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "energia",
+     "hino"
+    ],
+    "fama": 3
+   },
+   "rank": 897930,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "bon-jovi-it-s-my-life",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "It's My Life",
+   "a": "Bon Jovi",
+   "album": "Bon Jovi Greatest Hits - The Ultimate Collection (Deluxe)",
+   "ano": 2000,
+   "dz": {
+    "t": 577487252,
+    "a": 637
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "rock"
+    ],
+    "decada": 2000,
+    "vibes": [
+     "hino",
+     "energia",
+     "nostalgia"
+    ],
+    "fama": 5
+   },
+   "rank": 876758,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
+ "2026-12-26": [
+  {
+   "id": "nattan-americana-na-vaquejada",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Americana Na Vaquejada",
+   "a": "NATTAN",
+   "album": "Americana Na Vaquejada",
+   "ano": 2022,
+   "dz": {
+    "t": 2201833927,
+    "a": 13097199
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "forro-axe"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "festa",
+     "energia"
+    ],
+    "fama": 3
+   },
+   "rank": 616398,
+   "generos": [
+    "Axé/Forró",
+    "Sertanejo"
+   ],
+   "pais": null,
+   "decada": 2020,
    "tags_ok": true
   }
  ]
