@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from 'node:crypto'
 import { redis, json, readBody } from './_redis.js'
-import { novaConta } from './conta.js'
+import { novaConta, poeCookie } from './conta.js'
 import cfg from '../public/config.js'
 
 // Convites (ingressos): qualquer pessoa da sala cria um link /nome-do-filme com quem pode entrar.
@@ -73,6 +73,7 @@ export default async function handler(req, res) {
       try {
         const nome = (cfg.pessoas || []).find(x => x.id === d.key)?.nome || d.key
         const token = await novaConta(d.key, nome, conv.pw)
+        poeCookie(res, token)
         return json(res, 200, { convite: publico(conv), conta: { token, key: d.key, nome, pw: conv.pw } })
       } catch (e) { await redis('DEL', lockKey); throw e }
     }

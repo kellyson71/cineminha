@@ -126,4 +126,4 @@
 }
 
 /* fora da tela cheia, as poltronas ficam por cima do canto de baixo: respiro para o ingresso de números */
-.theater:not(:fullscreen) .faixa .fx-lobby { padding-bottom: clamp(56px, 7.5vw, 78px); }
+.theater:not(:fullscreen, .palco) .faixa .fx-lobby { padding-bottom: clamp(56px, 7.5vw, 78px); }

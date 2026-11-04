@@ -72,12 +72,12 @@ export function criaDescarte(ctx) {
   const idx = k => G.js.findIndex(j => j.key === k)
   const depois = (i, passos) => ((i + passos * G.dir) % G.js.length + G.js.length) % G.js.length
 
-  function abrir() {
+  function abrir(chamados) {
     const op = ls.get('dc.op') || {}
     const pl = ls.get('dc.placar')
     G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, fase: 'convite',
       op: { ...Object.fromEntries(OPCOES.map(([k]) => [k, DESLIGADAS.includes(k) ? op[k] === true : op[k] !== false])), tempo: TEMPOS.includes(op.tempo) ? op.tempo : 0 },
-      conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key ? 'sim' : '?'])),
+      conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
       js: [], monte: [], descarte: [], cor: null, dir: 1, vez: 0, pend: 0, pendTipo: null, compradas: 0, sil: null,
       placar: pl && Date.now() - pl.t < 10 * 3600e3 ? pl.p : {}, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
     sysMsg(`${me.name} abriu uma mesa de Uno`)
@@ -266,6 +266,7 @@ export function criaDescarte(ctx) {
     if (!G || !key || d.id !== G.id) return
     switch (d.op) {
       case 'resp': if (G.fase === 'convite') { G.conv[key] = d.sim ? 'sim' : 'nao'; difunde() } break
+      case 'sai': if (key !== G.host) remove(key); break // saiu para outra mesa
       case 'joga': jogar(key, d); break
       case 'compra': comprar(key); break
       case 'passa': passar(key); break
@@ -814,15 +815,20 @@ export function criaDescarte(ctx) {
   })
   tela.addEventListener('pointerleave', () => { dica.hidden = true })
 
-  function iniciar() {
+  function iniciar(chamados) {
     carregaSons()
     if (V && !souHost()) return toast(`Já tem uma mesa de Uno aberta (de ${V.hostNome})`)
     if (G) return toast('A mesa já está aberta')
-    abrir()
+    abrir(chamados)
   }
   window.__descarte = () => ({ G, V, render, difunde })
   return {
     got: (d, k) => { carregaSons(); got(d, k) }, iniciar, ativo: () => !!V,
+    // para o app: troca de jogo e mesas paralelas
+    lider: () => !!V && souHost(),
+    encerra: () => { if (G && G.host === me.key) encerrar() },
+    sair: () => { if (!V) return; if (G && G.host === me.key) return encerrar(); manda({ op: 'sai' }); dispensado = V.id; aplica(null) },
+    jogadores: () => !V ? [] : V.fase === 'convite' || !V.js?.length ? Object.keys(V.conv || {}).filter(k => V.conv[k] === 'sim') : V.js.filter(j => !j.fora).map(j => j.key),
     entrouAlguem: key => { if (!G || G.host !== me.key) return; if (G.fase === 'convite' && !(key in G.conv)) { G.conv[key] = '?'; return difunde() } ctx.sendTo(key, { dc: { v: vista(key) } }) },
   }
 }

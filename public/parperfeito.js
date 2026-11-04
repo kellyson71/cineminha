@@ -52,12 +52,12 @@ export function criaParPerfeito(ctx) {
     }
     return out
   }
-  function abrir() {
+  function abrir(chamados) {
     const op = ls.get('pp.op') || {}
     const pl = ls.get('pp.placar')
     G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, fase: 'convite',
       op: { fim: op.fim === 'pontos' ? 'pontos' : 'voltas', alvo: 7 },
-      conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key ? 'sim' : '?'])),
+      conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
       js: [], solt: 0, rodada: 0, perfis: {}, vencRodada: null, vencedor: null,
       dq: [], dd: [], descQ: [], descD: [], placar: pl && Date.now() - pl.t < 10 * 3600e3 ? pl.p : {},
       log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
@@ -177,6 +177,7 @@ export function criaParPerfeito(ctx) {
     if (!G || !key || d.id !== G.id) return
     switch (d.op) {
       case 'resp': if (G.fase === 'convite') { G.conv[key] = d.sim ? 'sim' : 'nao'; difunde() } break
+      case 'sai': if (key !== G.host) remove(key); break // saiu para outra mesa
       case 'q': poeQualidades(key, d); break
       case 'd': poeDefeito(key, d); break
       case 'escolhe': escolhe(key, d.alvo); break
@@ -519,15 +520,20 @@ export function criaParPerfeito(ctx) {
     setTimeout(loop, 1000)
   })()
 
-  function iniciar() {
+  function iniciar(chamados) {
     carregaSons()
     if (V && !souHost()) return toast(`Já tem uma mesa aberta (de ${V.hostNome})`)
     if (G) return toast('A mesa já está aberta')
-    abrir()
+    abrir(chamados)
   }
   window.__pp = () => ({ G, V, difunde })
   return {
     got: (d, k) => { carregaSons(); got(d, k) }, iniciar, ativo: () => !!V,
+    // para o app: troca de jogo e mesas paralelas
+    lider: () => !!V && souHost(),
+    encerra: () => { if (G && G.host === me.key) encerrar() },
+    sair: () => { if (!V) return; if (G && G.host === me.key) return encerrar(); manda({ op: 'sai' }); dispensado = V.id; aplica(null) },
+    jogadores: () => !V ? [] : V.fase === 'convite' || !V.js?.length ? Object.keys(V.conv || {}).filter(k => V.conv[k] === 'sim') : V.js.filter(j => !j.fora).map(j => j.key),
     entrouAlguem: key => { if (!G || G.host !== me.key) return; if (G.fase === 'convite' && !(key in G.conv)) { G.conv[key] = '?'; return difunde() } ctx.sendTo(key, { pp: { v: vista(key) } }) },
   }
 }

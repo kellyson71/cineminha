@@ -4,7 +4,11 @@
 // clicando no monte; quem passa a vez sem repor fica com o guarda-chuva esquecido (-1 ponto na rodada).
 // Mesma arquitetura dos outros jogos: o host guarda tudo e manda para cada um só o que pode ver ({ db: ... }).
 
+import { criaAula } from './aula.js'
+import { passosDobradinha } from './dobradinha-aula.js'
+
 const SOM = n => `jogos/coup/sons/${n}.mp3`
+const CAPA = 'jogos/dobradinha/capa.webp', MARCA = 'jogos/dobradinha/marca.webp'
 const SONS = ['embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'leque', 'carimbo', 'papel', 'vez', 'clique', 'tique', 'pular', 'inverter', 'moedas', 'golpe']
 const VOL = { embaralhar: .5, carimbo: .6, papel: .45, vez: .5, clique: .3, tique: .28, pular: .6, inverter: .6, moedas: .5, golpe: .45, leque: .7 }
 const SAIU_MS = 12000, HOST_MS = 10000, MIN_JOG = 2, MAX_JOG = 6
@@ -77,11 +81,11 @@ export function criaDobradinha(ctx) {
   const maoMax = () => G.js.length >= 6 ? 5 : 6
   const nMesa = () => G.mesa.reduce((s, p) => s + p.cartas.length, 0)
 
-  function abrir() {
+  function abrir(chamados) {
     const op = ls.get('db.op') || {}
     G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, fase: 'convite',
       op: { rodadas: RODADAS.some(([v]) => v === op.rodadas) ? op.rodadas : 3 },
-      conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key ? 'sim' : '?'])),
+      conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
       js: [], monte: [], fora: [], mesa: [], valor: 0, dir: 1, vez: 0, etapa: 'joga', esq: null, rodada: 0, nRodadas: 3,
       resumo: null, vencedores: [], ultFim: null, prazo: 0, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
     sysMsg(`${me.name} abriu uma mesa de Dobradinha`)
@@ -212,6 +216,7 @@ export function criaDobradinha(ctx) {
     if (!G || !key || d.id !== G.id) return
     switch (d.op) {
       case 'resp': if (G.fase === 'convite') { G.conv[key] = d.sim ? 'sim' : 'nao'; difunde() } break
+      case 'sai': if (key !== G.host) remove(key); break // saiu para outra mesa
       case 'joga': jogar(key, d); break
       case 'pega': pegar(key); break
       case 'compra': comprar(key); break
@@ -417,6 +422,24 @@ export function criaDobradinha(ctx) {
   const pos = (ang, rx, ry) => ({ x: 50 + rx * Math.cos(ang * Math.PI / 180), y: 50 + ry * Math.sin(ang * Math.PI / 180) })
 
   /* ---------- render ---------- */
+  /* ---------- aula: tutorial em passos (na página inicial e no botão Como jogar) ---------- */
+  let aula = null, aulaDois = null, aulaAberta = false
+  function pegaAula() {
+    const dois = V?.fase !== 'convite' && V?.js?.length === 2
+    if (!aula || aulaDois !== dois) {
+      aula?.para(); aulaDois = dois
+      aula = criaAula({ el, icon, hydrate: ctx.hydrate, som: (n, at, v) => som(n, at, v), cls: 'dba', passos: passosDobradinha({ el, carta, svg, guarda, dois }) })
+    }
+    return aula
+  }
+  function aulaModal() {
+    if (!aulaAberta || V.fase === 'convite') return ''
+    const fecha = () => { aulaAberta = false; aula?.para(); render() }
+    const m = el('div', { className: 'db-aulamodal' }, pegaAula().raiz, botao(icon('x'), fecha, 'db-btn--ic db-aulamodal__x', 'Fechar'))
+    m.addEventListener('click', e => { if (e.target === m) fecha() })
+    return m
+  }
+
   function render(antes) {
     tela.classList.toggle('db--on', !!V)
     ctx.onAtivo?.(!!V)
@@ -428,20 +451,24 @@ export function criaDobradinha(ctx) {
     const plano = el('div', { className: 'db-plano' }, el('div', { className: 'db-lata' }), conv ? '' : centro())
     lugares.forEach((x, n) => plano.append(...assento(x, angs[n])))
     const topoBar = el('header', { className: 'db-topo' },
-      el('span', { className: 'db-logo' }, 'Dobradinha'),
+      el('img', { className: 'db-logo', src: MARCA, alt: 'Dobradinha', draggable: false }),
       !conv && V.rodada ? el('span', { className: 'db-rodada', textContent: `rodada ${V.rodada} de ${V.nRodadas}` }) : '',
       el('span', { className: 'db-grow' }),
+      conv ? '' : botao(icon('lightbulb'), () => { aulaAberta = !aulaAberta; if (aulaAberta) pegaAula().reinicia(); else aula?.para(); render() }, 'db-btn--ic' + (aulaAberta ? ' on' : ''), 'Como jogar'),
       botao(icon('list-music'), () => tela.querySelector('.db-log')?.classList.toggle('aberto'), 'db-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'db-btn--ic', 'Fechar a mesa para todos')
         : botao(icon('x'), () => { dispensado = V.id; aplica(null) }, 'db-btn--ic', 'Sair da mesa (só para você)'))
     const kids = [el('div', { className: 'db-azulejos' }), el('div', { className: 'db-palco' }, plano), topoBar, status(), cola(), minhaArea(antes), controles(), meio(), bilhete(),
       el('div', { className: 'db-log' }, el('ol', {}, ...V.log.slice(-40).map(t => el('li', { textContent: t }))))]
+    const am = aulaModal()
+    if (am) kids.push(am)
     if (!conv && V.fase !== 'fim' && !ctx.presentes().includes(V.host)) kids.push(el('div', { className: 'db-pausa' }, el('b', { textContent: 'Partida pausada' }), el('span', { textContent: `${V.hostNome} abriu a mesa e caiu. Continua de onde parou quando voltar.` })))
     tela.replaceChildren(...kids)
     tela.classList.toggle('acabou', V.fase === 'fim' || V.fase === 'placar')
     ctx.hydrate(tela)
     if (entregando) tela.querySelectorAll('.db-mao .db-carta, .db-leque-mesa .db-carta').forEach(n => n.classList.add('oculta'))
     tela.querySelector('.db-log ol')?.scrollTo(0, 1e6)
+    if (aula?.raiz.isConnected) aula.acorda(); else aula?.para()
   }
   function status() {
     if (V.fase !== 'jogo') return ''
@@ -647,17 +674,11 @@ export function criaDobradinha(ctx) {
       souHost() ? el('div', { className: 'db-linha' }, fim ? [botao('Nova partida', revanche, 'db-btn--forte'), botao('Fechar', encerrar)] : botao(`Rodada ${V.rodada + 1}`, () => novaRodada(false), 'db-btn--forte db-btn--grande'))
         : el('small', { className: 'db-espera', textContent: fim ? '' : `${V.hostNome} começa a próxima rodada` }))
   }
-  // página inicial: três quadros animados explicam o jogo quase sem texto
+  // página inicial: a capa do jogo e a aula em passos (cada passo uma cena animada)
   function convite() {
     const host = souHost()
     const n = Object.entries(V.conv).filter(([k, v]) => v === 'sim' && ctx.presentes().includes(k)).length
-    const mini = (v, cls = '') => carta({ id: v * 7, v }, `db-mini ${cls}`)
-    const miniLousa = (a, b, x2) => el('div', { className: 'db-mlousa' }, el('b', { className: 'db-mlousa__a', textContent: a }), el('b', { className: 'db-mlousa__b', textContent: b }), x2 ? el('i', { className: 'db-mlousa__x2', textContent: '×2' }) : '')
-    const quadros = el('div', { className: 'db-tutorial' },
-      el('figure', { className: 'db-quadro db-quadro--sobe' }, el('div', { className: 'db-cena' }, mini(4, 'db-mini--base'), mini(7, 'db-mini--vem'), miniLousa('4', '7')), el('figcaption', { textContent: 'Jogue igual ou maior' })),
-      el('figure', { className: 'db-quadro db-quadro--dobra' }, el('div', { className: 'db-cena' }, mini(5, 'db-mini--base'), mini(5, 'db-mini--vem'), miniLousa('5', '10', true)), el('figcaption', { textContent: 'Igual dobra' })),
-      el('figure', { className: 'db-quadro db-quadro--leva' }, el('div', { className: 'db-cena' }, mini(6, 'db-mini--a'), mini(9, 'db-mini--b'), mini(12, 'db-mini--c'), el('div', { className: 'db-mcomanda' }, el('i'), el('i'), el('i'))), el('figcaption', { textContent: 'Não subiu? Leva tudo (e ninguém quer cartas)' })))
-    const lembrete = el('p', { className: 'db-lembrete' }, svg('guarda'), el('span', { textContent: 'Depois de jogar, reponha a mão no monte. Quem passa sem repor fica com o guarda-chuva: −1.' }))
+    const capa = el('div', { className: 'db-capa' }, el('img', { src: CAPA, alt: 'Dobradinha', draggable: false }))
     const ir = host ? botao(n > MAX_JOG ? `Máximo ${MAX_JOG}` : n >= MIN_JOG ? `Começar · ${n}` : 'Esperando jogadores', comecar, 'db-btn--forte db-btn--grande') : el('small', { className: 'db-espera', textContent: `${V.hostNome} vai começar` })
     if (host && (n < MIN_JOG || n > MAX_JOG)) ir.disabled = true
     const rodadas = el('div', { className: 'db-rodadas' }, el('small', { textContent: 'partida' }), ...RODADAS.map(([v, nm]) => {
@@ -665,8 +686,8 @@ export function criaDobradinha(ctx) {
       if (!host) return el('span', { className: on ? 'on' : '', textContent: nm })
       return botao(nm, () => { G.op.rodadas = v; difunde() }, on ? 'on' : '')
     }))
-    return el('div', { className: 'db-convite' }, quadros, lembrete, rodadas,
-      el('div', { className: 'db-linha' }, host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'db-btn--leve') : '', ir))
+    return el('div', { className: 'db-convite' }, capa, pegaAula().raiz, el('div', { className: 'db-convite__op' }, rodadas,
+      el('div', { className: 'db-linha' }, host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'db-btn--leve') : '', ir)))
   }
   function bilhete() {
     if (V.fase !== 'convite' || souHost() || V.conv[me.key] !== '?') return ''
@@ -854,15 +875,20 @@ export function criaDobradinha(ctx) {
   })
   tela.addEventListener('pointerleave', () => { dica.hidden = true })
 
-  function iniciar() {
+  function iniciar(chamados) {
     carregaSons()
     if (V && !souHost()) return toast(`Já tem uma mesa de Dobradinha aberta (de ${V.hostNome})`)
     if (G) return toast('A mesa já está aberta')
-    abrir()
+    abrir(chamados)
   }
   window.__db = () => ({ G, V, render, difunde })
   return {
     got: (d, k) => { carregaSons(); got(d, k) }, iniciar, ativo: () => !!V,
+    // para o app: troca de jogo e mesas paralelas
+    lider: () => !!V && souHost(),
+    encerra: () => { if (G && G.host === me.key) encerrar() },
+    sair: () => { if (!V) return; if (G && G.host === me.key) return encerrar(); manda({ op: 'sai' }); dispensado = V.id; aplica(null) },
+    jogadores: () => !V ? [] : V.fase === 'convite' || !V.js?.length ? Object.keys(V.conv || {}).filter(k => V.conv[k] === 'sim') : V.js.filter(j => !j.fora).map(j => j.key),
     entrouAlguem: key => { if (!G || G.host !== me.key) return; if (G.fase === 'convite' && !(key in G.conv)) { G.conv[key] = '?'; return difunde() } ctx.sendTo(key, { db: { v: vista(key) } }) },
   }
 }

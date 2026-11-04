@@ -120,6 +120,10 @@ async function loadPrefs() {
   if (r?.prefs && r.prefs.t > (prefs.t || 0)) { Object.assign(prefs, normalizeAudioPrefs(r.prefs)); store.set('prefs', prefs); store.set('prefs:' + me.key, prefs) }
   applyPrefs()
 }
+// como api(), mas diz o status: para distinguir "token inválido" (404) de "servidor fora do ar agora"
+async function apiStatus(path) {
+  try { const r = await fetch('api/' + path, { credentials: 'same-origin' }); return { status: r.status, data: r.ok ? await r.json() : null } } catch { return { status: 0, data: null } }
+}
 async function api(path, { method = 'GET', body } = {}) {
   try {
     const r = await fetch('api/' + path, { method, headers: body ? { 'content-type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined })
@@ -137,7 +141,13 @@ function audioCtx() {
     // volume geral: tudo passa por ele antes da saída
     mix.master = mix.ac.createGain(); mix.master.gain.value = prefs.master ?? 1; mix.master.connect(mix.ac.destination)
     mix.movie = mix.ac.createGain(); mix.movie.connect(mix.master)
-    mix.voice = mix.ac.createGain(); mix.voice.connect(mix.master)
+    mix.voice = mix.ac.createGain()
+    // canal de vozes: compressor + ganho de compensação. Iguala quem fala baixo com quem fala alto e deixa as vozes
+    // na frente dos sons e da música (antes as vozes entravam cruas e ficavam baixas perto dos efeitos).
+    mix.voiceComp = new DynamicsCompressorNode(mix.ac, { threshold: -28, knee: 10, ratio: 3.5, attack: .004, release: .22 })
+    mix.voiceMakeup = mix.ac.createGain(); mix.voiceMakeup.gain.value = 1.9
+    mix.voiceLim = new DynamicsCompressorNode(mix.ac, { threshold: -2, knee: 0, ratio: 20, attack: .001, release: .1 })
+    mix.voice.connect(mix.voiceComp).connect(mix.voiceMakeup).connect(mix.voiceLim).connect(mix.master)
     mix.sfx = mix.ac.createGain(); mix.sfx.connect(mix.master)
     mix.board = mix.ac.createGain(); mix.board.gain.value = prefs.board
     // limitador do soundboard: nenhum som passa do teto, mesmo dois tocando juntos
@@ -238,12 +248,13 @@ const [slug = '', ini = ''] = location.pathname.split('/').filter(Boolean).map(d
 let invite = null, inviteMissing = false, linkUsed = false, fromLink = false
 let conta = null
 {
-  const t = store.get('conta')
-  if (t) {
-    const c = await api('conta?t=' + encodeURIComponent(t))
-    if (c?.key) conta = { ...c, token: t }
-    else store.del('conta')
-  }
+  // login salvo: o token do localStorage ou, se o navegador apagou, o cookie (o servidor lê sozinho).
+  // Só esquece o login quando o servidor diz que ele não vale mais (404); erro de rede não desloga ninguém.
+  const t = store.get('conta'), salvo = store.get('sess')
+  const r = await apiStatus('conta' + (t ? '?t=' + encodeURIComponent(t) : ''))
+  if (r.data?.key) { conta = { ...r.data, token: r.data.token || t }; store.set('conta', conta.token) }
+  else if (r.status === 404) store.del('conta')
+  else if (t && salvo?.pw && salvo.key) conta = { key: salvo.key, nome: salvo.name || person(salvo.key).nome, pw: salvo.pw, token: t }
   const old = store.get('sess')
   if (!conta && old?.pw && old.key) {
     const r = await api('conta', { method: 'POST', body: { op: 'login', pw: old.pw, key: old.key, nome: old.name } })
@@ -272,7 +283,8 @@ canal = params.get('sala') || invite?.sala || ''
 async function login(pw, key, name) {
   const r = await api('conta', { method: 'POST', body: { op: 'login', pw, key, nome: name } })
   if (r?.token) { store.set('conta', r.token); conta = { key, nome: name, pw, token: r.token } }
-  store.set('sess', { key, name }) // só para pré-selecionar o cartão
+  if (r?.token) store.set('sess', { key, name, pw }) // a senha fica junto: se o token sumir, entra de novo sozinho
+  else store.set('sess', { key, name })
   return !!r?.token
 }
 {
@@ -358,6 +370,7 @@ async function enter(pw, key, name) {
   if (me.key) return
   turnServers(pw)
   me.key = key; me.name = name; roomPw = pw
+  store.set('sess', { key, name, pw }) // entrou: da próxima vez é direto, como esta pessoa
   me.seat = Number.isInteger(store.get('seat')) ? store.get('seat') : -1
   me.since = Date.now()
   Object.assign(prefs, DEFAULT_PREFS, normalizeAudioPrefs(store.get('prefs:' + key)))
@@ -540,7 +553,7 @@ async function start(pw) {
     const p = peers.get(peerId) || {}
     const isNew = !p.name
     const name = PEOPLE.find(x => x.id === d.key)?.nome || String(d.name || 'Visitante').slice(0, 24)
-    Object.assign(p, { key: d.key, name, speaking: !!d.speaking, muted: !!d.muted, deaf: !!d.deaf, away: !!d.away, seat: Number.isInteger(d.seat) ? d.seat : -1, typing: !!d.typing, hidden: !!d.hidden })
+    Object.assign(p, { key: d.key, name, speaking: !!d.speaking, muted: !!d.muted, deaf: !!d.deaf, away: !!d.away, seat: Number.isInteger(d.seat) ? d.seat : -1, typing: !!d.typing, hidden: !!d.hidden, mesa: typeof d.mesa === 'string' && d.mesa.length < 12 ? d.mesa : '' })
     peers.set(peerId, p)
     if (d.key === me.key) dropVoice(peerId)
     if (isNew) { sysMsg(`${name} entrou`); sfx('entrou', d.key); evento('entrou', `conectou com ${name}`); conectadoDesde.set(peerId, Date.now()); faixa?.entrouAlguem(d.key, name); coup?.entrouAlguem(d.key); descarte?.entrouAlguem(d.key); parPerfeito?.entrouAlguem(d.key); amigosDeBosta?.entrouAlguem(d.key); dobradinha?.entrouAlguem(d.key) }
@@ -694,7 +707,7 @@ async function pingLoop(id) {
     await sleep(5000)
   }
 }
-const helloMsg = () => ({ key: me.key, name: me.name, speaking: me.speaking, muted: me.muted, deaf: me.deaf, away: me.away, seat: me.seat, typing: me.typing, hidden: me.hidden })
+const helloMsg = () => ({ key: me.key, name: me.name, speaking: me.speaking, muted: me.muted, deaf: me.deaf, away: me.away, seat: me.seat, typing: me.typing, hidden: me.hidden, mesa: me.mesa || '' })
 const sendHello = () => actions?.hello.send(helloMsg())
 
 // Mesma pessoa fixa duas vezes: pergunta quem é quem
@@ -1237,11 +1250,11 @@ syncRadioVol()
 const FONTES = 'https://fonts.googleapis.com/css2?'
 const JOGOS = {
   faixa: { nome: 'Faixa a Faixa', mod: './faixa.js', cria: 'criaFaixa', tela: 'faixa', on: 'jogo-on', css: ['faixa.css'], fontes: 'family=Bebas+Neue&family=Permanent+Marker' },
-  coup: { nome: 'Coup', mod: './coup.js', cria: 'criaCoup', tela: 'coup', on: 'coup-on', css: ['coup.css'], fontes: 'family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500' },
+  coup: { nome: 'Coup', mod: './coup.js', cria: 'criaCoup', tela: 'coup', on: 'coup-on', css: ['aula.css', 'coup.css'], fontes: 'family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500' },
   dc: { nome: 'Uno', mod: './descarte.js', cria: 'criaDescarte', tela: 'dc', on: 'dc-on', css: ['descarte.css'], fontes: 'family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800' },
   pp: { nome: 'Red Flags', mod: './parperfeito.js', cria: 'criaParPerfeito', tela: 'pp', on: 'pp-on', css: ['parperfeito.css'], fontes: 'family=Roboto+Condensed:wght@500;600;700;900' },
   ab: { nome: 'Amigos de Merda', mod: './amigosdebosta.js', cria: 'criaAmigosDeBosta', tela: 'ab', on: 'ab-on', css: ['amigosdebosta.css'], fontes: 'family=Roboto+Condensed:wght@500;600;700;900' },
-  db: { nome: 'Dobradinha', mod: './dobradinha.js', cria: 'criaDobradinha', tela: 'db', on: 'db-on', css: ['dobradinha.css'], fontes: 'family=Alfa+Slab+One&family=Caveat+Brush&family=Barlow+Semi+Condensed:wght@500;600;700' },
+  db: { nome: 'Dobradinha', mod: './dobradinha.js', cria: 'criaDobradinha', tela: 'db', on: 'db-on', css: ['aula.css', 'dobradinha.css'], fontes: 'family=Alfa+Slab+One&family=Caveat+Brush&family=Barlow+Semi+Condensed:wght@500;600;700' },
 }
 const jogos = {} // id -> jogo já carregado
 const carregando = {} // id -> promessa enquanto baixa
@@ -1262,10 +1275,10 @@ function ctxJogo(id) {
     boneco: k => person(k).boneco || '',
     falando: k => k === me.key ? (me.speaking && !me.muted) : [...peers.values()].some(p => p.key === k && p.speaking && !p.muted),
     mudo: () => me.muted || me.deaf,
-    outroJogo: () => outroJogoAtivo(id), faixaAtiva: () => outroJogoAtivo(id),
+    outroJogo: () => false, faixaAtiva: () => false, // mesas paralelas: cada jogo segue o seu; o app mostra uma por vez
     hydrate: root => root.querySelectorAll('svg[data-icon]').forEach(s => setIcon(s, s.dataset.icon)),
     digitando: () => document.activeElement?.id === 'chatInput',
-    onAtivo: on => { theater.classList.toggle(J.on, on); jogoNoAr() },
+    onAtivo: on => { theater.classList.toggle(J.on, on); jogoNoAr(); mesaMudou(id, on) },
     // Faixa a Faixa
     salvaRes: r => api('sala', { method: 'POST', body: { op: 'faixa-res', pw: roomPw, key: me.key, nome: me.name, ...r } }),
     verDias: async datas => (await api('sala', { method: 'POST', body: { op: 'faixa-ver', pw: roomPw, datas } }))?.res || {},
@@ -1302,10 +1315,86 @@ function carregaJogo(id) {
   })()
   return carregando[id]
 }
-async function abreJogo(id) {
-  if (outroJogoAtivo(id)) return toast('Feche o outro jogo antes')
+async function abreJogo(id, chamados) {
+  if (jogos[id]?.ativo?.()) return setFoco(id) // já tem mesa desse jogo: vai para ela
+  const outro = Object.keys(jogos).find(k => k !== id && jogos[k]?.ativo?.())
+  if (outro && !chamados) return trocaJogo(outro, id)
   const j = await carregaJogo(id)
-  j?.iniciar()
+  j?.iniciar(chamados)
+  setFoco(id)
+}
+
+/* ---------- Mesas: mais de um jogo ao mesmo tempo ----------
+   Cada jogo é uma mesa. A tela mostra uma por vez (a mesa em foco); as outras seguem rodando por trás.
+   Com duas ou mais, aparecem as abas em cima da tela e cada poltrona mostra em que mesa a pessoa está. */
+var foco = '' // var: renderSeats pode rodar antes desta linha
+function mesasNaSala() { return new Set([foco, ...[...peers.values()].map(p => p.mesa)].filter(Boolean)).size }
+const ativos = () => Object.keys(jogos).filter(k => jogos[k]?.ativo?.())
+function setFoco(id) {
+  foco = id && jogos[id]?.ativo?.() ? id : melhorMesa()
+  for (const [k, J] of Object.entries(JOGOS)) $('#' + J.tela + 'Tela')?.classList.toggle('mesa-oculta', !!foco && k !== foco)
+  // a classe do jogo no teatro (esconde a fileira etc.) vale só para a mesa em foco
+  for (const [k, J] of Object.entries(JOGOS)) theater.classList.toggle(J.on, k === foco)
+  if (me.mesa !== foco) { me.mesa = foco; sendHello() }
+  desenhaMesas(); renderSeats()
+}
+// a mesa em que eu jogo vem antes da que só estou olhando
+const joga = id => !!jogos[id]?.jogadores?.().includes(me.key)
+function melhorMesa(sem) {
+  const ids = ativos().filter(k => k !== sem)
+  return ids.find(joga) || ids[0] || ''
+}
+function mesaMudou(id, on) {
+  if (on && (!foco || !jogos[foco]?.ativo?.())) return setFoco(id)
+  if (!on && foco === id) return setFoco(melhorMesa(id))
+  if (on && foco !== id) {
+    if (joga(id) && !joga(foco)) return setFoco(id) // fui colocado nessa mesa e não jogo na que estou olhando
+    $('#' + JOGOS[id].tela + 'Tela')?.classList.add('mesa-oculta'); theater.classList.remove(JOGOS[id].on)
+  }
+  desenhaMesas()
+}
+function iconeMesa(id) { return ({ coup: 'jogos/coup/cartas/duque.webp', dc: 'jogos/uno/logo.svg', pp: 'jogos/parperfeito/verso-vermelho.png', ab: 'jogos/amigosdebosta/verso-preto.png', db: 'jogos/dobradinha/capa.webp' })[id] }
+function desenhaMesas() {
+  let box = $('#mesas')
+  const ids = ativos()
+  if (ids.length < 2) { box?.remove(); return }
+  if (!box) { box = el('nav', { id: 'mesas', className: 'mesas', 'aria-label': 'Mesas de jogo' }); $('#screenInner').append(box) }
+  const pessoas = [{ key: me.key, mesa: foco }, ...[...peers.values()]]
+  box.replaceChildren(el('small', { className: 'mesas__k', textContent: 'mesas' }), ...ids.map(id => {
+    const js = jogos[id].jogadores?.() || [], aqui = pessoas.filter(p => p.mesa === id).length
+    const b = el('button', { type: 'button', className: 'mesas__it' + (id === foco ? ' on' : '') + (js.includes(me.key) ? ' minha' : ''), title: `${JOGOS[id].nome}: ${js.length} jogando · ${aqui} olhando` },
+      iconeMesa(id) ? el('img', { src: iconeMesa(id), alt: '' }) : el('span', { className: 'mesas__ic', innerHTML: ICONES_JOGO[id] || '' }),
+      el('b', { textContent: JOGOS[id].nome }), el('small', { textContent: `${js.length} jogando` }))
+    b.addEventListener('click', () => setFoco(id))
+    return b
+  }))
+}
+setInterval(() => { if (ativos().length > 1) desenhaMesas() }, 4000)
+
+// tentou abrir um jogo com outro rolando: quem abriu a mesa (líder) escolhe levar todo mundo, abrir ao lado ou encerrar;
+// quem só está jogando sai da mesa atual (ou abre ao lado, deixando a outra continuar)
+function trocaJogo(atual, novoId) {
+  document.querySelector('.trocajogo')?.remove()
+  const A = JOGOS[atual], N = JOGOS[novoId], ja = jogos[atual], lider = !!ja?.lider?.()
+  const fecha = () => m.remove()
+  const op = (titulo, sub, fn, cls = '') => { const b = el('button', { type: 'button', className: 'trocajogo__op ' + cls }, el('b', { textContent: titulo }), el('small', { textContent: sub })); b.addEventListener('click', () => { fecha(); fn() }); return b }
+  const ops = lider ? [
+    op(`Levar todo mundo para ${N.nome}`, `Fecha ${A.nome} e já coloca quem estava jogando na mesa nova`, () => { const quem = ja.jogadores?.() || []; ja.encerra?.(); setTimeout(() => abreJogo(novoId, quem), 250) }, 'forte'),
+    op(`Abrir ${N.nome} numa mesa ao lado`, `${A.nome} continua rodando; cada um escolhe em qual mesa fica`, async () => { const j = await carregaJogo(novoId); j?.iniciar(); setFoco(novoId) }),
+    op(`Encerrar ${A.nome} para todos`, 'Fecha a mesa atual e não abre nada', () => ja.encerra?.(), 'perigo'),
+  ] : [
+    op(`Sair de ${A.nome} e abrir ${N.nome}`, `Só você sai; quem está em ${A.nome} continua jogando`, async () => { ja.sair?.(); const j = await carregaJogo(novoId); j?.iniciar(); setFoco(novoId) }, 'forte'),
+  ]
+  const m = el('div', { className: 'trocajogo', role: 'dialog', 'aria-modal': 'true' },
+    el('div', { className: 'trocajogo__box' },
+      el('div', { className: 'trocajogo__topo' }, iconeMesa(atual) ? el('img', { src: iconeMesa(atual), alt: '' }) : '', el('i', { textContent: '→' }), iconeMesa(novoId) ? el('img', { src: iconeMesa(novoId), alt: '' }) : el('span', { className: 'mesas__ic', innerHTML: ICONES_JOGO[novoId] || '' })),
+      el('h3', { textContent: lider ? `${A.nome} está rolando` : `Você está em ${A.nome}` }),
+      el('p', { textContent: lider ? `Você abriu essa mesa. O que fazer com ela?` : `Quem abriu a mesa de ${A.nome} é quem decide fechá-la para todos.` }),
+      ...ops, op('Cancelar', '', () => {}, 'leve')))
+  m.addEventListener('click', e => { if (e.target === m) fecha() })
+  m.addEventListener('keydown', e => { if (e.key === 'Escape') fecha() })
+  ;(theater.classList.contains('palco') || document.fullscreenElement ? theater : document.body).append(m)
+  m.querySelector('.trocajogo__op')?.focus()
 }
 // quem abriu uma mesa e recarregou a página: o jogo volta sozinho (o módulo confere se ainda é o host)
 for (const [id, k] of [['coup', 'coup.G'], ['dc', 'dc.G'], ['pp', 'pp.G'], ['ab', 'ab.G'], ['db', 'db.G']]) { try { if (localStorage.getItem(k)) carregaJogo(id) } catch {} }
@@ -2081,6 +2170,14 @@ function renderSeats() {
     const nm = here[0]?.name || person(key).nome
     node.querySelector('.seat__nm').textContent = nm
     node._st = { away: node.classList.contains('away'), typing: here.some(x => x.typing), hidden: here.length > 0 && here.every(x => x.hidden) }
+    // mesas paralelas: o selo do jogo em que a pessoa está (só quando há mais de uma mesa)
+    const mesa = here.find(x => x.id === selfId) ? foco : here[0]?.mesa || ''
+    let selo = node.querySelector('.seat__mesa')
+    if (mesasNaSala() > 1 && mesa && JOGOS[mesa]) {
+      if (!selo) { selo = el('span', { className: 'seat__mesa' }); node.append(selo) }
+      if (selo.dataset.mesa !== mesa) { selo.dataset.mesa = mesa; selo.replaceChildren(iconeMesa(mesa) ? el('img', { src: iconeMesa(mesa), alt: '' }) : el('span', { className: 'mesas__ic', innerHTML: ICONES_JOGO[mesa] || '' }), el('b', { textContent: JOGOS[mesa].nome })) }
+      selo.classList.toggle('outra', mesa !== foco)
+    } else selo?.remove()
     applyPose(node)
     node.title = !here.length ? `${nm} · fora` : node.classList.contains('ghost') ? `${nm} · sem conexão direta (só chat)` : here.some(x => tiles.has(x.id)) ? `${nm} · projetando` : node.classList.contains('away') ? `${nm} · ausente` : node.classList.contains('deaf') ? `${nm} · som cortado` : nm
   })
@@ -3101,6 +3198,32 @@ function setTeatro(on, quiet) {
 }
 $('#btnTeatro').addEventListener('click', () => setTeatro(!theater.classList.contains('teatro')))
 
+// Palco: a página inteira vira a tela (o jogo ou o filme), sem a tela cheia do navegador. Mesmo layout da tela cheia.
+const imersivo = () => !!document.fullscreenElement || theater.classList.contains('palco')
+function setPalco(on) {
+  if (on === theater.classList.contains('palco')) return
+  theater.classList.toggle('palco', on)
+  document.body.classList.toggle('palco-on', on)
+  $('#btnPalco').setAttribute('aria-pressed', String(on))
+  setIcon(iconOf($('#btnPalco')), on ? 'minimize' : 'maximize-2')
+  closePops()
+  tiles.forEach(t => t.fit?.())
+  if (on) {
+    theater.querySelector('.palco-aviso')?.remove()
+    theater.append(el('div', { className: 'palco-aviso', innerHTML: 'Palco · <b>duplo clique no fundo</b>, <b>Esc</b> ou <b>G</b> para voltar' }))
+    setTimeout(() => theater.querySelector('.palco-aviso')?.remove(), 3300)
+    poke()
+  } else theater.classList.remove('idle')
+}
+$('#btnPalco').addEventListener('click', () => setPalco(!theater.classList.contains('palco')))
+// duplo clique no jogo (no fundo, não em carta ou botão) entra no palco; duplo clique fora do jogo sai
+const INTERATIVO = 'button, a, input, textarea, select, label, [role=button], [class*="carta"], .clicavel, .cp-tocavel, .cp-roda, .mesas, .tile__tools, .player-controls, .chat, .toolbar, .row, .seat'
+theater.addEventListener('dblclick', e => {
+  if (e.target.closest(INTERATIVO)) return
+  const noJogo = !!e.target.closest('#screenInner') && Object.values(JOGOS).some(J => theater.classList.contains(J.on))
+  if (theater.classList.contains('palco')) setPalco(false)
+  else if (noJogo) { getSelection()?.removeAllRanges(); setPalco(true) }
+})
 function toggleFs() {
   if (document.fullscreenElement) return document.exitFullscreen()
   theater.requestFullscreen?.().catch(() => {})
@@ -3120,7 +3243,7 @@ function poke() {
   theater.classList.remove('idle')
   clearTimeout(idleTimer)
   idleTimer = setTimeout(() => {
-    if (!document.fullscreenElement) return
+    if (!imersivo()) return
     // só segura a barra se estiver escrevendo de verdade (campo com texto) ou digitou há pouco
     const f = document.activeElement
     const typing = f?.matches('input:not([type=range]), textarea') && (f.value.trim() || performance.now() - lastKey < 4000)
@@ -3132,10 +3255,10 @@ function poke() {
 }
 theater.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') poke() })
 let lastKey = 0
-document.addEventListener('keydown', () => { lastKey = performance.now(); if (document.fullscreenElement) poke() }, true)
+document.addEventListener('keydown', () => { lastKey = performance.now(); if (imersivo()) poke() }, true)
 // janela sem foco ou mouse fora: esconde na hora (se não estiver escrevendo)
 function idleNow() {
-  if (!document.fullscreenElement) return
+  if (!imersivo()) return
   const f = document.activeElement
   if (f?.matches('input:not([type=range]), textarea') && f.value.trim()) return
   clearTimeout(idleTimer); theater.classList.add('idle')
@@ -3179,12 +3302,13 @@ document.addEventListener('keydown', e => {
   if (k === 'f') toggleFs()
   else if (k === 'c') setChat(!chatVisible())
   else if (k === 't') setTeatro(!theater.classList.contains('teatro'))
+  else if (k === 'g') setPalco(!theater.classList.contains('palco'))
   else if (/^[1-9]$/.test(k)) react(REACTS[+k - 1]?.id)
   else if (k === 'r') toggleReactGrid()
   else if (k === 'm') toggleMute()
   else if (k === 'd') setDeaf(!me.deaf)
   else if (k === 'p') askPause()
-  else if (e.key === 'Escape') closePops()
+  else if (e.key === 'Escape') { if (theater.classList.contains('palco') && !document.querySelector('.pop:not([hidden]), .reactgrid:not([hidden]), #gifs:not([hidden])')) setPalco(false); else closePops() }
   else if (e.key === 'Enter' && chatVisible()) { e.preventDefault(); $('#chatInput').focus() }
 })
 document.addEventListener('keyup', e => { if (e.code === prefs.pttKey && pttDown) { pttDown = false; renderMic() } })
@@ -3914,10 +4038,14 @@ async function micOn(fromEntry, preserveMute = false) {
     }
   }
   if (generation !== micGeneration) { raw.getTracks().forEach(t => t.stop()); processor?.disconnect(); await ac.close(); return }
+  // nivelador no envio: quem fala baixo (ou tem microfone fraco) chega mais perto de quem fala alto
+  const nivel = new DynamicsCompressorNode(ac, { threshold: -32, knee: 12, ratio: 4, attack: .004, release: .25 })
+  const compensa = ac.createGain(); compensa.gain.value = 2.2
+  const teto = new DynamicsCompressorNode(ac, { threshold: -3, knee: 0, ratio: 20, attack: .001, release: .1 })
   const gate = ac.createGain()
   gate.gain.value = 0
   const dest = ac.createMediaStreamDestination()
-  clean.connect(gate).connect(dest)
+  clean.connect(nivel).connect(compensa).connect(teto).connect(gate).connect(dest)
   const previewGate = ac.createGain(), previewDest = ac.createMediaStreamDestination()
   previewGate.channelCount = 1; previewGate.channelCountMode = 'explicit'
   previewDest.channelCount = 1; previewDest.channelCountMode = 'explicit'
@@ -4051,7 +4179,7 @@ if (conta && fromLink) {
   $('.lobby__inner').append(el('p', { className: 'ticket__hello', textContent: `Bem-vindo, ${conta.nome}! Entrando…` }))
   whoEl.hidden = true; document.querySelector('.lobby__go').hidden = true
   setTimeout(() => enter(conta.pw, conta.key, conta.nome), 1600)
-} else if (conta && !inviteMissing && (!invite || allowed(conta.key) || (conta.key.startsWith('g:') && guestsOk))) enter(invite?.pw || conta.pw, conta.key, conta.nome)
+} else if (conta && (!invite || allowed(conta.key) || (conta.key.startsWith('g:') && guestsOk))) enter(invite?.pw || conta.pw, conta.key, conta.nome) // convite vencido não desloga ninguém
 else if (onlyOne && !linkUsed) { await login(invite.pw, onlyOne, person(onlyOne).nome); enter(invite.pw, onlyOne, person(onlyOne).nome) } // convite de uma pessoa só: entra direto
 else {
   showGate()

@@ -165,7 +165,7 @@ svg[data-icon] { width: 18px; height: 18px; flex: none; }
 
 .live { align-self: flex-end; display: inline-flex; align-items: center; gap: .35rem; margin: 0 4px -6px; font-size: .72rem; font-weight: 500; color: var(--fg-faint); }
 .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--live); animation: blink 2s infinite; }
-.theater:fullscreen .live { display: none; }
+.theater:is(:fullscreen, .palco) .live { display: none; }
 @keyframes blink { 50% { opacity: .3; } }
 
 .toast { position: absolute; left: 50%; top: 14px; transform: translate(-50%, -16px); z-index: 8; background: rgba(12,12,16,.9); color: #f1f1f4; border: 1px solid rgba(255,255,255,.12); padding: .45rem .9rem; border-radius: 10px; font-size: .88rem; opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; max-width: 90%; text-align: center; }
@@ -297,7 +297,7 @@ select { height: 36px; padding: 0 8px; border-radius: 8px; border: 1px solid var
 @keyframes standUp { to { transform: translateY(-18px); opacity: 0; } }
 /* opções da pessoa aparecem embaixo da poltrona */
 .row .pvol { bottom: auto; top: calc(100% + 6px); }
-.theater:fullscreen .row .pvol { top: auto; bottom: calc(100% + 4px); }
+.theater:is(:fullscreen, .palco) .row .pvol { top: auto; bottom: calc(100% + 4px); }
 .seat.online:not(.mine) .seat__avatar { cursor: pointer; }
 .pvol { position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); z-index: 15; width: 220px; padding: 10px 12px; border-radius: 12px; background: var(--pop-bg); border: 1px solid var(--line); box-shadow: 0 10px 28px rgba(0,0,0,.5); animation: popIn .14s ease-out; color: #f1f1f4; }
 .pvol__name { display: block; font-size: .78rem; font-weight: 600; margin-bottom: 6px; }
@@ -402,32 +402,32 @@ select { height: 36px; padding: 0 8px; border-radius: 8px; border: 1px solid var
 .voice { display: none; }
 
 /* Tela cheia */
-.theater:fullscreen { max-width: none; margin: 0; padding: 0; height: 100vh; background: #000; overflow: hidden; gap: 0; grid-template-rows: 100%; grid-template-columns: minmax(0, 1fr); }
-.theater:fullscreen .stage { position: relative; height: 100%; }
-.theater:fullscreen .screen { flex: 1; min-height: 0; max-width: none; min-width: 0; padding: 0; display: flex; border: 0; border-radius: 0; background: #000; }
-.theater:fullscreen .screen__inner { flex: 1; aspect-ratio: auto; border-radius: 0; }
-.theater:fullscreen .toolbar { position: absolute; right: 16px; bottom: 16px; z-index: 7; background: rgba(12,12,16,.78); padding: 6px; border-radius: 12px; backdrop-filter: blur(6px); transition: opacity .3s; flex-wrap: nowrap; }
-.theater:fullscreen .toolbar__grow { display: none; }
-.theater:fullscreen.idle .toolbar { opacity: 0; pointer-events: none; }
-.theater:fullscreen.idle { cursor: none; }
-.theater:fullscreen.idle .tile__tools, .theater:fullscreen.idle .tile__label { opacity: 0 !important; }
-.theater:fullscreen .row { position: absolute; left: 16px; bottom: 12px; z-index: 6; pointer-events: none; }
-.theater:fullscreen .row__seats { width: auto; align-items: flex-start; }
-.theater:fullscreen .row__line { grid-template-columns: repeat(var(--n), 70px); gap: 6px; justify-content: start; width: auto; margin-bottom: calc(var(--depth) * -10px); }
-.theater:fullscreen .seat-empty { display: none; }
-.theater:fullscreen .seat__avatar { height: 66px; }
-.theater:fullscreen .seat--pfp .seat__avatar .pfp { width: 44px; height: 44px; }
-.theater:fullscreen .seat__name { font-size: .66rem; margin-top: 2px; opacity: .6; }
-.theater:fullscreen .seat:not(.online) { display: none; }
-.theater:fullscreen .seat.speaking .seat__name { opacity: 1; }
-.theater:fullscreen .seat.online { pointer-events: auto; }
-.theater:fullscreen .chat { position: absolute; right: 16px; top: 16px; bottom: 76px; width: min(340px, 42vw); height: auto; z-index: 8; background: linear-gradient(to left, rgba(8,8,12,.62), rgba(8,8,12,.42)); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; backdrop-filter: blur(6px); transition: opacity .35s; }
+.theater:is(:fullscreen, .palco) { max-width: none; margin: 0; padding: 0; height: 100vh; background: #000; overflow: hidden; gap: 0; grid-template-rows: 100%; grid-template-columns: minmax(0, 1fr); }
+.theater:is(:fullscreen, .palco) .stage { position: relative; height: 100%; }
+.theater:is(:fullscreen, .palco) .screen { flex: 1; min-height: 0; max-width: none; min-width: 0; padding: 0; display: flex; border: 0; border-radius: 0; background: #000; }
+.theater:is(:fullscreen, .palco) .screen__inner { flex: 1; aspect-ratio: auto; border-radius: 0; }
+.theater:is(:fullscreen, .palco) .toolbar { position: absolute; right: 16px; bottom: 16px; z-index: 7; background: rgba(12,12,16,.78); padding: 6px; border-radius: 12px; backdrop-filter: blur(6px); transition: opacity .3s; flex-wrap: nowrap; }
+.theater:is(:fullscreen, .palco) .toolbar__grow { display: none; }
+.theater:is(:fullscreen, .palco).idle .toolbar { opacity: 0; pointer-events: none; }
+.theater:is(:fullscreen, .palco).idle { cursor: none; }
+.theater:is(:fullscreen, .palco).idle .tile__tools, .theater:is(:fullscreen, .palco).idle .tile__label { opacity: 0 !important; }
+.theater:is(:fullscreen, .palco) .row { position: absolute; left: 16px; bottom: 12px; z-index: 6; pointer-events: none; }
+.theater:is(:fullscreen, .palco) .row__seats { width: auto; align-items: flex-start; }
+.theater:is(:fullscreen, .palco) .row__line { grid-template-columns: repeat(var(--n), 70px); gap: 6px; justify-content: start; width: auto; margin-bottom: calc(var(--depth) * -10px); }
+.theater:is(:fullscreen, .palco) .seat-empty { display: none; }
+.theater:is(:fullscreen, .palco) .seat__avatar { height: 66px; }
+.theater:is(:fullscreen, .palco) .seat--pfp .seat__avatar .pfp { width: 44px; height: 44px; }
+.theater:is(:fullscreen, .palco) .seat__name { font-size: .66rem; margin-top: 2px; opacity: .6; }
+.theater:is(:fullscreen, .palco) .seat:not(.online) { display: none; }
+.theater:is(:fullscreen, .palco) .seat.speaking .seat__name { opacity: 1; }
+.theater:is(:fullscreen, .palco) .seat.online { pointer-events: auto; }
+.theater:is(:fullscreen, .palco) .chat { position: absolute; right: 16px; top: 16px; bottom: 76px; width: min(340px, 42vw); height: auto; z-index: 8; background: linear-gradient(to left, rgba(8,8,12,.62), rgba(8,8,12,.42)); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; backdrop-filter: blur(6px); transition: opacity .35s; }
 /* Tela cheia: chat translúcido por cima do vídeo (estilo Twitch); some junto com os controles */
-.theater:fullscreen.idle .chat { opacity: 0; pointer-events: none; }
-.theater:fullscreen .chat__head { border-color: rgba(255,255,255,.08); }
-.theater:fullscreen .chat__list li { text-shadow: 0 1px 3px rgba(0,0,0,.8); }
-.theater:fullscreen .msg:hover { background: rgba(0,0,0,.25); }
-.theater:fullscreen .chat__form, .theater:fullscreen .chat__reply { background: rgba(0,0,0,.45); }
+.theater:is(:fullscreen, .palco).idle .chat { opacity: 0; pointer-events: none; }
+.theater:is(:fullscreen, .palco) .chat__head { border-color: rgba(255,255,255,.08); }
+.theater:is(:fullscreen, .palco) .chat__list li { text-shadow: 0 1px 3px rgba(0,0,0,.8); }
+.theater:is(:fullscreen, .palco) .msg:hover { background: rgba(0,0,0,.25); }
+.theater:is(:fullscreen, .palco) .chat__form, .theater:is(:fullscreen, .palco) .chat__reply { background: rgba(0,0,0,.45); }
 
 @media (max-width: 1200px) { .vol output { display: none; } .vol input { width: 64px; } .toolbar { gap: .35rem; } #btnPause span { display: none; } #btnPause { width: 40px; padding: 0; } }
 @media (max-width: 1000px) {
@@ -455,12 +455,12 @@ select { height: 36px; padding: 0 8px; border-radius: 8px; border: 1px solid var
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
 /* Tela cheia: barra compacta (sem textos) para não cobrir a fileira; rótulos das telas só no hover */
-.theater:fullscreen .vol output, .theater:fullscreen #btnShare span, .theater:fullscreen #btnPause span { display: none; }
-.theater:fullscreen #btnShare, .theater:fullscreen #btnPause { width: 40px; padding: 0; }
-.theater:fullscreen .vol input { width: 70px; }
-.theater:fullscreen .tile__label { opacity: 0 !important; }
-.theater:fullscreen .tile:hover .tile__label { opacity: 1 !important; bottom: auto; top: 8px; left: auto; right: 8px; }
-.theater:fullscreen .tile__sub { bottom: 11%; }
+.theater:is(:fullscreen, .palco) .vol output, .theater:is(:fullscreen, .palco) #btnShare span, .theater:is(:fullscreen, .palco) #btnPause span { display: none; }
+.theater:is(:fullscreen, .palco) #btnShare, .theater:is(:fullscreen, .palco) #btnPause { width: 40px; padding: 0; }
+.theater:is(:fullscreen, .palco) .vol input { width: 70px; }
+.theater:is(:fullscreen, .palco) .tile__label { opacity: 0 !important; }
+.theater:is(:fullscreen, .palco) .tile:hover .tile__label { opacity: 1 !important; bottom: auto; top: 8px; left: auto; right: 8px; }
+.theater:is(:fullscreen, .palco) .tile__sub { bottom: 11%; }
 
 /* Controle remoto do arquivo de outra pessoa */
 .tile__remote { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 5; display: none; gap: 6px; opacity: 0; transition: opacity .2s; }
@@ -469,7 +469,7 @@ select { height: 36px; padding: 0 8px; border-radius: 8px; border: 1px solid var
 .tile.thumb .tile__remote { display: none !important; }
 .tile__btn--icon { width: 38px; height: 38px; padding: 0; justify-content: center; border-radius: 50%; }
 .tile__btn--icon svg { width: 18px; height: 18px; }
-.theater:fullscreen.idle .tile__remote { opacity: 0 !important; }
+.theater:is(:fullscreen, .palco).idle .tile__remote { opacity: 0 !important; }
 
 /* Mesa de som */
 .mixer { right: 0; width: 320px; padding: 12px 14px 12px; max-height: min(75vh, 560px); overflow-y: auto; }
@@ -508,8 +508,8 @@ select { height: 36px; padding: 0 8px; border-radius: 8px; border: 1px solid var
 .nudge.out { opacity: 0; transform: translateY(-6px); }
 .voicectl { display: inline-flex; gap: 4px; }
 
-.theater:fullscreen.idle .tile:hover .tile__label { opacity: 0 !important; }
-.theater:fullscreen .seat__bubble { max-width: 170px; font-size: .78rem; }
+.theater:is(:fullscreen, .palco).idle .tile:hover .tile__label { opacity: 0 !important; }
+.theater:is(:fullscreen, .palco) .seat__bubble { max-width: 170px; font-size: .78rem; }
 
 /* Arquivo incompatível */
 .file-card { width: min(420px, 100%); }
@@ -650,12 +650,12 @@ body.lights-off { background: #030304; }
 body.lights-off .top, body.lights-off .banner, body.lights-off .live { opacity: .25; }
 body.lights-off .toolbar, body.lights-off .chat { opacity: .45; filter: brightness(.8); }
 body.lights-off .toolbar:hover, body.lights-off .chat:hover, body.lights-off .chat:focus-within, body.lights-off .top:hover { opacity: 1; filter: none; transition-duration: .25s; }
-.theater:fullscreen .toolbar, .theater:fullscreen .chat { filter: none; }
-body.lights-off .theater:fullscreen .toolbar, body.lights-off .theater:fullscreen .chat { opacity: 1; }
+.theater:is(:fullscreen, .palco) .toolbar, .theater:is(:fullscreen, .palco) .chat { filter: none; }
+body.lights-off .theater:is(:fullscreen, .palco) .toolbar, body.lights-off .theater:is(:fullscreen, .palco) .chat { opacity: 1; }
 
 /* Créditos (quando o admin finaliza a sessão) */
 .credits { position: absolute; inset: 0; z-index: 30; background: rgba(4,3,5,.94); overflow: hidden; animation: creditsIn 1.2s ease; }
-.theater:not(:fullscreen) .credits { position: fixed; }
+.theater:not(:fullscreen, .palco) .credits { position: fixed; }
 @keyframes creditsIn { from { opacity: 0; } }
 .credits__x { position: absolute; right: 18px; top: 18px; z-index: 2; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.06); color: #eee; cursor: pointer; }
 .credits__roll { position: absolute; left: 50%; top: 100%; width: min(520px, 90%); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 2.4rem; text-align: center; color: #efe8dc; animation: roll var(--dur, 24s) linear forwards; }
@@ -715,9 +715,9 @@ body.lights-off .theater:fullscreen .toolbar, body.lights-off .theater:fullscree
 /* o que ficava embaixo à esquerda na tela vai para a direita, para os bonecos não taparem */
 .tile__label { left: auto; right: 8px; }
 .tile__sub { bottom: 12%; }
-.theater:fullscreen .row { margin: 0; width: auto; max-width: none; min-width: 0; padding: 0; }
-.theater:fullscreen .row__seats::before { display: none; }
-.theater:fullscreen .row .seat__avatar { height: 66px; }
+.theater:is(:fullscreen, .palco) .row { margin: 0; width: auto; max-width: none; min-width: 0; padding: 0; }
+.theater:is(:fullscreen, .palco) .row__seats::before { display: none; }
+.theater:is(:fullscreen, .palco) .row .seat__avatar { height: 66px; }
 .row .row__line { grid-template-columns: repeat(var(--n), minmax(0, 100px)); gap: clamp(2px, .8vw, 12px); }
 .seat.has-poses .seat__zzz { display: none; }
 
@@ -837,9 +837,9 @@ body.lights-off .theater:fullscreen .toolbar, body.lights-off .theater:fullscree
   .toolbar .voicectl .btn { width: 40px; height: 40px; }
   #btnShare { padding: 0 8px; font-size: .75rem; }
 }
-.theater:fullscreen .toolbar:has(.pop:not([hidden])),
-.theater:fullscreen .toolbar:has(.reactgrid:not([hidden])) { z-index: 25; }
-.theater:fullscreen .row:has(.pvol:not([hidden])) { z-index: 26; }
+.theater:is(:fullscreen, .palco) .toolbar:has(.pop:not([hidden])),
+.theater:is(:fullscreen, .palco) .toolbar:has(.reactgrid:not([hidden])) { z-index: 25; }
+.theater:is(:fullscreen, .palco) .row:has(.pvol:not([hidden])) { z-index: 26; }
 
 /* Convite em um clique; personalização compacta por divulgação progressiva. */
 .invite-split { display: inline-flex; align-items: stretch; border: 1px solid var(--line); border-radius: 11px; background: var(--field-bg); }
@@ -1026,8 +1026,8 @@ body.lights-off .theater:fullscreen .toolbar, body.lights-off .theater:fullscree
 .tile__label { transition: opacity .18s; }
 .tile:not(.player-visible):not(:has(:focus-visible)) .tile__label { opacity: 0; }
 .tile.file-session .tile__sub { bottom: 21%; }
-.theater:not(:fullscreen) .player-controls { bottom: calc(clamp(84px,10vw,120px) * .55 + 8px); }
-.theater:fullscreen.idle .tile:not(.player-visible) .player-controls { opacity: 0; pointer-events: none; }
+.theater:not(:fullscreen, .palco) .player-controls { bottom: calc(clamp(84px,10vw,120px) * .55 + 8px); }
+.theater:is(:fullscreen, .palco).idle .tile:not(.player-visible) .player-controls { opacity: 0; pointer-events: none; }
 @media (max-width:540px) {
   .player-controls { padding: 24px 5px 5px; }
   .player-bar { gap: 1px; }
@@ -1037,8 +1037,8 @@ body.lights-off .theater:fullscreen .toolbar, body.lights-off .theater:fullscree
 }
 @media (hover:none) { .player-controls { opacity: 1; pointer-events: auto; } }
 @media (prefers-reduced-motion:reduce) { .player-controls, .player-center { transition: none; } }
-.theater:fullscreen .player-controls { bottom: 88px; }
-.theater:fullscreen:not(.no-chat) .player-controls { right: calc(min(340px,42vw) + 32px); }
+.theater:is(:fullscreen, .palco) .player-controls { bottom: 88px; }
+.theater:is(:fullscreen, .palco):not(.no-chat) .player-controls { right: calc(min(340px,42vw) + 32px); }
 
 .tile__label { top: 10px; bottom: auto; }
 
@@ -1055,25 +1055,25 @@ body.lights-off .theater:fullscreen .toolbar, body.lights-off .theater:fullscree
 /* Tela cheia no celular: chat vira coluna (deitado) ou painel de baixo (em pé), sem cobrir o vídeo;
    a barra cabe na largura e rola para o lado se precisar */
 @media (max-width: 900px), (max-height: 500px) {
-  .theater:fullscreen:not(.no-chat) { grid-template-columns: minmax(0, 1fr) min(300px, 36vw); }
-  .theater:fullscreen .chat { position: static; inset: auto; width: auto; height: 100%; min-height: 0; border-radius: 0; border: 0; border-left: 1px solid rgba(255,255,255,.08); background: #0c0c10; backdrop-filter: none; }
-  .theater:fullscreen.idle .chat { opacity: 1; pointer-events: auto; }
-  .theater:fullscreen .toolbar { left: 8px; right: 8px; bottom: 8px; justify-content: center; overflow-x: auto; scrollbar-width: none; padding: 4px; gap: 4px; }
-  .theater:fullscreen .toolbar::-webkit-scrollbar { display: none; }
-  .theater:fullscreen .toolbar .btn { flex: none; }
-  .theater:fullscreen .row { bottom: 62px; left: 10px; }
+  .theater:is(:fullscreen, .palco):not(.no-chat) { grid-template-columns: minmax(0, 1fr) min(300px, 36vw); }
+  .theater:is(:fullscreen, .palco) .chat { position: static; inset: auto; width: auto; height: 100%; min-height: 0; border-radius: 0; border: 0; border-left: 1px solid rgba(255,255,255,.08); background: #0c0c10; backdrop-filter: none; }
+  .theater:is(:fullscreen, .palco).idle .chat { opacity: 1; pointer-events: auto; }
+  .theater:is(:fullscreen, .palco) .toolbar { left: 8px; right: 8px; bottom: 8px; justify-content: center; overflow-x: auto; scrollbar-width: none; padding: 4px; gap: 4px; }
+  .theater:is(:fullscreen, .palco) .toolbar::-webkit-scrollbar { display: none; }
+  .theater:is(:fullscreen, .palco) .toolbar .btn { flex: none; }
+  .theater:is(:fullscreen, .palco) .row { bottom: 62px; left: 10px; }
 }
 @media (orientation: portrait) and (max-width: 900px) {
-  .theater:fullscreen:not(.no-chat) { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 40vh; }
-  .theater:fullscreen .chat { border-left: 0; border-top: 1px solid rgba(255,255,255,.08); }
+  .theater:is(:fullscreen, .palco):not(.no-chat) { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 40vh; }
+  .theater:is(:fullscreen, .palco) .chat { border-left: 0; border-top: 1px solid rgba(255,255,255,.08); }
 }
 
 /* Controles do player presos à imagem (sem as faixas pretas): a sombra começa onde o vídeo começa */
 .player-controls { left: var(--vx, 0px); right: var(--vx, 0px); bottom: var(--vy, 0px); }
-.theater:not(:fullscreen) .player-controls { bottom: var(--vy, 0px); }
-.theater:fullscreen .player-controls { bottom: max(var(--vy, 0px), 88px); }
-.theater:fullscreen:not(.no-chat) .player-controls { right: max(var(--vx, 0px), calc(min(340px, 42vw) + 32px)); }
-@media (max-width: 900px), (max-height: 500px) { .theater:fullscreen:not(.no-chat) .player-controls { right: var(--vx, 0px); } .theater:fullscreen .player-controls { bottom: max(var(--vy, 0px), 60px); } }
+.theater:not(:fullscreen, .palco) .player-controls { bottom: var(--vy, 0px); }
+.theater:is(:fullscreen, .palco) .player-controls { bottom: max(var(--vy, 0px), 88px); }
+.theater:is(:fullscreen, .palco):not(.no-chat) .player-controls { right: max(var(--vx, 0px), calc(min(340px, 42vw) + 32px)); }
+@media (max-width: 900px), (max-height: 500px) { .theater:is(:fullscreen, .palco):not(.no-chat) .player-controls { right: var(--vx, 0px); } .theater:is(:fullscreen, .palco) .player-controls { bottom: max(var(--vy, 0px), 60px); } }
 /* toque: controles aparecem ao tocar e somem sozinhos, como no mouse */
 @media (hover: none) { .tile:not(.player-visible) .player-controls { opacity: 0; pointer-events: none; } }
 .msg__foto { cursor: zoom-in; max-height: 260px; object-fit: contain; }
@@ -1081,11 +1081,11 @@ body.lights-off .theater:fullscreen .toolbar, body.lights-off .theater:fullscree
 .screen:has(.tile.player-visible) { position: relative; z-index: 7; }
 /* Tela cheia no celular: barra enxuta só com o essencial (mic, pedir pausa, reações, chat, sair) */
 @media (max-width: 900px), (max-height: 500px) {
-  .theater:fullscreen .toolbar { left: auto; right: 8px; }
-  .theater:fullscreen #btnMicOptions, .theater:fullscreen #btnDeafOptions,
-  .theater:fullscreen .voice-control:has(#btnDeaf), .theater:fullscreen .popwrap:has(#btnShare),
-  .theater:fullscreen .popwrap:has(#btnMixer), .theater:fullscreen #settingsFsHome,
-  .theater:fullscreen #btnReload, .theater:fullscreen #btnSubs { display: none !important; }
+  .theater:is(:fullscreen, .palco) .toolbar { left: auto; right: 8px; }
+  .theater:is(:fullscreen, .palco) #btnMicOptions, .theater:is(:fullscreen, .palco) #btnDeafOptions,
+  .theater:is(:fullscreen, .palco) .voice-control:has(#btnDeaf), .theater:is(:fullscreen, .palco) .popwrap:has(#btnShare),
+  .theater:is(:fullscreen, .palco) .popwrap:has(#btnMixer), .theater:is(:fullscreen, .palco) #settingsFsHome,
+  .theater:is(:fullscreen, .palco) #btnReload, .theater:is(:fullscreen, .palco) #btnSubs { display: none !important; }
 }
 
 /* reconectando sozinho (sessão lembrada): sem tela de entrada nem desfoque */
@@ -1104,60 +1104,60 @@ html.auto body.locked > :not(.gate) { filter: none; }
 
 /* Tela cheia: barra de botões no topo, barrinha do vídeo colada no fim da imagem,
    poltronas sobem um pouco enquanto a barrinha do vídeo está à mostra */
-.theater:fullscreen .toolbar { top: 12px; bottom: auto; }
-.theater:fullscreen .toolbar .pop, .theater:fullscreen .toolbar .reactgrid, .theater:fullscreen #settingsFsHome .settings { top: calc(100% + 8px); bottom: auto; }
-.theater:fullscreen .chat { top: 76px; bottom: 16px; }
-.theater:fullscreen .player-controls { bottom: var(--vy, 0px); }
-.theater:fullscreen .row { transition: transform .18s ease; }
-.theater:fullscreen:has(.tile.player-visible) .row { transform: translateY(-78px); }
+.theater:is(:fullscreen, .palco) .toolbar { top: 12px; bottom: auto; }
+.theater:is(:fullscreen, .palco) .toolbar .pop, .theater:is(:fullscreen, .palco) .toolbar .reactgrid, .theater:is(:fullscreen, .palco) #settingsFsHome .settings { top: calc(100% + 8px); bottom: auto; }
+.theater:is(:fullscreen, .palco) .chat { top: 76px; bottom: 16px; }
+.theater:is(:fullscreen, .palco) .player-controls { bottom: var(--vy, 0px); }
+.theater:is(:fullscreen, .palco) .row { transition: transform .18s ease; }
+.theater:is(:fullscreen, .palco):has(.tile.player-visible) .row { transform: translateY(-78px); }
 @media (max-width: 900px), (max-height: 500px) {
-  .theater:fullscreen .toolbar { top: 8px; bottom: auto; }
-  .theater:fullscreen .player-controls { bottom: var(--vy, 0px); }
-  .theater:fullscreen .row { bottom: 10px; }
-  .theater:fullscreen:has(.tile.player-visible) .row { transform: translateY(-52px); }
+  .theater:is(:fullscreen, .palco) .toolbar { top: 8px; bottom: auto; }
+  .theater:is(:fullscreen, .palco) .player-controls { bottom: var(--vy, 0px); }
+  .theater:is(:fullscreen, .palco) .row { bottom: 10px; }
+  .theater:is(:fullscreen, .palco):has(.tile.player-visible) .row { transform: translateY(-52px); }
 }
 
 /* Modo teatro: largura toda, tela limitada pela altura da janela, chat embaixo */
-.theater.teatro:not(:fullscreen) { max-width: none; grid-template-columns: minmax(0, 1fr); }
-.theater.teatro:not(:fullscreen) .screen,
-.theater.teatro:not(:fullscreen) .row { max-width: min(100%, calc((100dvh - 190px) * 16 / 9 + 16px)); }
-.theater.teatro:not(:fullscreen) .chat { position: relative; top: 0; height: 380px; width: 100%; max-width: min(100%, calc((100dvh - 190px) * 16 / 9 + 16px)); justify-self: center; }
+.theater.teatro:not(:fullscreen, .palco) { max-width: none; grid-template-columns: minmax(0, 1fr); }
+.theater.teatro:not(:fullscreen, .palco) .screen,
+.theater.teatro:not(:fullscreen, .palco) .row { max-width: min(100%, calc((100dvh - 190px) * 16 / 9 + 16px)); }
+.theater.teatro:not(:fullscreen, .palco) .chat { position: relative; top: 0; height: 380px; width: 100%; max-width: min(100%, calc((100dvh - 190px) * 16 / 9 + 16px)); justify-self: center; }
 #btnTeatro[aria-pressed="true"] { border-color: var(--accent); color: var(--accent-hi); }
-.theater:fullscreen #btnTeatro { display: none; }
+.theater:is(:fullscreen, .palco) #btnTeatro { display: none; }
 @media (max-width: 1000px) { #btnTeatro { display: none; } }
 
 /* ===== Tela cheia (revisão): barra de botões embaixo e no meio; a barrinha do vídeo fica logo acima dela,
    com a sombra começando no fim da imagem. Parado: só os bonecos. ===== */
-.theater:fullscreen { --reserva: 94px; }
-.theater:fullscreen .toolbar { top: auto; bottom: 12px; left: 50%; right: auto; transform: translateX(-50%); border-radius: 18px; padding: 6px; max-width: calc(100% - 24px); }
-.theater:fullscreen .toolbar .pop, .theater:fullscreen .toolbar .reactgrid, .theater:fullscreen #settingsFsHome .settings { top: auto; bottom: calc(100% + 8px); }
-.theater:fullscreen .chat { top: 16px; bottom: 16px; }
-.theater:fullscreen .player-controls { bottom: var(--vy, 0px); padding-bottom: calc(max(0px, var(--reserva) - var(--vy, 0px)) + 6px); }
-.theater:fullscreen:has(.tile.player-visible) .row { transform: none; }
-.theater:fullscreen .row { bottom: 12px; }
+.theater:is(:fullscreen, .palco) { --reserva: 94px; }
+.theater:is(:fullscreen, .palco) .toolbar { top: auto; bottom: 12px; left: 50%; right: auto; transform: translateX(-50%); border-radius: 18px; padding: 6px; max-width: calc(100% - 24px); }
+.theater:is(:fullscreen, .palco) .toolbar .pop, .theater:is(:fullscreen, .palco) .toolbar .reactgrid, .theater:is(:fullscreen, .palco) #settingsFsHome .settings { top: auto; bottom: calc(100% + 8px); }
+.theater:is(:fullscreen, .palco) .chat { top: 16px; bottom: 16px; }
+.theater:is(:fullscreen, .palco) .player-controls { bottom: var(--vy, 0px); padding-bottom: calc(max(0px, var(--reserva) - var(--vy, 0px)) + 6px); }
+.theater:is(:fullscreen, .palco):has(.tile.player-visible) .row { transform: none; }
+.theater:is(:fullscreen, .palco) .row { bottom: 12px; }
 @media (max-width: 900px), (max-height: 500px) {
-  .theater:fullscreen { --reserva: 56px; }
-  .theater:fullscreen .toolbar { bottom: 6px; left: 50%; right: auto; border-radius: 16px; padding: 4px; }
-  .theater:fullscreen .voice-control:has(#btnMic) { width: auto; }
-  .theater:fullscreen .row { bottom: 6px; left: 8px; }
-  .theater:fullscreen .seat__avatar { height: 46px; }
-  .theater:fullscreen .row__line { grid-template-columns: repeat(var(--n), 50px); }
-  .theater:fullscreen:has(.tile.player-visible) .row { transform: none; }
+  .theater:is(:fullscreen, .palco) { --reserva: 56px; }
+  .theater:is(:fullscreen, .palco) .toolbar { bottom: 6px; left: 50%; right: auto; border-radius: 16px; padding: 4px; }
+  .theater:is(:fullscreen, .palco) .voice-control:has(#btnMic) { width: auto; }
+  .theater:is(:fullscreen, .palco) .row { bottom: 6px; left: 8px; }
+  .theater:is(:fullscreen, .palco) .seat__avatar { height: 46px; }
+  .theater:is(:fullscreen, .palco) .row__line { grid-template-columns: repeat(var(--n), 50px); }
+  .theater:is(:fullscreen, .palco):has(.tile.player-visible) .row { transform: none; }
 }
 /* Celular deitado: chat estilo Twitch por cima do vídeo, só na metade de baixo da lateral, translúcido */
 @media (max-height: 500px) and (orientation: landscape) {
-  .theater:fullscreen:not(.no-chat) { grid-template-columns: minmax(0, 1fr); grid-template-rows: 100%; }
-  .theater:fullscreen .chat { position: absolute; top: 42%; bottom: 8px; right: 8px; left: auto; width: min(290px, 38vw); height: auto; z-index: 8; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: rgba(8,8,12,.38); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: opacity .35s; }
-  .theater:fullscreen .chat__head { display: none; }
-  .theater:fullscreen .chat__list li { text-shadow: 0 1px 3px rgba(0,0,0,.9); }
-  .theater:fullscreen.idle .chat { opacity: 0; pointer-events: none; }
-  .theater:fullscreen:not(.no-chat) .player-controls { right: calc(min(290px, 38vw) + 16px); }
-  .theater:fullscreen:not(.no-chat) .toolbar { left: calc(50% - min(290px, 38vw) / 2 - 8px); }
+  .theater:is(:fullscreen, .palco):not(.no-chat) { grid-template-columns: minmax(0, 1fr); grid-template-rows: 100%; }
+  .theater:is(:fullscreen, .palco) .chat { position: absolute; top: 42%; bottom: 8px; right: 8px; left: auto; width: min(290px, 38vw); height: auto; z-index: 8; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: rgba(8,8,12,.38); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: opacity .35s; }
+  .theater:is(:fullscreen, .palco) .chat__head { display: none; }
+  .theater:is(:fullscreen, .palco) .chat__list li { text-shadow: 0 1px 3px rgba(0,0,0,.9); }
+  .theater:is(:fullscreen, .palco).idle .chat { opacity: 0; pointer-events: none; }
+  .theater:is(:fullscreen, .palco):not(.no-chat) .player-controls { right: calc(min(290px, 38vw) + 16px); }
+  .theater:is(:fullscreen, .palco):not(.no-chat) .toolbar { left: calc(50% - min(290px, 38vw) / 2 - 8px); }
 }
-.theater:fullscreen .screen:has(.tile.player-visible) { z-index: auto; }
-.theater:fullscreen .row { z-index: 8; }
-.theater:fullscreen .toolbar { z-index: 9; }
-.theater:fullscreen .chat { z-index: 10; }
+.theater:is(:fullscreen, .palco) .screen:has(.tile.player-visible) { z-index: auto; }
+.theater:is(:fullscreen, .palco) .row { z-index: 8; }
+.theater:is(:fullscreen, .palco) .toolbar { z-index: 9; }
+.theater:is(:fullscreen, .palco) .chat { z-index: 10; }
 
 /* Soundboard: cartões com cor do som, prévia no fone, atalhos de busca */
 .sons__chips { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
@@ -1187,8 +1187,8 @@ html.auto body.locked > :not(.gate) { filter: none; }
 .btn--somstop[hidden] { display: none !important; }
 @keyframes somStopPulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); } 50% { box-shadow: 0 0 0 5px transparent; } }
 @media (max-width: 900px), (max-height: 500px) { .btn--somstop span { display: none; } .btn--somstop { width: 40px; padding: 0; justify-content: center; } }
-.theater:fullscreen .btn--somstop span { display: none; }
-.theater:fullscreen .btn--somstop { width: 40px; padding: 0; justify-content: center; }
+.theater:is(:fullscreen, .palco) .btn--somstop span { display: none; }
+.theater:is(:fullscreen, .palco) .btn--somstop { width: 40px; padding: 0; justify-content: center; }
 @media (prefers-reduced-motion: reduce) { .btn--somstop { animation: none; } }
 
 /* Memes: busca em cima da grade */
@@ -1201,33 +1201,33 @@ html.auto body.locked > :not(.gate) { filter: none; }
 
 /* ===== Tela cheia (revisão 2) ===== */
 .chat__modo { display: none; }
-.theater:fullscreen .chat__head { display: none; }
-.theater:fullscreen .chat__modo { display: grid; place-items: center; position: absolute; top: 8px; right: 8px; z-index: 2; width: 28px; height: 28px; border: 0; border-radius: 8px; background: rgba(0,0,0,.35); color: rgba(255,255,255,.7); cursor: pointer; }
-.theater:fullscreen .chat__modo:hover { color: #fff; background: rgba(0,0,0,.6); }
-.theater:fullscreen .chat__modo svg { width: 15px; height: 15px; }
+.theater:is(:fullscreen, .palco) .chat__head { display: none; }
+.theater:is(:fullscreen, .palco) .chat__modo { display: grid; place-items: center; position: absolute; top: 8px; right: 8px; z-index: 2; width: 28px; height: 28px; border: 0; border-radius: 8px; background: rgba(0,0,0,.35); color: rgba(255,255,255,.7); cursor: pointer; }
+.theater:is(:fullscreen, .palco) .chat__modo:hover { color: #fff; background: rgba(0,0,0,.6); }
+.theater:is(:fullscreen, .palco) .chat__modo svg { width: 15px; height: 15px; }
 /* flutuante: metade de baixo da lateral, translúcido; some quando parado */
-.theater:fullscreen:not(.chat-fixo) .chat { position: absolute; top: 42%; bottom: 16px; right: 16px; left: auto; width: min(340px, 32vw); height: auto; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: rgba(8,8,12,.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-.theater:fullscreen:not(.chat-fixo):not(.no-chat) { grid-template-columns: minmax(0, 1fr); }
-.theater:fullscreen:not(.chat-fixo).idle .chat { opacity: 0; pointer-events: none; }
+.theater:is(:fullscreen, .palco):not(.chat-fixo) .chat { position: absolute; top: 42%; bottom: 16px; right: 16px; left: auto; width: min(340px, 32vw); height: auto; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: rgba(8,8,12,.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.theater:is(:fullscreen, .palco):not(.chat-fixo):not(.no-chat) { grid-template-columns: minmax(0, 1fr); }
+.theater:is(:fullscreen, .palco):not(.chat-fixo).idle .chat { opacity: 0; pointer-events: none; }
 /* degradê do vídeo na largura toda; os botões param antes do chat flutuante */
-.theater:fullscreen .player-controls, .theater:fullscreen:not(.no-chat) .player-controls { right: var(--vx, 0px); }
-.theater:fullscreen:not(.no-chat):not(.chat-fixo) .player-controls { padding-right: calc(min(340px, 32vw) + 28px); }
+.theater:is(:fullscreen, .palco) .player-controls, .theater:is(:fullscreen, .palco):not(.no-chat) .player-controls { right: var(--vx, 0px); }
+.theater:is(:fullscreen, .palco):not(.no-chat):not(.chat-fixo) .player-controls { padding-right: calc(min(340px, 32vw) + 28px); }
 /* fixo: coluna à direita, o vídeo encolhe para caber */
-.theater:fullscreen.chat-fixo:not(.no-chat) { grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: 100%; }
-.theater:fullscreen.chat-fixo .chat { position: static; inset: auto; width: auto; height: 100%; border: 0; border-left: 1px solid rgba(255,255,255,.08); border-radius: 0; background: #0c0c10; backdrop-filter: none; opacity: 1; pointer-events: auto; }
+.theater:is(:fullscreen, .palco).chat-fixo:not(.no-chat) { grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: 100%; }
+.theater:is(:fullscreen, .palco).chat-fixo .chat { position: static; inset: auto; width: auto; height: 100%; border: 0; border-left: 1px solid rgba(255,255,255,.08); border-radius: 0; background: #0c0c10; backdrop-filter: none; opacity: 1; pointer-events: auto; }
 /* etiqueta de quem projeta, menor */
-.theater:fullscreen .tile__label { padding: 1px 6px; font-size: .62rem; border-radius: 5px; }
+.theater:is(:fullscreen, .palco) .tile__label { padding: 1px 6px; font-size: .62rem; border-radius: 5px; }
 @media (max-height: 500px) and (orientation: landscape) {
-  .theater:fullscreen:not(.chat-fixo) .chat { width: min(290px, 38vw); top: 42%; bottom: 8px; right: 8px; }
-  .theater:fullscreen:not(.no-chat):not(.chat-fixo) .player-controls { padding-right: calc(min(290px, 38vw) + 16px); }
-  .theater:fullscreen.chat-fixo:not(.no-chat) { grid-template-columns: minmax(0, 1fr) min(290px, 38vw); }
+  .theater:is(:fullscreen, .palco):not(.chat-fixo) .chat { width: min(290px, 38vw); top: 42%; bottom: 8px; right: 8px; }
+  .theater:is(:fullscreen, .palco):not(.no-chat):not(.chat-fixo) .player-controls { padding-right: calc(min(290px, 38vw) + 16px); }
+  .theater:is(:fullscreen, .palco).chat-fixo:not(.no-chat) { grid-template-columns: minmax(0, 1fr) min(290px, 38vw); }
 }
 /* celular em pé: chat continua embaixo do vídeo (sem flutuar) */
 @media (orientation: portrait) and (max-width: 900px) {
-  .theater:fullscreen:not(.no-chat), .theater:fullscreen.chat-fixo:not(.no-chat) { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 40vh; }
-  .theater:fullscreen:not(.chat-fixo) .chat, .theater:fullscreen.chat-fixo .chat, .theater:fullscreen:not(.chat-fixo).idle .chat { position: static; width: auto; height: 100%; border: 0; border-top: 1px solid rgba(255,255,255,.08); border-radius: 0; background: #0c0c10; backdrop-filter: none; opacity: 1; pointer-events: auto; }
-  .theater:fullscreen:not(.no-chat):not(.chat-fixo) .player-controls { padding-right: 6px; }
-  .theater:fullscreen .chat__modo { display: none; }
+  .theater:is(:fullscreen, .palco):not(.no-chat), .theater:is(:fullscreen, .palco).chat-fixo:not(.no-chat) { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 40vh; }
+  .theater:is(:fullscreen, .palco):not(.chat-fixo) .chat, .theater:is(:fullscreen, .palco).chat-fixo .chat, .theater:is(:fullscreen, .palco):not(.chat-fixo).idle .chat { position: static; width: auto; height: 100%; border: 0; border-top: 1px solid rgba(255,255,255,.08); border-radius: 0; background: #0c0c10; backdrop-filter: none; opacity: 1; pointer-events: auto; }
+  .theater:is(:fullscreen, .palco):not(.no-chat):not(.chat-fixo) .player-controls { padding-right: 6px; }
+  .theater:is(:fullscreen, .palco) .chat__modo { display: none; }
 }
 
 /* Assistir junto (YouTube / Spotify) */
@@ -1251,15 +1251,15 @@ html.auto body.locked > :not(.gate) { filter: none; }
 .midia__x { display: grid; place-items: center; width: 26px; height: 26px; border: 0; border-radius: 7px; background: rgba(255,255,255,.1); color: #fff; cursor: pointer; }
 .midia__x:hover { background: var(--accent); }
 .midia__x svg { width: 14px; height: 14px; }
-.theater:fullscreen.idle .midia__bar { opacity: 0; pointer-events: none; }
+.theater:is(:fullscreen, .palco).idle .midia__bar { opacity: 0; pointer-events: none; }
 .msg__junto { display: inline-flex; align-items: center; gap: 5px; margin-top: 4px; height: 28px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.06); color: inherit; font: inherit; font-size: .75rem; font-weight: 600; cursor: pointer; }
 .msg__junto:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 .msg__junto svg { width: 13px; height: 13px; }
 .who__vazio { grid-column: 1 / -1; margin: .5rem auto; max-width: 40ch; text-align: center; color: var(--fg-soft); font-size: .9rem; }
 /* parado em tela cheia: some mesmo com o filme tocando (o "luzes apagadas" não pode segurar a barra) */
-body.lights-off .theater:fullscreen.idle .toolbar,
-body .theater:fullscreen.idle .toolbar { opacity: 0; pointer-events: none; }
-body.lights-off .theater:fullscreen:not(.chat-fixo).idle .chat { opacity: 0; pointer-events: none; }
+body.lights-off .theater:is(:fullscreen, .palco).idle .toolbar,
+body .theater:is(:fullscreen, .palco).idle .toolbar { opacity: 0; pointer-events: none; }
+body.lights-off .theater:is(:fullscreen, .palco):not(.chat-fixo).idle .chat { opacity: 0; pointer-events: none; }
 
 /* Canais (estilo Discord): seletor ao lado do nome do site */
 .chan { position: relative; }
@@ -1453,7 +1453,7 @@ body.lights-off .theater:fullscreen:not(.chat-fixo).idle .chat { opacity: 0; poi
 .callbar__p--media .callbar__dot { background: #f2b33d; }
 .callbar__p--ruim .callbar__dot { background: #ef4d4d; animation: callPisca 1.4s ease-in-out infinite; }
 @keyframes callPisca { 50% { opacity: .35; } }
-.theater:fullscreen .callbar { display: none; }
+.theater:is(:fullscreen, .palco) .callbar { display: none; }
 
 /* ===== Diagnóstico (admin) ===== */
 .diagm { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.6); backdrop-filter: blur(4px); }
@@ -1764,7 +1764,7 @@ body.lights-off .theater:fullscreen:not(.chat-fixo).idle .chat { opacity: 0; poi
 @media (max-width: 720px) { .fx-corpo { grid-template-columns: 1fr; } .fx-lado { display: none; } .fx-pacs, .fx-modos { grid-template-columns: 1fr; } .fx-linha { grid-template-columns: 20px 26px minmax(60px, 90px) 1fr; } .fx-linha__pts { display: none; } }
 /* com o jogo aberto, a fileira de poltronas não cobre o campo de palpite */
 .theater.jogo-on .faixa.faixa--on { padding-bottom: clamp(56px, 7.5vw, 78px); }
-.theater:fullscreen.jogo-on .faixa.faixa--on { padding-bottom: clamp(18px, 2vw, 24px); }
+.theater:is(:fullscreen, .palco).jogo-on .faixa.faixa--on { padding-bottom: clamp(18px, 2vw, 24px); }
 
 /* ===== Faixa a Faixa v3 ===== */
 .fx-modo { display: inline-flex; align-items: center; gap: 4px; }
@@ -1989,3 +1989,52 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 .jogosmenu__it .jogosmenu__ic--dc.jogosmenu__arte { padding: 3px; background: #e92328; }
 .jogosmenu__it .jogosmenu__ic--pp.jogosmenu__arte { background: #ff142b; }
 .jogosmenu__it .jogosmenu__ic--ab.jogosmenu__arte { background: #000; }
+
+/* Palco: a página inteira vira a tela (sem a tela cheia do navegador). Usa o mesmo layout da tela cheia:
+   os seletores acima são .theater:is(:fullscreen, .palco). Duplo clique no jogo entra; duplo clique fora, Esc ou G sai. */
+.theater.palco { position: fixed; inset: 0; z-index: 30; width: 100vw; height: 100vh; height: 100dvh; }
+body.palco-on { overflow: hidden; }
+.theater.palco .screen__inner { transition: none; }
+.palco-aviso { position: absolute; left: 50%; top: 14px; translate: -50% 0; z-index: 40; padding: 7px 14px; border-radius: 99px; background: rgba(12,12,16,.88); color: #e8e8ee; font: 500 .8rem/1.2 Inter, system-ui, sans-serif; pointer-events: none; animation: palco-aviso 3.2s ease both; }
+.palco-aviso b { color: #fff; }
+@keyframes palco-aviso { 0% { opacity: 0; translate: -50% -8px; } 10%, 80% { opacity: 1; translate: -50% 0; } 100% { opacity: 0; } }
+
+/* ===== mesas paralelas: uma mesa em foco na tela, abas para trocar, selo do jogo nas poltronas ===== */
+#screenInner > .mesa-oculta { display: none !important; }
+.mesas { position: absolute; left: 50%; top: 10px; translate: -50% 0; z-index: 15; display: flex; align-items: center; gap: 6px; padding: 5px; border-radius: 14px; background: rgba(10,10,14,.82); box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 8px 24px rgba(0,0,0,.45); backdrop-filter: blur(6px); font-family: Inter, system-ui, sans-serif; }
+.mesas__k { padding: 0 6px 0 8px; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+.mesas__it { position: relative; display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 8px; align-items: center; padding: 5px 12px 5px 6px; border: 0; border-radius: 10px; background: transparent; color: #e8e8ee; cursor: pointer; text-align: left; transition: background .15s; }
+.mesas__it:hover { background: rgba(255,255,255,.08); }
+.mesas__it.on { background: rgba(255,255,255,.16); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); }
+.mesas__it img, .mesas__it .mesas__ic { grid-row: 1 / span 2; width: 26px; height: 26px; border-radius: 6px; object-fit: cover; }
+.mesas__it b { font-size: .8rem; font-weight: 600; line-height: 1.1; }
+.mesas__it small { font-size: .66rem; color: rgba(255,255,255,.55); }
+.mesas__it.minha::after { content: ""; position: absolute; top: 5px; right: 5px; width: 6px; height: 6px; border-radius: 50%; background: #3ddc84; box-shadow: 0 0 6px #3ddc84; }
+.mesas__ic { display: inline-grid; place-items: center; background: #2a2a33; }
+.mesas__ic svg { width: 80%; height: 80%; }
+.seat__mesa { position: absolute; left: 50%; top: -6px; translate: -50% -100%; z-index: 5; display: flex; align-items: center; gap: 4px; padding: 2px 7px 2px 3px; border-radius: 99px; background: rgba(12,12,16,.88); color: #e8e8ee; font: 600 .6rem/1.2 Inter, system-ui, sans-serif; white-space: nowrap; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.seat__mesa img, .seat__mesa .mesas__ic { width: 14px; height: 14px; border-radius: 4px; object-fit: cover; }
+.seat__mesa.outra { opacity: .7; }
+
+/* trocar de jogo com outro rolando */
+.trocajogo { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; padding: 16px; background: rgba(6,6,10,.62); backdrop-filter: blur(4px); animation: trocajogo-f .2s both; font-family: Inter, system-ui, sans-serif; }
+.theater .trocajogo { position: absolute; }
+@keyframes trocajogo-f { from { opacity: 0; } }
+.trocajogo__box { width: min(420px, 100%); display: flex; flex-direction: column; gap: 8px; padding: 20px; border-radius: 18px; background: #16161c; color: #ececf1; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.6); animation: trocajogo-box .3s cubic-bezier(.2,.9,.3,1.2) both; }
+@keyframes trocajogo-box { from { opacity: 0; transform: translateY(10px) scale(.97); } }
+.trocajogo__topo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 4px; }
+.trocajogo__topo img, .trocajogo__topo .mesas__ic { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,.5); }
+.trocajogo__topo i { font-style: normal; color: rgba(255,255,255,.4); font-size: 1.2rem; }
+.trocajogo h3 { margin: 0; text-align: center; font-size: 1.1rem; }
+.trocajogo p { margin: 0 0 6px; text-align: center; font-size: .85rem; color: rgba(255,255,255,.6); }
+.trocajogo__op { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; background: rgba(255,255,255,.04); color: inherit; cursor: pointer; text-align: left; transition: background .15s, border-color .15s, transform .12s; }
+.trocajogo__op:hover, .trocajogo__op:focus-visible { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.25); outline: none; }
+.trocajogo__op:active { transform: scale(.98); }
+.trocajogo__op b { font-size: .92rem; }
+.trocajogo__op small { font-size: .78rem; color: rgba(255,255,255,.55); }
+.trocajogo__op small:empty { display: none; }
+.trocajogo__op.forte { background: #e5484d; border-color: transparent; color: #fff; }
+.trocajogo__op.forte small { color: rgba(255,255,255,.85); }
+.trocajogo__op.forte:hover { background: #f05358; }
+.trocajogo__op.perigo b { color: #ff8a8e; }
+.trocajogo__op.leve { align-items: center; border-color: transparent; background: none; }

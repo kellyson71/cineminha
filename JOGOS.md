@@ -56,8 +56,12 @@ O objetivo principal do Cineminha é **transmitir tela, conversar e ver junto**.
 - `ctx.outroJogo()` — outro jogo está aberto (não aceite estado novo).
 - `ctx.onAtivo(on)` — chame no render (liga a classe `xx-on` no teatro e acende o botão de jogos).
 
-O módulo devolve `{ got(d, deKey), iniciar(), ativo(), entrouAlguem(key) }` e expõe `window.__xx = () => ({ G, V, difunde })`
-para testes.
+O módulo devolve `{ got(d, deKey), iniciar(chamados), ativo(), entrouAlguem(key), lider(), encerra(), sair(), jogadores() }`
+e expõe `window.__xx = () => ({ G, V, difunde })` para testes. Os quatro últimos e o `chamados` (keys que já entram como
+"sim" no convite) servem às **mesas**: o app deixa mais de um jogo rolando ao mesmo tempo, mostra um por vez (a mesa em
+foco, com abas em cima da tela) e, ao abrir um jogo com outro rolando, pergunta ao líder se leva todo mundo, abre ao lado
+ou encerra; quem só joga sai (`sair()` manda `{ op: 'sai' }` e o host chama `remove(key)`). `ctx.outroJogo()` agora é
+sempre falso: cada jogo segue o seu, mesmo sem foco.
 
 ## Arquitetura de rede (igual em todos)
 
@@ -107,7 +111,11 @@ identidade visual própria. Sons: Kenney (CC0) em `public/jogos/coup/sons/`; Twe
 
 - Cada jogo tem **identidade visual própria** (Coup: renascença/pergaminho; Uno: baralho clássico com logo e elipse; Red Flags: vermelho/branco com versos da Oficina;
   Amigos de Merda: preto/rosa com versos da Oficina; Faixa a Faixa: minimal + punk/show). Nada de cara genérica de IA.
-- Página inicial = **tutorial visual** em 2–3 quadros animados em loop, quase sem texto (ver `convite()` do Red Flags).
+- Página inicial = **tutorial visual**. Jogos com regra difícil usam o motor de aula (`public/aula.js` + `aula.css`, ponha
+  `'aula.css'` no `css` do registro): passos curtos, uma regra por cena, e o último passo interativo. As cenas são
+  declarativas: cada peça recebe classes de batida (`eN` entra, `sN` sai, `vN`/`wN` move, `fN` vira, `mN` morre, `dN`
+  destaca, `pN` carimba, `tN` treme) e o motor acende `b1, b2…` na cena. Exemplos: `coup-aula.js`, `dobradinha-aula.js`.
+  Jogos simples podem ficar com 2–3 quadros em loop (ver `convite()` do Red Flags).
 - Cartas parecem cartas de verdade (proporção em pé, mesmo tamanho na mão e na mesa), legíveis rápido.
 - Hierarquia clara: o que é a vez de quem, o que fazer agora. Sem textão de instrução; dicas curtas no `title`.
 - Animações curtas e com propósito (cartas voando do monte para a mão, embaralhar no começo, revelar), sem exagero;
