@@ -206,3 +206,23 @@
 .faixa .fx-jogo--lei .fx-filme, .faixa .fx-jogo--ano .fx-filme { flex: none; justify-content: flex-start; }
 .faixa .fx-jogo--lei .fx-linha, .faixa .fx-jogo--ano .fx-linha { height: 32px; flex: none; }
 .faixa .fx-jogo--lei .fx-player, .faixa .fx-jogo--ano .fx-player { flex: none; }
+
+/* cooperativo: um placar só para a equipe */
+.fx-equipe { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 8px 12px; border-radius: 12px; background: linear-gradient(160deg, rgba(242,179,61,.18), rgba(242,179,61,.05)); border: 1px solid rgba(242,179,61,.28); text-align: center; }
+.fx-equipe b { font-size: 1.9rem; line-height: 1; font-weight: 800; color: #ffd58a; font-variant-numeric: tabular-nums; }
+.fx-equipe small { font-size: .68rem; color: var(--fg-soft); text-transform: uppercase; letter-spacing: .06em; }
+.fx-equipe small:last-child { text-transform: none; letter-spacing: 0; color: var(--fg-faint); }
+.fx-equipe--final { margin: 4px auto 8px; padding: 14px 28px; }
+.fx-equipe--final b { font-size: 2.6rem; }
+.fx-jogs__acertos { color: #ffd58a; font-size: .78rem !important; }
+/* cooperativo: os chutes de todo mundo em cada camada (quebram linha em vez de sumir) */
+.fx-linha__res--coop { flex-wrap: wrap; row-gap: 4px; }
+.fx-tent b { font-weight: 700; margin-right: 2px; }
+/* olhando o menu de quem está escolhendo: só olhar, sem clicar */
+.fx-lobby--ver > :not(.fx-lobby__ver) { pointer-events: none; }
+.faixa .fx-lobby__ver { position: absolute; top: 10px; left: 50%; translate: -50% 0; z-index: 5; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 24px); padding: 5px 5px 5px 12px; border-radius: 99px; background: rgba(10,10,14,.88); border: 1px solid rgba(255,255,255,.14); box-shadow: 0 6px 18px rgba(0,0,0,.4); font-size: .85rem; color: var(--fg-soft); }
+.fx-lobby__ver .pfp { width: 22px; height: 22px; border-radius: 50%; }
+.fx-lobby__ver span { flex: 1; min-width: 0; }
+.fx-lobby__ver b { color: #fff; }
+.fx-lobby__ver::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #3ecf72; box-shadow: 0 0 0 0 rgba(62,207,114,.6); animation: fxAoVivo 1.6s infinite; order: -1; }
+@keyframes fxAoVivo { 70% { box-shadow: 0 0 0 7px rgba(62,207,114,0); } 100% { box-shadow: 0 0 0 0 rgba(62,207,114,0); } }

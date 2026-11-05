@@ -105,7 +105,7 @@ function toast(msg, ms = 2800) {
 }
 
 /* ---------- Preferências (salvas no navegador e no servidor, por pessoa) ---------- */
-const DEFAULT_PREFS = { vol: 1, vvol: 1, pvol: {}, tvol: {}, tmute: {}, nudges: true, spatial: false, spatialVersion: 3, board: .4, master: 1, mvol: .45, sonsRec: [], sfx: .6, vmode: 'open', pttKey: 'KeyV', pttLabel: 'V', mic: '', extra: '', chat: true, subs: true, t: 0, entryMuted: false, duck: false, pmute: {}, boardpvol: {}, boardmute: {}, fxpvol: {}, fxpmute: {} }
+const DEFAULT_PREFS = { vol: 1, vvol: 1, pvol: {}, tvol: {}, tmute: {}, nudges: true, spatial: false, spatialVersion: 3, board: .4, master: 1, mvol: .45, sonsRec: [], sfx: .6, vmode: 'open', pttKey: 'KeyV', pttLabel: 'V', mic: '', extra: '', chat: true, subs: true, t: 0, entryMuted: false, duck: false, pmute: {}, boardpvol: {}, boardmute: {}, fxpvol: {}, fxpmute: {}, jogoVol: 1, jogoMudo: false }
 const prefs = Object.assign({}, DEFAULT_PREFS, normalizeAudioPrefs(store.get('prefs')))
 let prefsTimer
 function savePrefs() {
@@ -149,6 +149,7 @@ function audioCtx() {
     mix.voiceLim = new DynamicsCompressorNode(mix.ac, { threshold: -2, knee: 0, ratio: 20, attack: .001, release: .1 })
     mix.voice.connect(mix.voiceComp).connect(mix.voiceMakeup).connect(mix.voiceLim).connect(mix.master)
     mix.sfx = mix.ac.createGain(); mix.sfx.connect(mix.master)
+    mix.jogo = mix.ac.createGain(); mix.jogo.gain.value = somJogo(); mix.jogo.connect(mix.master) // tudo que os jogos tocam passa por aqui
     mix.board = mix.ac.createGain(); mix.board.gain.value = prefs.board
     // limitador do soundboard: nenhum som passa do teto, mesmo dois tocando juntos
     mix.boardLim = new DynamicsCompressorNode(mix.ac, { threshold: -24, knee: 6, ratio: 12, attack: .002, release: .25 })
@@ -191,6 +192,7 @@ function connectUserSound(src, destination, key, kind) {
 }
 let ducking = false
 const movieLevel = () => me.deaf ? 0 : prefs.vol * (ducking ? .3 : 1)
+function somJogo() { return me.deaf || prefs.jogoMudo ? 0 : prefs.jogoVol ?? 1 }
 function applyAudioLevels() {
   try { setMidiaVol() } catch {}
   try { radio?.vol() } catch {}
@@ -200,6 +202,7 @@ function applyAudioLevels() {
     else mix.movie.gain.setTargetAtTime(movieLevel(), mix.ac.currentTime, ducking ? .12 : .5)
     mix.voice.gain.value = me.deaf ? 0 : prefs.vvol
     mix.sfx.gain.value = me.deaf ? 0 : prefs.sfx
+    mix.jogo.gain.value = somJogo()
     mix.board.gain.value = me.deaf ? 0 : prefs.board
     mix.master.gain.value = prefs.master ?? 1
   }
@@ -524,7 +527,7 @@ function recarregar(motivo) {
 }
 
 /* ---------- Atualização automática ---------- */
-let baseVer = null, baseCss = null, cssVer = '', pendingUpdate = false, recargaMarcada = false
+let baseVer = null, baseCss = null, cssVer = '', pendingUpdate = false, recargaMarcada = false, avisouJogo = false
 // só o visual mudou: troca as folhas de estilo no lugar (a nova carrega antes de a antiga sair, sem piscar)
 function trocaCss(c) {
   cssVer = c
@@ -543,13 +546,18 @@ async function checkVersion() {
     const { v, c } = await (await fetch('version.json?t=' + Date.now(), { cache: 'no-store' })).json()
     if (baseVer === null) { baseVer = v; baseCss = c; return }
     if (v === baseVer) { if (c && c !== baseCss) { baseCss = c; trocaCss(c) } return }
+    const jogando = () => ativos().length > 0
     if (myShare) {
       if (!pendingUpdate) toast('Versão nova no ar: atualiza quando você parar de projetar', 6000)
       pendingUpdate = true
+    } else if (jogando()) {
+      // partida rolando: espera ela acabar (esta checagem roda de novo a cada 20 s)
+      if (!avisouJogo) toast('Versão nova no ar: atualiza quando o jogo acabar', 5000)
+      avisouJogo = true
     } else if (!recargaMarcada) {
       // cada um recarrega num instante diferente: a sala não cai inteira de uma vez
       recargaMarcada = true
-      setTimeout(() => myShare ? (pendingUpdate = true) : recarregar('versao'), Math.random() * 5000)
+      setTimeout(() => { if (myShare) pendingUpdate = true; else if (jogando()) recargaMarcada = false; else recarregar('versao') }, Math.random() * 5000)
     }
   } catch {}
 }
@@ -1305,6 +1313,18 @@ function radioVolControl() {
   slider.addEventListener('input', () => { radio.setVol(+slider.value); output.textContent = pct(+slider.value); if (radio.mudo() && +slider.value > 0) radio.setMudo(false) })
   return el('label', { className: 'ctxmenu__vol' }, icon('music'), el('span', { textContent: 'Rádio' }), slider, output)
 }
+// volume dos jogos (só para você): botão direito em cima do jogo
+function jogoVolControl() {
+  const v = () => prefs.jogoMudo ? 0 : prefs.jogoVol ?? 1
+  const slider = el('input', { type: 'range', min: 0, max: 1.5, step: .01, value: v(), ariaLabel: 'Volume do jogo' })
+  const output = el('output', { textContent: pct(v()) })
+  slider.addEventListener('input', () => { prefs.jogoVol = +slider.value; prefs.jogoMudo = false; output.textContent = pct(+slider.value); applyAudioLevels(); savePrefs() })
+  slider.addEventListener('dblclick', () => { slider.value = 1; slider.dispatchEvent(new Event('input')) })
+  return el('label', { className: 'ctxmenu__vol' }, icon('gamepad-2'), el('span', { textContent: 'Jogo' }), slider, output)
+}
+function jogoMuteItem() {
+  return ctxItem(prefs.jogoMudo ? 'volume-2' : 'volume-x', prefs.jogoMudo ? 'Voltar a ouvir o jogo' : 'Silenciar o jogo só para mim', () => { prefs.jogoMudo = !prefs.jogoMudo; applyAudioLevels(); savePrefs() })
+}
 function radioMuteItem() {
   return ctxItem(radio.mudo() ? 'volume-2' : 'volume-x', radio.mudo() ? 'Voltar a ouvir a rádio' : 'Silenciar a rádio só para mim', () => radio.setMudo(!radio.mudo()))
 }
@@ -1348,7 +1368,7 @@ function ctxJogo(id) {
     $, el, icon, toast, sysMsg, me, tela,
     send: (d, target) => actions?.jogo.send(d, target ? { target } : undefined),
     sendTo: (key, d) => { const ids = [...peers].filter(([, p]) => p.key === key).map(([pid]) => pid); if (ids.length) actions?.jogo.send(d, { target: ids }) },
-    audioCtx: () => audioCtx(), saida: () => { audioCtx(); return mix.master },
+    audioCtx: () => audioCtx(), saida: () => { audioCtx(); return mix.jogo },
     presentes: () => [...new Set([me.key, ...[...peers.values()].map(p => p.key)].filter(Boolean))],
     nomeDe: k => k === me.key ? me.name : [...peers.values()].find(p => p.key === k)?.name || person(k).nome,
     pfp: (k, s, n) => pfpImg(k, s, n),
@@ -1363,15 +1383,18 @@ function ctxJogo(id) {
     salvaRes: r => api('sala', { method: 'POST', body: { op: 'faixa-res', pw: roomPw, key: me.key, nome: me.name, ...r } }),
     verDias: async datas => (await api('sala', { method: 'POST', body: { op: 'faixa-ver', pw: roomPw, datas } }))?.res || {},
     // alguém digitando um palpite: três pontinhos em cima do boneco (somem sozinhos)
-    digitandoFaixa: (key, on) => {
+    // no cooperativo vem o texto que a pessoa está digitando (em vez dos pontinhos)
+    digitandoFaixa: (key, on, txt) => {
       const node = seatNodes.get(key)
       if (!node) return
       clearTimeout(node._digT)
-      node.querySelector('.seat__dig')?.remove()
-      if (!on) return
-      node.append(el('div', { className: 'seat__dig' }, el('i'), el('i'), el('i')))
+      const velho = node.querySelector('.seat__dig')
+      if (!on) return velho?.remove()
+      if (txt && velho?.classList.contains('seat__dig--txt')) velho.querySelector('span').textContent = txt
+      else { velho?.remove(); node.append(txt ? el('div', { className: 'seat__dig seat__dig--txt' }, el('span', { textContent: txt }), el('u')) : el('div', { className: 'seat__dig' }, el('i'), el('i'), el('i'))) }
       node._digT = setTimeout(() => node.querySelector('.seat__dig')?.remove(), 6000)
     },
+    balao: (key, text) => showBubble({ key, text }),
   }
 }
 function carregaJogo(id) {
@@ -1477,7 +1500,7 @@ function trocaJogo(atual, novoId) {
   m.querySelector('.trocajogo__op')?.focus()
 }
 // quem abriu uma mesa e recarregou a página: o jogo volta sozinho (o módulo confere se ainda é o host)
-for (const [id, k] of [['coup', 'coup.G'], ['dc', 'dc.G'], ['pp', 'pp.G'], ['ab', 'ab.G'], ['db', 'db.G']]) { try { if (localStorage.getItem(k)) carregaJogo(id) } catch {} }
+for (const [id, k] of [['faixa', 'faixa.S'], ['coup', 'coup.G'], ['dc', 'dc.G'], ['pp', 'pp.G'], ['ab', 'ab.G'], ['db', 'db.G']]) { try { if (localStorage.getItem(k)) carregaJogo(id) } catch {} }
 
 /* ---------- Botão de jogos: escolher o jogo ---------- */
 // ícones do menu: desenhados no centro de um quadrado de 24, para ficarem alinhados
@@ -1973,11 +1996,15 @@ function midiaVolControl() {
   slider.addEventListener('input', () => { prefs.mvol = +slider.value; output.textContent = pct(prefs.mvol); setMidiaVol(); savePrefs(); const b = midiaEl?.querySelector('.midia__vol'); if (b) { b.value = prefs.mvol; b.nextSibling.textContent = pct(prefs.mvol) } })
   return el('label', { className: 'ctxmenu__vol' }, icon('play'), el('span', { textContent: 'YouTube' }), slider, output)
 }
-function openRoomAudio(x, y) {
-  positionContext([...(midia?.kind === 'yt' ? [midiaVolControl()] : []), ...(radio?.ativo() ? [radioVolControl(), radioMuteItem()] : []), globalMovieControl(), duckToggle(), ctxItem('sliders-horizontal', 'Mixer', () => $('#btnMixer').click()), ctxItem('maximize', 'Tela cheia', toggleFs)], x, y)
+function openRoomAudio(x, y, jogo) {
+  positionContext([...(jogo ? [el('div', { className: 'ctxmenu__title', textContent: JOGOS[jogo].nome }), jogoVolControl(), jogoMuteItem()] : []), ...(midia?.kind === 'yt' ? [midiaVolControl()] : []), ...(radio?.ativo() ? [radioVolControl(), radioMuteItem()] : []), globalMovieControl(), duckToggle(), ctxItem('sliders-horizontal', 'Mixer', () => $('#btnMixer').click()), ctxItem('maximize', 'Tela cheia', toggleFs)], x, y)
 }
 $('#screenInner').addEventListener('contextmenu', e => {
+  if (e.target.closest('input, textarea')) return // no campo de texto fica o menu do navegador (colar etc.)
   e.preventDefault()
+  // em cima de um jogo: volume do jogo primeiro
+  const jogo = Object.keys(JOGOS).find(k => e.target.closest('#' + JOGOS[k].tela + 'Tela'))
+  if (jogo) return openRoomAudio(e.clientX, e.clientY, jogo)
   const node = e.target.closest('.tile')
   const id = node && [...tiles].find(([, t]) => t.el === node)?.[0]
   openCtx(id ?? null, e.clientX, e.clientY)

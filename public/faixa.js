@@ -51,7 +51,10 @@ const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'o
 const SEMANA = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb']
 
 const semAcento = t => String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
-const norm = t => semAcento(t).replace(/\(.*?\)|\[.*?\]/g, ' ').replace(/\b(feat|ft)\b.*$/, ' ').replace(/[^a-z0-9]+/g, ' ').trim()
+// outras versões da mesma música contam como ela: "(Ao Vivo)", "- Live", "Remastered 2011", "Acústico"…
+// (o que vem depois de " - " é quase sempre a versão; parênteses e colchetes também saem)
+const VERSAO_FIM = /\s(ao vivo|live|acustico|acoustic|remaster(ed|izad[ao])?( \d{4})?|\d{4} remaster(ed)?|versao [a-z ]+|radio edit|single version|deluxe|playback|unplugged|em casa)$/
+const norm = t => semAcento(t).replace(/\(.*?\)|\[.*?\]/g, ' ').replace(/\s[-–—|/]\s.*$/, ' ').replace(/\b(feat|ft|part)\b.*$/, ' ').replace(/[^a-z0-9]+/g, ' ').trim().replace(VERSAO_FIM, '').trim()
 function dist(a, b) {
   const m = a.length, n = b.length, d = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)])
   for (let j = 1; j <= n; j++) d[0][j] = j
@@ -60,12 +63,24 @@ function dist(a, b) {
 }
 export function confere(palpite, titulo) {
   const p = norm(palpite), t = norm(titulo)
-  if (!p || p.length < 2) return false
-  if (p === t) return true
-  if (t.length >= 5 && p.includes(t)) return true
-  return dist(p, t) <= Math.max(1, Math.floor(t.length * .2))
+  if (!p || p.length < 2 || !t) return false
+  if (p === t || p.replace(/ /g, '') === t.replace(/ /g, '')) return true
+  if (t.length >= 3 && p.includes(t)) return true // escreveu a música e mais alguma coisa (o artista, por exemplo)
+  if (p.length >= Math.max(4, t.length * .6) && t.startsWith(p)) return true // escreveu boa parte do começo
+  // todas as palavras que importam do título estão no palpite (em qualquer ordem)
+  const pal = t.split(' ').filter(w => w.length > 2)
+  if (pal.length >= 2 && pal.every(w => p.split(' ').some(x => x === w || (w.length > 4 && dist(x, w) <= 1)))) return true
+  return dist(p, t) <= Math.max(1, Math.floor(t.length * .28))
 }
-const mesmoArtista = (a, b) => { const x = norm(a), y = norm(b); return !!x && !!y && (x === y || (x.length > 3 && y.includes(x)) || (y.length > 3 && x.includes(y)) || confere(a, b)) }
+const normArt = a => norm(a).replace(/\b(e|and|y|the|os|as)\b/g, ' ').replace(/\s+/g, ' ').trim()
+const mesmoArtista = (a, b) => {
+  const x = normArt(a), y = normArt(b)
+  if (!x || !y) return false
+  if (x === y || (x.length > 3 && y.includes(x)) || (y.length > 3 && x.includes(y)) || confere(x, y)) return true
+  // dupla/banda escrita diferente: metade das palavras em comum já basta
+  const wx = x.split(' ').filter(w => w.length > 2), wy = new Set(y.split(' ').filter(w => w.length > 2))
+  return wx.length > 0 && wx.filter(w => wy.has(w)).length >= Math.ceil(Math.min(wx.length, wy.size) / 2)
+}
 const hojeStr = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` }
 function nomeDia(iso, curto) {
   const [y, m, d] = iso.split('-').map(Number), dt = new Date(y, m - 1, d)
@@ -92,6 +107,8 @@ function passosDe(m) {
   return [...g, { tipo: 'dica', nome: 'Dica', idx: [], dica: true }]
 }
 
+const ls = { get: k => { try { return JSON.parse(localStorage.getItem(k)) } catch { return null } }, set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)) } catch {} } }
+
 export function criaFaixa(ctx) {
   const { el, icon, toast, sysMsg, me } = ctx
   let S = null, seq = 0, dias = null
@@ -107,6 +124,8 @@ export function criaFaixa(ctx) {
   const total = () => passos().length || 6
   const valor = p => Math.max(100, (total() - p + 1) * 100)
   const passoDe = j => individual() ? j.n : S.modo === 'leilao' ? leiN() : S.modo === 'ano' ? total() : S.camada
+  const pontosEquipe = () => Math.max(0, ...Object.values(S?.placar || {}))
+  const coop = () => S?.modo === 'coletivo'
   const maxLance = () => Math.max(1, Math.min(5, total() - 1))
 
   async function carrega(forcar) {
@@ -126,6 +145,7 @@ export function criaFaixa(ctx) {
   function manda() {
     carimbaPrazo()
     S.seq = ++seq; chegou = Date.now(); ctx.send({ estado: S })
+    if (ehHost()) ls.set('faixa.S', S.fase === 'fim' ? null : { ...S, t: Date.now() }) // se eu recarregar, a partida volta daqui
     avisos(anterior, S); anterior = JSON.parse(JSON.stringify(S))
     render(); prepara()
   }
@@ -136,12 +156,15 @@ export function criaFaixa(ctx) {
       const e = d.estado
       if (e.fim) { if (!S || e.id === S.id) { S = null; parar(); render() } return }
       if (S && e.id === S.id && e.seq <= S.seq) return
+      if (e.host !== me.key && ls.get('faixa.S')?.id === e.id) ls.set('faixa.S', null) // alguém segue a partida: não volto a ela como host
+      fechaVer() // a partida começou: o menu de quem escolhia sai da frente
       const antes = S
       S = e; seq = Math.max(seq, e.seq); chegou = Date.now()
       carrega().then(() => { avisos(antes, S); render(); prepara() })
       return
     }
-    if (d.dig !== undefined) { if (deKey && S && S.modo !== 'cegas') ctx.digitandoFaixa?.(deKey, !!d.dig); return }
+    if (d.dig !== undefined) { if (deKey && S && S.modo !== 'cegas') ctx.digitandoFaixa?.(deKey, !!d.dig, coop() ? String(d.txt || '').slice(0, 60) : ''); return }
+    if (d.menu !== undefined) return verMenu(d.menu, deKey)
     if (!ehHost() || !deKey || !S) return
     if (d.lance !== undefined || d.passa) return S.modo === 'leilao' ? leiAcao(d, deKey) : undefined
     if (d.ano !== undefined) return S.modo === 'ano' ? anoChute(Number(d.ano), deKey) : undefined
@@ -151,7 +174,7 @@ export function criaFaixa(ctx) {
     if (S.modo === 'leilao') return leiChute(d, deKey, j)
     if (S.modo === 'corrida') return corridaChute(d, deKey, j)
     const passo = passoDe(j)
-    const t = { c: passo, tipo: String(d.tent.tipo), txt: String(d.tent.txt || '').slice(0, 80) }
+    const t = { c: passo, tipo: String(d.tent.tipo), txt: String(d.tent.txt || '').slice(0, 80), ts: Date.now() }
     j.tent.push(t)
     const somar = pts => { if (pts > j.pts) { S.placar[deKey] = (S.placar[deKey] || 0) + pts - j.pts; j.pts = pts } }
     // cooperativo: um acerto vale para todo mundo da sessão (e a música acaba ali)
@@ -160,7 +183,7 @@ export function criaFaixa(ctx) {
     if (t.tipo === 'certo') {
       const pts = valor(passo)
       for (const [k, x] of todos) { x.ok = passo; soma(x, k, pts) }
-      if (S.modo === 'coletivo') { S.acertou = { key: deKey, nome: j.nome }; return revelar() }
+      if (S.modo === 'coletivo') { S.acertou = { key: deKey, nome: j.nome }; (S.contrib ||= {})[deKey] = (S.contrib[deKey] || 0) + 1; return revelar() }
     } else if (t.tipo === 'artista') {
       for (const [k, x] of todos) if (!x.art) { x.art = passo; soma(x, k, Math.floor(valor(passo) / 2)) }
     } else if (individual()) {
@@ -307,7 +330,22 @@ export function criaFaixa(ctx) {
     const real = anoReal(musica()); S.anoReal = real
     for (const [k, j] of Object.entries(S.jog)) if (j.trav && real) { const p = ptsAno(Math.abs(j.ano - real)); j.pts = p; S.placar[k] = (S.placar[k] || 0) + p; if (!(j.ano - real)) j.ok = 1 }
   }
-  function encerrar() { if (!S) return; prazo = null; ctx.send({ estado: { id: S.id, fim: true } }); S = null; parar(); render() }
+  function encerrar() { if (!S) return; prazo = null; ctx.send({ estado: { id: S.id, fim: true } }); ls.set('faixa.S', null); S = null; parar(); render() }
+  // recarreguei sendo o host: retoma a partida salva (se ninguém tiver mandado outra nesse meio tempo)
+  setTimeout(() => {
+    const s = ls.get('faixa.S')
+    if (!s) return
+    if (S || s.host !== me.key || s.fase === 'fim' || Date.now() - s.t > 3 * 3600e3) { if (S?.id !== s.id) ls.set('faixa.S', null); return }
+    S = s; seq = s.seq || 0; delete S.t
+    // relógios das fases com tempo voltam do ponto em que estavam
+    const cd = S.fase === 'tocando' ? S.cd : null
+    if (cd != null) {
+      const acao = S.modo === 'corrida' ? corridaTick : S.modo === 'ano' ? revelar : S.modo === 'leilao' ? (S.lei?.fase === 'ouve' ? () => leiFim('tempo') : leiTempoVez) : null
+      if (acao) defPrazo(Math.max(3000, cd), acao)
+    }
+    for (const k of ctx.presentes()) if (!S.jog[k]) S.jog[k] = novoJog(ctx.nomeDe(k))
+    carrega().then(() => { if (S?.host === me.key) manda() })
+  }, 2500)
   const salvos = new Set()
   function avisos(a, b) {
     // anúncios só fora do modo às cegas
@@ -316,6 +354,14 @@ export function criaFaixa(ctx) {
       if (k === me.key || !x) continue
       if (j.ok && !x.ok) toast(`${j.nome} acertou a música!`, 2200)
       else if (j.art && !x.art) toast(`${j.nome} acertou o artista`, 1800)
+    }
+    // cooperativo: o chute de cada um aparece no balão em cima do boneco dele
+    if (b.modo === 'coletivo' && a?.id === b.id && a?.i === b.i) for (const [k, j] of Object.entries(b.jog || {})) {
+      const x = a.jog?.[k]
+      if (k === me.key || !x || j.tent.length <= x.tent.length) continue
+      const t = j.tent[j.tent.length - 1]
+      ctx.digitandoFaixa?.(k, false)
+      ctx.balao?.(k, t.tipo === 'pulou' ? 'Pulei ⏭' : t.tipo === 'certo' ? `✓ ${t.txt}` : t.tipo === 'artista' ? `Artista ✓ ${t.txt}` : `✗ ${t.txt}`)
     }
     // na revelação, cada um guarda o próprio resultado daquela música
     const eu = b.jog?.[me.key], at = b.musicas?.[b.i]
@@ -350,7 +396,8 @@ export function criaFaixa(ctx) {
       tipo = certo ? 'artista' : 'errou'; txt = g.nome
       if (certo) toast(S.modo === 'leilao' ? 'Artista certo! Vale metade.' : `Artista certo! +${Math.floor(valeAgora(j) / 2)} — agora a música vale o total.`, 2600)
     } else {
-      const certo = (m.dz && g.id === m.dz.t) || (confere(g.t, m.t) && (!g.a || mesmoArtista(g.a, m.a)))
+      // o nome igual (tirando "ao vivo", "remaster"…) já vale, mesmo que a versão escolhida seja de outro artista
+      const certo = (m.dz && g.id === m.dz.t) || (g.t && norm(g.t) === norm(m.t)) || (confere(g.t, m.t) && (!g.a || mesmoArtista(g.a, m.a)))
       tipo = certo ? 'certo' : 'errou'; txt = g.a ? `${g.t} — ${g.a}` : g.t
     }
     if (tipo === 'errou') { erroVisual(); if (S.modo === 'corrida') trava() }
@@ -504,8 +551,16 @@ export function criaFaixa(ctx) {
       chuta(x.tipo === 'artista' ? { tipo: 'artista', id: x.id, nome: x.nome } : { tipo: 'musica', id: x.id, t: x.t, a: x.a })
     }
     // avisa os outros que você está digitando um palpite (aparece em cima do seu boneco)
-    let dig = false, digT = 0
-    const avisaDig = on => { clearTimeout(digT); if (on) digT = setTimeout(() => avisaDig(false), 4000); if (on === dig || !S) return; dig = on; ctx.send({ dig: on }) }
+    // no cooperativo vai junto o que está sendo digitado (aparece no balão)
+    let dig = false, digTxt = '', digT = 0, digEnvio = 0
+    const avisaDig = on => {
+      clearTimeout(digT); if (on) digT = setTimeout(() => avisaDig(false), 4000)
+      if (!S) return
+      const txt = on && coop() ? input.value.trim().slice(0, 60) : ''
+      if (on === dig && txt === digTxt) return
+      dig = on; digTxt = txt
+      clearTimeout(digEnvio); digEnvio = setTimeout(() => ctx.send({ dig, txt: digTxt }), on ? 120 : 0)
+    }
     // quando o catálogo chega, refaz a busca do que já foi digitado
     const comCatalogo = () => { if (!catalogo) pedeCatalogo().then(() => { if (input.value.trim()) busca(input.value.trim()) }) }
     input.addEventListener('focus', comCatalogo)
@@ -580,18 +635,21 @@ export function criaFaixa(ctx) {
     const corrida = S.modo === 'corrida'
     const ps = passos(), j = euJog() || novoJog('')
     const passo = j.ok || j.fora ? ps.length : passoDe(j)
-    const porPasso = {}; for (const t of j.tent) (porPasso[t.c] ||= []).push(t)
+    const porPasso = {}
+    const tents = coop() ? Object.entries(S.jog).flatMap(([k, x]) => x.tent.map(t => ({ ...t, quem: k === me.key ? '' : x.nome }))).sort((a, b) => (a.ts || 0) - (b.ts || 0)) : j.tent
+    for (const t of tents) (porPasso[t.c] ||= []).push(t)
     const linhas = ps.map((p, i) => {
       const k = i + 1, aberta = k <= passo, atual = k === passo && !j.ok && !j.fora
-      const res = (porPasso[k] || []).map(t => el('span', { className: `fx-tent fx-tent--${t.tipo}` },
-        t.tipo === 'pulou' ? 'pulou' : t.tipo === 'artista' ? `artista ✓ ${t.txt}` : t.tipo === 'certo' ? `✓ ${t.txt}` : `✗ ${t.txt}`))
+      const res = (porPasso[k] || []).map(t => el('span', { className: `fx-tent fx-tent--${t.tipo}`, title: t.quem ? `${t.quem}: ${t.txt || 'pulou'}` : t.txt || '' },
+        t.quem ? el('b', { textContent: t.tipo === 'pulou' ? `${t.quem} pulou` : `${t.quem}: ` }) : '',
+        t.tipo === 'pulou' ? (t.quem ? '' : 'pulou') : t.tipo === 'artista' ? `artista ✓ ${t.txt}` : t.tipo === 'certo' ? `✓ ${t.txt}` : `✗ ${t.txt}`))
       let nome = aberta ? p.nome : ''
       if (p.dica && aberta) nome = [m.ano ? `Lançada em ${m.ano}` : '', `artista: ${iniciais(m.a)}`].filter(Boolean).join(' · ')
       return el('li', { className: 'fx-linha' + (aberta ? ' on' : '') + (atual ? ' atual' : '') + (j.ok === k ? ' certo' : '') + (p.dica ? ' dica' : '') },
         el('span', { className: 'fx-linha__n', textContent: k }),
         aberta ? iconeDe(p.tipo, atual) : el('span', { className: 'fx-ic fx-ic--fechado' }, icon(p.dica ? 'lightbulb' : 'lock')),
         el('b', { className: 'fx-linha__nome', textContent: nome || (p.dica ? 'Dica' : '') }),
-        el('span', { className: 'fx-linha__res' }, ...res),
+        el('span', { className: 'fx-linha__res' + (coop() ? ' fx-linha__res--coop' : '') }, ...res),
         el('span', { className: 'fx-linha__pts' + (atual ? ' atual' : ''), textContent: corrida ? '' : `${valor(k)}` }))
     })
     const filme = el('ol', { className: 'fx-filme' }, ...linhas)
@@ -737,17 +795,22 @@ export function criaFaixa(ctx) {
       S.modo === 'ano' && S.anoReal ? linhaDoTempo() : '')
   }
   function placarFinal() {
-    const rank = Object.entries(S.jog).map(([k, j]) => [k, j.nome, S.placar[k] || 0]).sort((a, b) => b[2] - a[2])
+    const c = coop()
+    const rank = Object.entries(S.jog).map(([k, j]) => [k, j.nome, c ? (S.contrib?.[k] || 0) : S.placar[k] || 0]).sort((a, b) => b[2] - a[2])
     return el('section', { className: 'fx-final' },
-      el('b', { className: 'fx-final__t', textContent: 'Placar final' }),
-      el('ol', { className: 'fx-podio' }, ...rank.map(([k, nome, p], i) => el('li', { className: i === 0 ? 'top' : '' }, el('span', { className: 'fx-podio__pos', textContent: `${i + 1}º` }), ctx.pfp(k, 32), el('b', { textContent: nome }), el('em', { textContent: `${p}` })))),
+      el('b', { className: 'fx-final__t', textContent: c ? 'Placar da equipe' : 'Placar final' }),
+      c ? el('div', { className: 'fx-equipe fx-equipe--final' }, el('b', { textContent: pontosEquipe().toLocaleString('pt-BR') }), el('small', { textContent: `pontos juntos · ${S.musicas.length} música${S.musicas.length > 1 ? 's' : ''}` })) : '',
+      c ? el('small', { className: 'fx-kicker', textContent: 'Quem mais acertou para a equipe' }) : '',
+      el('ol', { className: 'fx-podio' }, ...rank.map(([k, nome, p], i) => el('li', { className: i === 0 ? 'top' : '' }, el('span', { className: 'fx-podio__pos', textContent: `${i + 1}º` }), ctx.pfp(k, 32), el('b', { textContent: nome }), el('em', { textContent: c ? (p ? `★ ${p}` : '—') : `${p}` })))),
       ehHost() ? el('div', { className: 'fx-final__ctl' }, botao('rotate-ccw', 'Jogar mais', () => abrirLobby()), botao('x', 'Fechar', encerrar)) : '')
   }
   function lado() {
     const cegas = S.modo === 'cegas' && S.fase === 'tocando'
     const rank = Object.entries(S.jog).sort((a, b) => (S.placar[b[0]] || 0) - (S.placar[a[0]] || 0))
-    return el('aside', { className: 'fx-lado' },
-      el('small', { className: 'fx-kicker', textContent: 'Jogadores' }),
+    const equipe = coop() ? el('div', { className: 'fx-equipe', title: 'No cooperativo todo mundo tem o mesmo total: um acerto vale para a equipe inteira' },
+      el('small', { textContent: 'Pontos da equipe' }), el('b', { textContent: pontosEquipe().toLocaleString('pt-BR') }), el('small', { textContent: 'o mesmo para todo mundo' })) : ''
+    return el('aside', { className: 'fx-lado' + (coop() ? ' fx-lado--coop' : '') }, equipe,
+      el('small', { className: 'fx-kicker', textContent: coop() ? 'Equipe' : 'Jogadores' }),
       el('ul', { className: 'fx-jogs' }, ...rank.map(([k, j]) => {
         const esconde = cegas && k !== me.key
         const L = S.lei
@@ -758,7 +821,7 @@ export function criaFaixa(ctx) {
         const bolas = !esconde && S.fase === 'tocando' && individual() ? Array.from({ length: total() }, (_, i) => el('i', { className: i < j.n ? (j.ok === i + 1 ? 'ok' : 'on') : '' })) : []
         return el('li', { className: !esconde && j.ok ? 'ok' : '' }, ctx.pfp(k, 26),
           el('span', { className: 'fx-jogs__nome' }, el('b', { textContent: j.nome }), el('span', { className: 'fx-jogs__passos' }, ...bolas, st ? el('small', { textContent: st }) : '')),
-          el('em', { textContent: esconde ? '' : S.placar[k] || 0 }))
+          coop() ? el('em', { className: 'fx-jogs__acertos', title: 'Músicas que acertou para a equipe', textContent: S.contrib?.[k] ? `★ ${S.contrib[k]}` : '' }) : el('em', { textContent: esconde ? '' : S.placar[k] || 0 }))
       })),
       ehHost() && S.fase === 'tocando' ? botao('eye', 'Revelar', revelar, 'fx-btn--sec') : '')
   }
@@ -782,14 +845,40 @@ export function criaFaixa(ctx) {
 
   /* ---------- tela inicial: jogar hoje em destaque; outros dias, combo e categorias ---------- */
   let modoEscolhido = 'coletivo'
+  // quem abre o menu mostra para a sala onde está navegando; os outros veem o mesmo menu (só olhando)
+  let menuAtual = null // o que eu estou mostrando (sou eu escolhendo)
+  let lobby = null // { ver: key de quem escolhe (se só estou olhando), nav, fechar }
+  const difundeMenu = m => { menuAtual = m; ctx.send({ menu: m }) }
+  function fechaVer() { if (lobby?.ver) lobby.fechar(true) }
+  let menuPendente = null
+  async function verMenu(m, deKey) {
+    if (!deKey || deKey === me.key) return
+    if (!m) { if (lobby?.ver === deKey) lobby.fechar(true); return }
+    if (lobby && !lobby.ver) return // estou no meu próprio menu
+    if (S && S.fase !== 'fim') return // tem partida rolando: o menu de outro não cobre o jogo
+    menuPendente = m
+    if (lobby?.ver === deKey) return lobby.nav?.(m)
+    if (lobby?.abrindo) return
+    await abrirLobby({ ver: deKey, nome: ctx.nomeDe(deKey) })
+  }
   // menu inicial dentro da tela do cinema: aparece na hora e completa quando os dados chegam
-  async function abrirLobby() {
+  async function abrirLobby(olhar) {
     tela.querySelector('.fx-fundo')?.remove()
-    const box = el('div', { className: 'fx-lobby' }, el('div', { className: 'fx-carregando' }, el('i'), el('i'), el('i')))
+    const ver = olhar?.ver || ''
+    const box = el('div', { className: 'fx-lobby' + (ver ? ' fx-lobby--ver' : '') }, el('div', { className: 'fx-carregando' }, el('i'), el('i'), el('i')))
     const fundo = el('div', { className: 'fx-fundo' }, box)
-    const fechar = () => { fundo.remove(); tela.classList.remove('faixa--lobby'); document.querySelector('.fx-modopop')?.remove() }
+    const eu = { ver, abrindo: true, nav: null, fechar: null }
+    lobby = eu
+    const fechar = calado => {
+      fundo.remove(); document.querySelector('.fx-modopop')?.remove()
+      if (lobby === eu) { lobby = null; tela.classList.remove('faixa--lobby') }
+      if (!ver && !calado) difundeMenu(null)
+      if (!ver) menuAtual = null
+    }
+    eu.fechar = fechar
     fundo.addEventListener('click', e => { if (e.target === fundo) fechar() })
     tela.append(fundo); tela.classList.add('faixa--lobby')
+    if (!ver) difundeMenu({ tela: 'inicio', modo: modoEscolhido })
     await carrega(true)
     const hoje = hojeStr()
     const datas = Object.keys(dias || {}).filter(d => d <= hoje).sort().reverse()
@@ -800,17 +889,21 @@ export function criaFaixa(ctx) {
     const tudo = datas.flatMap(d => Object.values(meu(d)))
     const st = { jogadas: tudo.length, ok: tudo.filter(x => x.r === 'ok').length, art: tudo.filter(x => x.r === 'art').length, fora: tudo.filter(x => x.r === 'fora').length, pts: tudo.reduce((s, x) => s + (x.pts || 0), 0) }
     const listaDias = (ds, pular) => ds.slice().sort().flatMap(d => (dias[d] || []).filter(m => !pular || !feitas.has(`${d}#${m.n}`)).map(m => ({ d, n: m.n })))
+    eu.abrindo = false
     if (!fundo.isConnected) return
-    const jogar = (lista, rotulo) => { fechar(); comecar({ lista, rotulo, modo: modoEscolhido }) }
+    const jogar = (lista, rotulo) => { if (ver) return; fechar(true); menuAtual = null; comecar({ lista, rotulo, modo: modoEscolhido }) }
+    // quem está escolhendo manda a tela em que está; quem olha segue junto
+    const conta = t => { if (!ver) difundeMenu({ tela: t, modo: modoEscolhido, sel: [...sel], mais: maisCats }) }
+    const faixaVer = () => ver ? el('div', { className: 'fx-lobby__ver' }, ctx.pfp(ver, 22), el('span', {}, el('b', { textContent: olhar.nome }), ' está escolhendo o jogo…'), botao('x', '', () => fechar(), 'fx-btn--x', 'Fechar (só para você)')) : ''
     const bolas = d => el('span', { className: 'fx-dia__bolas' }, ...(dias[d] || []).map(m => { const x = meu(d)[m.n]; return el('i', { className: x ? x.r : '', title: x ? (x.r === 'ok' ? `acertou (+${x.pts})` : x.r === 'art' ? `só o artista (+${x.pts})` : 'errou') : 'não jogou' }) }))
     const ptsDia = d => Object.values(meu(d)).reduce((s, x) => s + (x.pts || 0), 0)
     function topo(voltar, titulo) {
       const modoBtn = el('button', { type: 'button', className: 'fx-modopill', title: 'Trocar o modo' }, icon(MODOS[modoEscolhido].ic), el('span', { textContent: MODOS[modoEscolhido].nome }), icon('chevron-down'))
-      modoBtn.addEventListener('click', e => escolheModo(modoEscolhido, k => { modoEscolhido = k; voltar ? voltar() : inicio() }, e.currentTarget))
+      modoBtn.addEventListener('click', e => { if (!ver) escolheModo(modoEscolhido, k => { modoEscolhido = k; voltar ? voltar() : inicio() }, e.currentTarget) })
       box.dataset.tela = voltar ? 'sub' : 'inicio' // a tela inicial usa o layout em grade da tela toda
       return el('div', { className: 'fx-lobby__topo' },
         voltar ? botao('chevron-left', titulo, inicio, 'fx-voltar') : marquee(),
-        el('span', { className: 'fx-grow' }), modoBtn, botao('x', '', fechar, 'fx-btn--x'))
+        el('span', { className: 'fx-grow' }), modoBtn, ver ? '' : botao('x', '', () => fechar(), 'fx-btn--x'))
     }
     // tela principal
     function inicio() {
@@ -825,7 +918,8 @@ export function criaFaixa(ctx) {
         botao('play', acao, () => jogar(falta.length ? falta : listaDias([d], false), nomeDia(d)), 'fx-btn--ok fx-hero__btn fx-palheta')) : el('p', { className: 'fx-vazio', textContent: 'Nenhum dia pronto ainda.' })
       const atalho = (ic, nome, sub, fn) => { const i = el('span', { className: 'fx-atalho__ic' }); i.innerHTML = ICONE_ATALHO[ic]; const b = el('button', { type: 'button', className: `fx-atalho fx-atalho--${ic}` }, i, el('b', { textContent: nome }), el('small', { textContent: sub })); b.addEventListener('click', fn); return b }
       const pendentes = datas.filter(x => listaDias([x], true).length).length
-      box.replaceChildren(topo(),
+      conta('inicio')
+      box.replaceChildren(faixaVer(), topo(),
         heroi,
         el('div', { className: 'fx-atalhos' },
           atalho('dias', 'Outros dias', pendentes ? `${pendentes} com músicas novas` : `${datas.length} dias`, outrosDias),
@@ -848,7 +942,8 @@ export function criaFaixa(ctx) {
       return b
     }
     function outrosDias() {
-      box.replaceChildren(topo(outrosDias, 'Outros dias'),
+      conta('outros')
+      box.replaceChildren(faixaVer(), topo(outrosDias, 'Outros dias'),
         el('div', { className: 'fx-dias' }, ...datas.map(d => cartaoDia(d, false, () => { const f = listaDias([d], true); jogar(f.length ? f : listaDias([d], false), nomeDia(d)) }))))
       ctx.hydrate(box)
     }
@@ -858,7 +953,8 @@ export function criaFaixa(ctx) {
       const qtd = listaDias([...sel], true).length
       const ir = botao('play', sel.size ? `Jogar combo · ${sel.size} dia${sel.size > 1 ? 's' : ''} · ${qtd} músicas` : 'Escolha os dias', () => jogar(listaDias([...sel], true), `combo de ${sel.size} dias`), 'fx-btn--ok fx-btn--grande')
       ir.disabled = !qtd
-      box.replaceChildren(topo(combo, 'Combo'),
+      conta('combo')
+      box.replaceChildren(faixaVer(), topo(combo, 'Combo'),
         el('div', { className: 'fx-chips' }, ...rapidos.map(([nome, ds]) => { const b = el('button', { type: 'button', className: 'fx-chip', textContent: nome }); b.addEventListener('click', () => { sel.clear(); ds.forEach(x => sel.add(x)); combo() }); return b })),
         el('div', { className: 'fx-dias' }, ...datas.map(d => cartaoDia(d, sel.has(d), () => { sel.has(d) ? sel.delete(d) : sel.add(d); combo() }))),
         el('small', { className: 'fx-nota', textContent: 'As músicas que você já respondeu ficam de fora.' }),
@@ -884,7 +980,8 @@ export function criaFaixa(ctx) {
       const prin = cats.filter(c => PRINCIPAIS.includes(c.id)), resto = cats.filter(c => !PRINCIPAIS.includes(c.id))
       const mais = el('button', { type: 'button', className: 'fx-maiscats' + (maisCats ? ' on' : '') }, `${maisCats ? 'Menos' : 'Mais'} categorias (${resto.length})`, icon('chevron-down'))
       mais.addEventListener('click', () => { maisCats = !maisCats; categorias() })
-      box.replaceChildren(topo(categorias, 'Categorias'),
+      conta('cats')
+      box.replaceChildren(faixaVer(), topo(categorias, 'Categorias'),
         cats.length ? el('p', { className: 'fx-catnota' }, icon('music'), el('span', {}, 'Cada categoria sorteia ', el('b', { textContent: '5 músicas que você ainda não ouviu' }), '. Quando todas forem ouvidas, dá para repetir.')) : '',
         el('div', { className: 'fx-cats' }, ...prin.map(c => cartao(c))),
         resto.length ? mais : '',
@@ -892,7 +989,14 @@ export function criaFaixa(ctx) {
         cats.length ? '' : el('p', { className: 'fx-vazio', textContent: 'As categorias aparecem quando houver músicas suficientes.' }))
       ctx.hydrate(box)
     }
-    inicio()
+    eu.nav = m => {
+      if (!m) return
+      if (MODOS[m.modo]) modoEscolhido = m.modo
+      sel.clear(); for (const d of m.sel || []) sel.add(d)
+      maisCats = !!m.mais
+      ;({ outros: outrosDias, combo, cats: categorias }[m.tela] || inicio)()
+    }
+    if (ver && menuPendente) eu.nav(menuPendente); else inicio()
   }
   function iniciar() {
     if (S && !ehHost()) return toast(`Já tem um jogo rolando (host: ${S.hostNome})`)
@@ -902,7 +1006,12 @@ export function criaFaixa(ctx) {
   window.__faixa = () => ({ S, resp: musica()?.t, artista: musica()?.a }) // diagnóstico/testes
   return {
     got, iniciar, interceptaChat: () => false, ativo: () => !!S, volumes,
-    onPeerJoin: id => { if (ehHost()) { carimbaPrazo(); ctx.send({ estado: S }, id) } },
-    entrouAlguem: (key, nome) => { if (ehHost() && S.fase !== 'fim' && !S.jog[key]) { S.jog[key] = novoJog(nome); manda() } },
+    onPeerJoin: id => { if (ehHost()) { carimbaPrazo(); ctx.send({ estado: S }, id) } if (menuAtual) ctx.send({ menu: menuAtual }, id) },
+    entrouAlguem: (key, nome) => {
+      if (!ehHost() || S.fase === 'fim' || S.jog[key]) return
+      S.jog[key] = novoJog(nome)
+      if (S.modo === 'coletivo') S.placar[key] = pontosEquipe() // no cooperativo o placar é um só: quem chega entra com o total da equipe
+      manda()
+    },
   }
 }
