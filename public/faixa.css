@@ -293,3 +293,9 @@
 .faixa .fx-player__sync.on { border-color: var(--fx-lima); color: var(--fx-lima); background: color-mix(in srgb, var(--fx-lima) 10%, var(--fx-preto)); }
 .faixa .fx-player.sync .fx-player__cab { box-shadow: 0 0 8px color-mix(in srgb, var(--fx-lima) 60%, transparent); }
 @media (max-width: 640px) { .faixa .fx-player__sync span { display: none; } }
+
+/* categorias: quantas músicas por partida */
+.faixa .fx-qtds { align-items: center; }
+.faixa .fx-qtds__rot { margin-right: 4px; font: 400 .95rem/1 var(--fx-marcador); color: var(--fx-amarelo); rotate: -2deg; }
+.faixa .fx-qtds .fx-chip { min-width: 46px; }
+.faixa .fx-chip.on { background: var(--fx-amarelo); color: var(--fx-preto); border-color: var(--fx-preto); box-shadow: 3px 3px 0 var(--fx-rosa); }

@@ -968,7 +968,7 @@ export function criaFaixa(ctx) {
     if (!fundo.isConnected) return
     const jogar = (lista, rotulo) => { if (ver) return; fechar(true); menuAtual = null; comecar({ lista, rotulo, modo: modoEscolhido }) }
     // quem está escolhendo manda a tela em que está; quem olha segue junto
-    const conta = t => { if (!ver) difundeMenu({ tela: t, modo: modoEscolhido, sel: [...sel], mais: maisCats }) }
+    const conta = t => { if (!ver) difundeMenu({ tela: t, modo: modoEscolhido, sel: [...sel], mais: maisCats, qtd: qtdCat }) }
     const faixaVer = () => ver ? el('div', { className: 'fx-lobby__ver' }, ctx.pfp(ver, 22), el('span', {}, el('b', { textContent: olhar.nome }), ' está escolhendo o jogo…'), botao('x', '', () => fechar(), 'fx-btn--x', 'Fechar (só para você)')) : ''
     const bolas = d => el('span', { className: 'fx-dia__bolas' }, ...(dias[d] || []).map(m => { const x = meu(d)[m.n]; return el('i', { className: x ? x.r : '', title: x ? (x.r === 'ok' ? `acertou (+${x.pts})` : x.r === 'art' ? `só o artista (+${x.pts})` : 'errou') : 'não jogou' }) }))
     const ptsDia = d => Object.values(meu(d)).reduce((s, x) => s + (x.pts || 0), 0)
@@ -1040,24 +1040,36 @@ export function criaFaixa(ctx) {
     // não ouviu; quando acaba, deixa repetir. A barrinha mostra quantas já foram ouvidas e quantas faltam.
     const PRINCIPAIS = ['nacionais', 'gringas', 'hinos', 'rock', 'pop', 'recentes']
     let maisCats = false
+    // quantas músicas cada categoria sorteia (fica lembrado neste navegador)
+    const QTDS = [5, 10, 15, 20]
+    let qtdCat = (() => { try { const n = +localStorage.getItem('faixa.qtdCat'); return QTDS.includes(n) ? n : 5 } catch { return 5 } })()
     function categorias() {
       const cats = CATEGORIAS.map(c => ({ ...c, ms: todas.filter(c.f) })).filter(c => c.ms.length >= 3)
       const cartao = (c, mini) => {
         const novas = c.ms.filter(m => !feitas.has(`${m.d}#${m.n}`)), ouvidas = c.ms.length - novas.length
         const fim = !novas.length
-        const b = el('button', { type: 'button', className: 'fx-cat' + (mini ? ' mini' : '') + (fim ? ' fim' : ''), title: fim ? (grupo ? 'A call já ouviu todas: o sorteio repete' : 'Você já ouviu todas: o sorteio repete') : `Sorteia 5 das ${novas.length} que ${ninguem} ouviu` },
+        const b = el('button', { type: 'button', className: 'fx-cat' + (mini ? ' mini' : '') + (fim ? ' fim' : ''), title: fim ? (grupo ? 'A call já ouviu todas: o sorteio repete' : 'Você já ouviu todas: o sorteio repete') : `Sorteia ${Math.min(qtdCat, c.ms.length)} das ${novas.length} que ${ninguem} ouviu${novas.length < qtdCat && novas.length < c.ms.length ? ' (completa com repetidas)' : ''}` },
           el('span', { className: 'fx-cat__ic', textContent: c.ic }), el('b', { textContent: c.nome }),
           el('span', { className: 'fx-cat__barra' }, el('i', { style: `width:${Math.round(ouvidas / c.ms.length * 100)}%` })),
           el('small', { textContent: fim ? `todas as ${c.ms.length} ouvidas · repetir` : `${ouvidas} de ${c.ms.length} ouvidas · faltam ${novas.length}` }))
-        b.addEventListener('click', () => { const base = (novas.length ? novas : c.ms).slice().sort(() => Math.random() - .5).slice(0, 5); jogar(base.map(m => ({ d: m.d, n: m.n })), c.nome) })
+        b.addEventListener('click', () => {
+          // primeiro as que ninguém ouviu; se não der a quantidade, completa com as já ouvidas
+          const mistura = a => a.slice().sort(() => Math.random() - .5)
+          const novasIds = new Set(novas.map(m => `${m.d}#${m.n}`))
+          const base = [...mistura(novas), ...mistura(c.ms.filter(m => !novasIds.has(`${m.d}#${m.n}`)))].slice(0, qtdCat)
+          jogar(base.map(m => ({ d: m.d, n: m.n })), `${c.nome} · ${base.length}`)
+        })
         return b
       }
       const prin = cats.filter(c => PRINCIPAIS.includes(c.id)), resto = cats.filter(c => !PRINCIPAIS.includes(c.id))
       const mais = el('button', { type: 'button', className: 'fx-maiscats' + (maisCats ? ' on' : '') }, `${maisCats ? 'Menos' : 'Mais'} categorias (${resto.length})`, icon('chevron-down'))
       mais.addEventListener('click', () => { maisCats = !maisCats; categorias() })
+      const qtds = el('div', { className: 'fx-chips fx-qtds' }, el('small', { className: 'fx-qtds__rot', textContent: 'Músicas por partida' }),
+        ...QTDS.map(n => { const b = el('button', { type: 'button', className: 'fx-chip' + (n === qtdCat ? ' on' : ''), textContent: n }); b.addEventListener('click', () => { qtdCat = n; try { localStorage.setItem('faixa.qtdCat', n) } catch {} categorias() }); return b }))
       conta('cats')
       box.replaceChildren(faixaVer(), topo(categorias, 'Categorias'),
-        cats.length ? el('p', { className: 'fx-catnota' }, icon('music'), el('span', {}, 'Cada categoria sorteia ', el('b', { textContent: grupo ? '5 músicas que ninguém da call ouviu' : '5 músicas que você ainda não ouviu' }), '. Quando todas forem ouvidas, dá para repetir.')) : '',
+        cats.length ? el('p', { className: 'fx-catnota' }, icon('music'), el('span', {}, 'Cada categoria sorteia ', el('b', { textContent: grupo ? `${qtdCat} músicas que ninguém da call ouviu` : `${qtdCat} músicas que você ainda não ouviu` }), '. Se faltar, completa com as já ouvidas.')) : '',
+        cats.length ? qtds : '',
         el('div', { className: 'fx-cats' }, ...prin.map(c => cartao(c))),
         resto.length ? mais : '',
         maisCats ? el('div', { className: 'fx-cats fx-cats--mini' }, ...resto.map(c => cartao(c, true))) : '',
@@ -1069,6 +1081,7 @@ export function criaFaixa(ctx) {
       if (MODOS[m.modo]) modoEscolhido = m.modo
       sel.clear(); for (const d of m.sel || []) sel.add(d)
       maisCats = !!m.mais
+      if (QTDS.includes(m.qtd)) qtdCat = m.qtd
       ;({ outros: outrosDias, combo, cats: categorias }[m.tela] || inicio)()
     }
     if (ver && menuPendente) eu.nav(menuPendente); else inicio()
