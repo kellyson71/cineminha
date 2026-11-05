@@ -93,7 +93,7 @@
 .nt-mesa { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 1.6cqh; padding: 0 3cqh 3cqh; }
 .nt-quadro { flex: 1; min-height: 0; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 3cqh 3.4cqh; padding-top: 2cqh; overflow-y: auto; }
 .nt-cartao { position: relative; display: flex; flex-direction: column; align-items: center; gap: .7cqh; width: 21cqh; padding: 1.6cqh 1.4cqh 1.4cqh; background: var(--nt-papel); box-shadow: 0 .8cqh 1.6cqh rgba(0,0,0,.28); rotate: var(--giro); transition: transform .35s cubic-bezier(.2,1.3,.4,1), box-shadow .3s, opacity .3s, filter .3s; }
-.nt-cartao .nt-postit { margin: -3.4cqh 0 -2.6cqh; }
+.nt-cartao .nt-postit { margin: .4cqh 0 -2.6cqh; }
 .nt-cartao .nt-foto { width: 13cqh; height: 13cqh; border-radius: .3cqh; }
 .nt-cartao__nome { font: 700 max(12px, 2cqh) var(--nt-corpo); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .nt-cartao__pts { font: 400 2cqh/1 var(--nt-mao); color: #1c7c3a; }
@@ -123,7 +123,8 @@
 .nt-painel--vez .nt-painel__t b { font: 400 3.2cqh/1 var(--nt-mao); color: #b5541a; }
 .nt-respostas .nt-resp { height: 8cqh; min-width: 16cqh; border: 0; font: 400 4cqh/1 var(--nt-mao); box-shadow: 0 .5cqh 1cqh rgba(0,0,0,.25); }
 .nt-resp--s { background: var(--nt-sim); rotate: -2deg; } .nt-resp--n { background: var(--nt-nao); rotate: 1.5deg; } .nt-resp--t { background: var(--nt-talvez); rotate: -1deg; }
-.nt-resp:hover { transform: translateY(-.6cqh) rotate(0deg); background-color: color-mix(in srgb, currentColor 0%, transparent); filter: brightness(1.05); }
+.nt-resp--s:hover { background: var(--nt-sim); } .nt-resp--n:hover { background: var(--nt-nao); } .nt-resp--t:hover { background: var(--nt-talvez); }
+.nt-resp:hover { transform: translateY(-.6cqh) rotate(0deg); filter: brightness(1.06); }
 .nt-resp.nt-on { outline: .45cqh solid var(--nt-tinta); transform: scale(1.06); }
 .nt-contagem { display: flex; gap: 1cqh; }
 .nt-contagem > span { display: inline-flex; align-items: center; gap: .5cqh; padding: .4cqh 1.2cqh; border-radius: 99px; background: rgba(34,23,14,.08); font: 600 max(12px, 1.9cqh) var(--nt-corpo); opacity: .55; transition: opacity .2s; }
@@ -145,3 +146,7 @@
   .nt-cartao { width: 17cqh; } .nt-cartao .nt-foto { width: 10cqh; height: 10cqh; } .nt-postit { width: 14cqh; }
 }
 @media (prefers-reduced-motion: reduce) { .nt *, .nt *::before, .nt *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+/* quem vai na testa: sorteio ou a galera escolhe */
+.nt-quemop { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1cqh; }
+.nt-quemop__rot { padding: .5cqh 1.4cqh; background: rgba(34,23,14,.78); color: var(--nt-papel); font: 400 2.4cqh/1 var(--nt-mao); rotate: -1.5deg; }
+.nt-cartao__por { font: 600 max(10px, 1.5cqh) var(--nt-corpo); opacity: .6; }
