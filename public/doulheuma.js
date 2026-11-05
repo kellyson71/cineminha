@@ -2,7 +2,7 @@
 // consegue citar, ou passa. Quem fica com o maior lance cita em voz alta e a call conta os que valeram. Bateu o lance:
 // +2 pontos para quem arrematou. Não bateu: +1 para cada um dos outros. Quem chegar à meta leva. Sem relógio.
 // Mesma estrutura dos outros jogos: o host guarda tudo e manda a vista para cada um ({ du: ... }).
-import { TEMAS, GRUPOS } from './jogos/doulheuma/temas.js'
+import { TEMAS, GRUPOS, NIVEIS } from './jogos/doulheuma/temas.js'
 
 const SOM = n => `jogos/coup/sons/${n}.mp3`
 const SONS = ['embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'leque', 'carimbo', 'papel', 'vez', 'clique', 'tique']
@@ -10,6 +10,14 @@ const VOL = { embaralhar: .5, carimbo: .7, papel: .45, vez: .5, clique: .3, tiqu
 const SAIU_MS = 12000, HOST_MS = 10000, MIN_JOG = 2, MAX_LANCE = 60
 const METAS = [[6, 'rápida · 6'], [10, 'normal · 10'], [15, 'longa · 15']]
 const PTS_GANHA = 2, PTS_MICO = 1
+// tipos de lote: sem relógio, com relógio na hora de citar, ou valendo o dobro
+const TIPOS = {
+  calma: { nome: 'Sem relógio', dica: 'Cite no seu ritmo', ic: 'coffee' },
+  relogio: { nome: 'Com relógio', dica: 'Tempo para citar: 4 s por item + 8 s', ic: 'clock' },
+  dobro: { nome: 'Vale dobro', dica: 'Sem relógio, pontos em dobro', ic: 'zap' },
+}
+const MODOS_LOTE = [['variado', 'Variados'], ['calma', 'Sem relógio'], ['relogio', 'Com relógio']]
+const tempoLista = qtd => (8 + qtd * 4) * 1000
 
 const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n }
 const embaralha = a => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]] } return a }
@@ -39,9 +47,10 @@ export function criaDouLheUma(ctx) {
   function abrir(chamados) {
     const op = ls.get('du.op') || {}
     G = { id: novoId(), host: me.key, hostNome: me.name, fase: 'convite',
-      op: { meta: METAS.some(([m]) => m === op.meta) ? op.meta : 10, grupos: Array.isArray(op.grupos) && op.grupos.length ? op.grupos.filter(g => GRUPOS[g]) : Object.keys(GRUPOS) },
+      op: { meta: METAS.some(([m]) => m === op.meta) ? op.meta : 10, grupos: Array.isArray(op.grupos) && op.grupos.length ? op.grupos.filter(g => GRUPOS[g]) : Object.keys(GRUPOS),
+        nivel: [1, 2, 3].includes(op.nivel) ? op.nivel : 1, lotes: MODOS_LOTE.some(([m]) => m === op.lotes) ? op.lotes : 'variado' },
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
-      js: [], abre: 0, lote: 0, tema: null, usados: [], lei: null, lista: null, res: null, vencedor: null,
+      js: [], abre: 0, lote: 0, tema: null, opcoes: null, tipo: 'calma', usados: [], lei: null, lista: null, res: null, vencedor: null,
       log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
     sysMsg(`${me.name} abriu uma mesa de Dou-lhe Uma`)
     difunde()
@@ -59,29 +68,44 @@ export function criaDouLheUma(ctx) {
     novoLote()
   }
   // sorteia um tema que ainda não saiu nesta partida (dos grupos escolhidos)
+  // até o nível escolhido (fácil = só os fáceis; médio = fáceis e médios…)
   function sorteiaTema() {
-    const ok = TEMAS.map((t, i) => [t, i]).filter(([t]) => G.op.grupos.includes(t[0]))
+    let ok = TEMAS.map((t, i) => [t, i]).filter(([t]) => G.op.grupos.includes(t[0]) && t[2] <= (G.op.nivel || 1))
+    if (ok.length < 6) ok = TEMAS.map((t, i) => [t, i]).filter(([t]) => t[2] <= (G.op.nivel || 1)) // poucos temas nesses assuntos: usa todos do nível
     let livres = ok.filter(([, i]) => !G.usados.includes(i))
     if (!livres.length) { G.usados = []; livres = ok }
     const [t, i] = livres[rnd(livres.length)]
     G.usados.push(i)
-    return { grupo: t[0], txt: t[1] }
+    return { grupo: t[0], txt: t[1], nivel: t[2] }
   }
+  const tresTemas = () => [sorteiaTema(), sorteiaTema(), sorteiaTema()]
+  function sorteiaTipo() {
+    if (G.op.lotes === 'calma' || G.op.lotes === 'relogio') return G.op.lotes
+    const r = rnd(100)
+    return r < 45 ? 'calma' : r < 82 ? 'relogio' : 'dobro'
+  }
+  // lote novo: quem abre escolhe o tema entre três sorteados
   function novoLote() {
     G.lote++
-    G.tema = sorteiaTema()
+    G.tipo = sorteiaTipo()
+    G.opcoes = tresTemas(); G.tema = null
     const ks = G.js.map(j => j.key), r = G.abre % ks.length
     const ordem = [...ks.slice(r), ...ks.slice(0, r)]
     G.lei = { ordem, ativos: [...ordem], vez: ordem[0], lance: null, hist: [] }
-    G.lista = null; G.res = null; G.fase = 'lance'
-    ev({ t: 'lote', quem: ordem[0] })
-    log(`Lote ${G.lote}: ${G.tema.txt}.`)
+    G.lista = null; G.res = null; G.fase = 'tema'
+    ev({ t: 'lote', quem: ordem[0], tipo: G.tipo })
+    difunde()
+  }
+  function escolheTema(key, i) {
+    if (G.fase !== 'tema' || (key !== G.host && key !== G.lei.ordem[0]) || !G.opcoes?.[i]) return
+    G.tema = G.opcoes[i]; G.opcoes = null; G.fase = 'lance'
+    ev({ t: 'tema', key })
+    log(`Lote ${G.lote}: ${G.tema.txt} (${TIPOS[G.tipo].nome.toLowerCase()}).`)
     difunde()
   }
   function trocaTema(key) {
-    const L = G.lei
-    if (G.fase !== 'lance' || L.lance || (key !== G.host && key !== L.ordem[0])) return
-    G.tema = sorteiaTema()
+    if (G.fase !== 'tema' || (key !== G.host && key !== G.lei.ordem[0])) return
+    G.opcoes = tresTemas()
     ev({ t: 'troca' })
     difunde()
   }
@@ -114,16 +138,31 @@ export function criaDouLheUma(ctx) {
   function vendido() {
     const { key, qtd } = G.lei.lance
     G.lei.vez = null
-    G.lista = { key, qtd, ok: 0, ult: null }
+    // com relógio: o tempo começa depois do "vendido!" (3 s de animação)
+    G.lista = { key, qtd, ok: 0, ult: null, contador: proximoContador(key, key), ate: G.tipo === 'relogio' ? Date.now() + 3000 + tempoLista(qtd) : 0, tot: G.tipo === 'relogio' ? tempoLista(qtd) : 0 }
     G.fase = 'lista'
     ev({ t: 'vendido', key, qtd })
     log(`${jog(key).nome} arrematou: vai citar ${qtd}.`)
     difunde()
   }
-  // a call conta os itens que valeram (quem está citando não conta os próprios)
+  // uma pessoa só conta (a próxima da roda depois de quem cita); ela pode passar a contagem para o seguinte
+  function proximoContador(depois, cita) {
+    const pres = new Set(ctx.presentes()), ks = G.js.map(j => j.key), i = Math.max(0, ks.indexOf(depois))
+    for (let s = 1; s <= ks.length; s++) { const k = ks[(i + s) % ks.length]; if (k !== cita && (pres.has(k) || k === me.key)) return k }
+    return G.host
+  }
+  function passaContagem(key) {
+    const l = G.lista
+    if (G.fase !== 'lista' || !l || (key !== l.contador && key !== G.host)) return
+    const novo = proximoContador(l.contador, l.key)
+    if (novo === l.contador) return
+    l.contador = novo
+    ev({ t: 'contador', key: novo })
+    difunde()
+  }
   function conta(key, delta) {
     const l = G.lista
-    if (G.fase !== 'lista' || !l || (key === l.key && key !== G.host) || !jog(key) && key !== G.host) return
+    if (G.fase !== 'lista' || !l || key !== l.contador) return
     const d = delta > 0 ? 1 : -1
     const novo = Math.max(0, Math.min(l.qtd, l.ok + d))
     if (novo === l.ok) return
@@ -136,14 +175,14 @@ export function criaDouLheUma(ctx) {
     if (G.fase !== 'lista' || (key !== G.lista.key && key !== G.host)) return
     fechaLista(false)
   }
-  function fechaLista(ganhou) {
-    const l = G.lista, j = jog(l.key)
-    if (ganhou) { if (j) j.pontos += PTS_GANHA }
-    else for (const x of G.js) if (x.key !== l.key) x.pontos += PTS_MICO
-    G.res = { key: l.key, qtd: l.qtd, ok: l.ok, ganhou }
+  function fechaLista(ganhou, tempo) {
+    const l = G.lista, j = jog(l.key), mult = G.tipo === 'dobro' ? 2 : 1
+    if (ganhou) { if (j) j.pontos += PTS_GANHA * mult }
+    else for (const x of G.js) if (x.key !== l.key) x.pontos += PTS_MICO * mult
+    G.res = { key: l.key, qtd: l.qtd, ok: l.ok, ganhou, tempo: !!tempo, mult }
     G.fase = 'resultado'
     ev({ t: ganhou ? 'arrematou' : 'micou', key: l.key })
-    log(ganhou ? `${j?.nome} citou ${l.qtd}: +${PTS_GANHA}.` : `${j?.nome} parou em ${l.ok} de ${l.qtd}: os outros ganham ${PTS_MICO}.`)
+    log(ganhou ? `${j?.nome} citou ${l.qtd}: +${PTS_GANHA * mult}.` : `${j?.nome} parou em ${l.ok} de ${l.qtd}${tempo ? ' (o tempo acabou)' : ''}: os outros ganham ${PTS_MICO * mult}.`)
     difunde()
   }
   function proximo(key) {
@@ -175,6 +214,11 @@ export function criaDouLheUma(ctx) {
     if (G.fase === 'fim') return difunde()
     if (G.js.length < MIN_JOG) { G.fase = 'fim'; const max = Math.max(0, ...G.js.map(x => x.pontos)); G.vencedor = G.js.filter(x => x.pontos === max).map(x => x.key); return difunde() }
     if (G.abre >= G.js.length) G.abre = 0
+    if (G.fase === 'tema') {
+      if (G.lei.ordem[0] === key) { G.lote--; return novoLote() } // quem ia escolher o tema saiu
+      G.lei.ordem = G.lei.ordem.filter(k => k !== key); G.lei.ativos = G.lei.ativos.filter(k => k !== key)
+      return difunde()
+    }
     if (G.fase === 'lance') {
       const L = G.lei
       if (L.lance?.key === key) { G.lote--; return novoLote() } // quem tinha o lance saiu: o lote recomeça
@@ -184,7 +228,7 @@ export function criaDouLheUma(ctx) {
       if (L.lance && !L.ativos.some(k => k !== L.lance.key)) return vendido()
     } else if (G.fase === 'lista' && G.lista.key === key) {
       G.res = { key, qtd: G.lista.qtd, ok: G.lista.ok, ganhou: false, cancelado: true }; G.fase = 'resultado'
-    }
+    } else if (G.fase === 'lista' && G.lista.contador === key) G.lista.contador = proximoContador(key, G.lista.key)
     difunde()
   }
   function hostRecebe(d, key) {
@@ -195,8 +239,10 @@ export function criaDouLheUma(ctx) {
       case 'lance': daLance(key, d.qtd); break
       case 'passa': passa(key); break
       case 'troca': trocaTema(key); break
+      case 'tema': escolheTema(key, Math.floor(Number(d.escolha))); break
       case 'conta': conta(key, d.delta); break
       case 'desiste': desiste(key); break
+      case 'passaConta': passaContagem(key); break
       case 'proximo': proximo(key); break
     }
   }
@@ -204,8 +250,8 @@ export function criaDouLheUma(ctx) {
   function vista() {
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: G.fase, op: G.op, conv: G.conv,
-      js: G.js.map(j => ({ key: j.key, nome: j.nome, pontos: j.pontos })), lote: G.lote, tema: G.tema,
-      lei: G.lei, lista: G.lista, res: G.res, vencedor: G.vencedor, log: G.log.slice(-30), ev: G.ev,
+      js: G.js.map(j => ({ key: j.key, nome: j.nome, pontos: j.pontos })), lote: G.lote, tema: G.tema, opcoes: G.opcoes, tipo: G.tipo,
+      lei: G.lei, lista: G.lista && { ...G.lista, resta: G.lista.ate ? Math.max(0, G.lista.ate - Date.now()) : 0 }, res: G.res, vencedor: G.vencedor, log: G.log.slice(-30), ev: G.ev,
     }
   }
   function difunde() {
@@ -240,6 +286,8 @@ export function criaDouLheUma(ctx) {
     remove(antigo)
     if (G) difunde()
   }
+  // o relógio da hora de citar (só nos lotes com relógio)
+  setInterval(() => { if (G?.host === me.key && G.fase === 'lista' && G.lista?.ate && Date.now() > G.lista.ate) fechaLista(false, true) }, 250)
   setInterval(() => {
     if (!G && !restaurou && me.key) {
       restaurou = true
@@ -252,6 +300,7 @@ export function criaDouLheUma(ctx) {
     const quem = G.fase === 'convite' ? Object.keys(G.conv).filter(k => k !== me.key) : G.js.map(j => j.key).filter(k => k !== me.key)
     for (const k of quem) { if (pres.has(k)) ausDesde.delete(k); else if (!ausDesde.has(k)) ausDesde.set(k, agora) }
     for (const [k, t] of ausDesde) if (agora - t > SAIU_MS) return remove(k)
+    if (G.fase === 'lista' && G.lista && !pres.has(G.lista.contador) && G.lista.contador !== me.key && (ausDesde.get(G.lista.contador) || agora) < agora - 4000) { G.lista.contador = proximoContador(G.lista.contador, G.lista.key); difunde() }
   }, 1500)
 
   /* ================================================================ cliente */
@@ -279,7 +328,9 @@ export function criaDouLheUma(ctx) {
       aplica(d.v)
     }
   }
+  let chegou = 0
   function aplica(v) {
+    chegou = Date.now()
     const antes = V
     if (v && (!antes || antes.id !== v.id)) ultEv = Math.max(0, ...v.ev.map(e => e.n))
     V = v
@@ -316,6 +367,7 @@ export function criaDouLheUma(ctx) {
   /* ---------- a mesa ---------- */
   const botao = (conteudo, fn, cls = '', title = '') => { const b = el('button', { type: 'button', className: `du-btn ${cls}`, title }); b.append(...[conteudo].flat()); b.addEventListener('click', e => { e.stopPropagation(); b.blur(); som('clique'); fn(e) }); return b }
   const retrato = (k, cls = '') => el('span', { className: `du-foto ${cls}`, 'data-key': k }, ctx.pfp(k, 64, N(k)))
+  const selo = (tipo, grande) => { const t = TIPOS[tipo] || TIPOS.calma; return el('span', { className: `du-selo du-selo--${tipo}` + (grande ? ' grande' : ''), title: t.dica }, icon(t.ic), el('b', { textContent: t.nome }), grande ? el('small', { textContent: t.dica }) : '') }
   const martelo = (cls = '') => el('span', { className: `du-martelo ${cls}`, innerHTML: SVG_MARTELO })
   // a animação do "dou-lhe uma, dou-lhe duas, vendido!" fica por cima mesmo se a tela for refeita no meio
   let fx = null
@@ -327,7 +379,8 @@ export function criaDouLheUma(ctx) {
     if (!V) { tela.replaceChildren(); return }
     const topo = el('header', { className: 'du-topo' },
       el('span', { className: 'du-logo' }, martelo(), el('b', { textContent: 'Dou-lhe Uma' })),
-      V.fase !== 'convite' && V.fase !== 'fim' ? el('span', { className: 'du-meta', textContent: `lote ${V.lote} · quem fizer ${V.op.meta} leva` }) : '',
+      V.fase !== 'convite' && V.fase !== 'fim' ? el('span', { className: 'du-meta', textContent: `lote ${V.lote} · quem fizer ${V.op.meta} pontos leva` }) : '',
+      V.fase !== 'convite' && V.fase !== 'fim' ? selo(V.tipo) : '',
       el('span', { className: 'du-grow' }),
       V.js.length ? placar() : '',
       souHost() ? botao(icon('x'), encerrar, 'du-btn--ic', 'Encerrar a mesa para todo mundo')
@@ -359,16 +412,25 @@ export function criaDouLheUma(ctx) {
       : el('span', { className: V.op.meta === m ? 'du-on' : '', textContent: t })))
     const grupos = el('div', { className: 'du-chips' }, ...Object.entries(GRUPOS).map(([g, t]) => {
       const on = V.op.grupos.includes(g)
-      if (!host) return el('span', { className: 'du-chip' + (on ? ' du-on' : ''), textContent: t })
-      return botao(t, () => { const s = new Set(G.op.grupos); on ? s.delete(g) : s.add(g); if (!s.size) return toast('Deixe pelo menos um assunto.'); G.op.grupos = [...s]; difunde() }, 'du-chip' + (on ? ' du-on' : ''))
+      const conteudo = [on ? icon('check') : '', el('span', { textContent: t })]
+      if (!host) return el('span', { className: 'du-chip' + (on ? ' du-on' : '') }, ...conteudo)
+      return botao(conteudo, () => { const s = new Set(G.op.grupos); on ? s.delete(g) : s.add(g); if (!s.size) return toast('Deixe pelo menos um assunto.'); G.op.grupos = [...s]; difunde() }, 'du-chip' + (on ? ' du-on' : ''))
     }))
+    const seg = (lista, atual, fn) => el('div', { className: 'du-seg' }, ...lista.map(([v, t]) => host ? botao(t, () => { fn(v); difunde() }, atual === v ? 'du-on' : '') : el('span', { className: atual === v ? 'du-on' : '', textContent: t })))
+    const opcao = (rot, ctl) => el('div', { className: 'du-opcao' }, el('small', { textContent: rot }), ctl)
+    const opcoes = el('div', { className: 'du-opcoes' },
+      opcao('Assuntos', grupos),
+      opcao('Dificuldade dos temas', seg(NIVEIS.map(([n, t]) => [n, n === 1 ? 'Fácil' : n === 2 ? 'Até médio' : 'Todos']), V.op.nivel || 1, v => { G.op.nivel = v })),
+      opcao('Relógio', seg(MODOS_LOTE, V.op.lotes || 'variado', v => { G.op.lotes = v })),
+      opcao('Partida', meta))
     const pessoas = el('div', { className: 'du-pessoas' }, ...Object.entries(V.conv).map(([k, v]) => el('span', { className: `du-pessoa du-pessoa--${v}`, title: v === 'sim' ? 'vai jogar' : v === 'nao' ? 'só assiste' : 'decidindo' }, retrato(k), el('small', { textContent: k === me.key ? 'você' : ctx.nomeDe(k) }))))
     const ir = host ? botao(n >= MIN_JOG ? `Começar · ${n}` : `Precisa de ${MIN_JOG}`, comecar, 'du-btn--forte du-btn--grande') : el('small', { className: 'du-espera', textContent: `${V.hostNome} vai começar` })
     if (host && n < MIN_JOG) ir.disabled = true
     return el('div', { className: 'du-inicio' }, tutorial,
-      el('p', { className: 'du-regra' }, el('b', { textContent: `Bateu o lance: +${PTS_GANHA}` }), ' · ', el('span', { textContent: `micou: +${PTS_MICO} para cada um dos outros` }), ' · sem relógio'),
-      grupos, pessoas,
-      el('div', { className: 'du-linha' }, meta, host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'du-btn--leve') : '', ir))
+      el('p', { className: 'du-regra' }, el('b', { textContent: `Bateu o lance: +${PTS_GANHA}` }), ' · ', el('span', { textContent: `micou: +${PTS_MICO} para cada um dos outros` }), ' · ',
+        V.op.lotes === 'calma' ? 'nenhum lote tem relógio' : V.op.lotes === 'relogio' ? 'todo lote tem relógio para citar' : 'cada lote sorteia: sem relógio, com relógio ou vale dobro'),
+      opcoes, pessoas,
+      el('div', { className: 'du-linha' }, host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'du-btn--leve') : '', ir))
   }
   function bilhete() {
     if (V.fase !== 'convite' || souHost() || V.conv[me.key] !== '?') return ''
@@ -379,14 +441,30 @@ export function criaDouLheUma(ctx) {
   }
 
   // a placa do lote: o tema em destaque
+  const NIVEL_NOME = { 1: 'fácil', 2: 'médio', 3: 'difícil' }
   function placa() {
     const base = `${V.id}:${V.lote}`
     const entra = novo(`placa:${base}:${V.tema?.txt}`)
-    const podeTrocar = V.fase === 'lance' && !V.lei.lance && (souHost() || V.lei.ordem[0] === me.key)
     return el('div', { className: 'du-placa' + (entra ? ' entra' : '') },
       el('span', { className: 'du-placa__lote' }, el('small', { textContent: 'lote' }), el('b', { textContent: String(V.lote).padStart(2, '0') })),
-      el('div', { className: 'du-placa__txt' }, el('small', { textContent: GRUPOS[V.tema.grupo] }), el('b', { textContent: V.tema.txt })),
-      podeTrocar ? botao(icon('refresh-cw'), () => manda({ op: 'troca' }), 'du-btn--ic du-placa__troca', 'Sortear outro tema') : '')
+      el('div', { className: 'du-placa__txt' }, el('small', { textContent: `${GRUPOS[V.tema.grupo]} · ${NIVEL_NOME[V.tema.nivel] || 'fácil'}` }), el('b', { textContent: V.tema.txt })),
+      selo(V.tipo, true))
+  }
+  // quem abre o lote escolhe o tema entre três
+  function escolheTemaUI() {
+    const pode = souHost() || V.lei.ordem[0] === me.key, quem = V.lei.ordem[0]
+    const base = `${V.id}:${V.lote}:${V.opcoes.map(o => o.txt).join('|')}`
+    const entra = novo(`ops:${base}`)
+    return el('div', { className: 'du-mesa du-mesa--tema' },
+      el('div', { className: 'du-tema__cab' }, el('span', { className: 'du-placa__lote du-placa__lote--solta' }, el('small', { textContent: 'lote' }), el('b', { textContent: String(V.lote).padStart(2, '0') })),
+        el('p', {}, pode ? el('b', { textContent: quem === me.key ? 'Escolha o tema deste lote' : `${N(quem)} escolhe o tema (ou você, que abriu a mesa)` }) : [el('b', { textContent: N(quem) }), ' está escolhendo o tema…']),
+        selo(V.tipo, true)),
+      el('div', { className: 'du-temas' }, ...V.opcoes.map((o, i) => {
+        const c = el(pode ? 'button' : 'div', { className: 'du-tema' + (entra ? ' entra' : ''), type: 'button', style: `--d:${i * 90}ms` }, el('small', { textContent: `${GRUPOS[o.grupo]} · ${NIVEL_NOME[o.nivel] || 'fácil'}` }), el('b', { textContent: o.txt }))
+        if (pode) c.addEventListener('click', () => { som('carimbo', 0, .5); manda({ op: 'tema', escolha: i }) })
+        return c
+      })),
+      pode ? botao([icon('refresh-cw'), el('span', { textContent: 'Outros três' })], () => manda({ op: 'troca' }), 'du-btn--leve') : '')
   }
   // a tarja de TV com o lance atual
   function tarja() {
@@ -401,6 +479,7 @@ export function criaDouLheUma(ctx) {
   }
   function mesa() {
     const f = V.fase
+    if (f === 'tema') return escolheTemaUI()
     const corpo = f === 'lance' ? leilao() : f === 'lista' ? lista() : resultado()
     return el('div', { className: 'du-mesa du-mesa--' + f }, placa(), tarja(), corpo)
   }
@@ -421,10 +500,10 @@ export function criaDouLheUma(ctx) {
       if (lanceChave !== chave) { lanceChave = chave; lanceSel = min }
       lanceSel = Math.max(min, Math.min(MAX_LANCE, lanceSel))
       const num = el('b', { className: 'du-passo-n', textContent: lanceSel })
-      const ajusta = d => { lanceSel = Math.max(min, Math.min(MAX_LANCE, lanceSel + d)); num.textContent = lanceSel; menos.disabled = lanceSel <= min; dar.querySelector('span').textContent = `Dar lance de ${lanceSel}`; som('tique', 0, .6) }
+      const ajusta = d => { lanceSel = Math.max(min, Math.min(MAX_LANCE, lanceSel + d)); num.textContent = lanceSel; menos.disabled = lanceSel <= min; dar.querySelector('.du-dar__txt').textContent = `Dar lance de ${lanceSel}`; som('tique', 0, .6) }
       const menos = botao(icon('chevron-left'), () => ajusta(-1), 'du-btn--ic du-btn--grande', 'Menos um')
       menos.disabled = lanceSel <= min
-      const dar = botao([martelo(), el('span', { textContent: `Dar lance de ${lanceSel}` })], () => manda({ op: 'lance', qtd: lanceSel }), 'du-btn--forte du-btn--grande')
+      const dar = botao([martelo(), el('span', { className: 'du-dar__txt', textContent: `Dar lance de ${lanceSel}` })], () => manda({ op: 'lance', qtd: lanceSel }), 'du-btn--forte du-btn--grande')
       const podePassar = !(L.ativos.length === 1 && !L.lance)
       ctl = el('div', { className: 'du-vez' + (novo(`vez:${chave}`) ? ' entra' : '') },
         el('small', { className: 'du-vez__k', textContent: L.lance ? `Sua vez: cubra o ${L.lance.qtd}` : 'Sua vez: abra o leilão' }),
@@ -432,7 +511,8 @@ export function criaDouLheUma(ctx) {
           botao('+5', () => ajusta(5), 'du-btn--leve', 'Mais cinco')),
         el('div', { className: 'du-linha' }, dar, podePassar ? botao('Passo', () => manda({ op: 'passa' }), 'du-btn--leve du-btn--grande', 'Sai deste lote') : el('small', { className: 'du-nota', textContent: 'Todos passaram: alguém tem que dar um lance.' })))
     } else ctl = el('p', { className: 'du-aguarda' }, retrato(L.vez), el('span', {}, el('b', { textContent: N(L.vez) }), L.lance ? ` vai cobrir o ${L.lance.qtd} ou passar…` : ' abre o leilão…'))
-    return el('div', { className: 'du-leilao' }, fila, ctl)
+    const dica = el('small', { className: 'du-dica', textContent: `Quantos itens de "${V.tema.txt}" você consegue citar? Cubra com um número maior ou passe. Quem ficar com o maior lance cita ${V.tipo === 'relogio' ? 'contra o relógio' : 'sem relógio'}.` })
+    return el('div', { className: 'du-leilao' }, fila, el('div', { className: 'du-leilao__ctl' }, ctl, dica))
   }
   // a hora da verdade: quem arrematou cita em voz alta e a call conta
   function lista() {
@@ -441,24 +521,30 @@ export function criaDouLheUma(ctx) {
       const ok = i < l.ok
       return el('i', { className: 'du-slot' + (ok ? ' ok' : '') + (ok && novo(`slot:${V.id}:${V.lote}:${i}:${l.ok > i}`) ? ' entra' : '') }, ok ? icon('thumbs-up') : el('span', { textContent: i + 1 }))
     }))
-    const quem = l.ult ? el('small', { className: 'du-ult', textContent: `${l.ult.d > 0 ? '+1' : '−1'} de ${N(l.ult.key)}` }) : el('small', { className: 'du-ult', textContent: souEu ? 'A call vai contando enquanto você fala' : 'Conte cada item que valeu' })
+    const quem = l.ult ? el('small', { className: 'du-ult', textContent: `${l.ult.d > 0 ? '+1' : '−1'} de ${N(l.ult.key)}` }) : el('small', { className: 'du-ult', textContent: souEu ? `${N(l.contador)} vai contando enquanto você fala` : l.contador === me.key ? 'Aperte a cada item que valer' : '' })
     const falando = ctx.falando(l.key)
-    const ctl = !souEu || souHost()
-      ? el('div', { className: 'du-linha du-conta' },
-        botao([icon('thumbs-up'), el('span', { textContent: 'Valeu! +1' })], () => manda({ op: 'conta', delta: 1 }), 'du-btn--verde du-btn--enorme', 'Esse item vale'),
-        botao('−1', () => manda({ op: 'conta', delta: -1 }), 'du-btn--leve', 'Tirar um (contaram a mais)'),
-        souHost() || souEu ? botao('Não conseguiu', () => manda({ op: 'desiste' }), 'du-btn--leve du-btn--perigo', 'Encerra: os outros ganham') : '')
-      : el('div', { className: 'du-linha du-conta' }, el('p', { className: 'du-fala', textContent: 'Fale os itens em voz alta!' }), botao('Não consigo mais', () => manda({ op: 'desiste' }), 'du-btn--leve du-btn--perigo', 'Os outros ganham'))
-    return el('div', { className: 'du-lista' },
+    const relogio = l.tot ? el('div', { className: 'du-relogio', 'data-tot': l.tot }, icon('clock'), el('b', { className: 'du-relogio__n' }), el('span', { className: 'du-relogio__barra' }, el('i'))) : el('small', { className: 'du-semrelogio' }, icon('coffee'), V.tipo === 'dobro' ? ' Sem relógio · vale dobro' : ' Sem relógio: cite no seu ritmo')
+    const contoEu = l.contador === me.key
+    const contador = el('div', { className: 'du-contador' + (contoEu ? ' eu' : '') }, retrato(l.contador, 'du-foto--mini'),
+      el('span', {}, contoEu ? el('b', { textContent: 'Você está contando' }) : [el('b', { textContent: N(l.contador) }), ' está contando']),
+      contoEu || souHost() ? botao([icon('refresh-cw'), el('span', { textContent: contoEu ? 'Passar a contagem' : 'Trocar quem conta' })], () => manda({ op: 'passaConta' }), 'du-btn--leve', `Passa para ${N(V.js.map(j => j.key).filter(k => k !== l.key && k !== l.contador)[0] || '')}`) : '')
+    let ctl
+    if (contoEu) ctl = el('div', { className: 'du-linha du-conta' },
+      botao([icon('thumbs-up'), el('span', { textContent: 'Valeu! +1' })], () => manda({ op: 'conta', delta: 1 }), 'du-btn--verde du-btn--enorme', 'Esse item vale'),
+      botao('−1', () => manda({ op: 'conta', delta: -1 }), 'du-btn--leve', 'Tirar um (contou a mais)'))
+    else if (souEu) ctl = el('div', { className: 'du-linha du-conta' }, el('p', { className: 'du-fala', textContent: 'Fale os itens em voz alta!' }))
+    else ctl = el('p', { className: 'du-dica', textContent: `Ouça ${N(l.key)} e ajude ${N(l.contador)} a contar só os que valem.` })
+    const desistir = souEu || souHost() ? botao(souEu ? 'Não consigo mais' : 'Não conseguiu', () => manda({ op: 'desiste' }), 'du-btn--leve du-btn--perigo', 'Encerra: os outros ganham') : ''
+    return el('div', { className: 'du-lista' }, relogio,
       el('div', { className: 'du-lista__quem' + (falando ? ' fala' : '') }, retrato(l.key, 'du-foto--grande'),
         el('span', {}, el('b', { textContent: souEu ? 'Sua vez de citar' : `${N(l.key)} está citando` }), el('small', { textContent: `${l.ok} de ${l.qtd}` }))),
-      slots, quem, ctl)
+      slots, quem, contador, ctl, desistir)
   }
   function resultado() {
     const r = V.res, j = V.js.find(x => x.key === r.key)
     const carimbo = el('div', { className: 'du-res' + (r.ganhou ? ' ganhou' : ' micou') + (novo(`res:${V.id}:${V.lote}`) ? ' entra' : '') },
-      el('span', { className: 'du-res__selo', textContent: r.cancelado ? 'Cancelado' : r.ganhou ? 'Arrematou!' : 'Micou!' }),
-      el('p', {}, r.cancelado ? `${j?.nome || 'Quem arrematou'} saiu da mesa. Próximo lote.` : r.ganhou ? `${N(r.key)} citou ${r.qtd} e leva +${PTS_GANHA}.` : `${N(r.key)} parou em ${r.ok} de ${r.qtd}. Os outros ganham +${PTS_MICO}.`))
+      el('span', { className: 'du-res__selo', textContent: r.cancelado ? 'Cancelado' : r.ganhou ? 'Arrematou!' : r.tempo ? 'Acabou o tempo!' : 'Micou!' }),
+      el('p', {}, r.cancelado ? `${j?.nome || 'Quem arrematou'} saiu da mesa. Próximo lote.` : r.ganhou ? `${N(r.key)} citou ${r.qtd} e leva +${PTS_GANHA * (r.mult || 1)}${r.mult > 1 ? ' (dobro!)' : ''}.` : `${r.tempo ? 'O tempo acabou! ' : ''}${N(r.key)} parou em ${r.ok} de ${r.qtd}. Os outros ganham +${PTS_MICO * (r.mult || 1)}.`))
     const pode = souHost() || r.key === me.key
     const max = Math.max(...V.js.map(x => x.pontos))
     return el('div', { className: 'du-resultado' }, carimbo,
@@ -488,9 +574,11 @@ export function criaDouLheUma(ctx) {
       if (e.t === 'inicio') som('embaralhar')
       else if (e.t === 'lote') { som('papel', 200); if (e.quem === me.key) som('vez', 600) }
       else if (e.t === 'troca') som('papel')
+      else if (e.t === 'tema') som('carimbo', 0, .5)
+      else if (e.t === 'contador') { som('papel', 0, .6); if (e.key === me.key) { toast('Agora você conta os itens', 2200); som('vez', 200) } }
       else if (e.t === 'lance') som('poe')
       else if (e.t === 'passou') som('desliza', 0, .7)
-      else if (e.t === 'vendido') vendidoFx(e)
+      else if (e.t === 'vendido') { vendidoFx(e); if (V?.lista?.contador === me.key) setTimeout(() => toast('Você conta os itens que valerem', 2600), 2900) }
       else if (e.t === 'valeu') som('poe', 0, .8)
       else if (e.t === 'tirou') som('desliza', 0, .6)
       else if (e.t === 'arrematou') { som('carimbo'); som('leque', 250) }
@@ -499,17 +587,24 @@ export function criaDouLheUma(ctx) {
       else if (e.t === 'saiu') toast(`${e.nome} saiu da mesa`, 3200)
     }
     // na minha vez de dar lance, aviso sonoro
-    if (V?.fase === 'lance' && V.lei.vez === me.key && novo(`minhavez:${V.id}:${V.lote}:${V.lei.hist.length}`) && !evs.some(e => e.t === 'lote')) som('vez', 300)
+    if (V?.fase === 'lance' && V.lei.vez === me.key && novo(`minhavez:${V.id}:${V.lote}:${V.lei.hist.length}`)) som('vez', 300)
   }
   // quem caiu fica apagado; quem está falando acende (na hora de citar)
   ;(function loop() {
     if (V) {
       const pres = new Set(ctx.presentes())
       for (const s of tela.querySelectorAll('[data-key]')) s.classList.toggle('caiu', !pres.has(s.dataset.key))
+      const rel = tela.querySelector('.du-relogio')
+      if (rel && V.lista?.tot) {
+        const resta = Math.max(0, V.lista.resta - (Date.now() - chegou)), tot = V.lista.tot, falta = Math.min(tot, resta)
+        rel.querySelector('.du-relogio__n').textContent = resta > tot ? 'Prepare-se…' : `${Math.ceil(falta / 1000)} s`
+        rel.querySelector('i').style.width = `${(falta / tot) * 100}%`
+        rel.classList.toggle('urgente', resta <= tot && falta < 5000)
+      }
       const q = tela.querySelector('.du-lista__quem')
       if (q && V.lista) q.classList.toggle('fala', !!ctx.falando(V.lista.key))
     }
-    setTimeout(loop, 400)
+    setTimeout(loop, 200)
   })()
 
   function iniciar(chamados) {
