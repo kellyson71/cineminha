@@ -285,3 +285,11 @@
 .fx-lobby__ver b { color: #fff; }
 .fx-lobby__ver::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #3ecf72; box-shadow: 0 0 0 0 rgba(62,207,114,.6); animation: fxAoVivo 1.6s infinite; order: -1; }
 @keyframes fxAoVivo { 70% { box-shadow: 0 0 0 7px rgba(62,207,114,0); } 100% { box-shadow: 0 0 0 0 rgba(62,207,114,0); } }
+
+/* música junto com a sala: botão no player */
+.faixa .fx-player__sync { flex: none; display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px; border-radius: 99px; border: 1.5px solid #3a3644; background: var(--fx-preto); color: rgba(244,239,228,.65); font: 400 .95rem/1 var(--fx-display); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; transition: border-color .15s, color .15s, background .15s; }
+.faixa .fx-player__sync svg { width: 15px; height: 15px; }
+.faixa .fx-player__sync:hover { border-color: var(--fx-papel); color: var(--fx-papel); }
+.faixa .fx-player__sync.on { border-color: var(--fx-lima); color: var(--fx-lima); background: color-mix(in srgb, var(--fx-lima) 10%, var(--fx-preto)); }
+.faixa .fx-player.sync .fx-player__cab { box-shadow: 0 0 8px color-mix(in srgb, var(--fx-lima) 60%, transparent); }
+@media (max-width: 640px) { .faixa .fx-player__sync span { display: none; } }

@@ -165,6 +165,8 @@ export function criaFaixa(ctx) {
     }
     if (d.dig !== undefined) { if (deKey && S && S.modo !== 'cegas') ctx.digitandoFaixa?.(deKey, !!d.dig, coop() ? String(d.txt || '').slice(0, 60) : ''); return }
     if (d.menu !== undefined) return verMenu(d.menu, deKey)
+    if (d.tl) return gotTl(d.tl, deKey)
+    if (d.tlPede) return pedeuTl(d.tlPede, deKey)
     if (!ehHost() || !deKey || !S) return
     if (d.lance !== undefined || d.passa) return S.modo === 'leilao' ? leiAcao(d, deKey) : undefined
     if (d.ano !== undefined) return S.modo === 'ano' ? anoChute(Number(d.ano), deKey) : undefined
@@ -430,6 +432,7 @@ export function criaFaixa(ctx) {
       const ganhos = bufs.map(() => { const g = ac.createGain(); g.gain.value = 0; g.connect(mestre); return g })
       P = { id, ac, bufs, ganhos, mestre, fontes: [], t0: 0, pos: 0, play: false, dur: Math.max(...bufs.filter(Boolean).map(b => b.duration), 1) }
       volumes(); tocar(0)
+      if (sincronizado()) ctx.send({ tlPede: id }) // cheguei depois: entro no ponto em que os outros estão
       return
     }
     volumes()
@@ -482,8 +485,45 @@ export function criaFaixa(ctx) {
   ;(function loop(t) { if (S && P?.play) atualizaPlayer(); if (S?.cd != null && t - cdUlt > 150) { cdUlt = t; atualizaCd() } requestAnimationFrame(loop) })(0)
   document.addEventListener('keydown', e => {
     if (!S || S.fase === 'fim' || e.key !== ' ' || e.target.closest?.('input, textarea, select')) return
-    e.preventDefault(); P?.play ? pausar() : tocar(P?.pos || 0)
+    e.preventDefault(); alternaPlay()
   })
+
+  /* ---------- música sincronizada ----------
+     Nos modos em grupo (cooperativo, leilão, corrida, ano) todo mundo ouve no mesmo ponto: play, pause e pulos de
+     qualquer um valem para todos. Nos versus (cada um, às cegas) cada um ouve no seu ritmo. Dá para trocar no player.
+     Quem age manda a posição direto para todos (sem passar pelo host); o host corrige a diferença de vez em quando. */
+  let syncEscolha = null // { id, on }: o que a pessoa escolheu nesta partida (senão vale o padrão do modo)
+  const syncPadrao = () => !!S && !individual()
+  const sincronizado = () => syncEscolha?.id === S?.id ? syncEscolha.on : syncPadrao()
+  let tlUlt = 0 // quando chegou a última posição (para ignorar respostas repetidas)
+  const msgTl = ev => ({ tl: { id: P.id, play: P.play, pos: posicao(), ev, nome: me.name } })
+  function avisaTl(ev) { if (sincronizado() && P?.bufs) ctx.send(msgTl(ev)) }
+  function alternaPlay() { P?.play ? pausar() : tocar(P?.pos || 0); avisaTl(P?.play ? 'play' : 'pause') }
+  function trocaSync() {
+    const on = !sincronizado()
+    syncEscolha = { id: S?.id, on }
+    if (on && P?.id) { tlUlt = 0; ctx.send({ tlPede: P.id }) } // voltou a ficar junto: pega o ponto dos outros
+    toast(on ? 'Música junto com a sala' : 'Agora você ouve no seu ritmo', 1800)
+    render()
+  }
+  // diferença em volta (a música toca em loop): 29 s e 1 s estão a 2 s de distância
+  const difLoop = (a, b) => { const d = Math.abs(a - b) % P.dur; return Math.min(d, P.dur - d) }
+  function gotTl(t, deKey) {
+    if (!t || !deKey || !sincronizado() || !P?.bufs || t.id !== P.id) return
+    const pos = Number(t.pos) || 0
+    if (t.ev === 'resp') { if (Date.now() - tlUlt < 1500) return } // várias respostas ao mesmo pedido: vale a primeira
+    tlUlt = Date.now()
+    if (t.ev === 'drift' && t.play === P.play && difLoop(pos, posicao()) < .4) return // diferença pequena: deixa
+    if (t.play) tocar(pos + .03)
+    else { pararFontes(); P.play = false; P.pos = ((pos % P.dur) + P.dur) % P.dur; atualizaPlayer() }
+    if (t.ev === 'play' || t.ev === 'pause') toast(`${t.nome || 'Alguém'} ${t.play ? 'deu play' : 'pausou'}`, 1300)
+  }
+  function pedeuTl(id, deKey) {
+    if (!deKey || !sincronizado() || !P?.bufs || P.id !== id) return
+    setTimeout(() => { if (P?.id === id) ctx.sendTo(deKey, msgTl('resp')) }, Math.random() * 250)
+  }
+  // o host acerta os relógios a cada 8 s (só corrige quem estiver mais de 0,4 s fora)
+  setInterval(() => { if (ehHost() && P?.bufs && P.play && sincronizado() && S?.fase !== 'fim') ctx.send(msgTl('drift')) }, 8000)
 
   /* ---------- busca do palpite: catálogo local na hora + Deezer com capa ---------- */
   let catalogo = null
@@ -626,17 +666,23 @@ export function criaFaixa(ctx) {
     atualizaPlayer()
     if (S.fase === 'tocando' && tela.contains(chute.input) && !ctx.digitando()) chute.input.focus({ preventScroll: true })
   }
-  const playerEl = () => el('div', { className: 'fx-player' },
-      botao('rotate-ccw', '', () => tocar(0), 'fx-player__mini', 'Do começo'),
-      botao('chevron-left', '5s', () => pula(-5), 'fx-player__mini fx-player__5', 'Voltar 5 s'),
-      (() => { const b = el('button', { type: 'button', className: 'fx-player__play', title: 'Tocar / pausar' }, icon('play')); b.addEventListener('click', () => { b.blur(); P?.play ? pausar() : tocar(P?.pos || 0) }); return b })(),
-      botao('chevron-right', '5s', () => pula(5), 'fx-player__mini fx-player__5', 'Avançar 5 s'),
+  const playerEl = () => el('div', { className: 'fx-player' + (sincronizado() ? ' sync' : '') },
+      botao('rotate-ccw', '', () => { tocar(0); avisaTl('volta') }, 'fx-player__mini', 'Do começo'),
+      botao('chevron-left', '5s', () => { pula(-5); avisaTl('pula') }, 'fx-player__mini fx-player__5', 'Voltar 5 s'),
+      (() => { const b = el('button', { type: 'button', className: 'fx-player__play', title: 'Tocar / pausar' }, icon('play')); b.addEventListener('click', () => { b.blur(); alternaPlay() }); return b })(),
+      botao('chevron-right', '5s', () => { pula(5); avisaTl('pula') }, 'fx-player__mini fx-player__5', 'Avançar 5 s'),
       (() => {
         const tr = el('div', { className: 'fx-player__trilho' }, el('div', { className: 'fx-player__cab' }))
-        tr.addEventListener('pointerdown', e => { if (!P?.bufs) return; const r = tr.getBoundingClientRect(); tocar(Math.max(0, Math.min(.999, (e.clientX - r.left) / r.width)) * P.dur) })
+        tr.addEventListener('pointerdown', e => { if (!P?.bufs) return; const r = tr.getBoundingClientRect(); tocar(Math.max(0, Math.min(.999, (e.clientX - r.left) / r.width)) * P.dur); avisaTl('pula') })
         return tr
       })(),
-      el('span', { className: 'fx-player__t', textContent: '0:00 / 0:30' }))
+      el('span', { className: 'fx-player__t', textContent: '0:00 / 0:30' }),
+      (() => {
+        const on = sincronizado()
+        const b = el('button', { type: 'button', className: 'fx-player__sync' + (on ? ' on' : ''), title: on ? 'A música está igual para todo mundo: play, pause e pulos valem para todos. Clique para ouvir no seu ritmo.' : 'Você ouve no seu ritmo. Clique para ficar junto com os outros.' }, icon(on ? 'link-2' : 'unlink-2'), el('span', { textContent: on ? 'Junto' : 'Só eu' }))
+        b.addEventListener('click', () => { b.blur(); trocaSync() })
+        return b
+      })())
   function rodada(m) {
     if (S.modo === 'leilao') return rodadaLeilao(m)
     if (S.modo === 'ano') return rodadaAno(m)
