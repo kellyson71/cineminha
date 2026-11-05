@@ -383,7 +383,8 @@ async function enter(pw, key, name) {
   document.documentElement.classList.remove('auto')
   audioCtx()
   start(pw)
-  micOn(true)
+  if (ESTADO) { micOn(false, ESTADO.muted); if (ESTADO.deaf) setDeaf(true, true); if (ESTADO.rascunho) $('#chatInput').value = ESTADO.rascunho }
+  else micOn(true)
   admRestore()
   if (!VOLTA) setTimeout(() => sfx('euEntrei'), 400)
   loadCanais()
@@ -497,6 +498,9 @@ const VOLTA = (() => {
   } catch {}
   return null
 })()
+// o que a pessoa estava fazendo antes de recarregar: microfone, som e o texto meio digitado no chat
+const ESTADO = VOLTA ? (() => { try { const e = JSON.parse(sessionStorage.getItem('cine.estado') || 'null'); return e && Date.now() - e.t < 120000 ? e : null } catch { return null } })() : null
+function guardaEstado() { try { sessionStorage.setItem('cine.estado', JSON.stringify({ t: Date.now(), muted: !!me.muted, deaf: !!me.deaf, rascunho: $('#chatInput')?.value || '' })) } catch {} }
 const voltaAte = VOLTA ? Date.now() + 20000 : 0
 const voltandoAgora = () => Date.now() < voltaAte // durante a volta, quem já estava na sala não é anunciado de novo
 const voltaTxt = m => m === 'versao' ? 'Atualizando…' : 'Reconectando…'
@@ -513,22 +517,40 @@ function recarregar(motivo) {
   if (recarregando) return
   recarregando = true
   try { sessionStorage.setItem('cine.volta', JSON.stringify({ t: Date.now(), m: motivo })) } catch {}
+  guardaEstado()
   voltaTela(motivo)
   try { actions?.hello.send({ ...helloMsg(), volta: 1 }) } catch {}
   setTimeout(() => location.reload(), 350)
 }
 
 /* ---------- Atualização automática ---------- */
-let baseVer = null, pendingUpdate = false
+let baseVer = null, baseCss = null, cssVer = '', pendingUpdate = false, recargaMarcada = false
+// só o visual mudou: troca as folhas de estilo no lugar (a nova carrega antes de a antiga sair, sem piscar)
+function trocaCss(c) {
+  cssVer = c
+  document.querySelectorAll('link[rel=stylesheet]').forEach(old => {
+    const u = new URL(old.href, location.href)
+    if (u.origin !== location.origin) return
+    u.searchParams.set('c', c)
+    const novo = old.cloneNode()
+    novo.href = u.pathname.replace(/^\//, '') + u.search
+    novo.onload = novo.onerror = () => old.remove()
+    old.after(novo)
+  })
+}
 async function checkVersion() {
   try {
-    const { v } = await (await fetch('version.json?t=' + Date.now(), { cache: 'no-store' })).json()
-    if (baseVer === null) { baseVer = v; return }
-    if (v === baseVer) return
+    const { v, c } = await (await fetch('version.json?t=' + Date.now(), { cache: 'no-store' })).json()
+    if (baseVer === null) { baseVer = v; baseCss = c; return }
+    if (v === baseVer) { if (c && c !== baseCss) { baseCss = c; trocaCss(c) } return }
     if (myShare) {
       if (!pendingUpdate) toast('Versão nova no ar: atualiza quando você parar de projetar', 6000)
       pendingUpdate = true
-    } else recarregar('versao')
+    } else if (!recargaMarcada) {
+      // cada um recarrega num instante diferente: a sala não cai inteira de uma vez
+      recargaMarcada = true
+      setTimeout(() => myShare ? (pendingUpdate = true) : recarregar('versao'), Math.random() * 5000)
+    }
   } catch {}
 }
 checkVersion()
@@ -756,6 +778,7 @@ async function pollChat() {
   if (Array.isArray(r?.list)) r.list.forEach(m => addMsg(m))
 }
 addEventListener('pagehide', () => {
+  if (me.key) guardaEstado() // se for F5, a volta restaura daqui
   if (roomId && me.key) navigator.sendBeacon('/api/sala', new Blob([JSON.stringify({ op: 'saiu', r: roomId, key: me.key })], { type: 'application/json' }))
 })
 async function pingLoop(id) {
@@ -1361,7 +1384,7 @@ function carregaJogo(id) {
   carregando[id] = (async () => {
     try {
       if (J.fontes) document.head.append(el('link', { rel: 'stylesheet', href: `${FONTES}${J.fontes}&display=swap` }))
-      await Promise.all(J.css.map(h => document.querySelector(`link[href="${h}"]`) ? null : new Promise(ok => { const l = el('link', { rel: 'stylesheet', href: h }); l.onload = l.onerror = ok; document.head.append(l) })))
+      await Promise.all(J.css.map(h => document.querySelector(`link[href="${h}"], link[href^="${h}?"]`) ? null : new Promise(ok => { const l = el('link', { rel: 'stylesheet', href: cssVer ? `${h}?c=${cssVer}` : h }); l.onload = l.onerror = ok; document.head.append(l) })))
       const m = await import(J.mod)
       const j = m[J.cria](ctxJogo(id))
       jogos[id] = j
@@ -2224,6 +2247,9 @@ function renderSeats() {
     node.classList.toggle('away', here.length > 0 && here.every(x => x.away) && !here.some(x => x.speaking))
     node.classList.toggle('sharing', here.some(x => tiles.has(x.id)))
     node.classList.toggle('ghost', here.length > 0 && here.every(x => x.ghost))
+    const volta = here.length > 0 && here.every(x => x.volta)
+    if (volta && !node.querySelector('.seat__volta')) node.append(el('div', { className: 'seat__volta' }, el('i'), el('i'), el('i')))
+    else if (!volta) node.querySelector('.seat__volta')?.remove()
     const nm = here[0]?.name || person(key).nome
     node.querySelector('.seat__nm').textContent = nm
     node._st = { away: node.classList.contains('away'), typing: here.some(x => x.typing), hidden: here.length > 0 && here.every(x => x.hidden) }
@@ -4184,13 +4210,13 @@ const toggleMute = () => { if (micTest) stopMicTest(false); if (me.deaf) setDeaf
 
 /* ---------- Cortar o som (como no Discord: some as vozes e muta o mic) ---------- */
 let mutedBeforeDeaf = false
-function setDeaf(d) {
+function setDeaf(d, quiet) {
   stopMicTest(true)
   if (me.deaf === d) return
   me.deaf = d
   if (d) { mutedBeforeDeaf = me.muted; if (mic && !me.muted) setMuted(true, true) }
   else if (mic && !mutedBeforeDeaf) setMuted(false, true)
-  sfx(d ? 'mutar' : 'desmutar')
+  if (!quiet) sfx(d ? 'mutar' : 'desmutar')
   updateDucking(); applyPrefs(); sendHello(); renderSeats()
   const b = $('#btnDeaf')
   setIcon(iconOf(b), d ? 'headphone-off' : 'headphones')

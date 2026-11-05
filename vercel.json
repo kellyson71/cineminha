@@ -1,7 +1,7 @@
 {
   "framework": null,
   "installCommand": "true",
-  "buildCommand": "printf '{\"v\":\"%s\"}\\n' \"$(find public -maxdepth 1 -type f \\( -name '*.js' -o -name '*.css' -o -name '*.html' \\) | sort | xargs cat | sha1sum | cut -c1-16)\" > public/version.json",
+  "buildCommand": "sh tools/versao.sh",
   "outputDirectory": "public",
   "headers": [
     {
