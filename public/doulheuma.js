@@ -12,10 +12,12 @@ const METAS = [[6, 'rápida · 6'], [10, 'normal · 10'], [15, 'longa · 15']]
 const PTS_GANHA = 2, PTS_MICO = 1
 // tipos de lote: sem relógio, com relógio na hora de citar, ou valendo o dobro
 const TIPOS = {
-  calma: { nome: 'Sem relógio', dica: 'Cite no seu ritmo', ic: 'coffee' },
+  calma: { nome: 'Sem relógio', dica: '25 s para lembrar cada item', ic: 'coffee' },
   relogio: { nome: 'Com relógio', dica: 'Tempo para citar: 4 s por item + 8 s', ic: 'clock' },
-  dobro: { nome: 'Vale dobro', dica: 'Sem relógio, pontos em dobro', ic: 'zap' },
+  dobro: { nome: 'Vale dobro', dica: 'Pontos em dobro · 25 s por item', ic: 'zap' },
 }
+// "tempo pensando": sem relógio de verdade, mas ninguém fica parado. Zera a cada item que vale / a cada vez nova.
+const PENSA_MS = 25000, VEZ_MS = 45000
 const MODOS_LOTE = [['variado', 'Variados'], ['calma', 'Sem relógio'], ['relogio', 'Com relógio']]
 const tempoLista = qtd => (8 + qtd * 4) * 1000
 
@@ -82,7 +84,7 @@ export function criaDouLheUma(ctx) {
   function sorteiaTipo() {
     if (G.op.lotes === 'calma' || G.op.lotes === 'relogio') return G.op.lotes
     const r = rnd(100)
-    return r < 45 ? 'calma' : r < 82 ? 'relogio' : 'dobro'
+    return r < 65 ? 'relogio' : r < 85 ? 'calma' : 'dobro' // a maioria com relógio
   }
   // lote novo: quem abre escolhe o tema entre três sorteados
   function novoLote() {
@@ -92,20 +94,20 @@ export function criaDouLheUma(ctx) {
     const ks = G.js.map(j => j.key), r = G.abre % ks.length
     const ordem = [...ks.slice(r), ...ks.slice(0, r)]
     G.lei = { ordem, ativos: [...ordem], vez: ordem[0], lance: null, hist: [] }
-    G.lista = null; G.res = null; G.fase = 'tema'
+    G.lista = null; G.res = null; G.fase = 'tema'; G.ate = Date.now() + VEZ_MS
     ev({ t: 'lote', quem: ordem[0], tipo: G.tipo })
     difunde()
   }
   function escolheTema(key, i) {
     if (G.fase !== 'tema' || (key !== G.host && key !== G.lei.ordem[0]) || !G.opcoes?.[i]) return
-    G.tema = G.opcoes[i]; G.opcoes = null; G.fase = 'lance'
+    G.tema = G.opcoes[i]; G.opcoes = null; G.fase = 'lance'; G.ate = Date.now() + VEZ_MS
     ev({ t: 'tema', key })
     log(`Lote ${G.lote}: ${G.tema.txt} (${TIPOS[G.tipo].nome.toLowerCase()}).`)
     difunde()
   }
   function trocaTema(key) {
     if (G.fase !== 'tema' || (key !== G.host && key !== G.lei.ordem[0])) return
-    G.opcoes = tresTemas()
+    G.opcoes = tresTemas(); G.ate = Date.now() + VEZ_MS
     ev({ t: 'troca' })
     difunde()
   }
@@ -130,7 +132,7 @@ export function criaDouLheUma(ctx) {
     const L = G.lei, o = L.ordem, i = Math.max(0, o.indexOf(de))
     for (let s = 1; s <= o.length; s++) {
       const c = o[(i + s) % o.length]
-      if (L.ativos.includes(c) && c !== L.lance?.key) { L.vez = c; return difunde() }
+      if (L.ativos.includes(c) && c !== L.lance?.key) { L.vez = c; G.ate = Date.now() + VEZ_MS; return difunde() }
     }
     if (L.lance) return vendido()
     difunde()
@@ -139,7 +141,9 @@ export function criaDouLheUma(ctx) {
     const { key, qtd } = G.lei.lance
     G.lei.vez = null
     // com relógio: o tempo começa depois do "vendido!" (3 s de animação)
-    G.lista = { key, qtd, ok: 0, ult: null, contador: proximoContador(key, key), ate: G.tipo === 'relogio' ? Date.now() + 3000 + tempoLista(qtd) : 0, tot: G.tipo === 'relogio' ? tempoLista(qtd) : 0 }
+    const tot = G.tipo === 'relogio' ? tempoLista(qtd) : PENSA_MS
+    G.lista = { key, qtd, ok: 0, ult: null, contador: proximoContador(key, key), ate: Date.now() + 3000 + tot, tot, pensa: G.tipo !== 'relogio' }
+    G.ate = 0
     G.fase = 'lista'
     ev({ t: 'vendido', key, qtd })
     log(`${jog(key).nome} arrematou: vai citar ${qtd}.`)
@@ -167,6 +171,7 @@ export function criaDouLheUma(ctx) {
     const novo = Math.max(0, Math.min(l.qtd, l.ok + d))
     if (novo === l.ok) return
     l.ok = novo; l.ult = { key, d }
+    if (l.pensa && d > 0) l.ate = Date.now() + PENSA_MS // lembrou de mais um: o tempo pensando zera
     ev({ t: d > 0 ? 'valeu' : 'tirou', key, ok: novo })
     if (l.ok >= l.qtd) return fechaLista(true)
     difunde()
@@ -251,7 +256,7 @@ export function criaDouLheUma(ctx) {
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: G.fase, op: G.op, conv: G.conv,
       js: G.js.map(j => ({ key: j.key, nome: j.nome, pontos: j.pontos })), lote: G.lote, tema: G.tema, opcoes: G.opcoes, tipo: G.tipo,
-      lei: G.lei, lista: G.lista && { ...G.lista, resta: G.lista.ate ? Math.max(0, G.lista.ate - Date.now()) : 0 }, res: G.res, vencedor: G.vencedor, log: G.log.slice(-30), ev: G.ev,
+      lei: G.lei, lista: G.lista && { ...G.lista, resta: G.lista.ate ? Math.max(0, G.lista.ate - Date.now()) : 0 }, res: G.res, resta: G.ate ? Math.max(0, G.ate - Date.now()) : 0, vencedor: G.vencedor, log: G.log.slice(-30), ev: G.ev,
     }
   }
   function difunde() {
@@ -287,7 +292,20 @@ export function criaDouLheUma(ctx) {
     if (G) difunde()
   }
   // o relógio da hora de citar (só nos lotes com relógio)
-  setInterval(() => { if (G?.host === me.key && G.fase === 'lista' && G.lista?.ate && Date.now() > G.lista.ate) fechaLista(false, true) }, 250)
+  setInterval(() => {
+    if (G?.host !== me.key) return
+    const agora = Date.now()
+    if (G.fase === 'lista' && G.lista?.ate && agora > G.lista.ate) return fechaLista(false, true)
+    if (!G.ate || agora < G.ate) return
+    G.ate = 0
+    if (G.fase === 'tema' && G.opcoes) return escolheTema(G.lei.ordem[0], 0) // demorou: fica o primeiro tema
+    if (G.fase === 'lance' && G.lei.vez) {
+      const L = G.lei, k = L.vez
+      ev({ t: 'demorou', key: k })
+      if (L.ativos.length === 1 && !L.lance) return daLance(k, 1) // ninguém deu lance e não dá para passar: vale 1
+      return passa(k)
+    }
+  }, 250)
   setInterval(() => {
     if (!G && !restaurou && me.key) {
       restaurou = true
@@ -464,8 +482,10 @@ export function criaDouLheUma(ctx) {
         if (pode) c.addEventListener('click', () => { som('carimbo', 0, .5); manda({ op: 'tema', escolha: i }) })
         return c
       })),
-      pode ? botao([icon('refresh-cw'), el('span', { textContent: 'Outros três' })], () => manda({ op: 'troca' }), 'du-btn--leve') : '')
+      el('div', { className: 'du-linha' }, tempinho(), pode ? botao([icon('refresh-cw'), el('span', { textContent: 'Outros três' })], () => manda({ op: 'troca' }), 'du-btn--leve') : ''))
   }
+  // barrinha discreta do tempo da vez (45 s): só para não deixar a mesa parada
+  const tempinho = () => V.resta ? el('div', { className: 'du-tempinho', title: 'Se acabar, a vez passa sozinha' }, el('span', { className: 'du-tempinho__barra' }, el('i')), el('small', { className: 'du-tempinho__n' })) : ''
   // a tarja de TV com o lance atual
   function tarja() {
     const L = V.lei, l = V.lista
@@ -511,8 +531,8 @@ export function criaDouLheUma(ctx) {
           botao('+5', () => ajusta(5), 'du-btn--leve', 'Mais cinco')),
         el('div', { className: 'du-linha' }, dar, podePassar ? botao('Passo', () => manda({ op: 'passa' }), 'du-btn--leve du-btn--grande', 'Sai deste lote') : el('small', { className: 'du-nota', textContent: 'Todos passaram: alguém tem que dar um lance.' })))
     } else ctl = el('p', { className: 'du-aguarda' }, retrato(L.vez), el('span', {}, el('b', { textContent: N(L.vez) }), L.lance ? ` vai cobrir o ${L.lance.qtd} ou passar…` : ' abre o leilão…'))
-    const dica = el('small', { className: 'du-dica', textContent: `Quantos itens de "${V.tema.txt}" você consegue citar? Cubra com um número maior ou passe. Quem ficar com o maior lance cita ${V.tipo === 'relogio' ? 'contra o relógio' : 'sem relógio'}.` })
-    return el('div', { className: 'du-leilao' }, fila, el('div', { className: 'du-leilao__ctl' }, ctl, dica))
+    const dica0 = el('small', { className: 'du-dica', textContent: `Quantos itens de "${V.tema.txt}" você consegue citar? Cubra com um número maior ou passe. Quem ficar com o maior lance cita ${V.tipo === 'relogio' ? 'contra o relógio' : 'sem relógio'}.` })
+    return el('div', { className: 'du-leilao' }, fila, el('div', { className: 'du-leilao__ctl' }, tempinho(), ctl, dica0))
   }
   // a hora da verdade: quem arrematou cita em voz alta e a call conta
   function lista() {
@@ -523,7 +543,8 @@ export function criaDouLheUma(ctx) {
     }))
     const quem = l.ult ? el('small', { className: 'du-ult', textContent: `${l.ult.d > 0 ? '+1' : '−1'} de ${N(l.ult.key)}` }) : el('small', { className: 'du-ult', textContent: souEu ? `${N(l.contador)} vai contando enquanto você fala` : l.contador === me.key ? 'Aperte a cada item que valer' : '' })
     const falando = ctx.falando(l.key)
-    const relogio = l.tot ? el('div', { className: 'du-relogio', 'data-tot': l.tot }, icon('clock'), el('b', { className: 'du-relogio__n' }), el('span', { className: 'du-relogio__barra' }, el('i'))) : el('small', { className: 'du-semrelogio' }, icon('coffee'), V.tipo === 'dobro' ? ' Sem relógio · vale dobro' : ' Sem relógio: cite no seu ritmo')
+    const relogio = el('div', { className: 'du-relogio' + (l.pensa ? ' du-relogio--pensa' : '') }, icon(l.pensa ? 'coffee' : 'clock'), el('b', { className: 'du-relogio__n' }),
+      el('small', { className: 'du-relogio__rot', textContent: l.pensa ? `tempo pensando · zera a cada item${V.tipo === 'dobro' ? ' · vale dobro' : ''}` : 'para citar tudo' }), el('span', { className: 'du-relogio__barra' }, el('i')))
     const contoEu = l.contador === me.key
     const contador = el('div', { className: 'du-contador' + (contoEu ? ' eu' : '') }, retrato(l.contador, 'du-foto--mini'),
       el('span', {}, contoEu ? el('b', { textContent: 'Você está contando' }) : [el('b', { textContent: N(l.contador) }), ' está contando']),
@@ -544,7 +565,7 @@ export function criaDouLheUma(ctx) {
     const r = V.res, j = V.js.find(x => x.key === r.key)
     const carimbo = el('div', { className: 'du-res' + (r.ganhou ? ' ganhou' : ' micou') + (novo(`res:${V.id}:${V.lote}`) ? ' entra' : '') },
       el('span', { className: 'du-res__selo', textContent: r.cancelado ? 'Cancelado' : r.ganhou ? 'Arrematou!' : r.tempo ? 'Acabou o tempo!' : 'Micou!' }),
-      el('p', {}, r.cancelado ? `${j?.nome || 'Quem arrematou'} saiu da mesa. Próximo lote.` : r.ganhou ? `${N(r.key)} citou ${r.qtd} e leva +${PTS_GANHA * (r.mult || 1)}${r.mult > 1 ? ' (dobro!)' : ''}.` : `${r.tempo ? 'O tempo acabou! ' : ''}${N(r.key)} parou em ${r.ok} de ${r.qtd}. Os outros ganham +${PTS_MICO * (r.mult || 1)}.`))
+      el('p', {}, r.cancelado ? `${j?.nome || 'Quem arrematou'} saiu da mesa. Próximo lote.` : r.ganhou ? `${N(r.key)} citou ${r.qtd} e leva +${PTS_GANHA * (r.mult || 1)}${r.mult > 1 ? ' (dobro!)' : ''}.` : `${r.tempo ? (V.lista?.pensa || V.tipo !== 'relogio' ? 'Travou! O tempo pensando acabou. ' : 'O tempo acabou! ') : ''}${N(r.key)} parou em ${r.ok} de ${r.qtd}. Os outros ganham +${PTS_MICO * (r.mult || 1)}.`))
     const pode = souHost() || r.key === me.key
     const max = Math.max(...V.js.map(x => x.pontos))
     return el('div', { className: 'du-resultado' }, carimbo,
@@ -575,6 +596,7 @@ export function criaDouLheUma(ctx) {
       else if (e.t === 'lote') { som('papel', 200); if (e.quem === me.key) som('vez', 600) }
       else if (e.t === 'troca') som('papel')
       else if (e.t === 'tema') som('carimbo', 0, .5)
+      else if (e.t === 'demorou') toast(`${N(e.key)} demorou: a vez passou`, 2200)
       else if (e.t === 'contador') { som('papel', 0, .6); if (e.key === me.key) { toast('Agora você conta os itens', 2200); som('vez', 200) } }
       else if (e.t === 'lance') som('poe')
       else if (e.t === 'passou') som('desliza', 0, .7)
@@ -598,8 +620,15 @@ export function criaDouLheUma(ctx) {
       if (rel && V.lista?.tot) {
         const resta = Math.max(0, V.lista.resta - (Date.now() - chegou)), tot = V.lista.tot, falta = Math.min(tot, resta)
         rel.querySelector('.du-relogio__n').textContent = resta > tot ? 'Prepare-se…' : `${Math.ceil(falta / 1000)} s`
-        rel.querySelector('i').style.width = `${(falta / tot) * 100}%`
-        rel.classList.toggle('urgente', resta <= tot && falta < 5000)
+        rel.querySelector('.du-relogio__barra i').style.width = `${(falta / tot) * 100}%`
+        rel.classList.toggle('urgente', resta <= tot && falta < (V.lista.pensa ? 8000 : 5000))
+      }
+      const tp = tela.querySelector('.du-tempinho')
+      if (tp && V.resta) {
+        const falta = Math.max(0, V.resta - (Date.now() - chegou))
+        tp.querySelector('.du-tempinho__n').textContent = `${Math.ceil(falta / 1000)} s`
+        tp.querySelector('i').style.width = `${(falta / VEZ_MS) * 100}%`
+        tp.classList.toggle('urgente', falta < 10000)
       }
       const q = tela.querySelector('.du-lista__quem')
       if (q && V.lista) q.classList.toggle('fala', !!ctx.falando(V.lista.key))

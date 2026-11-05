@@ -246,3 +246,15 @@ button.du-tema:hover { transform: translate(-.4cqh, -.6cqh) rotate(-1deg); box-s
 .du-foto--mini { width: 3.6cqh; height: 3.6cqh; }
 .du-contador .du-btn { height: 4.2cqh; font-size: max(11px, 1.6cqh); }
 @container (max-width: 700px) { .du-temas { grid-template-columns: 1fr; } .du-opcoes { grid-template-columns: 1fr; } .du-selo.grande small { display: none; } }
+/* tempo pensando (sem relógio de verdade) e o tempinho da vez */
+.du-relogio { grid-template-columns: auto auto auto; }
+.du-relogio__rot { font: 700 max(10px, 1.6cqh) var(--du-corpo); text-transform: uppercase; letter-spacing: .06em; opacity: .8; }
+.du-relogio--pensa { color: var(--du-verde); }
+.du-relogio--pensa .du-relogio__barra i { background: var(--du-verde); }
+.du-relogio--pensa.urgente { color: var(--du-lote); }
+.du-relogio--pensa.urgente .du-relogio__barra i { background: var(--du-lote); }
+.du-tempinho { display: inline-flex; align-items: center; gap: .8cqh; color: rgba(243,234,210,.55); }
+.du-tempinho__barra { width: 18cqh; height: .7cqh; border-radius: 99px; background: rgba(0,0,0,.3); overflow: hidden; }
+.du-tempinho__barra i { display: block; height: 100%; width: 100%; background: rgba(243,234,210,.5); transition: width .2s linear; }
+.du-tempinho__n { font: 700 max(10px, 1.5cqh) var(--du-corpo); font-variant-numeric: tabular-nums; min-width: 4ch; }
+.du-tempinho.urgente { color: #ff8a6b; } .du-tempinho.urgente i { background: #ff8a6b; }
