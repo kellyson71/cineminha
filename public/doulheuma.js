@@ -14,12 +14,14 @@ const PTS_GANHA = 2, PTS_MICO = 1
 const TIPOS = {
   calma: { nome: 'Sem pressa', dica: 'Tempo folgado para citar tudo: 4 s por item + 8 s', ic: 'coffee' },
   relogio: { nome: 'Com relógio', dica: 'Tempo apertado para citar tudo: 2,5 s por item + 5 s', ic: 'clock' },
+  fixo: { nome: 'Tempo fixo', dica: 'O mesmo tempo para qualquer lance', ic: 'clock' },
   dobro: { nome: 'Vale dobro', dica: 'Pontos em dobro · tempo folgado: 4 s por item + 8 s', ic: 'zap' },
 }
 // todo lote tem um tempo geral para citar a lista inteira (não vai somando): apertado no "com relógio", folgado nos outros
 const VEZ_MS = 20000
-const MODOS_LOTE = [['variado', 'Variados'], ['calma', 'Tempo folgado'], ['relogio', 'Tempo apertado']]
-const tempoLista = (qtd, tipo) => tipo === 'relogio' ? (5 + qtd * 2.5) * 1000 : (8 + qtd * 4) * 1000
+const MODOS_LOTE = [['variado', 'Variados'], ['fixo', 'Tempo fixo'], ['calma', 'Tempo folgado'], ['relogio', 'Tempo apertado']]
+const FIXOS = [20, 30, 40] // segundos do lote de tempo fixo
+const tempoLista = (qtd, tipo, fixo) => tipo === 'fixo' ? fixo * 1000 : tipo === 'relogio' ? (5 + qtd * 2.5) * 1000 : (8 + qtd * 4) * 1000
 // temas que este navegador já viu (para o sorteio não repetir entre partidas)
 const VISTOS_MAX = 600
 const meusVistos = () => { const v = ls.get('du.vistos'); return Array.isArray(v) ? v.filter(x => typeof x === 'string') : [] }
@@ -89,14 +91,15 @@ export function criaDouLheUma(ctx) {
   }
   const tresTemas = () => [sorteiaTema(), sorteiaTema(), sorteiaTema()]
   function sorteiaTipo() {
-    if (G.op.lotes === 'calma' || G.op.lotes === 'relogio') return G.op.lotes
+    if (G.op.lotes === 'calma' || G.op.lotes === 'relogio' || G.op.lotes === 'fixo') return G.op.lotes
     const r = rnd(100)
-    return r < 65 ? 'relogio' : r < 85 ? 'calma' : 'dobro' // a maioria com relógio
+    return r < 50 ? 'fixo' : r < 75 ? 'relogio' : r < 87 ? 'calma' : 'dobro' // metade com tempo fixo
   }
   // lote novo: quem abre escolhe o tema entre três sorteados
   function novoLote() {
     G.lote++
     G.tipo = sorteiaTipo()
+    G.fixo = G.tipo === 'fixo' ? FIXOS[rnd(FIXOS.length)] : 0
     G.opcoes = tresTemas(); G.tema = null
     const ks = G.js.map(j => j.key), r = G.abre % ks.length
     const ordem = [...ks.slice(r), ...ks.slice(0, r)]
@@ -148,7 +151,7 @@ export function criaDouLheUma(ctx) {
     const { key, qtd } = G.lei.lance
     G.lei.vez = null
     // com relógio: o tempo começa depois do "vendido!" (3 s de animação)
-    const tot = tempoLista(qtd, G.tipo)
+    const tot = tempoLista(qtd, G.tipo, G.fixo)
     G.lista = { key, qtd, ok: 0, ult: null, contador: proximoContador(key, key), ate: Date.now() + 3000 + tot, tot, folga: G.tipo !== 'relogio' }
     G.ate = 0
     G.fase = 'lista'
@@ -266,7 +269,7 @@ export function criaDouLheUma(ctx) {
   function vista() {
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: G.fase, op: G.op, conv: G.conv,
-      js: G.js.map(j => ({ key: j.key, nome: j.nome, pontos: j.pontos })), lote: G.lote, tema: G.tema, opcoes: G.opcoes, tipo: G.tipo,
+      js: G.js.map(j => ({ key: j.key, nome: j.nome, pontos: j.pontos })), lote: G.lote, tema: G.tema, opcoes: G.opcoes, tipo: G.tipo, fixo: G.fixo || 0,
       lei: G.lei, lista: G.lista && { ...G.lista, resta: G.lista.ate ? Math.max(0, G.lista.ate - Date.now()) : 0 }, res: G.res, resta: G.ate ? Math.max(0, G.ate - Date.now()) : 0, vencedor: G.vencedor, log: G.log.slice(-30), ev: G.ev,
     }
   }
@@ -397,7 +400,10 @@ export function criaDouLheUma(ctx) {
   /* ---------- a mesa ---------- */
   const botao = (conteudo, fn, cls = '', title = '') => { const b = el('button', { type: 'button', className: `du-btn ${cls}`, title }); b.append(...[conteudo].flat()); b.addEventListener('click', e => { e.stopPropagation(); b.blur(); som('clique'); fn(e) }); return b }
   const retrato = (k, cls = '') => el('span', { className: `du-foto ${cls}`, 'data-key': k }, ctx.pfp(k, 64, N(k)))
-  const selo = (tipo, grande) => { const t = TIPOS[tipo] || TIPOS.calma; return el('span', { className: `du-selo du-selo--${tipo}` + (grande ? ' grande' : ''), title: t.dica }, icon(t.ic), el('b', { textContent: t.nome }), grande ? el('small', { textContent: t.dica }) : '') }
+  const selo = (tipo, grande) => {
+    const t = TIPOS[tipo] || TIPOS.calma, fixo = tipo === 'fixo' && V?.fixo
+    return el('span', { className: `du-selo du-selo--${tipo}` + (grande ? ' grande' : ''), title: t.dica }, icon(t.ic), el('b', { textContent: fixo ? `${V.fixo} s cravados` : t.nome }), grande ? el('small', { textContent: t.dica }) : '')
+  }
   const martelo = (cls = '') => el('span', { className: `du-martelo ${cls}`, innerHTML: SVG_MARTELO })
   // a animação do "dou-lhe uma, dou-lhe duas, vendido!" fica por cima mesmo se a tela for refeita no meio
   let fx = null
@@ -458,7 +464,7 @@ export function criaDouLheUma(ctx) {
     if (host && n < MIN_JOG) ir.disabled = true
     return el('div', { className: 'du-inicio' }, tutorial,
       el('p', { className: 'du-regra' }, el('b', { textContent: `Bateu o lance: +${PTS_GANHA}` }), ' · ', el('span', { textContent: `micou: +${PTS_MICO} para cada um dos outros` }), ' · ',
-        V.op.lotes === 'calma' ? 'todo lote tem tempo folgado para citar' : V.op.lotes === 'relogio' ? 'todo lote tem tempo apertado para citar' : 'cada lote sorteia: tempo apertado (maioria), folgado ou vale dobro'),
+        V.op.lotes === 'fixo' ? 'todo lote tem 20, 30 ou 40 s para citar' : V.op.lotes === 'calma' ? 'todo lote tem tempo folgado para citar' : V.op.lotes === 'relogio' ? 'todo lote tem tempo apertado para citar' : 'cada lote sorteia: metade com 20, 30 ou 40 s; o resto apertado, folgado ou vale dobro'),
       opcoes, pessoas,
       el('div', { className: 'du-linha' }, host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'du-btn--leve') : '', ir))
   }
@@ -543,7 +549,7 @@ export function criaDouLheUma(ctx) {
           botao('+5', () => ajusta(5), 'du-btn--leve', 'Mais cinco')),
         el('div', { className: 'du-linha' }, dar, podePassar ? botao('Passo', () => manda({ op: 'passa' }), 'du-btn--leve du-btn--grande', 'Sai deste lote') : el('small', { className: 'du-nota', textContent: 'Todos passaram: alguém tem que dar um lance.' })))
     } else ctl = el('p', { className: 'du-aguarda' }, retrato(L.vez), el('span', {}, el('b', { textContent: N(L.vez) }), L.lance ? ` vai cobrir o ${L.lance.qtd} ou passar…` : ' abre o leilão…'))
-    const dica0 = el('small', { className: 'du-dica', textContent: `Quantos itens de "${V.tema.txt}" você consegue citar? Cubra com um número maior ou passe. Quem ficar com o maior lance cita tudo dentro do tempo ${V.tipo === 'relogio' ? 'apertado (2,5 s por item + 5 s)' : 'folgado (4 s por item + 8 s)'}.` })
+    const dica0 = el('small', { className: 'du-dica', textContent: `Quantos itens de "${V.tema.txt}" você consegue citar? Cubra com um número maior ou passe. Quem ficar com o maior lance cita tudo em ${V.tipo === 'fixo' ? `${V.fixo} s, seja qual for o lance` : V.tipo === 'relogio' ? 'tempo apertado (2,5 s por item + 5 s)' : 'tempo folgado (4 s por item + 8 s)'}.` })
     return el('div', { className: 'du-leilao' }, fila, el('div', { className: 'du-leilao__ctl' }, tempinho(), ctl, dica0))
   }
   // a hora da verdade: quem arrematou cita em voz alta e a call conta
