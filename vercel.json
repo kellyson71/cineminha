@@ -1,7 +1,7 @@
 {
   "framework": null,
   "installCommand": "true",
-  "buildCommand": "sh tools/versao.sh",
+  "buildCommand": "v=$(find public -maxdepth 1 -type f \\( -name '*.js' -o -name '*.html' \\) | sort | xargs cat | sha1sum | cut -c1-16); c=$({ find public -maxdepth 1 -type f -name '*.css'; find public/themes -type f -name '*.css' 2>/dev/null; } | sort | xargs cat | sha1sum | cut -c1-16); printf '{\"v\":\"%s\",\"c\":\"%s\"}\\n' \"$v\" \"$c\" > public/version.json",
   "outputDirectory": "public",
   "headers": [
     {
