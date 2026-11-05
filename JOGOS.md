@@ -1,6 +1,6 @@
 # Jogos do Cineminha — contexto
 
-Tudo o que um jogo novo precisa seguir. Os seis jogos atuais são a referência viva:
+Tudo o que um jogo novo precisa seguir. Os oito jogos atuais são a referência viva:
 
 | Jogo | Arquivos | Chave da mensagem | Tipo |
 |---|---|---|---|
@@ -10,6 +10,8 @@ Tudo o que um jogo novo precisa seguir. Os seis jogos atuais são a referência 
 | Red Flags | `public/parperfeito.js`, `parperfeito.css`, `jogos/parperfeito/` | `pp` | festa, rodadas com juiz, cartas de texto |
 | Amigos de Merda | `public/amigosdebosta.js`, `amigosdebosta.css`, `jogos/amigosdebosta/` | `ab` | votação simultânea; baralho do mod (86 pretas + 22 rosas), frentes em HTML/CSS |
 | Dobradinha | `public/dobradinha.js`, `dobradinha.css` | `db` | escalada de valores (igual dobra), mesa de boteco, cartas em CSS/SVG |
+| Dou-lhe Uma | `public/doulheuma.js`, `doulheuma.css`, `jogos/doulheuma/` | `du` | leilão de listas (quem cita mais), sem relógio; tarja de TV de leilão rural |
+| Na Testa | `public/natesta.js`, `natesta.css`, `jogos/natesta/` | `nt` | quem sou eu? (post-it na testa, perguntas de sim/não); mural de cortiça |
 
 Comece copiando a estrutura do **Red Flags** (o mais simples e completo) ou do modelo em
 `.agents/skills/cineminha-jogos/modelo.js`.

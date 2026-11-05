@@ -9,6 +9,8 @@ let faixa = null // minijogo Faixa a Faixa, ver faixa.js
 let coup = null // Coup na mesa, ver coup.js
 let descarte = null // Uno (cartas de cor e número), ver descarte.js
 let dobradinha = null // Dobradinha (escalada de cartas no boteco), ver dobradinha.js
+let douLheUma = null // Dou-lhe Uma (leilão de listas), ver doulheuma.js
+let naTesta = null // Na Testa (quem sou eu?), ver natesta.js
 let parPerfeito = null // Red Flags (monte um pretendente), ver parperfeito.js
 let amigosDeBosta = null // Amigos de Merda (votação entre amigos), ver amigosdebosta.js
 let radio = null // rádio da sala (música de fundo), ver radio.js
@@ -642,7 +644,7 @@ async function start(pw) {
     const voltou = sumindo.has(d.key)
     if (voltou) { clearTimeout(sumindo.get(d.key).timer); sumindo.delete(d.key); avisouVolta.delete(d.key) }
     if (isNew) voltaFim()
-    if (isNew) { if (!voltou && !voltandoAgora()) { sysMsg(`${name} entrou`); sfx('entrou', d.key) }; evento('entrou', voltou ? `${name} voltou` : `conectou com ${name}`); conectadoDesde.set(peerId, Date.now()); faixa?.entrouAlguem(d.key, name); coup?.entrouAlguem(d.key); descarte?.entrouAlguem(d.key); parPerfeito?.entrouAlguem(d.key); amigosDeBosta?.entrouAlguem(d.key); dobradinha?.entrouAlguem(d.key) }
+    if (isNew) { if (!voltou && !voltandoAgora()) { sysMsg(`${name} entrou`); sfx('entrou', d.key) }; evento('entrou', voltou ? `${name} voltou` : `conectou com ${name}`); conectadoDesde.set(peerId, Date.now()); faixa?.entrouAlguem(d.key, name); coup?.entrouAlguem(d.key); descarte?.entrouAlguem(d.key); parPerfeito?.entrouAlguem(d.key); amigosDeBosta?.entrouAlguem(d.key); dobradinha?.entrouAlguem(d.key); douLheUma?.entrouAlguem(d.key); naTesta?.entrouAlguem(d.key) }
     applyPeerVols(); applyTileVols()
     renderAll()
   }
@@ -675,7 +677,7 @@ async function start(pw) {
   actions.mid.onMessage = d => gotMidia(d)
   actions.rad.onMessage = d => radio?.got(d)
   actions.jogo.onMessage = (d, { peerId }) => {
-    const [id, x] = d?.coup ? ['coup', d.coup] : d?.dc ? ['dc', d.dc] : d?.pp ? ['pp', d.pp] : d?.ab ? ['ab', d.ab] : d?.db ? ['db', d.db] : ['faixa', d]
+    const [id, x] = d?.coup ? ['coup', d.coup] : d?.dc ? ['dc', d.dc] : d?.pp ? ['pp', d.pp] : d?.ab ? ['ab', d.ab] : d?.db ? ['db', d.db] : d?.du ? ['du', d.du] : d?.nt ? ['nt', d.nt] : ['faixa', d]
     const k = peers.get(peerId)?.key
     if (jogos[id]) return jogos[id].got(x, k)
     carregaJogo(id).then(j => j?.got(x, k))
@@ -1355,6 +1357,8 @@ const JOGOS = {
   pp: { nome: 'Red Flags', mod: './parperfeito.js', cria: 'criaParPerfeito', tela: 'pp', on: 'pp-on', css: ['parperfeito.css'], fontes: 'family=Roboto+Condensed:wght@500;600;700;900' },
   ab: { nome: 'Amigos de Merda', mod: './amigosdebosta.js', cria: 'criaAmigosDeBosta', tela: 'ab', on: 'ab-on', css: ['amigosdebosta.css'], fontes: 'family=Bebas+Neue&family=Roboto+Condensed:wght@500;600;700;900' },
   db: { nome: 'Dobradinha', mod: './dobradinha.js', cria: 'criaDobradinha', tela: 'db', on: 'db-on', css: ['aula.css', 'dobradinha.css'], fontes: 'family=Alfa+Slab+One&family=Caveat+Brush&family=Barlow+Semi+Condensed:wght@500;600;700' },
+  du: { nome: 'Dou-lhe Uma', mod: './doulheuma.js', cria: 'criaDouLheUma', tela: 'du', on: 'du-on', css: ['doulheuma.css'], fontes: 'family=Bowlby+One+SC&family=Archivo+Narrow:wght@500;600;700' },
+  nt: { nome: 'Na Testa', mod: './natesta.js', cria: 'criaNaTesta', tela: 'nt', on: 'nt-on', css: ['natesta.css'], fontes: 'family=Gochi+Hand&family=Outfit:wght@400;600;700' },
 }
 const jogos = {} // id -> jogo já carregado
 const carregando = {} // id -> promessa enquanto baixa
@@ -1411,7 +1415,7 @@ function carregaJogo(id) {
       const m = await import(J.mod)
       const j = m[J.cria](ctxJogo(id))
       jogos[id] = j
-      if (id === 'faixa') faixa = j; else if (id === 'coup') coup = j; else if (id === 'dc') descarte = j; else if (id === 'pp') parPerfeito = j; else if (id === 'db') dobradinha = j; else amigosDeBosta = j
+      if (id === 'faixa') faixa = j; else if (id === 'coup') coup = j; else if (id === 'dc') descarte = j; else if (id === 'pp') parPerfeito = j; else if (id === 'db') dobradinha = j; else if (id === 'du') douLheUma = j; else if (id === 'nt') naTesta = j; else amigosDeBosta = j
       return j
     } catch (e) { console.error(e); toast(`Não consegui abrir ${J.nome}. Tente de novo.`) ; return null }
     finally { aviso.remove(); delete carregando[id] }
@@ -1500,12 +1504,14 @@ function trocaJogo(atual, novoId) {
   m.querySelector('.trocajogo__op')?.focus()
 }
 // quem abriu uma mesa e recarregou a página: o jogo volta sozinho (o módulo confere se ainda é o host)
-for (const [id, k] of [['faixa', 'faixa.S'], ['coup', 'coup.G'], ['dc', 'dc.G'], ['pp', 'pp.G'], ['ab', 'ab.G'], ['db', 'db.G']]) { try { if (localStorage.getItem(k)) carregaJogo(id) } catch {} }
+for (const [id, k] of [['faixa', 'faixa.S'], ['coup', 'coup.G'], ['dc', 'dc.G'], ['pp', 'pp.G'], ['ab', 'ab.G'], ['db', 'db.G'], ['du', 'du.G'], ['nt', 'nt.G']]) { try { if (localStorage.getItem(k)) carregaJogo(id) } catch {} }
 
 /* ---------- Botão de jogos: escolher o jogo ---------- */
 // ícones do menu: desenhados no centro de um quadrado de 24, para ficarem alinhados
 const ICONES_JOGO = {
   faixa: '<svg viewBox="0 0 24 24" fill="#fff"><rect x="4" y="9" width="3" height="6" rx="1.5"/><rect x="8.5" y="5" width="3" height="14" rx="1.5"/><rect x="13" y="7.5" width="3" height="9" rx="1.5"/><rect x="17.5" y="10" width="3" height="4" rx="1.5"/></svg>',
+  du: '<svg viewBox="0 0 24 24" fill="none" stroke="#14231b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 12.5-8 8a2.12 2.12 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></svg>',
+  nt: '<svg viewBox="0 0 24 24"><path d="M5 4h14v12.5L15.5 20H5z" fill="#ffe066" transform="rotate(-6 12 12)"/><text x="12" y="15.6" text-anchor="middle" font-family="Georgia, serif" font-weight="900" font-size="11" fill="#22170e" transform="rotate(-6 12 12)">?</text></svg>',
   db: '<svg viewBox="0 0 24 24"><rect x="3.5" y="6" width="9" height="13" rx="1.4" fill="#f5f7f6" transform="rotate(-10 8 12.5)"/><rect x="11" y="4" width="9" height="13" rx="1.4" fill="#f5f7f6" transform="rotate(8 15.5 10.5)"/><text x="15.6" y="13.6" text-anchor="middle" font-family="Georgia, serif" font-weight="900" font-size="7.4" fill="#c2362c" transform="rotate(8 15.5 10.5)">7</text><text x="8" y="15.4" text-anchor="middle" font-family="Georgia, serif" font-weight="900" font-size="7" fill="#1d4c9b" transform="rotate(-10 8 12.5)">4</text></svg>',
 }
 function menuJogos(btn) {
@@ -1519,7 +1525,9 @@ function menuJogos(btn) {
     item(el('img', { className: 'jogosmenu__ic jogosmenu__ic--dc jogosmenu__arte', src: 'jogos/uno/logo.svg', alt: '' }), 'Uno', 'Combine cor ou número · 2 a 10', () => abreJogo('dc')),
     item(el('img', { className: 'jogosmenu__ic jogosmenu__ic--pp jogosmenu__arte', src: 'jogos/parperfeito/verso-vermelho.png', alt: '' }), 'Red Flags', 'Monte o pretendente ideal · 3 ou mais', () => abreJogo('pp')),
     item(el('img', { className: 'jogosmenu__ic jogosmenu__ic--ab jogosmenu__arte', src: 'jogos/amigosdebosta/verso-preto.png', alt: '' }), 'Amigos de Merda', 'Votem em quem merece · 3 ou mais', () => abreJogo('ab')),
-    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--db', innerHTML: ICONES_JOGO.db }), 'Dobradinha', 'Suba o valor; empatou, dobra · 2 a 6', () => abreJogo('db')))
+    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--db', innerHTML: ICONES_JOGO.db }), 'Dobradinha', 'Suba o valor; empatou, dobra · 2 a 6', () => abreJogo('db')),
+    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--du', innerHTML: ICONES_JOGO.du }), 'Dou-lhe Uma', 'Leilão de listas: quem cita mais? · 2 ou mais', () => abreJogo('du')),
+    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--nt', innerHTML: ICONES_JOGO.nt }), 'Na Testa', 'Descubra quem está na sua testa · 2 ou mais', () => abreJogo('nt')))
   document.body.append(m)
   const r = btn.getBoundingClientRect()
   m.style.left = Math.max(8, Math.min(r.left + r.width / 2 - m.offsetWidth / 2, innerWidth - m.offsetWidth - 8)) + 'px'

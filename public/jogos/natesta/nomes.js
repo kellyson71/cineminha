@@ -1,0 +1,47 @@
+// Na Testa: quem pode parar na sua testa. Cada item: [nome que aparece, ...outros jeitos de chutar que também valem].
+export const CATEGORIAS = {
+  famososbr: { nome: 'Famosos do Brasil', ic: '🇧🇷', itens: [
+    ['Xuxa'], ['Silvio Santos'], ['Faustão', 'Fausto Silva'], ['Anitta'], ['Neymar'], ['Pelé'], ['Ronaldinho Gaúcho', 'Ronaldinho'],
+    ['Ivete Sangalo', 'Ivete'], ['Roberto Carlos'], ['Gisele Bündchen', 'Gisele'], ['Ana Maria Braga'], ['Luciano Huck', 'Huck'],
+    ['Whindersson Nunes', 'Whindersson'], ['Casimiro', 'Cazé'], ['Galvão Bueno', 'Galvão'], ['Ayrton Senna', 'Senna'],
+    ['Gugu'], ['Hebe Camargo', 'Hebe'], ['Chico Buarque'], ['Caetano Veloso', 'Caetano'], ['Gilberto Gil'], ['Rita Lee'],
+    ['Pabllo Vittar'], ['Ludmilla'], ['Marília Mendonça'], ['Gusttavo Lima'], ['Zeca Pagodinho'], ['Tiririca'],
+    ['Juliette'], ['Boninho'], ['Fernanda Montenegro'], ['Tony Ramos'], ['Rodrigo Faro'], ['Datena', 'José Luiz Datena'],
+    ['Lula'], ['Bolsonaro'], ['Paulo Gustavo'], ['Felipe Neto'], ['Mussum'], ['Didi', 'Renato Aragão'], ['Romário'],
+    ['Ronaldo Fenômeno', 'Ronaldo'], ['Vini Jr', 'Vinicius Junior', 'Vinícius Júnior'], ['Rayssa Leal', 'Fadinha'], ['Gil do Vigor'],
+  ] },
+  famosos: { nome: 'Famosos do mundo', ic: '🌎', itens: [
+    ['Michael Jackson'], ['Taylor Swift'], ['Beyoncé', 'Beyonce'], ['Cristiano Ronaldo', 'CR7'], ['Messi', 'Lionel Messi'],
+    ['Elon Musk'], ['Barack Obama', 'Obama'], ['Donald Trump', 'Trump'], ['Rainha Elizabeth', 'Elizabeth II'], ['Albert Einstein', 'Einstein'],
+    ['Leonardo DiCaprio', 'DiCaprio'], ['Brad Pitt'], ['Angelina Jolie'], ['Will Smith'], ['The Rock', 'Dwayne Johnson'],
+    ['Lady Gaga'], ['Rihanna'], ['Shakira'], ['Justin Bieber', 'Bieber'], ['Eminem'], ['Kanye West', 'Ye'], ['Kim Kardashian'],
+    ['Steve Jobs'], ['Bill Gates'], ['Mark Zuckerberg', 'Zuckerberg'], ['Papa Francisco'], ['Charlie Chaplin', 'Chaplin'],
+    ['Marilyn Monroe'], ['Elvis Presley', 'Elvis'], ['Freddie Mercury'], ['Usain Bolt'], ['Michael Jordan'], ['Keanu Reeves'],
+    ['Jackie Chan'], ['Mr. Bean', 'Rowan Atkinson'], ['Billie Eilish'], ['Bad Bunny'], ['Ed Sheeran'], ['Napoleão', 'Napoleão Bonaparte'],
+    ['Frida Kahlo'], ['Leonardo da Vinci', 'Da Vinci'], ['Cleópatra'], ['Gandhi'], ['Stephen Hawking'],
+  ] },
+  personagens: { nome: 'Personagens', ic: '🎬', itens: [
+    ['Bob Esponja'], ['Homer Simpson', 'Homer'], ['Chaves'], ['Seu Madruga'], ['Mônica'], ['Cebolinha'], ['Shrek'], ['Burro do Shrek', 'Burro'],
+    ['Harry Potter'], ['Hermione'], ['Darth Vader'], ['Yoda'], ['Homem-Aranha', 'Spider-Man'], ['Batman'], ['Coringa', 'Joker'],
+    ['Superman'], ['Mulher-Maravilha'], ['Thor'], ['Hulk'], ['Pikachu'], ['Mario', 'Super Mario'], ['Sonic'], ['Elsa'], ['Simba'],
+    ['Buzz Lightyear', 'Buzz'], ['Woody'], ['Mickey', 'Mickey Mouse'], ['Pato Donald', 'Donald'], ['Scooby-Doo', 'Scooby'],
+    ['Pica-Pau'], ['Pernalonga'], ['Patolino'], ['Jack Sparrow'], ['Gandalf'], ['Gollum', 'Smeagol'], ['James Bond', '007'],
+    ['Sherlock Holmes', 'Sherlock'], ['Barbie'], ['Chucky'], ['Freddy Krueger'], ['Saci', 'Saci-Pererê'], ['Papai Noel'],
+    ['Wandinha', 'Wednesday'], ['Goku'], ['Naruto'], ['Stitch'], ['Minion'], ['Nemo'],
+  ] },
+  bichos: { nome: 'Bichos', ic: '🐾', itens: [
+    ['Cachorro'], ['Gato'], ['Leão'], ['Elefante'], ['Girafa'], ['Macaco'], ['Pinguim'], ['Tubarão'], ['Baleia'], ['Golfinho'],
+    ['Polvo'], ['Cobra'], ['Jacaré'], ['Tartaruga'], ['Coelho'], ['Cavalo'], ['Vaca'], ['Porco'], ['Galinha'], ['Pato'],
+    ['Papagaio'], ['Coruja'], ['Águia'], ['Morcego'], ['Rato'], ['Capivara'], ['Bicho-preguiça', 'Preguiça'], ['Tamanduá'],
+    ['Onça'], ['Zebra'], ['Canguru'], ['Panda'], ['Urso'], ['Lobo'], ['Raposa'], ['Camelo'], ['Hipopótamo'], ['Rinoceronte'],
+    ['Formiga'], ['Abelha'], ['Barata'], ['Borboleta'], ['Aranha'], ['Caranguejo'], ['Lagosta'], ['Flamingo'], ['Pavão'],
+  ] },
+  coisas: { nome: 'Coisas e profissões', ic: '🧰', itens: [
+    ['Geladeira'], ['Micro-ondas', 'Microondas'], ['Guarda-chuva'], ['Escova de dente'], ['Controle remoto'], ['Celular'],
+    ['Travesseiro'], ['Vaso sanitário', 'Privada'], ['Chinelo'], ['Óculos'], ['Relógio'], ['Bicicleta'], ['Avião'], ['Pipoca'],
+    ['Pizza'], ['Brigadeiro'], ['Coxinha'], ['Café'], ['Cerveja'], ['Violão'], ['Bola de futebol', 'Bola'], ['Cadeira'],
+    ['Espelho'], ['Vela'], ['Tesoura'], ['Lápis'], ['Mochila'], ['Chave'], ['Bombeiro'], ['Médico'], ['Professor'],
+    ['Policial'], ['Astronauta'], ['Palhaço'], ['Pedreiro'], ['Dentista'], ['Padeiro'], ['Motorista de Uber', 'Uber', 'Motorista'],
+    ['Influencer', 'Influenciador'], ['Cozinheiro', 'Chef'], ['Piloto de avião', 'Piloto'], ['Garçom'], ['Veterinário'], ['Juiz de futebol', 'Juiz'],
+  ] },
+}

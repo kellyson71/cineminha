@@ -1941,7 +1941,10 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 .jogosmenu__it small { font-size: .74rem; color: var(--fg-soft, rgba(236,236,241,.62)); }
 .jogosmenu__ic { width: 42px; height: 42px; border-radius: 10px; flex: none; display: grid; place-items: center; }
 .jogosmenu__ic--faixa { background: linear-gradient(135deg, #ff4081, #4aa3ff); }
-.jogosmenu__ic--faixa svg, .jogosmenu__ic--pp svg, .jogosmenu__ic--ab svg, .jogosmenu__ic--db svg { width: 26px; height: 26px; display: block; }
+.jogosmenu__ic--faixa svg, .jogosmenu__ic--pp svg, .jogosmenu__ic--ab svg, .jogosmenu__ic--db svg, .jogosmenu__ic--du svg, .jogosmenu__ic--nt svg { width: 26px; height: 26px; display: block; }
+.jogosmenu__ic--du { background: #ffc62b; box-shadow: inset 0 0 0 2px #0f3527; }
+.jogosmenu__ic--nt { background: #b8844f; box-shadow: inset 0 0 0 3px #4b2e18; }
+.jogosmenu__ic--nt svg { width: 30px; height: 30px; }
 .jogosmenu__ic--coup { object-fit: cover; object-position: 50% 12%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
 .jogosmenu__ic--dc { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 7px; background: #16171b; }
 .jogosmenu__ic--dc i { border-radius: 3px; }
@@ -1963,8 +1966,8 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 .jogo-carregando i:nth-child(2) { animation-delay: .15s; } .jogo-carregando i:nth-child(3) { animation-delay: .3s; }
 
 /* durante qualquer jogo, a fileira de poltronas some de verdade (não rouba cliques no canto da tela) */
-.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on) .row { visibility: hidden; }
-.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on) .row * { pointer-events: none !important; }
+.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on) .row { visibility: hidden; }
+.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on) .row * { pointer-events: none !important; }
 
 /* categorias do Faixa a Faixa: progresso de ouvidas e o resto recolhido */
 .fx-catnota { margin: 0; display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 12px; background: rgba(255,255,255,.05); font-size: .78rem; color: var(--fg-soft); }
