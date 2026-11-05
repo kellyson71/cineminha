@@ -12,14 +12,14 @@ const METAS = [[6, 'rápida · 6'], [10, 'normal · 10'], [15, 'longa · 15']]
 const PTS_GANHA = 2, PTS_MICO = 1
 // tipos de lote: sem relógio, com relógio na hora de citar, ou valendo o dobro
 const TIPOS = {
-  calma: { nome: 'Sem pressa', dica: 'Tempo folgado para citar tudo: 8 s por item + 20 s', ic: 'coffee' },
-  relogio: { nome: 'Com relógio', dica: 'Tempo apertado para citar tudo: 4 s por item + 8 s', ic: 'clock' },
-  dobro: { nome: 'Vale dobro', dica: 'Pontos em dobro · tempo folgado: 8 s por item + 20 s', ic: 'zap' },
+  calma: { nome: 'Sem pressa', dica: 'Tempo folgado para citar tudo: 4 s por item + 8 s', ic: 'coffee' },
+  relogio: { nome: 'Com relógio', dica: 'Tempo apertado para citar tudo: 2,5 s por item + 5 s', ic: 'clock' },
+  dobro: { nome: 'Vale dobro', dica: 'Pontos em dobro · tempo folgado: 4 s por item + 8 s', ic: 'zap' },
 }
 // todo lote tem um tempo geral para citar a lista inteira (não vai somando): apertado no "com relógio", folgado nos outros
-const VEZ_MS = 45000
+const VEZ_MS = 20000
 const MODOS_LOTE = [['variado', 'Variados'], ['calma', 'Tempo folgado'], ['relogio', 'Tempo apertado']]
-const tempoLista = (qtd, tipo) => tipo === 'relogio' ? (8 + qtd * 4) * 1000 : (20 + qtd * 8) * 1000
+const tempoLista = (qtd, tipo) => tipo === 'relogio' ? (5 + qtd * 2.5) * 1000 : (8 + qtd * 4) * 1000
 // temas que este navegador já viu (para o sorteio não repetir entre partidas)
 const VISTOS_MAX = 600
 const meusVistos = () => { const v = ls.get('du.vistos'); return Array.isArray(v) ? v.filter(x => typeof x === 'string') : [] }
@@ -543,7 +543,7 @@ export function criaDouLheUma(ctx) {
           botao('+5', () => ajusta(5), 'du-btn--leve', 'Mais cinco')),
         el('div', { className: 'du-linha' }, dar, podePassar ? botao('Passo', () => manda({ op: 'passa' }), 'du-btn--leve du-btn--grande', 'Sai deste lote') : el('small', { className: 'du-nota', textContent: 'Todos passaram: alguém tem que dar um lance.' })))
     } else ctl = el('p', { className: 'du-aguarda' }, retrato(L.vez), el('span', {}, el('b', { textContent: N(L.vez) }), L.lance ? ` vai cobrir o ${L.lance.qtd} ou passar…` : ' abre o leilão…'))
-    const dica0 = el('small', { className: 'du-dica', textContent: `Quantos itens de "${V.tema.txt}" você consegue citar? Cubra com um número maior ou passe. Quem ficar com o maior lance cita tudo dentro do tempo ${V.tipo === 'relogio' ? 'apertado (4 s por item + 8 s)' : 'folgado (8 s por item + 20 s)'}.` })
+    const dica0 = el('small', { className: 'du-dica', textContent: `Quantos itens de "${V.tema.txt}" você consegue citar? Cubra com um número maior ou passe. Quem ficar com o maior lance cita tudo dentro do tempo ${V.tipo === 'relogio' ? 'apertado (2,5 s por item + 5 s)' : 'folgado (4 s por item + 8 s)'}.` })
     return el('div', { className: 'du-leilao' }, fila, el('div', { className: 'du-leilao__ctl' }, tempinho(), ctl, dica0))
   }
   // a hora da verdade: quem arrematou cita em voz alta e a call conta
@@ -640,7 +640,7 @@ export function criaDouLheUma(ctx) {
         const falta = Math.max(0, V.resta - (Date.now() - chegou))
         tp.querySelector('.du-tempinho__n').textContent = `${Math.ceil(falta / 1000)} s`
         tp.querySelector('i').style.width = `${(falta / VEZ_MS) * 100}%`
-        tp.classList.toggle('urgente', falta < 10000)
+        tp.classList.toggle('urgente', falta < 6000)
       }
       const q = tela.querySelector('.du-lista__quem')
       if (q && V.lista) q.classList.toggle('fala', !!ctx.falando(V.lista.key))
