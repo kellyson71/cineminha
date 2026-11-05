@@ -203,7 +203,7 @@ export function criaFaixa(ctx) {
       if (!lista.length) return toast('Nenhuma dessas músicas tem o ano de lançamento. Tente outro grupo.', 3600)
       if (lista.length < total0) toast(`Só ${lista.length} de ${total0} músicas têm o ano certo${lista.length < 3 ? ' — a rodada vai ser curta' : ''}.`, 3600)
     }
-    if (!lista.length) return toast('Nenhuma música para jogar aqui (você já respondeu todas?).', 3200)
+    if (!lista.length) return toast('Nenhuma música para jogar aqui (vocês já ouviram todas?).', 3200)
     S = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, rotulo, modo, musicas: lista, i: 0, fase: 'tocando', camada: 1, jog: {}, placar: {}, seq: 0, ordem: [], lei: null }
     for (const k of ctx.presentes()) S.jog[k] = novoJog(ctx.nomeDe(k))
     iniciaRodada()
@@ -910,7 +910,10 @@ export function criaFaixa(ctx) {
     const datas = Object.keys(dias || {}).filter(d => d <= hoje).sort().reverse()
     const res = datas.length ? await ctx.verDias(datas) : {}
     const meu = d => res[d]?.[me.key]?.musicas || {}
-    const feitas = new Set(datas.flatMap(d => Object.keys(meu(d)).map(n => `${d}#${n}`)))
+    // em grupo, "nova" é a música que ninguém da call ouviu ainda (não só você)
+    const call = ctx.presentes(), grupo = call.length > 1
+    const feitas = new Set(datas.flatMap(d => Object.entries(res[d] || {}).filter(([k]) => call.includes(k)).flatMap(([, v]) => Object.keys(v.musicas || {}).map(n => `${d}#${n}`))))
+    const ninguem = grupo ? 'ninguém da call' : 'você não'
     const todas = datas.flatMap(d => (dias[d] || []).map(m => ({ ...m, d })))
     const tudo = datas.flatMap(d => Object.values(meu(d)))
     const st = { jogadas: tudo.length, ok: tudo.filter(x => x.r === 'ok').length, art: tudo.filter(x => x.r === 'art').length, fora: tudo.filter(x => x.r === 'fora').length, pts: tudo.reduce((s, x) => s + (x.pts || 0), 0) }
@@ -940,7 +943,7 @@ export function criaFaixa(ctx) {
       const disco = el('div', { className: 'fx-disco', 'aria-hidden': 'true' }, el('i'))
       const heroi = d ? el('div', { className: 'fx-hero' }, disco,
         el('div', { className: 'fx-hero__txt' }, el('small', { className: 'fx-kicker', textContent: d === hoje ? 'Faixa do dia' : 'Último dia pronto' }), el('b', { className: 'fx-hero__dia', textContent: nomeDia(d) }),
-          bolas(d), el('span', { className: 'fx-hero__info', textContent: feito ? `${ptsDia(d)} pts${feito < ms.length ? ` · faltam ${ms.length - feito}` : ' · completo'}` : `${ms.length} músicas novas` })),
+          bolas(d), el('span', { className: 'fx-hero__info', textContent: grupo ? (falta.length ? `${falta.length} de ${ms.length} que ninguém da call ouviu` : 'a call já ouviu todas · repetir') : feito ? `${ptsDia(d)} pts${feito < ms.length ? ` · faltam ${ms.length - feito}` : ' · completo'}` : `${ms.length} músicas novas` })),
         botao('play', acao, () => jogar(falta.length ? falta : listaDias([d], false), nomeDia(d)), 'fx-btn--ok fx-hero__btn fx-palheta')) : el('p', { className: 'fx-vazio', textContent: 'Nenhum dia pronto ainda.' })
       const atalho = (ic, nome, sub, fn) => { const i = el('span', { className: 'fx-atalho__ic' }); i.innerHTML = ICONE_ATALHO[ic]; const b = el('button', { type: 'button', className: `fx-atalho fx-atalho--${ic}` }, i, el('b', { textContent: nome }), el('small', { textContent: sub })); b.addEventListener('click', fn); return b }
       const pendentes = datas.filter(x => listaDias([x], true).length).length
@@ -948,7 +951,7 @@ export function criaFaixa(ctx) {
       box.replaceChildren(faixaVer(), topo(),
         heroi,
         el('div', { className: 'fx-atalhos' },
-          atalho('dias', 'Outros dias', pendentes ? `${pendentes} com músicas novas` : `${datas.length} dias`, outrosDias),
+          atalho('dias', 'Outros dias', pendentes ? `${pendentes} com músicas novas${grupo ? ' para a call' : ''}` : `${datas.length} dias`, outrosDias),
           atalho('combo', 'Combo', 'vários dias seguidos', combo),
           atalho('cats', 'Categorias', 'nacionais, rock, anos 80…', categorias)),
         st.jogadas ? el('div', { className: 'fx-stats' },
@@ -983,7 +986,7 @@ export function criaFaixa(ctx) {
       box.replaceChildren(faixaVer(), topo(combo, 'Combo'),
         el('div', { className: 'fx-chips' }, ...rapidos.map(([nome, ds]) => { const b = el('button', { type: 'button', className: 'fx-chip', textContent: nome }); b.addEventListener('click', () => { sel.clear(); ds.forEach(x => sel.add(x)); combo() }); return b })),
         el('div', { className: 'fx-dias' }, ...datas.map(d => cartaoDia(d, sel.has(d), () => { sel.has(d) ? sel.delete(d) : sel.add(d); combo() }))),
-        el('small', { className: 'fx-nota', textContent: 'As músicas que você já respondeu ficam de fora.' }),
+        el('small', { className: 'fx-nota', textContent: grupo ? 'As músicas que alguém da call já ouviu ficam de fora.' : 'As músicas que você já respondeu ficam de fora.' }),
         ir)
       ctx.hydrate(box)
     }
@@ -996,7 +999,7 @@ export function criaFaixa(ctx) {
       const cartao = (c, mini) => {
         const novas = c.ms.filter(m => !feitas.has(`${m.d}#${m.n}`)), ouvidas = c.ms.length - novas.length
         const fim = !novas.length
-        const b = el('button', { type: 'button', className: 'fx-cat' + (mini ? ' mini' : '') + (fim ? ' fim' : ''), title: fim ? 'Você já ouviu todas: o sorteio repete' : `Sorteia 5 das ${novas.length} que você ainda não ouviu` },
+        const b = el('button', { type: 'button', className: 'fx-cat' + (mini ? ' mini' : '') + (fim ? ' fim' : ''), title: fim ? (grupo ? 'A call já ouviu todas: o sorteio repete' : 'Você já ouviu todas: o sorteio repete') : `Sorteia 5 das ${novas.length} que ${ninguem} ouviu` },
           el('span', { className: 'fx-cat__ic', textContent: c.ic }), el('b', { textContent: c.nome }),
           el('span', { className: 'fx-cat__barra' }, el('i', { style: `width:${Math.round(ouvidas / c.ms.length * 100)}%` })),
           el('small', { textContent: fim ? `todas as ${c.ms.length} ouvidas · repetir` : `${ouvidas} de ${c.ms.length} ouvidas · faltam ${novas.length}` }))
@@ -1008,7 +1011,7 @@ export function criaFaixa(ctx) {
       mais.addEventListener('click', () => { maisCats = !maisCats; categorias() })
       conta('cats')
       box.replaceChildren(faixaVer(), topo(categorias, 'Categorias'),
-        cats.length ? el('p', { className: 'fx-catnota' }, icon('music'), el('span', {}, 'Cada categoria sorteia ', el('b', { textContent: '5 músicas que você ainda não ouviu' }), '. Quando todas forem ouvidas, dá para repetir.')) : '',
+        cats.length ? el('p', { className: 'fx-catnota' }, icon('music'), el('span', {}, 'Cada categoria sorteia ', el('b', { textContent: grupo ? '5 músicas que ninguém da call ouviu' : '5 músicas que você ainda não ouviu' }), '. Quando todas forem ouvidas, dá para repetir.')) : '',
         el('div', { className: 'fx-cats' }, ...prin.map(c => cartao(c))),
         resto.length ? mais : '',
         maisCats ? el('div', { className: 'fx-cats fx-cats--mini' }, ...resto.map(c => cartao(c, true))) : '',
