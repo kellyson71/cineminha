@@ -129,6 +129,25 @@ export function criaNaTesta(ctx) {
     if (res === 'n') return passaVez()
     difunde()
   }
+  // caderninho editável por qualquer um da mesa: corrigir o texto, trocar a marca, apagar ou anotar à mão
+  function editaNota(key, d) {
+    const dono = jog(d.de), notas = dono?.notas
+    if (G.fase !== 'jogo' || !jog(key) || !notas) return
+    if (d.nova) {
+      const txt = String(d.txt || '').replace(/\s+/g, ' ').trim().slice(0, 90)
+      if (!txt) return
+      notas.push({ txt, res: ['s', 'n', 't'].includes(d.res) ? d.res : 't', mao: true })
+      return difunde()
+    }
+    const i = Math.floor(Number(d.i)), x = notas[i]
+    if (!x) return
+    if (d.apaga) notas.splice(i, 1)
+    else {
+      if (typeof d.txt === 'string') x.txt = d.txt.replace(/\s+/g, ' ').trim().slice(0, 90)
+      if (['s', 'n', 't'].includes(d.res) && !x.chute) x.res = d.res
+    }
+    difunde()
+  }
   function fecha(key) { if (G.fase === 'jogo' && (key === G.js[G.vez]?.key || key === G.host)) fechaPergunta() }
   function chuta(key, txt) {
     const j = G.js[G.vez]
@@ -213,6 +232,7 @@ export function criaNaTesta(ctx) {
       case 'desiste': desiste(key); break
       case 'escreve': escreve(key, d.txt); break
       case 'anota': anota(key, d.txt); break
+      case 'nota': editaNota(key, d); break
       case 'sorteiaFaltam': sorteiaFaltam(key); break
     }
   }
@@ -222,7 +242,7 @@ export function criaNaTesta(ctx) {
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: f, op: G.op, conv: G.conv,
       js: G.js.map(j => ({ key: j.key, nome: j.nome, cor: j.cor, cat: j.cat, quem: j.quem && (j.key !== k || feito(j) || f === 'fim') ? j.quem[0] : null,
-        escolhido: !!j.quem, escreve: j.escreve, porQuem: j.porQuem, notas: (j.notas || []).slice(-40),
+        escolhido: !!j.quem, escreve: j.escreve, porQuem: j.porQuem, notas: j.notas || [],
         acertou: j.acertou, desistiu: j.desistiu, pontos: j.pontos, hist: j.hist, chutes: j.chutes.slice(-3) })),
       vez: G.js[G.vez]?.key || null, perg: G.perg, vencedor: G.vencedor, log: G.log.slice(-30),
       // o nome no evento de acerto só vai para quem já pode ver
@@ -343,8 +363,8 @@ export function criaNaTesta(ctx) {
     tela.classList.toggle('nt--on', !!V)
     ctx.onAtivo?.(!!V)
     if (!V) { tela.replaceChildren(); return }
-    const ativo = document.activeElement?.matches?.('.nt-chute__in, .nt-escreve__in, .nt-perg__in') ? document.activeElement : null
-    const qualIn = ativo?.classList.contains('nt-escreve__in') ? '.nt-escreve__in' : ativo?.classList.contains('nt-perg__in') ? '.nt-perg__in' : '.nt-chute__in'
+    const ativo = document.activeElement?.matches?.('.nt-chute__in, .nt-escreve__in, .nt-perg__in, .nt-nota__in') ? document.activeElement : null
+    const qualIn = ativo?.classList.contains('nt-nota__nova') ? `.nt-nota__nova[data-de="${ativo.dataset.de}"]` : ativo?.classList.contains('nt-nota__in') ? '.nt-nota__in:not(.nt-nota__nova)' : ativo?.classList.contains('nt-escreve__in') ? '.nt-escreve__in' : ativo?.classList.contains('nt-perg__in') ? '.nt-perg__in' : '.nt-chute__in'
     const sel = ativo && [ativo.selectionStart, ativo.selectionEnd]
     const topo = el('header', { className: 'nt-topo' },
       el('span', { className: 'nt-logo' }, el('b', { textContent: 'Na Testa' }), el('i', { textContent: '?' })),
@@ -407,17 +427,47 @@ export function criaNaTesta(ctx) {
   // caderninho: as perguntas de quem está na vez, cada uma com o resultado marcado
   let perguntaRascunho = ''
   const MARCA = { s: ['✓', 'Sim'], n: ['✗', 'Não'], t: ['~', 'Talvez'], x: ['✗', 'Errou'] }
+  let editando = '', editTxt = '', notaNova = ''
+  const PROX = { s: 'n', n: 't', t: 's' }
   function caderno(j, meu) {
     const notas = j?.notas || []
     const atual = meu ? '' : V.perg?.txt
+    const pode = V.js.some(x => x.key === me.key) // quem está na mesa pode mexer no caderninho
+    const salva = (i, txt) => { editando = ''; manda({ op: 'nota', de: j.key, i, txt }) }
+    const linha = (x, i) => {
+      const chave = `${j.key}:${i}`
+      let txtEl
+      if (pode && editando === chave) {
+        txtEl = el('input', { className: 'nt-nota__in', value: editTxt, maxLength: 90, autocomplete: 'off', spellcheck: false })
+        txtEl.addEventListener('input', () => { editTxt = txtEl.value })
+        txtEl.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); salva(i, txtEl.value) } else if (e.key === 'Escape') { editando = ''; render() } })
+        txtEl.addEventListener('blur', () => { if (editando === chave && txtEl.isConnected) salva(i, txtEl.value) }) // tela refeita no meio: segue editando
+      } else {
+        txtEl = el(pode ? 'button' : 'span', { className: 'nt-nota__txt', type: 'button', textContent: x.txt || `Pergunta ${i + 1} (falada)`, title: pode ? 'Clique para editar' : '' })
+        if (pode) txtEl.addEventListener('click', () => { editando = chave; editTxt = x.txt || ''; render(); const n = tela.querySelector('.nt-nota__in'); n?.focus(); n?.select() })
+      }
+      const marca = el(pode && !x.chute ? 'button' : 'span', { className: 'nt-nota__res', type: 'button', title: pode && !x.chute ? 'Trocar a resposta' : '' }, el('i', { textContent: MARCA[x.res][0] }), MARCA[x.res][1])
+      if (pode && !x.chute) marca.addEventListener('click', () => { som('clique'); manda({ op: 'nota', de: j.key, i, res: PROX[x.res] || 's' }) })
+      const apaga = pode ? el('button', { className: 'nt-nota__x', type: 'button', title: 'Apagar esta anotação', textContent: '×' }) : ''
+      if (apaga) apaga.addEventListener('click', () => { som('desliza', 0, .5); if (editando.startsWith(j.key + ':')) editando = ''; manda({ op: 'nota', de: j.key, i, apaga: true }) })
+      return el('li', { className: `nt-nota nt-nota--${x.res}` + (x.chute ? ' chute' : '') + (i === notas.length - 1 && novo(`nota:${V.id}:${j.key}:${notas.length}`) ? ' entra' : ''), title: x.chute ? 'chute errado' : x.mao ? 'anotada à mão' : `${x.s ?? 0} sim · ${x.nn ?? 0} não` }, txtEl, marca, apaga)
+    }
+    // anotar à mão (algo que foi falado e ficou de fora)
+    let nova = ''
+    if (pode) {
+      const inp = el('input', { className: 'nt-nota__in nt-nota__nova', placeholder: '+ anotar', value: notaNova, maxLength: 90, autocomplete: 'off', spellcheck: false })
+      inp.addEventListener('input', () => { notaNova = inp.value })
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); const t = inp.value.trim(); if (!t) return; notaNova = ''; manda({ op: 'nota', de: j.key, nova: true, txt: t }) } })
+      inp.dataset.de = j.key
+      nova = el('li', { className: 'nt-nota nt-nota--mao' }, inp)
+    }
     return el('aside', { className: 'nt-caderno' + (meu ? ' nt-caderno--meu' : '') },
       el('b', { className: 'nt-caderno__t' }, j.key === me.key ? 'Suas perguntas' : `Perguntas de ${j.nome}`),
       el('ol', { className: 'nt-caderno__lista' },
-        ...notas.map((x, i) => el('li', { className: `nt-nota nt-nota--${x.res}` + (x.chute ? ' chute' : '') + (i === notas.length - 1 && novo(`nota:${V.id}:${j.key}:${notas.length}`) ? ' entra' : ''), title: x.chute ? 'chute errado' : `${x.s ?? 0} sim · ${x.nn ?? 0} não` },
-          el('span', { className: 'nt-nota__txt', textContent: x.txt || `Pergunta ${i + 1} (falada)` }),
-          el('span', { className: 'nt-nota__res' }, el('i', { textContent: MARCA[x.res][0] }), MARCA[x.res][1]))),
-        meu ? (notas.length ? '' : el('li', { className: 'nt-nota nt-nota--agora' }, el('span', { className: 'nt-nota__txt', textContent: 'Nenhuma pergunta ainda' })))
-          : el('li', { className: 'nt-nota nt-nota--agora' }, el('span', { className: 'nt-nota__txt', textContent: atual || (j.key === me.key ? 'Escreva ou fale a próxima pergunta…' : 'Ouvindo a pergunta…') }), el('span', { className: 'nt-nota__res' }, el('i', { textContent: '…' })))))
+        ...notas.map(linha),
+        meu ? (notas.length || pode ? '' : el('li', { className: 'nt-nota nt-nota--agora' }, el('span', { className: 'nt-nota__txt', textContent: 'Nenhuma pergunta ainda' })))
+          : el('li', { className: 'nt-nota nt-nota--agora' }, el('span', { className: 'nt-nota__txt', textContent: atual || (j.key === me.key ? 'Escreva ou fale a próxima pergunta…' : 'Ouvindo a pergunta…') }), el('span', { className: 'nt-nota__res' }, el('i', { textContent: '…' }))),
+        nova))
   }
   function mural() {
     const vezK = V.vez, vez = V.js.find(j => j.key === vezK), minhaVez = vezK === me.key

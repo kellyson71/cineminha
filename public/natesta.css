@@ -178,3 +178,16 @@
 .nt-painel__perg.entra { animation: nt-sobe .4s cubic-bezier(.2,1.4,.4,1) both; }
 .nt-caderno--meu { rotate: -1.2deg; background-color: #fff8d6; }
 @container (max-width: 760px) { .nt-cadernos { display: none; } }
+/* caderninho editável */
+.nt-nota { position: relative; align-items: center; }
+.nt-nota button.nt-nota__txt { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: text; border-radius: .3cqh; }
+.nt-nota button.nt-nota__txt:hover { background: rgba(255,224,102,.45); }
+.nt-nota button.nt-nota__res { border: 0; cursor: pointer; transition: transform .12s; }
+.nt-nota button.nt-nota__res:hover { transform: scale(1.08) rotate(-3deg); }
+.nt-nota__in { flex: 1; min-width: 0; height: 3.6cqh; padding: 0 .8cqh; border: 0; border-bottom: .25cqh solid var(--nt-tinta); background: rgba(255,224,102,.35); color: var(--nt-tinta); font: 400 max(15px, 2.7cqh) var(--nt-mao); }
+.nt-nota__in:focus { outline: none; background: rgba(255,224,102,.6); }
+.nt-nota__nova { background: transparent; border-bottom-style: dashed; border-bottom-color: rgba(34,23,14,.35); }
+.nt-nota__x { flex: none; width: 2.6cqh; height: 2.6cqh; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; color: rgba(34,23,14,.5); font: 700 2.2cqh/1 var(--nt-corpo); cursor: pointer; opacity: 0; transition: opacity .15s, background .15s; }
+.nt-nota:hover .nt-nota__x, .nt-nota__x:focus-visible { opacity: 1; }
+.nt-nota__x:hover { background: var(--nt-erro); color: #fff; }
+@media (hover: none) { .nt-nota__x { opacity: .7; } }
