@@ -14,27 +14,42 @@ const OPCOES = [
   ['seteTroca', '7 troca de mão', 'Quem joga um 7 troca de mão com alguém que escolher. Não dá para usar junto com o 7 do silêncio.'],
   ['zero', '0 gira as mãos', 'Quando sai um 0, cada um passa a mão para o próximo, no sentido do jogo.'],
   ['corte', 'Corte', 'Quem tem a carta idêntica à da mesa (mesma cor e mesmo número) pode jogar fora da vez e toma a vez.'],
+  ['bate', '9 bate no monte', 'Quando sai um 9, todo mundo bate no monte (clique ou Espaço). O mais lento compra 2; quem não bater, também. Bater sem 9 compra 1.'],
+  ['semPiedade', 'Sem Piedade', 'Entram Pula Todos, +6 e +10; qualquer carta de compra empilha sobre outra; quem chega a 25 cartas está fora.'],
 ]
-const DESLIGADAS = ['seteTroca', 'zero', 'corte'] // regras da casa começam desligadas
+const DESLIGADAS = ['seteTroca', 'zero', 'corte', 'semPiedade'] // regras da casa começam desligadas
 const TEMPOS = [0, 15, 20, 30] // tempo por vez (0 = sem limite)
-const SONS = ['pular', 'inverter', 'embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'leque', 'carimbo', 'papel', 'vez', 'clique', 'tique']
-const VOL = { pular: .7, inverter: .7, desliza1: .9, desliza2: .9, desliza3: .9, leque: .7, embaralhar: .5, carimbo: .7, papel: .45, vez: .5, clique: .3, tique: .28 }
+const SONS = ['golpe', 'pular', 'inverter', 'embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'leque', 'carimbo', 'papel', 'vez', 'clique', 'tique']
+const VOL = { golpe: .5, pular: .7, inverter: .7, desliza1: .9, desliza2: .9, desliza3: .9, leque: .7, embaralhar: .5, carimbo: .7, papel: .45, vez: .5, clique: .3, tique: .28 }
 const GRACA_7 = 1400 // depois do 7, um respiro antes de valer o silêncio
 const SAIU_MS = 12000 // jogador sem conexão por esse tempo sai do jogo
 const HOST_MS = 10000 // quem abriu a mesa caiu: o sucessor assume depois disso
+const BATE_MS = 4000 // a batida do 9 fica aberta por esse tempo
+const BATE_LIM = 3000 // quem demora mais que isso (ou não bate) compra
+const BATE_PEN_MS = 9000 // bater sem 9: no máximo uma penalidade por pessoa nesse intervalo
+const SILENCIO_AMOSTRAS = 3 // 7 do silêncio: fala contínua (3 amostras de 150 ms seguidas)
+const LIMITE_CARTAS = 25 // Sem Piedade: quem chega aqui está fora
+const VALOR = { '+2': 2, '+4': 4, '+6': 6, '+10': 10 } // cartas de compra
+const ehCompra = v => v in VALOR
+const COMPRA_COR = v => v === '+4' || v === '+6' || v === '+10'
 
 const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n }
 const embaralha = a => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]] } return a }
 const ls = { get: k => { try { return JSON.parse(localStorage.getItem(k)) } catch { return null } }, set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)) } catch {} } }
-const nomeCarta = c => c.c ? `${{ pula: 'Pular', inverte: 'Inverter' }[c.v] || c.v} ${CORES[c.c]}` : c.v === '+4' ? '+4 coringa' : 'Coringa'
+const nomeCarta = c => c.c ? `${{ pula: 'Pular', inverte: 'Inverter', pulaT: 'Pula Todos' }[c.v] || c.v} ${CORES[c.c]}` : c.v === 'cor' ? 'Coringa' : `${c.v} coringa`
 
-function baralho() {
+function baralho(sp) {
   const d = []; let id = 0
   for (const c of 'rygb') {
     d.push({ id: id++, c, v: '0' })
     for (const v of ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'pula', 'inverte', '+2']) for (let k = 0; k < 2; k++) d.push({ id: id++, c, v })
   }
   for (let k = 0; k < 4; k++) { d.push({ id: id++, c: null, v: 'cor' }); d.push({ id: id++, c: null, v: '+4' }) }
+  if (sp) {
+    for (const c of 'rygb') d.push({ id: id++, c, v: 'pulaT' })
+    for (let k = 0; k < 4; k++) d.push({ id: id++, c: null, v: '+6' })
+    for (let k = 0; k < 2; k++) d.push({ id: id++, c: null, v: '+10' })
+  }
   return embaralha(d)
 }
 
@@ -42,6 +57,8 @@ function baralho() {
 const SVG = {
   pula: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><circle cx="24" cy="24" r="15"/><path d="M13.5 34.5 34.5 13.5"/></svg>',
   inverte: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a12 12 0 0 1 21-6l3 3"/><path d="M36 9v8h-8"/><path d="M36 28a12 12 0 0 1-21 6l-3-3"/><path d="M12 39v-8h8"/></svg>',
+  pulaT: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5h14l12 12v14L31 43H17L5 31V17z"/><path d="M16.5 16.5l15 15M31.5 16.5l-15 15"/></svg>',
+  mao: '<svg viewBox="0 0 100 112" stroke-linejoin="round"><defs><g id="dc-mao-f"><rect x="21" y="26" width="13" height="46" rx="6.5"/><rect x="36" y="8" width="13" height="64" rx="6.5"/><rect x="51" y="14" width="13" height="58" rx="6.5"/><rect x="66" y="30" width="12" height="44" rx="6"/><rect x="8" y="56" width="13" height="40" rx="6.5" transform="rotate(-28 14.5 76)"/><path d="M20 62h58v22c0 15-11 26-29 26S20 100 20 84z"/></g></defs><use href="#dc-mao-f" fill="#f0c49a" stroke="#2a1d14" stroke-width="7"/><use href="#dc-mao-f" fill="#f0c49a"/><path d="M35 40v26M50 28v38M65 36v30" stroke="#d9a574" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
   cor: '<svg viewBox="0 0 48 48" fill="none" stroke-width="4" stroke-linecap="round"><path d="M24 9a15 15 0 0 1 15 15" stroke="#3a8ee6"/><path d="M39 24a15 15 0 0 1-15 15" stroke="#3dbb6a"/><path d="M24 39A15 15 0 0 1 9 24" stroke="#f5c443"/><path d="M9 24A15 15 0 0 1 24 9" stroke="#e5484d"/></svg>',
   seta: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M40 24a16 16 0 1 1-5-11.6"/><path d="M36 5v8h-8"/></svg>',
   shh: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M24 8v20"/><circle cx="24" cy="36" r="2.2" fill="currentColor"/></svg>',
@@ -78,8 +95,8 @@ export function criaDescarte(ctx) {
     G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, fase: 'convite',
       op: { ...Object.fromEntries(OPCOES.map(([k]) => [k, DESLIGADAS.includes(k) ? op[k] === true : op[k] !== false])), tempo: TEMPOS.includes(op.tempo) ? op.tempo : 0 },
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
-      js: [], monte: [], descarte: [], cor: null, dir: 1, vez: 0, pend: 0, pendTipo: null, compradas: 0, sil: null,
-      placar: pl && Date.now() - pl.t < 10 * 3600e3 ? pl.p : {}, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
+      js: [], monte: [], descarte: [], cor: null, dir: 1, vez: 0, pend: 0, pendTipo: null, compradas: 0, sil: null, bate: null, bateK: 0,
+      placar: pl && pl.p && Date.now() - pl.t < 12 * 3600e3 ? pl.p : {}, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
     sysMsg(`${me.name} abriu uma mesa de Uno`)
     difunde()
   }
@@ -91,15 +108,15 @@ export function criaDescarte(ctx) {
     if (ks.length > 10) return toast('No máximo 10 jogadores.')
     ls.set('dc.op', G.op)
     embaralha(ks)
-    G.monte = baralho()
+    G.monte = baralho(G.op.semPiedade)
     G.js = ks.map(k => ({ key: k, nome: ctx.nomeDe(k), mao: G.monte.splice(-7), avisou: false, pegavel: false }))
     // primeira carta: um número (coringas e ações voltam para o meio do monte)
     let i = G.monte.findLastIndex(c => /^\d$/.test(c.v))
     G.descarte = [G.monte.splice(i, 1)[0]]
-    G.cor = topo().c; G.dir = 1; G.pend = 0; G.pendTipo = null; G.compradas = 0; G.sil = null
+    G.cor = topo().c; G.dir = 1; G.pend = 0; G.pendTipo = null; G.compradas = 0; G.sil = null; G.bate = null
     const ult = ls.get('dc.vencedor')
     G.vez = ks.includes(ult) ? ks.indexOf(ult) : rnd(ks.length)
-    G.fase = 'jogo'; G.log = []; G.vencedor = null; G.turno = 0
+    G.fase = 'jogo'; G.log = []; G.vencedor = null; G.turno = 0; G.estourou = []
     log(`Partida começou. ${G.js[G.vez].nome} começa.`)
     ev({ t: 'inicio' })
     sysMsg(`Uno começou: ${G.js.map(j => j.nome).join(', ')}`)
@@ -120,7 +137,7 @@ export function criaDescarte(ctx) {
     return novas
   }
   const serve = (c, j) => {
-    if (G.pend > 0) return G.op.acumula && (c.v === '+2' || c.v === '+4') // +2 vale em cima de +4, de qualquer cor
+    if (G.pend > 0) return G.op.semPiedade ? ehCompra(c.v) : G.op.acumula && (c.v === '+2' || c.v === '+4') // +2 vale em cima de +4, de qualquer cor
     if (!c.c) return true
     return c.c === G.cor || c.v === topo().v
   }
@@ -171,7 +188,7 @@ export function criaDescarte(ctx) {
     for (const o of G.js) if (o !== j) o.pegavel = false
     if (j.mao.length === 1) { j.pegavel = G.op.penalidade && !j.avisou; j.avisou = j.avisou || !G.op.penalidade }
     else j.avisou = false
-    G.sil = G.op.sete && !G.op.seteTroca && ult.v === '7' ? { desde: Date.now(), falaram: [] } : null
+    G.sil = G.op.sete && !G.op.seteTroca && ult.v === '7' ? { desde: Date.now(), falaram: [], cont: {} } : null
     if (corte) { ev({ t: 'corte', key }); log(`${j.nome} cortou!`) }
     ev({ t: 'joga', key, cartas: cs, cor: G.cor })
     log(`${j.nome} jogou ${cs.length > 1 ? `${cs.length} cartas (${cs.map(nomeCarta).join(', ')})` : nomeCarta(ult)}${ult.c ? '' : ` e escolheu ${CORES[G.cor]}`}.`)
@@ -183,8 +200,10 @@ export function criaDescarte(ctx) {
       for (let s = 1; s <= k; s++) ev({ t: 'pula', key: G.js[depois(i, s)].key })
       return avanca(1 + k)
     }
+    if (v === '9' && G.op.bate) abreBate()
+    if (v === 'pulaT') { ev({ t: 'pulaT', key }); log(`${j.nome} pulou todo mundo e joga de novo.`); return avanca(0) }
     if (v === 'inverte') { if (k % 2) G.dir *= -1; ev({ t: 'inverte', dir: G.dir }); return avanca(1) }
-    if (v === '+2' || v === '+4') { G.pend += k * (v === '+2' ? 2 : 4); G.pendTipo = G.pendTipo === '+4' || v === '+4' ? '+4' : '+2'; return avanca(1) }
+    if (ehCompra(v)) { G.pend += k * VALOR[v]; G.pendTipo = G.pendTipo === '+4' || COMPRA_COR(v) ? '+4' : '+2'; return avanca(1) }
     avanca(1)
   }
   function giraMaos() {
@@ -248,7 +267,7 @@ export function criaDescarte(ctx) {
   const nome = k => jog(k)?.nome || ctx.nomeDe(k)
   function fim(key) {
     clearTimeout(timer)
-    G.fase = 'fim'; G.vencedor = key; G.sil = null
+    G.fase = 'fim'; G.vencedor = key; G.sil = null; G.bate = null
     G.placar[key] = (G.placar[key] || 0) + 1
     ls.set('dc.placar', { t: Date.now(), p: G.placar }); ls.set('dc.vencedor', key)
     ev({ t: 'vence', key })
@@ -257,10 +276,59 @@ export function criaDescarte(ctx) {
     difunde()
   }
   function revanche() {
-    const ant = new Set(G.js.map(j => j.key))
+    const ant = new Set([...G.js.map(j => j.key), ...(G.estourou || [])])
     G.conv = Object.fromEntries(ctx.presentes().map(k => [k, ant.has(k) || k === me.key ? 'sim' : '?']))
-    Object.assign(G, { id: Math.random().toString(36).slice(2, 9), fase: 'convite', js: [], monte: [], descarte: [], vencedor: null, log: [], ev: [], evN: 0, sil: null })
+    Object.assign(G, { id: Math.random().toString(36).slice(2, 9), fase: 'convite', js: [], monte: [], descarte: [], vencedor: null, log: [], ev: [], evN: 0, sil: null, bate: null })
     difunde()
+  }
+  // ---- 9 bate no monte
+  function abreBate() {
+    if (G.bate) fechaBate()
+    G.bateK = (G.bateK || 0) + 1
+    G.bate = { k: G.bateK, ate: Date.now() + BATE_MS, rt: {} }
+    ev({ t: 'bate', k: G.bateK })
+  }
+  const ativosBate = () => { const pres = new Set(ctx.presentes()); return G.js.filter(j => j.key === me.key || pres.has(j.key)) }
+  function bateu(key, d) {
+    const j = jog(key)
+    if (!j || G.fase !== 'jogo' || !G.op.bate) return
+    const b = G.bate
+    if (d.k > 0) { // resposta a uma batida: só vale se ainda está aberta, uma vez por pessoa
+      if (!b || b.k !== d.k || key in b.rt) return
+      const rt = Number(d.rt)
+      b.rt[key] = Number.isFinite(rt) ? Math.max(0, Math.min(60000, Math.round(rt))) : 99999
+      if (ativosBate().every(x => x.key in b.rt)) fechaBate()
+      else difunde()
+      return
+    }
+    // bateu sem 9 (ignora se há batida aberta ou acabou de fechar: a mão pode ter sumido para a pessoa só agora)
+    if (b || Date.now() - (G.bateFechou || 0) < 3000) return
+    if (Date.now() - (j.penBate || 0) < BATE_PEN_MS) return
+    j.penBate = Date.now()
+    compra(j, 1)
+    ev({ t: 'bateSem', key, qtd: 1 }); log(`${j.nome} bateu sem 9 e comprou 1.`)
+    difunde()
+  }
+  function fechaBate() {
+    const b = G.bate
+    if (!b) return
+    G.bate = null; G.bateFechou = Date.now()
+    const ativos = ativosBate()
+    const lista = Object.entries(b.rt).filter(([k]) => jog(k)).map(([key, rt]) => ({ key, rt })).sort((x, y) => x.rt - y.rt)
+    const faltou = ativos.filter(j => !(j.key in b.rt)).map(j => j.key)
+    const lentos = ativos.filter(j => b.rt[j.key] > BATE_LIM).map(j => j.key)
+    let compram = [...faltou, ...lentos]
+    if (!compram.length && ativos.length > 1) { const ult = lista.filter(x => ativos.some(a => a.key === x.key)).at(-1); if (ult) compram = [ult.key] }
+    ev({ t: 'bateFim', k: b.k, lista, faltou, compram, qtd: 2 })
+    for (const k of compram) { const j = jog(k); if (j) compra(j, 2) }
+    log(compram.length ? `Batida do 9: ${compram.map(nome).join(', ')} comprou 2.` : 'Batida do 9: ninguém comprou.')
+    difunde()
+  }
+  // Sem Piedade: quem chega a 25 cartas sai da mesa (as cartas voltam para baixo do monte)
+  function varreEstouros() {
+    if (!G || !G.op.semPiedade || (G.fase !== 'jogo' && G.fase !== 'troca7')) return
+    const x = G.js.find(j => j.mao.length >= LIMITE_CARTAS)
+    if (x) remove(x.key, true)
   }
   function hostRecebe(d, key) {
     if (!G || !key || d.id !== G.id) return
@@ -273,6 +341,7 @@ export function criaDescarte(ctx) {
       case 'ultima': ultima(key); break
       case 'pega': pegar(key, d.alvo); break
       case 'troca': trocaMao(key, d.alvo); break
+      case 'bate': bateu(key, d); break
     }
   }
   function vista(k) {
@@ -281,12 +350,15 @@ export function criaDescarte(ctx) {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: G.fase, op: G.op, conv: G.conv, placar: G.placar,
       js: G.js.map(j => ({ key: j.key, nome: j.nome, n: j.mao.length, avisou: j.avisou, pegavel: j.pegavel })),
       mao: jog(k)?.mao || null, descarte: t, cor: G.cor, dir: G.dir, vez: G.js[G.vez]?.key || null, monte: G.monte.length,
+      bate: G.bate ? { k: G.bate.k, resta: Math.max(0, G.bate.ate - Date.now()), bateram: Object.keys(G.bate.rt) } : null,
       pend: G.pend, pendTipo: G.pendTipo, compradas: G.js[G.vez]?.key === k ? G.compradas || 0 : 0, lim: limite(),
       sil: G.sil ? { resta: Math.max(0, GRACA_7 - (Date.now() - G.sil.desde)), falaram: G.sil.falaram } : null,
       vencedor: G.vencedor || null, log: G.log.slice(-40), ev: G.ev, prazo: G.prazo ? Math.max(0, G.prazo - Date.now()) : 0,
     }
   }
   function difunde() {
+    if (!G) return
+    varreEstouros()
     if (!G) return
     G.seq++; G.t = Date.now()
     ls.set('dc.G', G)
@@ -299,21 +371,23 @@ export function criaDescarte(ctx) {
     aplica(vista(me.key))
   }
   // alguém saiu de vez: as cartas voltam para o monte e a pessoa sai da mesa
-  function remove(key) {
+  function remove(key, estourou) {
     if (G.fase === 'convite') { if (key in G.conv) { delete G.conv[key]; difunde() } return }
     const i = idx(key)
     if (i < 0) return
     const j = G.js[i], nome = j.nome
-    G.monte.push(...j.mao); embaralha(G.monte)
+    if (estourou) G.monte.unshift(...embaralha(j.mao.slice())); else { G.monte.push(...j.mao); embaralha(G.monte) }
     const eraVez = i === G.vez
     G.js.splice(i, 1)
-    ev({ t: 'saiu', key, nome }); log(`${nome} saiu da mesa.`); sysMsg(`${nome} saiu do Uno`)
+    if (estourou) { (G.estourou ||= []).push(key); ev({ t: 'estourou', key, nome, qtd: LIMITE_CARTAS }); log(`${nome} estourou: ${LIMITE_CARTAS} cartas.`); sysMsg(`${nome} estourou: ${LIMITE_CARTAS} cartas`) }
+    else { ev({ t: 'saiu', key, nome }); log(`${nome} saiu da mesa.`); sysMsg(`${nome} saiu do Uno`) }
     ausDesde.delete(key)
     if (G.fase === 'fim') return difunde()
     if (G.js.length <= 1) { if (G.js[0]) return fim(G.js[0].key); return encerrar() }
     const n = G.js.length
     if (eraVez) { G.vez = G.dir > 0 ? i % n : (i - 1 + n) % n; G.compradas = 0; if (G.fase === 'troca7') G.fase = 'jogo'; armaTempo() }
     else if (i < G.vez) G.vez--
+    if (G.bate && ativosBate().every(x => x.key in G.bate.rt)) return fechaBate()
     difunde()
   }
   function encerrar() {
@@ -326,10 +400,18 @@ export function criaDescarte(ctx) {
   }
   // 7 do silêncio: o host ouve o indicador de voz de todo mundo
   setInterval(() => {
-    if (!G || G.host !== me.key || G.fase !== 'jogo' || !G.sil) return
+    if (!G || G.host !== me.key) return
+    if (G.bate && G.fase !== 'convite' && Date.now() >= G.bate.ate) return fechaBate()
+    if (G.fase !== 'jogo' || !G.sil) return
     if (Date.now() - G.sil.desde < GRACA_7) return
+    // exige fala contínua (3 amostras seguidas); uma amostra solta não conta
+    const cont = G.sil.cont || (G.sil.cont = {})
     let mudou = false
-    for (const j of G.js) if (!G.sil.falaram.includes(j.key) && ctx.falando?.(j.key)) {
+    for (const j of G.js) {
+      if (G.sil.falaram.includes(j.key)) continue
+      if (!ctx.falando?.(j.key)) { cont[j.key] = 0; continue }
+      cont[j.key] = (cont[j.key] || 0) + 1
+      if (cont[j.key] < SILENCIO_AMOSTRAS) continue
       G.sil.falaram.push(j.key); compra(j, 2); ev({ t: 'falou', key: j.key }); log(`${j.nome} falou no 7 e comprou 2.`); mudou = true
     }
     if (mudou) difunde()
@@ -369,6 +451,7 @@ export function criaDescarte(ctx) {
   /* =================================================================== cliente */
   let V = null, ultEv = 0, dispensado = '', escolheCor = false, entregando = false, sel = [], ordem = ls.get('dc.ordem') || 'cor'
   const vistos = new Set()
+  let bateK = 0, bateT0 = 0, bateFeito = false, bateMs = 0, bateRes = null, semNove = 0
   const novo = id => { if (vistos.has(id)) return false; vistos.add(id); return true }
   const souHost = () => V && V.host === me.key
   const eu = () => V?.js.find(j => j.key === me.key)
@@ -399,8 +482,10 @@ export function criaDescarte(ctx) {
       ultEv = Math.max(0, ...v.ev.map(e => e.n))
       const ini = v.ev.find(e => e.t === 'inicio')
       if (ini && v.fase === 'jogo' && v.ev.length < 4) ultEv = ini.n - 1
-      escolheCor = false; sel = []
+      escolheCor = false; sel = []; bateK = 0; bateRes = null; bateFeito = false
     }
+    // a mão do 9 apareceu: cada um mede o PRÓPRIO tempo de reação a partir de agora
+    if (v?.bate && v.bate.k !== bateK) { bateK = v.bate.k; bateT0 = performance.now(); bateFeito = v.bate.bateram.includes(me.key); bateMs = 0 }
     V = v
     if (v) v.recebido = Date.now()
     if (antes?.vez !== v?.vez || antes?.descarte?.at(-1)?.id !== v?.descarte?.at(-1)?.id) { escolheCor = false; sel = [] }
@@ -441,16 +526,16 @@ export function criaDescarte(ctx) {
   const botao = (conteudo, fn, cls = '', title = '') => { const b = el('button', { type: 'button', className: `dc-btn ${cls}`, title }); b.append(...[conteudo].flat()); b.addEventListener('click', e => { e.stopPropagation(); b.blur(); som('clique'); fn(e) }); return b }
   const svg = (k, cls = '') => { const s = el('span', { className: `dc-svg ${cls}` }); s.innerHTML = SVG[k]; return s }
   function simbolo(v, grande) {
-    if (v === 'pula' || v === 'inverte' || v === 'cor') return svg(v)
+    if (v === 'pula' || v === 'inverte' || v === 'cor' || v === 'pulaT') return svg(v)
     return el('span', { className: 'dc-num' + (v.length > 1 ? ' dc-num--mais' : ''), textContent: v })
   }
   function carta(c, cls = '') {
     if (!c) return el('div', { className: `dc-carta costas ${cls}` }, el('span', { className: 'dc-marca', textContent: 'Uno' }), el('i', { className: 'dc-faixas' }))
     const cor = c.c || 'k'
-    const sub = c.v === 'cor' || c.v === '+4' ? '' : c.v
+    const sub = c.v === 'cor' || COMPRA_COR(c.v) ? '' : c.v
     return el('div', { className: `dc-carta dc-${cor} ${cls}`, 'data-v': c.v, 'data-id': String(c.id) },
       el('span', { className: 'dc-canto' }, sub ? simbolo(sub) : svg('cor')),
-      el('span', { className: 'dc-meio' }, c.v === '+4' ? [svg('cor', 'dc-anel'), el('span', { className: 'dc-num dc-num--mais', textContent: '+4' })] : simbolo(c.v)),
+      el('span', { className: 'dc-meio' }, COMPRA_COR(c.v) ? [svg('cor', 'dc-anel'), el('span', { className: 'dc-num dc-num--mais' + (c.v.length > 2 ? ' dc-num--dez' : ''), textContent: c.v })] : simbolo(c.v)),
       el('span', { className: 'dc-canto dc-canto--b' }, sub ? simbolo(sub) : svg('cor')))
   }
   const retrato = (k, nm, cls = '') => el('span', { className: `dc-retrato ${cls}` }, ctx.pfp(k, 64, nm))
@@ -481,7 +566,7 @@ export function criaDescarte(ctx) {
       botao(icon('list-music'), () => tela.querySelector('.dc-log')?.classList.toggle('aberto'), 'dc-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'dc-btn--ic', 'Fechar a mesa para todos')
         : botao(icon('x'), () => { dispensado = V.id; aplica(null) }, 'dc-btn--ic', 'Sair da mesa (só para você)'))
-    const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, minhaArea(antes), controles(), meio(), silencio(), bilhete(),
+    const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, minhaArea(antes), controles(), meio(), silencio(), bilhete(), quadro(), ...bateUI(),
       el('div', { className: 'dc-log' }, el('ol', {}, ...V.log.slice(-40).map(t => el('li', { textContent: t }))))]
     if (!conv && V.fase !== 'fim' && !ctx.presentes().includes(V.host)) kids.push(el('div', { className: 'dc-pausa' }, el('b', { textContent: 'Partida pausada' }), el('span', { textContent: `${V.hostNome} abriu a mesa e caiu. Continua de onde parou quando voltar.` })))
     tela.replaceChildren(...kids)
@@ -489,7 +574,67 @@ export function criaDescarte(ctx) {
     ctx.hydrate(tela)
     if (entregando) tela.querySelectorAll('.dc-mao .dc-carta, .dc-leque-mesa .dc-carta').forEach(n => n.classList.add('oculta'))
     tela.querySelector('.dc-log ol')?.scrollTo(0, 1e6)
+    posBate()
     voz()
+  }
+  /* ---------- 9 bate no monte, placar da noite ---------- */
+  function bater() {
+    if (!V?.bate || bateFeito || !eu() || V.fase !== 'jogo') return
+    bateFeito = true; bateMs = Math.max(1, Math.round(performance.now() - bateT0))
+    som('carimbo', 0, .9)
+    manda({ op: 'bate', k: V.bate.k, rt: bateMs })
+    render()
+  }
+  function bateSemNove() {
+    if (Date.now() - semNove < BATE_PEN_MS) return
+    semNove = Date.now(); som('golpe', 0, .8)
+    manda({ op: 'bate', k: 0 })
+  }
+  // quem já bateu: as fotos caem uma por cima da outra sobre o monte, como mãos empilhando
+  const giroBate = k => ((k.length * 37 + k.charCodeAt(0) * 13) % 24) - 12
+  function pilhaBate(ks, perdem = [], k = 0) {
+    return el('span', { className: 'dc-bate__pilha' }, ...ks.map((key, i) => el('span', {
+      className: 'dc-bate__foto' + (perdem.includes(key) ? ' perde' : '') + (novo(`bp:${V.id}:${k}:${key}`) ? ' cai' : ''),
+      style: `--giro:${giroBate(key)}deg;--i:${i}`, title: N(key) }, ctx.pfp(key, 64, N(key)), perdem.includes(key) ? el('b', { textContent: '+2' }) : '')))
+  }
+  function bateUI() {
+    const out = []
+    if (V.bate && V.fase === 'jogo' && eu()) {
+      const b = V.bate
+      const bt = el('button', { type: 'button', className: 'dc-bate' + (bateFeito ? ' feito' : '') + (novo(`bate:${V.id}:${b.k}`) ? ' entra' : ''), title: 'Bata no monte! (clique ou Espaço)' },
+        el('span', { className: 'dc-bate__onda' }), el('span', { className: 'dc-bate__onda d2' }),
+        pilhaBate(b.bateram, [], b.k),
+        el('span', { className: 'dc-bate__selo' }, el('b', { textContent: bateFeito ? 'Bateu!' : 'Bata!' }), el('small', { textContent: bateFeito ? 'esperando a mesa…' : 'clique ou espaço' })),
+        bateFeito ? '' : el('i', { className: 'dc-bate__tempo', 'data-fim': String(V.recebido + b.resta - (BATE_MS - BATE_LIM)), 'data-tot': String(BATE_LIM) }))
+      bt.addEventListener('click', e => { e.stopPropagation(); bt.blur(); bater() })
+      out.push(bt)
+    }
+    if (bateRes && performance.now() < bateRes.ate) out.push(painelBate())
+    return out
+  }
+  function painelBate() {
+    const r = bateRes
+    const ordem = [...r.lista.map(x => x.key), ...r.faltou]
+    const frase = !r.compram.length ? 'Todo mundo bateu a tempo!'
+      : r.faltou.length ? `${r.faltou.map(N).join(' e ')} não ${r.faltou.length > 1 ? 'bateram' : 'bateu'}: +${r.qtd}`
+      : `${r.compram.map(N).join(' e ')} ${r.compram.includes(me.key) && r.compram.length === 1 ? 'foi' : r.compram.length > 1 ? 'foram' : 'foi'} ${r.compram.length > 1 ? 'os últimos' : 'o último'}: +${r.qtd}`
+    return el('div', { className: 'dc-bateres' + (novo(`bateres:${V.id}:${r.k}`) ? ' entra' : '') + (r.compram.includes(me.key) ? ' eu' : '') },
+      pilhaBate(ordem, r.compram, 'fim' + r.k), el('b', { textContent: frase }))
+  }
+  // a mão e o resultado ficam sobre o monte
+  function posBate() {
+    const monte = tela.querySelector('.dc-descarte') || tela.querySelector('.dc-monte')
+    if (!monte) return
+    const p = noTela(monte)
+    const cp = noTela(tela.querySelector('.dc-centro') || monte)
+    for (const n of tela.querySelectorAll('.dc-bate')) { n.style.left = p.x + 'px'; n.style.top = p.y + 'px' }
+    for (const n of tela.querySelectorAll('.dc-bateres')) { n.style.left = cp.x + 'px'; n.style.top = cp.y + 'px' }
+  }
+  function quadro() {
+    const r = Object.entries(V.placar || {}).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]).slice(0, 6)
+    if (!r.length || V.fase === 'fim') return ''
+    return el('div', { className: 'dc-quadro', title: 'Placar da noite (vitórias)' }, el('small', { textContent: 'Placar da noite' }),
+      ...r.map(([k, n]) => el('span', { title: `${N(k)}: ${n} vitória${n === 1 ? '' : 's'}` }, retrato(k, N(k)), el('b', { textContent: n }))))
   }
   // "Uno!" também por voz: escuta só enquanto você pode precisar avisar (Chrome)
   let rec = null, recQuer = false
@@ -537,7 +682,7 @@ export function criaDescarte(ctx) {
     const P = pos(ang, 45, 41), C = pos(ang, 29, 25.5)
     const vez = (V.fase === 'jogo' || V.fase === 'troca7') && V.vez === x.key
     const alvoTroca = V.fase === 'troca7' && V.vez === me.key && x.key !== me.key && x.n != null
-    const s = el('div', { className: 'dc-assento' + (vez ? ' vez' : '') + (alvoTroca ? ' alvo' : '') + (V.vencedor === x.key ? ' vencedor' : ''), style: `left:${P.x}%;top:${P.y}%`, 'data-key': x.key },
+    const s = el('div', { className: 'dc-assento' + (vez ? ' vez' : '') + (alvoTroca ? ' alvo' : '') + (V.vencedor === x.key ? ' vencedor' : '') + (V.fase === 'jogo' && x.n === 1 ? ' um' : ''), style: `left:${P.x}%;top:${P.y}%`, 'data-key': x.key },
       el('div', { className: 'dc-medalha' }, retrato(x.key, x.nome), x.n === 1 && x.avisou ? el('b', { className: 'dc-selo', textContent: 'Uno' }) : ''),
       el('span', { className: 'dc-placa' }, x.nome, V.placar?.[x.key] ? el('i', { textContent: ` · ${V.placar[x.key]}` }) : ''),
       x.conv ? el('small', { className: `dc-conv dc-conv--${x.conv}`, textContent: x.conv === 'sim' ? 'vai jogar' : x.conv === 'nao' ? 'só assiste' : 'decidindo…' }) : '')
@@ -555,7 +700,7 @@ export function criaDescarte(ctx) {
     const j = eu(), conv = V.fase === 'convite'
     const bon = ctx.boneco?.(me.key)
     const minha = V.fase === 'jogo' && V.vez === me.key
-    const area = el('div', { className: 'dc-eu' + (minha ? ' vez' : '') + (V.vencedor === me.key ? ' vencedor' : ''), 'data-key': me.key },
+    const area = el('div', { className: 'dc-eu' + (minha ? ' vez' : '') + (V.vencedor === me.key ? ' vencedor' : '') + (V.fase === 'jogo' && V.mao?.length === 1 ? ' um' : ''), 'data-key': me.key },
       bon ? el('img', { className: 'dc-boneco', src: bon, alt: '', draggable: false }) : el('div', { className: 'dc-boneco dc-boneco--pfp' }, retrato(me.key, me.name)))
     if (conv) { if (V.conv[me.key]) area.append(el('small', { className: `dc-conv dc-conv--${V.conv[me.key]}`, textContent: V.conv[me.key] === 'sim' ? 'você vai jogar' : 'você só assiste' })); return area }
     if (!j || !V.mao) { area.append(el('small', { className: 'dc-dica', textContent: 'assistindo' })); return area }
@@ -626,9 +771,9 @@ export function criaDescarte(ctx) {
     sel = []; escolheCor = false
     if (n > 1) { som('leque', 0, .9); for (let i = 0; i < n; i++) som('poe', 80 + i * 90, .6) } else som('poe', 0, .8)
   }
-  const ordemV = v => /^\d$/.test(v) ? +v : { pula: 10, inverte: 11, '+2': 12, cor: 13, '+4': 14 }[v]
+  const ordemV = v => /^\d$/.test(v) ? +v : { pula: 10, pulaT: 11, inverte: 12, '+2': 13, cor: 14, '+4': 15, '+6': 16, '+10': 17 }[v]
   function serveCli(c) {
-    if (V.pend > 0) return V.op.acumula && (c.v === '+2' || c.v === '+4')
+    if (V.pend > 0) return V.op.semPiedade ? ehCompra(c.v) : V.op.acumula && (c.v === '+2' || c.v === '+4')
     const t = V.descarte[V.descarte.length - 1]
     return !c.c || c.c === V.cor || c.v === t.v
   }
@@ -725,10 +870,13 @@ export function criaDescarte(ctx) {
     }, at)
   }
   function anima(evs, antes) {
+    // alguém ficou com 1 carta: um som baixo, uma vez
+    if (antes && antes.id === V.id && V.fase === 'jogo' && V.js.some(x => x.n === 1 && antes.js.some(y => y.key === x.key && y.n !== 1))) som('golpe', 250, .45)
     // acumulado subiu: o selo pula e um "+2"/"+4" sobe dele
     if (antes && antes.id === V.id && V.pend > (antes.pend || 0)) setTimeout(() => {
       const p = tela.querySelector('.dc-pend'); if (!p) return
       p.classList.add('cresce'); som('leque', 0, .8)
+      if (V.pend > 8) { const pl = tela.querySelector('.dc-palco'); if (pl) { pl.classList.remove('treme-mesa'); void pl.offsetWidth; pl.classList.add('treme-mesa'); setTimeout(() => pl.classList.remove('treme-mesa'), 700) } }
       const r = noTela(p), f = el('b', { className: 'dc-soma', textContent: `+${V.pend - (antes.pend || 0)}`, style: `left:${r.x}px;top:${r.y}px` })
       tela.append(f); setTimeout(() => f.remove(), 1100)
     }, 380)
@@ -757,6 +905,17 @@ export function criaDescarte(ctx) {
         t += Math.min(n, 12) * passo
       }
       else if (e.t === 'pula') { som('pular', at); balao(e.key, 'Pulou a vez', 'leve', at) }
+      else if (e.t === 'pulaT') { som('pular', at); balao(e.key, 'Pulou todo mundo!', 'forte', at) }
+      else if (e.t === 'estourou') { som('carimbo', at); toast(`${e.nome} estourou: ${e.qtd} cartas`, 3800) }
+      else if (e.t === 'bate') som('clique', at)
+      else if (e.t === 'bateSem') { som('golpe', at, .7); balao(e.key, 'Bateu sem 9: compra 1', 'forte', at); if (e.key === me.key) toast('Bateu sem 9: compra 1', 2600) }
+      else if (e.t === 'bateFim') {
+        bateRes = { k: e.k, lista: e.lista, faltou: e.faltou, compram: e.compram, qtd: e.qtd, ate: performance.now() + 2400 }
+        som('carimbo', at, .6)
+        for (const k of e.compram || []) balao(k, `+${e.qtd}`, 'forte', at + 500)
+        setTimeout(() => { if (bateRes && bateRes.k === e.k) { bateRes = null; tela.querySelector('.dc-bateres')?.remove() } }, 2400)
+        if (!tela.querySelector('.dc-bateres')) { tela.append(painelBate()); posBate() }
+      }
       else if (e.t === 'inverte') { som('inverter', at); tela.querySelector('.dc-sentido')?.classList.add('gira') }
       else if (e.t === 'gira') { som('leque', at); som('inverter', at + 150, .6); tela.querySelectorAll('.dc-leque-mesa').forEach(n => n.classList.add('girou')); tela.querySelector('.dc-mao')?.classList.add('girou') }
       else if (e.t === 'troca') { som('leque', at); balao(e.key, `Troquei com ${N(e.alvo)}!`, 'leve', at) }
@@ -796,9 +955,13 @@ export function criaDescarte(ctx) {
     setTimeout(() => requestAnimationFrame(loop), 120)
   })()
   document.addEventListener('keydown', e => {
-    if (!V || e.target.closest?.('input, textarea')) return
+    if (!V || e.target.closest?.('input, textarea, [contenteditable]')) return
     if (e.key === 'Escape' && (escolheCor || sel.length)) { escolheCor = false; sel = []; render() }
     else if (e.key === 'Enter' && sel.length && !escolheCor) { e.preventDefault(); enviar() }
+    else if ((e.key === ' ' || e.code === 'Space') && !e.repeat && !e.ctrlKey && !e.metaKey && !e.altKey && V.op.bate && V.fase === 'jogo' && eu() && tela.getClientRects().length && !e.target.closest?.('select, [contenteditable], button, a')) {
+      e.preventDefault()
+      if (V.bate) bater(); else bateSemNove()
+    }
   })
   // informação no hover
   const dica = el('div', { className: 'dc-info', hidden: true })

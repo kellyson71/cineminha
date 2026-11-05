@@ -385,7 +385,7 @@ async function enter(pw, key, name) {
   start(pw)
   micOn(true)
   admRestore()
-  setTimeout(() => sfx('euEntrei'), 400)
+  if (!VOLTA) setTimeout(() => sfx('euEntrei'), 400)
   loadCanais()
 }
 
@@ -485,6 +485,39 @@ function turnServers(pw) {
 }
 const pcsOf = () => { const p = room?.getPeers?.() || {}; return p instanceof Map ? p : new Map(Object.entries(p)) }
 
+/* ---------- Recarregar sem cara de recarregar ----------
+   Quem recarrega (F5, versão nova, pedido do admin) vê "Reconectando…" por cima até a sala voltar,
+   e não ouve de novo o "entrou" de quem já estava lá. Antes de recarregar avisa os outros,
+   que tratam como uma queda rápida: o lugar fica apagado e ninguém vê "saiu"/"entrou". */
+const VOLTA = (() => {
+  try {
+    const v = JSON.parse(sessionStorage.getItem('cine.volta') || 'null'); sessionStorage.removeItem('cine.volta')
+    if (v && Date.now() - v.t < 60000) return v
+    if (performance.getEntriesByType?.('navigation')[0]?.type === 'reload') return { t: Date.now(), m: 'f5' }
+  } catch {}
+  return null
+})()
+const voltaAte = VOLTA ? Date.now() + 20000 : 0
+const voltandoAgora = () => Date.now() < voltaAte // durante a volta, quem já estava na sala não é anunciado de novo
+const voltaTxt = m => m === 'versao' ? 'Atualizando…' : 'Reconectando…'
+function voltaTela(m) { const v = $('#volta'); if (!v) return; $('#voltaTxt').textContent = voltaTxt(m); v.classList.remove('sai'); v.classList.add('show') }
+function voltaFim() {
+  const v = $('#volta'), h = document.documentElement
+  if (!v || v.classList.contains('sai') || (!v.classList.contains('show') && !h.classList.contains('voltando'))) return
+  v.classList.add('sai')
+  setTimeout(() => { v.classList.remove('show', 'sai'); h.classList.remove('voltando') }, 350)
+}
+if (VOLTA) { $('#voltaTxt').textContent = voltaTxt(VOLTA.m); setTimeout(voltaFim, 10000) }
+let recarregando = false
+function recarregar(motivo) {
+  if (recarregando) return
+  recarregando = true
+  try { sessionStorage.setItem('cine.volta', JSON.stringify({ t: Date.now(), m: motivo })) } catch {}
+  voltaTela(motivo)
+  try { actions?.hello.send({ ...helloMsg(), volta: 1 }) } catch {}
+  setTimeout(() => location.reload(), 350)
+}
+
 /* ---------- Atualização automática ---------- */
 let baseVer = null, pendingUpdate = false
 async function checkVersion() {
@@ -495,7 +528,7 @@ async function checkVersion() {
     if (myShare) {
       if (!pendingUpdate) toast('Versão nova no ar: atualiza quando você parar de projetar', 6000)
       pendingUpdate = true
-    } else location.reload()
+    } else recarregar('versao')
   } catch {}
 }
 checkVersion()
@@ -506,6 +539,24 @@ const peers = new Map() // peerId -> {key, name, speaking, muted, rtt}
 const shareInfo = new Map() // peerId -> {kind, game, paused, subs, n}
 let actions = null, room = null, roomId = ''
 const messages = []
+const sumindo = new Map() // key -> {name, seat, timer}: caiu ou recarregou; o "saiu" só aparece se não voltar logo
+const avisouVolta = new Map() // key -> até quando esperar (avisou que ia recarregar)
+const saiuDeVez = new Set() // keys que avisaram que estão saindo (trocar de canal): "saiu" na hora
+const QUEDA_MS = 12000, RECARGA_MS = 45000
+function someDaSala(p) {
+  const avisou = (avisouVolta.get(p.key) || 0) > Date.now()
+  const ms = saiuDeVez.delete(p.key) ? 0 : avisou ? RECARGA_MS : QUEDA_MS
+  evento('saiu', avisou ? `${p.name} está recarregando` : `perdeu a conexão com ${p.name}`)
+  if (!avisou) quedaDe(p.key)
+  const fim = () => {
+    sumindo.delete(p.key); avisouVolta.delete(p.key)
+    if ([...peers.values()].some(x => x.key === p.key)) return
+    sysMsg(`${p.name} saiu`); sfx('saiu', p.key); renderAll()
+  }
+  clearTimeout(sumindo.get(p.key)?.timer)
+  if (!ms) return fim()
+  sumindo.set(p.key, { name: p.name, seat: p.seat, timer: setTimeout(fim, ms) })
+}
 const seen = new Set()
 let msgN = 0
 let banner = null // último aviso do admin (reenviado a quem chega)
@@ -541,7 +592,7 @@ async function start(pw) {
   room.onPeerLeave = id => {
     const p = peers.get(id)
     peers.delete(id)
-    if (p?.name) { sysMsg(`${p.name} saiu`); sfx('saiu', p.key); evento('saiu', `perdeu a conexão com ${p.name}`); quedaDe(p.key) }
+    if (p?.name) someDaSala(p)
     if (shareInfo.has(id)) { shareInfo.delete(id); removeTile(id) }
     dropVoice(id)
     renderAll()
@@ -549,6 +600,8 @@ async function start(pw) {
 
   actions.hello.onMessage = (d, { peerId }) => {
     if (!d || typeof d.key !== 'string') return
+    if (d.volta) avisouVolta.set(d.key, Date.now() + RECARGA_MS)
+    if (d.sai) saiuDeVez.add(d.key)
     if (d.perfilAtualizado) api('conta?perfis=1').then(r => { if (r?.perfis) { applyPerfis(r.perfis); refreshProfileUI() } })
     const p = peers.get(peerId) || {}
     const isNew = !p.name
@@ -556,7 +609,10 @@ async function start(pw) {
     Object.assign(p, { key: d.key, name, speaking: !!d.speaking, muted: !!d.muted, deaf: !!d.deaf, away: !!d.away, seat: Number.isInteger(d.seat) ? d.seat : -1, typing: !!d.typing, hidden: !!d.hidden, mesa: typeof d.mesa === 'string' && d.mesa.length < 12 ? d.mesa : '' })
     peers.set(peerId, p)
     if (d.key === me.key) dropVoice(peerId)
-    if (isNew) { sysMsg(`${name} entrou`); sfx('entrou', d.key); evento('entrou', `conectou com ${name}`); conectadoDesde.set(peerId, Date.now()); faixa?.entrouAlguem(d.key, name); coup?.entrouAlguem(d.key); descarte?.entrouAlguem(d.key); parPerfeito?.entrouAlguem(d.key); amigosDeBosta?.entrouAlguem(d.key); dobradinha?.entrouAlguem(d.key) }
+    const voltou = sumindo.has(d.key)
+    if (voltou) { clearTimeout(sumindo.get(d.key).timer); sumindo.delete(d.key); avisouVolta.delete(d.key) }
+    if (isNew) voltaFim()
+    if (isNew) { if (!voltou && !voltandoAgora()) { sysMsg(`${name} entrou`); sfx('entrou', d.key) }; evento('entrou', voltou ? `${name} voltou` : `conectou com ${name}`); conectadoDesde.set(peerId, Date.now()); faixa?.entrouAlguem(d.key, name); coup?.entrouAlguem(d.key); descarte?.entrouAlguem(d.key); parPerfeito?.entrouAlguem(d.key); amigosDeBosta?.entrouAlguem(d.key); dobradinha?.entrouAlguem(d.key) }
     applyPeerVols(); applyTileVols()
     renderAll()
   }
@@ -663,7 +719,7 @@ function reconectarPorAdmin(por) {
   try { sessionStorage.setItem('cine.reconectado', por || 'admin') } catch {}
   toast(`${por || 'O admin'} reconectou você`, 2000)
   // manda o evento antes de recarregar
-  api('sala', { method: 'POST', body: { op: 'aqui', r: roomId, pw: roomPw, key: me.key, name: me.name, ev: evBuf.splice(0) } }).finally(() => setTimeout(() => location.reload(), 600))
+  api('sala', { method: 'POST', body: { op: 'aqui', r: roomId, pw: roomPw, key: me.key, name: me.name, ev: evBuf.splice(0) } }).finally(() => setTimeout(() => recarregar('admin'), 600))
 }
 try { const por = sessionStorage.getItem('cine.reconectado'); if (por) { sessionStorage.removeItem('cine.reconectado'); setTimeout(() => toast(`Reconectado a pedido de ${por}`, 3000), 3000) } } catch {}
 
@@ -677,6 +733,7 @@ async function heartbeat() {
   const proj = myShare ? { t: myShare.titulo || '', k: myShare.kind } : null
   const r = await api('sala', { method: 'POST', body: { op: 'aqui', r: roomId, pw: roomPw, key: me.key, name: me.name, slug, filme: invite?.filme || CFG.subtitulo || '', est, ev, proj, registra: !/^teste/i.test(canal || '') } })
   if (!Array.isArray(r?.pres)) { evBuf.unshift(...ev.slice(-20)); return }
+  if (!r.pres.some(x => x.key !== me.key)) voltaFim() // ninguém mais na sala: não há o que esperar
   if (r.callIni) callIni = r.callIni
   desdeSrv.clear(); r.pres.forEach(x => desdeSrv.set(x.key, x.desde))
   if (r.cmd?.op === 'reset') return reconectarPorAdmin(r.cmd.por)
@@ -1253,7 +1310,7 @@ const JOGOS = {
   coup: { nome: 'Coup', mod: './coup.js', cria: 'criaCoup', tela: 'coup', on: 'coup-on', css: ['aula.css', 'coup.css'], fontes: 'family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500' },
   dc: { nome: 'Uno', mod: './descarte.js', cria: 'criaDescarte', tela: 'dc', on: 'dc-on', css: ['descarte.css'], fontes: 'family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800' },
   pp: { nome: 'Red Flags', mod: './parperfeito.js', cria: 'criaParPerfeito', tela: 'pp', on: 'pp-on', css: ['parperfeito.css'], fontes: 'family=Roboto+Condensed:wght@500;600;700;900' },
-  ab: { nome: 'Amigos de Merda', mod: './amigosdebosta.js', cria: 'criaAmigosDeBosta', tela: 'ab', on: 'ab-on', css: ['amigosdebosta.css'], fontes: 'family=Roboto+Condensed:wght@500;600;700;900' },
+  ab: { nome: 'Amigos de Merda', mod: './amigosdebosta.js', cria: 'criaAmigosDeBosta', tela: 'ab', on: 'ab-on', css: ['amigosdebosta.css'], fontes: 'family=Bebas+Neue&family=Roboto+Condensed:wght@500;600;700;900' },
   db: { nome: 'Dobradinha', mod: './dobradinha.js', cria: 'criaDobradinha', tela: 'db', on: 'db-on', css: ['aula.css', 'dobradinha.css'], fontes: 'family=Alfa+Slab+One&family=Caveat+Brush&family=Barlow+Semi+Condensed:wght@500;600;700' },
 }
 const jogos = {} // id -> jogo já carregado
@@ -1496,7 +1553,7 @@ function stopShare(silent) {
   removeTile(selfId)
   if (!silent) sfx('telaOff')
   showSub(selfId, '')
-  if (pendingUpdate) setTimeout(() => location.reload(), 1500)
+  if (pendingUpdate) setTimeout(() => recarregar('versao'), 1500)
 }
 
 // Tela/janela/aba, com som da aba e/ou de uma entrada extra (ex.: monitor do PipeWire = som do PC)
@@ -2148,7 +2205,7 @@ function moveStep(d) {
 const lineEls = []
 const sameKids = (p, kids) => p.children.length === kids.length && kids.every((k, i) => p.children[i] === k)
 function renderSeats() {
-  const people = [{ ...me, id: selfId }, ...[...peers].map(([id, p]) => ({ ...p, id })), ...[...srvPres].map(([key, name]) => ({ key, name, id: 'srv:' + key, ghost: true }))].filter(x => x.key)
+  const people = [{ ...me, id: selfId }, ...[...peers].map(([id, p]) => ({ ...p, id })), ...[...srvPres].map(([key, name]) => ({ key, name, id: 'srv:' + key, ghost: true })), ...[...sumindo].filter(([key]) => !srvPres.has(key) && ![...peers.values()].some(p => p.key === key)).map(([key, s]) => ({ key, name: s.name, seat: s.seat, id: 'volta:' + key, ghost: true, volta: true }))].filter(x => x.key)
   // convidados entram e saem da fileira
   const guests = new Set(people.filter(x => !PEOPLE.some(p => p.id === x.key)).map(x => x.key))
   seatNodes.forEach((n, k) => { if (!PEOPLE.some(p => p.id === k) && !guests.has(k) && !n.classList.contains('leaving')) { n.remove(); seatNodes.delete(k) } })
@@ -2179,7 +2236,7 @@ function renderSeats() {
       selo.classList.toggle('outra', mesa !== foco)
     } else selo?.remove()
     applyPose(node)
-    node.title = !here.length ? `${nm} · fora` : node.classList.contains('ghost') ? `${nm} · sem conexão direta (só chat)` : here.some(x => tiles.has(x.id)) ? `${nm} · projetando` : node.classList.contains('away') ? `${nm} · ausente` : node.classList.contains('deaf') ? `${nm} · som cortado` : nm
+    node.title = !here.length ? `${nm} · fora` : here.every(x => x.volta) ? `${nm} · reconectando…` : node.classList.contains('ghost') ? `${nm} · sem conexão direta (só chat)` : here.some(x => tiles.has(x.id)) ? `${nm} · projetando` : node.classList.contains('away') ? `${nm} · ausente` : node.classList.contains('deaf') ? `${nm} · som cortado` : nm
   })
   // planta da sala
   const uniq = new Map()
@@ -2366,7 +2423,7 @@ async function pedirReset(key) {
   const r = await api('sala', { method: 'POST', body: { op: 'cmd', r: roomId, pw: roomPw, tok: admTok, cmd: 'reset', key, por: me.name, quem: me.key, nomeAlvo: key === '*' ? 'todo mundo' : person(key).nome } })
   actions?.adm.send({ tok: admTok, op: 'reset', key })
   toast(r?.ok ? (key === '*' ? 'Pedido enviado para todos (até 15 s)' : `Pedido enviado para ${person(key).nome} (até 15 s)`) : 'Não consegui enviar o pedido', 2600)
-  if (key === '*') setTimeout(() => location.reload(), 1500)
+  if (key === '*') setTimeout(() => recarregar('admin'), 1500)
 }
 async function carregaDiag() {
   if (diagEl.hidden) return
@@ -2751,8 +2808,10 @@ async function switchCanal(id) {
   // sai da sala atual
   clearInterval(presTimer); clearInterval(pollTimer); pollTimer = 0
   if (roomId && me.key) api('sala', { method: 'POST', body: { op: 'saiu', r: roomId, key: me.key } })
+  try { actions?.hello.send({ ...helloMsg(), sai: 1 }) } catch {}
   stopShare(true); endMidia(false)
   try { room?.leave() } catch {}
+  sumindo.forEach(s => clearTimeout(s.timer)); sumindo.clear(); avisouVolta.clear(); saiuDeVez.clear()
   room = null; actions = null
   ;[...peers.keys()].forEach(dropVoice); peers.clear()
   ;[...shareInfo.keys()].forEach(k => removeTile(k, true)); shareInfo.clear()
@@ -4171,7 +4230,7 @@ applyPrefs()
 // Lembra da sessão: quem já entrou neste navegador não precisa digitar de novo
 const sess = store.get('sess')
 const onlyOne = invite && invite.pessoas.length === 1 && !invite.convidados && invite.pessoas[0]
-const showGate = () => document.documentElement.classList.remove('auto')
+const showGate = () => { document.documentElement.classList.remove('auto'); voltaFim() }
 if (conta && fromLink) {
   showGate()
   // link pessoal: mostra o ingresso por um instante e entra

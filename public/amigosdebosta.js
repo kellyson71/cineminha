@@ -22,7 +22,7 @@ const ls = { get: k => { try { return JSON.parse(localStorage.getItem(k)) } catc
 const NS = 'http://www.w3.org/2000/svg'
 const META = [[4, 'rápida · 4'], [5, 'normal · 5'], [7, 'longa · 7']]
 const TEMPO = [[0, 'sem limite'], [30, '30 s'], [60, '60 s']]
-const PICANTE = [[false, 'perguntas leves'], [true, 'com 18+ picantes']]
+const PICANTE = [[false, 'só cartas pretas'], [true, 'pretas + rosas 18+']]
 
 export function criaAmigosDeBosta(ctx) {
   const { icon, toast, sysMsg, me } = ctx
@@ -64,7 +64,7 @@ export function criaAmigosDeBosta(ctx) {
     if (ks.length < 3) return toast('Precisa de pelo menos 3 pessoas.')
     ls.set('ab.op', G.op)
     embaralha(ks)
-    G.deck = embaralha([...CARTAS.map((t, i) => ({ id: `c${i}`, t })), ...(G.op.picante ? CARTAS_18.map((t, i) => ({ id: `p${i}`, t, p: 1 })) : [])]); G.desc = []
+    G.deck = embaralha([...CARTAS.map((t, i) => ({ id: `c${i}`, t, n: i })), ...(G.op.picante ? CARTAS_18.map((t, i) => ({ id: `p${i}`, t, n: i, p: 1 })) : [])]); G.desc = []
     G.js = ks.map(k => ({ key: k, nome: ctx.nomeDe(k), cartas: [] }))
     G.vez = rnd(ks.length); G.rodada = 1; G.log = []
     ev({ t: 'inicio' })
@@ -234,7 +234,7 @@ export function criaAmigosDeBosta(ctx) {
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: f, op: G.op, conv: G.conv, placar: G.placar,
       js: G.js.map(x => ({ key: x.key, nome: x.nome, cartas: x.cartas.map(c => c.t) })), vez: G.js.length ? leitor() : null, rodada: G.rodada,
-      carta: G.carta ? G.carta.t : null, cartaP: !!G.carta?.p, monte: G.deck.length,
+      carta: G.carta ? G.carta.t : null, cartaP: !!G.carta?.p, cartaNumero: G.carta?.n ?? null, monte: G.deck.length,
       // votos secretos até todos votarem
       votos: revelados ? G.votos : null, votou: f === 'votando' ? Object.keys(G.votos) : null, meuVoto: G.votos[k] || null,
       emp: G.emp && { tied: G.emp.tied, elig: G.emp.elig, resp: Object.keys(G.emp.resp), restaMs: Math.max(0, G.emp.fim - agora) },
@@ -416,7 +416,7 @@ export function criaAmigosDeBosta(ctx) {
       el('p', { className: 'ab-regra' }, ico('dedo', 'ab-regra__ic'), 'não vale votar em você mesmo'),
       pessoas,
       el('div', { className: 'ab-linha' }, seg(META, V.op.meta, 'meta'), seg(TEMPO, V.op.tempo, 'tempo'), seg(PICANTE, !!V.op.picante, 'picante'), host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'ab-btn--leve') : '', ir),
-      el('span', { className: 'ab-selo', textContent: 'pacote SACANA · em breve' }))
+      el('span', { className: 'ab-selo', textContent: '86 cartas pretas · 22 rosas opcionais' }))
   }
   function bilhete() {
     if (V.fase !== 'convite' || souHost() || V.conv[me.key] !== '?') return ''
@@ -441,10 +441,8 @@ export function criaAmigosDeBosta(ctx) {
       cartaEl = el('div', { className: 'ab-carta ab-carta--vazia' })
     } else {
       cartaEl = el('div', { className: 'ab-carta' + (V.cartaP ? ' picante' : '') + (compra ? ' compra' : ''), 'data-carta': '1' },
-        el('i', { className: 'ab-fita' }),
-        el('header', { className: 'ab-carta__cab' }, el('span', { textContent: `pergunta ${V.rodada}` }), V.cartaP ? el('em', { className: 'ab-18' }, ico('fogo', 'ab-18__ic'), '18+') : ico('mao', 'ab-carta__dedo')),
-        el('p', { className: 'ab-carta__txt', textContent: V.carta }),
-        el('footer', { className: 'ab-carta__rod' }, 'amigos de merda'))
+        el('p', { className: 'ab-carta__txt' + (V.carta.length > 130 ? ' ab-carta__txt--longa' : ''), textContent: V.carta }),
+        V.cartaNumero != null ? el('span', { className: 'ab-carta__numero', 'aria-label': `Carta ${V.cartaNumero}`, textContent: V.cartaNumero }) : '')
       if (V.fase === 'resultado' && V.vencRodada) voaCarta = cartaEl
     }
     return el('div', { className: 'ab-centro' }, monte, cartaEl, painel())

@@ -239,13 +239,18 @@
 .ab-btn--forte:hover { background: #333; }
 .ab-costas, .ab-mc.costas { background: #000 url('jogos/amigosdebosta/verso-preto.png') center / 100% 100% no-repeat; border: 0; }
 .ab-costas__ic { visibility: hidden; }
-.ab-carta { rotate: 0deg; background: #fff; border-color: #000; --faixa: #000; border-radius: 1cqh; box-shadow: 0 .8cqh 2cqh #0003; }
+/* Frente do baralho da Oficina: faixas inclinadas, texto central e número original.
+   HTML/CSS evita baixar as folhas de imagens das 108 cartas. */
+.ab-carta { rotate: 0deg; width: 34cqh; height: 49cqh; background: #fff; border: 0; --faixa: #000; border-radius: .7cqh; box-shadow: 0 .8cqh 2cqh #0003; align-items: center; justify-content: center; }
 .ab-carta.picante { --faixa: #ff0099; background: #fff; }
-.ab-carta--vazia { background: transparent; border-color: #999; box-shadow: none; }
-.ab-fita { display: none; }
-.ab-carta__cab { font-weight: 900; text-shadow: none; }
-.ab-carta__txt { background: none; font-weight: 700; }
-.ab-carta__rod { border-top: .2cqh solid #ddd; font-weight: 900; color: #111; }
+.ab-carta::before, .ab-carta::after { content: ''; position: absolute; left: .7cqh; right: .7cqh; height: 24%; border-radius: .5cqh; background: var(--faixa); }
+.ab-carta::before { top: .7cqh; clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%); }
+.ab-carta::after { bottom: .7cqh; clip-path: polygon(0 16%, 100% 0, 100% 100%, 0 100%); }
+.ab-carta--vazia { background: transparent; border: .25cqh dashed #999; box-shadow: none; }
+.ab-carta--vazia::before, .ab-carta--vazia::after { content: none; }
+.ab-carta__txt { position: relative; z-index: 1; flex: none; width: 100%; max-height: 51%; margin: 0; padding: 0 2cqh; background: none; font: 400 3.3cqh/1.12 'Bebas Neue', 'Roboto Condensed', 'Arial Narrow', sans-serif; text-transform: uppercase; text-wrap: balance; color: #000; }
+.ab-carta__txt--longa { font-size: 2.9cqh; }
+.ab-carta__numero { position: absolute; z-index: 1; right: 1.3cqh; bottom: 1.3cqh; display: grid; place-items: center; min-width: 1.8cqh; height: 1.8cqh; padding: 0 .15cqh; border-radius: 50%; background: #fff; color: var(--faixa); font: 700 1.3cqh/1 'Roboto Condensed', sans-serif; }
 .ab-nota { rotate: 0deg; background: #fff; border-width: .25cqh; box-shadow: .6cqh .6cqh 0 #000; }
 .ab-carta.picante ~ .ab-nota { border-color: #ff0099; }
 .ab-monte:hover .ab-costas:last-of-type { background-image: url('jogos/amigosdebosta/verso-rosa.png'); }

@@ -8,7 +8,18 @@ const MODOS = {
   coletivo: { nome: 'Cooperativo', ic: 'users', dica: 'Todo mundo ouve o mesmo. Qualquer erro ou pulo abre o próximo instrumento para todos.' },
   individual: { nome: 'Cada um', ic: 'user', dica: 'Cada um no seu ritmo, vendo quem já acertou.' },
   cegas: { nome: 'Às cegas', ic: 'eye-off', dica: 'Cada um no seu ritmo, sem saber dos outros até a revelação.' },
+  leilao: { nome: 'Leilão', ic: 'megaphone', novo: true, dica: 'Dê um lance: com quantos instrumentos você acerta? Quem arrisca menos tenta, com um palpite só.' },
+  corrida: { nome: 'Corrida', ic: 'zap', novo: true, dica: 'Uma camada nova a cada 8 s para todos. Quem acerta primeiro leva mais pontos.' },
+  ano: { nome: 'Que ano é?', ic: 'clock', novo: true, dica: 'Ouça a música inteira e chute o ano de lançamento. Quanto mais perto, mais pontos.' },
 }
+const ANTIGOS = ['coletivo', 'individual', 'cegas']
+const ANO_ATUAL = new Date().getFullYear()
+const ANO_MIN = 1950
+const anoReal = m => { const a = Number(m?.ano); return Number.isInteger(a) && a >= 1900 && a <= ANO_ATUAL ? a : 0 }
+const ptsAno = dif => dif === 0 ? 5 : dif <= 1 ? 4 : dif <= 2 ? 3 : dif <= 5 ? 2 : dif <= 10 ? 1 : 0
+const PTS_CORRIDA = [5, 3, 2]
+const ptsOrdem = pos => PTS_CORRIDA[pos] ?? 1 // pos = quantos já acertaram antes
+const CAMADA_MS = 8000, ULTIMA_MS = 10000, TRAVA_MS = 2000, LANCE_MS = 30000, PALPITE_MS = 45000, ANO_MS = 60000
 // categorias: etiquetas da Deezer (generos, pais, ano) + do catálogo classificado pelo Antigravity (tg: generos, vibes, fama)
 const GEN = (m, ...gs) => [...(m.generos || []), ...(m.tg?.generos || [])].some(g => gs.some(x => g.toLowerCase().includes(x)))
 const VIBE = (m, ...vs) => (m.tg?.vibes || []).some(v => vs.includes(v))
@@ -87,14 +98,16 @@ export function criaFaixa(ctx) {
   const tela = ctx.tela
   const ehHost = () => S && S.host === me.key
   const euJog = () => S?.jog?.[me.key]
-  const individual = () => S && S.modo !== 'coletivo'
+  const individual = () => !!S && (S.modo === 'individual' || S.modo === 'cegas')
+  const leiN = () => S?.lei?.fase === 'ouve' ? S.lei.n : 0 // camadas que o leilão libera na hora do palpite
   const atualDe = () => S?.musicas[S.i]
   const musica = () => { const a = atualDe(); return a && dias?.[a.d]?.find(m => m.n === a.n) }
   const pasta = () => { const a = atualDe(); return `${BASE}dias/${a.d}/${a.n}/` }
   const passos = () => { const m = musica(); return m ? passosDe(m) : [] }
   const total = () => passos().length || 6
   const valor = p => Math.max(100, (total() - p + 1) * 100)
-  const passoDe = j => individual() ? j.n : S.camada
+  const passoDe = j => individual() ? j.n : S.modo === 'leilao' ? leiN() : S.modo === 'ano' ? total() : S.camada
+  const maxLance = () => Math.max(1, Math.min(5, total() - 1))
 
   async function carrega(forcar) {
     if (dias && !forcar) return
@@ -104,12 +117,19 @@ export function criaFaixa(ctx) {
   /* ---------- estado (o host decide) ---------- */
   // o host também passa pelos avisos (era só quem recebia o estado: o histórico de quem abria a partida nunca era salvo)
   let anterior = null
+  // relógio das fases com tempo (corrida, lance, palpite do leilão, ano): só o host tem o `prazo`; todo mundo recebe
+  // o que falta (`cd`, em ms) no momento do envio e conta a partir da chegada, assim os relógios não precisam bater
+  let prazo = null, chegou = 0
+  const defPrazo = (ms, acao) => { prazo = { ate: Date.now() + ms, tot: ms, acao } }
+  function carimbaPrazo() { if (S.fase !== 'tocando') prazo = null; S.cd = prazo ? Math.max(0, prazo.ate - Date.now()) : null; S.cdTot = prazo?.tot || 0 }
+  const restaMs = () => S?.cd == null ? null : Math.max(0, S.cd - (Date.now() - chegou))
   function manda() {
-    S.seq = ++seq; ctx.send({ estado: S })
+    carimbaPrazo()
+    S.seq = ++seq; chegou = Date.now(); ctx.send({ estado: S })
     avisos(anterior, S); anterior = JSON.parse(JSON.stringify(S))
     render(); prepara()
   }
-  const novoJog = nome => ({ nome, n: 1, ok: 0, art: 0, fora: false, pts: 0, tent: [] })
+  const novoJog = nome => ({ nome, n: 1, ok: 0, art: 0, fora: false, pts: 0, tent: [], ano: null, trav: false })
   function got(d, deKey) {
     if (!d) return
     if (d.estado) {
@@ -117,14 +137,19 @@ export function criaFaixa(ctx) {
       if (e.fim) { if (!S || e.id === S.id) { S = null; parar(); render() } return }
       if (S && e.id === S.id && e.seq <= S.seq) return
       const antes = S
-      S = e; seq = Math.max(seq, e.seq)
+      S = e; seq = Math.max(seq, e.seq); chegou = Date.now()
       carrega().then(() => { avisos(antes, S); render(); prepara() })
       return
     }
     if (d.dig !== undefined) { if (deKey && S && S.modo !== 'cegas') ctx.digitandoFaixa?.(deKey, !!d.dig); return }
-    if (!ehHost() || !d.tent || !deKey) return
+    if (!ehHost() || !deKey || !S) return
+    if (d.lance !== undefined || d.passa) return S.modo === 'leilao' ? leiAcao(d, deKey) : undefined
+    if (d.ano !== undefined) return S.modo === 'ano' ? anoChute(Number(d.ano), deKey) : undefined
+    if (!d.tent) return
     const j = S.jog[deKey] || (S.jog[deKey] = novoJog(d.nome || deKey))
-    if (S.fase !== 'tocando' || j.ok || j.fora) return
+    if (S.fase !== 'tocando' || j.ok || j.fora || S.modo === 'ano') return
+    if (S.modo === 'leilao') return leiChute(d, deKey, j)
+    if (S.modo === 'corrida') return corridaChute(d, deKey, j)
     const passo = passoDe(j)
     const t = { c: passo, tipo: String(d.tent.tipo), txt: String(d.tent.txt || '').slice(0, 80) }
     j.tent.push(t)
@@ -148,15 +173,23 @@ export function criaFaixa(ctx) {
     manda()
   }
   function comecar({ lista, rotulo, modo }) {
+    if (modo === 'ano') {
+      // só entram músicas com ano de lançamento de verdade (não só a década)
+      const total0 = lista.length
+      lista = lista.filter(a => anoReal(dias?.[a.d]?.find(m => m.n === a.n)))
+      if (!lista.length) return toast('Nenhuma dessas músicas tem o ano de lançamento. Tente outro grupo.', 3600)
+      if (lista.length < total0) toast(`Só ${lista.length} de ${total0} músicas têm o ano certo${lista.length < 3 ? ' — a rodada vai ser curta' : ''}.`, 3600)
+    }
     if (!lista.length) return toast('Nenhuma música para jogar aqui (você já respondeu todas?).', 3200)
-    S = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, rotulo, modo, musicas: lista, i: 0, fase: 'tocando', camada: 1, jog: {}, placar: {}, seq: 0 }
+    S = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, rotulo, modo, musicas: lista, i: 0, fase: 'tocando', camada: 1, jog: {}, placar: {}, seq: 0, ordem: [], lei: null }
     for (const k of ctx.presentes()) S.jog[k] = novoJog(ctx.nomeDe(k))
+    iniciaRodada()
     sysMsg(`${me.name} começou o Faixa a Faixa: ${rotulo} (${MODOS[modo].nome})`)
     manda()
   }
   // trocar de modo no meio do jogo (só quem criou)
   function mudarModo(novo) {
-    if (!ehHost() || !MODOS[novo] || novo === S.modo) return
+    if (!ehHost() || !MODOS[novo] || novo === S.modo || !ANTIGOS.includes(novo) || !ANTIGOS.includes(S.modo)) return
     const vivos = Object.values(S.jog).filter(j => !j.ok && !j.fora)
     if (novo === 'coletivo') S.camada = Math.max(1, ...vivos.map(j => j.n))
     else if (S.modo === 'coletivo') for (const j of Object.values(S.jog)) j.n = S.camada
@@ -167,16 +200,118 @@ export function criaFaixa(ctx) {
   function proxima() {
     if (!ehHost()) return
     if (S.i + 1 >= S.musicas.length) { S.fase = 'fim'; return manda() }
-    S.i++; S.fase = 'tocando'; S.camada = 1; S.acertou = null
-    for (const j of Object.values(S.jog)) Object.assign(j, { n: 1, ok: 0, art: 0, fora: false, pts: 0, tent: [] })
+    S.i++; S.fase = 'tocando'; S.camada = 1; S.acertou = null; S.anoReal = 0
+    for (const j of Object.values(S.jog)) Object.assign(j, { n: 1, ok: 0, art: 0, fora: false, pts: 0, tent: [], ano: null, trav: false, te: 0 })
+    iniciaRodada()
     manda()
   }
-  function revelar() { if (!ehHost() || S.fase !== 'tocando') return; S.fase = 'revela'; manda() }
-  function encerrar() { if (!S) return; ctx.send({ estado: { id: S.id, fim: true } }); S = null; parar(); render() }
+  function revelar() { if (!ehHost() || S.fase !== 'tocando') return; if (S.modo === 'ano') pontuaAno(); S.fase = 'revela'; manda() }
+
+  /* ---------- modos novos (o host decide tudo; os outros só mandam lance / palpite / ano) ---------- */
+  setInterval(() => { if (!prazo || !ehHost() || S?.fase !== 'tocando' || Date.now() < prazo.ate) return; const a = prazo.acao; prazo = null; a() }, 200)
+  function iniciaRodada() {
+    prazo = null; S.lei = null; S.ordem = []
+    if (S.modo === 'leilao') novaLei()
+    else if (S.modo === 'corrida') defPrazo(CAMADA_MS + 2500, corridaTick) // 2,5 s a mais na primeira para todo mundo carregar o áudio
+    else if (S.modo === 'ano') defPrazo(ANO_MS, revelar)
+  }
+  // Corrida: a cada CAMADA_MS abre a próxima; na última (a dica) espera ULTIMA_MS e revela
+  function corridaTick() {
+    if (S.modo !== 'corrida' || S.fase !== 'tocando') return
+    if (S.camada >= total()) return revelar()
+    S.camada++
+    defPrazo(S.camada >= total() ? ULTIMA_MS : CAMADA_MS, corridaTick)
+    manda()
+  }
+  function corridaChute(d, k, j) {
+    const tipo = String(d.tent.tipo)
+    if (tipo === 'errou' && Date.now() - (j.te || 0) < TRAVA_MS - 600) return // metralhadora de palpites
+    j.tent.push({ c: S.camada, tipo, txt: String(d.tent.txt || '').slice(0, 80) })
+    const cheio = ptsOrdem(S.ordem.length)
+    const soma = pts => { if (pts > j.pts) { S.placar[k] = (S.placar[k] || 0) + pts - j.pts; j.pts = pts } }
+    if (tipo === 'certo') { j.ok = S.camada; S.ordem.push(k); soma(cheio) }
+    else if (tipo === 'artista') { if (!j.art) { j.art = S.camada; soma(Math.floor(cheio / 2)) } }
+    else if (tipo === 'pulou') j.fora = true // desistiu
+    else j.te = Date.now()
+    if (Object.values(S.jog).every(x => x.ok || x.fora)) return revelar()
+    manda()
+  }
+  // Leilão: lances em ordem (cada um menor que o anterior); passou = fora do leilão; quem tem o menor lance tenta
+  function novaLei() {
+    const pres = ctx.presentes(), ks = Object.keys(S.jog).filter(k => pres.includes(k))
+    if (!ks.length) ks.push(me.key)
+    const r = S.i % ks.length, ordem = [...ks.slice(r), ...ks.slice(0, r)]
+    S.lei = { fase: 'lance', ordem, ativos: [...ordem], vez: ordem[0], lance: null, hist: [], ouvinte: null, n: 0, chute: '', res: null }
+    defPrazo(LANCE_MS, leiTempoVez)
+  }
+  function leiAcao(d, k) {
+    const L = S.lei
+    if (S.fase !== 'tocando' || !L || L.fase !== 'lance' || L.vez !== k) return
+    if (d.passa) return leiPassa(k)
+    const n = Math.floor(Number(d.lance)), max = L.lance ? L.lance.n - 1 : maxLance()
+    if (!(n >= 1 && n <= max)) return
+    L.lance = { key: k, n }; L.hist.push({ k, n })
+    if (n === 1) return leiFecha()
+    leiProx(k)
+  }
+  function leiPassa(k) {
+    const L = S.lei
+    if (L.ativos.length === 1 && !L.lance) return // o último não pode passar sem lance nenhum
+    L.ativos = L.ativos.filter(x => x !== k); L.hist.push({ k, n: 0 })
+    leiProx(k)
+  }
+  function leiProx(de) {
+    const L = S.lei, o = L.ordem, i = o.indexOf(de)
+    for (let s2 = 1; s2 <= o.length; s2++) {
+      const c = o[(i + s2) % o.length]
+      if (L.ativos.includes(c) && c !== L.lance?.key) { L.vez = c; defPrazo(LANCE_MS, leiTempoVez); return manda() }
+    }
+    if (L.lance) return leiFecha()
+    revelar()
+  }
+  const leiTempoVez = () => { const L = S.lei; if (!L || L.fase !== 'lance') return; L.ativos.length === 1 && !L.lance ? leiAcao({ lance: maxLance() }, L.vez) : leiAcao({ passa: true }, L.vez) }
+  function leiFecha() {
+    const L = S.lei
+    L.fase = 'ouve'; L.ouvinte = L.lance.key; L.n = L.lance.n; L.vez = null
+    defPrazo(PALPITE_MS, () => leiFim('tempo'))
+    manda()
+  }
+  function leiChute(d, k, j) {
+    const L = S.lei
+    if (!L || L.fase !== 'ouve' || L.ouvinte !== k) return
+    const tipo = String(d.tent.tipo), txt = String(d.tent.txt || '').slice(0, 80)
+    j.tent.push({ c: L.n, tipo, txt }); L.chute = txt
+    leiFim(tipo === 'certo' ? 'ok' : tipo === 'artista' ? 'art' : 'erro')
+  }
+  function leiFim(res) {
+    const L = S.lei, o = S.jog[L.ouvinte]
+    if (S.fase !== 'tocando' || L.res) return
+    L.res = res
+    if (o) {
+      const cheio = 6 - L.n, pts = res === 'ok' ? cheio : res === 'art' ? Math.floor(cheio / 2) : 0
+      if (res === 'ok') o.ok = L.n; else if (res === 'art') o.art = L.n; else o.fora = true
+      o.pts = pts; S.placar[L.ouvinte] = (S.placar[L.ouvinte] || 0) + pts
+      if (res !== 'ok') for (const k of L.ordem) if (k !== L.ouvinte && S.jog[k]) { S.jog[k].pts = 1; S.placar[k] = (S.placar[k] || 0) + 1 }
+    }
+    S.fase = 'revela'; manda()
+  }
+  // Que ano é?
+  function anoChute(n, k) {
+    const j = S.jog[k]
+    if (!j || S.fase !== 'tocando' || j.trav || !Number.isInteger(n) || n < ANO_MIN || n > ANO_ATUAL) return
+    j.ano = n; j.trav = true
+    if (Object.values(S.jog).every(x => x.trav)) return revelar()
+    manda()
+  }
+  function pontuaAno() {
+    const real = anoReal(musica()); S.anoReal = real
+    for (const [k, j] of Object.entries(S.jog)) if (j.trav && real) { const p = ptsAno(Math.abs(j.ano - real)); j.pts = p; S.placar[k] = (S.placar[k] || 0) + p; if (!(j.ano - real)) j.ok = 1 }
+  }
+  function encerrar() { if (!S) return; prazo = null; ctx.send({ estado: { id: S.id, fim: true } }); S = null; parar(); render() }
   const salvos = new Set()
   function avisos(a, b) {
     // anúncios só fora do modo às cegas
-    if (b.modo !== 'cegas' && b.fase === 'tocando') for (const [k, j] of Object.entries(b.jog || {})) {
+    if (b.modo !== 'cegas' && b.modo !== 'leilao' && b.modo !== 'ano' && b.fase === 'tocando') for (const [k, j] of Object.entries(b.jog || {})) {
       const x = a?.i === b.i ? a?.jog?.[k] : null
       if (k === me.key || !x) continue
       if (j.ok && !x.ok) toast(`${j.nome} acertou a música!`, 2200)
@@ -184,28 +319,41 @@ export function criaFaixa(ctx) {
     }
     // na revelação, cada um guarda o próprio resultado daquela música
     const eu = b.jog?.[me.key], at = b.musicas?.[b.i]
-    if (b.fase === 'revela' && eu && at && !salvos.has(`${b.id}:${b.i}`)) {
+    // os modos novos pontuam diferente: não entram no histórico do dia (nem nas bolinhas/números do lobby)
+    if (b.fase === 'revela' && eu && at && !MODOS[b.modo]?.novo && !salvos.has(`${b.id}:${b.i}`)) {
       salvos.add(`${b.id}:${b.i}`)
       ctx.salvaRes({ data: at.d, n: at.n, r: eu.ok ? 'ok' : eu.art ? 'art' : 'fora', passo: eu.ok || eu.art || 0, pts: eu.pts })
     }
   }
 
   /* ---------- palpite (cada um confere o seu) ---------- */
+  // quanto vale acertar agora (cada modo calcula de um jeito)
+  const valeAgora = j => S.modo === 'leilao' ? 6 - (S.lei?.n || 5) : S.modo === 'corrida' ? ptsOrdem(S.ordem.length) : valor(passoDe(j))
+  // corrida: depois de um erro, 2 s sem poder palpitar (só nesta aba; o host também segura palpites seguidos)
+  let travaAte = 0
+  function trava() {
+    travaAte = Date.now() + TRAVA_MS
+    const i = chute.input, antes = 'Qual é a música? (ou o artista)'
+    i.disabled = true; i.placeholder = 'Errou! Segura 2 s…'
+    setTimeout(() => { i.disabled = false; i.placeholder = antes; if (S?.fase === 'tocando' && tela.contains(i) && !ctx.digitando()) i.focus({ preventScroll: true }) }, TRAVA_MS)
+  }
   function chuta(g) {
     const m = musica(), j = euJog()
-    if (!S || S.fase !== 'tocando' || !m || !j || j.ok || j.fora) return
+    if (!S || S.fase !== 'tocando' || !m || !j || j.ok || j.fora || S.modo === 'ano') return
+    if (S.modo === 'leilao' && !(S.lei?.fase === 'ouve' && S.lei.ouvinte === me.key)) return
+    if (S.modo === 'corrida' && Date.now() < travaAte) return toast('Calma! Espere o tempo da trava.', 1200)
     let tipo, txt = ''
     if (g.tipo === 'pular') tipo = 'pulou'
     else if (g.tipo === 'artista') {
       const certo = (m.dz && g.id === m.dz.a) || mesmoArtista(g.nome, m.a)
       if (certo && j.art) return toast('O artista você já acertou. Agora a música!', 1800)
       tipo = certo ? 'artista' : 'errou'; txt = g.nome
-      if (certo) toast(`Artista certo! +${Math.floor(valor(passoDe(j)) / 2)} — agora a música vale o total.`, 2600)
+      if (certo) toast(S.modo === 'leilao' ? 'Artista certo! Vale metade.' : `Artista certo! +${Math.floor(valeAgora(j) / 2)} — agora a música vale o total.`, 2600)
     } else {
       const certo = (m.dz && g.id === m.dz.t) || (confere(g.t, m.t) && (!g.a || mesmoArtista(g.a, m.a)))
       tipo = certo ? 'certo' : 'errou'; txt = g.a ? `${g.t} — ${g.a}` : g.t
     }
-    if (tipo === 'errou') erroVisual()
+    if (tipo === 'errou') { erroVisual(); if (S.modo === 'corrida') trava() }
     const d = { tent: { tipo, txt }, nome: me.name }
     ctx.send(d); if (ehHost()) got(d, me.key)
   }
@@ -264,7 +412,19 @@ export function criaFaixa(ctx) {
     pl.querySelector('.fx-player__t').textContent = `${fmt(p)} / ${fmt(P.dur)}`
     const b = pl.querySelector('.fx-player__play'); if (b.dataset.st !== String(P.play)) { b.dataset.st = String(P.play); b.replaceChildren(icon(P.play ? 'pause' : 'play')) }
   }
-  ;(function loop() { if (S && P?.play) atualizaPlayer(); requestAnimationFrame(loop) })()
+  // contagem regressiva das fases com tempo: atualiza só o texto e a barra, sem refazer a tela
+  let cdUlt = 0
+  function atualizaCd() {
+    const r = restaMs(); if (r == null) return
+    for (const c of tela.querySelectorAll('.fx-cd')) {
+      c.querySelector('.fx-cd__txt').textContent = `${c.dataset.rot} ${Math.ceil(r / 1000)} s`
+      c.querySelector('.fx-cd__barra i').style.width = `${S.cdTot ? Math.min(100, r / S.cdTot * 100) : 0}%`
+      c.classList.toggle('urgente', r < 3000)
+    }
+  }
+  const relogio = rot => { if (S?.cd == null) return ''; const c = el('div', { className: 'fx-cd' }, icon('clock'), el('span', { className: 'fx-cd__txt' }), el('span', { className: 'fx-cd__barra' }, el('i'))); c.dataset.rot = rot; return c }
+  const envia = d => { ctx.send(d); if (ehHost()) got(d, me.key) }
+  ;(function loop(t) { if (S && P?.play) atualizaPlayer(); if (S?.cd != null && t - cdUlt > 150) { cdUlt = t; atualizaCd() } requestAnimationFrame(loop) })(0)
   document.addEventListener('keydown', e => {
     if (!S || S.fase === 'fim' || e.key !== ' ' || e.target.closest?.('input, textarea, select')) return
     e.preventDefault(); P?.play ? pausar() : tocar(P?.pos || 0)
@@ -391,10 +551,11 @@ export function criaFaixa(ctx) {
     const m = musica()
     if (!m && S.fase !== 'fim') { tela.replaceChildren(el('div', { className: 'fx-msg', textContent: 'Carregando…' })); return }
     const at = atualDe()
+    const trocavel = ehHost() && ANTIGOS.includes(S.modo) // modos novos têm estado próprio: só se escolhem ao começar
     const topo = el('header', { className: 'fx-topo' }, marquee(),
       el('div', { className: 'fx-topo__info' },
         S.fase === 'fim' ? el('small', { textContent: 'Placar final' }) : el('small', {}, el('b', { textContent: `${S.i + 1}/${S.musicas.length}` }), ` · ${S.rotulo || nomeDia(at.d)}`),
-        (() => { const b = el('button', { type: 'button', className: 'fx-modo', title: ehHost() ? 'Trocar o modo' : MODOS[S.modo].dica, disabled: !ehHost() }, icon(MODOS[S.modo].ic), MODOS[S.modo].nome, ehHost() ? icon('chevron-down') : ''); b.addEventListener('click', e => escolheModo(S.modo, mudarModo, e.currentTarget)); return b })()),
+        (() => { const b = el('button', { type: 'button', className: 'fx-modo', title: !ehHost() ? MODOS[S.modo].dica : trocavel ? 'Trocar o modo' : `${MODOS[S.modo].dica} (o modo só muda ao começar um jogo)`, disabled: !trocavel }, icon(MODOS[S.modo].ic), MODOS[S.modo].nome, trocavel ? icon('chevron-down') : ''); b.addEventListener('click', e => escolheModo(S.modo, mudarModo, e.currentTarget, ANTIGOS)); return b })()),
       ehHost() ? botao('x', '', encerrar, 'fx-btn--x', 'Encerrar o jogo') : el('small', { className: 'fx-host', textContent: `host: ${S.hostNome}` }))
     const corpo = S.fase === 'fim' ? placarFinal() : S.fase === 'revela' ? revela(m) : rodada(m)
     tela.replaceChildren(topo, el('div', { className: 'fx-corpo' }, corpo, lado()))
@@ -402,7 +563,21 @@ export function criaFaixa(ctx) {
     atualizaPlayer()
     if (S.fase === 'tocando' && tela.contains(chute.input) && !ctx.digitando()) chute.input.focus({ preventScroll: true })
   }
+  const playerEl = () => el('div', { className: 'fx-player' },
+      botao('rotate-ccw', '', () => tocar(0), 'fx-player__mini', 'Do começo'),
+      botao('chevron-left', '5s', () => pula(-5), 'fx-player__mini fx-player__5', 'Voltar 5 s'),
+      (() => { const b = el('button', { type: 'button', className: 'fx-player__play', title: 'Tocar / pausar' }, icon('play')); b.addEventListener('click', () => { b.blur(); P?.play ? pausar() : tocar(P?.pos || 0) }); return b })(),
+      botao('chevron-right', '5s', () => pula(5), 'fx-player__mini fx-player__5', 'Avançar 5 s'),
+      (() => {
+        const tr = el('div', { className: 'fx-player__trilho' }, el('div', { className: 'fx-player__cab' }))
+        tr.addEventListener('pointerdown', e => { if (!P?.bufs) return; const r = tr.getBoundingClientRect(); tocar(Math.max(0, Math.min(.999, (e.clientX - r.left) / r.width)) * P.dur) })
+        return tr
+      })(),
+      el('span', { className: 'fx-player__t', textContent: '0:00 / 0:30' }))
   function rodada(m) {
+    if (S.modo === 'leilao') return rodadaLeilao(m)
+    if (S.modo === 'ano') return rodadaAno(m)
+    const corrida = S.modo === 'corrida'
     const ps = passos(), j = euJog() || novoJog('')
     const passo = j.ok || j.fora ? ps.length : passoDe(j)
     const porPasso = {}; for (const t of j.tent) (porPasso[t.c] ||= []).push(t)
@@ -417,34 +592,138 @@ export function criaFaixa(ctx) {
         aberta ? iconeDe(p.tipo, atual) : el('span', { className: 'fx-ic fx-ic--fechado' }, icon(p.dica ? 'lightbulb' : 'lock')),
         el('b', { className: 'fx-linha__nome', textContent: nome || (p.dica ? 'Dica' : '') }),
         el('span', { className: 'fx-linha__res' }, ...res),
-        el('span', { className: 'fx-linha__pts' + (atual ? ' atual' : ''), textContent: `${valor(k)}` }))
+        el('span', { className: 'fx-linha__pts' + (atual ? ' atual' : ''), textContent: corrida ? '' : `${valor(k)}` }))
     })
     const filme = el('ol', { className: 'fx-filme' }, ...linhas)
-    const player = el('div', { className: 'fx-player' },
-      botao('rotate-ccw', '', () => tocar(0), 'fx-player__mini', 'Do começo'),
-      botao('chevron-left', '5s', () => pula(-5), 'fx-player__mini fx-player__5', 'Voltar 5 s'),
-      (() => { const b = el('button', { type: 'button', className: 'fx-player__play', title: 'Tocar / pausar' }, icon('play')); b.addEventListener('click', () => { b.blur(); P?.play ? pausar() : tocar(P?.pos || 0) }); return b })(),
-      botao('chevron-right', '5s', () => pula(5), 'fx-player__mini fx-player__5', 'Avançar 5 s'),
-      (() => {
-        const tr = el('div', { className: 'fx-player__trilho' }, el('div', { className: 'fx-player__cab' }))
-        tr.addEventListener('pointerdown', e => { if (!P?.bufs) return; const r = tr.getBoundingClientRect(); tocar(Math.max(0, Math.min(.999, (e.clientX - r.left) / r.width)) * P.dur) })
-        return tr
-      })(),
-      el('span', { className: 'fx-player__t', textContent: '0:00 / 0:30' }))
+    const player = playerEl()
     let topo
-    if (j.ok) topo = el('div', { className: 'fx-status fx-status--ok' }, icon('check'), el('span', { textContent: `Acertou com ${j.ok} dica${j.ok > 1 ? 's' : ''}! +${j.pts}` }))
+    if (j.ok) topo = el('div', { className: 'fx-status fx-status--ok' }, icon('check'), el('span', { textContent: corrida ? `Acertou em ${S.ordem.indexOf(me.key) + 1}º lugar! +${j.pts}` : `Acertou com ${j.ok} dica${j.ok > 1 ? 's' : ''}! +${j.pts}` }))
     else if (j.fora) topo = el('div', { className: 'fx-status', textContent: j.art ? `Acabaram as dicas — ficou com o artista (+${j.pts}).` : 'Acabaram as dicas. Espere a revelação.' })
     else {
       const ultimo = passo >= ps.length
       topo = el('div', { className: 'fx-chute' },
-        el('div', { className: 'fx-vale', title: 'Pontos se acertar a música agora. Cada dica a mais tira 100.' }, el('small', { textContent: 'vale' }), el('b', { textContent: valor(passo) }), el('small', { textContent: j.art ? `já tem ${j.pts}` : 'pts' })),
+        el('div', { className: 'fx-vale', title: corrida ? 'Pontos se você acertar agora. Depende de quantos já acertaram.' : 'Pontos se acertar a música agora. Cada dica a mais tira 100.' }, el('small', { textContent: 'vale' }), el('b', { textContent: corrida ? ptsOrdem(S.ordem.length) : valor(passo) }), el('small', { textContent: j.art ? `já tem ${j.pts}` : 'pts' })),
         chute.form,
-        botao(ultimo ? 'flag' : 'skip-forward', ultimo ? 'Desistir' : 'Pular', () => chuta({ tipo: 'pular' }), 'fx-btn--pular', ultimo ? '' : `Abre a próxima dica (passa a valer ${valor(passo + 1)})`))
+        corrida ? botao('flag', 'Desistir', () => chuta({ tipo: 'pular' }), 'fx-btn--pular', 'Sai desta música')
+          : botao(ultimo ? 'flag' : 'skip-forward', ultimo ? 'Desistir' : 'Pular', () => chuta({ tipo: 'pular' }), 'fx-btn--pular', ultimo ? '' : `Abre a próxima dica (passa a valer ${valor(passo + 1)})`))
     }
-    return el('section', { className: 'fx-jogo' }, topo, filme, player)
+    return el('section', { className: 'fx-jogo' }, topo, corrida ? painelCorrida() : '', filme, player)
+  }
+
+  /* ---------- corrida: relógio e ordem de chegada ---------- */
+  function painelCorrida() {
+    const ult = S.camada >= total()
+    const fila = S.ordem.map((k, i) => el('li', { className: 'fx-chega' + (k === me.key ? ' eu' : '') }, el('i', { textContent: `${i + 1}º` }), ctx.pfp(k, 22), el('b', { textContent: k === me.key ? 'Você' : S.jog[k]?.nome }), el('em', { textContent: `+${ptsOrdem(i)}` })))
+    return el('div', { className: 'fx-corrida' }, relogio(ult ? 'Revela em' : 'Próxima camada em'),
+      el('ol', { className: 'fx-chegada' }, ...(fila.length ? fila : [el('li', { className: 'fx-chega vazio', textContent: `Ninguém acertou ainda — o 1º leva ${ptsOrdem(0)}` })])))
+  }
+
+  /* ---------- camadas já abertas, sem pontos (leilão e ano) ---------- */
+  function filmeSimples(m, passo, semDica) {
+    const ps = passos().filter(p => !(semDica && p.dica))
+    return el('ol', { className: 'fx-filme' }, ...ps.map((p, i) => {
+      const k = i + 1, aberta = k <= passo, atual = aberta && k === passo
+      let nome = aberta ? p.nome : ''
+      if (p.dica && aberta) nome = `artista: ${iniciais(m.a)}`
+      return el('li', { className: 'fx-linha' + (aberta ? ' on' : '') + (atual ? ' atual' : '') + (p.dica ? ' dica' : '') },
+        el('span', { className: 'fx-linha__n', textContent: k }),
+        aberta ? iconeDe(p.tipo, atual) : el('span', { className: 'fx-ic fx-ic--fechado' }, icon(p.dica ? 'lightbulb' : 'lock')),
+        el('b', { className: 'fx-linha__nome', textContent: nome || (p.dica ? 'Dica' : '') }), el('span', { className: 'fx-linha__res' }), el('span', { className: 'fx-linha__pts' }))
+    }))
+  }
+
+  /* ---------- leilão ---------- */
+  function rodadaLeilao(m) {
+    const L = S.lei, ouvindo = L.fase === 'ouve', euOuvinte = L.ouvinte === me.key
+    const nomeDe = k => k === me.key ? 'você' : S.jog[k]?.nome || '?'
+    const ult = {}; for (const h of L.hist) ult[h.k] = h.n
+    const mesa = el('ul', { className: 'fx-mesa' }, ...L.ordem.map(k => {
+      const passou = !L.ativos.includes(k), vez = !ouvindo && L.vez === k, tem = L.lance?.key === k
+      const st = L.ouvinte === k ? `vai tentar com ${L.n}` : tem ? 'tem o lance' : passou ? 'passou' : vez ? 'dando o lance…' : ult[k] ? `disse ${ult[k]}` : 'esperando a vez'
+      return el('li', { className: 'fx-mesa__it' + (vez ? ' vez' : '') + (tem ? ' tem' : '') + (passou && !tem ? ' passou' : '') },
+        ctx.pfp(k, 34), el('span', {}, el('b', { textContent: k === me.key ? 'Você' : S.jog[k]?.nome }), el('small', { textContent: st })),
+        tem ? el('strong', { className: 'fx-mesa__n', textContent: L.lance.n, title: 'instrumentos' }) : '')
+    }))
+    const destaque = el('div', { className: 'fx-lei' + (ouvindo ? ' ouve' : '') },
+      el('small', { className: 'fx-kicker', textContent: ouvindo ? 'Palpite único' : 'Leilão' }),
+      el('b', { textContent: ouvindo ? (euOuvinte ? `Sua vez: acerte com ${L.n} instrumento${L.n > 1 ? 's' : ''}` : `${nomeDe(L.ouvinte)} tenta com ${L.n} instrumento${L.n > 1 ? 's' : ''}`) : L.lance ? `Menor lance: ${L.lance.n} (${nomeDe(L.lance.key)})` : 'Com quantos instrumentos você acerta?' }),
+      el('small', { textContent: ouvindo ? `Acertando: +${6 - L.n}. Errando: todo mundo ganha 1.` : 'Cada lance tem que ser menor que o anterior. Quem arrisca menos tenta.' }))
+    if (!ouvindo) {
+      let ctl
+      if (L.vez === me.key) {
+        const max = L.lance ? L.lance.n - 1 : maxLance()
+        const podePassar = !(L.ativos.length === 1 && !L.lance)
+        ctl = el('div', { className: 'fx-lance' }, el('small', { className: 'fx-kicker', textContent: 'É a sua vez' }),
+          el('div', { className: 'fx-lance__bt' }, ...Array.from({ length: max }, (_, i) => max - i).map(n => {
+            const b = el('button', { type: 'button', className: 'fx-lance__btn', title: `Acerto com ${n}`, onclick: () => envia({ lance: n }) }, el('b', { textContent: n }), el('small', { textContent: `Eu acerto com ${n}` }), el('em', { textContent: `+${6 - n}` })); return b
+          })),
+          podePassar ? botao('hand', L.lance ? 'Passo' : 'Vai você', () => envia({ passa: true }), 'fx-btn--pular', 'Sai do leilão desta música') : el('small', { textContent: 'Todos passaram: você precisa dar um lance.' }))
+      } else ctl = el('div', { className: 'fx-status', textContent: `Vez de ${nomeDe(L.vez)} dar o lance…` })
+      return el('section', { className: 'fx-jogo fx-jogo--lei' }, destaque, relogio('Tempo do lance'), mesa, ctl)
+    }
+    const ps = passos()
+    const topo = euOuvinte ? el('div', { className: 'fx-chute' },
+      el('div', { className: 'fx-vale' }, el('small', { textContent: 'vale' }), el('b', { textContent: 6 - L.n }), el('small', { textContent: 'pts' })), chute.form,
+      botao('flag', 'Desistir', () => chuta({ tipo: 'pular' }), 'fx-btn--pular', 'Conta como erro'))
+      : el('div', { className: 'fx-status' }, icon('ear'), el('span', { textContent: `Ouvindo ${L.n} camada${L.n > 1 ? 's' : ''}. Esperando o palpite de ${nomeDe(L.ouvinte)}…` }))
+    return el('section', { className: 'fx-jogo fx-jogo--lei' }, destaque, relogio('Tempo do palpite'), topo, filmeSimples(m, Math.min(L.n, ps.length), true), playerEl())
+  }
+
+  /* ---------- que ano é? ---------- */
+  const anoCtl = (() => {
+    let val = 2000, id = ''
+    const num = el('input', { type: 'number', min: ANO_MIN, max: ANO_ATUAL, value: val, className: 'fx-ano__num', inputMode: 'numeric' })
+    const rng = el('input', { type: 'range', min: ANO_MIN, max: ANO_ATUAL, value: val, className: 'fx-ano__rng' })
+    const set = v => { val = Math.max(ANO_MIN, Math.min(ANO_ATUAL, Math.round(+v) || val)); num.value = val; rng.value = val }
+    rng.addEventListener('input', () => set(rng.value))
+    num.addEventListener('change', () => set(num.value))
+    num.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); set(num.value); envia({ ano: val }) } })
+    const trava = botao('check', 'Travar chute', () => { set(num.value); envia({ ano: val }) }, 'fx-btn--ok')
+    const box = el('div', { className: 'fx-ano' },
+      el('div', { className: 'fx-ano__linha' }, botao('chevron-left', '', () => set(val - 1), 'fx-btn--x fx-ano__pm', 'Um ano antes'), num, botao('chevron-right', '', () => set(val + 1), 'fx-btn--x fx-ano__pm', 'Um ano depois'), trava),
+      rng, el('div', { className: 'fx-ano__ref' }, el('span', { textContent: ANO_MIN }), el('span', { textContent: Math.round((ANO_MIN + ANO_ATUAL) / 2) }), el('span', { textContent: ANO_ATUAL })))
+    return { box, num, nova(novoId) { if (id !== novoId) { id = novoId; set(2000) } } }
+  })()
+  function rodadaAno(m) {
+    anoCtl.nova(S.id + ':' + S.i)
+    const j = euJog(), trav = Object.values(S.jog).filter(x => x.trav).length, n = Object.keys(S.jog).length
+    const corpo = j?.trav ? el('div', { className: 'fx-status fx-status--ok' }, icon('check'), el('span', { textContent: `Chute travado: ${j.ano}. Esperando os outros (${trav}/${n})` }))
+      : !j ? el('div', { className: 'fx-status', textContent: 'Você entra na próxima música.' }) : anoCtl.box
+    const lista = el('ul', { className: 'fx-prontos' }, ...Object.entries(S.jog).map(([k, x]) => el('li', { className: x.trav ? 'ok' : '' }, ctx.pfp(k, 22), el('span', { textContent: x.trav ? 'travou' : 'pensando…' }))))
+    return el('section', { className: 'fx-jogo fx-jogo--ano' },
+      el('div', { className: 'fx-lei' }, el('small', { className: 'fx-kicker', textContent: 'Que ano é?' }), el('b', { textContent: 'Em que ano esta música foi lançada?' }), el('small', { textContent: 'Todas as camadas tocam juntas. Exato 5 · ±1 ano 4 · ±2 anos 3 · ±5 anos 2 · ±10 anos 1.' })),
+      relogio('Tempo'), corpo, lista, playerEl())
+  }
+
+  /* ---------- linha do tempo da revelação (ano) ---------- */
+  function linhaDoTempo() {
+    const real = S.anoReal, chutes = Object.entries(S.jog).filter(([, j]) => j.trav).map(([k, j]) => ({ k, j, a: j.ano }))
+    const todos = [real, ...chutes.map(c => c.a)], lo = Math.floor((Math.min(...todos) - 2) / 5) * 5, hi = Math.ceil((Math.max(...todos) + 2) / 5) * 5
+    const pos = a => ((a - lo) / Math.max(1, hi - lo)) * 100
+    const marcas = []; for (let a = lo; a <= hi; a += (hi - lo > 40 ? 10 : 5)) marcas.push(el('span', { className: 'fx-tl__marca', style: `left:${pos(a)}%`, textContent: a }))
+    const ordenados = chutes.slice().sort((x, y) => x.a - y.a)
+    const faixas = []; // empilha chutes próximos em alturas diferentes
+    const pinos = ordenados.map(c => { let r = 0; while (faixas[r] != null && Math.abs(pos(c.a) - faixas[r]) < 11) r++; faixas[r] = pos(c.a); return { ...c, r } })
+    const alto = Math.max(1, ...pinos.map(p => p.r + 1))
+    return el('div', { className: 'fx-tl', style: `--niveis:${alto}` },
+      el('div', { className: 'fx-tl__eixo' }, ...marcas,
+        el('div', { className: 'fx-tl__real', style: `left:${pos(real)}%` }, el('b', { textContent: real }))),
+      ...pinos.map(p => el('div', { className: 'fx-tl__pino' + (p.a === real ? ' exato' : ''), style: `left:${pos(p.a)}%; --nivel:${p.r}` },
+        ctx.pfp(p.k, 28), el('b', { textContent: p.k === me.key ? 'Você' : p.j.nome }), el('small', { textContent: `${p.a}${p.a === real ? '' : ` (${p.a > real ? '+' : '−'}${Math.abs(p.a - real)})`} · +${p.j.pts}` }))))
   }
   function revela(m) {
     const quem = Object.entries(S.jog).sort((a, b) => b[1].pts - a[1].pts)
+    const L = S.lei
+    const txtDe = (k, j) => {
+      if (S.modo === 'leilao') {
+        if (!L?.ouvinte) return 'ninguém arriscou'
+        if (L.ouvinte === k) return L.res === 'ok' ? `acertou com ${L.n} instrumento${L.n > 1 ? 's' : ''}` : L.res === 'art' ? `só o artista (lance ${L.n})` : L.res === 'tempo' ? 'o tempo acabou' : `errou${L.chute ? `: ${L.chute}` : ''}`
+        return L.res === 'ok' ? 'não levou' : L.ordem.includes(k) ? 'ponto pelo erro' : 'assistiu'
+      }
+      if (S.modo === 'ano') return j.trav ? `chutou ${j.ano}` : 'não chutou'
+      if (S.modo === 'corrida') return j.ok ? `${S.ordem.indexOf(k) + 1}º a acertar` : j.art ? 'só o artista' : 'não acertou'
+      return j.ok ? `música com ${j.ok} dica${j.ok > 1 ? 's' : ''}` : j.art ? 'só o artista' : 'não acertou'
+    }
     return el('section', { className: 'fx-revela' },
       el('div', { className: 'fx-ingresso' },
         m.capa ? el('img', { className: 'fx-ingresso__capa', src: pasta() + m.capa, alt: '' }) : el('div', { className: 'fx-ingresso__capa' }, icon('music')),
@@ -452,9 +731,10 @@ export function criaFaixa(ctx) {
           el('small', { className: 'fx-kicker', textContent: S.acertou ? `${S.acertou.key === me.key ? 'Você' : S.acertou.nome} acertou para todo mundo · era` : 'Era' }), el('b', { className: 'fx-ingresso__t', textContent: m.t }),
           el('span', { className: 'fx-ingresso__a', textContent: [m.a, m.album, m.ano].filter(Boolean).join(' · ') }),
           el('ul', { className: 'fx-ingresso__quem' }, ...quem.map(([k, j]) => el('li', {}, ctx.pfp(k, 20), el('b', { textContent: j.nome }),
-            el('span', { textContent: j.ok ? `música com ${j.ok} dica${j.ok > 1 ? 's' : ''}` : j.art ? 'só o artista' : 'não acertou' }), el('em', { textContent: j.pts ? `+${j.pts}` : '' })))),
+            el('span', { textContent: txtDe(k, j) }), el('em', { textContent: j.pts ? `+${j.pts}` : '' })))),
           ehHost() ? botao('skip-forward', S.i + 1 >= S.musicas.length ? 'Ver o placar' : 'Próxima música', proxima, 'fx-btn--ok') : el('small', { className: 'fx-esperando', textContent: `Esperando ${S.hostNome} seguir…` })),
-        el('div', { className: 'fx-ingresso__canhoto' }, el('span', { textContent: `${S.i + 1}/${S.musicas.length}` }))))
+        el('div', { className: 'fx-ingresso__canhoto' }, el('span', { textContent: `${S.i + 1}/${S.musicas.length}` }))),
+      S.modo === 'ano' && S.anoReal ? linhaDoTempo() : '')
   }
   function placarFinal() {
     const rank = Object.entries(S.jog).map(([k, j]) => [k, j.nome, S.placar[k] || 0]).sort((a, b) => b[2] - a[2])
@@ -470,7 +750,11 @@ export function criaFaixa(ctx) {
       el('small', { className: 'fx-kicker', textContent: 'Jogadores' }),
       el('ul', { className: 'fx-jogs' }, ...rank.map(([k, j]) => {
         const esconde = cegas && k !== me.key
-        const st = esconde ? (j.ok || j.fora ? 'pronto' : 'pensando…') : j.ok ? '✓ música' : j.art ? '½ artista' : j.fora ? 'sem dicas' : ''
+        const L = S.lei
+        const st = MODOS[S.modo].novo && S.fase !== 'tocando' ? '' : S.modo === 'leilao' && L ? (L.ouvinte === k ? `tenta com ${L.n}` : L.lance?.key === k ? `lance ${L.lance.n}` : !L.ordem.includes(k) ? 'entra na próxima' : !L.ativos.includes(k) ? 'passou' : L.vez === k ? 'dando o lance' : '')
+          : S.modo === 'ano' ? (j.trav ? 'travou' : 'pensando…')
+          : S.modo === 'corrida' && S.ordem.includes(k) ? `✓ ${S.ordem.indexOf(k) + 1}º`
+          : esconde ? (j.ok || j.fora ? 'pronto' : 'pensando…') : j.ok ? '✓ música' : j.art ? '½ artista' : j.fora ? 'sem dicas' : ''
         const bolas = !esconde && S.fase === 'tocando' && individual() ? Array.from({ length: total() }, (_, i) => el('i', { className: i < j.n ? (j.ok === i + 1 ? 'ok' : 'on') : '' })) : []
         return el('li', { className: !esconde && j.ok ? 'ok' : '' }, ctx.pfp(k, 26),
           el('span', { className: 'fx-jogs__nome' }, el('b', { textContent: j.nome }), el('span', { className: 'fx-jogs__passos' }, ...bolas, st ? el('small', { textContent: st }) : '')),
@@ -480,10 +764,10 @@ export function criaFaixa(ctx) {
   }
 
   /* ---------- telinha de modo (lobby e durante o jogo) ---------- */
-  function escolheModo(atual, fn, perto) {
+  function escolheModo(atual, fn, perto, permitidos) {
     document.querySelector('.fx-modopop')?.remove()
     const pop = el('div', { className: 'fx-modopop' }, el('small', { className: 'fx-kicker', textContent: 'Modo de jogo' }),
-      ...Object.entries(MODOS).map(([k, v]) => {
+      ...Object.entries(MODOS).filter(([k]) => !permitidos || permitidos.includes(k)).map(([k, v]) => {
         const b = el('button', { type: 'button', className: 'fx-modocard' + (k === atual ? ' on' : '') }, el('span', { className: 'fx-modocard__ic' }, icon(v.ic)), el('span', {}, el('b', { textContent: v.nome }), el('small', { textContent: v.dica })), k === atual ? icon('check') : '')
         b.addEventListener('click', () => { pop.remove(); fn(k) })
         return b
@@ -618,7 +902,7 @@ export function criaFaixa(ctx) {
   window.__faixa = () => ({ S, resp: musica()?.t, artista: musica()?.a }) // diagnóstico/testes
   return {
     got, iniciar, interceptaChat: () => false, ativo: () => !!S, volumes,
-    onPeerJoin: id => { if (ehHost()) ctx.send({ estado: S }, id) },
+    onPeerJoin: id => { if (ehHost()) { carimbaPrazo(); ctx.send({ estado: S }, id) } },
     entrouAlguem: (key, nome) => { if (ehHost() && S.fase !== 'fim' && !S.jog[key]) { S.jog[key] = novoJog(nome); manda() } },
   }
 }

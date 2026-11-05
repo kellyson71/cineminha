@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <base href="/">
 <script>/* já entrou antes neste navegador: não mostra a tela de entrada enquanto reconecta (atualização não pisca) */
-try { if (localStorage.getItem('cine.conta') && !location.hash.includes('ticket=')) document.documentElement.classList.add('auto') } catch {}</script>
+try { if (localStorage.getItem('cine.conta') && !location.hash.includes('ticket=')) document.documentElement.classList.add('auto') } catch {}
+/* recarregou (F5, versão nova ou pedido do admin): cobre com "reconectando" em vez de mostrar a sala montando do zero */
+try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(sessionStorage.getItem('cine.volta') || 'null'); if (document.documentElement.classList.contains('auto') && ((nv && nv.type === 'reload') || (vt && Date.now() - vt.t < 60000))) document.documentElement.classList.add('voltando') } catch {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cineminha</title>
 <meta name="theme-color" content="#0c0c0f">
@@ -16,6 +18,7 @@ try { if (localStorage.getItem('cine.conta') && !location.hash.includes('ticket=
 <link rel="modulepreload" href="vendor/trystero.js">
 </head>
 <body class="locked">
+<div id="volta" class="volta" role="status" aria-live="polite"><div class="volta__card"><span class="volta__dots"><i></i><i></i><i></i></span><b id="voltaTxt">Reconectando…</b></div></div>
 
 <div id="gate" class="gate lobby">
   <div class="lobby__bg" aria-hidden="true"></div>

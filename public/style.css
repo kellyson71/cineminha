@@ -2038,3 +2038,12 @@ body.palco-on { overflow: hidden; }
 .trocajogo__op.forte:hover { background: #f05358; }
 .trocajogo__op.perigo b { color: #ff8a8e; }
 .trocajogo__op.leve { align-items: center; border-color: transparent; background: none; }
+
+/* Recarregar disfarçado: quem atualiza vê "reconectando" em vez da sala montando do zero */
+.volta { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; background: rgba(8,8,11,.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: opacity .35s; }
+html.voltando .volta, .volta.show { display: flex; }
+.volta.sai { opacity: 0; pointer-events: none; }
+.volta__card { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-radius: 14px; background: rgba(20,20,26,.92); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 12px 40px rgba(0,0,0,.45); color: rgba(255,255,255,.85); font-size: .9rem; font-weight: 600; animation: dig-in .25s both; }
+.volta__dots { display: flex; gap: 5px; }
+.volta__dots i { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: dig 1s ease-in-out infinite; }
+.volta__dots i:nth-child(2) { animation-delay: .15s; } .volta__dots i:nth-child(3) { animation-delay: .3s; }

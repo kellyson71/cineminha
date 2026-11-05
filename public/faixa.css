@@ -127,3 +127,82 @@
 
 /* fora da tela cheia, as poltronas ficam por cima do canto de baixo: respiro para o ingresso de números */
 .theater:not(:fullscreen, .palco) .faixa .fx-lobby { padding-bottom: clamp(56px, 7.5vw, 78px); }
+
+/* ====================== modos novos: Leilão, Corrida, Que ano é? ====================== */
+/* relógio das fases com tempo: texto + barra que encolhe */
+.faixa .fx-cd { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 2px 8px; padding: 6px 10px; border-radius: 6px; border: 2px solid #2f2b3a; background: var(--fx-carvao); color: var(--fx-papel); }
+.faixa .fx-cd svg { width: 16px; height: 16px; color: var(--fx-ciano); }
+.faixa .fx-cd__txt { font: 400 1.15rem/1 var(--fx-display); letter-spacing: .05em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+.faixa .fx-cd__barra { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: rgba(255,255,255,.08); overflow: hidden; }
+.faixa .fx-cd__barra i { display: block; height: 100%; width: 100%; background: var(--fx-ciano); }
+.faixa .fx-cd.urgente { border-color: var(--fx-rosa); } .faixa .fx-cd.urgente svg { color: var(--fx-rosa); } .faixa .fx-cd.urgente .fx-cd__barra i { background: var(--fx-rosa); }
+
+/* corrida: relógio + ordem de chegada */
+.faixa .fx-corrida { display: flex; flex-direction: column; gap: 6px; }
+.faixa .fx-chegada { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.faixa .fx-chega { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 4px; border-radius: 99px; background: rgba(182,255,59,.12); border: 1.5px solid var(--fx-lima); font-size: .76rem; color: var(--fx-papel); }
+.faixa .fx-chega i { font: 400 1rem/1 var(--fx-display); font-style: normal; color: var(--fx-lima); padding-left: 6px; }
+.faixa .fx-chega .pfp { width: 22px; height: 22px; border-radius: 50%; }
+.faixa .fx-chega em { font-style: normal; font-weight: 800; color: var(--fx-amarelo); }
+.faixa .fx-chega.eu { background: rgba(255,225,74,.14); border-color: var(--fx-amarelo); }
+.faixa .fx-chega.vazio { padding: 3px 12px; border-style: dashed; border-color: #3a3644; background: transparent; color: rgba(244,239,228,.55); }
+
+/* chamada de cada modo novo (título grande) */
+.faixa .fx-jogo--lei, .faixa .fx-jogo--ano { gap: 10px; overflow-y: auto; }
+.faixa .fx-lei { display: flex; flex-direction: column; gap: 3px; padding: 10px 14px; border-radius: 6px; border: 2px solid var(--fx-papel); background: var(--fx-preto); box-shadow: 4px 4px 0 var(--fx-rosa); }
+.faixa .fx-lei .fx-kicker { font: 400 .95rem/1 var(--fx-marcador); color: var(--fx-rosa); rotate: -1.5deg; align-self: flex-start; }
+.faixa .fx-lei b { font: 400 clamp(1.3rem, 5cqh, 2rem)/1.05 var(--fx-display); letter-spacing: .03em; text-transform: uppercase; color: var(--fx-papel); }
+.faixa .fx-lei > small:last-child { font-size: .74rem; color: rgba(244,239,228,.6); }
+.faixa .fx-lei.ouve { box-shadow: 4px 4px 0 var(--fx-lima); }
+
+/* leilão: a mesa dos lances */
+.faixa .fx-mesa { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.faixa .fx-mesa__it { position: relative; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: 2px solid #2f2b3a; background: var(--fx-carvao); color: var(--fx-papel); }
+.faixa .fx-mesa__it .pfp { width: 34px; height: 34px; border-radius: 50%; flex: none; }
+.faixa .fx-mesa__it span { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.faixa .fx-mesa__it b { font-size: .86rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.faixa .fx-mesa__it small { font-size: .7rem; color: rgba(244,239,228,.6); }
+.faixa .fx-mesa__n { font: 400 2rem/1 var(--fx-display); color: var(--fx-amarelo); }
+.faixa .fx-mesa__it.vez { border-color: var(--fx-ciano); box-shadow: 0 0 0 3px color-mix(in srgb, var(--fx-ciano) 25%, transparent); }
+.faixa .fx-mesa__it.vez small { color: var(--fx-ciano); }
+.faixa .fx-mesa__it.tem { border-color: var(--fx-amarelo); background: color-mix(in srgb, var(--fx-amarelo) 10%, var(--fx-carvao)); }
+.faixa .fx-mesa__it.passou { opacity: .45; }
+.faixa .fx-lance { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border-radius: 6px; border: 2px dashed var(--fx-ciano); }
+.faixa .fx-lance .fx-kicker { font: 400 .95rem/1 var(--fx-marcador); color: var(--fx-ciano); align-self: flex-start; }
+.faixa .fx-lance__bt { display: flex; flex-wrap: wrap; gap: 8px; }
+.faixa .fx-lance__btn { flex: 1 1 96px; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0 8px; padding: 6px 10px; border-radius: 5px; border: 2px solid var(--fx-papel); background: var(--fx-preto); color: var(--fx-papel); box-shadow: 3px 3px 0 var(--fx-rosa); text-align: left; cursor: pointer; transition: transform .12s, box-shadow .12s; }
+.faixa .fx-lance__btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--fx-rosa); }
+.faixa .fx-lance__btn b { grid-row: span 2; font: 400 2rem/1 var(--fx-display); color: var(--fx-amarelo); }
+.faixa .fx-lance__btn small { font-size: .7rem; line-height: 1.1; }
+.faixa .fx-lance__btn em { font-style: normal; font-size: .68rem; font-weight: 800; color: var(--fx-lima); }
+
+/* que ano é? */
+.faixa .fx-ano { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: 6px; border: 2px dashed var(--fx-ciano); }
+.faixa .fx-ano__linha { display: flex; align-items: center; gap: 8px; }
+.faixa .fx-ano__num { width: 6.2ch; flex: none; height: 48px; text-align: center; border-radius: 5px; border: 2px solid var(--fx-papel); background: var(--fx-preto); color: var(--fx-amarelo); font: 400 2.2rem/1 var(--fx-display); letter-spacing: .04em; -moz-appearance: textfield; appearance: textfield; }
+.faixa .fx-ano__num:focus { outline: none; border-color: var(--fx-rosa); }
+.faixa .fx-ano__num::-webkit-inner-spin-button { display: none; }
+.faixa .fx-ano__linha .fx-btn--ok { margin-left: auto; height: 48px; padding: 0 16px; border-radius: 4px; border: 0; background: var(--fx-rosa); color: #fff; font: 400 1.2rem/1 var(--fx-display); letter-spacing: .05em; text-transform: uppercase; }
+.faixa .fx-ano__rng { width: 100%; accent-color: var(--fx-rosa); }
+.faixa .fx-ano__ref { display: flex; justify-content: space-between; font-size: .66rem; color: rgba(244,239,228,.45); }
+.faixa .fx-prontos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.faixa .fx-prontos li { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 4px; border-radius: 99px; border: 1.5px solid #3a3644; font-size: .72rem; color: rgba(244,239,228,.6); }
+.faixa .fx-prontos li.ok { border-color: var(--fx-lima); color: var(--fx-lima); }
+.faixa .fx-prontos .pfp { width: 22px; height: 22px; border-radius: 50%; }
+
+/* linha do tempo da revelação */
+.faixa .fx-tl { --alt: 42px; --pt: 46px; position: relative; width: min(620px, 100%); padding: var(--pt) 28px calc(var(--niveis, 1) * var(--alt) + 30px); box-sizing: border-box; }
+.faixa .fx-tl__eixo { position: relative; height: 4px; border-radius: 2px; background: #3a3644; }
+.faixa .fx-tl__marca { position: absolute; top: 10px; translate: -50% 0; font-size: .62rem; color: rgba(244,239,228,.45); font-variant-numeric: tabular-nums; }
+.faixa .fx-tl__real { position: absolute; top: -24px; translate: -50% 0; z-index: 2; }
+.faixa .fx-tl__real b { display: block; padding: 2px 9px; border-radius: 4px; background: var(--fx-amarelo); color: var(--fx-preto); font: 400 1.4rem/1 var(--fx-display); letter-spacing: .04em; box-shadow: 2px 2px 0 var(--fx-rosa); }
+.faixa .fx-tl__real::after { content: ""; position: absolute; left: 50%; top: 100%; width: 3px; height: 30px; translate: -50% 0; background: var(--fx-amarelo); }
+.faixa .fx-tl__pino { position: absolute; top: calc(var(--pt) + 24px + var(--nivel) * var(--alt)); translate: -50% 0; display: grid; grid-template-columns: auto auto; gap: 0 6px; align-items: center; padding: 3px 8px 3px 4px; border-radius: 99px; border: 1.5px solid var(--fx-ciano); background: var(--fx-carvao); color: var(--fx-papel); white-space: nowrap; }
+.faixa .fx-tl__pino::before { content: ""; position: absolute; left: 50%; bottom: 100%; width: 2px; height: calc(var(--nivel) * var(--alt) + 24px); translate: -50% 0; background: color-mix(in srgb, var(--fx-ciano) 55%, transparent); }
+.faixa .fx-tl__pino .pfp { grid-row: span 2; width: 28px; height: 28px; border-radius: 50%; }
+.faixa .fx-tl__pino b { font-size: .72rem; line-height: 1.1; }
+.faixa .fx-tl__pino small { font-size: .64rem; color: rgba(244,239,228,.65); line-height: 1.1; }
+.faixa .fx-tl__pino.exato { border-color: var(--fx-lima); background: rgba(182,255,59,.12); }
+.faixa .fx-jogo--lei .fx-filme, .faixa .fx-jogo--ano .fx-filme { flex: none; justify-content: flex-start; }
+.faixa .fx-jogo--lei .fx-linha, .faixa .fx-jogo--ano .fx-linha { height: 32px; flex: none; }
+.faixa .fx-jogo--lei .fx-player, .faixa .fx-jogo--ano .fx-player { flex: none; }

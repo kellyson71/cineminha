@@ -8,7 +8,7 @@ Tudo o que um jogo novo precisa seguir. Os seis jogos atuais são a referência 
 | Coup | `public/coup.js`, `coup.css`, `jogos/coup/` | `coup` | blefe, mesa 3D em perspectiva |
 | Uno | `public/descarte.js`, `descarte.css`, `jogos/uno/` | `dc` | cartas de cor e número, cartas em CSS/SVG |
 | Red Flags | `public/parperfeito.js`, `parperfeito.css`, `jogos/parperfeito/` | `pp` | festa, rodadas com juiz, cartas de texto |
-| Amigos de Merda | `public/amigosdebosta.js`, `amigosdebosta.css`, `jogos/amigosdebosta/` | `ab` | votação simultânea |
+| Amigos de Merda | `public/amigosdebosta.js`, `amigosdebosta.css`, `jogos/amigosdebosta/` | `ab` | votação simultânea; baralho do mod (86 pretas + 22 rosas), frentes em HTML/CSS |
 | Dobradinha | `public/dobradinha.js`, `dobradinha.css` | `db` | escalada de valores (igual dobra), mesa de boteco, cartas em CSS/SVG |
 
 Comece copiando a estrutura do **Red Flags** (o mais simples e completo) ou do modelo em

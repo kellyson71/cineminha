@@ -3,3 +3,10 @@ As marcas e artes pertencem aos respectivos titulares.
 Fonte: https://steamcommunity.com/sharedfiles/filedetails/?id=2881409588
 verso-preto.png: https://cloud-3.steamusercontent.com/ugc/1781713807329437776/FA1DE3C86B173BBDE3BA7141752B46152FD495B7/
 verso-rosa.png: https://cloud-3.steamusercontent.com/ugc/1781713807329441215/CAA67565C4C4288AD717E4F188FDD9C4763CF44C/
+
+Baralho: 86 cartas pretas e 22 rosas transcritas das folhas do mesmo mod, a pedido do usuário.
+A numeração e a repetição das cartas rosas 0 e 10 foram preservadas.
+Frentes reproduzidas em HTML/CSS, sem carregar imagens por carta.
+Folhas das perguntas: 09_FaceURL.png (pretas 0–68), 08_FaceURL.png (pretas 69–85),
+06_FaceURL.png (rosas 0–21), no download local do mod 2881409588.
+Tipografia das frentes: Bebas Neue (Google Fonts, SIL Open Font License).

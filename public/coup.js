@@ -34,7 +34,9 @@ const FALA = {
   trocar: () => 'Vou trocar com a Corte.', investigar: a => `Vou investigar ${a}.`,
 }
 const ALVO_MS = 60000 // quem é alvo decide sem pressa; o prazo só existe para quem saiu de perto
-const RESPIRO_MS = 1800 // a mesa de quem tem a vez só acende depois que as moedas da jogada anterior pousam
+const RESPIRO_MS = 500 // um instante para olhar a jogada anterior; quem age cedo demais fica na fila do host até a janela acabar
+const JANELA_MS = 3000 // janela mínima de toda alegação: as moedas saem do tesouro e ninguém age antes disso
+const PERAI_MS = 8000 // "Peraí!": congela a janela por até isso
 const SAIU_MS = 12000 // jogador sem conexão por esse tempo sai do jogo (cartas escondidas voltam para a Corte)
 const HOST_MS = 10000 // quem abriu a mesa caiu: o sucessor assume depois disso
 const SONS = ['tique', 'embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'descarta', 'leque', 'moeda', 'moedas', 'carimbo', 'punhal', 'golpe', 'papel', 'vez', 'clique']
@@ -75,7 +77,7 @@ export function criaCoup(ctx) {
     for (const k of ctx.presentes()) conv[k] = k === me.key || chamados?.includes(k) ? 'sim' : '?'
     const op = ls.get('coup.op') || {}
     const pl = ls.get('coup.placar')
-    G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, op: { inq: !!op.inq, plateia: op.plateia !== false }, placar: pl && Date.now() - pl.t < 10 * 3600e3 ? pl.p : {}, fase: 'convite', conv, js: [], deck: [], vez: 0, p: null, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
+    G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, op: { inq: !!op.inq, plateia: op.plateia !== false, voz: !!op.voz }, placar: pl && Date.now() - pl.t < 10 * 3600e3 ? pl.p : {}, fase: 'convite', conv, js: [], deck: [], vez: 0, p: null, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
     sysMsg(`${me.name} abriu uma mesa de Coup`)
     difunde()
   }
@@ -109,6 +111,7 @@ export function criaCoup(ctx) {
     clearTimeout(timer)
     if (vivos().length <= 1) return fim()
     if (G.ab && G.p) G.pa = G.p
+    G.fila = null
     let i = G.vez
     do i = (i + 1) % G.js.length; while (G.js[i].fora)
     G.vez = i; G.fase = 'acao'; G.p = null
@@ -117,7 +120,7 @@ export function criaCoup(ctx) {
   function retoma() {
     clearTimeout(timer)
     if (vivos().length <= 1) return fim()
-    G.p = null; G.fase = 'acao'
+    G.p = null; G.fase = 'acao'; G.fila = null
     if (G.js[G.vez].fora) { let i = G.vez; do i = (i + 1) % G.js.length; while (G.js[i].fora); G.vez = i }
     difunde()
   }
@@ -125,24 +128,91 @@ export function criaCoup(ctx) {
   const fechaAberta = () => { G.ab = null; G.pa = null }
   const ctxAberto = () => G.ab ? (G.pa || G.p) : null
   const livre = () => ['acao', 'alvo', 'troca'].includes(G.fase)
-  const abre = sobre => { G.ab = { sobre, n: (G.abN = (G.abN || 0) + 1) } }
+  const abre = sobre => { G.ab = { sobre, n: (G.abN = (G.abN || 0) + 1), min: Date.now() + JANELA_MS, perai: [], trava: null }; agendaJanela() }
+  // Janela mínima: a jogada de quem vem depois (ou o "Aceitar" do alvo) não sai antes de G.ab.min nem durante um "Peraí".
+  // O host guarda a intenção em G.fila e solta quando a janela acaba; se alguém duvidar antes, a fila cai.
+  let janelaTimer = 0
+  const esperaJanela = () => { const ab = G.ab, t = Date.now(); return !!ab && (ab.min > t || (!!ab.trava && ab.trava.ate > t)) }
+  function agendaJanela() {
+    clearTimeout(janelaTimer)
+    const ab = G?.ab
+    const ate = Math.max(G?.fila ? ab?.min || 0 : 0, ab?.trava?.ate || 0)
+    if (ate) janelaTimer = setTimeout(janela, Math.max(0, ate - Date.now()) + 40)
+  }
+  function janela() {
+    if (!G || G.host !== me.key) return
+    const ab = G.ab, seq = G.seq
+    let mudou = false
+    if (ab?.trava && ab.trava.ate <= Date.now()) { ab.trava = null; mudou = true }
+    soltaFila()
+    if (G && G.seq === seq && mudou) difunde()
+    agendaJanela()
+  }
+  function largaFila() { const f = G.fila; if (!f) return false; G.fila = null; ev({ t: 'filaCai', key: f.key }); return true }
+  function soltaFila() {
+    const f = G.fila
+    if (!f || esperaJanela()) return
+    G.fila = null
+    if (f.tipo === 'aceita') {
+      if (G.fase === 'alvo' && G.p?.alvo === f.key) return responde(f.key, { tipo: 'aceita' })
+    } else if (valida(f.key, f.d)) return declarar(f.key, f.d)
+    ev({ t: 'filaCai', key: f.key }); difunde()
+  }
+  function pedeAcao(key, d) {
+    if (G.fila || !valida(key, d)) return
+    if (!esperaJanela()) return declarar(key, d)
+    G.fila = { key, tipo: 'acao', d: { acao: d.acao, alvo: d.alvo } }
+    agendaJanela(); difunde()
+  }
+  function pedeAlvo(key, d) {
+    if (d.tipo === 'aceita' && G.fase === 'alvo' && G.p?.alvo === key && esperaJanela()) {
+      if (G.fila) return
+      G.fila = { key, tipo: 'aceita' }; agendaJanela(); return difunde()
+    }
+    responde(key, d)
+  }
+  // "Peraí!": qualquer um (menos quem alegou) congela a janela por até PERAI_MS, uma vez por alegação
+  function perai(key) {
+    const ab = G.ab, pa = ctxAberto(), j = jog(key)
+    if (!ab || !pa || !livre() || !j || j.fora) return
+    const dono = ab.sobre === 'bloq' ? pa.bloq?.key : pa.ator
+    if (!dono || dono === key || (ab.perai ||= []).includes(key) || (ab.trava && ab.trava.ate > Date.now())) return
+    ab.perai.push(key); ab.trava = { key, ate: Date.now() + PERAI_MS }
+    log(`${j.nome} pediu um Peraí.`); ev({ t: 'perai', key })
+    agendaJanela(); difunde()
+  }
+  function deixa(key) {
+    const t = G.ab?.trava
+    if (!t || t.key !== key) return
+    G.ab.trava = null
+    const seq = G.seq
+    soltaFila()
+    if (G && G.seq === seq) difunde()
+    agendaJanela()
+  }
   function fim() {
     clearTimeout(timer)
     const v = vivos()[0]
-    G.fase = 'fim'; G.p = null; G.vencedor = v?.key || null
+    G.fase = 'fim'; G.p = null; G.fila = null; G.vencedor = v?.key || null
     if (v) { G.placar = G.placar || {}; G.placar[v.key] = (G.placar[v.key] || 0) + 1; ls.set('coup.placar', { t: Date.now(), p: G.placar }); ls.set('coup.vencedor', v.key); ev({ t: 'vence', key: v.key }); log(`${v.nome} venceu! Única família na corte.`); sysMsg(`🏆 ${v.nome} venceu o Coup`) }
     difunde()
   }
 
   // ação do turno
-  function declarar(key, { acao, alvo }) {
+  function valida(key, { acao, alvo }) {
     const j = jog(key), A = ACOES[acao]
-    if (G.fase !== 'acao' || G.js[G.vez]?.key !== key || !A) return
-    if (acao === 'investigar' && !G.op.inq) return
-    if (j.moedas >= 10 && acao !== 'golpe') return
-    if (j.moedas < (A.custo || 0)) return
+    if (!j || G.fase !== 'acao' || G.js[G.vez]?.key !== key || !A) return null
+    if (acao === 'investigar' && !G.op.inq) return null
+    if (j.moedas >= 10 && acao !== 'golpe') return null
+    if (j.moedas < (A.custo || 0)) return null
     const t = A.alvo ? jog(alvo) : null
-    if (A.alvo && (!t || t.fora || t.key === key)) return
+    if (A.alvo && (!t || t.fora || t.key === key)) return null
+    return { j, A, t }
+  }
+  function declarar(key, d) {
+    const v = valida(key, d)
+    if (!v) return
+    const { j, A, t } = v, { acao } = d
     fechaAberta() // agir fecha a janela da jogada anterior
     if (A.custo) { j.moedas -= A.custo; moeda(key, 'banco', A.custo) }
     G.p = { acao, ator: key, alvo: t?.key || null, carta: cartaDe(acao), custo: A.custo || 0, bloq: null }
@@ -169,7 +239,7 @@ export function criaCoup(ctx) {
     if (G.fase !== 'alvo' || !p || p.alvo !== key) return
     if (tipo === 'aceita') { clearTimeout(timer); fechaAberta(); return executa() }
     if (tipo === 'bloqueia' && bloqueiosDe(p.acao).includes(carta)) {
-      clearTimeout(timer)
+      clearTimeout(timer); G.fila = null
       p.bloq = { key, carta }; alega(key, carta); abre('bloq')
       log(`${nome(key)} diz ser ${sou(carta)} e bloqueia.`)
       ev({ t: 'bloqueia', key, carta })
@@ -194,6 +264,7 @@ export function criaCoup(ctx) {
     const dono = ab.sobre === 'bloq' ? p.bloq.key : p.ator, c = ab.sobre === 'bloq' ? p.bloq.carta : p.carta
     if (key === dono || jog(dono)?.fora) return
     clearTimeout(timer)
+    largaFila()
     const sobre = ab.sobre
     p.volta = G.fase
     fechaAberta()
@@ -351,6 +422,7 @@ export function criaCoup(ctx) {
     } else for (const i of vivas(j)) { j.cartas[i].viva = false; ev({ t: 'perde', key, i, c: j.cartas[i].c }) }
     j.fora = true; moeda(key, 'banco', j.moedas); j.moedas = 0; ev({ t: 'elimina', key })
     if (vivos().length <= 1) return fim()
+    if (G.fila?.key === key) G.fila = null
     // a alegação aberta de quem saiu deixa de valer
     const pa = ctxAberto()
     if (pa && (G.ab.sobre === 'bloq' ? pa.bloq?.key : pa.ator) === key) G.ab = null
@@ -368,9 +440,11 @@ export function criaCoup(ctx) {
     switch (d.op) {
       case 'resp': if (G.fase === 'convite') { G.conv[key] = d.sim ? 'sim' : 'nao'; difunde() } break
       case 'sai': if (key !== G.host) remove(key); break // saiu para outra mesa
-      case 'acao': declarar(key, d); break
+      case 'acao': pedeAcao(key, d); break
       case 'duvida': duvida(key); break
-      case 'alvo': responde(key, d); break
+      case 'alvo': pedeAlvo(key, d); break
+      case 'perai': perai(key); break
+      case 'deixa': deixa(key); break
       case 'bloqueiaAjuda': bloqueiaAjuda(key); break
       case 'perde': escolhePerda(key, d.i); break
       case 'troca': fazTroca(key, d.sel); break
@@ -393,10 +467,11 @@ export function criaCoup(ctx) {
     }
     // a alegação aberta: quem disse o quê (o que ela já fez e como desfazer fica só com o host)
     const pa = ctxAberto()
-    const ab = pa ? { sobre: G.ab.sobre, n: G.ab.n, ator: pa.ator, acao: pa.acao, alvo: pa.alvo, carta: pa.carta, bloq: pa.bloq } : null
+    const agora = Date.now(), tv = G.ab?.trava && G.ab.trava.ate > agora ? G.ab.trava : null
+    const ab = pa ? { sobre: G.ab.sobre, n: G.ab.n, ator: pa.ator, acao: pa.acao, alvo: pa.alvo, carta: pa.carta, bloq: pa.bloq, resta: Math.max(0, G.ab.min - agora), perai: G.ab.perai || [], trava: tv ? { key: tv.key, resta: tv.ate - agora } : null } : null
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, op: G.op, fase: G.fase, conv: G.conv,
-      vez: G.js[G.vez]?.key || null, vencedor: G.vencedor || null, deck: G.deck.length,
+      vez: G.js[G.vez]?.key || null, fila: G.fila?.key || null, vencedor: G.vencedor || null, deck: G.deck.length,
       placar: G.placar || {},
       js: G.js.map(j => ({ key: j.key, nome: j.nome, moedas: j.moedas, fora: j.fora, cartas: j.cartas.map(c => ({ viva: c.viva, c: !c.viva || j.key === k || veTudo || G.fase === 'fim' ? c.c : null })) })),
       verdade: G.fase === 'fim' ? G.verdade || {} : null,
@@ -436,11 +511,11 @@ export function criaCoup(ctx) {
     sysMsg(`${nomeAntigo} caiu: ${me.name} assumiu a mesa do Coup`)
     if (G.fase === 'alvo' && G.p) { G.p.prazo = Date.now() + ALVO_MS; armaAlvo() }
     remove(antigo)
-    if (G) difunde()
+    if (G) { agendaJanela(); difunde() }
   }
   function encerrarHost() {
     if (!G) return
-    clearTimeout(timer)
+    clearTimeout(timer); clearTimeout(janelaTimer)
     ctx.send({ coup: { fim: G.id } })
     ls.set('coup.G', null)
     G = null
@@ -456,11 +531,12 @@ export function criaCoup(ctx) {
         if (G || (V && V.host !== me.key)) return ls.set('coup.G', null)
         G = s
         if (G.fase === 'alvo' && G.p) { G.p.prazo = Date.now() + ALVO_MS; armaAlvo() }
-        difunde()
+        agendaJanela(); difunde()
       }, 3000)
     }
     assumeSePreciso()
     if (!G || G.host !== me.key || G.fase === 'fim') return
+    if (G.fila || G.ab?.trava) janela() // rede de segurança
     const pres = new Set(ctx.presentes()), agora = Date.now()
     const quem = G.fase === 'convite' ? Object.keys(G.conv).filter(k => k !== me.key) : G.js.filter(j => !j.fora).map(j => j.key).filter(k => k !== me.key)
     for (const k of quem) { if (pres.has(k)) ausDesde.delete(k); else if (!ausDesde.has(k)) ausDesde.set(k, agora) }
@@ -485,7 +561,6 @@ export function criaCoup(ctx) {
     if (d.op) { if (G && G.host === me.key) hostRecebe(d.op, deKey); return }
     if (d.fim) { if (V?.id === d.fim) aplica(null); return }
     if (d.bk) { if (d.bk.host === deKey) backup = d.bk; return }
-    if (d.hes) { if (V && d.hes.id === V.id) mostraHesita(deKey, d.hes.on); return }
     if (d.v) {
       // eu caí e alguém assumiu: deixo de ser host
       if (G && d.v.id === G.id && d.v.host !== me.key) { clearTimeout(timer); G = null; ls.set('coup.G', null) }
@@ -527,7 +602,7 @@ export function criaCoup(ctx) {
     carregando = Promise.all(SONS.map(n => fetch(`${BASE}sons/${n}.mp3`).then(r => r.arrayBuffer()).then(b => ac.decodeAudioData(b)).then(d => buf.set(n, d)).catch(() => {})))
     return carregando
   }
-  function som(n, atraso = 0, vol = 1) {
+  function som(n, atraso = 0, vol = 1, taxa = 0) {
     if (n === 'desliza') n = `desliza${1 + rnd(3)}`
     if (n === 'poe') n = `poe${1 + rnd(2)}`
     let ac; try { ac = ctx.audioCtx() } catch { return }
@@ -535,7 +610,7 @@ export function criaCoup(ctx) {
     if (!ac || !b) { carregaSons(); return }
     if (ac.state === 'suspended') ac.resume()
     const s = ac.createBufferSource(); s.buffer = b
-    s.playbackRate.value = .94 + Math.random() * .12
+    s.playbackRate.value = taxa || (.94 + Math.random() * .12)
     const g = ac.createGain(); g.gain.value = (VOL[n] ?? .6) * vol
     s.connect(g).connect(ctx.saida())
     s.start(ac.currentTime + atraso / 1000)
@@ -641,8 +716,8 @@ export function criaCoup(ctx) {
       if (n && resta > 0) { setTimeout(() => n.classList.add('sai'), resta - 300); setTimeout(() => n.remove(), resta) }
     })
     tela.classList.toggle('mirando', !!roda)
-    if (!V.ab) { hesitas.clear(); hesEnviado = null } else hesitas.forEach((_, k) => pintaHesita(k))
-    poeContesta()
+    poeAlega()
+    voz()
     mesaTocavel()
     tela.classList.toggle('acabou', V.fase === 'fim')
     ctx.hydrate(tela)
@@ -761,6 +836,7 @@ export function criaCoup(ctx) {
     let dica = ''
     if (escolhendo) dica = f === 'perde' ? 'Escolha a influência que vai perder' : `Escolha a carta que ${N(p.ator)} vai ver`
     else if (f === 'acao' && V.vez === me.key) dica = j.moedas >= 10 ? 'Golpe obrigatório: escolha em quem' : 'Sua vez: o tesouro, a Corte ou alguém'
+    else if (V.fila === me.key) dica = 'Sua jogada sai quando as moedas pousarem'
     else if (j.fora) dica = 'Você foi exilado'
     if (dica) area.append(el('span', { className: 'cp-dica' + (escolhendo ? ' mal' : '') }, dica))
     return area
@@ -771,7 +847,7 @@ export function criaCoup(ctx) {
      Na sua vez, as coisas da mesa ficam vivas: o tesouro (Renda, Ajuda, Taxar), a Corte (Trocar) e cada pessoa
      (Golpe, Assassinar, Extorquir, Investigar). Clicar abre um leque de cartas em volta do que você tocou. */
   const ROSA = { tesouro: ['renda', 'ajuda', 'taxar'], corte: ['trocar'], pessoa: ['extorquir', 'assassinar', 'golpe', 'investigar'] }
-  const minhaVez = () => { const j = eu(); return V?.fase === 'acao' && V.vez === me.key && j && !j.fora }
+  const minhaVez = () => { const j = eu(); return V?.fase === 'acao' && V.vez === me.key && j && !j.fora && V.fila !== me.key }
   function opcoesDe(onde) {
     const j = eu(), dez = j.moedas >= 10
     const lista = (onde === 'tesouro' || onde === 'corte' ? ROSA[onde] : ROSA.pessoa).filter(a => a !== 'investigar' || V.op.inq)
@@ -898,87 +974,121 @@ export function criaCoup(ctx) {
     return el('div', { className: 'cp-convite cp-convite--aula' }, pegaAula().raiz, el('div', { className: 'cp-convite__op' },
       el('div', { className: 'cp-opcoes' }, escolhe(false, 'embaixador'), el('span', { className: 'cp-ou', textContent: 'ou' }), escolhe(true, 'inquisidor'), reforma),
       el('div', { className: 'cp-linha' }, host ? botao([icon(op.plateia ? 'eye' : 'eye-off'), 'plateia vê as cartas'], () => { G.op.plateia = !G.op.plateia; difunde() }, 'cp-chave' + (op.plateia ? ' on' : ''), 'Quem só assiste ou já foi exilado vê as cartas de todos') : el('span', { className: 'cp-chave' + (op.plateia ? ' on' : '') }, icon(op.plateia ? 'eye' : 'eye-off'), op.plateia ? 'plateia vê as cartas' : 'plateia não vê as cartas')),
+      el('div', { className: 'cp-linha' }, host ? botao([icon('mic'), 'duvidar por voz'], () => { G.op.voz = !G.op.voz; difunde() }, 'cp-chave' + (op.voz ? ' on' : ''), 'Diga "duvido" em voz alta para duvidar (usa o microfone do navegador)') : el('span', { className: 'cp-chave' + (op.voz ? ' on' : '') }, icon('mic'), op.voz ? 'duvidar por voz' : 'sem dúvida por voz')),
       placarDaNoite(),
       el('div', { className: 'cp-linha' }, host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'cp-btn--tinta', 'Você também joga?') : '', ir)))
   }
 
-  // bilhete: chega para quem pode reagir. Duvidar, bloquear ou aceitar; se ignorar, aceita sozinho no fim do tempo.
+  // bilhete do canto: só o convite da mesa (as reações a uma alegação ficam no centro da mesa)
   function bilhete() {
-    const f = V.fase, p = V.p, j = eu()
+    const f = V.fase
     if (f === 'convite' && !souHost() && V.conv[me.key] === '?') {
       return montaBilhete(`conv:${V.id}`, V.host, [el('b', { textContent: V.hostNome }), ' chamou você para a mesa'], 'Coup · blefe e intriga na corte', null,
         [botao('Jogar', () => manda({ op: 'resp', sim: true }), 'cp-btn--lacre'), botao('Só assistir', () => manda({ op: 'resp', sim: false }), 'cp-btn--tinta')])
     }
-    if (!j || j.fora || !p) return ''
-    // só quem é alvo recebe bilhete: decide sem relógio apertado (aceitar, bloquear com o personagem certo ou duvidar)
-    if (f !== 'alvo' || p.alvo !== me.key) return ''
-    const tenho = new Set(j.cartas.filter(c => c.viva).map(c => c.c))
-    const frase = [el('b', { textContent: N(p.ator) }), ' diz ser ', nomeCarta(p.carta)]
-    const sub = `e vai ${p.acao === 'assassinar' ? 'te assassinar' : p.acao === 'extorquir' ? 'roubar 2 moedas suas' : 'olhar uma carta sua'}`
-    const bts = []
-    if (V.ab?.sobre === 'acao') bts.push(botao('Duvidar', () => manda({ op: 'duvida' }), 'cp-btn--lacre'))
-    const bl = p.acao === 'assassinar' ? ['condessa'] : p.acao === 'extorquir' ? ['capitao', V.op.inq ? 'inquisidor' : 'embaixador'] : []
-    for (const b of bl) bts.push(botao([el('img', { src: IMG(b), alt: '' }), `Sou ${sou(b)}`], () => manda({ op: 'alvo', tipo: 'bloqueia', carta: b }), 'cp-btn--bloq' + (tenho.has(b) ? ' tenho' : ''), tenho.has(b) ? 'Você tem essa carta' : 'Seria blefe'))
-    bts.push(botao('Aceitar', () => manda({ op: 'alvo', tipo: 'aceita' }), 'cp-btn--tinta'))
-    return montaBilhete(`alvo:${V.id}:${V.ab?.n || 0}:${f}`, p.ator, frase, sub, null, bts, '', p.carta)
+    return '' // o alvo decide pelo centro da mesa (poeAlega)
   }
 
-  /* ---------- a mão hesitando: quem passa o mouse em Duvidar ou num bloqueio aparece "pensando" para os outros ---------- */
-  const hesitas = new Map() // key → { on, ate }
-  let hesEnviado = null, hesTimer = 0
-  function hesita(on) {
-    if (!V || on === hesEnviado) return
-    hesEnviado = on
-    clearTimeout(hesTimer)
-    // um pouco de atraso para não piscar quando o mouse só passa por cima
-    hesTimer = setTimeout(() => ctx.send({ coup: { hes: { id: V.id, on } } }), on ? 180 : 0)
+  /* ---------- a alegação no centro da mesa ----------
+     A carta alegada (ou o bloqueio) aparece grande ao lado do tesouro, numa camada 2D por cima do plano 3D, sempre no mesmo
+     lugar. Clicar nela (ou tecla D) é duvidar; na Ajuda externa é "Sou o Duque". Durante a janela mínima (~3 s) o pavio
+     queima; o "Peraí!" congela a janela por até 8 s. O alvo decide aqui também (duvidar, bloquear, aceitar). */
+  const donoDe = ab => ab.sobre === 'bloq' ? ab.bloq?.key : ab.ator
+  const faseLivre = () => ['acao', 'alvo', 'troca'].includes(V.fase)
+  function podeDuvidar() {
+    const ab = V?.ab, j = eu()
+    if (!ab || !j || j.fora || !faseLivre() || ab.sobre === 'ajuda') return false
+    const d = donoDe(ab)
+    return !!d && d !== me.key
   }
-  function mostraHesita(k, on) {
-    if (on) hesitas.set(k, { on, ate: Date.now() + 5000 }); else hesitas.delete(k)
-    pintaHesita(k)
-    if (on) setTimeout(() => { if (hesitas.get(k)?.ate <= Date.now()) { hesitas.delete(k); pintaHesita(k) } }, 5100)
+  function duvidar() {
+    if (!podeDuvidar()) return
+    cancelaDuvida()
+    som('carimbo', 0, .6)
+    manda({ op: 'duvida' })
   }
-  function pintaHesita(k) {
-    const s = tela.querySelector(`.cp-assento[data-key="${CSS.escape(k)}"]`)
-    if (!s) return
-    const h = hesitas.get(k)
-    s.classList.toggle('hesita', !!h)
-    tela.querySelector(`.cp-hesita[data-key="${CSS.escape(k)}"]`)?.remove()
-    if (!h) return
-    // fora do plano 3D (senão some atrás da mesa): posição calculada pelo retrato
-    const r = noTela(s.querySelector('.cp-retrato') || s)
-    const chip = el('span', { className: 'cp-hesita', 'data-key': k, style: `left:${r.x}px;top:${r.y - r.h / 2}px` }, el('i'), el('i'), el('i'), el('b', { textContent: h.on === 'duvida' ? 'pensando em duvidar' : 'pensando em bloquear' }))
-    tela.append(chip)
+  let duvidando = null // "duvido" ouvido: 1 s para cancelar antes de mandar a dúvida
+  function cancelaDuvida() { if (duvidando) { clearTimeout(duvidando.id); duvidando = null } }
+  function poeAlega() {
+    tela.querySelector('.cp-alega')?.remove()
+    const ab = V.ab
+    if (duvidando && (!ab || duvidando.n !== ab.n || !podeDuvidar())) cancelaDuvida()
+    if (!ab || !faseLivre()) return
+    const dono = donoDe(ab)
+    if (!dono) return
+    const ajuda = ab.sobre === 'ajuda', bloq = ab.sobre === 'bloq', p = V.p, j = eu(), vivo = !!j && !j.fora
+    const c = ajuda ? 'duque' : bloq ? ab.bloq.carta : ab.carta
+    const duv = podeDuvidar(), blq = ajuda && vivo && dono !== me.key && faseLivre()
+    const alvo = vivo && V.fase === 'alvo' && p?.alvo === me.key && ab.sobre === 'acao'
+    const tv = ab.trava, esperando = V.fila === me.key, A = ACOES[ab.acao]
+    const o = ajuda ? 'Ajuda externa' : bloq ? `bloqueia ${A.nome}` : `${A.nome}${ab.alvo ? ` em ${N(ab.alvo)}` : ''}`
+    const sub = alvo ? `vai ${ab.acao === 'assassinar' ? 'te assassinar' : ab.acao === 'extorquir' ? 'roubar 2 moedas suas' : 'olhar uma carta sua'}` : ajuda ? 'quem for o Duque bloqueia' : o
+    const fala = ajuda ? `${N(dono)} ${dono === me.key ? 'pede' : 'pede'} Ajuda externa` : `${N(dono)} diz ser ${sou(c)}`
+    const cartaBt = el('button', { type: 'button', className: 'cp-alega__carta' + (duv || blq ? ' clicavel' : '') + (ajuda ? ' ajuda' : ''), disabled: !(duv || blq),
+      title: duv ? 'Clique para duvidar (tecla D)' : blq ? 'Diga que é o Duque e bloqueie: as moedas voltam' : '' },
+      carta(c, { aberta: true }), duv ? el('em', { className: 'cp-alega__rotulo', textContent: 'Duvido!' }) : blq ? el('em', { className: 'cp-alega__rotulo cp-alega__rotulo--bloq', textContent: 'Sou o Duque' }) : '')
+    cartaBt.addEventListener('click', e => { e.stopPropagation(); cartaBt.disabled = true; if (duv) duvidar(); else if (blq) { som('carimbo', 0, .6); manda({ op: 'bloqueiaAjuda' }) } })
+    const bts = []
+    if (duvidando) bts.push(el('span', { className: 'cp-alega__duv' }, 'Duvidando…'), botao('Cancelar', () => { cancelaDuvida(); vozLivre = Date.now() + 2500; render() }, 'cp-btn--tinta'))
+    else if (esperando) bts.push(el('small', { className: 'cp-alega__nota', textContent: alvo ? 'Sua resposta sai quando as moedas pousarem' : 'Sua jogada sai quando as moedas pousarem' }))
+    else if (alvo) {
+      bts.push(botao('Duvidar', duvidar, 'cp-btn--lacre'))
+      const tenho = new Set(j.cartas.filter(x => x.viva).map(x => x.c))
+      const bl = ab.acao === 'assassinar' ? ['condessa'] : ab.acao === 'extorquir' ? ['capitao', V.op.inq ? 'inquisidor' : 'embaixador'] : []
+      for (const b of bl) bts.push(botao([el('img', { src: IMG(b), alt: '' }), `Sou ${sou(b)}`], () => manda({ op: 'alvo', tipo: 'bloqueia', carta: b }), 'cp-btn--bloq' + (tenho.has(b) ? ' tenho' : ''), tenho.has(b) ? 'Você tem essa carta' : 'Seria blefe'))
+      bts.push(botao('Aceitar', () => manda({ op: 'alvo', tipo: 'aceita' }), 'cp-btn--tinta'))
+    } else if (tv?.key === me.key) bts.push(botao('Deixa', () => manda({ op: 'deixa' }), 'cp-btn--tinta', 'Aceitar e liberar a mesa'))
+    else if (vivo && dono !== me.key && !tv && !ab.perai?.includes(me.key)) bts.push(botao('Peraí!', () => manda({ op: 'perai' }), 'cp-btn--perai', 'Segura a jogada por até 8 s para você pensar (uma vez por alegação)'))
+    const pensa = tv ? el('div', { className: 'cp-alega__pensa' }, retrato(tv.key, N(tv.key)), el('b', { textContent: `${N(tv.key)} ${tv.key === me.key ? 'está' : 'está'} pensando` }), el('i', { className: 'cp-pavio cp-alega__pavio cp-alega__pavio--perai', 'data-fim': String(V.recebido + tv.resta), 'data-tot': String(PERAI_MS) }))
+      : ab.resta > 0 ? el('i', { className: 'cp-pavio cp-alega__pavio', 'data-fim': String(V.recebido + ab.resta), 'data-tot': String(JANELA_MS) }) : ''
+    const box = el('div', { className: 'cp-alega' + (bloq ? ' bloq' : '') + (ajuda ? ' ajuda' : '') + (novo(`al:${V.id}:${ab.n}`) ? ' entra' : ''), 'data-n': String(ab.n) },
+      el('div', { className: 'cp-alega__quem' }, retrato(dono, N(dono)), el('div', { className: 'cp-alega__txt' }, el('b', { textContent: fala }), el('small', { textContent: sub }))),
+      cartaBt, pensa, el('div', { className: 'cp-alega__bts' }, ...bts))
+    tela.append(box)
+    posAlega(box)
   }
-  // a alegação aberta: um botão "Duvido!" ao lado de quem alegou (ou "Sou o Duque" para bloquear a Ajuda), para todos,
-  // até a próxima pessoa agir. Quem clicar primeiro duvida. Não precisa responder nada: silêncio é aceitar.
-  function poeContesta() {
-    tela.querySelector('.cp-contesta')?.remove()
-    const ab = V.ab, j = eu()
-    if (!ab || !j || j.fora || !['acao', 'alvo', 'troca'].includes(V.fase)) return
-    const dono = ab.sobre === 'bloq' ? ab.bloq?.key : ab.ator
-    if (!dono || dono === me.key || (V.fase === 'alvo' && V.p?.alvo === me.key)) return
-    const ancora = tela.querySelector(`.cp-assento[data-key="${CSS.escape(dono)}"] .cp-retrato`)
-    if (!ancora) return
-    const r = noTela(ancora), dir = r.x < tela.clientWidth / 2
-    const ajuda = ab.sobre === 'ajuda', tipo = ajuda ? 'bloq' : 'duvida'
-    const bt = el('button', { type: 'button', className: 'cp-contesta' + (ajuda ? ' cp-contesta--bloq' : '') + (dir ? ' dir' : ' esq') + (novo(`ct:${V.id}:${ab.n}`) ? ' entra' : ''),
-      style: `left:${dir ? r.x + r.w / 2 + 12 : r.x - r.w / 2 - 12}px;top:${r.y + r.h * .9}px`, title: ajuda ? 'Diga que é o Duque e bloqueie: as moedas voltam' : 'Se for blefe, quem alegou perde uma carta. Se for verdade, quem perde é você' },
-      ...(ajuda ? [el('img', { src: IMG('duque'), alt: '' }), el('span', {}, el('b', { textContent: 'Sou o Duque' }), el('small', { textContent: 'bloqueio a Ajuda' }))]
-        : [el('span', {}, el('b', { textContent: 'Duvido!' }), el('small', { textContent: ab.sobre === 'bloq' ? 'do bloqueio' : `que é ${sou(ab.carta)}` }))]))
-    bt.addEventListener('pointerenter', () => hesita(tipo))
-    bt.addEventListener('pointerleave', () => hesita(null))
-    bt.addEventListener('click', e => { e.stopPropagation(); hesita(null); bt.disabled = true; som('carimbo', 0, .6); manda({ op: ajuda ? 'bloqueiaAjuda' : 'duvida' }) })
-    tela.append(bt)
+  // fica sempre no mesmo lugar: colada ao lado do tesouro, medida pelo meio da mesa (o plano 3D só serve de régua)
+  function posAlega(box) {
+    const ref = tela.querySelector('.cp-tesouro') || tela.querySelector('.cp-centro')
+    if (!ref || !box) return
+    const r = noTela(ref)
+    // ao lado direito do tesouro, no meio da mesa: não cobre os balões nem as fotos de cima
+    const w = box.offsetWidth || 0, h = box.offsetHeight || 0, mg = tela.clientWidth * .02
+    const x = Math.round(Math.min(r.x + r.w / 2 + tela.clientWidth * .025, tela.clientWidth - w - mg))
+    const y = Math.round(Math.max(mg + h / 2, Math.min(r.y, tela.clientHeight - h / 2 - mg)))
+    if (box.dataset.px !== `${x},${y}`) { box.dataset.px = `${x},${y}`; box.style.left = x + 'px'; box.style.top = y + 'px' }
+  }
+
+  /* ---------- "Duvido!" por voz (opção da mesa): escuta só enquanto dá para duvidar (Chrome) ---------- */
+  let rec = null, recQuer = false, vozLivre = 0, vozNegada = false
+  function voz() {
+    const quer = !!(V?.op?.voz && !vozNegada && podeDuvidar() && !ctx.mudo?.())
+    if (quer === recQuer) return
+    recQuer = quer
+    if (!quer) { try { rec?.stop() } catch {} return }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SR) { vozNegada = true; recQuer = false; return }
+    if (!rec) {
+      rec = new SR(); rec.lang = 'pt-BR'; rec.continuous = true; rec.interimResults = true
+      rec.onresult = e => {
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          const t = e.results[i][0].transcript.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+          if (/duvid/.test(t) && recQuer && !duvidando && Date.now() > vozLivre) return comecaDuvidaVoz()
+        }
+      }
+      rec.onend = () => { if (recQuer) setTimeout(() => { if (recQuer) try { rec.start() } catch {} }, 300) }
+      rec.onerror = e => { if (/not-allowed|service-not-allowed/.test(e.error)) { recQuer = false; rec = null; vozNegada = true } }
+    }
+    try { rec.start() } catch {}
+  }
+  function comecaDuvidaVoz() {
+    const n = V?.ab?.n
+    if (!n || !podeDuvidar()) return
+    vozLivre = Date.now() + 3500
+    duvidando = { n, id: setTimeout(() => { const d = duvidando; duvidando = null; if (d && V?.ab?.n === n && podeDuvidar()) duvidar(); else render() }, 1000) }
+    render()
   }
   function montaBilhete(id, k, frase, sub, tempo, bts, cls = '', c = null) {
-    for (const bt of bts) {
-      const tipo = bt.classList.contains('cp-btn--bloq') ? 'bloq' : bt.classList.contains('cp-btn--lacre') && /Duvidar/.test(bt.textContent) ? 'duvida' : null
-      if (!tipo) continue
-      bt.addEventListener('pointerenter', () => hesita(tipo))
-      bt.addEventListener('pointerleave', () => hesita(null))
-      bt.addEventListener('click', () => hesita(null))
-    }
     const entra = novo('b:' + id)
     if (entra) som('papel')
     const b = el('div', { className: `cp-bilhete ${cls}` + (entra ? ' entra' : '') },
@@ -993,7 +1103,7 @@ export function criaCoup(ctx) {
     if (!G) return
     const ant = new Set(G.js.map(j => j.key))
     G.conv = Object.fromEntries(ctx.presentes().map(k => [k, ant.has(k) || k === me.key ? 'sim' : '?']))
-    Object.assign(G, { id: Math.random().toString(36).slice(2, 9), fase: 'convite', js: [], deck: [], p: null, vencedor: null, log: [], ev: [], evN: 0 })
+    Object.assign(G, { id: Math.random().toString(36).slice(2, 9), fase: 'convite', js: [], deck: [], p: null, fila: null, ab: null, pa: null, vencedor: null, log: [], ev: [], evN: 0 })
     difunde()
   }
 
@@ -1027,11 +1137,13 @@ export function criaCoup(ctx) {
   const noTela = n => { const r = n.getBoundingClientRect(), t = tela.getBoundingClientRect(); return { x: r.left - t.left + r.width / 2, y: r.top - t.top + r.height / 2, w: r.width, h: r.height } }
   const pilhaDe = k => tela.querySelector(`.cp-pilha[data-moedas="${CSS.escape(k)}"]`)
   const lugarDe = k => tela.querySelector(`.cp-assento[data-key="${CSS.escape(k)}"]`) || (k === me.key ? tela.querySelector('.cp-eu') : null)
-  function voaMoedas(de, para, n, atraso = 0) {
+  function voaMoedas(de, para, n, atraso = 0, lento = false) {
     const a = pilhaDe(de), b = pilhaDe(para)
     if (!a || !b) return
     const A = noTela(a), B = noTela(b)
-    setTimeout(() => som(n >= 3 ? 'moedas' : 'moeda'), atraso)
+    if (!lento) setTimeout(() => som(n >= 3 ? 'moedas' : 'moeda'), atraso)
+    // lento: as moedas saem do tesouro ao longo da janela de ~3 s, uma a uma
+    const dur = lento ? 900 : 560, passo = lento ? (JANELA_MS - 1000) / Math.max(1, n - 1 || 1) : 85
     for (let i = 0; i < Math.min(n, 7); i++) {
       setTimeout(() => {
         const m = el('img', { className: 'cp-voa', src: IMG('moeda-prata'), alt: '' }); tela.append(m)
@@ -1040,8 +1152,9 @@ export function criaCoup(ctx) {
           { transform: `translate(${A.x}px,${A.y}px) translate(-50%,-50%) scale(.7) rotateY(0)`, opacity: 0 },
           { transform: `translate(${meio.x}px,${meio.y}px) translate(-50%,-50%) scale(1.05) rotateY(360deg)`, opacity: 1, offset: .5 },
           { transform: `translate(${B.x}px,${B.y}px) translate(-50%,-50%) scale(.8) rotateY(720deg)`, opacity: 1 }],
-        { duration: 560, easing: 'cubic-bezier(.45,.05,.3,1)' }).onfinish = () => { m.remove(); b.classList.remove('pula'); void b.offsetWidth; b.classList.add('pula') }
-      }, atraso + i * 85)
+        { duration: dur, easing: 'cubic-bezier(.45,.05,.3,1)' }).onfinish = () => { m.remove(); b.classList.remove('pula'); void b.offsetWidth; b.classList.add('pula') }
+        if (lento) som('moeda', 0, .8)
+      }, atraso + i * passo)
     }
   }
   function anima(evs) {
@@ -1049,9 +1162,11 @@ export function criaCoup(ctx) {
     for (const e of evs) {
       const at = t
       if (e.t === 'inicio') { distribui(); t += 2200 }
-      else if (e.t === 'moeda') { voaMoedas(e.de, e.para, e.qtd, at); t += 140 }
-      else if (e.t === 'declara') { som(e.carta ? 'poe' : 'clique', at); if (!e.carta && e.acao !== 'ajuda') falaRapida(e.key, FALA[e.acao](N(e.alvo)), at) }
-      else if (e.t === 'bloqueia') som('poe', at)
+      else if (e.t === 'moeda') { const lento = e.de === 'banco' && !!V?.ab && V.ab.sobre !== 'bloq' && V.ab.ator === e.para && ['taxar', 'ajuda'].includes(V.ab.acao) && e.qtd > 1; voaMoedas(e.de, e.para, e.qtd, at, lento); t += lento ? 0 : 140 }
+      else if (e.t === 'declara') { if (e.carta || e.acao === 'ajuda') somAlega(at); else som('clique', at); if (!e.carta && e.acao !== 'ajuda') falaRapida(e.key, FALA[e.acao](N(e.alvo)), at) }
+      else if (e.t === 'bloqueia') somAlega(at)
+      else if (e.t === 'perai') { som('tique', at, 1, .7); som('tique', at + 150, 1, .6) }
+      else if (e.t === 'filaCai') { if (e.key === me.key) toast('Sua jogada foi cancelada: a mesa mudou com a dúvida. Escolha de novo.', 3500) }
       else if (e.t === 'contesta') som('carimbo', at)
       else if (e.t === 'desiste') falaRapida(e.key, 'Deixa pra lá.', at)
       else if (e.t === 'prova') { revela(e, at); t += SUSPENSE + 1700 }
@@ -1064,6 +1179,8 @@ export function criaCoup(ctx) {
       else if (e.t === 'saiu') { toast(`${e.nome} saiu da mesa`, 3200); som('desliza', at) }
     }
   }
+  // som próprio de alegação (grave e diferente dos outros): carimbo lento + toque abafado, para chamar atenção sem ser agudo
+  function somAlega(at = 0) { som('carimbo', at, .75, .62); som('poe2', at + 170, .8, .7) }
   function falaRapida(k, txt, at = 0) {
     setTimeout(() => {
       const s = lugarDe(k); if (!s) return
@@ -1131,12 +1248,22 @@ export function criaCoup(ctx) {
         if (tm.classList.contains('cp-segs') && r > 0 && r <= 3000) { const sx = Math.ceil(r / 1000); if (tm.dataset.tic !== String(sx)) { tm.dataset.tic = String(sx); som('tique', 0, sx === 1 ? 1.25 : 1) } }
         if (tm.classList.contains('cp-segs')) { const sx = Math.ceil(r / 1000); const t = sx > 99 ? `${Math.floor(sx / 60)}:${String(sx % 60).padStart(2, '0')}` : `${sx}s`; if (tm.textContent !== t) tm.textContent = t }
       }
+      posAlega(tela.querySelector('.cp-alega'))
+      voz()
       const pres = new Set(ctx.presentes())
       for (const s of tela.querySelectorAll('.cp-assento[data-key], .cp-eu[data-key]')) { s.classList.toggle('fala', !!ctx.falando?.(s.dataset.key)); s.classList.toggle('caiu', !pres.has(s.dataset.key)) }
     }
     setTimeout(() => requestAnimationFrame(loop), 80)
   })()
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && roda) { roda = null; render() } })
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && roda) { roda = null; render() }
+    // D = duvidar (fora de campos de texto e só quando dá para duvidar)
+    if ((e.key === 'd' || e.key === 'D') && !e.ctrlKey && !e.metaKey && !e.altKey && !e.repeat && V && tela.offsetWidth && podeDuvidar()) {
+      const t = e.target
+      if (t?.closest?.('input,textarea,select,[contenteditable]') || t?.isContentEditable) return
+      e.preventDefault(); duvidar()
+    }
+  })
   // informação ao passar o mouse (moedas, Corte, cartas reveladas)
   const dica = el('div', { className: 'cp-info', hidden: true })
   tela.addEventListener('pointermove', e => {
@@ -1159,7 +1286,7 @@ export function criaCoup(ctx) {
     if (G) return toast('A mesa já está aberta')
     abrir(chamados)
   }
-  window.__coup = () => ({ G, V, render, difunde }) // diagnóstico/testes
+  window.__coup = () => ({ G, V, render, difunde, voz: comecaDuvidaVoz }) // diagnóstico/testes
   return {
     got: (d, k) => { carregaSons(); got(d, k) }, iniciar, ativo: () => !!V,
     // para o app: troca de jogo e mesas paralelas
