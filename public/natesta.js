@@ -68,7 +68,7 @@ export function criaNaTesta(ctx) {
     const quem = galera ? [] : sorteia(ks.length)
     // a galera escolhe: cada um escreve o nome que vai na testa do próximo da roda
     G.js = ks.map((k, i) => ({ key: k, nome: ctx.nomeDe(k), quem: galera ? null : quem[i].nomes, cat: galera ? 'galera' : quem[i].cat, porQuem: null,
-      escreve: galera ? ks[(i + 1) % ks.length] : null, cor: CORES[i % CORES.length], acertou: 0, desistiu: false, pontos: 0, hist: [], chutes: [] }))
+      escreve: galera ? ks[(i + 1) % ks.length] : null, cor: CORES[i % CORES.length], acertou: 0, desistiu: false, pontos: 0, hist: [], chutes: [], notas: [] }))
     G.vez = 0; G.acertos = 0; G.log = []
     sysMsg(`Na Testa começou: ${G.js.map(j => j.nome).join(', ')}`)
     if (galera) { G.fase = 'escolha'; ev({ t: 'escolha' }); return difunde() }
@@ -97,7 +97,15 @@ export function criaNaTesta(ctx) {
     faltam.forEach((j, i) => { j.quem = quem[i].nomes; j.cat = quem[i].cat; j.porQuem = null })
     comecaJogo()
   }
-  const novaPergunta = () => { G.perg = { n: (G.perg?.n || 0) + 1, resp: {} } }
+  const novaPergunta = () => { G.perg = { n: (G.perg?.n || 0) + 1, resp: {}, txt: '' } }
+  // quem pergunta pode escrever a pergunta: vai para o caderninho com a resposta da maioria
+  function anota(key, txt) {
+    const j = G.js[G.vez]
+    if (G.fase !== 'jogo' || !j || j.key !== key) return
+    G.perg.txt = String(txt || '').replace(/\s+/g, ' ').trim().slice(0, 90)
+    ev({ t: 'anotou', key })
+    difunde()
+  }
   // quem responde: todo mundo da mesa que está na sala, menos quem está perguntando
   const respondem = () => { const pres = new Set(ctx.presentes()); return G.js.filter(j => j.key !== G.js[G.vez]?.key && pres.has(j.key)).map(j => j.key) }
   function responde(key, r) {
@@ -115,6 +123,7 @@ export function criaNaTesta(ctx) {
     const res = n > s ? 'n' : s > n ? 's' : 't'
     const j = G.js[G.vez]
     j.hist.push(res)
+    ;(j.notas ||= []).push({ txt: G.perg.txt || '', res, s, nn: n })
     ev({ t: 'fechou', key: j.key, res, s, nn: n, tt: vs.length - s - n })
     novaPergunta()
     if (res === 'n') return passaVez()
@@ -133,6 +142,7 @@ export function criaNaTesta(ctx) {
       log(`${j.nome} era ${j.quem[0]} e acertou (${j.acertou}º).`)
     } else {
       j.hist.push('x')
+      ;(j.notas ||= []).push({ txt: `Sou ${txt}?`, res: 'x', chute: true })
       ev({ t: 'errou', key, txt })
       log(`${j.nome} chutou ${txt}. Não é.`)
     }
@@ -202,6 +212,7 @@ export function criaNaTesta(ctx) {
       case 'chuta': chuta(key, d.txt); break
       case 'desiste': desiste(key); break
       case 'escreve': escreve(key, d.txt); break
+      case 'anota': anota(key, d.txt); break
       case 'sorteiaFaltam': sorteiaFaltam(key); break
     }
   }
@@ -211,7 +222,7 @@ export function criaNaTesta(ctx) {
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: f, op: G.op, conv: G.conv,
       js: G.js.map(j => ({ key: j.key, nome: j.nome, cor: j.cor, cat: j.cat, quem: j.quem && (j.key !== k || feito(j) || f === 'fim') ? j.quem[0] : null,
-        escolhido: !!j.quem, escreve: j.escreve, porQuem: j.porQuem,
+        escolhido: !!j.quem, escreve: j.escreve, porQuem: j.porQuem, notas: (j.notas || []).slice(-40),
         acertou: j.acertou, desistiu: j.desistiu, pontos: j.pontos, hist: j.hist, chutes: j.chutes.slice(-3) })),
       vez: G.js[G.vez]?.key || null, perg: G.perg, vencedor: G.vencedor, log: G.log.slice(-30),
       // o nome no evento de acerto só vai para quem já pode ver
@@ -332,8 +343,8 @@ export function criaNaTesta(ctx) {
     tela.classList.toggle('nt--on', !!V)
     ctx.onAtivo?.(!!V)
     if (!V) { tela.replaceChildren(); return }
-    const ativo = document.activeElement?.matches?.('.nt-chute__in, .nt-escreve__in') ? document.activeElement : null
-    const qualIn = ativo?.classList.contains('nt-escreve__in') ? '.nt-escreve__in' : '.nt-chute__in'
+    const ativo = document.activeElement?.matches?.('.nt-chute__in, .nt-escreve__in, .nt-perg__in') ? document.activeElement : null
+    const qualIn = ativo?.classList.contains('nt-escreve__in') ? '.nt-escreve__in' : ativo?.classList.contains('nt-perg__in') ? '.nt-perg__in' : '.nt-chute__in'
     const sel = ativo && [ativo.selectionStart, ativo.selectionEnd]
     const topo = el('header', { className: 'nt-topo' },
       el('span', { className: 'nt-logo' }, el('b', { textContent: 'Na Testa' }), el('i', { textContent: '?' })),
@@ -393,6 +404,21 @@ export function criaNaTesta(ctx) {
   }
   // histórico de cada um: bolinhas de sim, não, talvez e chute errado
   const historico = j => el('span', { className: 'nt-hist' }, ...j.hist.slice(-10).map(r => el('i', { className: `nt-hist__${r}`, title: r === 'x' ? 'chute errado' : RESP[r] })))
+  // caderninho: as perguntas de quem está na vez, cada uma com o resultado marcado
+  let perguntaRascunho = ''
+  const MARCA = { s: ['✓', 'Sim'], n: ['✗', 'Não'], t: ['~', 'Talvez'], x: ['✗', 'Errou'] }
+  function caderno(j, meu) {
+    const notas = j?.notas || []
+    const atual = meu ? '' : V.perg?.txt
+    return el('aside', { className: 'nt-caderno' + (meu ? ' nt-caderno--meu' : '') },
+      el('b', { className: 'nt-caderno__t' }, j.key === me.key ? 'Suas perguntas' : `Perguntas de ${j.nome}`),
+      el('ol', { className: 'nt-caderno__lista' },
+        ...notas.map((x, i) => el('li', { className: `nt-nota nt-nota--${x.res}` + (x.chute ? ' chute' : '') + (i === notas.length - 1 && novo(`nota:${V.id}:${j.key}:${notas.length}`) ? ' entra' : ''), title: x.chute ? 'chute errado' : `${x.s ?? 0} sim · ${x.nn ?? 0} não` },
+          el('span', { className: 'nt-nota__txt', textContent: x.txt || `Pergunta ${i + 1} (falada)` }),
+          el('span', { className: 'nt-nota__res' }, el('i', { textContent: MARCA[x.res][0] }), MARCA[x.res][1]))),
+        meu ? (notas.length ? '' : el('li', { className: 'nt-nota nt-nota--agora' }, el('span', { className: 'nt-nota__txt', textContent: 'Nenhuma pergunta ainda' })))
+          : el('li', { className: 'nt-nota nt-nota--agora' }, el('span', { className: 'nt-nota__txt', textContent: atual || (j.key === me.key ? 'Escreva ou fale a próxima pergunta…' : 'Ouvindo a pergunta…') }), el('span', { className: 'nt-nota__res' }, el('i', { textContent: '…' })))))
+  }
   function mural() {
     const vezK = V.vez, vez = V.js.find(j => j.key === vezK), minhaVez = vezK === me.key
     const jogando = V.js.some(j => j.key === me.key)
@@ -415,12 +441,18 @@ export function criaNaTesta(ctx) {
       return el('span', { className: `nt-contagem__${r}` + (q ? ' tem' : '') }, el('b', { textContent: q }), RESP[r])
     }))
     if (minhaVez) {
+      // a pergunta escrita (opcional): aparece para quem responde e vai para o caderninho
+      const pin = el('input', { className: 'nt-perg__in nt-chute__in', placeholder: 'Escreva a pergunta (opcional): sou um bicho?', maxLength: 90, autocomplete: 'off', spellcheck: false, value: perguntaRascunho })
+      pin.addEventListener('input', () => { perguntaRascunho = pin.value })
+      const pform = el('form', { className: 'nt-chute nt-perg' }, pin, botao('Anotar', () => pform.requestSubmit(), 'nt-btn--leve'))
+      pform.addEventListener('submit', e => { e.preventDefault(); const t = pin.value.trim(); if (!t) return pin.focus(); perguntaRascunho = ''; manda({ op: 'anota', txt: t }) })
       const inp = el('input', { className: 'nt-chute__in', placeholder: 'Eu sou…', maxLength: 60, autocomplete: 'off', spellcheck: false, value: rascunho })
       inp.addEventListener('input', () => { rascunho = inp.value })
       const form = el('form', { className: 'nt-chute' }, inp, botao('Chutar', () => form.requestSubmit(), 'nt-btn--forte'))
       form.addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (!t) return inp.focus(); rascunho = ''; manda({ op: 'chuta', txt: t }) })
       acao = el('div', { className: 'nt-painel nt-painel--vez' + (novo(`vez:${V.id}:${vezK}:${vez?.hist.length}`) ? ' entra' : '') },
         el('p', { className: 'nt-painel__t' }, el('b', { textContent: 'Sua vez!' }), ' Pergunte em voz alta algo de sim ou não.'),
+        pform,
         contagem,
         el('div', { className: 'nt-linha' }, form,
           Object.keys(resp).length ? botao('Fechar resposta', () => manda({ op: 'fecha' }), 'nt-btn--leve', 'Conta as respostas que já vieram') : '',
@@ -429,10 +461,14 @@ export function criaNaTesta(ctx) {
       const minha = resp[me.key]
       acao = el('div', { className: 'nt-painel' },
         el('p', { className: 'nt-painel__t' }, retrato(vezK, 'nt-foto--mini'), el('span', {}, el('b', { textContent: N(vezK) }), ' pergunta. Responda pelo post-it ', el('b', { className: 'nt-painel__quem', textContent: vez?.quem || '???' }), ':')),
+        V.perg?.txt ? el('p', { className: 'nt-painel__perg' + (novo(`pq:${V.id}:${V.perg.n}:${V.perg.txt}`) ? ' entra' : ''), textContent: `“${V.perg.txt}”` }) : '',
         el('div', { className: 'nt-linha nt-respostas' }, ...['s', 'n', 't'].map(r => botao(RESP[r], () => manda({ op: 'r', r }), `nt-resp nt-resp--${r}` + (minha === r ? ' nt-on' : ''), r === 't' ? 'Mais ou menos / depende' : ''))),
         el('div', { className: 'nt-linha' }, contagem, souHost() && Object.keys(resp).length ? botao('Fechar resposta', () => manda({ op: 'fecha' }), 'nt-btn--leve') : ''))
     } else acao = el('div', { className: 'nt-painel' }, el('p', { className: 'nt-painel__t' }, 'Só assistindo: ', el('b', { textContent: N(vezK) }), ' está perguntando.'))
-    return el('div', { className: 'nt-mesa' }, cartoes, acao)
+    // ao lado: as perguntas de quem está na vez e, fora da sua vez, as suas (para lembrar o que já descobriu)
+    const meuJ = V.js.find(j => j.key === me.key)
+    const cadernos = el('div', { className: 'nt-cadernos' }, vez ? caderno(vez) : '', meuJ && !minhaVez && !meuJ.acertou && !meuJ.desistiu ? caderno(meuJ, true) : '')
+    return el('div', { className: 'nt-mesa' }, el('div', { className: 'nt-palco' }, cartoes, cadernos), acao)
   }
   // a galera escolhe: cada um escreve, em segredo, o post-it do vizinho
   let escrito = ''
@@ -477,6 +513,7 @@ export function criaNaTesta(ctx) {
       else if (e.t === 'resp') som('poe', 0, .6)
       else if (e.t === 'escolha') som('papel')
       else if (e.t === 'escreveu') som('papel', 0, .7)
+      else if (e.t === 'anotou') som('papel', 0, .5)
       else if (e.t === 'fechou') { som(e.res === 'n' ? 'desliza' : 'tique'); if (e.key === me.key) toast(e.res === 'n' ? `Maioria disse NÃO (${e.nn}×${e.s}). A vez passa.` : e.res === 's' ? `Maioria disse SIM (${e.s}×${e.nn}). Pergunte de novo!` : 'Empatou. Pergunte de novo!', 2600) }
       else if (e.t === 'acertou') { som('carimbo'); som('leque', 250); toast(e.key === me.key ? `Acertou! Você era ${e.quem}. +${e.pts}` : `${N(e.key)} acertou: era ${e.quem}! +${e.pts}`, 3200); tela.querySelector(`.nt-cartao[data-key="${e.key}"] .nt-postit`)?.classList.add('carimba') }
       else if (e.t === 'errou') { som('desliza'); toast(`${N(e.key)} chutou "${e.txt}". Não é!`, 2600); tela.querySelector(`.nt-cartao[data-key="${e.key}"]`)?.classList.add('treme') }
