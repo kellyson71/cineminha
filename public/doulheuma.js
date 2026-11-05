@@ -20,6 +20,10 @@ const TIPOS = {
 const PENSA_MS = 25000, VEZ_MS = 45000
 const MODOS_LOTE = [['variado', 'Variados'], ['calma', 'Sem relógio'], ['relogio', 'Com relógio']]
 const tempoLista = qtd => (8 + qtd * 4) * 1000
+// temas que este navegador já viu (para o sorteio não repetir entre partidas)
+const VISTOS_MAX = 600
+const meusVistos = () => { const v = ls.get('du.vistos'); return Array.isArray(v) ? v.filter(x => typeof x === 'string') : [] }
+const guardaVisto = txt => { if (!txt) return; const v = meusVistos().filter(x => x !== txt); v.push(txt); ls.set('du.vistos', v.slice(-VISTOS_MAX)) }
 
 const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n }
 const embaralha = a => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]] } return a }
@@ -52,7 +56,7 @@ export function criaDouLheUma(ctx) {
       op: { meta: METAS.some(([m]) => m === op.meta) ? op.meta : 10, grupos: Array.isArray(op.grupos) && op.grupos.length ? op.grupos.filter(g => GRUPOS[g]) : Object.keys(GRUPOS),
         nivel: [1, 2, 3].includes(op.nivel) ? op.nivel : 1, lotes: MODOS_LOTE.some(([m]) => m === op.lotes) ? op.lotes : 'variado' },
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
-      js: [], abre: 0, lote: 0, tema: null, opcoes: null, tipo: 'calma', usados: [], lei: null, lista: null, res: null, vencedor: null,
+      js: [], abre: 0, lote: 0, tema: null, opcoes: null, tipo: 'calma', usados: [], vistos: meusVistos(), lei: null, lista: null, res: null, vencedor: null,
       log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
     sysMsg(`${me.name} abriu uma mesa de Dou-lhe Uma`)
     difunde()
@@ -74,10 +78,13 @@ export function criaDouLheUma(ctx) {
   function sorteiaTema() {
     let ok = TEMAS.map((t, i) => [t, i]).filter(([t]) => G.op.grupos.includes(t[0]) && t[2] <= (G.op.nivel || 1))
     if (ok.length < 6) ok = TEMAS.map((t, i) => [t, i]).filter(([t]) => t[2] <= (G.op.nivel || 1)) // poucos temas nesses assuntos: usa todos do nível
-    let livres = ok.filter(([, i]) => !G.usados.includes(i))
+    // primeiro os que ninguém da mesa viu; acabando, os que só saíram em outras partidas; por fim, tudo de novo
+    const vistos = new Set(G.vistos || [])
+    let livres = ok.filter(([t, i]) => !G.usados.includes(i) && !vistos.has(t[1]))
+    if (livres.length < 3) livres = ok.filter(([, i]) => !G.usados.includes(i))
     if (!livres.length) { G.usados = []; livres = ok }
     const [t, i] = livres[rnd(livres.length)]
-    G.usados.push(i)
+    G.usados.push(i); (G.vistos ||= []).push(t[1])
     return { grupo: t[0], txt: t[1], nivel: t[2] }
   }
   const tresTemas = () => [sorteiaTema(), sorteiaTema(), sorteiaTema()]
@@ -239,7 +246,12 @@ export function criaDouLheUma(ctx) {
   function hostRecebe(d, key) {
     if (!G || !key || d.id !== G.id) return
     switch (d.op) {
-      case 'resp': if (G.fase === 'convite') { G.conv[key] = d.sim ? 'sim' : 'nao'; difunde() } break
+      case 'resp': if (G.fase === 'convite') {
+        G.conv[key] = d.sim ? 'sim' : 'nao'
+        // junta os temas que essa pessoa já jogou em outras partidas
+        if (d.sim && Array.isArray(d.vistos)) G.vistos = [...new Set([...(G.vistos || []), ...d.vistos.filter(x => typeof x === 'string').slice(-VISTOS_MAX)])].slice(-VISTOS_MAX * 3)
+        difunde()
+      } break
       case 'sai': if (key !== G.host) remove(key); break
       case 'lance': daLance(key, d.qtd); break
       case 'passa': passa(key); break
@@ -352,6 +364,7 @@ export function criaDouLheUma(ctx) {
     const antes = V
     if (v && (!antes || antes.id !== v.id)) ultEv = Math.max(0, ...v.ev.map(e => e.n))
     V = v
+    if (v?.tema && (v.fase === 'lance' || v.fase === 'lista')) guardaVisto(v.tema.txt)
     const evs = v ? v.ev.filter(e => e.n > ultEv) : []
     if (v) ultEv = Math.max(ultEv, ...v.ev.map(e => e.n))
     anima(evs)
@@ -455,7 +468,7 @@ export function criaDouLheUma(ctx) {
     if (novo('conv:' + V.id)) som('papel')
     return el('div', { className: 'du-bilhete' },
       el('div', { className: 'du-linha' }, retrato(V.host), el('span', {}, el('b', { textContent: V.hostNome }), ' chamou você para o Dou-lhe Uma')),
-      el('div', { className: 'du-linha' }, botao('Jogar', () => manda({ op: 'resp', sim: true }), 'du-btn--forte'), botao('Só assistir', () => manda({ op: 'resp', sim: false }), 'du-btn--leve')))
+      el('div', { className: 'du-linha' }, botao('Jogar', () => manda({ op: 'resp', sim: true, vistos: meusVistos() }), 'du-btn--forte'), botao('Só assistir', () => manda({ op: 'resp', sim: false }), 'du-btn--leve')))
   }
 
   // a placa do lote: o tema em destaque
