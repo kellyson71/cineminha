@@ -8,7 +8,7 @@ const MODOS = {
   coletivo: { nome: 'Cooperativo', ic: 'users', dica: 'Todo mundo ouve o mesmo. Qualquer erro ou pulo abre o próximo instrumento para todos.' },
   individual: { nome: 'Cada um', ic: 'user', dica: 'Cada um no seu ritmo, vendo quem já acertou.' },
   cegas: { nome: 'Às cegas', ic: 'eye-off', dica: 'Cada um no seu ritmo, sem saber dos outros até a revelação.' },
-  leilao: { nome: 'Leilão', ic: 'megaphone', novo: true, dica: 'Dê um lance: com quantos instrumentos você acerta? Quem arrisca menos tenta, com um palpite só.' },
+  leilao: { nome: 'Leilão', ic: 'gavel', novo: true, dica: 'Dê um lance: com quantos instrumentos você acerta? Quem arrisca menos tenta, com um palpite só. Sem relógio.' },
   corrida: { nome: 'Corrida', ic: 'zap', novo: true, dica: 'Uma camada nova a cada 8 s para todos. Quem acerta primeiro leva mais pontos.' },
   ano: { nome: 'Que ano é?', ic: 'clock', novo: true, dica: 'Ouça a música inteira e chute o ano de lançamento. Quanto mais perto, mais pontos.' },
 }
@@ -19,7 +19,7 @@ const anoReal = m => { const a = Number(m?.ano); return Number.isInteger(a) && a
 const ptsAno = dif => dif === 0 ? 5 : dif <= 1 ? 4 : dif <= 2 ? 3 : dif <= 5 ? 2 : dif <= 10 ? 1 : 0
 const PTS_CORRIDA = [5, 3, 2]
 const ptsOrdem = pos => PTS_CORRIDA[pos] ?? 1 // pos = quantos já acertaram antes
-const CAMADA_MS = 8000, ULTIMA_MS = 10000, TRAVA_MS = 2000, LANCE_MS = 30000, PALPITE_MS = 45000, ANO_MS = 60000
+const CAMADA_MS = 8000, ULTIMA_MS = 10000, TRAVA_MS = 2000, ANO_MS = 60000
 // categorias: etiquetas da Deezer (generos, pais, ano) + do catálogo classificado pelo Antigravity (tg: generos, vibes, fama)
 const GEN = (m, ...gs) => [...(m.generos || []), ...(m.tg?.generos || [])].some(g => gs.some(x => g.toLowerCase().includes(x)))
 const VIBE = (m, ...vs) => (m.tg?.vibes || []).some(v => vs.includes(v))
@@ -265,7 +265,6 @@ export function criaFaixa(ctx) {
     if (!ks.length) ks.push(me.key)
     const r = S.i % ks.length, ordem = [...ks.slice(r), ...ks.slice(0, r)]
     S.lei = { fase: 'lance', ordem, ativos: [...ordem], vez: ordem[0], lance: null, hist: [], ouvinte: null, n: 0, chute: '', res: null }
-    defPrazo(LANCE_MS, leiTempoVez)
   }
   function leiAcao(d, k) {
     const L = S.lei
@@ -287,16 +286,25 @@ export function criaFaixa(ctx) {
     const L = S.lei, o = L.ordem, i = o.indexOf(de)
     for (let s2 = 1; s2 <= o.length; s2++) {
       const c = o[(i + s2) % o.length]
-      if (L.ativos.includes(c) && c !== L.lance?.key) { L.vez = c; defPrazo(LANCE_MS, leiTempoVez); return manda() }
+      if (L.ativos.includes(c) && c !== L.lance?.key) { L.vez = c; return manda() }
     }
     if (L.lance) return leiFecha()
     revelar()
   }
+  // leilão sem relógio: cada um pensa no seu tempo. Só se a pessoa da vez sair da sala por 10 s o jogo segue sem ela
+  // (e o host pode pular a vez de quem estiver demorando)
+  let ausLei = { k: '', desde: 0 }
+  setInterval(() => {
+    if (!ehHost() || S?.modo !== 'leilao' || S.fase !== 'tocando' || !S.lei) return
+    const L = S.lei, k = L.fase === 'lance' ? L.vez : L.fase === 'ouve' ? L.ouvinte : ''
+    if (!k || k === me.key || ctx.presentes().includes(k)) { ausLei = { k: '', desde: 0 }; return }
+    if (ausLei.k !== k) ausLei = { k, desde: Date.now() }
+    else if (Date.now() - ausLei.desde > 10000) { ausLei = { k: '', desde: 0 }; L.fase === 'lance' ? leiTempoVez() : leiFim('tempo') }
+  }, 1000)
   const leiTempoVez = () => { const L = S.lei; if (!L || L.fase !== 'lance') return; L.ativos.length === 1 && !L.lance ? leiAcao({ lance: maxLance() }, L.vez) : leiAcao({ passa: true }, L.vez) }
   function leiFecha() {
     const L = S.lei
     L.fase = 'ouve'; L.ouvinte = L.lance.key; L.n = L.lance.n; L.vez = null
-    defPrazo(PALPITE_MS, () => leiFim('tempo'))
     manda()
   }
   function leiChute(d, k, j) {
@@ -690,41 +698,59 @@ export function criaFaixa(ctx) {
     }))
   }
 
-  /* ---------- leilão ---------- */
+  /* ---------- leilão: sem relógio; plaquinhas, martelo e o lote (os instrumentos) que está valendo ---------- */
+  const vistos = new Set() // animações que só tocam uma vez (a tela é refeita a cada mudança)
+  const novo = k => vistos.has(k) ? false : (vistos.add(k), true)
+  const instrumentos = n => el('span', { className: 'fx-instr' }, ...passos().filter(p => !p.dica).slice(0, n).map((p, i) => { const x = iconeDe(p.tipo, false); x.style.setProperty('--i', i); x.title = p.nome; return x }))
+  const pontinhos = () => el('span', { className: 'fx-pontinhos' }, el('i'), el('i'), el('i'))
   function rodadaLeilao(m) {
     const L = S.lei, ouvindo = L.fase === 'ouve', euOuvinte = L.ouvinte === me.key
+    const Nome = k => k === me.key ? 'Você' : S.jog[k]?.nome || '?'
     const nomeDe = k => k === me.key ? 'você' : S.jog[k]?.nome || '?'
-    const ult = {}; for (const h of L.hist) ult[h.k] = h.n
+    const inst = n => `${n} instrumento${n > 1 ? 's' : ''}`
+    const base = `${S.id}:${S.i}`
+    const ult = {}; L.hist.forEach((h, i) => { ult[h.k] = { n: h.n, i } })
+    // a mesa: cada um com a plaquinha do último lance (sobe quando é novo) ou o carimbo de "passou"
     const mesa = el('ul', { className: 'fx-mesa' }, ...L.ordem.map(k => {
-      const passou = !L.ativos.includes(k), vez = !ouvindo && L.vez === k, tem = L.lance?.key === k
-      const st = L.ouvinte === k ? `vai tentar com ${L.n}` : tem ? 'tem o lance' : passou ? 'passou' : vez ? 'dando o lance…' : ult[k] ? `disse ${ult[k]}` : 'esperando a vez'
-      return el('li', { className: 'fx-mesa__it' + (vez ? ' vez' : '') + (tem ? ' tem' : '') + (passou && !tem ? ' passou' : '') },
-        ctx.pfp(k, 34), el('span', {}, el('b', { textContent: k === me.key ? 'Você' : S.jog[k]?.nome }), el('small', { textContent: st })),
-        tem ? el('strong', { className: 'fx-mesa__n', textContent: L.lance.n, title: 'instrumentos' }) : '')
+      const passou = !L.ativos.includes(k), vez = !ouvindo && L.vez === k, tem = L.lance?.key === k, ouv = L.ouvinte === k, u = ult[k]
+      const st = ouv ? (euOuvinte ? 'sua vez de chutar' : 'vai chutar') : tem ? 'menor lance' : passou ? 'fora deste leilão' : vez ? 'pensando' : u ? `disse ${u.n}` : 'esperando a vez'
+      const placa = u?.n ? el('span', { className: 'fx-placa' + (tem ? ' top' : '') + (novo(`${base}:p${u.i}`) ? ' entra' : '') }, el('b', { textContent: u.n }))
+        : passou ? el('span', { className: 'fx-carimbo' + (novo(`${base}:x:${k}`) ? ' entra' : ''), textContent: 'passou' }) : ''
+      return el('li', { className: 'fx-mesa__it' + (vez ? ' vez' : '') + (tem ? ' tem' : '') + (passou && !tem ? ' passou' : '') + (ouv ? ' ouv' : '') + (k === me.key ? ' eu' : '') },
+        ctx.pfp(k, 40), el('span', { className: 'fx-mesa__txt' }, el('b', { textContent: Nome(k) }), el('small', {}, st, vez || ouv ? pontinhos() : '')), placa)
     }))
-    const destaque = el('div', { className: 'fx-lei' + (ouvindo ? ' ouve' : '') },
-      el('small', { className: 'fx-kicker', textContent: ouvindo ? 'Palpite único' : 'Leilão' }),
-      el('b', { textContent: ouvindo ? (euOuvinte ? `Sua vez: acerte com ${L.n} instrumento${L.n > 1 ? 's' : ''}` : `${nomeDe(L.ouvinte)} tenta com ${L.n} instrumento${L.n > 1 ? 's' : ''}`) : L.lance ? `Menor lance: ${L.lance.n} (${nomeDe(L.lance.key)})` : 'Com quantos instrumentos você acerta?' }),
-      el('small', { textContent: ouvindo ? `Acertando: +${6 - L.n}. Errando: todo mundo ganha 1.` : 'Cada lance tem que ser menor que o anterior. Quem arrisca menos tenta.' }))
+    // o histórico do leilão, em ordem
+    const hist = L.hist.length ? el('ol', { className: 'fx-lances' }, ...L.hist.map((h, i) => el('li', { className: (h.n ? '' : 'passou') + (novo(`${base}:h${i}`) ? ' entra' : '') }, ctx.pfp(h.k, 18), el('span', { textContent: h.n ? `${h.n}` : 'passou' })))) : ''
+    const vendido = ouvindo && novo(`${base}:vendido`)
+    const destaque = el('div', { className: 'fx-lei fx-lei--leilao' + (ouvindo ? ' ouve' : '') },
+      el('span', { className: 'fx-martelo' + (vendido ? ' bate' : '') }, icon('gavel')),
+      el('div', { className: 'fx-lei__txt' },
+        el('small', { className: 'fx-kicker', textContent: ouvindo ? 'Vendido!' : 'Leilão' }),
+        el('b', { textContent: ouvindo ? (euOuvinte ? `Sua vez: acerte com ${inst(L.n)}` : `${Nome(L.ouvinte)} tenta com ${inst(L.n)}`) : L.lance ? `Menor lance: ${L.lance.n} (${nomeDe(L.lance.key)})` : 'Com quantos instrumentos você acerta?' }),
+        el('small', { textContent: ouvindo ? `Acertando: +${6 - L.n}. Errando: todo mundo ganha 1.` : 'Cada lance tem que ser menor que o anterior. Quem arrisca menos tenta, com um palpite só. Sem pressa: ninguém tem relógio.' })),
+      L.lance ? el('div', { className: 'fx-lote' }, el('small', { textContent: ouvindo ? 'no lote' : 'lote atual' }), instrumentos(L.lance.n)) : '',
+      vendido ? el('span', { className: 'fx-vendido', textContent: 'Vendido!' }) : '')
     if (!ouvindo) {
       let ctl
       if (L.vez === me.key) {
         const max = L.lance ? L.lance.n - 1 : maxLance()
         const podePassar = !(L.ativos.length === 1 && !L.lance)
-        ctl = el('div', { className: 'fx-lance' }, el('small', { className: 'fx-kicker', textContent: 'É a sua vez' }),
-          el('div', { className: 'fx-lance__bt' }, ...Array.from({ length: max }, (_, i) => max - i).map(n => {
-            const b = el('button', { type: 'button', className: 'fx-lance__btn', title: `Acerto com ${n}`, onclick: () => envia({ lance: n }) }, el('b', { textContent: n }), el('small', { textContent: `Eu acerto com ${n}` }), el('em', { textContent: `+${6 - n}` })); return b
-          })),
-          podePassar ? botao('hand', L.lance ? 'Passo' : 'Vai você', () => envia({ passa: true }), 'fx-btn--pular', 'Sai do leilão desta música') : el('small', { textContent: 'Todos passaram: você precisa dar um lance.' }))
-      } else ctl = el('div', { className: 'fx-status', textContent: `Vez de ${nomeDe(L.vez)} dar o lance…` })
-      return el('section', { className: 'fx-jogo fx-jogo--lei' }, destaque, relogio('Tempo do lance'), mesa, ctl)
+        ctl = el('div', { className: 'fx-lance' + (novo(`${base}:vez${L.hist.length}`) ? ' entra' : '') }, el('small', { className: 'fx-kicker', textContent: 'É a sua vez' }),
+          el('div', { className: 'fx-lance__bt' }, ...Array.from({ length: max }, (_, i) => max - i).map((n, i) =>
+            el('button', { type: 'button', className: 'fx-lance__btn', style: `--d:${i * 60}ms`, title: `Eu acerto com ${inst(n)}`, onclick: () => envia({ lance: n }) },
+              el('b', { textContent: n }), el('span', { className: 'fx-lance__info' }, el('small', { textContent: `Acerto com ${inst(n)}` }), instrumentos(n)), el('em', { textContent: `+${6 - n}` })))),
+          podePassar ? botao('hand', L.lance ? 'Passo' : 'Vai você', () => envia({ passa: true }), 'fx-btn--pular', 'Sai do leilão desta música') : el('small', { className: 'fx-nota', textContent: 'Todos passaram: você precisa dar um lance.' }))
+      } else ctl = el('div', { className: 'fx-status fx-status--vez' }, ctx.pfp(L.vez, 24), el('span', { textContent: `Vez de ${nomeDe(L.vez)} dar o lance` }), pontinhos(),
+        ehHost() ? botao('skip-forward', 'Pular a vez', () => leiTempoVez(), 'fx-lei__pula', `Passa a vez de ${nomeDe(L.vez)}`) : '')
+      return el('section', { className: 'fx-jogo fx-jogo--lei' }, destaque, mesa, hist, ctl)
     }
     const ps = passos()
     const topo = euOuvinte ? el('div', { className: 'fx-chute' },
       el('div', { className: 'fx-vale' }, el('small', { textContent: 'vale' }), el('b', { textContent: 6 - L.n }), el('small', { textContent: 'pts' })), chute.form,
       botao('flag', 'Desistir', () => chuta({ tipo: 'pular' }), 'fx-btn--pular', 'Conta como erro'))
-      : el('div', { className: 'fx-status' }, icon('ear'), el('span', { textContent: `Ouvindo ${L.n} camada${L.n > 1 ? 's' : ''}. Esperando o palpite de ${nomeDe(L.ouvinte)}…` }))
-    return el('section', { className: 'fx-jogo fx-jogo--lei' }, destaque, relogio('Tempo do palpite'), topo, filmeSimples(m, Math.min(L.n, ps.length), true), playerEl())
+      : el('div', { className: 'fx-status fx-status--vez' }, ctx.pfp(L.ouvinte, 24), el('span', { textContent: `${Nome(L.ouvinte)} está ouvindo ${L.n} camada${L.n > 1 ? 's' : ''} e vai chutar` }), pontinhos(),
+        ehHost() ? botao('skip-forward', 'Encerrar', () => leiFim('tempo'), 'fx-lei__pula', `Encerra sem o palpite de ${nomeDe(L.ouvinte)}`) : '')
+    return el('section', { className: 'fx-jogo fx-jogo--lei' }, destaque, mesa, topo, filmeSimples(m, Math.min(L.n, ps.length), true), playerEl())
   }
 
   /* ---------- que ano é? ---------- */
@@ -775,7 +801,7 @@ export function criaFaixa(ctx) {
     const txtDe = (k, j) => {
       if (S.modo === 'leilao') {
         if (!L?.ouvinte) return 'ninguém arriscou'
-        if (L.ouvinte === k) return L.res === 'ok' ? `acertou com ${L.n} instrumento${L.n > 1 ? 's' : ''}` : L.res === 'art' ? `só o artista (lance ${L.n})` : L.res === 'tempo' ? 'o tempo acabou' : `errou${L.chute ? `: ${L.chute}` : ''}`
+        if (L.ouvinte === k) return L.res === 'ok' ? `acertou com ${L.n} instrumento${L.n > 1 ? 's' : ''}` : L.res === 'art' ? `só o artista (lance ${L.n})` : L.res === 'tempo' ? 'não chutou' : `errou${L.chute ? `: ${L.chute}` : ''}`
         return L.res === 'ok' ? 'não levou' : L.ordem.includes(k) ? 'ponto pelo erro' : 'assistiu'
       }
       if (S.modo === 'ano') return j.trav ? `chutou ${j.ano}` : 'não chutou'
@@ -1003,9 +1029,11 @@ export function criaFaixa(ctx) {
     abrirLobby()
   }
 
+  // só para o admin (painel Admin nas configurações): a música que está tocando agora
+  const resposta = () => { const m = musica(); return S && m && S.fase !== 'fim' ? { t: m.t, a: m.a, ano: m.ano || '', i: S.i + 1, n: S.musicas.length } : null }
   window.__faixa = () => ({ S, resp: musica()?.t, artista: musica()?.a }) // diagnóstico/testes
   return {
-    got, iniciar, interceptaChat: () => false, ativo: () => !!S, volumes,
+    got, iniciar, interceptaChat: () => false, ativo: () => !!S, volumes, resposta,
     onPeerJoin: id => { if (ehHost()) { carimbaPrazo(); ctx.send({ estado: S }, id) } if (menuAtual) ctx.send({ menu: menuAtual }, id) },
     entrouAlguem: (key, nome) => {
       if (!ehHost() || S.fase === 'fim' || S.jog[key]) return

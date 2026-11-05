@@ -3258,8 +3258,15 @@ $('#btnSettings').addEventListener('click', () => {
   closePops(open ? p : null)
   p.hidden = !open
   $('#btnSettings').setAttribute('aria-expanded', String(open))
-  if (open) { listDevices(); renderSetPrefs() }
+  if (open) { listDevices(); renderSetPrefs(); admFaixa() }
 })
+// admin: a resposta do Faixa a Faixa que está tocando (borrada até passar o mouse); atualiza enquanto o painel está aberto
+function admFaixa() {
+  const box = $('#admFaixa'), r = !$('#admTools').hidden && faixa?.resposta?.()
+  box.hidden = !r
+  if (r) { $('#admFaixaRot').textContent = `Faixa a Faixa · música ${r.i}/${r.n}`; $('#admFaixaResp').textContent = `${r.t} — ${r.a}${r.ano ? ` (${r.ano})` : ''}` }
+}
+setInterval(() => { if (!$('#settings').hidden) admFaixa() }, 1000)
 // Preferências rápidas no menu de configurações (as mesmas do mixer e da conta, sempre sincronizadas)
 function setToggle(texto, dica, get, set) {
   const cb = el('input', { type: 'checkbox', checked: !!get() })

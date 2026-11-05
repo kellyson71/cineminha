@@ -2056,3 +2056,10 @@ html.voltando .volta, .volta.show { display: flex; }
 .seat__dig--txt span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .seat__dig--txt u { flex: none; width: 1.5px; height: 1em; background: #17151a; text-decoration: none; animation: fxCursor 1s steps(1) infinite; }
 @keyframes fxCursor { 50% { opacity: 0; } }
+/* admin: resposta do Faixa a Faixa (borrada até passar o mouse ou tocar) */
+.adm-faixa { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding: 8px 10px; border-radius: 10px; border: 1px dashed rgba(255,225,74,.45); background: rgba(255,225,74,.06); cursor: default; }
+.adm-faixa svg { flex: none; width: 18px; height: 18px; color: #ffe14a; }
+.adm-faixa span { display: flex; flex-direction: column; min-width: 0; }
+.adm-faixa small { font-size: .7rem; color: var(--fg-faint); }
+.adm-faixa b { font-size: .88rem; filter: blur(6px); transition: filter .2s; user-select: none; overflow-wrap: anywhere; }
+.adm-faixa:hover b, .adm-faixa:focus-within b, .adm-faixa:active b { filter: none; user-select: text; }
