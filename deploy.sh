@@ -1,6 +1,6 @@
 #!/bin/sh
 # Publica em produção pelo git: a Vercel faz o deploy sozinha a cada push na main.
-# A sala recarrega só quando o código do app muda: o build (vercel.json) grava em public/version.json o hash dos
+# A sala recarrega só quando o código do app muda: o build (scripts/versao.sh) grava em public/version.json o hash dos
 # .js/.html ("v": recarrega) e o dos .css ("c": o estilo é trocado na hora, sem derrubar ninguém).
 # Dados novos não derrubam ninguém. O build não enxerga tools/ (.vercelignore).
 #   ./deploy.sh "mensagem"   commita tudo e publica
