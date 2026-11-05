@@ -30727,6 +30727,56 @@
    "pais": "CA",
    "decada": 2000,
    "tags_ok": true
+  },
+  {
+   "id": "paramore-misery-business",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Misery Business",
+   "a": "Paramore",
+   "album": "Riot!",
+   "ano": 2007,
+   "dz": {
+    "t": 3829140,
+    "a": 10977
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 774791,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
   }
  ]
 }
