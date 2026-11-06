@@ -112,7 +112,8 @@ async function framesDe(url) {
   const html = await cacheTxt('p-' + hash(url) + '.html', url)
   if (!html) return null
   const ano = +(html.match(/Year: <a[^>]*>(\d{4})</)?.[1] || 0)
-  let imgs = [...html.matchAll(/https:\/\/film-grab\.com\/wp-content\/uploads\/photo-gallery\/[^"'\s)]+?\.(?:jpg|jpeg|png)/gi)].map(m => m[0])
+  // nomes com espaço e parênteses ("01 (829).jpg") nos posts antigos: aceita e codifica a URL
+  let imgs = [...html.matchAll(/https:\/\/film-grab\.com\/wp-content\/uploads\/photo-gallery\/[^"'<>\n]+?\.(?:jpg|jpeg|png)/gi)].map(m => encodeURI(m[0]))
   imgs = [...new Set(imgs.filter(u => !/thumb|-\d+x\d+\./i.test(u)))]
   return { ano, imgs }
 }
@@ -128,12 +129,19 @@ const webp = (ent, sai) => new Promise((ok, err) => execFile('magick', [ent, '-r
 
 /* ---------- 3. junta tudo ---------- */
 const wdFamosos = await wikidata('FILTER(?links >= 35)'), wdBr = await wikidata('?item wdt:P495 wd:Q155. FILTER(?links >= 12)')
-const TITULOS = await titulosWiki([...wdFamosos, ...wdBr].map(w => w.ptwiki))
+// filmes que a turma já viu (diário e calls do site): entram primeiro, mesmo se não forem tão famosos,
+// para a categoria "Nossas sessões" do jogo ter o que mostrar
+const SITE = process.env.CINE_SITE || 'https://cineminha-boo.vercel.app'
+const vistos = new Set((await fetch(SITE + '/api/sessoes?vistos=1').then(r => r.json()).catch(() => ({})))?.imdb || [])
+const wdVistos = vistos.size ? await wikidata(`VALUES ?imdb { ${[...vistos].map(i => `"${i}"`).join(' ')} }`) : []
+console.log(`já vistos pela turma: ${vistos.size} (${wdVistos.length} no Wikidata)`)
+const TITULOS = await titulosWiki([...wdFamosos, ...wdBr, ...wdVistos].map(w => w.ptwiki))
 console.log(`títulos da Wikipédia: ${Object.values(TITULOS).filter(x => x.bra?.length).length} com nome no Brasil`)
 const famosos = wdFamosos.map(w => filmeDe(w))
 const brasileiros = wdBr.map(w => filmeDe(w, true))
+const daTurma = wdVistos.map(w => ({ ...filmeDe(w), fama: 1e6 }))
 const porImdb = new Map()
-for (const f of [...famosos, ...brasileiros]) if (!porImdb.has(f.imdb) || porImdb.get(f.imdb).fama < f.fama) porImdb.set(f.imdb, f)
+for (const f of [...famosos, ...brasileiros, ...daTurma]) if (!porImdb.has(f.imdb) || porImdb.get(f.imdb).fama < f.fama) porImdb.set(f.imdb, f)
 const todos = [...porImdb.values()].filter(f => f.ano && f.ano >= 1930).sort((a, b) => b.fama - a.fama)
 console.log(`${todos.length} filmes famosos no Wikidata`)
 
@@ -144,7 +152,7 @@ const fg = await indiceFilmGrab()
 const antigo = existsSync(path.join(SAIDA, 'filmes.json')) ? JSON.parse(readFileSync(path.join(SAIDA, 'filmes.json'), 'utf8')) : []
 const jogo = new Map(antigo.map(f => [f.imdb, f]))
 for (const f of todos) {
-  if (jogo.size >= QUANTOS && !jogo.has(f.imdb)) continue
+  if (jogo.size >= QUANTOS && !jogo.has(f.imdb) && !vistos.has(f.imdb)) continue
   if (jogo.has(f.imdb)) { Object.assign(jogo.get(f.imdb), { t: f.t, o: f.o, ano: f.ano, nomes: f.nomes }); continue } // títulos sempre atualizados
   const urls = [...new Set(f.nomes.flatMap(n => fg.get(norm(n)) || []))]
   if (!urls.length) continue

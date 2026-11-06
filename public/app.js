@@ -107,7 +107,7 @@ function toast(msg, ms = 2800) {
 }
 
 /* ---------- Preferências (salvas no navegador e no servidor, por pessoa) ---------- */
-const DEFAULT_PREFS = { vol: 1, vvol: 1, pvol: {}, tvol: {}, tmute: {}, nudges: true, spatial: false, spatialVersion: 3, board: .4, master: 1, mvol: .45, sonsRec: [], sfx: .6, vmode: 'open', pttKey: 'KeyV', pttLabel: 'V', mic: '', extra: '', chat: true, subs: true, t: 0, entryMuted: false, duck: false, pmute: {}, boardpvol: {}, boardmute: {}, fxpvol: {}, fxpmute: {}, jogoVol: 1, jogoMudo: false }
+const DEFAULT_PREFS = { vol: 1, vvol: 1, pvol: {}, tvol: {}, tmute: {}, nudges: true, spatial: false, spatialVersion: 3, board: .85, master: 1, mvol: .45, sonsRec: [], sfx: .6, vmode: 'open', pttKey: 'KeyV', pttLabel: 'V', mic: '', extra: '', chat: true, subs: true, t: 0, entryMuted: false, duck: false, pmute: {}, boardpvol: {}, boardmute: {}, fxpvol: {}, fxpmute: {}, jogoVol: 1, jogoMudo: false }
 const prefs = Object.assign({}, DEFAULT_PREFS, normalizeAudioPrefs(store.get('prefs')))
 let prefsTimer
 function savePrefs() {
@@ -144,7 +144,7 @@ function audioCtx() {
     mix.jogo = mix.ac.createGain(); mix.jogo.gain.value = somJogo(); mix.jogo.connect(mix.master) // tudo que os jogos tocam passa por aqui
     mix.board = mix.ac.createGain(); mix.board.gain.value = prefs.board
     // limitador do soundboard: nenhum som passa do teto, mesmo dois tocando juntos
-    mix.boardLim = new DynamicsCompressorNode(mix.ac, { threshold: -24, knee: 6, ratio: 12, attack: .002, release: .25 })
+    mix.boardLim = new DynamicsCompressorNode(mix.ac, { threshold: -9, knee: 4, ratio: 10, attack: .002, release: .2 })
     mix.board.connect(mix.boardLim).connect(mix.master)
     mix.movieAn = mix.ac.createAnalyser(); mix.movieAn.fftSize = 2048; mix.movie.connect(mix.movieAn)
     mix.movie.gain.value = prefs.vol; mix.voice.gain.value = me.deaf ? 0 : prefs.vvol; mix.sfx.gain.value = prefs.sfx
@@ -4130,7 +4130,7 @@ let lastSound = 0, sonsReq = 0, sonsTimer
 const okSound = f => /^\/media\/sounds\/[\w.%()+-]{1,160}\.mp3$/i.test(f)
 /* Volume justo: mede o som (nível das partes altas e pico) e ajusta para ficar perto do nível de diálogo,
    sem estourar. O limitador do canal segura o que ainda passar. */
-const SOUND_TARGET = .03 // ≈ -30 dBFS nas partes altas
+const SOUND_TARGET = .11 // ≈ -19 dBFS nas partes altas: mesmo nível das vozes e do filme
 function measureSound(buf) {
   const n = buf.numberOfChannels, len = buf.length, win = Math.max(1, Math.round(buf.sampleRate * .05))
   const ch = Array.from({ length: n }, (_, i) => buf.getChannelData(i))
@@ -4145,8 +4145,8 @@ function measureSound(buf) {
   const loud = rms.filter(r => r > 1e-4).sort((a, b) => a - b)
   const level = loud.length ? loud[Math.floor(loud.length * .9)] : 0
   let g = level ? SOUND_TARGET / level : 1
-  g = Math.min(g, 1.5) // som baixinho sobe no máximo 1,5×
-  if (peak * g > .5) g = .5 / peak // pico abaixo de -6 dB
+  g = Math.min(g, 4) // som baixinho sobe até 4×
+  if (peak * g > .9) g = .9 / peak // pico abaixo de -1 dB (o limitador segura o resto)
   return g
 }
 async function getSound(f) {
@@ -4231,34 +4231,45 @@ function sendSound(s) {
   actions?.react.send({ s: s.f, n: s.n })
   prefs.sonsRec = [s, ...prefs.sonsRec.filter(x => x.f !== s.f)].slice(0, 12)
   savePrefs()
+  api('sons', { method: 'POST', body: { f: s.f, n: s.n, c: s.c } }) // conta para "mais tocados na sala"
 }
-function sonsList(list, title) {
+// Soundboard em botões quadrados: a cor do som no fundo, nome grande; o fone no canto ouve só você
+function sonsList(list, title, extra) {
   const kids = list.map(s => {
-    const send = el('button', { type: 'button', className: 'sons__send', title: `Tocar para todos: ${s.n}` }, el('span', { className: 'sons__name', textContent: s.n }))
-    send.addEventListener('click', () => { stopPreview(); sendSound(s) })
+    const send = el('button', { type: 'button', className: 'sons__send', title: `Tocar para todos: ${s.n}` },
+      el('span', { className: 'sons__ic' }, icon('play')), el('span', { className: 'sons__name', textContent: s.n }),
+      s.vezes ? el('small', { className: 'sons__vezes', textContent: `${s.vezes}×` }) : '')
+    send.addEventListener('click', () => { stopPreview(); sendSound(s); send.classList.remove('foi'); void send.offsetWidth; send.classList.add('foi') })
     const prev = el('button', { type: 'button', className: 'sons__prev', title: 'Ouvir só você', ariaLabel: `Ouvir ${s.n} só você` }, icon('headphones'))
     prev.addEventListener('click', () => previewSound(s, prev))
     const item = el('div', { className: 'sons__item' }, send, prev)
-    item.style.setProperty('--c', s.c || 'var(--accent)')
+    const c = /^#[0-9a-f]{6}$/i.test(s.c || '') && !/^#(000000|ffffff)$/i.test(s.c) ? s.c : 'var(--accent)'
+    item.style.setProperty('--c', c)
     return item
   })
-  return title ? [el('p', { className: 'sons__title', textContent: title }), ...kids] : kids
+  return title ? [el('p', { className: 'sons__title' }, el('span', { textContent: title }), extra || ''), ...kids] : kids
 }
 async function loadSons() {
   const q = $('#sonsQ').value.trim()
   const req = ++sonsReq
-  const r = await api('sons' + (q ? '?q=' + encodeURIComponent(q) : ''))
+  const grid = $('#sonsGrid')
+  if (!grid.children.length || q) grid.replaceChildren(...Array.from({ length: 9 }, () => el('div', { className: 'sons__item sons__esq esq' })))
+  const [r, top] = await Promise.all([api('sons' + (q ? '?q=' + encodeURIComponent(q) : '')), q ? null : api('sons?top=1')])
   if (req !== sonsReq) return
   const list = r?.list || []
-  const grid = $('#sonsGrid')
-  if (!q && prefs.sonsRec.length) grid.replaceChildren(...sonsList(prefs.sonsRec, 'Recentes'), ...sonsList(list.slice(0, 18), 'Em alta'))
-  else grid.replaceChildren(...(list.length ? sonsList(list) : [el('p', { className: 'gifs__msg', textContent: r ? 'Nada encontrado.' : 'Não deu para buscar agora.' })]))
+  if (q) return grid.replaceChildren(...(list.length ? sonsList(list, `Resultados para “${q}”`) : [el('p', { className: 'gifs__msg', textContent: r ? 'Nada encontrado. Tente outra palavra.' : 'Não deu para buscar agora.' })]))
+  const sala = (top?.list || []).filter(x => x.vezes >= 2).slice(0, 9)
+  grid.replaceChildren(
+    ...(sala.length ? sonsList(sala, 'Mais tocados na sala') : []),
+    ...(prefs.sonsRec.length ? sonsList(prefs.sonsRec.slice(0, 6), 'Seus recentes') : []),
+    ...sonsList(list.slice(0, 24), 'Em alta no Brasil'))
 }
 $('#sonsQ').addEventListener('input', () => { clearTimeout(sonsTimer); sonsTimer = setTimeout(loadSons, 450); markChip() })
 // atalhos de busca
-const SONS_CHIPS = ['Risada', 'Susto', 'Aplausos', 'Suspense', 'Fail', 'Bruh', 'Grito', 'Tambor']
-function markChip() { const q = $('#sonsQ').value.trim().toLowerCase(); $('#sonsChips').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.textContent.toLowerCase() === q))) }
-$('#sonsChips').append(...SONS_CHIPS.map(c => { const b = el('button', { type: 'button', textContent: c }); b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => { const on = b.getAttribute('aria-pressed') === 'true'; $('#sonsQ').value = on ? '' : c; markChip(); loadSons() }); return b }))
+const SONS_CHIPS = ['😂 Risada', '😱 Susto', '👏 Aplausos', '🥁 Tambor', '🎻 Suspense', '💀 Fail', '🗿 Bruh', '📢 Grito', '🐐 Faustão', '🚨 Alerta']
+const palavraChip = c => c.replace(/^\S+\s+/, '')
+function markChip() { const q = $('#sonsQ').value.trim().toLowerCase(); $('#sonsChips').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(palavraChip(b.textContent).toLowerCase() === q))) }
+$('#sonsChips').append(...SONS_CHIPS.map(c => { const b = el('button', { type: 'button', textContent: c }); b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => { const on = b.getAttribute('aria-pressed') === 'true'; $('#sonsQ').value = on ? '' : palavraChip(c); markChip(); loadSons() }); return b }))
 
 /* ---------- Balão de fala na cabeça do boneco ---------- */
 let bubbleZ = 0

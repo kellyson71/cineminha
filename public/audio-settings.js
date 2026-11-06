@@ -13,7 +13,8 @@ export function cleanVoice(value = {}) {
 }
 export function normalizeAudioPrefs(value) {
   const saved = value || {}
-  return { ...saved, spatial: saved.spatialVersion === 3 ? saved.spatial === true : false, spatialVersion: 3, ...(saved.boardVersion === 2 ? {} : { board: Math.min(saved.board ?? .4, .4), boardVersion: 2 }), voiceProfile: saved.voiceProfile || 'balanced', voiceSettings: cleanVoice(saved.voiceSettings || DEFAULT_VOICE), output: saved.output || '' }
+  return { ...saved, spatial: saved.spatialVersion === 3 ? saved.spatial === true : false, spatialVersion: 3, // soundboard: até a v2 ficava baixo demais (limitador em -24 dB e volume 40%); a v3 começa em 85%
+    ...(saved.boardVersion === 3 ? {} : { board: Math.max(saved.board ?? .85, .85), boardVersion: 3 }), voiceProfile: saved.voiceProfile || 'balanced', voiceSettings: cleanVoice(saved.voiceSettings || DEFAULT_VOICE), output: saved.output || '' }
 }
 // Usa a planta, não os pixels da janela: mantém a direção ao mudar de tela cheia.
 export function spatialPosition(mine, other, perRow) {
