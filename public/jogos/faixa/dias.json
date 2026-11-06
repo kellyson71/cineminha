@@ -1,4 +1,162 @@
 {
+ "2026-09-22": [
+  {
+   "id": "miley-cyrus-wrecking-ball",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Wrecking Ball",
+   "a": "Miley Cyrus",
+   "album": "Bangerz (Deluxe Version)",
+   "ano": 2013,
+   "dz": {
+    "t": 71137166,
+    "a": 12436
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 811098,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "5-seconds-of-summer-teeth",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Teeth",
+   "a": "5 Seconds Of Summer",
+   "album": "13 Reasons Why (Season 3)",
+   "ano": 2019,
+   "dz": {
+    "t": 737208652,
+    "a": 4103408
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 795254,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "AU",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "cobra-starship-sabi-you-make-me-feel-feat-sabi",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "You Make Me Feel... (feat. Sabi)",
+   "a": "Cobra Starship",
+   "album": "You Make Me Feel... (feat. Sabi)",
+   "ano": 2011,
+   "dz": {
+    "t": 14172440,
+    "a": 12108
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 784650,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-23": [
   {
    "id": "kendrick-lamar-sza-all-the-stars-with-sza-from-black-panther",
@@ -127,6 +285,96 @@
     "Pop"
    ],
    "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "scorpions-rock-you-like-a-hurricane-2011",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Rock You Like a Hurricane (2011)",
+   "a": "Scorpions",
+   "album": "Comeblack",
+   "ano": 1984,
+   "dz": {
+    "t": 14299460,
+    "a": 863
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 767838,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "DE",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "fifth-harmony-ty-dolla-ign-work-from-home-feat-ty-dolla-ign",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Work from Home (feat. Ty Dolla $ign)",
+   "a": "Fifth Harmony",
+   "album": "7/27 (Deluxe)",
+   "ano": 2016,
+   "dz": {
+    "t": 125513414,
+    "a": 4974921
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 794427,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
    "decada": 2010,
    "tags_ok": true
   }
@@ -33317,6 +33565,253 @@
    ],
    "pais": "BR",
    "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-13": [
+  {
+   "id": "one-direction-story-of-my-life",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Story of My Life",
+   "a": "One Direction",
+   "album": "Midnight Memories (Deluxe)",
+   "ano": 2013,
+   "dz": {
+    "t": 72544949,
+    "a": 1007876
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 750480,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "black-eyed-peas-pump-it",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pump It",
+   "a": "Black Eyed Peas",
+   "album": "Monkey Business",
+   "ano": 2005,
+   "dz": {
+    "t": 7375556,
+    "a": 1020109
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 921100,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "rihanna-mikky-ekko-stay",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Stay",
+   "a": "Rihanna",
+   "album": "Unapologetic (Deluxe)",
+   "ano": 2012,
+   "dz": {
+    "t": 62376291,
+    "a": 564
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 957868,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "beyonce-diva",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Diva",
+   "a": "Beyoncé",
+   "album": "I AM...SASHA FIERCE",
+   "ano": 2008,
+   "dz": {
+    "t": 90428589,
+    "a": 145
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 706438,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "rihanna-ne-yo-hate-that-i-love-you",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hate That I Love You",
+   "a": "Rihanna",
+   "album": "Good Girl Gone Bad: Reloaded",
+   "ano": 2008,
+   "dz": {
+    "t": 925111,
+    "a": 564
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 748723,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
    "tags_ok": true
   }
  ]
