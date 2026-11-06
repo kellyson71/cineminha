@@ -1,4 +1,166 @@
 {
+ "2026-09-12": [
+  {
+   "id": "avicii-the-nights",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Nights",
+   "a": "Avicii",
+   "album": "The Days / Nights (EP)",
+   "ano": 2014,
+   "dz": {
+    "t": 90632837,
+    "a": 293585
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 886120,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "SE",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "pitbull-hotel-room-service",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hotel Room Service",
+   "a": "Pitbull",
+   "album": "Hotel Room Service",
+   "ano": 2009,
+   "dz": {
+    "t": 3731410,
+    "a": 776
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 866124,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Dance",
+    "Rap/Hip Hop",
+    "Pop",
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "ariana-grande-one-last-time",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "One Last Time",
+   "a": "Ariana Grande",
+   "album": "My Everything",
+   "ano": 2014,
+   "dz": {
+    "t": 83844536,
+    "a": 1562681
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 913756,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-13": [
   {
    "id": "britney-spears-till-the-world-ends",
@@ -142,6 +304,106 @@
     "Rap/Hip Hop"
    ],
    "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "justin-timberlake-timbaland-sexyback-feat-timbaland",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "SexyBack (feat. Timbaland)",
+   "a": "Justin Timberlake",
+   "album": "FutureSex/LoveSounds Deluxe Edition",
+   "ano": 2006,
+   "dz": {
+    "t": 15489383,
+    "a": 1147
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 889424,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "bruno-mars-grenade",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Grenade",
+   "a": "Bruno Mars",
+   "album": "Doo-Wops & Hooligans",
+   "ano": 2010,
+   "dz": {
+    "t": 8011849,
+    "a": 429675
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 913195,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
    "decada": 2010,
    "tags_ok": true
   }
@@ -38331,6 +38593,264 @@
     "Rap/Hip Hop"
    ],
    "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-23": [
+  {
+   "id": "rihanna-only-girl-in-the-world",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Only Girl (In The World)",
+   "a": "Rihanna",
+   "album": "Loud",
+   "ano": 2009,
+   "dz": {
+    "t": 13529563,
+    "a": 564
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 965751,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "rihanna-te-amo",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Te Amo (Album Version)",
+   "a": "Rihanna",
+   "album": "Rated R",
+   "ano": 2009,
+   "dz": {
+    "t": 4670276,
+    "a": 564
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 796749,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "1kilo-duro-igual-concreto",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Duro Igual Concreto",
+   "a": "1Kilo",
+   "album": "Duro Igual Concreto",
+   "ano": 2017,
+   "dz": {
+    "t": 387218391,
+    "a": 10640291
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 632754,
+   "generos": [
+    "Rap/Hip Hop",
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "britney-spears-lucky",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Lucky",
+   "a": "Britney Spears",
+   "album": "Oops!... I Did It Again",
+   "ano": 2000,
+   "dz": {
+    "t": 13142668,
+    "a": 483
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 665124,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "onerepublic-counting-stars",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Counting Stars",
+   "a": "OneRepublic",
+   "album": "Native",
+   "ano": 2013,
+   "dz": {
+    "t": 78527795,
+    "a": 74398
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 923515,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
    "decada": 2010,
    "tags_ok": true
   }
