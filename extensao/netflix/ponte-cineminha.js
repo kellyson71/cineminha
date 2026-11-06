@@ -10,6 +10,10 @@ window.__cinePonteOff?.()
   }
   addEventListener('message', daPagina)
   window.__cinePonteOff = () => removeEventListener('message', daPagina)
-  chrome.runtime.onMessage.addListener(msg => { if (msg?.de === 'netflix') window.postMessage({ ...msg, cineExt: 'netflix', tipo: 'estado', de: undefined }, location.origin) })
+  chrome.runtime.onMessage.addListener(msg => {
+    if (msg?.de === 'netflix') window.postMessage({ ...msg, cineExt: 'netflix', tipo: 'estado', de: undefined }, location.origin)
+    // o botão da extensão: projetar a aba escolhida, sem a faixa de compartilhamento do Chrome
+    else if (msg?.de === 'captura') window.postMessage({ cineExt: 'netflix', tipo: 'captura', id: msg.id, titulo: msg.titulo }, location.origin)
+  })
   ola(); addEventListener('DOMContentLoaded', ola)
 }

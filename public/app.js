@@ -1059,7 +1059,8 @@ function ligaSomDaTile(t, id, stream) {
   try { t.src?.disconnect(); t.gain?.disconnect() } catch {}
   t.src = t.gain = null
   const [at] = stream.getAudioTracks()
-  if (!at || (id === selfId && at.getSettings?.().suppressLocalAudioPlayback !== true)) return
+  // aba pela extensão: o Chrome tira o som da aba e manda só para o stream, então toca aqui
+  if (!at || (id === selfId && at._somNaAba !== false && at.getSettings?.().suppressLocalAudioPlayback !== true)) return
   const ac = audioCtx()
   t.src = ac.createMediaStreamSource(new MediaStream([at]))
   t.gain = ac.createGain()
@@ -1828,7 +1829,27 @@ addEventListener('message', e => {
   const d = e.data
   if (d.tipo === 'ola') { if (!nfx.ext) console.info('[Cineminha] extensão da Netflix encontrada', d.versao || ''); nfx.ext = true }
   else if (d.tipo === 'estado') nfxEstado(d)
+  else if (d.tipo === 'captura' && typeof d.id === 'string') projetarDaExtensao(d.id, String(d.titulo || ''))
 })
+// Projeção pela extensão (chrome.tabCapture): a aba vem sem a faixa "Compartilhando…" do Chrome.
+// O som da aba deixa de tocar nela e vem para cá; quem projeta ouve pelo mixer (com volume).
+async function projetarDaExtensao(id, titulo) {
+  if (!me.key) return
+  const src = { mandatory: { chromeMediaSource: 'tab', chromeMediaSourceId: id } }
+  let ds
+  try {
+    ds = await navigator.mediaDevices.getUserMedia({ audio: src, video: { mandatory: { ...src.mandatory, maxWidth: 1920, maxHeight: 1080, maxFrameRate: 30 } } })
+  } catch (e) { toast('Não deu para projetar pela extensão: ' + (e.message || e.name)); return }
+  const [vt] = ds.getVideoTracks(), [at] = ds.getAudioTracks()
+  if ('contentHint' in vt) vt.contentHint = 'motion'
+  if (at) { at._somNaAba = false; if ('contentHint' in at) at.contentHint = 'music' }
+  if (myShare) stopShare(true)
+  const stream = new MediaStream([vt, ...(at ? [at] : [])])
+  const share = { stop: () => ds.getTracks().forEach(t => t.stop()) }
+  vt.addEventListener('ended', () => { if (myShare?.stream === stream && myShare.vt === vt) stopShare() })
+  publish(stream, { kind: 'tela', game: false, vt, at, share, titulo: titulo.replace(/\s*[-|–]\s*Netflix\s*$/i, '').trim() || `Tela de ${me.name}` }, null, () => share.stop())
+  toast('Projetando pela extensão', 2500)
+}
 postMessage({ cineExt: 'netflix', tipo: 'quem' }, location.origin)
 function nfxEstado(d) {
   const sh = myShare

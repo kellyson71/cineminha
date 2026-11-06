@@ -1,0 +1,13 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><style>
+body { margin: 0; width: 290px; font: 14px/1.35 system-ui, sans-serif; background: #141419; color: #ececf1; }
+.box { padding: 16px; display: grid; gap: 12px; }
+header { display: flex; align-items: center; gap: 10px; } header img { width: 32px; height: 32px; border-radius: 8px; }
+header b { font-size: 15px; } header small { display: block; color: #9a9aa6; font-size: 12px; }
+button { padding: 11px 14px; border: 0; border-radius: 10px; background: #e5484d; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+button:hover { background: #f2555a; } button:disabled { opacity: .5; cursor: default; }
+p { margin: 0; font-size: 12px; color: #9a9aa6; } p.erro { color: #ff8a8e; }
+</style><div class="box">
+<header><img src="icone-48.png" alt=""><div><b>Cineminha</b><small id="aba">esta aba</small></div></header>
+<button id="ir">Projetar esta aba no Cineminha</button>
+<p id="msg">Imagem e som desta aba vão para a sala, sem a faixa “Compartilhando” do Chrome.</p>
+</div><script src="popup.js"></script></html>
