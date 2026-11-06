@@ -42,13 +42,16 @@ export function lerTexto(texto) {
   return null
 }
 
-// Recorta uma parte do quadro, em cinza e invertido (texto branco sobre escuro lê melhor assim)
+// Recorta uma parte do quadro e deixa só o texto: o que é bem claro (letra branca da Netflix) vira preto,
+// o resto (cena escurecida atrás) vira branco. Inverter só o quadro não basta: a cena atrás confunde o OCR.
 function recorte(fonte, fw, fh, x, y, w, h) {
   const c = document.createElement('canvas'), k = Math.min(2, 1600 / (w * fw))
   c.width = Math.round(w * fw * k); c.height = Math.round(h * fh * k)
   const g = c.getContext('2d', { willReadFrequently: true })
-  g.filter = 'grayscale(1) invert(1) contrast(1.6)'
   g.drawImage(fonte, x * fw, y * fh, w * fw, h * fh, 0, 0, c.width, c.height)
+  const img = g.getImageData(0, 0, c.width, c.height), D = img.data
+  for (let i = 0; i < D.length; i += 4) D[i] = D[i + 1] = D[i + 2] = D[i] * .3 + D[i + 1] * .59 + D[i + 2] * .11 > 170 ? 0 : 255
+  g.putImageData(img, 0, 0)
   return c
 }
 

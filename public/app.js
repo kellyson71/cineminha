@@ -867,7 +867,7 @@ function detectBars(t) {
   const v = t.video, vw = v.videoWidth, vh = v.videoHeight
   if (!vw || !vh || v.readyState < 2 || document.hidden) return
   const info = t.id === selfId ? myShare : shareInfo.get(t.id)
-  const nf = info?.midia?.plat === 'netflix'
+  const nf = info?.midia?.plat === 'netflix' || (t.id === selfId ? !!nfxDe(myShare) : !!info?.nfx)
   const cw = 240, ch = Math.max(2, Math.round(240 * vh / vw))
   barCanvas.width = cw; barCanvas.height = ch
   const g = barCanvas.getContext('2d', { willReadFrequently: true })
@@ -1530,6 +1530,7 @@ function publish(stream, opts, localVideo, cleanup) {
   room?.addStream(stream, { metadata: { screen: 1 } })
   actions?.share.send(shareMsg())
   addTile(selfId, stream, localVideo)
+  if (opts.kind === 'tela' && !opts.game && opts.vt) detectaMidia(opts.vt)
   sfx('telaOn')
   setTimeout(tuneSenders, 1500)
 }
@@ -1596,7 +1597,6 @@ async function shareScreen() {
   const share = { stop: cap.stop }
   cap.vt.addEventListener('ended', () => { if (myShare?.stream === stream && myShare.vt === cap.vt) stopShare() })
   publish(stream, { kind: 'tela', game, vt: cap.vt, at: cap.at, share, titulo: nomeDaTela(cap.vt) || `Tela de ${me.name}` }, null, () => share.stop())
-  if (!game) detectaMidia(cap.vt)
 }
 // O que está passando (Netflix por enquanto): lê o texto da tela e busca capa, nota e episódio
 async function detectaMidia(vt) {
@@ -1637,7 +1637,7 @@ const nfxDe = sh => sh?.kind === 'tela' && !sh.game && sh.nfx && Date.now() - sh
 addEventListener('message', e => {
   if (e.source !== window || e.data?.cineExt !== 'netflix') return
   const d = e.data
-  if (d.tipo === 'ola') nfx.ext = true
+  if (d.tipo === 'ola') { if (!nfx.ext) console.info('[Cineminha] extensão da Netflix encontrada', d.versao || ''); nfx.ext = true }
   else if (d.tipo === 'estado') nfxEstado(d)
 })
 postMessage({ cineExt: 'netflix', tipo: 'quem' }, location.origin)
@@ -1645,6 +1645,7 @@ function nfxEstado(d) {
   const sh = myShare
   if (sh?.kind !== 'tela' || sh.game) return
   const ant = nfxDe(sh), agora = Date.now()
+  if (!sh.nfx) console.info('[Cineminha] Netflix conectada pela extensão')
   sh.nfx = { paused: !!d.paused, t: Math.max(0, +d.t || 0), d: Math.max(0, +d.d || 0), at: agora }
   if (d.midia?.titulo) aplicaMidia(sh, { plat: 'netflix', titulo: String(d.midia.titulo).slice(0, 100), s: +d.midia.s || 0, e: +d.midia.e || 0, epNome: String(d.midia.epNome || '').slice(0, 100) })
   const previsto = ant ? ant.t + (ant.paused ? 0 : (agora - ant.at) / 1000) : 0
@@ -1652,7 +1653,7 @@ function nfxEstado(d) {
     sh.nfxEnviado = agora; actions?.share.send(shareMsg()); renderTile(selfId)
   }
 }
-function nfxCmd(op, d) { postMessage({ cineExt: 'netflix', tipo: 'cmd', op, d }, location.origin) }
+function nfxCmd(op, d) { postMessage({ cineExt: 'netflix', tipo: 'cmd', op, d, id: Date.now() + '' + Math.random() }, location.origin) }
 // Trocar o que está sendo projetado sem parar a transmissão: troca as trilhas na mesma conexão
 async function trocarTela() {
   if (myShare?.kind !== 'tela') return shareScreen()
@@ -1674,6 +1675,9 @@ async function trocarTela() {
   s.share.stop = cap.stop
   s.vt = cap.vt; s.at = cap.at
   oldStop()
+  // outra aba/janela: esquece o que estava passando e volta a procurar
+  s.detector?.parar(); s.midia = null; s.midiaK = ''
+  if (!s.game) detectaMidia(cap.vt)
   cap.vt.addEventListener('ended', () => { if (myShare === s && s.vt === cap.vt) stopShare() })
   const t = tiles.get(selfId)
   if (t) { t.crop = null; t.cropFound = null; t.barKey = ''; t.video.srcObject = stream; t.video.play().catch(() => {}); t.fit?.() }
@@ -3288,7 +3292,7 @@ function renderSetPrefs() {
     setToggle('Chat fixo na tela cheia', 'Em vez de flutuar por cima do vídeo', () => prefs.chatFixo, v => setChatFixo(v)),
     setToggle('Avisos de volume', 'Sugere ajustes quando o filme abafa a conversa', () => prefs.nudges, v => { prefs.nudges = v; $('#nudgeOpt').checked = v }),
     setToggle('Avisar sobre bordas pretas', 'Oferece cortar as tarjas da projeção', () => prefs.avisoBordas !== false, v => { prefs.avisoBordas = v }),
-    setToggle('Todo mundo controla a minha Netflix', 'Com a extensão do Cineminha: play, pausa e pular valem para todos. Desligado, só você controla', () => prefs.nfxTodos !== false, v => { prefs.nfxTodos = v; if (myShare) { actions?.share.send(shareMsg()); updatePlayer(selfId) } }),
+    setToggle('Todo mundo controla a minha Netflix', (nfx.ext ? 'Extensão conectada. ' : 'Precisa da extensão (cineminha-boo.vercel.app/baixar/extensao). ') + 'Play, pausa e pular valem para todos; desligado, só você controla', () => prefs.nfxTodos !== false, v => { prefs.nfxTodos = v; if (myShare) { actions?.share.send(shareMsg()); updatePlayer(selfId) } }),
     h('Rádio'),
     setVol('Volume da rádio', () => radio.getVol(), v => { radio.setVol(v); try { syncRadioVol() } catch {} }),
     setToggle('Spotify pelo YouTube', 'Música inteira, sem login e com volume', () => radio.getFonte() !== 'sp', v => radio.setFonte(v ? 'yt' : 'sp')),

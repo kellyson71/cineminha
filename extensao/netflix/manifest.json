@@ -1,14 +1,52 @@
 {
   "manifest_version": 3,
   "name": "Cineminha · Netflix",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Deixa a sala do Cineminha pausar, continuar e pular o que está passando na Netflix, e mostra para todos o que está passando.",
-  "icons": { "48": "icone-48.png", "128": "icone-128.png" },
-  "background": { "service_worker": "fundo.js" },
-  "host_permissions": ["https://www.netflix.com/*", "https://cineminha-boo.vercel.app/*", "http://localhost:8790/*"],
+  "icons": {
+    "48": "icone-48.png",
+    "128": "icone-128.png"
+  },
+  "background": {
+    "service_worker": "fundo.js"
+  },
+  "host_permissions": [
+    "https://www.netflix.com/*",
+    "https://cineminha-boo.vercel.app/*",
+    "http://localhost:8790/*"
+  ],
   "content_scripts": [
-    { "matches": ["https://cineminha-boo.vercel.app/*", "http://localhost:8790/*"], "js": ["ponte-cineminha.js"], "run_at": "document_start" },
-    { "matches": ["https://www.netflix.com/*"], "js": ["ponte-netflix.js"], "run_at": "document_start" },
-    { "matches": ["https://www.netflix.com/*"], "js": ["player-netflix.js"], "run_at": "document_start", "world": "MAIN" }
+    {
+      "matches": [
+        "https://cineminha-boo.vercel.app/*",
+        "http://localhost:8790/*"
+      ],
+      "js": [
+        "ponte-cineminha.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.netflix.com/*"
+      ],
+      "js": [
+        "ponte-netflix.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.netflix.com/*"
+      ],
+      "js": [
+        "player-netflix.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ],
+  "permissions": [
+    "scripting"
   ]
 }
