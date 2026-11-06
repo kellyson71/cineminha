@@ -1,4 +1,161 @@
 {
+ "2026-09-19": [
+  {
+   "id": "justin-timberlake-t-i-my-love-feat-t-i",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "My Love (feat. T.I.)",
+   "a": "Justin Timberlake",
+   "album": "FutureSex/LoveSounds Deluxe Edition",
+   "ano": 2006,
+   "dz": {
+    "t": 15489385,
+    "a": 1147
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 839285,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-seu-astral-live-in-sao-paulo-2010",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Seu Astral (Ao Vivo)",
+   "a": "Jorge & Mateus",
+   "album": "Live In London - At The Royal Albert Hall (Ao Vivo)",
+   "ano": 2010,
+   "dz": {
+    "t": 72926478,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 650518,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-flor-ao-vivo",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Flor (Ao Vivo)",
+   "a": "Jorge & Mateus",
+   "album": "A Hora É Agora (Ao Vivo Em Jurerê)",
+   "ano": 2006,
+   "dz": {
+    "t": 61025817,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 638226,
+   "generos": [
+    "MPB"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
  "2026-09-20": [
   {
    "id": "lord-huron-the-night-we-met",
@@ -141,6 +298,106 @@
    "rank": 521049,
    "generos": [
     "Soul & Funk"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "sean-paul-get-busy",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Get Busy",
+   "a": "Sean Paul",
+   "album": "Dutty Classics Collection",
+   "ano": 2002,
+   "dz": {
+    "t": 364292561,
+    "a": 88
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 821572,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "JM",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "ze-neto-cristiano-patio-do-posto-ao-vivo",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pátio do Posto (Ao Vivo)",
+   "a": "Zé Neto & Cristiano",
+   "album": "As Melhores",
+   "ano": 2023,
+   "dz": {
+    "t": 2346446805,
+    "a": 5895828
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 642462,
+   "generos": [
+    "Sertanejo"
    ],
    "pais": "BR",
    "decada": 2020,
@@ -34805,6 +35062,251 @@
     "Rap/Hip Hop"
    ],
    "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-16": [
+  {
+   "id": "toquinho-jorge-ben-jor-carolina-carol-bela",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Carolina, Carol Bela",
+   "a": "Toquinho",
+   "album": "Samba Rock Vol.1",
+   "ano": 1996,
+   "dz": {
+    "t": 2597273,
+    "a": 80624
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 575567,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "destiny-s-child-say-my-name",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Say My Name",
+   "a": "Destiny's Child",
+   "album": "The Writing's On The Wall",
+   "ano": 1999,
+   "dz": {
+    "t": 580936,
+    "a": 595
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 925486,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "shakira-estoy-aqui",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Estoy Aquí",
+   "a": "Shakira",
+   "album": "Pies Descalzos",
+   "ano": 1995,
+   "dz": {
+    "t": 15407617,
+    "a": 160
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 652133,
+   "generos": [],
+   "pais": "CO",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "toquinho-vinicius-de-moraes-onde-anda-voce",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Onde Anda Você",
+   "a": "Toquinho",
+   "album": "Vinicius & Toquinho",
+   "ano": 1996,
+   "dz": {
+    "t": 29581381,
+    "a": 80624
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 588580,
+   "generos": [
+    "MPB"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "ariana-grande-into-you",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Into You",
+   "a": "Ariana Grande",
+   "album": "Dangerous Woman",
+   "ano": 2016,
+   "dz": {
+    "t": 1375215242,
+    "a": 1562681
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 907086,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
    "decada": 2010,
    "tags_ok": true
   }
