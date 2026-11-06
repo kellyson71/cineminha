@@ -854,7 +854,7 @@ function buildPlayer(id, tile) {
 }
 /* Bordas pretas dentro da transmissão (ex.: player com tarjas): mede numa miniatura, uma vez por segundo.
    Só é borda o que é preto liso de verdade e fica parado; na Netflix a tarja é preto 100% e o corte é automático.
-   Cada linha/coluna guarda a última vez em que teve imagem, e o corte mostra tudo o que teve imagem nos
+   Achado o corte, ele fica fixo (só muda pelo botão direito). Antes disso, cada linha/coluna guarda a última vez em que teve imagem, e o corte mostra tudo o que teve imagem nos
    últimos 90 s: cena escura não corta nada (aquela faixa teve imagem há pouco) e o corte só aperta depois
    de muito tempo sem nada na faixa. Abre na hora (2 leituras seguidas com imagem fora do corte).
    Tarjas de vídeo são simétricas: usa o menor dos dois lados, então a imagem nunca anda para um lado.
@@ -863,6 +863,7 @@ const ss = { get: k => { try { return sessionStorage.getItem(k) } catch { return
 const bordasAuto = () => ss.get('cine.bordas') === 'on'
 function setBordas(t, on) {
   t.cropOn = on
+  t.cropLocked = on && !!t.cropFound
   ss.set('cine.bordas', on ? 'on' : 'off')
   t.crop = on ? t.cropFound || null : null
   t.fit?.()
@@ -873,8 +874,15 @@ function avisoBordas(t) {
 }
 const barCanvas = document.createElement('canvas')
 const JANELA_BORDA = 90000
+// Depois de cortar, o corte fica fixo: não anda mais sozinho. Errou? Botão direito → "Cortar as bordas de novo"
+// (mede do zero e fixa de novo) ou "Mostrar a imagem inteira".
+function recortaBordas(t) {
+  Object.assign(t, { barKey: '', cropLocked: false, crop: null, cropFound: null, cropNext: undefined })
+  t.fit?.()
+}
 function detectBars(t) {
   const v = t.video, vw = v.videoWidth, vh = v.videoHeight
+  if (t.cropOn && t.cropLocked) return
   if (!vw || !vh || v.readyState < 2 || document.hidden) return
   const info = t.id === selfId ? myShare : shareInfo.get(t.id)
   const nf = info?.midia?.plat === 'netflix' || (t.id === selfId ? !!nfxDe(myShare) : !!info?.nfx)
@@ -925,7 +933,7 @@ function detectBars(t) {
   if (t.cropNext === undefined || !same(box, t.cropNext)) { t.cropNext = box; return }
   t.cropNext = undefined; t.cropFound = box
   if (nf && box && !t.cropOn && ss.get('cine.bordas') !== 'off') t.cropOn = true
-  if (t.cropOn) { t.crop = box; t.fit() } else if (box) avisoBordas(t)
+  if (t.cropOn) { t.crop = box; t.cropLocked = !!box; t.fit() } else if (box) avisoBordas(t)
 }
 function framePreview(video) {
   if (!video.videoWidth) return ''
@@ -968,7 +976,7 @@ function addTile(id, stream, localVideo) {
     node.style.setProperty('--vx', x + 'px'); node.style.setProperty('--vy', y + 'px')
   }
   t.fit = fit
-  video.addEventListener('loadedmetadata', fit); video.addEventListener('resize', () => { t.crop = null; t.cropFound = null; t.barKey = ''; fit() })
+  video.addEventListener('loadedmetadata', fit); video.addEventListener('resize', () => { t.crop = null; t.cropFound = null; t.barKey = ''; t.cropLocked = false; fit() })
   t.cropTimer = setInterval(() => detectBars(t), 1000)
   t.fitObs = new ResizeObserver(fit); t.fitObs.observe(node)
   ligaSomDaTile(t, id, stream)
@@ -1713,7 +1721,7 @@ async function trocarTela() {
   if (!s.game) detectaMidia(cap.vt)
   cap.vt.addEventListener('ended', () => { if (myShare === s && s.vt === cap.vt) stopShare() })
   const t = tiles.get(selfId)
-  if (t) { t.crop = null; t.cropFound = null; t.barKey = ''; t.video.srcObject = stream; t.video.play().catch(() => {}); t.fit?.(); ligaSomDaTile(t, selfId, stream); applyTileVols() }
+  if (t) { t.crop = null; t.cropFound = null; t.barKey = ''; t.cropLocked = false; t.video.srcObject = stream; t.video.play().catch(() => {}); t.fit?.(); ligaSomDaTile(t, selfId, stream); applyTileVols() }
   actions?.share.send(shareMsg())
   setTimeout(tuneSenders, 1500)
   sfx('telaOn')
@@ -2012,6 +2020,7 @@ function openCtx(id, x, y) {
   if (info?.subs) items.push(ctxItem('captions', prefs.subs ? 'Esconder legendas' : 'Mostrar legendas', () => $('#btnSubs').click()))
   const tt = tiles.get(id)
   if (tt) items.push(ctxItem('rectangle-horizontal', tt.cropOn ? 'Mostrar a imagem inteira' : 'Remover bordas pretas', () => setBordas(tt, !tt.cropOn)))
+  if (tt?.cropOn) items.push(ctxItem('refresh-cw', 'Cortar as bordas de novo', () => { recortaBordas(tt); toast('Medindo as bordas de novo…', 2000) }))
   if (tiles.size > 1) items.push(ctxItem('maximize-2', focusId === id ? 'Ver todas as telas' : 'Deixar esta em destaque', () => { focusId = focusId === id ? null : id; layout() }))
   items.push(duckToggle())
   items.push(ctxItem(document.fullscreenElement ? 'minimize' : 'maximize', document.fullscreenElement ? 'Sair da tela cheia' : 'Tela cheia', toggleFs))
