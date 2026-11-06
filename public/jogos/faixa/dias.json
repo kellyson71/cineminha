@@ -1,4 +1,164 @@
 {
+ "2026-09-26": [
+  {
+   "id": "mc-pedrinho-dj-900-gol-bolinha-gol-quadrado-2",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Gol Bolinha, Gol Quadrado 2",
+   "a": "Mc Pedrinho",
+   "album": "Gol Bolinha, Gol Quadrado 2",
+   "ano": 2023,
+   "dz": {
+    "t": 2302853825,
+    "a": 5895822
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 565014,
+   "generos": [],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-kevin-o-chris-sodre-evoluiu",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Evoluiu",
+   "a": "MC Kevin o Chris",
+   "album": "Evoluiu",
+   "ano": 2019,
+   "dz": {
+    "t": 647902822,
+    "a": 50258612
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 599543,
+   "generos": [
+    "Soul & Funk"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "grover-washington-jr-bill-withers-just-the-two-of-us",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Just the Two of Us",
+   "a": "Grover Washington, Jr.",
+   "album": "Winelight",
+   "ano": 2000,
+   "dz": {
+    "t": 3821992,
+    "a": 4123
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 820911,
+   "generos": [
+    "Jazz"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
  "2026-09-27": [
   {
    "id": "rbd-salvame",
@@ -148,6 +308,101 @@
     "Pop"
    ],
    "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-rembrandts-i-ll-be-there-for-you",
+   "n": 3,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I'll Be There for You (Theme from Friends) (Single Version)",
+   "a": "The Rembrandts",
+   "album": "Greatest Hits",
+   "ano": 1995,
+   "dz": {
+    "t": 769477,
+    "a": 1338
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 751209,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "matue-a-morte-do-autotune",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "A Morte do Autotune",
+   "a": "Matuê",
+   "album": "A Morte do Autotune",
+   "ano": 2018,
+   "dz": {
+    "t": 3574947511,
+    "a": 11329214
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 708345,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
    "decada": 2010,
    "tags_ok": true
   }
@@ -31319,6 +31574,274 @@
    ],
    "pais": "BR",
    "decada": 1980,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-09": [
+  {
+   "id": "50-cent-in-da-club",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "In Da Club",
+   "a": "50 Cent",
+   "album": "Get Rich Or Die Tryin'",
+   "ano": 2003,
+   "dz": {
+    "t": 1141668,
+    "a": 66
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 924879,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "marilia-mendonca-o-que-falta-em-voce-sou-eu-ao-vivo",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "O Que Falta Em Você Sou Eu (Ao Vivo)",
+   "a": "Marília Mendonça",
+   "album": "Marília Mendonça (Ao Vivo)",
+   "ano": 2014,
+   "dz": {
+    "t": 119849620,
+    "a": 7068771
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 676056,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "eiffel-65-blue-da-ba-dee",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Blue (Da Ba Dee) (Video Edit)",
+   "a": "Eiffel 65",
+   "album": "Blue (Da Ba Dee)",
+   "ano": 1998,
+   "dz": {
+    "t": 89629797,
+    "a": 59
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 840155,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "IT",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "beyonce-sean-paul-baby-boy-feat-sean-paul",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Baby Boy (feat. Sean Paul)",
+   "a": "Beyoncé",
+   "album": "Dangerously In Love",
+   "ano": 2003,
+   "dz": {
+    "t": 609381,
+    "a": 145
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 741202,
+   "generos": [
+    "Pop",
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "sam-smith-kim-petras-unholy-feat-kim-petras",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Unholy",
+   "a": "Sam Smith",
+   "album": "Unholy",
+   "ano": 2022,
+   "dz": {
+    "t": 1905751117,
+    "a": 1097709
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 906957,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 2020,
    "tags_ok": true
   }
  ]
