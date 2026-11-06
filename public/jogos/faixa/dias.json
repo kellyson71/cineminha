@@ -1,4 +1,159 @@
 {
+ "2026-09-21": [
+  {
+   "id": "gala-molella-phil-jay-freed-from-desire",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Freed From Desire",
+   "a": "Gala",
+   "album": "Come Into My Life (The Album)",
+   "ano": 1996,
+   "dz": {
+    "t": 6907156,
+    "a": 2598
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 898117,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "IT",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "beyonce-pretty-hurts",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pretty Hurts",
+   "a": "Beyoncé",
+   "album": "BEYONCÉ [Platinum Edition]",
+   "ano": 2013,
+   "dz": {
+    "t": 90408869,
+    "a": 145
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 622605,
+   "generos": [
+    "Pop",
+    "Pop internacional",
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "tate-mcrae-greedy",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "greedy",
+   "a": "Tate McRae",
+   "album": "greedy",
+   "ano": 2023,
+   "dz": {
+    "t": 2444176345,
+    "a": 13817211
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 930668,
+   "generos": [
+    "Alternativo",
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-09-22": [
   {
    "id": "miley-cyrus-wrecking-ball",
@@ -149,6 +304,106 @@
     }
    ],
    "rank": 784650,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "black-eyed-peas-where-is-the-love",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Where Is The Love?",
+   "a": "Black Eyed Peas",
+   "album": "Elephunk",
+   "ano": 2003,
+   "dz": {
+    "t": 1697351967,
+    "a": 1020109
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 875473,
+   "generos": [
+    "R&B"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "britney-spears-work-bitch",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Work Bitch",
+   "a": "Britney Spears",
+   "album": "Britney Jean (Deluxe Version)",
+   "ano": 2013,
+   "dz": {
+    "t": 72569034,
+    "a": 483
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 794602,
    "generos": [
     "Pop"
    ],
@@ -33809,6 +34064,245 @@
    "rank": 748723,
    "generos": [
     "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-14": [
+  {
+   "id": "the-weeknd-reminder",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Reminder",
+   "a": "The Weeknd",
+   "album": "Starboy",
+   "ano": 2016,
+   "dz": {
+    "t": 136889406,
+    "a": 4050205
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 793602,
+   "generos": [
+    "R&B"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "shakira-wyclef-jean-hips-don-t-lie-feat-wyclef-jean",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hips Don't Lie (feat. Wyclef Jean)",
+   "a": "Shakira",
+   "album": "Filtr presents R&B Party",
+   "ano": 2006,
+   "dz": {
+    "t": 88897841,
+    "a": 160
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 918364,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "CO",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "johann-sebastian-bach-yo-yo-ma-cello-suite-no-1-in-g-major-b",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cello Suite No. 1 in G Major, BWV 1007: I. Prélude",
+   "a": "Yo-Yo Ma",
+   "album": "Bach: Cello Suites Nos. 1-6, BWV 1007-1012",
+   "ano": 2006,
+   "dz": {
+    "t": 584661,
+    "a": 58960
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 549616,
+   "generos": [
+    "Clássica"
+   ],
+   "pais": "FR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "lil-nas-x-jack-harlow-industry-baby-feat-jack-harlow",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "INDUSTRY BABY",
+   "a": "Lil Nas X",
+   "album": "INDUSTRY BABY",
+   "ano": 2021,
+   "dz": {
+    "t": 1439691952,
+    "a": 15166511
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 839649,
+   "generos": [
+    "Rap/Hip Hop",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "beyonce-shakira-beautiful-liar",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Beautiful Liar",
+   "a": "Beyoncé",
+   "album": "Beautiful Liar",
+   "ano": 2007,
+   "dz": {
+    "t": 568003,
+    "a": 145
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 805903,
+   "generos": [
+    "Rap/Hip Hop",
+    "R&B"
    ],
    "pais": "US",
    "decada": 2000,
