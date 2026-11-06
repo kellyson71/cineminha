@@ -107,8 +107,9 @@ async function lerChamadas(ids) {
     const h = {}
     for (let i = 0; i < flat.length; i += 2) h[flat[i]] = flat[i + 1]
     const presentes = Object.keys(h).filter(k => k.startsWith('p:')).map(k => ({ key: k.slice(2), nome: h[k] }))
+    const notas = Object.keys(h).filter(k => k.startsWith('n:')).map(k => { try { return JSON.parse(h[k]) } catch { return null } }).filter(Boolean)
     const proj = Object.keys(h).filter(k => k.startsWith('x:')).map(k => { try { return JSON.parse(h[k]) } catch { return null } }).filter(Boolean).sort((a, b) => b.ms - a.ms)
-    out.push({ id, ini: +h.ini || 0, fim: +h.fim || 0, sessao: h.sessao || null, titulo: h.titulo || null, presentes, proj })
+    out.push({ id, ini: +h.ini || 0, fim: +h.fim || 0, sessao: h.sessao || null, titulo: h.titulo || null, presentes, proj, notas })
   }
   return out
 }
@@ -135,12 +136,13 @@ async function retrospectiva(ano) {
       titulos.set(k, t)
       proj.set(x.por, (proj.get(x.por) || 0) + x.ms)
     }
+    for (const n of c.notas || []) { const t = titulos.get(n.ti.toLowerCase()); if (t) { t.somaNotas = (t.somaNotas || 0) + n.media; t.qNotas = (t.qNotas || 0) + 1 } }
     const principal = [...c.proj].sort((a, b) => b.ms - a.ms)[0]
     if (!maior || dur > maior.ms) maior = { ms: dur, ini: c.ini, titulo: principal && !/^tela de /i.test(principal.t) ? principal.m?.ti || principal.t : '', presentes: c.presentes.length }
   }
   const generico = t => /^tela de /i.test(t.titulo)
   const top = [...titulos.values()].filter(t => t.ms >= 5 * 60e3 && !generico(t)).sort((a, b) => b.ms - a.ms).slice(0, 10)
-    .map(t => ({ titulo: t.titulo, ms: t.ms, poster: t.poster, plat: t.plat, tipo: t.tipo, nota: t.nota, eps: t.eps.size, sessoes: t.sessoes.size }))
+    .map(t => ({ titulo: t.titulo, ms: t.ms, poster: t.poster, plat: t.plat, tipo: t.tipo, nota: t.nota, eps: t.eps.size, sessoes: t.sessoes.size, notaSala: t.qNotas ? Math.round(t.somaNotas / t.qNotas * 10) / 10 : null }))
   return {
     ano, anos, sessoes: calls.length, ms: total, msProj: totalProj, maior,
     titulos: top, pessoas: [...pessoas.values()].sort((a, b) => b.n - a.n).slice(0, 12),

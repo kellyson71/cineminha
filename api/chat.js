@@ -89,7 +89,8 @@ export default async function handler(req, res) {
       if (typeof m.id !== 'string' || typeof m.text !== 'string' || m.text.length > 500 || (m.gif && String(m.gif).length > 600)) return json(res, 400, { error: 'msg' })
       const keep = { id: m.id.slice(0, 80), key: String(m.key || '').slice(0, 40), name: String(m.name || '').slice(0, 24), text: m.text, ts: +m.ts || Date.now(), ...(m.gif ? { gif: String(m.gif), sticker: !!m.sticker, ...(m.foto ? { foto: 1 } : {}) } : {}),
         ...(m.re && typeof m.re.id === 'string' ? { re: { id: m.re.id.slice(0, 80), name: String(m.re.name || '').slice(0, 24), text: String(m.re.text || '').slice(0, 120) } } : {}),
-        ...(Number.isFinite(+m.mt) && m.mt !== null && m.mt !== '' ? { mt: Math.max(0, Math.round(+m.mt)) } : {}) }
+        ...(Number.isFinite(+m.mt) && m.mt !== null && m.mt !== '' ? { mt: Math.max(0, Math.round(+m.mt)) } : {}),
+        ...(Array.isArray(m.poll) && m.poll.length >= 2 ? { poll: m.poll.slice(0, 6).map(o => String(o).slice(0, 60)) } : {}) }
       await redis('LPUSH', `chat:${b.r}`, JSON.stringify(keep))
       await redis('LTRIM', `chat:${b.r}`, 0, MAX - 1)
       return json(res, 200, { ok: true })

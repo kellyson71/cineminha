@@ -34,6 +34,15 @@ async function midia(q, s, e) {
 export default async function handler(req, res) {
   if (req.method !== 'GET') return json(res, 405, { error: 'método' })
   const u = new URL(req.url, 'http://x').searchParams
+  // capa pelo nosso domínio (a do catálogo não libera CORS): a retrospectiva desenha num canvas e exporta PNG
+  if (u.has('capa')) {
+    const c = u.get('capa') || ''
+    if (!/^https:\/\/images\.metahub\.space\/poster\/(small|medium)\/tt\d{5,12}\/img$/.test(c)) return json(res, 400, { error: 'capa' })
+    const r = await fetch(c, { signal: AbortSignal.timeout(7000) }).catch(() => null)
+    if (!r?.ok) return json(res, 404, { error: 'capa' })
+    res.statusCode = 200; res.setHeader('content-type', r.headers.get('content-type') || 'image/jpeg'); res.setHeader('cache-control', 'public, max-age=86400, s-maxage=604800')
+    res.end(Buffer.from(await r.arrayBuffer())); return
+  }
   if (u.has('midia')) {
     const q = (u.get('midia') || '').trim().slice(0, 100), s = +u.get('s') || 0, e = +u.get('e') || 0
     if (q.length < 2) return json(res, 200, { midia: null })

@@ -102,6 +102,18 @@ export default async function handler(req, res) {
         return json(res, 200, { pres: await presenca(b.r, now), callIni, cmd: cmd && now - cmd.ts < 120e3 ? cmd : null })
       }
       // Faixa do dia: resultado de cada um, música por música (hash faixa:<data>, campo = pessoa)
+      // nota da sala para o episódio/filme que acabou (quem projetou manda as estrelas de todo mundo)
+      if (b.op === 'nota') {
+        if (!okRoom(b.r) || !b.registra || typeof b.ti !== 'string' || !b.ti.trim() || !b.notas || typeof b.notas !== 'object') return json(res, 200, { ok: false })
+        const callIni = +(await redis('GET', `callini:${b.r}`))
+        if (!callIni) return json(res, 200, { ok: false })
+        const notas = Object.fromEntries(Object.entries(b.notas).slice(0, 40).map(([k, v]) => [String(k).slice(0, 40), Math.max(1, Math.min(5, Math.round(+v) || 0))]).filter(([, v]) => v >= 1))
+        if (!Object.keys(notas).length) return json(res, 200, { ok: false })
+        const s = Math.max(0, Math.min(99, +b.s || 0)), e = Math.max(0, Math.min(999, +b.e || 0)), ti = b.ti.trim().slice(0, 100)
+        const vals = Object.values(notas), media = Math.round(vals.reduce((a, v) => a + v, 0) / vals.length * 10) / 10
+        await redis('HSET', `cham:${b.r}:${callIni}`, `n:${ti.toLowerCase()}|${s}|${e}`, JSON.stringify({ ti, s, e, notas, media }))
+        return json(res, 200, { ok: true, media })
+      }
       if (b.op === 'faixa-res') {
         const data = String(b.data || ''), n = String(b.n ?? '')
         if (!/^\d{4}-\d{2}-\d{2}$/.test(data) || !/^\d{1,2}$/.test(n) || typeof b.key !== 'string' || !b.key) return json(res, 400, { error: 'dados' })

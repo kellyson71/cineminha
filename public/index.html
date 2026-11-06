@@ -27,6 +27,7 @@ try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(se
     <header class="lobby__head">
       <span class="lobby__kicker"><svg data-icon="clapperboard"></svg><span id="lobbyWhen">Sessão de hoje</span></span>
       <img class="lobby__poster" id="lobbyPoster" alt="" hidden>
+      <svg class="lobby__logo" viewBox="36 36 184 184" aria-hidden="true"><path fill="#fff4e6" d="M183.4 64.6A84 84 0 1 0 124 208H204a8 8 0 0 0 8-8V176a8 8 0 0 0-8-8H124A44 44 0 1 1 155.1 92.9Z"/><path class="lobby__play" fill="#ffc23d" d="M106 98 151 124 106 150Z"/></svg>
       <h1 class="lobby__title" id="lobbyTitle">Cineminha</h1>
       <p class="lobby__sub" id="lobbySub"></p>
       <img class="gate__logo" data-cfg="logo" alt="" hidden>
@@ -340,7 +341,7 @@ try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(se
     <form class="chat__form" id="chatForm">
       <button class="chat__tool" type="button" id="btnGif" title="GIFs e figurinhas"><svg data-icon="sticker"></svg></button>
       <button class="chat__tool" type="button" id="btnImg" title="Enviar imagem (ou cole no campo)"><svg data-icon="image-plus"></svg></button><input type="file" id="imgFile" accept="image/*" hidden>
-      <input id="chatInput" maxlength="500" placeholder="Mensagem" autocomplete="off">
+      <input id="chatInput" maxlength="500" placeholder="Mensagem" title="Dica: /enquete pizza ou hambúrguer?" autocomplete="off">
       <button class="chat__send" type="submit" title="Enviar"><svg data-icon="send"></svg></button>
     </form>
   </aside>

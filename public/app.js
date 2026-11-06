@@ -373,6 +373,7 @@ async function enter(pw, key, name) {
   renderAccountBadge()
   $('#admHeading').hidden = me.key !== 'kellyson'
   $('#admLogin').hidden = me.key !== 'kellyson'
+  abreCortinaEntrada()
   $('#gate').hidden = true
   document.body.classList.remove('locked')
   document.documentElement.classList.remove('auto')
@@ -795,7 +796,7 @@ function updatePlayer(id) {
 function nfxAcoes(id, tile, n, pode) {
   let box = tile.nfxBox
   if (!box) { box = tile.nfxBox = el('div', { className: 'nfx-acoes' }); box.addEventListener('click', e => e.stopPropagation()); tile.el.append(box) }
-  const k = JSON.stringify([n?.pular, n?.voto?.id, n?.voto?.s, n?.voto?.n, n?.voto?.fim, pode, tile.meuVoto?.[n?.voto?.id]])
+  const k = JSON.stringify([n?.pular, n?.voto?.id, n?.voto?.s, n?.voto?.n, n?.voto?.fim, n?.voto?.nq, pode, tile.meuVoto?.[n?.voto?.id], tile.minhaNota?.[n?.voto?.id]])
   if (box.dataset.k === k) return
   box.dataset.k = k
   const itens = []
@@ -810,7 +811,18 @@ function nfxAcoes(id, tile, n, pode) {
     const vota = val => { tile.meuVoto[v.id] = val; playerCommand(id, 'voto', { id: v.id, v: val }); box.dataset.k = ''; updatePlayer(id) }
     const bt = (val, emo, txt, c) => { const b = el('button', { type: 'button', className: 'nfx-voto__b ' + c + (meu === val ? ' on' : ''), disabled: !!v.fim }, el('i', { textContent: emo }), el('span', { textContent: txt }), el('b', { textContent: val > 0 ? v.s : v.n })); b.addEventListener('click', () => vota(val)); return b }
     const res = v.fim === 'sim' ? 'Mais um, então!' : v.fim === 'nao' ? 'Paramos por aqui' : v.fim ? 'A Netflix seguiu' : ''
+    // fim do episódio: capa, o que vocês viram e a nota da sala (1 a 5 estrelas, cada um dá a sua)
+    const md = playerInfo(id)?.midia, minha = (tile.minhaNota ||= {})[v.id] || 0
+    const estrelas = el('div', { className: 'nfx-estrelas', role: 'radiogroup', ariaLabel: 'Nota da sala' }, ...[1, 2, 3, 4, 5].map(i => {
+      const b = el('button', { type: 'button', className: i <= minha ? 'on' : '', textContent: '★', title: `${i} estrela${i > 1 ? 's' : ''}` })
+      b.addEventListener('click', () => { tile.minhaNota[v.id] = i; playerCommand(id, 'estrela', { id: v.id, v: i }); box.dataset.k = ''; updatePlayer(id) })
+      return b
+    }), v.nq ? el('small', { textContent: `sala: ★ ${v.nm.toFixed(1).replace('.', ',')} (${v.nq})` }) : el('small', { textContent: 'dê sua nota' }))
+    const visto = md ? el('div', { className: 'nfx-visto' },
+      md.poster ? el('img', { src: md.poster.replace('/poster/small/', '/poster/medium/'), alt: '' }) : '',
+      el('div', {}, el('small', { textContent: 'Vocês viram' }), el('b', { textContent: md.titulo }), md.s ? el('span', { textContent: `T${md.s} · E${md.e}${md.epNome ? ' · ' + md.epNome : ''}` }) : '')) : ''
     const card = el('div', { className: 'nfx-voto' + (v.fim ? ' fim' : '') },
+      visto, estrelas,
       el('div', { className: 'nfx-voto__t' }, el('b', { textContent: res || 'Mais um episódio?' }), el('small', { textContent: v.fim ? `${v.s} × ${v.n}` : `${v.s + v.n} de ${v.tot} votaram` })),
       el('div', { className: 'nfx-voto__bs' }, bt(1, '👍', 'Mais um', 'sim'), bt(-1, '👎', 'Parar', 'nao')),
       v.fim ? '' : el('i', { className: 'nfx-voto__tempo', style: `animation-duration:${Math.max(0, v.ate)}ms` }))
@@ -842,7 +854,7 @@ function buildPlayer(id, tile) {
   })
   gear.setAttribute('aria-expanded', 'false')
   const quality = el('select', { ariaLabel: 'Qualidade da projeção' }, ...[['auto','Automática'],['1080','Até 1080p'],['720','Até 720p'],['480','Até 480p']].map(([value, textContent]) => el('option', { value, textContent })))
-  quality.addEventListener('change', () => playerCommand(id, 'quality', quality.value))
+  quality.addEventListener('change', () => { tile.aqNivel = 0; tile.aqRuim = tile.aqBom = 0; playerCommand(id, 'quality', quality.value) })
   const rate = el('select', { ariaLabel: 'Velocidade do filme' }, ...[.5,1,1.25,1.5,2].map(value => el('option', { value: String(value), textContent: value + '×' })))
   rate.value = '1'; rate.addEventListener('change', () => playerCommand(id, 'rate', +rate.value))
   const rateLabel = el('label', {}, el('span', { textContent: 'Velocidade' }), rate)
@@ -1583,7 +1595,7 @@ navigator.mediaDevices?.addEventListener?.('devicechange', () => listDevices())
 function shareMsg() {
   const n = nfxDe(myShare)
   const t = myShare.kind === 'arquivo' && myShare.video ? myShare.video.currentTime : n ? n.t : undefined
-  if (n) return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: false, paused: n.paused, subs: false, t, duration: n.d, rate: 1, preview: '', quality: myShare.quality || 'auto', nfx: { ctl: prefs.nfxTodos === false ? 'eu' : 'todos', pular: n.pular, fim: n.fim, voto: myShare.voto ? { id: myShare.voto.id, s: myShare.voto.sim.size, n: myShare.voto.nao.size, ate: myShare.voto.ate - Date.now(), fim: myShare.voto.fim, tot: peers.size + 1 } : null } }
+  if (n) return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: false, paused: n.paused, subs: false, t, duration: n.d, rate: 1, preview: '', quality: myShare.quality || 'auto', nfx: { ctl: prefs.nfxTodos === false ? 'eu' : 'todos', pular: n.pular, fim: n.fim, voto: myShare.voto ? { id: myShare.voto.id, s: myShare.voto.sim.size, n: myShare.voto.nao.size, ate: myShare.voto.ate - Date.now(), fim: myShare.voto.fim, tot: peers.size + 1, nq: myShare.voto.notas.size, nm: myShare.voto.notas.size ? [...myShare.voto.notas.values()].reduce((a, v) => a + v, 0) / myShare.voto.notas.size : 0 } : null } }
   return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: myShare.game, paused: !!myShare.paused, subs: !!myShare.subs, t, duration: myShare.video?.duration || 0, rate: myShare.video?.playbackRate || 1, preview: myShare.preview || '', quality: myShare.quality || 'auto' }
 }
 // quem transmite arquivo avisa o tempo do filme de vez em quando (para marcar mensagens)
@@ -1735,7 +1747,7 @@ function nfxEstado(d) {
    senão, em 12 s vale o que tiver mais votos (empate ou ninguém votou: a Netflix segue sozinha). */
 const VOTO_MS = 12000
 function iniciaVoto(sh) {
-  sh.voto = { id: Date.now().toString(36), sim: new Set(), nao: new Set(), ate: Date.now() + VOTO_MS, fim: '' }
+  sh.voto = { id: Date.now().toString(36), sim: new Set(), nao: new Set(), notas: new Map(), ate: Date.now() + VOTO_MS, fim: '', md: sh.midia }
   sh.voto.timer = setTimeout(() => encerraVoto(sh), VOTO_MS)
   sfx('chat'); actions?.share.send(shareMsg()); renderTile(selfId)
 }
@@ -1748,6 +1760,19 @@ function votou(sh, quem, v, id) {
   if (vt.sim.size > total / 2 || vt.nao.size > total / 2) encerraVoto(sh)
   else { actions?.share.send(shareMsg()); renderTile(selfId) }
 }
+function deuNota(sh, quem, v, id) {
+  const vt = sh?.voto
+  if (!vt || vt.id !== id || !(v >= 1 && v <= 5)) return
+  vt.notas.set(quem, Math.round(v))
+  actions?.share.send(shareMsg()); renderTile(selfId)
+}
+// guarda a nota da sala no diário (só a de quem projetou manda, uma vez por episódio)
+function salvaNotas(vt) {
+  if (!vt?.notas.size || !vt.md?.titulo || vt.salvo) return
+  vt.salvo = true
+  const notas = Object.fromEntries([...vt.notas].map(([quem, v]) => [quem === selfId ? me.key : peers.get(quem)?.key || quem, v]))
+  api('sala', { method: 'POST', body: { op: 'nota', r: roomId, pw: roomPw, registra: !/^teste/i.test(canal || ''), ti: vt.md.titulo, s: vt.md.s, e: vt.md.e, notas } })
+}
 function encerraVoto(sh, motivo) {
   const vt = sh.voto
   if (!vt || vt.fim) return
@@ -1758,7 +1783,7 @@ function encerraVoto(sh, motivo) {
   else if (vt.nao.size > vt.sim.size) { vt.fim = 'nao'; nfxCmd('creditos'); sysMsg(`A sala votou: paramos por aqui (${placar})`) }
   else vt.fim = 'seguiu'
   actions?.share.send(shareMsg()); renderTile(selfId)
-  setTimeout(() => { if (sh.voto === vt) { sh.voto = null; if (myShare === sh) { actions?.share.send(shareMsg()); renderTile(selfId) } } }, 6000)
+  setTimeout(() => { salvaNotas(vt); if (sh.voto === vt) { sh.voto = null; if (myShare === sh) { actions?.share.send(shareMsg()); renderTile(selfId) } } }, 12000)
 }
 function nfxCmd(op, d) { postMessage({ cineExt: 'netflix', tipo: 'cmd', op, d, id: Date.now() + '' + Math.random() }, location.origin) }
 // Trocar o que está sendo projetado sem parar a transmissão: troca as trilhas na mesma conexão
@@ -1930,7 +1955,7 @@ $('#btnPause').addEventListener('click', askPause)
 /* ---------- Controle remoto do arquivo (qualquer um pausa/volta/avança) ---------- */
 function ctl(id, op, d) {
   actions?.ctl.send({ op, d }, { target: id })
-  if (['quality','rate','voto','pular'].includes(op)) return
+  if (['quality','rate','voto','pular','estrela'].includes(op)) return
   toast(op === 'toggle' ? (shareInfo.get(id)?.paused ? 'Continuando…' : 'Pausando…') : op === 'at' ? `Pulando para ${fmtMt(d)}` : d < 0 ? `Voltando ${-d} s` : `Avançando ${d} s`, 1500)
 }
 function gotCtl(d, name, peerId) {
@@ -1940,6 +1965,7 @@ function gotCtl(d, name, peerId) {
   }
   const n = nfxDe(myShare)
   if (n && d?.op === 'voto' && d.d && typeof d.d.id === 'string') { votou(myShare, peerId || selfId, +d.d.v, d.d.id); return }
+  if (myShare?.voto && d?.op === 'estrela' && d.d && typeof d.d.id === 'string') { deuNota(myShare, peerId || selfId, +d.d.v, d.d.id); return }
   if (n && d?.op === 'pular') {
     if (peerId && prefs.nfxTodos === false) return
     nfxCmd('pular'); sysMsg(`${name} pulou ${n.pular === 'resumo' ? 'o resumo' : 'a abertura'}`); return
@@ -2241,6 +2267,29 @@ function tuneReceivers() {
 }
 const lastBytes = new Map(), stalled = new Map()
 let lastAutoReload = 0
+/* Qualidade automática (quem assiste decide a sua): perda de pacotes, travadas ou fps baixo por ~6 s
+   → pede a quem projeta uma resolução menor só para si (1080 → 720 → 480). Rede boa por 30 s → sobe um degrau.
+   Só no "Automática"; escolher uma qualidade à mão desliga. */
+const AQ = ['auto', '720', '480']
+function qualidadeAuto(id, t, info) {
+  const info2 = shareInfo.get(id)
+  if (!t.player || t.player.quality.value !== 'auto' || info2?.paused) { t.aqAnt = info; return }
+  const a = t.aqAnt; t.aqAnt = info
+  if (!a) return
+  const dRecv = info.recv - a.recv, dLost = Math.max(0, info.lost - a.lost), perda = dRecv + dLost ? dLost / (dRecv + dLost) : 0
+  const ruim = perda > .04 || info.freeze > a.freeze || (dRecv > 0 && (info.fps || 0) < (info2?.game ? 30 : 15))
+  const bom = perda < .01 && info.freeze === a.freeze && (info.fps || 0) >= (info2?.game ? 50 : 24)
+  t.aqRuim = ruim ? (t.aqRuim || 0) + 1 : 0
+  t.aqBom = bom ? (t.aqBom || 0) + 1 : 0
+  t.aqNivel ||= 0
+  let novo = t.aqNivel
+  if (t.aqRuim >= 3 && t.aqNivel < AQ.length - 1) novo++
+  else if (t.aqBom >= 15 && t.aqNivel > 0) novo--
+  if (novo === t.aqNivel) return
+  t.aqNivel = novo; t.aqRuim = t.aqBom = 0
+  actions?.ctl.send({ op: 'quality', d: AQ[novo] }, { target: id })
+  if (novo > 0) toast(`Sua rede oscilou: recebendo em ${AQ[novo]}p por enquanto`, 3500)
+}
 async function checkStreams() {
   if (!room) return
   tuneReceivers(); tuneSenders()
@@ -2258,7 +2307,7 @@ async function checkStreams() {
         }
         if (id !== selfId && s.type === 'inbound-rtp' && !(s.kind === 'audio' && vids.has(s.trackIdentifier))) {
           have = true; bytes += s.bytesReceived
-          if (s.kind === 'video') info = { h: s.frameHeight, fps: s.framesPerSecond }
+          if (s.kind === 'video') info = { h: s.frameHeight, fps: s.framesPerSecond, lost: s.packetsLost || 0, recv: s.packetsReceived || 0, freeze: s.freezeCount || 0 }
         }
       })
     }
@@ -2266,6 +2315,8 @@ async function checkStreams() {
     lastBytes.set(id, bytes)
     const mbps = prev != null ? Math.max(0, (bytes - prev) * 8 / 2 / 1e6) : 0
     t.q = have && info?.h ? `${info.h}p · ${Math.round(info.fps || 0)} fps · ${mbps.toFixed(1).replace('.', ',')} Mbps${info.lim === 'bandwidth' ? ' · rede limitando' : info.lim === 'cpu' ? ' · CPU limitando' : ''}` : ''
+    if (id !== selfId && info) qualidadeAuto(id, t, info)
+    if (t.aqNivel) t.q += ` · automático ${AQ[t.aqNivel]}p`
     renderTile(id)
     // nada chegou por ~8 s (e não está pausado) → pede a transmissão de novo
     if (id !== selfId && prev != null && !shareInfo.get(id)?.paused) {
@@ -2384,6 +2435,14 @@ function renderSeats() {
     node.classList.toggle('away', here.length > 0 && here.every(x => x.away) && !here.some(x => x.speaking))
     node.classList.toggle('sharing', here.some(x => tiles.has(x.id)))
     node.classList.toggle('ghost', here.length > 0 && here.every(x => x.ghost))
+    // balãozinho de estado: projetando ou assistindo (mudo, som cortado e ausente já têm ícone no nome e o zzz)
+    const est = !here.length || node.classList.contains('away') ? '' : here.some(x => tiles.has(x.id)) ? '📽️' : tiles.size && !node.classList.contains('speaking') ? '🍿' : ''
+    if (node.dataset.estado !== est) {
+      node.dataset.estado = est
+      let b = node.querySelector('.seat__estado')
+      if (!est) b?.remove()
+      else { if (!b) { b = el('span', { className: 'seat__estado' }); node.append(b) } b.textContent = est; b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop') }
+    }
     const volta = here.length > 0 && here.every(x => x.volta)
     if (volta && !node.querySelector('.seat__volta')) node.append(el('div', { className: 'seat__volta' }, el('i'), el('i'), el('i')))
     else if (!volta) node.querySelector('.seat__volta')?.remove()
@@ -2859,6 +2918,15 @@ async function saveSummary() {
   if (r?.ok) { sessCache = null; toast('Sessão guardada no diário') }
 }
 let chamCache = []
+// Esqueleto de carregamento (capa + linhas brilhando) no lugar de "Carregando…"
+// média das estrelas que a sala deu nos episódios/filme daquela call
+function notaSala(c, ti) {
+  const ns = (c.notas || []).filter(n => n.ti?.toLowerCase() === String(ti).toLowerCase())
+  if (!ns.length) return ''
+  const m = ns.reduce((a, n) => a + n.media, 0) / ns.length
+  return el('span', { className: 'diary__nota diary__nota--sala', textContent: `★ ${m.toFixed(1).replace('.', ',')} da sala` })
+}
+const esqueleto = (n, tag = 'li') => Array.from({ length: n }, () => el(tag, { className: 'esq-item', ariaHidden: 'true' }, el('i', { className: 'esq esq--capa' }), el('div', {}, el('i', { className: 'esq esq--l1' }), el('i', { className: 'esq esq--l2' }), el('i', { className: 'esq esq--l3' }))))
 /* ---------- Retrospectiva: o ano do Cineminha em números ---------- */
 const retroEl = el('div', { className: 'retro', hidden: true })
 $('#diaryList').after(retroEl)
@@ -2873,7 +2941,7 @@ function mostraRetro(on, ano) {
 }
 const horasTxt = ms => { const h = ms / 3.6e6; return h >= 10 ? `${Math.round(h)} h` : h >= 1 ? `${h.toFixed(1).replace('.', ',')} h` : `${Math.round(ms / 60000)} min` }
 async function carregaRetro(ano) {
-  retroEl.replaceChildren(el('p', { className: 'diary__empty', textContent: 'Fazendo as contas…' }))
+  retroEl.replaceChildren(el('div', { className: 'esq esq--hero' }), ...esqueleto(3, 'div'))
   const r = await api('sessoes?retro=' + ano)
   if (!r?.ano) return retroEl.replaceChildren(el('p', { className: 'diary__empty', textContent: 'Não deu para carregar agora.' }))
   if (!r.sessoes) return retroEl.replaceChildren(el('p', { className: 'diary__empty', textContent: `Nenhuma sessão registrada em ${ano} ainda.` }))
@@ -2882,9 +2950,11 @@ async function carregaRetro(ano) {
   const maxMes = Math.max(...r.meses, 1)
   const anos = r.anos.length > 1 ? el('div', { className: 'retro__anos' }, ...r.anos.map(a => { const b = el('button', { type: 'button', className: a === r.ano ? 'on' : '', textContent: a }); b.addEventListener('click', () => carregaRetro(a)); return b })) : ''
   const sec = (t, ...kids) => el('section', { className: 'retro__sec' }, el('h3', { textContent: t }), ...kids)
+  const compartilhar = el('button', { type: 'button', className: 'retro__share' }, icon('send'), el('span', { textContent: 'Imagem para o grupo' }))
+  compartilhar.addEventListener('click', () => imagemRetro(r, compartilhar))
   retroEl.replaceChildren(
     anos,
-    el('div', { className: 'retro__hero' },
+    el('div', { className: 'retro__hero' }, compartilhar,
       el('small', { textContent: `${r.ano} no Cineminha` }),
       el('b', { textContent: horasTxt(r.ms) }), el('span', { textContent: 'juntos na call' }),
       el('div', { className: 'retro__nums' },
@@ -2894,7 +2964,7 @@ async function carregaRetro(ano) {
     r.titulos.length ? sec('O que mais passou', el('ol', { className: 'retro__tops' }, ...r.titulos.map((t, i) => el('li', {},
       t.poster ? el('img', { src: t.poster.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('span', { className: 'retro__semcapa' }, icon('film')),
       el('i', { textContent: i + 1 }),
-      el('div', {}, el('b', { textContent: t.titulo }), el('small', { textContent: [horasTxt(t.ms), t.eps ? `${t.eps} episódio${t.eps > 1 ? 's' : ''}` : '', t.sessoes > 1 ? `${t.sessoes} sessões` : ''].filter(Boolean).join(' · ') })))))) : '',
+      el('div', {}, el('b', { textContent: t.titulo }), el('small', { textContent: [horasTxt(t.ms), t.notaSala ? `★ ${String(t.notaSala).replace('.', ',')} da sala` : '', t.eps ? `${t.eps} episódio${t.eps > 1 ? 's' : ''}` : '', t.sessoes > 1 ? `${t.sessoes} sessões` : ''].filter(Boolean).join(' · ') })))))) : '',
     sec('Quem mais apareceu', el('div', { className: 'retro__gente' }, ...r.pessoas.map((p, i) => el('div', { className: i === 0 ? 'top' : '' }, pfpImg(p.key, i === 0 ? 64 : 44, p.nome), el('b', { textContent: p.nome }), el('small', { textContent: `${p.n} ${p.n > 1 ? 'sessões' : 'sessão'}` }))))),
     el('div', { className: 'retro__dupla' },
       r.maior ? sec('Maratona do ano', el('p', { className: 'retro__grande', textContent: horasTxt(r.maior.ms) }), el('small', { textContent: [new Date(r.maior.ini).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' }), r.maior.titulo, `${r.maior.presentes} pessoas`].filter(Boolean).join(' · ') })) : '',
@@ -2902,10 +2972,70 @@ async function carregaRetro(ano) {
       sec('O horário de vocês', el('p', { className: 'retro__grande', textContent: `${dia}, ${hora}h` }), el('small', { textContent: 'o dia e a hora em que mais começa sessão' }))),
     sec('Mês a mês', el('div', { className: 'retro__meses' }, ...r.meses.map((ms, i) => el('div', { title: horasTxt(ms) }, el('i', { style: `--h:${Math.round(ms / maxMes * 100)}%` }), el('small', { textContent: MES[i] }))))))
 }
+// Entrar na sala: a cortina da entrada se abre para os lados (uma vez por entrada)
+function abreCortinaEntrada() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('auto')) return
+  const c = el('div', { className: 'entrada-cortina', ariaHidden: 'true' }, el('i', { className: 'l' }), el('i', { className: 'r' }))
+  document.body.append(c)
+  requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('abre')))
+  setTimeout(() => c.remove(), 1900)
+}
+// Retrospectiva em imagem vertical (1080×1920, tipo stories) para mandar no grupo
+async function imagemRetro(r, btn) {
+  btn.disabled = true
+  try {
+    const W = 1080, H = 1920, c = el('canvas', { width: W, height: H }), g = c.getContext('2d')
+    const carrega = src => new Promise(ok => { const i = new Image(); i.crossOrigin = 'anonymous'; i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src })
+    const fonte = (peso, px) => `${peso} ${px}px Inter, "DM Sans", system-ui, sans-serif`
+    const bg = g.createRadialGradient(0, 0, 0, 0, 0, 1900); bg.addColorStop(0, '#e5484d'); bg.addColorStop(.45, '#8a1c2b'); bg.addColorStop(1, '#16070b')
+    g.fillStyle = bg; g.fillRect(0, 0, W, H)
+    // logo: o "c" com o play
+    g.save(); g.translate(90, 110); g.scale(.62, .62); g.translate(-36, -36)
+    g.fillStyle = '#fff4e6'; g.fill(new Path2D('M183.4 64.6A84 84 0 1 0 124 208H204a8 8 0 0 0 8-8V176a8 8 0 0 0-8-8H124A44 44 0 1 1 155.1 92.9Z'))
+    g.fillStyle = '#ffc23d'; g.fill(new Path2D('M106 98 151 124 106 150Z')); g.restore()
+    g.fillStyle = '#fff4e6'; g.font = fonte(800, 52); g.fillText('Cineminha', 230, 185)
+    g.font = fonte(700, 34); g.globalAlpha = .8; g.fillText(`RETROSPECTIVA ${r.ano}`, 90, 330); g.globalAlpha = 1
+    g.font = fonte(800, 210); g.fillText(horasTxt(r.ms), 82, 530)
+    g.font = fonte(500, 46); g.fillText('juntos na call', 90, 600)
+    const nums = [[r.sessoes, 'sessões'], [horasTxt(r.msProj), 'de tela'], [r.titulos.length, 'títulos']]
+    nums.forEach(([n, t], i) => { const x = 90 + i * 310; g.font = fonte(800, 64); g.fillText(String(n), x, 720); g.font = fonte(500, 32); g.globalAlpha = .8; g.fillText(t, x, 765); g.globalAlpha = 1 })
+    // o que mais passou (capas pelo nosso domínio)
+    g.font = fonte(700, 30); g.globalAlpha = .7; g.fillText('O QUE MAIS PASSOU', 90, 880); g.globalAlpha = 1
+    const top = r.titulos.slice(0, 3)
+    const capas = await Promise.all(top.map(t => t.poster ? carrega('api/filmes?capa=' + encodeURIComponent(t.poster.replace('/poster/small/', '/poster/medium/'))) : null))
+    top.forEach((t, i) => {
+      const y = 920 + i * 200
+      if (capas[i]) { g.save(); g.beginPath(); g.roundRect(90, y, 116, 172, 12); g.clip(); g.drawImage(capas[i], 90, y, 116, 172); g.restore() }
+      else { g.fillStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.roundRect(90, y, 116, 172, 12); g.fill() }
+      g.fillStyle = i ? '#fff4e6' : '#ffc23d'; g.font = fonte(800, 56); g.fillText(String(i + 1), 240, y + 100)
+      g.fillStyle = '#fff4e6'; g.font = fonte(700, 46)
+      let nome = t.titulo; while (g.measureText(nome).width > 640 && nome.length > 4) nome = nome.slice(0, -2)
+      g.fillText(nome === t.titulo ? nome : nome + '…', 310, y + 80)
+      g.font = fonte(500, 32); g.globalAlpha = .75; g.fillText([horasTxt(t.ms), t.eps ? `${t.eps} episódios` : '', t.notaSala ? `★ ${t.notaSala} da sala` : ''].filter(Boolean).join(' · '), 310, y + 128); g.globalAlpha = 1
+    })
+    // quem mais apareceu
+    const yP = 1560
+    g.font = fonte(700, 30); g.globalAlpha = .7; g.fillText('QUEM MAIS APARECEU', 90, yP); g.globalAlpha = 1
+    const gente = r.pessoas.slice(0, 5), fotos = await Promise.all(gente.map(p => person(p.key, p.nome).foto ? carrega(person(p.key, p.nome).foto) : null))
+    gente.forEach((p, i) => {
+      const x = 90 + i * 186, y = yP + 40
+      g.save(); g.beginPath(); g.arc(x + 70, y + 70, 70, 0, Math.PI * 2); g.clip()
+      if (fotos[i]) g.drawImage(fotos[i], x, y, 140, 140); else { g.fillStyle = person(p.key, p.nome).cor || '#888'; g.fillRect(x, y, 140, 140) }
+      g.restore()
+      g.fillStyle = i ? '#fff4e6' : '#ffc23d'; g.font = fonte(700, 30); g.textAlign = 'center'; g.fillText(p.nome.slice(0, 10), x + 70, y + 190)
+      g.font = fonte(500, 26); g.globalAlpha = .7; g.fillText(`${p.n} sessões`, x + 70, y + 226); g.globalAlpha = 1; g.textAlign = 'left'
+    })
+    const blob = await new Promise(ok => c.toBlob(ok, 'image/png'))
+    const arq = new File([blob], `cineminha-${r.ano}.png`, { type: 'image/png' })
+    if (navigator.canShare?.({ files: [arq] })) await navigator.share({ files: [arq], title: `Cineminha ${r.ano}` }).catch(() => {})
+    else { const a = el('a', { href: URL.createObjectURL(blob), download: arq.name }); a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 5000); toast('Imagem salva: é só mandar no grupo') }
+  } catch (e) { toast('Não deu para gerar a imagem agora') }
+  btn.disabled = false
+}
 async function openDiary() {
   closePops()
   mostraRetro(false)
-  $('#diaryList').replaceChildren(el('li', { className: 'diary__empty', textContent: 'Carregando…' }))
+  $('#diaryList').replaceChildren(...esqueleto(3))
   $('#diaryModal').hidden = false
   const r = await api('sessoes')
   sessCache = r?.list || []
@@ -2942,7 +3072,7 @@ async function openDiary() {
     const info = el('div', { className: 'diary__info' },
       el('span', { className: 'diary__when' }, agora ? el('em', { className: 'diary__agora', textContent: 'agora' }) : '', `${dia(c.ini)} · ${hm(c.ini)}–${hm(c.fim)}`),
       el('h3', { textContent: titulo }),
-      m ? el('p', { className: 'diary__meta diary__midia' }, m.pl ? el('span', { className: 'diary__plat', innerHTML: (ICONE_PLAT[m.pl] || '') + (NOME_PLAT[m.pl] || '') }) : '', epTxt ? el('span', { textContent: epTxt }) : '', m.n ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+m.n).toFixed(1)}` }) : '') : '',
+      m ? el('p', { className: 'diary__meta diary__midia' }, m.pl ? el('span', { className: 'diary__plat', innerHTML: (ICONE_PLAT[m.pl] || '') + (NOME_PLAT[m.pl] || '') }) : '', epTxt ? el('span', { textContent: epTxt }) : '', m.n ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+m.n).toFixed(1)} IMDb` }) : '', notaSala(c, m.ti)) : '',
       cast(c.presentes, durTxt(c.fim - c.ini)),
       c.proj.length > 1 || (c.proj[0] && c.proj[0].ms >= 60e3) ? projs(c) : '')
     const capa = m?.p ? el('img', { className: 'diary__poster', src: m.p.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('div', { className: 'diary__poster diary__poster--none' }, icon(c.proj[0]?.k === 'arquivo' ? 'film' : c.proj.length ? 'monitor' : 'users'))
@@ -3538,11 +3668,23 @@ function poke() {
 }
 // Tela cheia em uma linha só: bonecos à esquerda, barrinha do vídeo no meio, botões à direita.
 // A barrinha ocupa o que sobra entre os dois; com muita gente na fileira e pouco espaço, ela sobe.
+// Em tela cheia, microfone e som saem da barra da direita e ficam logo depois dos bonecos:
+// bonecos | mic e som | barrinha do vídeo | outros botões
+const vozEl = el('div', { className: 'toolbar toolbar--voz' }), vozCasa = document.createComment('voicectl')
+function moveVoz() {
+  const v = document.querySelector('.voicectl')
+  if (!v) return
+  if (imersivo() && !vozEl.contains(v)) { v.before(vozCasa); vozEl.append(v); theater.append(vozEl) }
+  else if (!imersivo() && vozEl.contains(v)) { vozCasa.replaceWith(v); vozEl.remove() }
+}
 function arrumaBarra() {
+  moveVoz()
   if (!imersivo()) { theater.classList.remove('barra-acima'); return }
-  const row = theater.querySelector('.row__seats'), tb = theater.querySelector('.toolbar')
+  const row = theater.querySelector('.row__seats'), tb = theater.querySelector('.toolbar:not(.toolbar--voz)')
   const W = theater.clientWidth, rr = row?.getBoundingClientRect(), tr = tb?.getBoundingClientRect(), th = theater.getBoundingClientRect()
-  const esq = rr?.width ? rr.right - th.left + 14 : 16, dir = tr?.width ? th.right - tr.left + 12 : 16
+  vozEl.style.left = (rr?.width ? rr.right - th.left + 12 : 16) + 'px'
+  const vr = vozEl.getBoundingClientRect()
+  const esq = vr.width ? vr.right - th.left + 12 : rr?.width ? rr.right - th.left + 14 : 16, dir = tr?.width ? th.right - tr.left + 12 : 16
   theater.style.setProperty('--tbh', (tr?.height || 52) + 'px')
   theater.classList.toggle('barra-acima', W - esq - dir < 420)
   // a barrinha mora dentro de cada tela: converte para as bordas dela
@@ -3554,12 +3696,12 @@ function arrumaBarra() {
   }
 }
 new ResizeObserver(arrumaBarra).observe(theater)
-setTimeout(() => { const r = theater.querySelector('.row__seats'), t = theater.querySelector('.toolbar'); const o = new ResizeObserver(arrumaBarra); r && o.observe(r); t && o.observe(t) }, 0)
+setTimeout(() => { const r = theater.querySelector('.row__seats'), t = theater.querySelector('.toolbar'); const o = new ResizeObserver(arrumaBarra); r && o.observe(r); t && o.observe(t); o.observe(vozEl) }, 0)
 document.addEventListener('fullscreenchange', () => setTimeout(arrumaBarra, 50))
 // Em tela cheia, a barra só acorda com o mouse perto dela (faixa de baixo, ou de cima quando a barra
 // fica no topo) ou em cima da barra/chat; mexer o mouse no meio do filme não mostra nada.
 function naZonaDaBarra(e) {
-  if (e.target.closest?.('.toolbar, .chat, .pop, .jogosmenu, .trocajogo, .player-controls, .player-settings, .midia-card')) return true
+  if (e.target.closest?.('.toolbar, .toolbar--voz, .chat, .pop, .jogosmenu, .trocajogo, .player-controls, .player-settings, .midia-card')) return true
   const r = (theater.querySelector('.toolbar') || $('.toolbar'))?.getBoundingClientRect()
   const faixa = Math.max(110, (r?.height || 50) + 70)
   if (e.clientY < 130 && e.clientX < 520) return true // canto do "passando agora"
@@ -4038,6 +4180,7 @@ function msgNode(m) {
   if (m.text) line.append(el('span', { className: 'msg__text', textContent: m.text }))
   if (line.childNodes.length) body.append(line)
   if (m.gif) body.append(gifImg(m))
+  if (Array.isArray(m.poll) && m.poll.length >= 2) { line.classList.add('poll__q'); body.append(el('div', { className: 'poll' })) }
   const md = !m.gif && m.text && parseMidia(m.text)
   if (md) {
     const row = el('div', { className: 'msg__juntos' })
@@ -4065,6 +4208,7 @@ function addMsg(m, quiet) {
   if (!m.sys && !m.text && !m.gif) return
   if (m.re && (typeof m.re !== 'object' || typeof m.re.id !== 'string')) delete m.re
   if (m.mt != null) { m.mt = +m.mt; if (!Number.isFinite(m.mt)) delete m.mt }
+  if (m.poll != null) { if (Array.isArray(m.poll) && m.poll.length >= 2) m.poll = m.poll.slice(0, 6).map(o => String(o).slice(0, 60)); else delete m.poll }
   seen.add(m.id)
   messages.push(m)
   const li = m.sys ? el('li', { className: 'sys', textContent: m.text }) : msgNode(m)
@@ -4074,7 +4218,7 @@ function addMsg(m, quiet) {
   const after = [...listEl.children].find(x => +x.dataset.ts > m.ts)
   listEl.insertBefore(li, after || null)
   regroup(li); regroup(li.nextElementSibling)
-  if (!m.sys) renderMsgReacts(m.id)
+  if (!m.sys) { renderMsgReacts(m.id); if (m.poll) renderPoll(m.id) }
   if (atBottom || m.from === selfId || quiet) listEl.scrollTop = listEl.scrollHeight
   if (!quiet && !m.sys) {
     if (m.from !== selfId) sfx('chat', m.key)
@@ -4110,11 +4254,42 @@ $('#chatForm').addEventListener('submit', e => {
   if (!text) return
   // Faixa a Faixa no modo chat: a resposta certa não aparece para os outros
   if (faixa?.interceptaChat(text)) { $('#chatInput').value = ''; return }
+  const enq = /^\/enquete\s+(.+)/i.exec(text)
+  if (enq) { const p = parseEnquete(enq[1]); sendMsg({ text: p.q, poll: p.ops }); $('#chatInput').value = ''; return }
   const gif = gifFromText(text)
   sendMsg(gif ? { gif } : { text })
   $('#chatInput').value = ''
 })
 
+/* Enquete no chat: "/enquete pizza ou hambúrguer?", "/enquete Que filme? Duna, Alien, Matrix" ou
+   "/enquete Pergunta | a | b". Cada um vota em uma opção; os votos usam as reações da mensagem (p0…p5),
+   então ficam no histórico e chegam para quem entra depois. */
+function parseEnquete(t) {
+  t = t.trim()
+  let q = t, ops = []
+  if (t.includes('|')) { [q, ...ops] = t.split('|').map(x => x.trim()) }
+  else if (/\?\s*\S/.test(t)) { const i = t.indexOf('?'); q = t.slice(0, i + 1).trim(); ops = t.slice(i + 1).split(/,|\s+ou\s+/i).map(x => x.trim()) }
+  if (ops.filter(Boolean).length < 2) ops = q.replace(/\?$/, '').split(/,|\s+ou\s+/i).map(x => x.trim())
+  ops = [...new Set(ops.filter(Boolean))].slice(0, 6)
+  if (ops.length < 2) ops = ['Sim', 'Não']
+  return { q: q.slice(0, 200), ops: ops.map(o => o.replace(/\?$/, '').slice(0, 60)) }
+}
+function renderPoll(id) {
+  const box = msgEls.get(id)?.querySelector('.poll'), m = messages.find(x => x.id === id)
+  if (!box || !m?.poll) return
+  const map = msgReacts.get(id) || new Map(), votos = m.poll.map((_, i) => map.get('p' + i) || new Set())
+  const total = votos.reduce((a, s) => a + s.size, 0), max = Math.max(...votos.map(s => s.size))
+  box.replaceChildren(...m.poll.map((op, i) => {
+    const s = votos[i], meu = s.has(me.key), pc = total ? Math.round(s.size / total * 100) : 0
+    const b = el('button', { type: 'button', className: 'poll__op' + (meu ? ' on' : '') + (s.size && s.size === max ? ' lider' : ''), style: `--pc:${pc}%`, title: [...s].map(k => person(k).nome).join(', ') || 'ninguém ainda' },
+      el('span', { textContent: op }), el('div', { className: 'poll__quem' }, ...[...s].slice(0, 4).map(k => pfpImg(k, 18))), el('b', { textContent: total ? `${pc}%` : '' }))
+    b.addEventListener('click', () => {
+      m.poll.forEach((_, j) => { if (j !== i && votos[j].has(me.key)) toggleMsgReact(id, 'p' + j) })
+      toggleMsgReact(id, 'p' + i)
+    })
+    return b
+  }), el('small', { className: 'poll__total', textContent: total ? `${total} voto${total > 1 ? 's' : ''}` : 'toque para votar' }))
+}
 // Reações nas mensagens
 function renderMsgReacts(id) {
   const box = msgEls.get(id)?.querySelector('.msg__reacts')
@@ -4128,13 +4303,14 @@ function renderMsgReacts(id) {
   }))
 }
 function setMsgReact(id, e, key, on) {
-  if (!EMO_BY[e] || !key || typeof id !== 'string') return
+  if ((!EMO_BY[e] && !/^p[0-5]$/.test(e)) || !key || typeof id !== 'string') return
   let map = msgReacts.get(id)
   if (!map) msgReacts.set(id, map = new Map())
   let s = map.get(e)
   if (!s) map.set(e, s = new Set())
   if (on) s.add(key); else s.delete(key)
   renderMsgReacts(id)
+  if (/^p\d$/.test(e)) renderPoll(id)
 }
 function toggleMsgReact(id, e) {
   if (!me.key) return

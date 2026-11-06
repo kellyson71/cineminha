@@ -2233,3 +2233,94 @@ html.voltando .volta, .volta.show { display: flex; }
 .retro__meses small { font-size: .62rem; color: var(--muted, #9a9aa6); }
 @keyframes retro-in { from { opacity: 0; transform: translateY(10px); } }
 @keyframes retro-barra { from { transform: scaleY(0); } }
+
+/* Tela cheia: mic e som ao lado dos bonecos (a .voicectl é movida para cá pelo app.js) */
+.toolbar--voz { display: none; }
+.theater:is(:fullscreen, .palco) .toolbar--voz { display: flex; position: absolute; bottom: 12px; right: auto; top: auto; transform: none; z-index: 7; }
+.theater:is(:fullscreen, .palco) .toolbar--voz .voicectl { padding-right: 0; border-right: 0; }
+.theater:is(:fullscreen, .palco) .toolbar--voz .pop { left: 0; right: auto; }
+
+/* Entrada: logo (o "c" com o play) e a cortina abrindo ao entrar na sala */
+.lobby__logo { width: clamp(54px, 9vw, 76px); height: auto; margin: 6px auto 2px; display: block; filter: drop-shadow(0 6px 24px rgba(229,72,77,.45)); animation: logo-in .8s cubic-bezier(.2,1.2,.4,1) both; }
+.lobby__play { transform-origin: 128px 124px; animation: logo-play 2.4s 1s ease-in-out infinite; }
+@keyframes logo-in { from { opacity: 0; transform: translateY(10px) scale(.85); } }
+@keyframes logo-play { 0%, 70%, 100% { transform: none; } 80% { transform: translateX(6px); } 90% { transform: translateX(-2px); } }
+.entrada-cortina { position: fixed; inset: 0; z-index: 200; pointer-events: none; overflow: hidden; }
+.entrada-cortina i { position: absolute; top: 0; bottom: 0; width: 51%; background: radial-gradient(70% 60% at 50% 30%, rgba(7,5,7,.15), rgba(7,5,7,.75) 80%), url(assets/cortina.jpg) center 30% / cover no-repeat, #4a0b12; transition: transform 1.5s cubic-bezier(.6,0,.25,1); }
+.entrada-cortina .l { left: 0; transform-origin: left; box-shadow: inset -40px 0 50px rgba(0,0,0,.6); }
+.entrada-cortina .r { right: 0; transform-origin: right; background-position: 30% center; box-shadow: inset 40px 0 50px rgba(0,0,0,.6); }
+.entrada-cortina.abre .l { transform: translateX(-100%) scaleX(.6); }
+.entrada-cortina.abre .r { transform: translateX(100%) scaleX(.6); }
+
+/* Estado no boneco: 💤 ausente, 🙉 som cortado, 🔇 mudo, 📽️ projetando, 🍿 assistindo */
+.seat__estado { position: absolute; top: 2px; right: 6px; z-index: 3; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(14,14,18,.85); box-shadow: 0 2px 8px rgba(0,0,0,.45); font-size: 12px; line-height: 1; pointer-events: none; }
+.seat__estado.pop { animation: estado-pop .35s cubic-bezier(.2,1.6,.4,1) both; }
+@keyframes estado-pop { from { transform: scale(0); } }
+.seat.speaking .seat__estado { opacity: 0; transition: opacity .2s; }
+
+/* Tela cheia: aviso discreto no canto de cima à direita (como o selo de "pausado" dos streamings) */
+.theater:is(:fullscreen, .palco) .toast { left: auto; right: 18px; top: 18px; transform: translateX(16px); max-width: min(360px, 40vw); padding: .4rem .8rem; border-radius: 99px; font-size: .8rem; text-align: left; background: rgba(12,12,16,.62); backdrop-filter: blur(8px); border-color: rgba(255,255,255,.08); }
+.theater:is(:fullscreen, .palco) .toast.show { transform: none; }
+
+/* Celular / toque: alvos de 44 px, chat da tela cheia abre por baixo (folha), cartões ocupam a largura */
+@media (pointer: coarse) {
+  .toolbar .btn--icon, .voicectl .btn--icon { min-width: 44px; min-height: 44px; }
+  .voice-options { min-width: 28px; min-height: 44px; }
+  .player-button { width: 44px; height: 44px; }
+  .player-seek { height: 28px; }
+  .player-seek::-webkit-slider-runnable-track { height: 6px; }
+  .player-seek::-webkit-slider-thumb { transform: scale(1); margin-top: -5px; }
+  .jogosmenu__it, .menuitem { min-height: 48px; }
+  .nfx-pular { padding: 13px 22px; }
+  .nfx-voto__b { padding: 12px; }
+}
+@media (pointer: coarse) and (max-width: 700px) {
+  .theater:is(:fullscreen, .palco):not(.chat-fixo) .chat { left: 0 !important; right: 0 !important; top: auto !important; bottom: 0 !important; width: auto !important; height: 46dvh !important; max-height: 46dvh; border-radius: 18px 18px 0 0 !important; }
+  .nfx-acoes { left: 12px; right: 12px; align-items: stretch; }
+  .nfx-voto { width: auto; }
+  .midia-card { max-width: calc(100% - 20px); }
+  .midia-card.aberto .midia-card__poster { width: 48px; height: 72px; }
+  .agora .midia-card--fixo .midia-card__txt { grid-template-columns: auto; }
+  .retro__meses { gap: 3px; }
+}
+
+/* Esqueletos de carregamento */
+.esq-item { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding: 12px; list-style: none; }
+.esq-item > div { display: grid; gap: 8px; align-content: center; }
+.esq { display: block; border-radius: 6px; background: linear-gradient(90deg, #ffffff0d 25%, #ffffff1f 50%, #ffffff0d 75%) 0 0 / 200% 100%; animation: esq-brilho 1.3s linear infinite; }
+.esq--capa { width: 64px; height: 92px; border-radius: 8px; }
+.esq--l1 { height: 10px; width: 35%; } .esq--l2 { height: 16px; width: 70%; } .esq--l3 { height: 10px; width: 50%; }
+.esq--hero { height: 190px; border-radius: 18px; }
+@keyframes esq-brilho { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .esq { animation: none; } }
+
+/* Fim do episódio: o que vocês viram + estrelas da sala */
+.nfx-visto { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; margin-bottom: 10px; }
+.nfx-visto img { width: 46px; height: 68px; border-radius: 6px; object-fit: cover; box-shadow: 0 6px 18px rgba(0,0,0,.5); }
+.nfx-visto small { display: block; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.nfx-visto b { display: block; font-size: 1rem; }
+.nfx-visto span { font-size: .78rem; color: rgba(255,255,255,.7); }
+.nfx-estrelas { display: flex; align-items: center; gap: 2px; margin: 0 0 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.nfx-estrelas button { padding: 0 2px; border: 0; background: none; color: rgba(255,255,255,.25); font-size: 1.5rem; line-height: 1; cursor: pointer; transition: transform .12s, color .12s; }
+.nfx-estrelas button.on { color: #f5c518; }
+.nfx-estrelas button:hover { transform: scale(1.2); color: #f5c518; }
+.nfx-estrelas:has(button:hover) button { color: #f5c518; }
+.nfx-estrelas button:hover ~ button { color: rgba(255,255,255,.25) !important; }
+.nfx-estrelas small { margin-left: auto; font-size: .74rem; color: rgba(255,255,255,.65); }
+.diary__nota--sala { color: #f5c518; font-weight: 600; }
+
+/* Enquete no chat */
+.poll { display: grid; gap: 6px; margin-top: 6px; max-width: 320px; }
+.poll__q .msg__text { font-weight: 700; }
+.poll__op { position: relative; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.12); border-radius: 10px; background: rgba(255,255,255,.04); color: inherit; font: inherit; font-size: .86rem; text-align: left; cursor: pointer; overflow: hidden; isolation: isolate; transition: border-color .15s; }
+.poll__op::before { content: ''; position: absolute; inset: 0; z-index: -1; width: var(--pc); background: rgba(229,72,77,.18); transition: width .4s cubic-bezier(.2,1,.3,1); }
+.poll__op.lider::before { background: rgba(229,72,77,.32); }
+.poll__op.on { border-color: var(--accent); }
+.poll__op span { flex: 1; min-width: 0; }
+.poll__op b { font-variant-numeric: tabular-nums; font-size: .78rem; }
+.poll__quem { display: flex; } .poll__quem > * { margin-left: -5px; border-radius: 50%; box-shadow: 0 0 0 2px #15151b; }
+.poll__total { font-size: .7rem; color: var(--muted, #9a9aa6); }
+.retro__hero { position: relative; }
+.retro__share { position: absolute; top: 14px; right: 14px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid rgba(255,244,230,.4); border-radius: 99px; background: rgba(0,0,0,.18); color: #fff4e6; font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer; }
+.retro__share:hover { background: rgba(0,0,0,.3); }
+.retro__share svg { width: 14px; height: 14px; }
