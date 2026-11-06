@@ -2093,3 +2093,52 @@ html.voltando .volta, .volta.show { display: flex; }
 .tile.has-midia .tile__paused { top: 66px; }
 .tile.thumb .midia-card { display: none; }
 @media (prefers-reduced-motion: reduce) { .midia-card, .midia-card * { transition: none !important; animation: none !important; } }
+
+/* Barra do player no estilo dos players de streaming: progresso vermelho fino que engrossa no hover,
+   bolinha só no hover, tempo à direita, ±10 s e o título no meio */
+.player-controls { padding: 70px 22px 12px; background: linear-gradient(transparent, rgba(0,0,0,.55) 45%, rgba(0,0,0,.9)); }
+.player-controls.sem-linha { padding-top: 40px; }
+.player-linha { display: flex; align-items: center; gap: 14px; }
+.player-linha[hidden], .player-controls.sem-linha .player-linha { display: none; }
+.player-time { font-size: .78rem; font-weight: 600; color: #fff; min-width: 6.5em; text-align: right; }
+.player-seek, .player-volume { -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; margin: 0; --p: 0%; }
+.player-seek { flex: 1; height: 18px; }
+.player-seek::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #e50914 var(--p), rgba(255,255,255,.28) var(--p)); transition: height .12s; }
+.player-seek:hover::-webkit-slider-runnable-track, .player-seek:focus-visible::-webkit-slider-runnable-track { height: 7px; }
+.player-seek::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 50%; background: #e50914; border: 0; transform: scale(0); transition: transform .12s; }
+.player-seek:hover::-webkit-slider-thumb, .player-seek:focus-visible::-webkit-slider-thumb { transform: scale(1); margin-top: -4.5px; }
+.player-seek::-moz-range-track { height: 4px; border-radius: 2px; background: rgba(255,255,255,.28); }
+.player-seek::-moz-range-progress { height: 4px; border-radius: 2px; background: #e50914; }
+.player-seek::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: #e50914; }
+.player-bar { height: 46px; gap: 6px; margin-top: 4px; }
+.player-button { width: 40px; height: 40px; padding: 7px; border-radius: 50%; transition: transform .12s, background .12s; }
+.player-button:hover:not(:disabled) { background: rgba(255,255,255,.12); transform: scale(1.12); }
+.player-button svg { width: 24px; height: 24px; }
+.player-10 svg { width: 22px; height: 22px; }
+.player-vol { display: inline-flex; align-items: center; }
+.player-volume { width: 0; height: 18px; opacity: 0; transition: width .2s, opacity .2s; }
+.player-vol:hover .player-volume, .player-volume:focus-visible { width: clamp(60px, 8vw, 100px); opacity: 1; margin: 0 6px 0 2px; }
+.player-volume::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #fff var(--p), rgba(255,255,255,.28) var(--p)); }
+.player-volume::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -4px; border-radius: 50%; background: #fff; border: 0; }
+.player-volume::-moz-range-track { height: 4px; border-radius: 2px; background: rgba(255,255,255,.28); }
+.player-volume::-moz-range-progress { height: 4px; background: #fff; }
+.player-title { flex: 1; min-width: 0; text-align: center; font-size: .92rem; color: rgba(255,255,255,.75); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-title b { color: #fff; font-weight: 700; }
+.player-center { width: 72px; height: 72px; border: 0; background: rgba(0,0,0,.45); }
+.player-center svg { width: 34px; height: 34px; }
+@media (max-width: 640px) { .player-controls { padding: 40px 8px 6px; } .player-10, .player-title { display: none; } .player-button { width: 34px; height: 34px; } .player-button svg { width: 20px; height: 20px; } }
+
+/* "Passando agora": fora da tela cheia fica fixo acima da tela; em tela cheia o do canto só aparece
+   junto com os controles (ou quando muda o episódio) */
+.agora { display: flex; justify-content: center; }
+.agora[hidden] { display: none; }
+.midia-card--fixo { position: relative; top: auto; left: auto; max-width: min(720px, 100%); padding: 8px 18px 8px 8px !important; gap: 14px !important; border-radius: 14px; }
+.midia-card--fixo .midia-card__poster { width: 34px !important; height: 50px !important; }
+.midia-card--fixo .midia-card__txt { grid-template-columns: auto auto auto; grid-template-rows: auto auto; align-items: baseline; column-gap: 10px; }
+.midia-card--fixo .midia-card__plat { grid-column: 1 / -1; }
+.midia-card--fixo .midia-card__txt b { font-size: 1rem !important; white-space: nowrap !important; }
+.midia-card--fixo .midia-card__nota { margin-top: 0; }
+.theater:not(:fullscreen, .palco) .tile .midia-card { display: none; }
+.theater:is(:fullscreen, .palco) ~ * .agora, .theater:is(:fullscreen, .palco) .agora { display: none; }
+.theater:is(:fullscreen, .palco) .tile .midia-card:not(.aberto) { opacity: 0; transform: translateY(-14px) scale(.96); pointer-events: none; }
+.theater:is(:fullscreen, .palco):not(.idle) .tile .midia-card.in { opacity: 1; transform: none; pointer-events: auto; }

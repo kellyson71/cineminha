@@ -759,7 +759,12 @@ function updatePlayer(id) {
   const p = tile.player, arq = info?.kind === 'arquivo'
   const nf = id === selfId ? !!nfxDe(myShare) : !!info?.nfx, file = arq || nf
   const pode = !nf || id === selfId || info?.nfx?.ctl !== 'eu'
-  p.play.hidden = !file; p.seek.hidden = !file; p.time.hidden = !file
+  p.play.hidden = !file; p.seek.hidden = !file; p.time.hidden = !file; p.back.hidden = p.fwd.hidden = !file
+  p.back.disabled = p.fwd.disabled = !pode
+  p.root.classList.toggle('sem-linha', !file)
+  const md = info?.midia
+  p.title.innerHTML = ''
+  if (md) p.title.append(el('b', { textContent: md.titulo }), md.s ? el('span', { textContent: ` T${md.s}:E${md.e}${md.epNome ? ' ' + md.epNome : ''}` }) : '')
   p.center.hidden = !file || !info?.paused || !pode
   p.play.disabled = !pode; p.seek.disabled = !pode
   p.rateLabel.hidden = !arq; p.upload.hidden = !(arq && id === selfId)
@@ -769,16 +774,16 @@ function updatePlayer(id) {
   p.play.title = !pode ? 'Só quem projeta controla a Netflix' : info?.paused ? 'Reproduzir para todos' : 'Pausar para todos'
   const duration = (id === selfId && nfxDe(myShare)?.d) || info?.duration || (id === selfId ? myShare?.video?.duration : 0) || 0
   const at = playerTime(id)
-  if (document.activeElement !== p.seek) { p.seek.max = duration || 1; p.seek.value = at }
+  if (document.activeElement !== p.seek) { p.seek.max = duration || 1; p.seek.value = at; p.seek.style.setProperty('--p', pct(duration ? at / duration : 0)) }
   p.seek.disabled = !duration || !pode
   p.time.textContent = `${fmtMt(at)} / ${fmtMt(duration)}`
   p.rate.value = String(info?.rate || 1)
   const value = id === selfId ? Math.min(1, tileVol(id)) : tileVol(id)
   p.volume.max = id === selfId ? 1 : 2
   p.volume.title = `Volume: ${Math.round(value * 100)}%`
-  p.volume.value = value; p.mute.title = value ? 'Silenciar projeção' : 'Ativar som da projeção'
+  p.volume.value = value; p.volume.style.setProperty('--p', pct(value / +p.volume.max)); p.mute.title = value ? 'Silenciar projeção' : 'Ativar som da projeção'
   setIcon(p.mute.firstChild, value ? 'volume-2' : 'volume-x')
-  const hasSound = id === selfId ? file : !!tile.gain
+  const hasSound = id === selfId ? arq || !!tile.gain : !!tile.gain
   p.volume.disabled = !hasSound; p.mute.disabled = !hasSound
   tile.el.classList.toggle('file-session', file)
   if (info?.preview && tile.preview.getAttribute('src') !== info.preview) tile.preview.src = info.preview
@@ -792,7 +797,7 @@ function buildPlayer(id, tile) {
   const play = button('play', 'Reproduzir para todos', () => playerCommand(id, 'toggle'))
   const center = button('play', 'Reproduzir para todos', () => playerCommand(id, 'toggle')); center.classList.add('player-center')
   const seek = el('input', { type: 'range', min: 0, max: 1, step: .1, value: 0, className: 'player-seek', ariaLabel: 'Posição no filme' })
-  seek.addEventListener('input', () => { time.textContent = `${fmtMt(+seek.value)} / ${fmtMt(+seek.max)}` })
+  seek.addEventListener('input', () => { time.textContent = `${fmtMt(+seek.value)} / ${fmtMt(+seek.max)}`; seek.style.setProperty('--p', pct(+seek.value / (+seek.max || 1))) })
   seek.addEventListener('change', () => playerCommand(id, 'at', +seek.value))
   const time = el('span', { className: 'player-time' })
   const volume = el('input', { type: 'range', min: 0, max: 2, step: .01, value: 1, className: 'player-volume', ariaLabel: 'Volume da projeção' })
@@ -818,8 +823,13 @@ function buildPlayer(id, tile) {
   upload.append(el('span', { textContent: 'Carregar legenda' })); upload.classList.add('player-upload')
   const settings = el('div', { className: 'player-settings', hidden: true }, el('label', {}, el('span', { textContent: 'Qualidade' }), quality), rateLabel, upload, subtitleFile)
   const full = button('maximize', 'Tela cheia', toggleFs)
-  const bar = el('div', { className: 'player-bar' }, play, mute, volume, time, el('span', { className: 'player-grow' }), subs, gear, full)
-  const root = el('div', { className: 'player-controls' }, seek, bar, settings)
+  const back = button('rotate-ccw', 'Voltar 10 s', () => playerCommand(id, 'seek', -10)); back.classList.add('player-10')
+  const fwd = button('rotate-cw', 'Avançar 10 s', () => playerCommand(id, 'seek', 10)); fwd.classList.add('player-10')
+  const title = el('span', { className: 'player-title' })
+  const vol = el('span', { className: 'player-vol' }, mute, volume)
+  const bar = el('div', { className: 'player-bar' }, play, back, fwd, vol, title, subs, gear, full)
+  const linha = el('div', { className: 'player-linha' }, seek, time)
+  const root = el('div', { className: 'player-controls' }, linha, bar, settings)
   tile.el.append(center, root)
   root.addEventListener('keydown', e => {
     e.stopPropagation()
@@ -839,7 +849,7 @@ function buildPlayer(id, tile) {
   tile.el.addEventListener('pointerleave', () => { if (settings.hidden && !root.querySelector(':focus-visible')) { clearTimeout(timer); tile.el.classList.remove('player-visible') } })
   tile.el.addEventListener('keydown', e => { if (e.target === tile.el && ['Space','Enter'].includes(e.code) && playerInfo(id)?.kind === 'arquivo') { e.preventDefault(); playerCommand(id, 'toggle'); reveal() } })
   tile.reveal = reveal
-  tile.player = { root, play, center, seek, time, volume, mute, subs, gear, quality, rate, rateLabel, upload, settings }
+  tile.player = { root, play, center, seek, time, volume, mute, subs, gear, quality, rate, rateLabel, upload, settings, back, fwd, title }
   tile.playerCleanup = () => clearTimeout(timer)
 }
 /* Bordas pretas dentro da transmissão (ex.: player com tarjas): mede numa miniatura, uma vez por segundo.
@@ -961,13 +971,7 @@ function addTile(id, stream, localVideo) {
   video.addEventListener('loadedmetadata', fit); video.addEventListener('resize', () => { t.crop = null; t.cropFound = null; t.barKey = ''; fit() })
   t.cropTimer = setInterval(() => detectBars(t), 1000)
   t.fitObs = new ResizeObserver(fit); t.fitObs.observe(node)
-  // o som de quem transmite vai para o mixer (quem transmite não ouve o próprio de novo)
-  if (id !== selfId && stream.getAudioTracks().length) {
-    const ac = audioCtx()
-    t.src = ac.createMediaStreamSource(stream)
-    t.gain = ac.createGain()
-    t.src.connect(t.gain).connect(mix.movie)
-  }
+  ligaSomDaTile(t, id, stream)
   if (localVideo && prefs.output && localVideo.setSinkId) localVideo.setSinkId(prefs.output).catch(() => {})
   tiles.set(id, t)
   buildPlayer(id, t)
@@ -977,6 +981,19 @@ function addTile(id, stream, localVideo) {
   applyTileVols()
   layout()
 }
+// O som de quem transmite vai para o mixer. Quem projeta uma aba também: o Chrome para de tocar a aba
+// no próprio PC (suppressLocalAudioPlayback) e o som volta por aqui, com volume e "baixar durante falas".
+// Janela/tela inteira não suprime (o som já sai do PC): aí não toca de novo.
+function ligaSomDaTile(t, id, stream) {
+  try { t.src?.disconnect(); t.gain?.disconnect() } catch {}
+  t.src = t.gain = null
+  const [at] = stream.getAudioTracks()
+  if (!at || (id === selfId && at.getSettings?.().suppressLocalAudioPlayback !== true)) return
+  const ac = audioCtx()
+  t.src = ac.createMediaStreamSource(new MediaStream([at]))
+  t.gain = ac.createGain()
+  t.src.connect(t.gain).connect(mix.movie)
+}
 function removeTile(id, quiet) {
   const t = tiles.get(id)
   if (!t) return
@@ -985,14 +1002,15 @@ function removeTile(id, quiet) {
   if (!t.el.classList.contains('tile--file')) t.video.srcObject = null
   t.el.remove()
   tiles.delete(id)
+  agoraPassando()
   if (focusId === id) focusId = null
   if (!quiet) layout()
 }
 const ICONE_PLAT = { netflix: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e50914" d="M6 2h4l4 11V2h4v20h-4l-4-11v11H6z"/></svg>' }
 const NOME_PLAT = { netflix: 'Netflix' }
-function cartaoMidia(m) {
+function cartaoMidia(m, fixo) {
   const ep = m.s ? `T${m.s} · E${m.e}${m.epNome ? ' · ' + m.epNome : ''}` : m.ano
-  const c = el('div', { className: 'midia-card aberto' },
+  const c = el('div', { className: 'midia-card aberto' + (fixo ? ' midia-card--fixo' : '') },
     m.fundo ? el('div', { className: 'midia-card__fundo', style: `background-image:url("${encodeURI(m.fundo)}")` }) : '',
     m.poster ? el('img', { className: 'midia-card__poster', src: m.poster.replace('/poster/small/', '/poster/medium/'), alt: '' }) : '',
     el('div', { className: 'midia-card__txt' },
@@ -1001,9 +1019,22 @@ function cartaoMidia(m) {
       ep ? el('small', { textContent: ep }) : '',
       m.nota ? el('span', { className: 'midia-card__nota', innerHTML: `<i>★</i>${m.nota.toFixed(1)}<em>IMDb</em>` }) : ''))
   c.addEventListener('mouseenter', () => c.classList.add('aberto'))
-  c.addEventListener('mouseleave', () => c.classList.remove('aberto'))
+  c.addEventListener('mouseleave', () => { if (!fixo) c.classList.remove('aberto') })
   c.addEventListener('click', e => e.stopPropagation())
   return c
+}
+// faixa "passando agora" acima das telas (fora da tela cheia)
+const agoraEl = el('div', { className: 'agora', hidden: true })
+$('.screen').before(agoraEl)
+function agoraPassando() {
+  const ids = [...tiles.keys()], id = (focusId && tiles.get(focusId)?.midiaKey ? focusId : ids.find(k => tiles.get(k).midiaKey))
+  const info = id && playerInfo(id), md = info?.midia
+  const k = md ? id + '|' + tiles.get(id).midiaKey : ''
+  if (k === agoraEl.dataset.k) return
+  agoraEl.dataset.k = k
+  agoraEl.hidden = !md
+  agoraEl.replaceChildren(...(md ? [cartaoMidia(md, true)] : []))
+  if (md) requestAnimationFrame(() => requestAnimationFrame(() => agoraEl.firstChild?.classList.add('in')))
 }
 function renderTile(id) {
   const t = tiles.get(id)
@@ -1024,12 +1055,14 @@ function renderTile(id) {
       setTimeout(() => c.classList.remove('aberto'), 9000)
     }
     t.el.classList.toggle('has-midia', !!md)
+    agoraPassando()
   }
   t.el.classList.toggle('remote-file', id !== selfId && info?.kind === 'arquivo')
   updateStage()
   updatePlayer(id)
 }
 function layout() {
+  agoraPassando()
   const n = tiles.size + (midiaEl ? 1 : 0)
   if (midiaEl) { const thumb = n > 1 && !!focusId; midiaEl.classList.toggle('thumb', thumb); midiaEl.style.setProperty('--i', thumb ? tiles.size - 1 : 0) }
   if (focusId && !tiles.has(focusId)) focusId = null
@@ -1559,7 +1592,7 @@ async function captureScreen(game) {
   try {
     ds = await navigator.mediaDevices.getDisplayMedia({
       video: { frameRate: { ideal: fps, max: fps }, width: { max: 1920 }, height: { max: 1080 } },
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, suppressLocalAudioPlayback: true },
       systemAudio: 'include', selfBrowserSurface: 'exclude', surfaceSwitching: 'include', preferCurrentTab: false,
     })
   } catch (e) {
@@ -1680,7 +1713,7 @@ async function trocarTela() {
   if (!s.game) detectaMidia(cap.vt)
   cap.vt.addEventListener('ended', () => { if (myShare === s && s.vt === cap.vt) stopShare() })
   const t = tiles.get(selfId)
-  if (t) { t.crop = null; t.cropFound = null; t.barKey = ''; t.video.srcObject = stream; t.video.play().catch(() => {}); t.fit?.() }
+  if (t) { t.crop = null; t.cropFound = null; t.barKey = ''; t.video.srcObject = stream; t.video.play().catch(() => {}); t.fit?.(); ligaSomDaTile(t, selfId, stream); applyTileVols() }
   actions?.share.send(shareMsg())
   setTimeout(tuneSenders, 1500)
   sfx('telaOn')
@@ -3376,6 +3409,7 @@ function naZonaDaBarra(e) {
   if (e.target.closest?.('.toolbar, .chat, .pop, .jogosmenu, .trocajogo, .player-controls, .player-settings, .midia-card')) return true
   const r = (theater.querySelector('.toolbar') || $('.toolbar'))?.getBoundingClientRect()
   const faixa = Math.max(110, (r?.height || 50) + 70)
+  if (e.clientY < 130 && e.clientX < 520) return true // canto do "passando agora"
   return r && r.top < innerHeight / 2 ? e.clientY < faixa : e.clientY > innerHeight - faixa
 }
 theater.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && (!imersivo() || naZonaDaBarra(e))) poke() })
