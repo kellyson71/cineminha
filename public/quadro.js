@@ -13,7 +13,7 @@ const SONS = ['embaralhar', 'desliza1', 'desliza2', 'desliza3', 'carimbo', 'pape
 const VOL = { embaralhar: .5, carimbo: .6, papel: .45, vez: .45, clique: .3, tique: .25, leque: .5 }
 const SAIU_MS = 12000, HOST_MS = 10000
 const REVELA_MS = 6500, TRAVA_MS = 2500, LANCE_MS = 20000, DESAFIO_MS = 25000, ROUBO_MS = 18000
-const OP_FILMES = [5, 8, 12], OP_SEG = [8, 12, 18]
+const OP_FILMES = [5, 8, 12], OP_SEG = [0, 8, 12, 18] // 0 = sem tempo: o frame fica até todo mundo chutar ou passar
 export const MODOS = {
   corrida: { nome: 'Corrida', txt: 'Todo mundo chuta junto. Quanto antes acertar, mais pontos.', min: 1 },
   coop: { nome: 'Cooperativo', txt: 'Um time só: qualquer acerto vale para todos.', min: 1 },
@@ -96,7 +96,7 @@ export function criaQuadro(ctx) {
   const presentesJog = () => G.js.filter(j => ctx.presentes().includes(j.key))
 
   function abrir(chamados) {
-    const op = { filmes: 8, seg: 12, modo: 'corrida', cat: 'todos', ...ls.get(`${XX}.op`) }
+    const op = { filmes: 8, seg: 0, modo: 'corrida', cat: 'todos', ...ls.get(`${XX}.op`) }
     G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, fase: 'convite', op,
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes?.(k) ? 'sim' : '?'])),
       js: [], lista: [], i: 0, time: 0, vencedor: null, ev: [], evN: 0, seq: 0, t: Date.now() }
@@ -124,9 +124,10 @@ export function criaQuadro(ctx) {
     novoFilme(0)
   }
   const seg = () => G.op.seg * 1000
+  const prazoFrame = () => (G.op.seg ? Date.now() + seg() : 0)
   function novoFilme(i) {
     const leilao = G.op.modo === 'leilao'
-    Object.assign(G, { i, passo: 0, est: leilao ? 'lance' : 'olhando', prazo: Date.now() + (leilao ? LANCE_MS : seg()), ate: 0,
+    Object.assign(G, { i, passo: 0, est: leilao ? 'lance' : 'olhando', prazo: leilao ? Date.now() + LANCE_MS : prazoFrame(), ate: 0,
       acertos: {}, erros: [], passou: [], trava: {}, lances: {}, venc: null, tent: 0 })
     ev({ t: 'filme', i })
     difunde()
@@ -134,7 +135,7 @@ export function criaQuadro(ctx) {
   function abreFrame() {
     const f = filme()
     if (G.passo >= f.n - 1) return revela()
-    G.passo++; G.passou = []; G.prazo = Date.now() + seg()
+    G.passo++; G.passou = []; G.prazo = prazoFrame()
     ev({ t: 'frame', passo: G.passo })
     difunde()
   }
@@ -161,7 +162,7 @@ export function criaQuadro(ctx) {
   // leilão: todo mundo apostou (ou acabou o tempo) → quem apostou menos tenta
   function resolveLance() {
     const ls_ = Object.entries(G.lances).sort((a, b) => a[1].n - b[1].n || a[1].t - b[1].t)
-    if (!ls_.length) { G.est = 'olhando'; G.prazo = Date.now() + seg(); ev({ t: 'semlance' }); return difunde() } // ninguém apostou: vira corrida
+    if (!ls_.length) { G.est = 'olhando'; G.prazo = prazoFrame(); ev({ t: 'semlance' }); return difunde() } // ninguém apostou: vira corrida
     const [key, { n }] = ls_[0]
     G.venc = { key, n }; G.est = 'desafio'; G.passo = n - 1; G.tent = 2; G.prazo = Date.now() + DESAFIO_MS
     ev({ t: 'venceu-lance', key, n })
@@ -200,19 +201,23 @@ export function criaQuadro(ctx) {
       ev({ t: 'acertou', key, pts, primeiro, txt })
       if (G.op.modo === 'coop') { G.time += pts; for (const o of G.js) if (!(o.key in G.acertos)) G.acertos[o.key] = { passo: G.passo, pts: 0, time: true }; return revela() }
       if (G.est !== 'olhando' || !semAcerto().length) return revela()
+      if (!G.op.seg && G.passou.length && todosPassaram()) return abreFrame()
     } else {
       G.trava[key] = Date.now() + TRAVA_MS
       const q = quase(txt, f.nomes)
       G.erros.push({ key, txt, q }); if (G.erros.length > 8) G.erros.shift()
       ev({ t: 'errou', key, txt, q })
       if (G.est === 'desafio' && --G.tent <= 0) return rouba()
+      // sem tempo: chutou (e errou) conta como passar; quando todo mundo passou ou chutou, abre o próximo frame
+      if (G.est === 'olhando' && !G.op.seg && !G.passou.includes(key)) { G.passou.push(key); if (todosPassaram()) return abreFrame() }
     }
     difunde()
   }
+  const todosPassaram = () => !semAcerto().filter(j => ctx.presentes().includes(j.key) && !G.passou.includes(j.key)).length
   function passa(key) {
     if (G.fase !== 'jogo' || G.est !== 'olhando' || !jog(key) || key in G.acertos || G.passou.includes(key)) return
     G.passou.push(key)
-    if (!semAcerto().filter(j => ctx.presentes().includes(j.key) && !G.passou.includes(j.key)).length) return abreFrame()
+    if (todosPassaram()) return abreFrame()
     difunde()
   }
   function revanche() {
@@ -306,7 +311,7 @@ export function criaQuadro(ctx) {
     const antigo = backup.host, nomeAntigo = backup.hostNome
     G = backup; backup = null; hostSumiu = 0
     G.host = me.key; G.hostNome = me.name; G.seq += 5
-    if (G.prazo) G.prazo = Date.now() + seg()
+    if (G.prazo) G.prazo = G.est === 'olhando' ? prazoFrame() : Date.now() + DESAFIO_MS
     sysMsg(`${nomeAntigo} caiu: ${me.name} assumiu a mesa de ${NOME}`)
     remove(antigo)
     if (G) difunde()
@@ -326,7 +331,7 @@ export function criaQuadro(ctx) {
     if (!G && !restaurou && me.key) {
       restaurou = true
       const s = ls.get(`${XX}.G`)
-      if (s && s.host === me.key && s.fase !== 'fim' && Date.now() - s.t < 3 * 3600e3) setTimeout(() => { if (G || (V && V.host !== me.key)) return ls.set(`${XX}.G`, null); G = s; if (G.prazo) G.prazo = Date.now() + seg(); difunde() }, 3000)
+      if (s && s.host === me.key && s.fase !== 'fim' && Date.now() - s.t < 3 * 3600e3) setTimeout(() => { if (G || (V && V.host !== me.key)) return ls.set(`${XX}.G`, null); G = s; if (G.prazo) G.prazo = G.est === 'olhando' ? prazoFrame() : Date.now() + DESAFIO_MS; difunde() }, 3000)
     }
     assumeSePreciso()
     if (!G || G.host !== me.key) return
@@ -471,7 +476,7 @@ export function criaQuadro(ctx) {
     const tira = n => el('div', { className: `${XX}-mini` }, ...Array.from({ length: 6 }, (_, i) => el('i', { className: i < n ? 'on' : '' })))
     const m = V.op.modo
     const tutorial = el('div', { className: `${XX}-tuto` },
-      passo(1, 'Aparece um frame', 'De um filme famoso. A cada poucos segundos abre outro, até 6.', tira(2)),
+      passo(1, 'Aparece um frame', V.op.seg ? 'De um filme famoso. A cada poucos segundos abre outro, até 6.' : 'De um filme famoso. Pensem com calma: abre outro quando todo mundo chutar ou passar.', tira(2)),
       m === 'leilao' ? passo(2, 'Dê seu lance', 'Em segredo: com quantos frames você acerta? Quem apostar menos tenta sozinho.', el('span', { className: `${XX}-mini-pts`, textContent: '2!' }))
         : passo(2, 'Chute o nome', 'Pode errar a grafia: parecido já vale. As sugestões trazem o nome brasileiro e o original.', el('span', { className: `${XX}-mini-campo` }, el('span', { textContent: 'O Podero' }), el('i'))),
       m === 'coop' ? passo(3, 'Um time só', 'Qualquer acerto vale para todos. Bata o recorde da turma.', el('span', { className: `${XX}-mini-pts`, textContent: '+6' }))
@@ -492,7 +497,7 @@ export function criaQuadro(ctx) {
         opc('Modo', Object.keys(MODOS), m, 'modo', x => MODOS[x].nome, MODOS[m].txt),
         opc('Categoria', cats, V.op.cat, 'cat', x => contaCats ? `${CATS[x]} · ${contaCats[x]}` : CATS[x]),
         opc('Filmes', OP_FILMES, V.op.filmes, 'filmes', x => String(x)),
-        m !== 'leilao' ? opc('Cada frame', OP_SEG, V.op.seg, 'seg', x => `${x} s`) : ''),
+        m !== 'leilao' ? opc('Cada frame', OP_SEG, V.op.seg, 'seg', x => (x ? `${x} s` : 'Sem tempo'), V.op.seg ? '' : 'O frame fica até todo mundo chutar ou passar.') : ''),
       el('div', { className: `${XX}-quem` }, ...sim.map(k => foto(k))), ir)
   }
   function mesa() {
@@ -529,7 +534,7 @@ export function criaQuadro(ctx) {
     else {
       const extra = V.est === 'desafio' ? el('small', { className: `${XX}-espera` }, `Sua vez! ${V.tent} ${V.tent === 1 ? 'chance' : 'chances'}`)
         : V.est === 'roubo' ? el('small', { className: `${XX}-espera` }, 'Roubo! Acertou, leva 2')
-          : V.passou.includes(me.key) ? el('small', { className: `${XX}-espera` }, 'Esperando os outros passarem…')
+          : V.passou.includes(me.key) ? el('small', { className: `${XX}-espera` }, V.op.seg ? 'Esperando os outros passarem…' : 'Esperando os outros… pode chutar de novo')
             : botao([icon('skip-forward'), 'Passo'], () => manda({ op: 'passa' }), `${XX}-btn--passa`)
       baixo = el('div', { className: `${XX}-baixo` }, forma, extra)
     }
