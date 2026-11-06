@@ -1,7 +1,7 @@
 {
   "name": "cineminha-app",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cineminha para desktop (Electron + React)",
   "type": "module",
   "main": "electron/main.js",
