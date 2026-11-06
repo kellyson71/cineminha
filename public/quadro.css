@@ -204,3 +204,12 @@
   .qq-modo:not(.on) .qq-modo__txt small { display: none; }
   .qq-cats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* quem já passou (ou chutou) e quem falta neste frame */
+.qq-passes { display: flex; flex-wrap: wrap; align-items: center; gap: .7cqh; font-size: max(11px, 1.7cqh); }
+.qq-passes small { color: rgba(244,236,223,.45); margin-left: .4cqh; }
+.qq-passes span { display: inline-flex; align-items: center; gap: .6cqh; padding: .3cqh 1cqh .3cqh .3cqh; border-radius: 99px; }
+.qq-passes span.ok { background: rgba(127,224,160,.12); color: var(--qq-ok); }
+.qq-passes span.falta { background: rgba(244,236,223,.06); color: var(--qq-suave); }
+.qq-passes span.falta i { font-style: normal; animation: qq-pisca 1.2s steps(1) infinite; }
+.qq-foto--mini { width: 2.8cqh; height: 2.8cqh; }

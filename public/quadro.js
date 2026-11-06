@@ -113,11 +113,13 @@ export function criaQuadro(ctx) {
     if (ks.length < min) return toast(`O ${MODOS[G.op.modo].nome} precisa de pelo menos ${min} pessoas.`)
     const todos = (await pegaFilmes()).filter(f => daCat(f, G.op.cat))
     if (!todos.length) return toast('Não achei filmes nessa categoria.')
-    const vistos = new Set(ls.get(`${XX}.vistos`) || [])
-    let pool = todos.filter(f => !vistos.has(f.imdb))
-    if (pool.length < G.op.filmes) pool = todos
-    G.lista = embaralha([...pool]).slice(0, G.op.filmes).map(f => ({ imdb: f.imdb, t: f.t, o: f.o, ano: f.ano, nomes: f.nomes, p: f.p, n: f.n }))
-    ls.set(`${XX}.vistos`, [...vistos, ...G.lista.map(f => f.imdb)].slice(-200))
+    // não repete: conta quantos do grupo já viram cada filme (cada um mandou a sua lista) e sorteia dos menos vistos
+    const listas = ks.map(k => new Set(k === me.key ? meusVistos() : G.vistos?.[k] || []))
+    const quantos = f => listas.filter(l => l.has(f.p)).length
+    G.lista = embaralha([...todos]).map(f => [quantos(f), f]).sort((a, b) => a[0] - b[0]).slice(0, G.op.filmes).map(([, f]) => f)
+      .map(f => ({ imdb: f.imdb, t: f.t, o: f.o, ano: f.ano, nomes: f.nomes, p: f.p, n: f.n }))
+    const repetidos = G.lista.filter(f => quantos(f) > 0).length
+    if (repetidos) toast(`Acabaram os inéditos para o grupo nessa categoria: ${repetidos} ${repetidos === 1 ? 'filme é repetido' : 'filmes são repetidos'} (os menos vistos).`, 4500)
     ls.set(`${XX}.op`, G.op)
     G.js = embaralha(ks).map(k => ({ key: k, nome: ctx.nomeDe(k), pontos: 0, acertos: 0 }))
     G.fase = 'jogo'; G.time = 0
@@ -255,6 +257,7 @@ export function criaQuadro(ctx) {
       case 'lance': lance(key, d.n); break
       case 'passa': passa(key); break
       case 'sai': remove(key); break
+      case 'vistos': if (Array.isArray(d.l)) { G.vistos ||= {}; G.vistos[key] = d.l.filter(x => typeof x === 'string').slice(-2000) } break
       case 'opcao':
         if (key !== G.host || G.fase !== 'convite') break
         if (OP_FILMES.includes(d.filmes)) G.op.filmes = d.filmes
@@ -283,7 +286,7 @@ export function criaQuadro(ctx) {
         chutei: G.chutes?.[k] || 0, limite: G.op.chutes || 2,
         lances: G.est === 'lance' ? Object.fromEntries(Object.keys(G.lances).map(x => [x, x === k ? G.lances[x].n : true])) : Object.fromEntries(Object.entries(G.lances).map(([x, l]) => [x, l.n])),
         venc: G.venc, tent: G.tent,
-        filme: revelado ? { t: f.t, o: f.o, ano: f.ano } : null,
+        filme: revelado ? { t: f.t, o: f.o, ano: f.ano, p: f.p } : null,
         prox: G.i + 1 < G.lista.length ? frame(G.lista[G.i + 1].p, 0) : '',
       })
     }
@@ -370,8 +373,12 @@ export function criaQuadro(ctx) {
       aplica(d.v)
     }
   }
+  function meusVistos() { return ls.get(`${XX}.vistos2`) || [] }
+  let mandouVistos = ''
   function aplica(v) {
     const antes = V
+    if (v?.filme?.p && !meusVistos().includes(v.filme.p)) ls.set(`${XX}.vistos2`, [...meusVistos(), v.filme.p].slice(-2000))
+    if (v?.fase === 'convite' && v.host !== me.key && mandouVistos !== v.id) { mandouVistos = v.id; setTimeout(() => manda({ op: 'vistos', l: meusVistos() }), 50) }
     if (v && (!antes || antes.id !== v.id)) ultEv = Math.max(0, ...v.ev.map(e => e.n))
     if (v && (antes?.i !== v.i || antes?.passo !== v.passo || antes?.est !== v.est)) verFrame = -1
     V = v; recebidoEm = Date.now()
@@ -567,8 +574,12 @@ export function criaQuadro(ctx) {
         V.venc?.key === j.key && V.est !== 'lance' ? el('em', { className: `${XX}-apostou`, textContent: `${V.venc.n}` }) : '',
         a && a.pts ? el('em', { textContent: `+${a.pts}` }) : '', el('b', { textContent: String(j.pontos) }))
     }))
+    const faltam = V.est === 'olhando' ? V.js.filter(j => !V.acertos[j.key] && !V.passou.includes(j.key)) : []
+    const passes = V.est === 'olhando' && V.passou.length ? el('div', { className: `${XX}-passes` },
+      el('small', { textContent: 'Já foram:' }), ...V.passou.map(k => el('span', { className: 'ok', 'data-key': k }, foto(k, `${XX}-foto--mini`), N(k))),
+      faltam.length ? el('small', { textContent: 'Faltam:' }) : '', ...faltam.map(j => el('span', { className: 'falta', 'data-key': j.key }, foto(j.key, `${XX}-foto--mini`), N(j.key), el('i', { textContent: '…' })))) : ''
     const erros = el('div', { className: `${XX}-erros` }, quaseAviso, ...V.erros.slice(-5).map(e => el('span', { className: e.q ? 'q' : '' }, el('b', { textContent: N(e.key) }), ` ${e.txt}`)))
-    return el('div', { className: `${XX}-mesa` }, el('div', { className: `${XX}-palco` }, tela1, tira, erros, baixo), placar)
+    return el('div', { className: `${XX}-mesa` }, el('div', { className: `${XX}-palco` }, tela1, tira, passes, erros, baixo), placar)
   }
   function fim() {
     const ord = [...V.js].sort((a, b) => b.pontos - a.pontos)
