@@ -1,4 +1,157 @@
 {
+ "2026-09-27": [
+  {
+   "id": "rbd-salvame",
+   "n": 0,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sálvame",
+   "a": "RBD",
+   "album": "Rebelde",
+   "ano": 2004,
+   "dz": {
+    "t": 1065541912,
+    "a": 4475
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 577507,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "MX",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "the-weeknd-lana-del-rey-stargirl-interlude",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Stargirl Interlude",
+   "a": "The Weeknd",
+   "album": "Starboy",
+   "ano": 2016,
+   "dz": {
+    "t": 136889414,
+    "a": 4050205
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 783183,
+   "generos": [
+    "R&B"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "lmfao-party-rock-anthem",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Party Rock Anthem",
+   "a": "LMFAO",
+   "album": "Sorry For Party Rocking",
+   "ano": 2011,
+   "dz": {
+    "t": 12565420,
+    "a": 167225
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 831285,
+   "generos": [
+    "Dance",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-28": [
   {
    "id": "psirico-lepo-lepo",
@@ -147,6 +300,131 @@
    ],
    "pais": "US",
    "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "george-michael-careless-whisper-remastered",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Careless Whisper",
+   "a": "George Michael",
+   "album": "The Final",
+   "ano": 1984,
+   "dz": {
+    "t": 14525086,
+    "a": 3098
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "GB",
+    "generos": [
+     "pop",
+     "rnb-soul"
+    ],
+    "decada": 1980,
+    "vibes": [
+     "viral",
+     "romantica",
+     "sofrencia"
+    ],
+    "fama": 5
+   },
+   "rank": 934777,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "the-chainsmokers-halsey-closer",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Closer",
+   "a": "The Chainsmokers",
+   "album": "Closer",
+   "ano": 2016,
+   "dz": {
+    "t": 129310248,
+    "a": 4104927
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 840234,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Indie Rock",
+    "Electro",
+    "Techno/House",
+    "Dance",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -30776,6 +31054,271 @@
    ],
    "pais": "US",
    "decada": 2000,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-08": [
+  {
+   "id": "pericles-ate-que-durou-ao-vivo",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Até Que Durou (Ao Vivo)",
+   "a": "Péricles",
+   "album": "Até Que Durou (Ao Vivo)",
+   "ano": 2018,
+   "dz": {
+    "t": 2765401031,
+    "a": 423066
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "pagode-samba"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "sofrencia",
+     "romantica",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 770321,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "grupo-menos-e-mais-di-proposito-vou-zuar-pot-pourri-melhor-e",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pot-Pourri: Melhor Eu Ir / Ligando Os Fatos / Sonho de Amor / Deixa Eu Te Querer (Ao Vivo)",
+   "a": "Grupo Menos É Mais",
+   "album": "Churrasquinho Menos É Mais (Ao Vivo)",
+   "ano": 2020,
+   "dz": {
+    "t": 1123836942,
+    "a": 54330242
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 887565,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "queen-we-will-rock-you",
+   "n": 2,
+   "origem": "icone",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "We Will Rock You",
+   "a": "Queen",
+   "album": "News Of The World",
+   "ano": 1977,
+   "dz": {
+    "t": 4092312801,
+    "a": 412
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 851674,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1970,
+   "tags_ok": true
+  },
+  {
+   "id": "madcon-ray-dalton-don-t-worry-with-ray-dalton-radio-edit",
+   "n": 3,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Don't Worry (with Ray Dalton) (Radio Edit)",
+   "a": "Madcon",
+   "album": "Don't Worry (feat. Ray Dalton)",
+   "ano": 2015,
+   "dz": {
+    "t": 97094250,
+    "a": 74787
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 900064,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "NO",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "legiao-urbana-pais-e-filhos",
+   "n": 4,
+   "origem": "icone",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pais E Filhos",
+   "a": "Legião Urbana",
+   "album": "Mais Do Mesmo",
+   "ano": 1989,
+   "dz": {
+    "t": 3530216,
+    "a": 15810
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 741632,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "BR",
+   "decada": 1980,
    "tags_ok": true
   }
  ]
