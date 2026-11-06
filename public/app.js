@@ -374,6 +374,7 @@ async function enter(pw, key, name) {
   $('#admHeading').hidden = me.key !== 'kellyson'
   $('#admLogin').hidden = me.key !== 'kellyson'
   abreCortinaEntrada()
+  setTimeout(ligaLateral, 300)
   $('#gate').hidden = true
   document.body.classList.remove('locked')
   document.documentElement.classList.remove('auto')
@@ -592,7 +593,7 @@ async function start(pw) {
     if (jogos[id]) return jogos[id].got(x, k)
     carregaJogo(id).then(j => j?.got(x, k))
   }
-  actions.chat.onMessage = (m, { peerId }) => addMsg({ ...m, from: peerId })
+  actions.chat.onMessage = (m, { peerId }) => chatChegou({ ...m, from: peerId })
   actions.hist.onMessage = list => Array.isArray(list) && list.forEach(m => !m.sys && addMsg(m, true))
   actions.spk.onMessage = (d, { peerId }) => { const p = peers.get(peerId); if (p) { p.speaking = !!d; renderSeats() } }
   actions.pausa.onMessage = (_, { peerId }) => gotPause(peers.get(peerId)?.name || 'Alguém')
@@ -695,6 +696,7 @@ async function heartbeat() {
   if (!srvPres.size && pollTimer) { clearInterval(pollTimer); pollTimer = 0 }
 }
 async function pollChat() {
+  if (chatCh) return
   const r = await api(`chat?n=20&r=${roomId}&desde=${callIni || 0}`)
   if (Array.isArray(r?.list)) r.list.forEach(m => addMsg(m))
 }
@@ -2541,7 +2543,13 @@ function moveStep(d) {
 }
 const lineEls = []
 const sameKids = (p, kids) => p.children.length === kids.length && kids.every((k, i) => p.children[i] === k)
+// quem fala acende na lateral (sem redesenhar a lista toda)
+function falaLateral() {
+  lateral.querySelectorAll('.lat-gente li[data-key]').forEach(li => li.classList.toggle('fala', !!estadoDe(li.dataset.key).speaking))
+  lateral.querySelector('.lat-eu .lat-rosto')?.classList.toggle('fala', !!me.speaking)
+}
 function renderSeats() {
+  try { falaLateral() } catch {}
   const people = [{ ...me, id: selfId }, ...[...peers].map(([id, p]) => ({ ...p, id })), ...[...srvPres].map(([key, name]) => ({ key, name, id: 'srv:' + key, ghost: true })), ...[...sumindo].filter(([key]) => !srvPres.has(key) && ![...peers.values()].some(p => p.key === key)).map(([key, s]) => ({ key, name: s.name, seat: s.seat, id: 'volta:' + key, ghost: true, volta: true }))].filter(x => x.key)
   // convidados entram e saem da fileira
   const guests = new Set(people.filter(x => !PEOPLE.some(p => p.id === x.key)).map(x => x.key))
@@ -2714,7 +2722,7 @@ function renderNet() {
   if (rostos.dataset.k !== k) { rostos.dataset.k = k; rostos.replaceChildren(...keys.slice(0, 5).map(x => pfpImg(x, 22))) }
   st.title = keys.map(x => person(x).nome).join(', ')
 }
-function renderAll() { renderSeats(); renderNet(); try { renderCallbar() } catch {} }
+function renderAll() { renderSeats(); renderNet(); try { renderCallbar() } catch {}; renderLateral() }
 
 /* ---------- Faixa da call: tempo de call, tempo online e conexão de cada um ---------- */
 const durTxt = ms => { const m = Math.max(0, Math.floor(ms / 60000)); return m < 1 ? 'agora' : m < 60 ? `${m} min` : `${Math.floor(m / 60)}h${String(m % 60).padStart(2, '0')}` }
@@ -3235,6 +3243,134 @@ async function openDiary() {
     ...(vistas.length ? porMes(vistas) : []))
 }
 $('#btnDiary').addEventListener('click', openDiary)
+/* ---------- Barra lateral (como o Discord): salas de cinema (calls), chats de texto e o seu perfil ----------
+   As salas de cinema são os canais de voz: cada uma é uma call P2P separada, e dá para ver quem está em cada.
+   Os chats são canais de texto que não dependem da call (histórico no servidor; quem está na mesma call
+   recebe na hora, os outros a cada poucos segundos). "Conversa da sala" é o chat da call em que você está. */
+let chatCh = '', textos = [], textoPoll = 0, textoUltimo = 0
+const textoR = new Map(), naoLidas = new Map()
+const chatR = () => chatCh ? textoR.get(chatCh) || roomId : roomId
+function chatChegou(m) {
+  const ch = typeof m.ch === 'string' ? m.ch.slice(0, 30) : ''
+  if (ch === chatCh) return addMsg(m)
+  naoLidas.set(ch, (naoLidas.get(ch) || 0) + 1)
+  if (!ch && !m.sys) { sfx('chat', m.key); showBubble(m) } // a conversa da call continua aparecendo nos bonecos
+  renderLateral()
+}
+async function abreChat(ch) {
+  if (ch && !textoR.has(ch)) textoR.set(ch, 'x' + (await sha('texto:' + roomPw + ':' + ch)).slice(0, 40))
+  chatCh = ch; naoLidas.delete(ch)
+  clearInterval(textoPoll); textoPoll = 0
+  clearChat()
+  const t = textos.find(x => x.id === ch)
+  $('#chat .chat__head h2').textContent = ch ? t?.nome || ch : 'Conversa da sala'
+  setIcon($('#chat .chat__head svg'), ch ? 'hash' : 'volume-2')
+  $('#chatInput').placeholder = ch ? `Conversar em #${t?.nome || ch}` : 'Mensagem para a sala'
+  $('#chat').classList.remove('troca'); void $('#chat').offsetWidth; $('#chat').classList.add('troca')
+  await loadHistory()
+  textoUltimo = Math.max(0, ...messages.map(m => m.ts || 0))
+  if (ch) textoPoll = setInterval(async () => {
+    const r = await api(`chat?r=${chatR()}&desde=${textoUltimo + 1}`)
+    if (chatCh !== ch) return
+    for (const m of r?.list || []) { addMsg(m); textoUltimo = Math.max(textoUltimo, m.ts || 0) }
+  }, 5000)
+  if (!chatVisible()) setChat(true)
+  renderLateral(); fechaLateral()
+}
+async function loadTextos() {
+  if (!roomPw) return
+  const r = await api('sala', { method: 'POST', body: { op: 'textos', pw: roomPw } })
+  if (Array.isArray(r?.textos)) { textos = r.textos; renderLateral() }
+}
+
+const lateral = el('nav', { className: 'lateral', ariaLabel: 'Salas e chats' })
+document.body.append(lateral, el('div', { className: 'lateral__fundo', onclick: () => fechaLateral() }))
+const fechaLateral = () => document.body.classList.remove('lateral-aberta')
+const secao = (titulo, onMais, dica) => {
+  const h = el('div', { className: 'lateral__sec' }, el('span', { textContent: titulo }))
+  if (onMais) { const b = el('button', { type: 'button', className: 'lateral__mais', title: dica, ariaLabel: dica }, icon('plus')); b.addEventListener('click', onMais); h.append(b) }
+  return h
+}
+// criar sala ou chat: um campo aparece no lugar, Enter cria
+function criaInline(onde, ph, fn) {
+  lateral.querySelector('.lateral__novo')?.remove()
+  const inp = el('input', { maxLength: 30, placeholder: ph })
+  const f = el('form', { className: 'lateral__novo' }, inp)
+  f.addEventListener('submit', async e => { e.preventDefault(); const v = inp.value.trim(); f.remove(); if (v) await fn(v) })
+  inp.addEventListener('keydown', e => { if (e.key === 'Escape') f.remove() })
+  inp.addEventListener('blur', () => setTimeout(() => f.remove(), 150))
+  onde.after(f); inp.focus()
+}
+function estadoDe(key) {
+  if (key === me.key) return { muted: me.muted, deaf: me.deaf, speaking: me.speaking, proj: !!myShare }
+  for (const [id, p] of peers) if (p.key === key) return { muted: p.muted, deaf: p.deaf, speaking: p.speaking, proj: tiles.has(id) }
+  return {}
+}
+function renderLateral() {
+  if (!me.key) return
+  const salas = [...canais]
+  if (!salas.some(c => c.id === canal)) salas.push({ id: canal, nome: canalNome(canal), pres: [] })
+  const aqui = new Map([[me.key, me.name], ...[...peers.values()].filter(p => p.key).map(p => [p.key, p.name])])
+  const linhaSala = c => {
+    const atual = c.id === canal
+    const gente = atual ? [...aqui].map(([key, name]) => ({ key, name })) : (c.pres || []).filter(p => p.key !== me.key)
+    const ativo = atual && tiles.size
+    const b = el('button', { type: 'button', className: 'lat-sala' + (atual ? ' on' : ''), title: atual ? 'Você está nesta sala' : `Entrar em ${c.nome}` },
+      icon(ativo ? 'projector' : 'volume-2'), el('span', { textContent: c.nome }), ativo ? el('em', { className: 'lat-aovivo', textContent: 'AO VIVO' }) : '')
+    b.addEventListener('click', () => atual ? null : switchCanal(c.id))
+    const lista = el('ul', { className: 'lat-gente' }, ...gente.map(p => {
+      const st = atual ? estadoDe(p.key) : {}
+      const li = el('li', { className: (st.speaking ? 'fala' : '') + (atual ? '' : ' longe'), title: p.name || person(p.key).nome },
+        el('span', { className: 'lat-rosto' }, pfpImg(p.key, 24, p.name)), el('span', { className: 'lat-nome', textContent: p.name || person(p.key).nome }),
+        st.proj ? el('em', { className: 'lat-tag', textContent: 'TELA' }) : '',
+        st.muted ? el('span', { className: 'lat-ic' }, icon('mic-off')) : '', st.deaf ? el('span', { className: 'lat-ic' }, icon('headphone-off')) : '')
+      if (atual) li.dataset.key = p.key
+      return li
+    }))
+    return el('div', { className: 'lat-bloco' }, b, lista)
+  }
+  const linhaChat = (id, nome, ic) => {
+    const n = naoLidas.get(id) || 0
+    const b = el('button', { type: 'button', className: 'lat-chat' + (chatCh === id ? ' on' : '') + (n ? ' novo' : '') }, icon(ic), el('span', { textContent: nome }), n ? el('b', { className: 'lat-badge', textContent: n > 99 ? '99+' : n }) : '')
+    b.addEventListener('click', () => abreChat(id))
+    return b
+  }
+  const secSalas = secao('Salas de cinema', e => criaInline(e.currentTarget.parentElement, 'nome da sala', async nome => {
+    const r = await api('sala', { method: 'POST', body: { op: 'canal-novo', pw: roomPw, nome, key: me.key } })
+    if (!r?.canal) return toast('Não consegui criar a sala.')
+    canais.push({ ...r.canal, pres: [] }); switchCanal(r.canal.id)
+  }), 'Criar sala de cinema')
+  const secChats = secao('Chats', e => criaInline(e.currentTarget.parentElement, 'nome-do-chat', async nome => {
+    const r = await api('sala', { method: 'POST', body: { op: 'texto-novo', pw: roomPw, nome, key: me.key } })
+    if (!r?.texto) return toast('Não consegui criar o chat.')
+    if (!textos.some(t => t.id === r.texto.id)) textos.push(r.texto)
+    abreChat(r.texto.id)
+  }), 'Criar chat')
+  const eu = el('div', { className: 'lat-eu' },
+    el('span', { className: 'lat-rosto' + (me.speaking ? ' fala' : '') }, pfpImg(me.key, 32, me.name)),
+    el('div', { className: 'lat-eu__txt' }, el('b', { textContent: me.name }), el('small', { textContent: `🔊 ${canalNome(canal)}` })),
+    ...[['btnMic', me.muted ? 'mic-off' : 'mic', me.muted ? 'Ligar microfone' : 'Mutar', me.muted], ['btnDeaf', me.deaf ? 'headphone-off' : 'headphones', me.deaf ? 'Ligar o som' : 'Cortar o som', me.deaf], ['btnSettings', 'settings', 'Configurações', false]].map(([alvo, ic, t, vermelho]) => {
+      const b = el('button', { type: 'button', className: 'lat-eu__b' + (vermelho ? ' off' : ''), title: t, ariaLabel: t }, icon(ic))
+      b.addEventListener('click', () => $('#' + alvo)?.click()); return b
+    }))
+  lateral.replaceChildren(
+    el('header', { className: 'lateral__topo' }, el('img', { src: 'assets/icon.svg', alt: '' }), el('b', { textContent: CFG.nome || 'Cineminha' }),
+      (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Diário de sessões' }, icon('book-open')); b.addEventListener('click', openDiary); return b })()),
+    el('div', { className: 'lateral__corpo' },
+      secSalas, ...salas.map(linhaSala),
+      secChats, linhaChat('', 'conversa-da-sala', 'volume-2'), ...textos.map(t => linhaChat(t.id, t.nome, 'hash'))),
+    eu)
+}
+// mantém a lista de quem está em cada sala atualizada
+let lateralTimer = 0
+$('#btnLateral')?.addEventListener('click', () => document.body.classList.toggle('lateral-aberta'))
+function ligaLateral() {
+  document.body.classList.add('com-lateral')
+  $('#chat .chat__head h2').textContent = 'Conversa da sala'; setIcon($('#chat .chat__head svg'), 'volume-2')
+  loadCanais(); loadTextos()
+  clearInterval(lateralTimer); lateralTimer = setInterval(() => { if (!document.hidden) loadCanais() }, 10000)
+}
+
 /* ---------- Canais ----------
    O principal sempre existe; qualquer pessoa da sala pode criar outro.
    Trocar de canal sai da sala P2P atual e entra na outra sem recarregar a página. */
@@ -3248,6 +3384,7 @@ async function loadCanais() {
   return canais
 }
 function renderCanais() {
+  renderLateral()
   $('#canalNome').textContent = canalNome(canal)
   // pontinho: tem gente em outro canal
   $('#canalDot').hidden = !canais.some(c => c.id !== canal && c.pres.some(p => p.key !== me.key))
@@ -3354,7 +3491,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#credi
 $('#admClear').addEventListener('click', () => {
   if (!confirm('Apagar o chat para todos?')) return
   admSend('clear'); clearChat()
-  api('chat', { method: 'DELETE', body: { r: roomId, tok: admTok } })
+  api('chat', { method: 'DELETE', body: { r: chatR(), tok: admTok } })
 })
 function showBanner(text) { $('#banner').hidden = !text; $('#bannerText').textContent = text || '' }
 async function onAdmin(d, peerId) {
@@ -4409,23 +4546,23 @@ function addMsg(m, quiet) {
   if (atBottom || m.from === selfId || quiet) listEl.scrollTop = listEl.scrollHeight
   if (!quiet && !m.sys) {
     if (m.from !== selfId) sfx('chat', m.key)
-    showBubble(m)
+    if (!m.ch) showBubble(m) // balão no boneco só para a conversa da call
   }
 }
 function sysMsg(text) { addMsg({ id: `${selfId}-s${msgN++}`, sys: 1, text, ts: Date.now() }, true) }
 function sendMsg(fields) {
-  const m = { id: `${selfId}-${msgN++}`, from: selfId, key: me.key, name: me.name, text: '', ts: Date.now(), ...fields }
+  const m = { id: `${selfId}-${msgN++}`, from: selfId, key: me.key, name: me.name, text: '', ts: Date.now(), ...fields, ...(chatCh ? { ch: chatCh } : {}) }
   const mv = movieNow()
   if (mv) m.mt = Math.round(mv.t)
   if (replyTo) { m.re = replyTo; cancelReply() }
   addMsg(m)
   actions?.chat.send(m)
   const { from, ...keep } = m
-  api('chat', { method: 'POST', body: { r: roomId, m: keep } })
+  api('chat', { method: 'POST', body: { r: chatR(), m: keep } })
 }
 function clearChat() { messages.length = 0; msgEls.clear(); msgReacts.clear(); listEl.replaceChildren() }
 async function loadHistory() {
-  const r = await api(`chat?r=${roomId}&desde=${callIni || Date.now() - 60e3}`)
+  const r = await api(chatCh ? `chat?r=${chatR()}&n=80` : `chat?r=${roomId}&desde=${callIni || Date.now() - 60e3}`)
   if (Array.isArray(r?.list)) r.list.forEach(m => addMsg(m, true))
   if (r?.re && typeof r.re === 'object') for (const [id, byE] of Object.entries(r.re)) for (const [e, keys] of Object.entries(byE || {})) (Array.isArray(keys) ? keys : []).forEach(k => setMsgReact(id, e, k, true))
 }
@@ -4504,7 +4641,7 @@ function toggleMsgReact(id, e) {
   const on = !msgReacts.get(id)?.get(e)?.has(me.key)
   setMsgReact(id, e, me.key, on)
   actions?.mre.send({ id, e, on })
-  api('chat', { method: 'POST', body: { r: roomId, re: { id, e, k: me.key, on } } })
+  api('chat', { method: 'POST', body: { r: chatR(), re: { id, e, k: me.key, on } } })
   closePops()
 }
 const reactsDump = () => [...msgReacts].map(([id, map]) => [id, [...map].map(([e, s]) => [e, [...s]])])
@@ -4587,7 +4724,7 @@ async function sendImage(file) {
       if (data.length < 900e3) break
     }
   }
-  const r = await api('chat', { method: 'POST', body: { r: roomId, img: data } })
+  const r = await api('chat', { method: 'POST', body: { r: chatR(), img: data } })
   if (!r?.id) return toast('Não consegui enviar a imagem.')
   sendMsg({ gif: `${location.origin}/api/chat?img=${r.id}`, foto: 1 })
 }
@@ -4795,6 +4932,7 @@ function micOff() {
 function setMuted(m, quiet) {
   const changed = me.muted !== m
   me.muted = m
+  setTimeout(renderLateral, 0)
   mic?.stream.getAudioTracks().forEach(t => { t.enabled = !m })
   if (m && me.speaking) { me.speaking = false; actions?.spk.send(false) }
   if (changed && !quiet) sfx(m ? 'mutar' : 'desmutar')
@@ -4819,6 +4957,7 @@ function setDeaf(d, quiet) {
   stopMicTest(true)
   if (me.deaf === d) return
   me.deaf = d
+  setTimeout(renderLateral, 0)
   if (d) { mutedBeforeDeaf = me.muted; if (mic && !me.muted) setMuted(true, true) }
   else if (mic && !mutedBeforeDeaf) setMuted(false, true)
   if (!quiet) sfx(d ? 'mutar' : 'desmutar')

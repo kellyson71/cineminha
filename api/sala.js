@@ -22,6 +22,7 @@ async function canais(pw, now) {
   list.sort((a, b) => (a.criado || 0) - (b.criado || 0))
   return Promise.all(list.map(async c => ({ ...c, r: roomOf(pw, c.id), pres: await presenca(roomOf(pw, c.id), now) })))
 }
+const TEXTOS_PADRAO = [{ id: 'geral', nome: 'geral', fixo: 1 }, { id: 'indicacoes', nome: 'indicações', fixo: 1 }, { id: 'memes', nome: 'memes', fixo: 1 }]
 const okRoom = r => typeof r === 'string' && /^[a-f0-9x]{6,64}$/.test(r)
 export default async function handler(req, res) {
   try {
@@ -168,6 +169,28 @@ export default async function handler(req, res) {
         const canal = { id, nome, por: String(b.key || '').slice(0, 40), criado: now }
         await redis('HSET', 'canais', id, JSON.stringify(canal))
         return json(res, 200, { canal })
+      }
+      // Chats de texto (como os canais de texto do Discord): não dependem da call; o histórico fica no
+      // api/chat com uma sala derivada no navegador. Três já vêm prontos.
+      if (b.op === 'textos') {
+        const flat = (await redis('HGETALL', 'textos')) || []
+        const extras = []
+        for (let i = 0; i < flat.length; i += 2) { try { extras.push(JSON.parse(flat[i + 1])) } catch {} }
+        return json(res, 200, { textos: [...TEXTOS_PADRAO, ...extras.sort((x, y) => (x.criado || 0) - (y.criado || 0))] })
+      }
+      if (b.op === 'texto-novo') {
+        const nome = slugify(String(b.nome || '')).slice(0, 28)
+        if (!nome) return json(res, 400, { error: 'nome' })
+        if (TEXTOS_PADRAO.some(t => t.id === nome) || await redis('HEXISTS', 'textos', nome)) return json(res, 200, { texto: { id: nome, nome } })
+        if (((await redis('HLEN', 'textos')) || 0) >= 20) return json(res, 400, { error: 'muitos chats' })
+        const texto = { id: nome, nome, por: String(b.key || '').slice(0, 40), criado: now }
+        await redis('HSET', 'textos', nome, JSON.stringify(texto))
+        return json(res, 200, { texto })
+      }
+      if (b.op === 'texto-apagar') {
+        if (!isAdmin(b.tok) || !okCanal(b.id) || !b.id) return json(res, 403, { error: 'admin' })
+        await redis('HDEL', 'textos', b.id)
+        return json(res, 200, { ok: true })
       }
       if (b.op === 'canal-apagar') {
         if (!isAdmin(b.tok)) return json(res, 403, { error: 'admin' })
