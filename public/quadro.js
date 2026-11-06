@@ -13,7 +13,7 @@ const SONS = ['embaralhar', 'desliza1', 'desliza2', 'desliza3', 'carimbo', 'pape
 const VOL = { embaralhar: .5, carimbo: .6, papel: .45, vez: .45, clique: .3, tique: .25, leque: .5 }
 const SAIU_MS = 12000, HOST_MS = 10000
 const REVELA_MS = 6500, TRAVA_MS = 2500, LANCE_MS = 20000, DESAFIO_MS = 25000, ROUBO_MS = 18000
-const OP_FILMES = [5, 8, 12], OP_SEG = [0, 8, 12, 18] // 0 = sem tempo: o frame fica até todo mundo chutar ou passar
+const OP_FILMES = [5, 8, 12], OP_CHUTES = [1, 2, 3], OP_SEG = [0, 8, 12, 18] // 0 = sem tempo: o frame fica até todo mundo chutar ou passar
 export const MODOS = {
   corrida: { nome: 'Corrida', txt: 'Todo mundo chuta junto. Quanto antes acertar, mais pontos.', min: 1 },
   coop: { nome: 'Cooperativo', txt: 'Um time só: qualquer acerto vale para todos.', min: 1 },
@@ -80,9 +80,11 @@ export function criaQuadro(ctx) {
   }
 
   /* ---------- dados ---------- */
-  let filmes = null, catalogo = null, contaCats = null
+  let filmes = null, catalogo = null, contaCats = null, capasCat = null
   const pegaFilmes = () => filmes ||= fetch(DADOS + 'filmes.json', { cache: 'no-cache' }).then(r => r.json()).then(l => {
-    contaCats = Object.fromEntries(Object.keys(CATS).map(c => [c, l.filter(f => daCat(f, c)).length])); if (V) render(); return l
+    contaCats = Object.fromEntries(Object.keys(CATS).map(c => [c, l.filter(f => daCat(f, c)).length]))
+    capasCat = Object.fromEntries(Object.keys(CATS).map(c => { const f = l.filter(x => daCat(x, c))[3] || l.find(x => daCat(x, c)); return [c, f ? frame(f.p, Math.min(2, f.n - 1)) : ''] }))
+    if (V) render(); return l
   }).catch(() => { filmes = null; return [] })
   const pegaCatalogo = () => catalogo ||= fetch(DADOS + 'catalogo.json').then(r => r.json()).then(l => l.map(([t, o, ano]) => ({ t, o, ano, k: norm(t), ko: norm(o) }))).catch(() => { catalogo = null; return [] })
   const frame = (p, i) => `${DADOS}f/${p}/${i}.webp`
@@ -96,7 +98,7 @@ export function criaQuadro(ctx) {
   const presentesJog = () => G.js.filter(j => ctx.presentes().includes(j.key))
 
   function abrir(chamados) {
-    const op = { filmes: 8, seg: 0, modo: 'corrida', cat: 'todos', ...ls.get(`${XX}.op`) }
+    const op = { filmes: 8, seg: 0, chutes: 2, modo: 'corrida', cat: 'todos', ...ls.get(`${XX}.op`) }
     G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, fase: 'convite', op,
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes?.(k) ? 'sim' : '?'])),
       js: [], lista: [], i: 0, time: 0, vencedor: null, ev: [], evN: 0, seq: 0, t: Date.now() }
@@ -128,14 +130,14 @@ export function criaQuadro(ctx) {
   function novoFilme(i) {
     const leilao = G.op.modo === 'leilao'
     Object.assign(G, { i, passo: 0, est: leilao ? 'lance' : 'olhando', prazo: leilao ? Date.now() + LANCE_MS : prazoFrame(), ate: 0,
-      acertos: {}, erros: [], passou: [], trava: {}, lances: {}, venc: null, tent: 0 })
+      acertos: {}, erros: [], passou: [], trava: {}, chutes: {}, lances: {}, venc: null, tent: 0 })
     ev({ t: 'filme', i })
     difunde()
   }
   function abreFrame() {
     const f = filme()
     if (G.passo >= f.n - 1) return revela()
-    G.passo++; G.passou = []; G.prazo = prazoFrame()
+    G.passo++; G.passou = []; G.chutes = {}; G.prazo = prazoFrame()
     ev({ t: 'frame', passo: G.passo })
     difunde()
   }
@@ -169,7 +171,7 @@ export function criaQuadro(ctx) {
     difunde()
   }
   function rouba() {
-    G.est = 'roubo'; G.passo = filme().n - 1; G.prazo = Date.now() + ROUBO_MS
+    G.est = 'roubo'; G.chutes = {}; G.passo = filme().n - 1; G.prazo = Date.now() + ROUBO_MS
     ev({ t: 'roubo' })
     if (!G.js.some(j => j.key !== G.venc.key)) return revela()
     difunde()
@@ -190,6 +192,8 @@ export function criaQuadro(ctx) {
     if (G.est === 'roubo' && key === G.venc.key) return
     txt = String(txt || '').trim().slice(0, 80)
     if (!txt || (G.trava[key] || 0) > Date.now()) return
+    const limite = G.op.chutes || 2
+    if (G.est !== 'desafio') { G.chutes ||= {}; if ((G.chutes[key] || 0) >= limite) return; G.chutes[key] = (G.chutes[key] || 0) + 1 }
     if (confere(txt, f.nomes)) {
       const primeiro = !Object.keys(G.acertos).length
       let pts
@@ -255,6 +259,7 @@ export function criaQuadro(ctx) {
         if (key !== G.host || G.fase !== 'convite') break
         if (OP_FILMES.includes(d.filmes)) G.op.filmes = d.filmes
         if (OP_SEG.includes(d.seg)) G.op.seg = d.seg
+        if (OP_CHUTES.includes(d.chutes)) G.op.chutes = d.chutes
         if (d.modo in MODOS) G.op.modo = d.modo
         if (d.cat in CATS) G.op.cat = d.cat
         difunde(); break
@@ -275,6 +280,7 @@ export function criaQuadro(ctx) {
         dur: G.est === 'lance' ? LANCE_MS : G.est === 'desafio' ? DESAFIO_MS : G.est === 'roubo' ? ROUBO_MS : seg(),
         frames: Array.from({ length: G.passo + 1 }, (_, i) => frame(f.p, i)),
         acertos: G.acertos, erros: G.erros, passou: G.passou, trava: Math.max(0, (G.trava[k] || 0) - Date.now()),
+        chutei: G.chutes?.[k] || 0, limite: G.op.chutes || 2,
         lances: G.est === 'lance' ? Object.fromEntries(Object.keys(G.lances).map(x => [x, x === k ? G.lances[x].n : true])) : Object.fromEntries(Object.entries(G.lances).map(([x, l]) => [x, l.n])),
         venc: G.venc, tent: G.tent,
         filme: revelado ? { t: f.t, o: f.o, ano: f.ano } : null,
@@ -469,36 +475,49 @@ export function criaQuadro(ctx) {
     ctx.hydrate(tela)
     if (tinhaFoco && campo.isConnected && !campo.disabled) campo.focus()
   }
+  // página inicial: modos como cartões à esquerda; mesa (categoria, filmes, tempo, chutes, quem joga) à direita
+  const ICO_MODO = {
+    corrida: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
+    coop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9" r="2.6"/><path d="M3 20c.6-3.6 3-5.5 6-5.5s5.4 1.9 6 5.5M15 14.6c2.8-.3 5 1.4 5.8 4.9"/></svg>',
+    leilao: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 12.5-8 8a2.12 2.12 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></svg>',
+  }
+  const REGRAS = {
+    corrida: ['Todo mundo chuta ao mesmo tempo', 'Acertou no 1º frame: 6 pontos; no último: 1', 'Quem acerta primeiro ganha +1'],
+    coop: ['A turma é um time só', 'Qualquer acerto vale para todos', 'Bata o recorde de pontos do grupo'],
+    leilao: ['Vendo o 1º frame, aposte em segredo', 'Quem apostar menos tenta sozinho (2 chances)', 'Errou? Os outros roubam com tudo aberto'],
+  }
   function convite() {
     if (!contaCats) pegaFilmes()
+    const host = souHost(), m = V.op.modo
     const sim = Object.entries(V.conv).filter(([k, v]) => v === 'sim' && ctx.presentes().includes(k)).map(([k]) => k)
-    const passo = (n, titulo, txt, arte) => el('div', { className: `${XX}-passo` }, el('div', { className: `${XX}-passo__arte` }, arte), el('b', { textContent: titulo }), el('small', { textContent: txt }))
-    const tira = n => el('div', { className: `${XX}-mini` }, ...Array.from({ length: 6 }, (_, i) => el('i', { className: i < n ? 'on' : '' })))
-    const m = V.op.modo
-    const tutorial = el('div', { className: `${XX}-tuto` },
-      passo(1, 'Aparece um frame', V.op.seg ? 'De um filme famoso. A cada poucos segundos abre outro, até 6.' : 'De um filme famoso. Pensem com calma: abre outro quando todo mundo chutar ou passar.', tira(2)),
-      m === 'leilao' ? passo(2, 'Dê seu lance', 'Em segredo: com quantos frames você acerta? Quem apostar menos tenta sozinho.', el('span', { className: `${XX}-mini-pts`, textContent: '2!' }))
-        : passo(2, 'Chute o nome', 'Pode errar a grafia: parecido já vale. As sugestões trazem o nome brasileiro e o original.', el('span', { className: `${XX}-mini-campo` }, el('span', { textContent: 'O Podero' }), el('i'))),
-      m === 'coop' ? passo(3, 'Um time só', 'Qualquer acerto vale para todos. Bata o recorde da turma.', el('span', { className: `${XX}-mini-pts`, textContent: '+6' }))
-        : m === 'leilao' ? passo(3, 'Acertou ou roubaram', 'Acertou com 1 frame: 6 pontos. Errou duas vezes: os outros roubam com tudo aberto.', el('span', { className: `${XX}-mini-pts`, textContent: '+6' }))
-          : passo(3, 'Quanto antes, mais pontos', '6 pontos no 1º frame… 1 no último. Quem acerta primeiro ganha +1.', el('span', { className: `${XX}-mini-pts`, textContent: '+6' })))
     const muda = d => manda({ op: 'opcao', ...d })
-    const opc = (rot, itens, atual, chave, fmt, desc) => el('div', { className: `${XX}-opc` }, el('small', { textContent: rot }),
-      ...itens.map(x => souHost()
-        ? botao(fmt(x), () => muda({ [chave]: x }), x === atual ? 'on' : '')
-        : el('span', { className: `${XX}-btn ${x === atual ? 'on' : ''}`, textContent: fmt(x) })), desc ? el('em', { textContent: desc }) : '')
+    const clicavel = (node, fn) => { if (host) { node.addEventListener('click', () => { som('clique'); fn() }); node.classList.add(`${XX}-clic`) } return node }
+    const modos = el('div', { className: `${XX}-modos` }, ...Object.entries(MODOS).map(([k, md]) => clicavel(
+      el('div', { className: `${XX}-modo ${k === m ? 'on' : ''}`, role: host ? 'button' : '' },
+        el('span', { className: `${XX}-modo__ic`, innerHTML: ICO_MODO[k] }),
+        el('div', { className: `${XX}-modo__txt` }, el('b', { textContent: md.nome }), el('small', { textContent: md.txt }),
+          k === m ? el('ul', {}, ...REGRAS[k].map(r => el('li', { textContent: r }))) : '')), () => muda({ modo: k }))))
+    // categorias com um frame de fundo (o primeiro filme de cada uma)
     const cats = Object.keys(CATS).filter(c => !contaCats || contaCats[c] >= 3)
-    const ir = souHost()
-      ? botao(`Começar · ${sim.length} ${sim.length === 1 ? 'jogador' : 'jogadores'}`, () => comecar(), `${XX}-btn--ok ${XX}-btn--grande`)
-      : el('small', { className: `${XX}-espera`, textContent: `${V.hostNome} vai começar` })
-    if (souHost() && sim.length < MODOS[m].min) { ir.disabled = true; ir.textContent = `${MODOS[m].nome} precisa de ${MODOS[m].min}` }
-    return el('div', { className: `${XX}-inicio` }, tutorial,
-      el('div', { className: `${XX}-opcs` },
-        opc('Modo', Object.keys(MODOS), m, 'modo', x => MODOS[x].nome, MODOS[m].txt),
-        opc('Categoria', cats, V.op.cat, 'cat', x => contaCats ? `${CATS[x]} · ${contaCats[x]}` : CATS[x]),
-        opc('Filmes', OP_FILMES, V.op.filmes, 'filmes', x => String(x)),
-        m !== 'leilao' ? opc('Cada frame', OP_SEG, V.op.seg, 'seg', x => (x ? `${x} s` : 'Sem tempo'), V.op.seg ? '' : 'O frame fica até todo mundo chutar ou passar.') : ''),
-      el('div', { className: `${XX}-quem` }, ...sim.map(k => foto(k))), ir)
+    const gradeCats = el('div', { className: `${XX}-cats` }, ...cats.map(c => clicavel(
+      el('div', { className: `${XX}-cat ${c === V.op.cat ? 'on' : ''}`, style: capasCat?.[c] ? `--capa:url("${capasCat[c]}")` : '' },
+        el('b', { textContent: CATS[c] }), contaCats ? el('small', { textContent: `${contaCats[c]} filmes` }) : ''), () => muda({ cat: c }))))
+    const seg = (rot, itens, atual, chave, fmt) => el('div', { className: `${XX}-seg` }, el('small', { textContent: rot }),
+      el('div', { className: `${XX}-seg__opts` }, ...itens.map(x => clicavel(el('span', { className: x === atual ? 'on' : '', textContent: fmt(x) }), () => muda({ [chave]: x })))))
+    const ajustes = el('div', { className: `${XX}-ajustes` },
+      seg('Filmes', OP_FILMES, V.op.filmes, 'filmes', String),
+      m !== 'leilao' ? seg('Cada frame', OP_SEG, V.op.seg, 'seg', x => (x ? `${x}s` : 'Sem tempo')) : '',
+      m !== 'leilao' ? seg('Chutes por frame', OP_CHUTES, V.op.chutes || 2, 'chutes', String) : '')
+    const min = MODOS[m].min
+    const ir = host
+      ? botao(sim.length < min ? `${MODOS[m].nome} precisa de ${min}` : 'Começar', () => comecar(), `${XX}-btn--ok ${XX}-btn--grande`)
+      : el('small', { className: `${XX}-espera`, textContent: `${V.hostNome} escolhe e começa` })
+    if (host && sim.length < min) ir.disabled = true
+    return el('div', { className: `${XX}-menu` },
+      el('section', { className: `${XX}-col` }, el('h3', { textContent: 'Modo' }), modos),
+      el('section', { className: `${XX}-col ${XX}-col--mesa` },
+        el('h3', { textContent: 'Categoria' }), gradeCats, ajustes,
+        el('div', { className: `${XX}-rodape` }, el('div', { className: `${XX}-quem` }, ...sim.map(k => foto(k)), el('small', { textContent: `${sim.length} ${sim.length === 1 ? 'jogador' : 'jogadores'}` })), ir)))
   }
   function mesa() {
     const revelado = V.est === 'revela'
@@ -531,11 +550,14 @@ export function criaQuadro(ctx) {
     } else if (V.est === 'desafio' && V.venc.key !== me.key) baixo = aviso(`${N(V.venc.key)} apostou que acerta com ${V.venc.n} ${V.venc.n === 1 ? 'frame' : 'frames'}… (${V.tent} ${V.tent === 1 ? 'chance' : 'chances'})`)
     else if (V.est === 'roubo' && V.venc?.key === me.key) baixo = aviso('Não foi… agora os outros podem roubar!')
     else if (eu) baixo = aviso(eu.time ? 'A turma acertou!' : `Acertou! +${eu.pts}. Esperando os outros…`, `${XX}-aviso--ok`)
+    else if (V.est !== 'desafio' && V.chutei >= V.limite) baixo = aviso(`Seus ${V.limite === 1 ? 'chute acabou' : `${V.limite} chutes acabaram`} neste frame. Espere o próximo${V.op.seg ? '' : ' (todo mundo chutar ou passar)'}.`)
     else {
       const extra = V.est === 'desafio' ? el('small', { className: `${XX}-espera` }, `Sua vez! ${V.tent} ${V.tent === 1 ? 'chance' : 'chances'}`)
         : V.est === 'roubo' ? el('small', { className: `${XX}-espera` }, 'Roubo! Acertou, leva 2')
           : V.passou.includes(me.key) ? el('small', { className: `${XX}-espera` }, V.op.seg ? 'Esperando os outros passarem…' : 'Esperando os outros… pode chutar de novo')
             : botao([icon('skip-forward'), 'Passo'], () => manda({ op: 'passa' }), `${XX}-btn--passa`)
+      const resta = V.est === 'desafio' ? V.tent : V.limite - V.chutei
+      forma.querySelector('button').textContent = `Chutar · ${resta}`
       baixo = el('div', { className: `${XX}-baixo` }, forma, extra)
     }
     const placar = el('ol', { className: `${XX}-placar` }, ...[...V.js].sort((a, b) => b.pontos - a.pontos).map(j => {
