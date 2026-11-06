@@ -47,15 +47,39 @@ const cacheTxt = async (nome, url) => {
 async function wikidata(filtro) {
   const q = `SELECT ?imdb (SAMPLE(?en) AS ?en) (SAMPLE(?mul) AS ?mul) (SAMPLE(?pt) AS ?pt) (SAMPLE(?ptbr) AS ?ptbr)
     (GROUP_CONCAT(DISTINCT ?altbr; SEPARATOR="|") AS ?altsbr) (GROUP_CONCAT(DISTINCT ?altpt; SEPARATOR="|") AS ?altspt)
-    (MIN(YEAR(?d)) AS ?ano) (SAMPLE(?links) AS ?links) WHERE {
+    (MIN(YEAR(?d)) AS ?ano) (SAMPLE(?links) AS ?links) (SAMPLE(?ptwiki) AS ?ptwiki) WHERE {
     ?item wdt:P31 wd:Q11424; wdt:P345 ?imdb; wikibase:sitelinks ?links. ${filtro}
     OPTIONAL{?item rdfs:label ?en FILTER(lang(?en)="en")} OPTIONAL{?item rdfs:label ?mul FILTER(lang(?mul)="mul")}
     OPTIONAL{?item rdfs:label ?pt FILTER(lang(?pt)="pt")} OPTIONAL{?item rdfs:label ?ptbr FILTER(lang(?ptbr)="pt-br")}
     OPTIONAL{?item skos:altLabel ?altbr FILTER(lang(?altbr)="pt-br")} OPTIONAL{?item skos:altLabel ?altpt FILTER(lang(?altpt)="pt")}
     OPTIONAL{?item wdt:P577 ?d}
+    OPTIONAL{?pa schema:about ?item; schema:isPartOf <https://pt.wikipedia.org/>; schema:name ?ptwiki}
   } GROUP BY ?imdb ORDER BY DESC(?links)`
   const r = await pega('https://query.wikidata.org/sparql?query=' + encodeURIComponent(q), 'json')
   return (r?.results?.bindings || []).map(b => Object.fromEntries(Object.entries(b).map(([k, v]) => [k, v.value])))
+}
+// títulos no Brasil e em Portugal pela ficha da Wikipédia em português (|título-bra = … |título-prt = …)
+const limpaWiki = v => String(v || '').replace(/<ref[^>]*\/>|<ref[\s\S]*?<\/ref>|\{\{[^}]*\}\}|<!--[\s\S]*?-->/g, '').replace(/\[\[(?:[^|\]]*\|)?([^\]]*)\]\]/g, '$1').replace(/'{2,}/g, '')
+  .split(/<br\s*\/?\s*>|\s\/\s|\n/i).map(x => x.replace(/\(.*?\)/g, '').replace(/\s+/g, ' ').trim()).filter(x => x.length > 1 && x.length < 90)
+async function titulosWiki(artigos) {
+  const arq = path.join(CACHE, 'ptwiki.json')
+  const cache = existsSync(arq) ? JSON.parse(readFileSync(arq, 'utf8')) : {}
+  const faltam = [...new Set(artigos.filter(a => a && !(a in cache)))]
+  for (let i = 0; i < faltam.length; i += 50) {
+    const lote = faltam.slice(i, i + 50)
+    const r = await pega('https://pt.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&rvslots=main&format=json&formatversion=2&redirects=1&titles=' + encodeURIComponent(lote.join('|')), 'json')
+    const ida = new Map(lote.map(a => [a, a]))
+    for (const x of [...(r?.query?.normalized || []), ...(r?.query?.redirects || [])]) for (const [a, b] of ida) if (b === x.from) ida.set(a, x.to)
+    const txt = new Map((r?.query?.pages || []).map(p => [p.title, p.revisions?.[0]?.slots?.main?.content || '']))
+    for (const a of lote) {
+      const t = txt.get(ida.get(a)) || ''
+      const campo = nome => limpaWiki(t.match(new RegExp(`\\|\\s*t[ií]tulo-${nome}\\s*=\\s*([^\\n]*)`, 'i'))?.[1])
+      cache[a] = { bra: campo('bra'), prt: campo('prt') }
+    }
+    writeFileSync(arq, JSON.stringify(cache))
+    await sleep(300)
+  }
+  return cache
 }
 function filmeDe(w, br) {
   const orig = w.mul || w.en || w.pt || w.ptbr
@@ -66,8 +90,10 @@ function filmeDe(w, br) {
   const palavras = s => norm(s).split(' ').filter(x => x.length > 2)
   const ok = s => s && (palavras(s).some(x => palavras(orig).includes(x)) || /[à-úçãõ]/i.test(s) || /(^|\s)(o|a|os|as|um|uma|de|da|do|das|dos|e|no|na|em|para|pra)(\s|$)/i.test(s))
   // título brasileiro: rótulo pt-BR, apelido pt-BR, rótulo pt, apelido pt (nessa ordem), senão o original
-  const t = [w.ptbr, ...altsbr.filter(ok), w.pt, ...altspt.filter(ok)].find(dif) || orig
-  const nomes = [...new Set([t, orig, w.en, w.mul, w.pt, w.ptbr, ...altsbr.filter(ok), ...altspt.filter(ok)].filter(Boolean))]
+  const wk = TITULOS[w.ptwiki] || {}
+  // título brasileiro: a ficha da Wikipédia (título-bra) vale mais que tudo; depois os rótulos do Wikidata
+  const t = [...(wk.bra || []), w.ptbr, ...altsbr.filter(ok), w.pt, ...altspt.filter(ok)].find(dif) || orig
+  const nomes = [...new Set([t, orig, w.en, w.mul, ...(wk.bra || []), ...(wk.prt || []), w.pt, w.ptbr, ...altsbr.filter(ok), ...altspt.filter(ok)].filter(Boolean))]
   return { imdb: w.imdb, t, o: orig, ano: +w.ano || 0, nomes, fama: +w.links + (br ? 40 : 0) }
 }
 
@@ -101,8 +127,11 @@ const espalha = (lista, n) => {
 const webp = (ent, sai) => new Promise((ok, err) => execFile('magick', [ent, '-resize', '960x540>', '-strip', '-quality', '66', sai], e => (e ? err(e) : ok())))
 
 /* ---------- 3. junta tudo ---------- */
-const famosos = (await wikidata('FILTER(?links >= 35)')).map(w => filmeDe(w))
-const brasileiros = (await wikidata('?item wdt:P495 wd:Q155. FILTER(?links >= 12)')).map(w => filmeDe(w, true))
+const wdFamosos = await wikidata('FILTER(?links >= 35)'), wdBr = await wikidata('?item wdt:P495 wd:Q155. FILTER(?links >= 12)')
+const TITULOS = await titulosWiki([...wdFamosos, ...wdBr].map(w => w.ptwiki))
+console.log(`títulos da Wikipédia: ${Object.values(TITULOS).filter(x => x.bra?.length).length} com nome no Brasil`)
+const famosos = wdFamosos.map(w => filmeDe(w))
+const brasileiros = wdBr.map(w => filmeDe(w, true))
 const porImdb = new Map()
 for (const f of [...famosos, ...brasileiros]) if (!porImdb.has(f.imdb) || porImdb.get(f.imdb).fama < f.fama) porImdb.set(f.imdb, f)
 const todos = [...porImdb.values()].filter(f => f.ano && f.ano >= 1930).sort((a, b) => b.fama - a.fama)
