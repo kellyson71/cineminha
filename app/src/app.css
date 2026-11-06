@@ -1,0 +1,18 @@
+/* Só o que muda do site para o app: fonte local (sem Google Fonts) e o #root transparente ao layout */
+:root { --font-display: 'Inter Variable', Inter, system-ui, sans-serif; }
+body { font-family: 'Inter Variable', Inter, system-ui, sans-serif; }
+#root { display: contents; }
+
+/* Convite colado no lobby */
+.lobby__convite { margin-top: 1rem; opacity: .75; }
+.lobby__convite:focus-within { opacity: 1; }
+
+/* Mini player (janelinha sempre por cima): só a tela e as reações */
+body.mini-on { overflow: hidden; background: #000; }
+body.mini-on .top, body.mini-on .banner, body.mini-on .live, body.mini-on .toolbar, body.mini-on .row, body.mini-on .chat, body.mini-on .callbar { display: none !important; }
+body.mini-on .theater { position: fixed; inset: 0; max-width: none; padding: 0; margin: 0; display: block; }
+body.mini-on .stage { height: 100%; gap: 0; }
+body.mini-on .screen { height: 100%; border: 0; border-radius: 0; padding: 0; background: #000; }
+body.mini-on .screen__inner { height: 100%; aspect-ratio: auto; border-radius: 0; }
+body.mini-on .screen { -webkit-app-region: drag; }
+body.mini-on .tile, body.mini-on button { -webkit-app-region: no-drag; }

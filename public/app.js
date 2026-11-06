@@ -1,4 +1,7 @@
 import { joinRoom, selfId } from './vendor/trystero.js'
+import { FONTES, JOGOS, jogoDaMsg } from './core/jogos.js'
+import { defaultLayout as coreDefaultLayout, cleanLayout as coreCleanLayout, canSitIn, seatPlan as coreSeatPlan } from './core/plateia.js'
+import { ACOES, sha, roomIdDe, guestKey, api, apiStatus, turnServers, lerHello, helloDe, lerShare, criaFilmPC } from './core/rede.js'
 import { VOICE_PROFILES, DEFAULT_VOICE, cleanVoice, normalizeAudioPrefs, spatialPosition, gateIsOpen, createSpatialVoice, createCenteredPlayback } from './audio-settings.js'
 import BASE from './config.js'
 import { ICONS } from './icons.js'
@@ -72,15 +75,11 @@ const store = {
   set(k, v) { try { localStorage.setItem('cine.' + k, JSON.stringify(v)) } catch {} },
   del(k) { try { localStorage.removeItem('cine.' + k) } catch {} },
 }
-const sha = async s => crypto.subtle
-  ? [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map(b => b.toString(16).padStart(2, '0')).join('')
-  : 'x' + [...s].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 7).toString(16)
 const el = (tag, props = {}, ...kids) => { const e = Object.assign(document.createElement(tag), props); e.append(...kids.filter(k => k !== '' && k != null)); return e }
 const pct = v => `${Math.round(v * 100)}%`
 
 // Pessoas: fixas (config) ou convidados ("g:nome")
 const GUEST_COLORS = ['#7dd3fc', '#a7f3d0', '#fca5a5', '#fcd34d', '#c4b5fd', '#f9a8d4', '#fdba74', '#86efac']
-const guestKey = name => 'g:' + name.trim().toLowerCase().replace(/\s+/g, ' ').slice(0, 24)
 function person(key, name) {
   const p = PEOPLE.find(x => x.id === key)
   if (p) return p
@@ -121,16 +120,6 @@ async function loadPrefs() {
   const r = await api('prefs?k=' + encodeURIComponent(me.key))
   if (r?.prefs && r.prefs.t > (prefs.t || 0)) { Object.assign(prefs, normalizeAudioPrefs(r.prefs)); store.set('prefs', prefs); store.set('prefs:' + me.key, prefs) }
   applyPrefs()
-}
-// como api(), mas diz o status: para distinguir "token inválido" (404) de "servidor fora do ar agora"
-async function apiStatus(path) {
-  try { const r = await fetch('api/' + path, { credentials: 'same-origin' }); return { status: r.status, data: r.ok ? await r.json() : null } } catch { return { status: 0, data: null } }
-}
-async function api(path, { method = 'GET', body } = {}) {
-  try {
-    const r = await fetch('api/' + path, { method, headers: body ? { 'content-type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined })
-    return r.ok ? await r.json() : null
-  } catch { return null }
 }
 
 /* ---------- Mixer de áudio ----------
@@ -396,80 +385,7 @@ async function enter(pw, key, name) {
 }
 
 /* ---------- WebRTC: Opus estéreo nas transmissões ---------- */
-function stereoSdp(sdp) {
-  const pt = sdp.match(/a=rtpmap:(\d+) opus\/48000\/2/i)?.[1]
-  if (!pt) return sdp
-  return sdp.replace(new RegExp(`a=fmtp:${pt} ([^\r\n]*)`), (line, p) =>
-    /stereo=1/.test(p) ? line : `a=fmtp:${pt} ${p};stereo=1;sprop-stereo=1;maxaveragebitrate=192000`)
-}
-// Firefox ao renegociar às vezes reaproveita um id de extensão RTP para outra coisa (ex.: id 2 era
-// abs-send-time e vira csrc-audio-level); o Chrome recusa a oferta e a conexão cai e volta sem parar.
-// Tira só as linhas de extensão que conflitam com o que já foi combinado (são opcionais).
-function fixExtmap(sdp, antes) {
-  // ids já usados nesta conexão (o Chrome exige o mesmo id → mesma extensão em toda a conexão)
-  const idUri = new Map(), uriId = new Map()
-  for (const d of antes) for (const [, id, uri] of (d || '').matchAll(/a=extmap:(\d+)(?:\/\w+)? (\S+)/g)) {
-    if (!idUri.has(id)) idUri.set(id, uri)
-    if (!uriId.has(uri)) uriId.set(uri, id)
-  }
-  if (!idUri.size) return sdp
-  const nl = sdp.includes('\r\n') ? '\r\n' : '\n'
-  return sdp.split(nl).filter(l => {
-    const m = l.match(/^a=extmap:(\d+)(?:\/\w+)? (\S+)/)
-    if (!m) return true
-    const [, id, uri] = m
-    const conflito = (idUri.has(id) && idUri.get(id) !== uri) || (uriId.has(uri) && uriId.get(uri) !== id)
-    if (conflito) console.info('extmap em conflito removida', id, uri)
-    return !conflito
-  }).join(nl)
-}
-class FilmPC extends RTCPeerConnection {
-  constructor(cfg) {
-    super(cfg)
-    // diagnóstico: com ou sem ponte (TURN), quais caminhos achou, e se conectou/falhou
-    this._turn = (cfg?.iceServers || []).some(x => [].concat(x.urls).some(u => /^turns?:/.test(u)))
-    this._cands = new Set()
-    this._sdps = [] // tudo que esta conexão já combinou ou propôs (ver fixExtmap)
-    this.addEventListener('icecandidate', e => { if (e.candidate?.type) this._cands.add(e.candidate.type) })
-    this.addEventListener('iceconnectionstatechange', () => {
-      const st = this.iceConnectionState
-      if (st === 'failed') { iceReport(this, 'falhou'); evento('falha', `conexão falhou (${this._turn ? 'com' : 'sem'} ponte)`) }
-      if (st === 'connected' || st === 'completed') setTimeout(() => iceReport(this, 'conectou'), 1500)
-    })
-  }
-  async setRemoteDescription(desc) {
-    // espera a própria oferta terminar de gravar (colisão: os dois ofereceram juntos)
-    if (this._sld) await this._sld.catch(() => {})
-    if (desc?.sdp) {
-      try { desc = { type: desc.type, sdp: stereoSdp(desc.sdp) } } catch {}
-      try { desc = { type: desc.type, sdp: fixExtmap(desc.sdp, [...this._sdps, this.localDescription?.sdp, this.currentRemoteDescription?.sdp, this._extAtivas()]) } } catch {}
-    }
-    return this._srd(desc, 0)
-  }
-  // se ainda assim o Chrome recusar por colisão de extensão, tira a linha que ele apontou e tenta de novo
-  async _srd(desc, n) {
-    try {
-      const r = await super.setRemoteDescription(desc)
-      if (desc?.sdp) this._sdps.push(desc.sdp)
-      return r
-    } catch (e) {
-      const m = String(e?.message).match(/extension ID reassignment[^]*?id=(\d+)[^]*?new_uri="([^"]+)"/)
-      if (!m || n > 6 || !desc?.sdp) throw e
-      console.info('extmap recusada, tentando sem ela', m[1], m[2]); evento('sdp', `corrigiu negociação (extensão ${m[1]})`)
-      const sdp = desc.sdp.split(/\r?\n/).filter(l => !new RegExp(`^a=extmap:${m[1]}(?:/\\w+)? ${m[2].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`).test(l)).join('\r\n')
-      return this._srd({ type: desc.type, sdp }, n + 1)
-    }
-  }
-  // extensões que o navegador já tem ativas nos canais (inclui oferta própria desfeita por colisão)
-  _extAtivas() {
-    try { return this.getTransceivers().flatMap(t => [...(t.getNegotiatedHeaderExtensions?.() || []), ...(t.getHeaderExtensionsToNegotiate?.() || [])]).filter(x => x.id && x.direction !== 'stopped').map(x => `a=extmap:${x.id} ${x.uri}`).join('\n') } catch { return '' }
-  }
-  setLocalDescription(...a) {
-    const r = super.setLocalDescription(...a)
-    this._sld = r.then(() => { if (this.localDescription?.sdp) this._sdps.push(this.localDescription.sdp) })
-    return r
-  }
-}
+const FilmPC = criaFilmPC({ aoMudar: (pc, estado) => iceReport(pc, estado), evento: (k, t) => evento(k, t) })
 async function iceReport(pc, estado) {
   if (pc._rep === estado) return
   pc._rep = estado
@@ -479,15 +395,6 @@ async function iceReport(pc, estado) {
     st.forEach(r => { if (r.type === 'candidate-pair' && r.nominated && r.state === 'succeeded') { const l = st.get(r.localCandidateId), rm = st.get(r.remoteCandidateId); via = `${l?.candidateType}/${l?.protocol} ↔ ${rm?.candidateType}` } })
   } catch {}
   api('sala', { method: 'POST', body: { op: 'diag', pw: roomPw, d: { key: me.key, estado, turn: pc._turn, cands: [...pc._cands], via, ua: navigator.userAgent.slice(0, 180) } } })
-}
-// credencial da ponte: busca cedo, guarda 20 h (vale 24 h) e espera até 8 s
-const turnCache = { get() { try { const c = JSON.parse(localStorage.getItem('cine.turn')); return c && Date.now() - c.t < 20 * 3600e3 ? c.ice : null } catch { return null } } }
-let turnReq = null
-function turnServers(pw) {
-  const c = turnCache.get()
-  if (c) return Promise.resolve(c)
-  turnReq ||= api('sala', { method: 'POST', body: { op: 'turn', pw } }).then(r => { const ice = r?.iceServers || []; if (ice.length) try { localStorage.setItem('cine.turn', JSON.stringify({ t: Date.now(), ice })) } catch {} ; turnReq = null; return ice })
-  return turnReq
 }
 const pcsOf = () => { const p = room?.getPeers?.() || {}; return p instanceof Map ? p : new Map(Object.entries(p)) }
 
@@ -595,12 +502,12 @@ let banner = null // último aviso do admin (reenviado a quem chega)
 
 async function start(pw) {
   const extra = canal
-  roomId = (await sha('sala:' + pw + (extra ? ':' + extra : ''))).slice(0, 24)
+  roomId = await roomIdDe(pw, extra)
   const ice = await Promise.race([turnServers(pw), new Promise(r => setTimeout(() => r([]), 8000))])
   if (!ice.length) console.warn('Sem ponte TURN: conexão só direta')
   room = joinRoom({ appId: CFG.appId, password: pw, rtcPolyfill: FilmPC, turnConfig: ice }, roomId)
   const mk = n => room.makeAction(n)
-  actions = Object.fromEntries(['hello', 'share', 'chat', 'hist', 'spk', 'need', 'react', 'pausa', 'leg', 'adm', 'ctl', 'mre', 'mid', 'rad', 'jogo'].map(n => [n, mk(n)]))
+  actions = Object.fromEntries(ACOES.map(n => [n, mk(n)]))
 
   room.onPeerJoin = id => {
     peers.set(id, { key: '', name: '', speaking: false })
@@ -631,14 +538,15 @@ async function start(pw) {
   }
 
   actions.hello.onMessage = (d, { peerId }) => {
-    if (!d || typeof d.key !== 'string') return
+    const h = lerHello(d, PEOPLE)
+    if (!h) return
     if (d.volta) avisouVolta.set(d.key, Date.now() + RECARGA_MS)
     if (d.sai) saiuDeVez.add(d.key)
     if (d.perfilAtualizado) api('conta?perfis=1').then(r => { if (r?.perfis) { applyPerfis(r.perfis); refreshProfileUI() } })
     const p = peers.get(peerId) || {}
     const isNew = !p.name
-    const name = PEOPLE.find(x => x.id === d.key)?.nome || String(d.name || 'Visitante').slice(0, 24)
-    Object.assign(p, { key: d.key, name, speaking: !!d.speaking, muted: !!d.muted, deaf: !!d.deaf, away: !!d.away, seat: Number.isInteger(d.seat) ? d.seat : -1, typing: !!d.typing, hidden: !!d.hidden, mesa: typeof d.mesa === 'string' && d.mesa.length < 12 ? d.mesa : '' })
+    const name = h.name
+    Object.assign(p, { key: h.key, name, speaking: h.speaking, muted: h.muted, deaf: h.deaf, away: h.away, seat: h.seat, typing: h.typing, hidden: h.hidden, mesa: h.mesa })
     peers.set(peerId, p)
     if (d.key === me.key) dropVoice(peerId)
     const voltou = sumindo.has(d.key)
@@ -656,7 +564,7 @@ async function start(pw) {
   actions.share.onMessage = (d, { peerId }) => {
     const was = shareInfo.get(peerId)
     if (d?.on) {
-      shareInfo.set(peerId, { kind: d.kind, game: !!d.game, paused: !!d.paused, subs: !!d.subs, duration: Math.max(0, +d.duration || 0), rate: Math.max(.5, Math.min(2, +d.rate || 1)), preview: typeof d.preview === 'string' && /^data:image\/jpeg;base64,/.test(d.preview) && d.preview.length < 200000 ? d.preview : '', quality: d.quality || 'auto', n: peers.get(peerId)?.name, t: Number.isFinite(+d.t) ? +d.t : NaN, tAt: Date.now() })
+      shareInfo.set(peerId, { ...lerShare(d), n: peers.get(peerId)?.name })
       if (!was) { toast(`${peers.get(peerId)?.name || 'Alguém'} começou a projetar`); sfx('telaOn', peers.get(peerId)?.key) }
       tiles.get(peerId) && renderTile(peerId)
     } else if (was) {
@@ -677,7 +585,7 @@ async function start(pw) {
   actions.mid.onMessage = d => gotMidia(d)
   actions.rad.onMessage = d => radio?.got(d)
   actions.jogo.onMessage = (d, { peerId }) => {
-    const [id, x] = d?.coup ? ['coup', d.coup] : d?.dc ? ['dc', d.dc] : d?.pp ? ['pp', d.pp] : d?.ab ? ['ab', d.ab] : d?.db ? ['db', d.db] : d?.du ? ['du', d.du] : d?.nt ? ['nt', d.nt] : ['faixa', d]
+    const [id, x] = jogoDaMsg(d)
     const k = peers.get(peerId)?.key
     if (jogos[id]) return jogos[id].got(x, k)
     carregaJogo(id).then(j => j?.got(x, k))
@@ -797,7 +705,7 @@ async function pingLoop(id) {
     await sleep(5000)
   }
 }
-const helloMsg = () => ({ key: me.key, name: me.name, speaking: me.speaking, muted: me.muted, deaf: me.deaf, away: me.away, seat: me.seat, typing: me.typing, hidden: me.hidden, mesa: me.mesa || '' })
+const helloMsg = () => helloDe(me)
 const sendHello = () => actions?.hello.send(helloMsg())
 
 // Mesma pessoa fixa duas vezes: pergunta quem é quem
@@ -1349,17 +1257,6 @@ syncRadioVol()
 
 /* ---------- Jogos: cada um é um módulo à parte, baixado só quando alguém abre ou quando chega a primeira mensagem dele.
    Assim o principal (projetar, voz, chat) não carrega o peso dos jogos. ---------- */
-const FONTES = 'https://fonts.googleapis.com/css2?'
-const JOGOS = {
-  faixa: { nome: 'Faixa a Faixa', mod: './faixa.js', cria: 'criaFaixa', tela: 'faixa', on: 'jogo-on', css: ['faixa.css'], fontes: 'family=Bebas+Neue&family=Permanent+Marker' },
-  coup: { nome: 'Coup', mod: './coup.js', cria: 'criaCoup', tela: 'coup', on: 'coup-on', css: ['aula.css', 'coup.css'], fontes: 'family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500' },
-  dc: { nome: 'Uno', mod: './descarte.js', cria: 'criaDescarte', tela: 'dc', on: 'dc-on', css: ['descarte.css'], fontes: 'family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800' },
-  pp: { nome: 'Red Flags', mod: './parperfeito.js', cria: 'criaParPerfeito', tela: 'pp', on: 'pp-on', css: ['parperfeito.css'], fontes: 'family=Roboto+Condensed:wght@500;600;700;900' },
-  ab: { nome: 'Amigos de Merda', mod: './amigosdebosta.js', cria: 'criaAmigosDeBosta', tela: 'ab', on: 'ab-on', css: ['amigosdebosta.css'], fontes: 'family=Bebas+Neue&family=Roboto+Condensed:wght@500;600;700;900' },
-  db: { nome: 'Dobradinha', mod: './dobradinha.js', cria: 'criaDobradinha', tela: 'db', on: 'db-on', css: ['aula.css', 'dobradinha.css'], fontes: 'family=Alfa+Slab+One&family=Caveat+Brush&family=Barlow+Semi+Condensed:wght@500;600;700' },
-  du: { nome: 'Dou-lhe Uma', mod: './doulheuma.js', cria: 'criaDouLheUma', tela: 'du', on: 'du-on', css: ['doulheuma.css'], fontes: 'family=Bowlby+One+SC&family=Archivo+Narrow:wght@500;600;700' },
-  nt: { nome: 'Na Testa', mod: './natesta.js', cria: 'criaNaTesta', tela: 'nt', on: 'nt-on', css: ['natesta.css'], fontes: 'family=Gochi+Hand&family=Outfit:wght@400;600;700' },
-}
 const jogos = {} // id -> jogo já carregado
 const carregando = {} // id -> promessa enquanto baixa
 // botão de jogos aceso enquanto qualquer jogo estiver aberto
@@ -2208,31 +2105,11 @@ function seatNode(key) {
 PEOPLE.forEach(p => { if (!p.ausente) seatNode(p.id) })
 
 // Arrumação: lista de poltronas ('' livre, 'guest' para convidados, ou o id de quem tem lugar reservado)
-const defaultLayout = () => ({ porFileira: 8, vazias: false, poltronas: PEOPLE.filter(p => !p.ausente).map(p => p.id) })
+const defaultLayout = () => coreDefaultLayout(PEOPLE)
 let salaLayout = defaultLayout()
-function cleanLayout(l) {
-  const ids = new Set(PEOPLE.map(p => p.id))
-  const poltronas = (Array.isArray(l?.poltronas) ? l.poltronas : []).slice(0, 60).map(s => s === 'guest' || ids.has(s) ? s : '')
-  return { porFileira: Math.max(1, Math.min(16, +l?.porFileira || 8)), vazias: !!l?.vazias, poltronas: poltronas.length ? poltronas : defaultLayout().poltronas }
-}
-const canSitIn = (slots, taken, i, key) => i >= 0 && i < slots.length && !taken.has(i) && (slots[i] === '' || slots[i] === key || (slots[i] === 'guest' && key.startsWith('g:')))
-// Todo mundo calcula a mesma planta: 1º quem escolheu um lugar, 2º lugar reservado, 3º convidado em lugar de convidado, 4º qualquer livre
-function seatPlan(people) {
-  const slots = salaLayout.poltronas.slice()
-  const taken = new Map(), placed = new Map()
-  const order = [...people].sort((a, b) => (a.key < b.key ? -1 : 1))
-  const sit = (i, key) => { taken.set(i, key); placed.set(key, i) }
-  for (const p of order) if (Number.isInteger(p.seat) && canSitIn(slots, taken, p.seat, p.key)) sit(p.seat, p.key)
-  for (const p of order) if (!placed.has(p.key)) { const i = slots.indexOf(p.key); if (canSitIn(slots, taken, i, p.key)) sit(i, p.key) }
-  for (const p of order) {
-    if (placed.has(p.key)) continue
-    let i = p.key.startsWith('g:') ? slots.findIndex((s, j) => s === 'guest' && !taken.has(j)) : -1
-    if (i < 0) i = slots.findIndex((s, j) => s === '' && !taken.has(j))
-    if (i < 0) { i = slots.length; slots.push('') }
-    sit(i, p.key)
-  }
-  return { slots, taken, placed }
-}
+const cleanLayout = l => coreCleanLayout(l, PEOPLE)
+// Todo mundo calcula a mesma planta (public/core/plateia.js)
+const seatPlan = people => coreSeatPlan(salaLayout, people)
 let plan = { slots: [], taken: new Map(), placed: new Map() }
 const emptyEls = []
 function emptySeat(i, owner) {

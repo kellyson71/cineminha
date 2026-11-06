@@ -1,7 +1,6 @@
 node_modules
 .vercel
 .env*
-desktop/target
-desktop/target-debug
-desktop/dist
 tmp
+
+app/dist

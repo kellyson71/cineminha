@@ -1,0 +1,145 @@
+{
+  "name": "cineminha-app",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Cineminha para desktop (Electron + React)",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "vite build",
+    "start": "vite build && electron .",
+    "dist": "vite build && electron-builder --linux",
+    "dist:win": "vite build && electron-builder --win",
+    "release": "vite build && electron-builder --linux --win --publish always"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.2.1",
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0",
+    "vite": "^8.3.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "@fontsource-variable/inter": "^5.3.0"
+  },
+  "build": {
+    "appId": "app.cineminha.desktop",
+    "productName": "Cineminha",
+    "executableName": "cineminha",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**",
+      "dist/**",
+      "build/icon.png",
+      "build/tray.png",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../public",
+        "to": "site",
+        "filter": [
+          "**/*",
+          "!jogos/faixa/**",
+          "!themes/**/*.psd"
+        ]
+      }
+    ],
+    "asar": true,
+    "compression": "maximum",
+    "electronLanguages": [
+      "pt-BR",
+      "en-US"
+    ],
+    "protocols": [
+      {
+        "name": "Convite do Cineminha",
+        "schemes": [
+          "cineminha"
+        ]
+      }
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "kellyson71",
+        "repo": "cineminha",
+        "releaseType": "release"
+      }
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "pacman",
+        "deb",
+        "rpm"
+      ],
+      "category": "AudioVideo",
+      "icon": "build/icon.png",
+      "synopsis": "Cinema com os amigos",
+      "desktop": {
+        "entry": {
+          "StartupWMClass": "cineminha",
+          "MimeType": "x-scheme-handler/cineminha;"
+        }
+      },
+      "syncDesktopName": true,
+      "maintainer": "Kellyson <kellyson.medeiros.pdf@gmail.com>",
+      "vendor": "Cineminha"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "${productName}-${version}-instalador.exe"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.entertainment"
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portatil.exe"
+    },
+    "pacman": {
+      "depends": [
+        "gtk3",
+        "nss",
+        "alsa-lib",
+        "libpulse"
+      ]
+    },
+    "deb": {
+      "recommends": [
+        "ffmpeg",
+        "pulseaudio-utils"
+      ]
+    },
+    "rpm": {
+      "fpm": [
+        "--rpm-rpmbuild-define",
+        "_build_id_links none"
+      ]
+    }
+  },
+  "author": {
+    "name": "Kellyson",
+    "email": "kellyson.medeiros.pdf@gmail.com"
+  },
+  "homepage": "https://cineminha-boo.vercel.app",
+  "desktopName": "cineminha.desktop"
+}
