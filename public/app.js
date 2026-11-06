@@ -14,6 +14,7 @@ let descarte = null // Uno (cartas de cor e número), ver descarte.js
 let dobradinha = null // Dobradinha (escalada de cartas no boteco), ver dobradinha.js
 let douLheUma = null // Dou-lhe Uma (leilão de listas), ver doulheuma.js
 let naTesta = null // Na Testa (quem sou eu?), ver natesta.js
+let quadro = null // Quadro a Quadro (adivinhe o filme pelo frame), ver quadro.js
 let parPerfeito = null // Red Flags (monte um pretendente), ver parperfeito.js
 let amigosDeBosta = null // Amigos de Merda (votação entre amigos), ver amigosdebosta.js
 let radio = null // rádio da sala (música de fundo), ver radio.js
@@ -552,7 +553,7 @@ async function start(pw) {
     const voltou = sumindo.has(d.key)
     if (voltou) { clearTimeout(sumindo.get(d.key).timer); sumindo.delete(d.key); avisouVolta.delete(d.key) }
     if (isNew) voltaFim()
-    if (isNew) { if (!voltou && !voltandoAgora()) { sysMsg(`${name} entrou`); sfx('entrou', d.key) }; evento('entrou', voltou ? `${name} voltou` : `conectou com ${name}`); conectadoDesde.set(peerId, Date.now()); faixa?.entrouAlguem(d.key, name); coup?.entrouAlguem(d.key); descarte?.entrouAlguem(d.key); parPerfeito?.entrouAlguem(d.key); amigosDeBosta?.entrouAlguem(d.key); dobradinha?.entrouAlguem(d.key); douLheUma?.entrouAlguem(d.key); naTesta?.entrouAlguem(d.key) }
+    if (isNew) { if (!voltou && !voltandoAgora()) { sysMsg(`${name} entrou`); sfx('entrou', d.key) }; evento('entrou', voltou ? `${name} voltou` : `conectou com ${name}`); conectadoDesde.set(peerId, Date.now()); faixa?.entrouAlguem(d.key, name); coup?.entrouAlguem(d.key); descarte?.entrouAlguem(d.key); parPerfeito?.entrouAlguem(d.key); amigosDeBosta?.entrouAlguem(d.key); dobradinha?.entrouAlguem(d.key); douLheUma?.entrouAlguem(d.key); naTesta?.entrouAlguem(d.key); quadro?.entrouAlguem(d.key) }
     applyPeerVols(); applyTileVols()
     renderAll()
   }
@@ -1312,7 +1313,7 @@ function carregaJogo(id) {
       const m = await import(J.mod)
       const j = m[J.cria](ctxJogo(id))
       jogos[id] = j
-      if (id === 'faixa') faixa = j; else if (id === 'coup') coup = j; else if (id === 'dc') descarte = j; else if (id === 'pp') parPerfeito = j; else if (id === 'db') dobradinha = j; else if (id === 'du') douLheUma = j; else if (id === 'nt') naTesta = j; else amigosDeBosta = j
+      if (id === 'faixa') faixa = j; else if (id === 'coup') coup = j; else if (id === 'dc') descarte = j; else if (id === 'pp') parPerfeito = j; else if (id === 'db') dobradinha = j; else if (id === 'du') douLheUma = j; else if (id === 'nt') naTesta = j; else if (id === 'qq') quadro = j; else amigosDeBosta = j
       return j
     } catch (e) { console.error(e); toast(`Não consegui abrir ${J.nome}. Tente de novo.`) ; return null }
     finally { aviso.remove(); delete carregando[id] }
@@ -1401,11 +1402,12 @@ function trocaJogo(atual, novoId) {
   m.querySelector('.trocajogo__op')?.focus()
 }
 // quem abriu uma mesa e recarregou a página: o jogo volta sozinho (o módulo confere se ainda é o host)
-for (const [id, k] of [['faixa', 'faixa.S'], ['coup', 'coup.G'], ['dc', 'dc.G'], ['pp', 'pp.G'], ['ab', 'ab.G'], ['db', 'db.G'], ['du', 'du.G'], ['nt', 'nt.G']]) { try { if (localStorage.getItem(k)) carregaJogo(id) } catch {} }
+for (const [id, k] of [['faixa', 'faixa.S'], ['coup', 'coup.G'], ['dc', 'dc.G'], ['pp', 'pp.G'], ['ab', 'ab.G'], ['db', 'db.G'], ['du', 'du.G'], ['nt', 'nt.G'], ['qq', 'qq.G']]) { try { if (localStorage.getItem(k)) carregaJogo(id) } catch {} }
 
 /* ---------- Botão de jogos: escolher o jogo ---------- */
 // ícones do menu: desenhados no centro de um quadrado de 24, para ficarem alinhados
 const ICONES_JOGO = {
+  qq: '<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="1.6" fill="#050404"/><g fill="#f4ecdf" opacity=".55"><rect x="3.5" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="7.5" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="11.5" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="15.5" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="19" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="3.5" y="16.7" width="1.6" height="1.1" rx=".3"/><rect x="7.5" y="16.7" width="1.6" height="1.1" rx=".3"/><rect x="11.5" y="16.7" width="1.6" height="1.1" rx=".3"/><rect x="15.5" y="16.7" width="1.6" height="1.1" rx=".3"/><rect x="19" y="16.7" width="1.6" height="1.1" rx=".3"/></g><rect x="3.6" y="8.4" width="7.6" height="7.2" rx=".6" fill="#f5b841"/><rect x="12.8" y="8.4" width="7.6" height="7.2" rx=".6" fill="#f5b841" opacity=".35"/></svg>',
   faixa: '<svg viewBox="0 0 24 24" fill="#fff"><rect x="4" y="9" width="3" height="6" rx="1.5"/><rect x="8.5" y="5" width="3" height="14" rx="1.5"/><rect x="13" y="7.5" width="3" height="9" rx="1.5"/><rect x="17.5" y="10" width="3" height="4" rx="1.5"/></svg>',
   du: '<svg viewBox="0 0 24 24" fill="none" stroke="#14231b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 12.5-8 8a2.12 2.12 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></svg>',
   nt: '<svg viewBox="0 0 24 24"><path d="M5 4h14v12.5L15.5 20H5z" fill="#ffe066" transform="rotate(-6 12 12)"/><text x="12" y="15.6" text-anchor="middle" font-family="Georgia, serif" font-weight="900" font-size="11" fill="#22170e" transform="rotate(-6 12 12)">?</text></svg>',
@@ -1424,7 +1426,8 @@ function menuJogos(btn) {
     item(el('img', { className: 'jogosmenu__ic jogosmenu__ic--ab jogosmenu__arte', src: 'jogos/amigosdebosta/verso-preto.png', alt: '' }), 'Amigos de Merda', 'Votem em quem merece · 3 ou mais', () => abreJogo('ab')),
     item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--db', innerHTML: ICONES_JOGO.db }), 'Dobradinha', 'Suba o valor; empatou, dobra · 2 a 6', () => abreJogo('db')),
     item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--du', innerHTML: ICONES_JOGO.du }), 'Dou-lhe Uma', 'Leilão de listas: quem cita mais? · 2 ou mais', () => abreJogo('du')),
-    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--nt', innerHTML: ICONES_JOGO.nt }), 'Na Testa', 'Descubra quem está na sua testa · 2 ou mais', () => abreJogo('nt')))
+    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--nt', innerHTML: ICONES_JOGO.nt }), 'Na Testa', 'Descubra quem está na sua testa · 2 ou mais', () => abreJogo('nt')),
+    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--qq', innerHTML: ICONES_JOGO.qq }), 'Quadro a Quadro', 'Adivinhe o filme pelo frame · 1 ou mais', () => abreJogo('qq')))
   document.body.append(m)
   const r = btn.getBoundingClientRect()
   m.style.left = Math.max(8, Math.min(r.left + r.width / 2 - m.offsetWidth / 2, innerWidth - m.offsetWidth - 8)) + 'px'

@@ -1,0 +1,144 @@
+// Coleta os dados do jogo "Quadro a Quadro" (adivinhe o filme pelo frame):
+//  1. filmes famosos pelo Wikidata (quantas Wikipédias têm artigo), com títulos em português e IMDb id;
+//  2. frames de cada filme no Film Grab (film-grab.com), espalhados pelo filme, sem letreiros do começo/fim;
+//  3. grava public/jogos/quadro/filmes.json (os do jogo), catalogo.json (autocomplete, bem maior)
+//     e os frames em webp (960 px) numa pasta com nome embaralhado (não entrega a resposta).
+//
+//   node tools/quadro/coleta.mjs [quantos filmes, padrão 160] [frames por filme, padrão 6]
+// Roda de novo sem medo: filmes já baixados são pulados.
+import { execFile } from 'node:child_process'
+import { createHash } from 'node:crypto'
+import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
+import path from 'node:path'
+import { categorias } from './categorias.mjs'
+
+const RAIZ = new URL('../../', import.meta.url).pathname
+const SAIDA = path.join(RAIZ, 'public/jogos/quadro')
+const CACHE = path.join(RAIZ, 'tmp/quadro')
+const QUANTOS = +process.argv[2] || 160, FRAMES = +process.argv[3] || 6
+const UA = 'CineminhaColeta/1.0 (jogo entre amigos; kellyson71/cineminha)'
+mkdirSync(path.join(SAIDA, 'f'), { recursive: true }); mkdirSync(CACHE, { recursive: true })
+
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+const hash = s => createHash('sha1').update('quadro:' + s).digest('hex').slice(0, 12)
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+  .replace(/&#8217;|&#8216;|['’‘`]/g, '').replace(/&amp;|&#038;/g, 'and').replace(/&[#a-z0-9]+;/g, ' ')
+  .replace(/^(the|a|an) /, '').replace(/[^a-z0-9]+/g, ' ').trim()
+
+async function pega(url, tipo = 'text', tentativas = 3) {
+  for (let i = 0; i < tentativas; i++) {
+    try {
+      const r = await fetch(url, { headers: { 'user-agent': UA, accept: tipo === 'json' ? 'application/sparql-results+json' : '*/*' } })
+      if (r.ok) return tipo === 'json' ? r.json() : tipo === 'bin' ? Buffer.from(await r.arrayBuffer()) : r.text()
+      if (r.status === 404) return null
+    } catch {}
+    await sleep(1500 * (i + 1))
+  }
+  return null
+}
+const cacheTxt = async (nome, url) => {
+  const p = path.join(CACHE, nome)
+  if (existsSync(p)) return readFileSync(p, 'utf8')
+  const t = await pega(url); if (t) writeFileSync(p, t)
+  return t
+}
+
+/* ---------- 1. filmes famosos (Wikidata) ---------- */
+async function wikidata(filtro) {
+  const q = `SELECT ?imdb (SAMPLE(?en) AS ?en) (SAMPLE(?mul) AS ?mul) (SAMPLE(?pt) AS ?pt) (SAMPLE(?ptbr) AS ?ptbr)
+    (GROUP_CONCAT(DISTINCT ?altbr; SEPARATOR="|") AS ?altsbr) (GROUP_CONCAT(DISTINCT ?altpt; SEPARATOR="|") AS ?altspt)
+    (MIN(YEAR(?d)) AS ?ano) (SAMPLE(?links) AS ?links) WHERE {
+    ?item wdt:P31 wd:Q11424; wdt:P345 ?imdb; wikibase:sitelinks ?links. ${filtro}
+    OPTIONAL{?item rdfs:label ?en FILTER(lang(?en)="en")} OPTIONAL{?item rdfs:label ?mul FILTER(lang(?mul)="mul")}
+    OPTIONAL{?item rdfs:label ?pt FILTER(lang(?pt)="pt")} OPTIONAL{?item rdfs:label ?ptbr FILTER(lang(?ptbr)="pt-br")}
+    OPTIONAL{?item skos:altLabel ?altbr FILTER(lang(?altbr)="pt-br")} OPTIONAL{?item skos:altLabel ?altpt FILTER(lang(?altpt)="pt")}
+    OPTIONAL{?item wdt:P577 ?d}
+  } GROUP BY ?imdb ORDER BY DESC(?links)`
+  const r = await pega('https://query.wikidata.org/sparql?query=' + encodeURIComponent(q), 'json')
+  return (r?.results?.bindings || []).map(b => Object.fromEntries(Object.entries(b).map(([k, v]) => [k, v.value])))
+}
+function filmeDe(w, br) {
+  const orig = w.mul || w.en || w.pt || w.ptbr
+  const altsbr = (w.altsbr || '').split('|').filter(Boolean), altspt = (w.altspt || '').split('|').filter(Boolean)
+  const dif = s => s && norm(s) !== norm(orig)
+  // apelido que vale como título: tem palavra em comum com o original ou "cara de português"
+  // (o Wikidata às vezes traz lixo nos apelidos, tipo o nome de uma pessoa)
+  const palavras = s => norm(s).split(' ').filter(x => x.length > 2)
+  const ok = s => s && (palavras(s).some(x => palavras(orig).includes(x)) || /[à-úçãõ]/i.test(s) || /(^|\s)(o|a|os|as|um|uma|de|da|do|das|dos|e|no|na|em|para|pra)(\s|$)/i.test(s))
+  // título brasileiro: rótulo pt-BR, apelido pt-BR, rótulo pt, apelido pt (nessa ordem), senão o original
+  const t = [w.ptbr, ...altsbr.filter(ok), w.pt, ...altspt.filter(ok)].find(dif) || orig
+  const nomes = [...new Set([t, orig, w.en, w.mul, w.pt, w.ptbr, ...altsbr.filter(ok), ...altspt.filter(ok)].filter(Boolean))]
+  return { imdb: w.imdb, t, o: orig, ano: +w.ano || 0, nomes, fama: +w.links + (br ? 40 : 0) }
+}
+
+/* ---------- 2. Film Grab ---------- */
+async function indiceFilmGrab() {
+  const html = await cacheTxt('az.html', 'https://film-grab.com/movies-a-z/')
+  const idx = new Map()
+  for (const [, url, nome] of html.matchAll(/href="(https:\/\/film-grab\.com\/\d{4}\/\d{2}\/\d{2}\/[a-z0-9-]+\/)"[^>]*>([^<]+)</g)) {
+    const k = norm(nome)
+    if (!idx.has(k)) idx.set(k, [])
+    idx.get(k).push(url)
+  }
+  return idx
+}
+async function framesDe(url) {
+  const html = await cacheTxt('p-' + hash(url) + '.html', url)
+  if (!html) return null
+  const ano = +(html.match(/Year: <a[^>]*>(\d{4})</)?.[1] || 0)
+  let imgs = [...html.matchAll(/https:\/\/film-grab\.com\/wp-content\/uploads\/photo-gallery\/[^"'\s)]+?\.(?:jpg|jpeg|png)/gi)].map(m => m[0])
+  imgs = [...new Set(imgs.filter(u => !/thumb|-\d+x\d+\./i.test(u)))]
+  return { ano, imgs }
+}
+
+// frames espalhados entre 12% e 88% do filme (o começo e o fim costumam ter letreiro e créditos)
+const espalha = (lista, n) => {
+  const a = Math.floor(lista.length * 0.12), b = Math.ceil(lista.length * 0.88)
+  const meio = lista.slice(a, b)
+  if (meio.length <= n) return meio
+  return Array.from({ length: n }, (_, i) => meio[Math.floor((i + 0.5) * meio.length / n)])
+}
+const webp = (ent, sai) => new Promise((ok, err) => execFile('magick', [ent, '-resize', '960x540>', '-strip', '-quality', '66', sai], e => (e ? err(e) : ok())))
+
+/* ---------- 3. junta tudo ---------- */
+const famosos = (await wikidata('FILTER(?links >= 35)')).map(w => filmeDe(w))
+const brasileiros = (await wikidata('?item wdt:P495 wd:Q155. FILTER(?links >= 12)')).map(w => filmeDe(w, true))
+const porImdb = new Map()
+for (const f of [...famosos, ...brasileiros]) if (!porImdb.has(f.imdb) || porImdb.get(f.imdb).fama < f.fama) porImdb.set(f.imdb, f)
+const todos = [...porImdb.values()].filter(f => f.ano && f.ano >= 1930).sort((a, b) => b.fama - a.fama)
+console.log(`${todos.length} filmes famosos no Wikidata`)
+
+// catálogo do autocomplete: todos os famosos (bem mais que os do jogo, para a lista não entregar nada)
+writeFileSync(path.join(SAIDA, 'catalogo.json'), JSON.stringify(todos.map(f => [f.t, f.o, f.ano])))
+
+const fg = await indiceFilmGrab()
+const antigo = existsSync(path.join(SAIDA, 'filmes.json')) ? JSON.parse(readFileSync(path.join(SAIDA, 'filmes.json'), 'utf8')) : []
+const jogo = new Map(antigo.map(f => [f.imdb, f]))
+for (const f of todos) {
+  if (jogo.size >= QUANTOS && !jogo.has(f.imdb)) continue
+  if (jogo.has(f.imdb)) { Object.assign(jogo.get(f.imdb), { t: f.t, o: f.o, ano: f.ano, nomes: f.nomes }); continue } // títulos sempre atualizados
+  const urls = [...new Set(f.nomes.flatMap(n => fg.get(norm(n)) || []))]
+  if (!urls.length) continue
+  let achou = null
+  for (const u of urls) { const p = await framesDe(u); await sleep(400); if (p && (!p.ano || Math.abs(p.ano - f.ano) <= 1) && p.imgs.length >= FRAMES + 4) { achou = p; break } }
+  if (!achou) continue
+  const pasta = hash(f.imdb)
+  const dir = path.join(SAIDA, 'f', pasta)
+  mkdirSync(dir, { recursive: true })
+  let n = 0
+  for (const u of espalha(achou.imgs, FRAMES)) {
+    const bin = await pega(u, 'bin'); await sleep(250)
+    if (!bin || bin.length < 8000) continue
+    const tmp = path.join(CACHE, 'x' + path.extname(u))
+    writeFileSync(tmp, bin)
+    try { await webp(tmp, path.join(dir, `${n}.webp`)); n++ } catch {}
+  }
+  if (n < 3) { rmSync(dir, { recursive: true, force: true }); continue }
+  jogo.set(f.imdb, { imdb: f.imdb, t: f.t, o: f.o, ano: f.ano, nomes: f.nomes, p: pasta, n })
+  console.log(`${jogo.size}/${QUANTOS}  ${f.t} (${f.ano}) · ${n} frames`)
+  writeFileSync(path.join(SAIDA, 'filmes.json'), JSON.stringify([...jogo.values()]))
+}
+writeFileSync(path.join(SAIDA, 'filmes.json'), JSON.stringify([...jogo.values()]))
+console.log('categorias:', await categorias(path.join(SAIDA, 'filmes.json')))
+writeFileSync(path.join(SAIDA, 'CREDITOS.txt'), 'Frames: FILMGRAB (film-grab.com). Títulos: Wikidata (CC0).\nUso não comercial, num jogo entre amigos.\n')
+console.log(`pronto: ${jogo.size} filmes no jogo, ${todos.length} no autocomplete`)
