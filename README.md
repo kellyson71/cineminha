@@ -42,6 +42,15 @@ O app se atualiza sozinho a cada versão nova.
 | **Quadro a Quadro** — escolha o modo | **Adivinhe o filme pelo frame** |
 | ![Quadro a Quadro](docs/prints/quadro-menu.jpg) | ![Chute](docs/prints/quadro-chute.jpg) |
 
+## Extensão da Netflix
+
+Com a extensão, quem projeta a Netflix deixa a sala dar play, pausar e pular pelo próprio Cineminha
+(ou só ele, nos ajustes: "Todo mundo controla a minha Netflix"), e todos veem série, episódio e nota.
+Sem a extensão, o site reconhece a Netflix lendo a tela de pausa.
+
+[Baixar a extensão](https://cineminha-boo.vercel.app/baixar/extensao) → descompacte → `chrome://extensions` →
+ligue o **Modo do desenvolvedor** → **Carregar sem compactação** → escolha a pasta. Código em [`extensao/netflix`](extensao/netflix).
+
 ## Jogos
 
 Faixa a Faixa, Coup, Uno, Red Flags, Amigos de Merda, Dobradinha, Dou-lhe Uma, Na Testa e Quadro a Quadro.
@@ -56,6 +65,7 @@ public/        o site (HTML, CSS e JS sem build) — publicado na Vercel
   jogos/       arte, sons e dados de cada jogo
 api/           funções da Vercel (chat, convites, sessões, preferências) com Redis
 app/           app desktop (Electron + React) — veja app/README.md
+extensao/      extensão do navegador que liga a Netflix à sala
 tools/         coletores de dados dos jogos, servidor local e MCP
 docs/          marca, prints e documentação dos jogos
 .github/       release automática do app

@@ -77,6 +77,11 @@
       "source": "/baixar/rpm",
       "destination": "https://github.com/kellyson71/cineminha/releases/latest/download/cineminha-linux.rpm",
       "permanent": false
+    },
+    {
+      "source": "/baixar/extensao",
+      "destination": "/extensao/cineminha-netflix.zip",
+      "permanent": false
     }
   ]
 }

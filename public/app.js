@@ -743,6 +743,8 @@ const peerQuality = new Map()
 function playerInfo(id) { return id === selfId ? myShare : shareInfo.get(id) }
 function playerTime(id) {
   const info = playerInfo(id)
+  const n = id === selfId && nfxDe(myShare)
+  if (n) return Math.min(n.d || Infinity, n.t + (n.paused ? 0 : (Date.now() - n.at) / 1000))
   if (id === selfId) return myShare?.video?.currentTime || 0
   const at = Number.isFinite(info?.t) ? info.t : 0
   return Math.min(info?.duration || Infinity, at + (info?.paused ? 0 : (Date.now() - (info?.tAt || Date.now())) / 1000 * (info?.rate || 1)))
@@ -754,18 +756,21 @@ function playerCommand(id, op, value) {
 function updatePlayer(id) {
   const tile = tiles.get(id), info = playerInfo(id)
   if (!tile?.player) return
-  const p = tile.player, file = info?.kind === 'arquivo'
+  const p = tile.player, arq = info?.kind === 'arquivo'
+  const nf = id === selfId ? !!nfxDe(myShare) : !!info?.nfx, file = arq || nf
+  const pode = !nf || id === selfId || info?.nfx?.ctl !== 'eu'
   p.play.hidden = !file; p.seek.hidden = !file; p.time.hidden = !file
-  p.center.hidden = !file || !info?.paused
-  p.rateLabel.hidden = !file; p.upload.hidden = !(file && id === selfId)
+  p.center.hidden = !file || !info?.paused || !pode
+  p.play.disabled = !pode; p.seek.disabled = !pode
+  p.rateLabel.hidden = !arq; p.upload.hidden = !(arq && id === selfId)
   p.subs.hidden = !info?.subs
   p.subs.setAttribute('aria-pressed', String(!!prefs.subs))
   if (p.play.firstChild.dataset.icon !== (info?.paused ? 'play' : 'pause')) setIcon(p.play.firstChild, info?.paused ? 'play' : 'pause')
-  p.play.title = info?.paused ? 'Reproduzir para todos' : 'Pausar para todos'
-  const duration = info?.duration || (id === selfId ? myShare?.video?.duration : 0) || 0
+  p.play.title = !pode ? 'Só quem projeta controla a Netflix' : info?.paused ? 'Reproduzir para todos' : 'Pausar para todos'
+  const duration = (id === selfId && nfxDe(myShare)?.d) || info?.duration || (id === selfId ? myShare?.video?.duration : 0) || 0
   const at = playerTime(id)
   if (document.activeElement !== p.seek) { p.seek.max = duration || 1; p.seek.value = at }
-  p.seek.disabled = !duration
+  p.seek.disabled = !duration || !pode
   p.time.textContent = `${fmtMt(at)} / ${fmtMt(duration)}`
   p.rate.value = String(info?.rate || 1)
   const value = id === selfId ? Math.min(1, tileVol(id)) : tileVol(id)
@@ -777,7 +782,7 @@ function updatePlayer(id) {
   p.volume.disabled = !hasSound; p.mute.disabled = !hasSound
   tile.el.classList.toggle('file-session', file)
   if (info?.preview && tile.preview.getAttribute('src') !== info.preview) tile.preview.src = info.preview
-  tile.preview.hidden = id === selfId || !file || !info?.paused || !info?.preview
+  tile.preview.hidden = id === selfId || !arq || !info?.paused || !info?.preview
 }
 function buildPlayer(id, tile) {
   const button = (name, title, fn) => {
@@ -828,8 +833,8 @@ function buildPlayer(id, tile) {
       tile.el.classList.remove('player-visible')
     }, 2500)
   }
-  tile.el.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') reveal() })
-  tile.el.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') reveal() })
+  tile.el.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && (!imersivo() || naZonaDaBarra(e))) reveal() })
+  tile.el.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && !imersivo()) reveal() })
   tile.el.addEventListener('focusin', reveal)
   tile.el.addEventListener('pointerleave', () => { if (settings.hidden && !root.querySelector(':focus-visible')) { clearTimeout(timer); tile.el.classList.remove('player-visible') } })
   tile.el.addEventListener('keydown', e => { if (e.target === tile.el && ['Space','Enter'].includes(e.code) && playerInfo(id)?.kind === 'arquivo') { e.preventDefault(); playerCommand(id, 'toggle'); reveal() } })
@@ -837,9 +842,13 @@ function buildPlayer(id, tile) {
   tile.player = { root, play, center, seek, time, volume, mute, subs, gear, quality, rate, rateLabel, upload, settings }
   tile.playerCleanup = () => clearTimeout(timer)
 }
-/* Bordas pretas dentro da transmissão (ex.: player do site com tarjas): mede numa miniatura.
-   Não corta sozinho: avisa uma vez por sessão; quem aceitar (ou ligar no botão direito) passa a cortar.
-   Aumentar a área vale na hora; diminuir só depois de 2 leituras iguais (cena escura não corta a imagem). */
+/* Bordas pretas dentro da transmissão (ex.: player com tarjas): mede numa miniatura, uma vez por segundo.
+   Só é borda o que é preto liso de verdade e fica parado; na Netflix a tarja é preto 100% e o corte é automático.
+   Cada linha/coluna guarda a última vez em que teve imagem, e o corte mostra tudo o que teve imagem nos
+   últimos 90 s: cena escura não corta nada (aquela faixa teve imagem há pouco) e o corte só aperta depois
+   de muito tempo sem nada na faixa. Abre na hora (2 leituras seguidas com imagem fora do corte).
+   Tarjas de vídeo são simétricas: usa o menor dos dois lados, então a imagem nunca anda para um lado.
+   Fora da Netflix não corta sozinho: avisa uma vez por sessão. */
 const ss = { get: k => { try { return sessionStorage.getItem(k) } catch { return null } }, set: (k, v) => { try { sessionStorage.setItem(k, v) } catch {} } }
 const bordasAuto = () => ss.get('cine.bordas') === 'on'
 function setBordas(t, on) {
@@ -853,11 +862,12 @@ function avisoBordas(t) {
   nudge('bordas', 'Essa tela tem bordas pretas.', 'Remover bordas', () => setBordas(t, true), () => ss.set('cine.bordas', 'off'))
 }
 const barCanvas = document.createElement('canvas')
-// Cada leitura marca as linhas e colunas "com imagem" (diferentes da cor da borda, medida nos cantos).
-// Junta as últimas 8 leituras: o que teve imagem em qualquer uma delas fica (cena escura e legenda nunca são cortadas).
+const JANELA_BORDA = 90000
 function detectBars(t) {
   const v = t.video, vw = v.videoWidth, vh = v.videoHeight
   if (!vw || !vh || v.readyState < 2 || document.hidden) return
+  const info = t.id === selfId ? myShare : shareInfo.get(t.id)
+  const nf = info?.midia?.plat === 'netflix'
   const cw = 240, ch = Math.max(2, Math.round(240 * vh / vw))
   barCanvas.width = cw; barCanvas.height = ch
   const g = barCanvas.getContext('2d', { willReadFrequently: true })
@@ -865,49 +875,47 @@ function detectBars(t) {
   try { g.drawImage(v, 0, 0, cw, ch); d = g.getImageData(0, 0, cw, ch).data } catch { return }
   const L = new Uint8Array(cw * ch)
   for (let k = 0, p = 0; k < L.length; k++, p += 4) L[k] = (d[p] * 77 + d[p + 1] * 150 + d[p + 2] * 29) >> 8
-  // cor da borda: a mais escura entre os quatro cantos (bordas são escuras e lisas)
+  const key = `${vw}x${vh}`
+  if (t.barKey !== key) Object.assign(t, { barKey: key, rowSeen: new Float64Array(ch), colSeen: new Float64Array(cw), rowHit: new Uint8Array(ch), colHit: new Uint8Array(cw), barReads: 0, cropNext: undefined })
+  // preto da borda: cantos escuros e lisos (Netflix: preto puro, só ruído da compressão)
   const canto = (x0, y0) => { let s = 0, s2 = 0, n = 0; for (let y = y0; y < y0 + 4; y++) for (let x = x0; x < x0 + 4; x++) { const l = L[y * cw + x]; s += l; s2 += l * l; n++ } const m = s / n; return { m, dp: Math.sqrt(Math.max(0, s2 / n - m * m)) } }
-  const cs = [canto(0, 0), canto(cw - 4, 0), canto(0, ch - 4), canto(cw - 4, ch - 4)].filter(c => c.dp < 6 && c.m < 70)
-  if (!cs.length) { t.barHist = []; if (t.cropFound) { t.cropFound = null; if (t.cropOn) { t.crop = null; t.fit() } } return } // sem borda lisa nos cantos
-  const base = Math.min(...cs.map(c => c.m)), lim = base + 16
-  let acesos = 0
+  const cs = [canto(0, 0), canto(cw - 4, 0), canto(0, ch - 4), canto(cw - 4, ch - 4)].filter(c => c.dp < (nf ? 2.5 : 4) && c.m < (nf ? 14 : 28))
+  const base = cs.length ? Math.min(...cs.map(c => c.m)) : -1, lim = base + (nf ? 10 : 14)
+  const liso = (s1, s2, n) => Math.sqrt(Math.max(0, s2 / n - (s1 / n) ** 2)) < (nf ? 2.5 : 3.5)
   const rows = new Uint8Array(ch), cols = new Uint8Array(cw)
-  // linha/coluna de borda: quase nada acima da cor da borda E lisa (cena escura tem textura; tarja não)
-  const liso = (s1, s2, n) => Math.sqrt(Math.max(0, s2 / n - (s1 / n) ** 2)) < 3.5
-  for (let y = 0; y < ch; y++) { let n = 0, s1 = 0, s2 = 0; for (let x = 0; x < cw; x++) { const l = L[y * cw + x]; n += l > lim; s1 += l; s2 += l * l } rows[y] = n > cw * .015 || !liso(s1, s2, cw); acesos += n }
-  if (acesos < cw * ch * .02) return // quadro quase todo escuro (fade): não diz nada
-  for (let x = 0; x < cw; x++) { let n = 0, s1 = 0, s2 = 0; for (let y = 0; y < ch; y++) { const l = L[y * cw + x]; n += l > lim; s1 += l; s2 += l * l } cols[x] = n > ch * .015 || !liso(s1, s2, ch) }
-  if (t.barKey !== `${vw}x${vh}`) { t.barKey = `${vw}x${vh}`; t.barHist = [] }
-  t.barHist = [...(t.barHist || []), { rows, cols }].slice(-8)
-  if (t.barHist.length < 3) return
-  const R = new Uint8Array(ch), C = new Uint8Array(cw)
-  for (const h of t.barHist) { for (let y = 0; y < ch; y++) R[y] |= h.rows[y]; for (let x = 0; x < cw; x++) C[x] |= h.cols[x] }
+  let acesos = 0
+  for (let y = 0; y < ch; y++) { let n = 0, s1 = 0, s2 = 0; for (let x = 0; x < cw; x++) { const l = L[y * cw + x]; n += l > lim; s1 += l; s2 += l * l } rows[y] = base < 0 || n > cw * .01 || !liso(s1, s2, cw); acesos += n }
+  if (base >= 0 && acesos < cw * ch * .05) return // quadro escuro (fade, cena noturna): não diz nada
+  for (let x = 0; x < cw; x++) { let n = 0, s1 = 0, s2 = 0; for (let y = 0; y < ch; y++) { const l = L[y * cw + x]; n += l > lim; s1 += l; s2 += l * l } cols[x] = base < 0 || n > ch * .01 || !liso(s1, s2, ch) }
+  const now = Date.now()
+  t.barReads++
+  for (let y = 0; y < ch; y++) { t.rowHit[y] = rows[y] ? Math.min(9, t.rowHit[y] + 1) : 0; if (t.rowHit[y] >= 2) t.rowSeen[y] = now }
+  for (let x = 0; x < cw; x++) { t.colHit[x] = cols[x] ? Math.min(9, t.colHit[x] + 1) : 0; if (t.colHit[x] >= 2) t.colSeen[x] = now }
+  if (t.barReads < (nf ? 4 : 8)) return
+  const viu = s => s > 0 && now - s < JANELA_BORDA
   let top = 0, bot = ch - 1, lef = 0, rig = cw - 1
-  while (top < bot && !R[top]) top++
-  while (bot > top && !R[bot]) bot--
-  while (lef < rig && !C[lef]) lef++
-  while (rig > lef && !C[rig]) rig--
+  while (top < ch && !viu(t.rowSeen[top])) top++
+  while (bot > top && !viu(t.rowSeen[bot])) bot--
+  while (lef < cw && !viu(t.colSeen[lef])) lef++
+  while (rig > lef && !viu(t.colSeen[rig])) rig--
+  if (top >= ch || lef >= cw) return
+  // simétrico: a menor das duas tarjas vale para os dois lados
+  const gy = Math.min(top, ch - 1 - bot), gx = Math.min(lef, cw - 1 - rig)
+  top = gy < ch * .025 ? 0 : gy; bot = ch - 1 - top
+  lef = gx < cw * .025 ? 0 : gx; rig = cw - 1 - lef
   const sx = vw / cw, sy = vh / ch
-  // ignora bordas finas (menos de 2% de um lado): ruído de compressão, não tarja
-  if (top < ch * .02) top = 0
-  if (ch - 1 - bot < ch * .02) bot = ch - 1
-  if (lef < cw * .02) lef = 0
-  if (cw - 1 - rig < cw * .02) rig = cw - 1
-  let box = { x: Math.max(0, lef * sx), y: Math.max(0, top * sy) }
-  box.w = Math.min(vw, (rig + 1) * sx) - box.x; box.h = Math.min(vh, (bot + 1) * sy) - box.y
+  let box = { x: lef * sx, y: top * sy, w: (rig + 1 - lef) * sx, h: (bot + 1 - top) * sy }
   const area = box.w * box.h / (vw * vh)
   if (area < .3) return // estranho demais: mantém como está
-  if (area > .95) box = null // quase sem borda: sem corte
+  if (area > .96) box = null // quase sem borda: sem corte
   const cur = t.cropOn ? t.crop : t.cropFound
-  const same = (a, b) => a && b && Math.abs(a.x - b.x) < vw * .015 && Math.abs(a.y - b.y) < vh * .015 && Math.abs(a.w - b.w) < vw * .015 && Math.abs(a.h - b.h) < vh * .015
-  if (same(box, cur) || (!box && !cur)) { t.cropVotes = 0; return }
-  const grows = !box || (cur && box.x <= cur.x && box.y <= cur.y && box.x + box.w >= cur.x + cur.w && box.y + box.h >= cur.y + cur.h)
-  t.cropVotes = same(box, t.cropNext) ? (t.cropVotes || 0) + 1 : 1
-  t.cropNext = box
-  if (grows || t.cropVotes >= 2) {
-    t.cropVotes = 0; t.cropFound = box
-    if (t.cropOn) { t.crop = box; t.fit() } else if (box) avisoBordas(t)
-  }
+  const same = (a, b) => (!a && !b) || (a && b && Math.abs(a.x - b.x) < vw * .025 && Math.abs(a.y - b.y) < vh * .025 && Math.abs(a.w - b.w) < vw * .025 && Math.abs(a.h - b.h) < vh * .025)
+  if (same(box, cur)) { t.cropNext = undefined; return }
+  // muda só com duas leituras seguidas propondo o mesmo corte
+  if (t.cropNext === undefined || !same(box, t.cropNext)) { t.cropNext = box; return }
+  t.cropNext = undefined; t.cropFound = box
+  if (nf && box && !t.cropOn && ss.get('cine.bordas') !== 'off') t.cropOn = true
+  if (t.cropOn) { t.crop = box; t.fit() } else if (box) avisoBordas(t)
 }
 function framePreview(video) {
   if (!video.videoWidth) return ''
@@ -938,7 +946,7 @@ function addTile(id, stream, localVideo) {
     layout()
   })
   node.addEventListener('dblclick', e => { if (!e.target.closest('button, input, select, .player-controls')) toggleFs() })
-  const t = { el: node, video, stream, label, sub, preview, src: null, gain: null, cropOn: bordasAuto() }
+  const t = { id, el: node, video, stream, label, sub, preview, src: null, gain: null, cropOn: bordasAuto() }
   // Encaixe: a parte com imagem (sem as bordas pretas que já vêm na transmissão) preenche o quadro
   const fit = () => {
     const W = node.clientWidth, H = node.clientHeight, vw = video.videoWidth, vh = video.videoHeight
@@ -950,7 +958,7 @@ function addTile(id, stream, localVideo) {
     node.style.setProperty('--vx', x + 'px'); node.style.setProperty('--vy', y + 'px')
   }
   t.fit = fit
-  video.addEventListener('loadedmetadata', fit); video.addEventListener('resize', () => { t.crop = null; t.cropFound = null; fit() })
+  video.addEventListener('loadedmetadata', fit); video.addEventListener('resize', () => { t.crop = null; t.cropFound = null; t.barKey = ''; fit() })
   t.cropTimer = setInterval(() => detectBars(t), 1000)
   t.fitObs = new ResizeObserver(fit); t.fitObs.observe(node)
   // o som de quem transmite vai para o mixer (quem transmite não ouve o próprio de novo)
@@ -980,6 +988,23 @@ function removeTile(id, quiet) {
   if (focusId === id) focusId = null
   if (!quiet) layout()
 }
+const ICONE_PLAT = { netflix: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e50914" d="M6 2h4l4 11V2h4v20h-4l-4-11v11H6z"/></svg>' }
+const NOME_PLAT = { netflix: 'Netflix' }
+function cartaoMidia(m) {
+  const ep = m.s ? `T${m.s} · E${m.e}${m.epNome ? ' · ' + m.epNome : ''}` : m.ano
+  const c = el('div', { className: 'midia-card aberto' },
+    m.fundo ? el('div', { className: 'midia-card__fundo', style: `background-image:url("${encodeURI(m.fundo)}")` }) : '',
+    m.poster ? el('img', { className: 'midia-card__poster', src: m.poster.replace('/poster/small/', '/poster/medium/'), alt: '' }) : '',
+    el('div', { className: 'midia-card__txt' },
+      el('span', { className: 'midia-card__plat', innerHTML: (ICONE_PLAT[m.plat] || '') + `<span>${NOME_PLAT[m.plat] || ''}</span>` }),
+      el('b', { textContent: m.titulo, title: m.original && m.original !== m.titulo ? m.original : '' }),
+      ep ? el('small', { textContent: ep }) : '',
+      m.nota ? el('span', { className: 'midia-card__nota', innerHTML: `<i>★</i>${m.nota.toFixed(1)}<em>IMDb</em>` }) : ''))
+  c.addEventListener('mouseenter', () => c.classList.add('aberto'))
+  c.addEventListener('mouseleave', () => c.classList.remove('aberto'))
+  c.addEventListener('click', e => e.stopPropagation())
+  return c
+}
 function renderTile(id) {
   const t = tiles.get(id)
   if (!t) return
@@ -990,6 +1015,16 @@ function renderTile(id) {
   t.label.title = t.q || kind
   if (t.player) t.player.quality.title = t.q || 'Limite da qualidade recebida'
   t.el.classList.toggle('paused', !!info?.paused)
+  const md = info?.midia, mk = md ? `${md.titulo}|${md.s}|${md.e}|${md.nota}` : ''
+  if (mk !== t.midiaKey) {
+    t.midiaKey = mk; t.midiaCard?.remove(); t.midiaCard = null
+    if (md) {
+      const c = t.midiaCard = cartaoMidia(md)
+      t.el.append(c); requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('in')))
+      setTimeout(() => c.classList.remove('aberto'), 9000)
+    }
+    t.el.classList.toggle('has-midia', !!md)
+  }
   t.el.classList.toggle('remote-file', id !== selfId && info?.kind === 'arquivo')
   updateStage()
   updatePlayer(id)
@@ -1428,7 +1463,8 @@ function menuJogos(btn) {
     item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--du', innerHTML: ICONES_JOGO.du }), 'Dou-lhe Uma', 'Leilão de listas: quem cita mais? · 2 ou mais', () => abreJogo('du')),
     item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--nt', innerHTML: ICONES_JOGO.nt }), 'Na Testa', 'Descubra quem está na sua testa · 2 ou mais', () => abreJogo('nt')),
     item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--qq', innerHTML: ICONES_JOGO.qq }), 'Quadro a Quadro', 'Adivinhe o filme pelo frame · 1 ou mais', () => abreJogo('qq')))
-  document.body.append(m)
+  // em tela cheia só o que está dentro do palco aparece
+  ;(imersivo() ? theater : document.body).append(m)
   const r = btn.getBoundingClientRect()
   m.style.left = Math.max(8, Math.min(r.left + r.width / 2 - m.offsetWidth / 2, innerWidth - m.offsetWidth - 8)) + 'px'
   m.style.top = (r.top - m.offsetHeight - 10) + 'px'
@@ -1474,11 +1510,13 @@ async function listDevices() {
 navigator.mediaDevices?.addEventListener?.('devicechange', () => listDevices())
 
 function shareMsg() {
-  const t = myShare.kind === 'arquivo' && myShare.video ? myShare.video.currentTime : undefined
-  return { on: true, kind: myShare.kind, game: myShare.game, paused: !!myShare.paused, subs: !!myShare.subs, t, duration: myShare.video?.duration || 0, rate: myShare.video?.playbackRate || 1, preview: myShare.preview || '', quality: myShare.quality || 'auto' }
+  const n = nfxDe(myShare)
+  const t = myShare.kind === 'arquivo' && myShare.video ? myShare.video.currentTime : n ? n.t : undefined
+  if (n) return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: false, paused: n.paused, subs: false, t, duration: n.d, rate: 1, preview: '', quality: myShare.quality || 'auto', nfx: { ctl: prefs.nfxTodos === false ? 'eu' : 'todos' } }
+  return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: myShare.game, paused: !!myShare.paused, subs: !!myShare.subs, t, duration: myShare.video?.duration || 0, rate: myShare.video?.playbackRate || 1, preview: myShare.preview || '', quality: myShare.quality || 'auto' }
 }
 // quem transmite arquivo avisa o tempo do filme de vez em quando (para marcar mensagens)
-setInterval(() => { if (myShare?.kind === 'arquivo') actions?.share.send(shareMsg()) }, 5000)
+setInterval(() => { if (myShare?.kind === 'arquivo' || myShare?.nfxEnviado) actions?.share.send(shareMsg()) }, 5000)
 // nome do que está sendo projetado, para o diário: arquivo sem extensão e sem etiquetas técnicas; tela pelo nome da janela/aba quando o navegador conta
 function nomeDoArquivo(n) {
   let t = String(n || '').replace(/\.[a-z0-9]{2,4}$/i, '').replace(/[._]+/g, ' ')
@@ -1501,6 +1539,7 @@ function stopShare(silent) {
   myShare = null
   try { room?.removeStream(s.stream) } catch {}
   s.stream.getTracks().forEach(t => t.stop())
+  s.detector?.parar()
   s.cleanup?.()
   peerQuality.clear()
   actions?.share.send({ on: false })
@@ -1557,7 +1596,63 @@ async function shareScreen() {
   const share = { stop: cap.stop }
   cap.vt.addEventListener('ended', () => { if (myShare?.stream === stream && myShare.vt === cap.vt) stopShare() })
   publish(stream, { kind: 'tela', game, vt: cap.vt, at: cap.at, share, titulo: nomeDaTela(cap.vt) || `Tela de ${me.name}` }, null, () => share.stop())
+  if (!game) detectaMidia(cap.vt)
 }
+// O que está passando (Netflix por enquanto): lê o texto da tela e busca capa, nota e episódio
+async function detectaMidia(vt) {
+  const share = myShare
+  let mod
+  try { mod = await import('./midia.js') } catch { return }
+  if (myShare !== share) return
+  share.detector = mod.criaDetector(vt, r => { if (!nfxDe(share)) aplicaMidia(share, r) })
+}
+// a extensão (exata) ou o OCR acharam o que está passando: busca capa/nota e avisa todo mundo
+async function aplicaMidia(share, r) {
+  const k = `${r.titulo}|${r.s}|${r.e}`
+  if (share.midiaK === k) return
+  share.midiaK = k
+  const mod = await import('./midia.js').catch(() => null)
+  const m = mod ? await mod.buscaMidia(r) : null
+  if (myShare !== share || share.midiaK !== k) return
+  share.midia = {
+      plat: r.plat, titulo: r.titulo, s: r.s, e: r.e, epNome: r.epNome || m?.ep?.nome || '', tipo: m?.tipo || (r.s ? 'serie' : 'filme'),
+      original: m?.filme || '', ano: m?.ano || '', nota: m?.nota ?? null, poster: m?.poster || '', fundo: m?.ep?.still || m?.background || '', imdb: m?.id || '',
+    }
+  share.titulo = r.titulo + (r.s ? ` · T${r.s}E${r.e}` : '')
+  actions?.share.send(shareMsg()); renderTile(selfId)
+  if (r.plat === 'netflix' && !nfx.ext && !nfx.avisou && /Chrome|Edg/.test(navigator.userAgent)) {
+    nfx.avisou = true
+    nudge('netflix', 'Com a extensão do Cineminha, a sala pausa e pula a sua Netflix.', 'Baixar extensão', () => {
+      open('baixar/extensao', '_blank')
+      toast('Descompacte, abra chrome://extensions, ligue o “Modo do desenvolvedor” e clique em “Carregar sem compactação”', 12000)
+    }, () => {})
+  }
+}
+
+/* ---------- Extensão Cineminha · Netflix ----------
+   Com a extensão (pasta extensao/netflix), quem projeta a Netflix recebe dela o tempo, a pausa e o título
+   exatos, e a sala controla o player: play/pausa, pular e voltar. Quem pode controlar: todos ou só quem projeta. */
+const nfx = { ext: false, avisou: false }
+const nfxDe = sh => sh?.kind === 'tela' && !sh.game && sh.nfx && Date.now() - sh.nfx.at < 8000 ? sh.nfx : null
+addEventListener('message', e => {
+  if (e.source !== window || e.data?.cineExt !== 'netflix') return
+  const d = e.data
+  if (d.tipo === 'ola') nfx.ext = true
+  else if (d.tipo === 'estado') nfxEstado(d)
+})
+postMessage({ cineExt: 'netflix', tipo: 'quem' }, location.origin)
+function nfxEstado(d) {
+  const sh = myShare
+  if (sh?.kind !== 'tela' || sh.game) return
+  const ant = nfxDe(sh), agora = Date.now()
+  sh.nfx = { paused: !!d.paused, t: Math.max(0, +d.t || 0), d: Math.max(0, +d.d || 0), at: agora }
+  if (d.midia?.titulo) aplicaMidia(sh, { plat: 'netflix', titulo: String(d.midia.titulo).slice(0, 100), s: +d.midia.s || 0, e: +d.midia.e || 0, epNome: String(d.midia.epNome || '').slice(0, 100) })
+  const previsto = ant ? ant.t + (ant.paused ? 0 : (agora - ant.at) / 1000) : 0
+  if (!ant || ant.paused !== sh.nfx.paused || Math.abs(previsto - sh.nfx.t) > 3 || agora - (sh.nfxEnviado || 0) > 5000) {
+    sh.nfxEnviado = agora; actions?.share.send(shareMsg()); renderTile(selfId)
+  }
+}
+function nfxCmd(op, d) { postMessage({ cineExt: 'netflix', tipo: 'cmd', op, d }, location.origin) }
 // Trocar o que está sendo projetado sem parar a transmissão: troca as trilhas na mesma conexão
 async function trocarTela() {
   if (myShare?.kind !== 'tela') return shareScreen()
@@ -1581,7 +1676,7 @@ async function trocarTela() {
   oldStop()
   cap.vt.addEventListener('ended', () => { if (myShare === s && s.vt === cap.vt) stopShare() })
   const t = tiles.get(selfId)
-  if (t) { t.crop = null; t.cropFound = null; t.barHist = []; t.video.srcObject = stream; t.video.play().catch(() => {}); t.fit?.() }
+  if (t) { t.crop = null; t.cropFound = null; t.barKey = ''; t.video.srcObject = stream; t.video.play().catch(() => {}); t.fit?.() }
   actions?.share.send(shareMsg())
   setTimeout(tuneSenders, 1500)
   sfx('telaOn')
@@ -1715,6 +1810,7 @@ function askPause() {
 function gotPause(name) {
   sfx('chat')
   if (myShare?.kind === 'arquivo' && !myShare.video.paused) { myShare.video.pause(); toast(`${name} pediu pausa · pausei o vídeo`, 5000) }
+  else if (nfxDe(myShare) && !nfxDe(myShare).paused && prefs.nfxTodos !== false) { nfxCmd('pause'); toast(`${name} pediu pausa · pausei a Netflix`, 5000) }
   else toast(`${name} pediu pausa`, 5000)
   sysMsg(`${name} pediu pausa`)
 }
@@ -1730,6 +1826,15 @@ function gotCtl(d, name, peerId) {
   if (d?.op === 'quality' && myShare && ['auto','1080','720','480'].includes(String(d.d))) {
     if (peerId) peerQuality.set(peerId, String(d.d)); else myShare.quality = String(d.d)
     tuneSenders(); if (!peerId) { actions?.share.send(shareMsg()); updatePlayer(selfId) }; return
+  }
+  const n = nfxDe(myShare)
+  if (n && d && ['toggle', 'at', 'seek'].includes(d.op)) {
+    if (peerId && prefs.nfxTodos === false) return
+    nfxCmd(d.op, d.d)
+    if (d.op === 'toggle') toast(`${name} ${n.paused ? 'deu play' : 'pausou'} na Netflix`)
+    else if (d.op === 'at' && Number.isFinite(+d.d)) toast(`${name} pulou para ${fmtMt(+d.d)}`)
+    else if (Number.isFinite(+d.d)) toast(`${name} ${d.d < 0 ? 'voltou' : 'avançou'} ${Math.abs(d.d)} s`)
+    return
   }
   const v = myShare?.kind === 'arquivo' && myShare.video
   if (!v || !d) return
@@ -3183,6 +3288,7 @@ function renderSetPrefs() {
     setToggle('Chat fixo na tela cheia', 'Em vez de flutuar por cima do vídeo', () => prefs.chatFixo, v => setChatFixo(v)),
     setToggle('Avisos de volume', 'Sugere ajustes quando o filme abafa a conversa', () => prefs.nudges, v => { prefs.nudges = v; $('#nudgeOpt').checked = v }),
     setToggle('Avisar sobre bordas pretas', 'Oferece cortar as tarjas da projeção', () => prefs.avisoBordas !== false, v => { prefs.avisoBordas = v }),
+    setToggle('Todo mundo controla a minha Netflix', 'Com a extensão do Cineminha: play, pausa e pular valem para todos. Desligado, só você controla', () => prefs.nfxTodos !== false, v => { prefs.nfxTodos = v; if (myShare) { actions?.share.send(shareMsg()); updatePlayer(selfId) } }),
     h('Rádio'),
     setVol('Volume da rádio', () => radio.getVol(), v => { radio.setVol(v); try { syncRadioVol() } catch {} }),
     setToggle('Spotify pelo YouTube', 'Música inteira, sem login e com volume', () => radio.getFonte() !== 'sp', v => radio.setFonte(v ? 'yt' : 'sp')),
@@ -3254,13 +3360,21 @@ function poke() {
     // só segura a barra se estiver escrevendo de verdade (campo com texto) ou digitou há pouco
     const f = document.activeElement
     const typing = f?.matches('input:not([type=range]), textarea') && (f.value.trim() || performance.now() - lastKey < 4000)
-    const panelOpen = [...document.querySelectorAll('.pop, .pvol, .reactgrid, #gifs, .player-settings')].some(x => !x.hidden)
+    const panelOpen = [...document.querySelectorAll('.pop, .pvol, .reactgrid, #gifs, .player-settings, .jogosmenu')].some(x => !x.hidden)
     if (typing || panelOpen) return poke()
     if (theater.contains(document.activeElement)) document.activeElement.blur()
     theater.classList.add('idle')
   }, matchMedia('(pointer: coarse)').matches ? 5000 : 2500)
 }
-theater.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') poke() })
+// Em tela cheia, a barra só acorda com o mouse perto dela (faixa de baixo, ou de cima quando a barra
+// fica no topo) ou em cima da barra/chat; mexer o mouse no meio do filme não mostra nada.
+function naZonaDaBarra(e) {
+  if (e.target.closest?.('.toolbar, .chat, .pop, .jogosmenu, .trocajogo, .player-controls, .player-settings, .midia-card')) return true
+  const r = (theater.querySelector('.toolbar') || $('.toolbar'))?.getBoundingClientRect()
+  const faixa = Math.max(110, (r?.height || 50) + 70)
+  return r && r.top < innerHeight / 2 ? e.clientY < faixa : e.clientY > innerHeight - faixa
+}
+theater.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && (!imersivo() || naZonaDaBarra(e))) poke() })
 let lastKey = 0
 document.addEventListener('keydown', () => { lastKey = performance.now(); if (imersivo()) poke() }, true)
 // janela sem foco ou mouse fora: esconde na hora (se não estiver escrevendo)
