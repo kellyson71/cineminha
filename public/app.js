@@ -6,7 +6,7 @@ import { VOICE_PROFILES, DEFAULT_VOICE, cleanVoice, normalizeAudioPrefs, spatial
 import BASE from './config.js'
 import { ICONS } from './icons.js'
 import { EMOJI, MEMES } from './reacoes/reacoes.js'
-import { loadRnnoise, RnnoiseWorkletNode } from './vendor/nsup/index.js'
+import { loadRnnoise, RnnoiseWorkletNode, loadGtcrn, GtcrnWorkletNode } from './vendor/nsup/index.js'
 import { criaRadio, parseRadio } from './radio.js'
 let faixa = null // minijogo Faixa a Faixa, ver faixa.js
 let coup = null // Coup na mesa, ver coup.js
@@ -2960,8 +2960,8 @@ audioMenu.innerHTML = `<header class="audio-menu__head"><span class="audio-menu_
 <label class="audio-menu__field" title="Escolha o microfone usado na sala"><span><svg data-icon="mic"></svg>Entrada</span><select id="audioInput" aria-label="Entrada de som"></select></label>
 <div class="audio-menu__output"><label class="audio-menu__field" title="Escolha o fone ou a caixa de som"><span><svg data-icon="headphones"></svg>Saída</span><select id="audioOutput" aria-label="Saída de som"></select></label><button type="button" class="audio-menu__test" id="testOutput" title="Testar saída" aria-label="Testar saída"><svg data-icon="volume-2"></svg></button></div>
 <label class="check" title="A posição de cada pessoa na sala dá direção à voz"><svg data-icon="headphones"></svg><span><b>Espacial</b></span><input id="audioSpatial" type="checkbox"></label>
-<label class="audio-menu__field" title="Preservar voz evita cortar falas baixas"><span><svg data-icon="mic"></svg>Perfil</span><select id="voiceProfile"><option value="balanced">Preservar voz</option><option value="strong">Ruído intenso</option><option value="raw">Sem filtros</option><option value="custom">Manual</option></select></label>
-<label class="audio-menu__field" id="noiseEngineField" title="Escolha o processador de supressão de ruído"><span><svg data-icon="sliders-horizontal"></svg>Ruído</span><select id="noiseEngine"><option value="rnnoise">RNNoise</option><option value="browser">Navegador</option><option value="off">Desligado</option></select></label>
+<label class="audio-menu__field" title="Preservar voz evita cortar falas baixas"><span><svg data-icon="mic"></svg>Perfil</span><select id="voiceProfile"><option value="balanced">Preservar voz</option><option value="strong">Ruído intenso · vento</option><option value="raw">Sem filtros</option><option value="custom">Manual</option></select></label>
+<label class="audio-menu__field" id="noiseEngineField" title="Escolha o processador de supressão de ruído"><span><svg data-icon="sliders-horizontal"></svg>Ruído</span><select id="noiseEngine"><option value="rnnoise">RNNoise</option><option value="gtcrn">GTCRN · mais forte</option><option value="browser">Navegador</option><option value="off">Desligado</option></select></label>
 <div class="audio-menu__meter" title="Nível do sinal do microfone"><svg data-icon="mic"></svg><meter id="micLevel" aria-label="Nível do microfone" min="-75" max="0" low="-45" high="-10" optimum="-20" value="-75"></meter><small id="micLevelText">Mudo</small></div>
 <div class="mic-test"><button type="button" id="testMic" data-state="idle" title="Gravar 3 segundos com os filtros atuais e ouvir só neste fone" aria-label="Testar microfone">
 <span class="mic-test__dial"><svg class="mic-test__ring" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" pathLength="100"/></svg><span id="micTestGlyph"></span></span>
@@ -2988,7 +2988,7 @@ function renderVoiceOptions() {
   $('#gateThreshold').value = settings.threshold; $('#gateThresholdOut').textContent = settings.threshold + ' dB'
   $('#gateHold').value = settings.hold; $('#gateHoldOut').textContent = settings.hold + ' ms'
   $('#echoCancel').checked = settings.echo; $('#autoGain').checked = settings.agc
-  $('#noiseEngineField').title = settings.engine === 'rnnoise' ? 'RNNoise faz a limpeza; a supressão do navegador fica desligada.' : settings.engine === 'browser' ? 'Usando a supressão nativa do navegador.' : 'Supressão desligada. Eco, ganho e portão são independentes.'
+  $('#noiseEngineField').title = settings.engine === 'rnnoise' ? 'RNNoise faz a limpeza; a supressão do navegador fica desligada.' : settings.engine === 'gtcrn' ? 'GTCRN: limpa vento, ventilador e barulho forte. A voz fica um pouco menos aguda.' : settings.engine === 'browser' ? 'Usando a supressão nativa do navegador.' : 'Supressão desligada. Eco, ganho e portão são independentes.'
 }
 function clampAudioMenu() {
   if (audioMenu.hidden) return
@@ -4005,7 +4005,7 @@ function dropVoice(id) {
   const p = mix.peer.get(id)
   if (p) { p.src.disconnect(); p.g.disconnect(); p.an?.disconnect(); p.spatialGraph?.disconnect(); mix.peer.delete(id) }
 }
-let rnWasm = null
+let rnWasm = null, gtWasm = null
 async function micOn(fromEntry, preserveMute = false) {
   const generation = ++micGeneration
   if (mic) return setMuted(false)
@@ -4032,7 +4032,15 @@ async function micOn(fromEntry, preserveMute = false) {
   let clean = inputGain
   if (settings.highpass > 0) { inputGain.connect(highpass); clean = highpass }
   let processor = null, effectiveEngine = settings.engine
-  if (settings.engine === 'rnnoise') {
+  if (settings.engine === 'gtcrn') {
+    try {
+      gtWasm ||= await loadGtcrn({ url: 'vendor/nsup/gtcrn.wasm' })
+      await ac.audioWorklet.addModule('vendor/nsup/gtcrnWorklet.js')
+      processor = new GtcrnWorkletNode(ac, { maxChannels: 1, wasmBinary: gtWasm })
+      clean.connect(processor); clean = processor
+    } catch { effectiveEngine = 'rnnoise' }
+  }
+  if (effectiveEngine === 'rnnoise') {
     try {
       rnWasm ||= await loadRnnoise({ url: 'vendor/nsup/rnnoise.wasm', simdUrl: 'vendor/nsup/rnnoise_simd.wasm' })
       await ac.audioWorklet.addModule('vendor/nsup/rnnoiseWorklet.js')
