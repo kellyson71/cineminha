@@ -23,6 +23,8 @@ export default async function handler(req, res) {
         const t = await redis('GET', `legenda:${leg}`)
         return t ? json(res, 200, { legenda: t }) : json(res, 404, { error: 'legenda' })
       }
+      if (u.has('retro')) return json(res, 200, await retrospectiva(+u.get('retro') || new Date().getFullYear()))
+      if (u.has('vistos')) return json(res, 200, await vistos())
       const flat = (await redis('HGETALL', 'sessoes')) || []
       const list = []
       for (let i = 0; i < flat.length; i += 2) { try { list.push(JSON.parse(flat[i + 1])) } catch {} }
@@ -95,8 +97,8 @@ export default async function handler(req, res) {
 }
 
 // sessões da call registradas sozinhas (api/sala.js): quando, quem esteve e o que foi projetado
-async function lerChamadas() {
-  const ids = (await redis('ZREVRANGE', 'chamadas', 0, 59)) || []
+async function lerChamadas(ids) {
+  ids ||= (await redis('ZREVRANGE', 'chamadas', 0, 59)) || []
   const out = []
   const todos = await Promise.all(ids.map(id => redis('HGETALL', `cham:${id}`).catch(() => [])))
   for (const [n, id] of ids.entries()) {
@@ -109,4 +111,50 @@ async function lerChamadas() {
     out.push({ id, ini: +h.ini || 0, fim: +h.fim || 0, sessao: h.sessao || null, titulo: h.titulo || null, presentes, proj })
   }
   return out
+}
+
+// Retrospectiva do ano: tudo calculado das calls registradas (horas, títulos, quem mais foi, recordes)
+const HORA_BR = ms => new Date(ms - 3 * 3600e3) // horário de Brasília (sem horário de verão)
+async function retrospectiva(ano) {
+  const ini = Date.UTC(ano, 0, 1) + 3 * 3600e3, fim = Date.UTC(ano + 1, 0, 1) + 3 * 3600e3
+  const ids = (await redis('ZRANGEBYSCORE', 'chamadas', String(ini), String(fim - 1))) || []
+  const calls = (await lerChamadas(ids)).filter(c => c.fim - c.ini >= 10 * 60e3 || c.proj.length)
+  const anos = [...new Set(((await redis('ZRANGE', 'chamadas', 0, -1, 'WITHSCORES')) || []).filter((_, i) => i % 2).map(t => HORA_BR(+t).getUTCFullYear()))].sort()
+  const titulos = new Map(), pessoas = new Map(), proj = new Map(), meses = Array(12).fill(0), semana = Array(7).fill(0), horas = Array(24).fill(0)
+  let total = 0, totalProj = 0, maior = null
+  for (const c of calls) {
+    const dur = Math.max(0, c.fim - c.ini), d = HORA_BR(c.ini)
+    total += dur; meses[d.getUTCMonth()] += dur; semana[d.getUTCDay()]++; horas[d.getUTCHours()]++
+    for (const p of c.presentes.filter(p => !/^(g:)?teste/i.test(p.key) && !/^teste/i.test(p.nome || ''))) { const x = pessoas.get(p.key) || { key: p.key, nome: p.nome, n: 0 }; x.n++; pessoas.set(p.key, x) }
+    for (const x of c.proj) {
+      totalProj += x.ms
+      const k = (x.m?.ti || x.t).toLowerCase()
+      const t = titulos.get(k) || { titulo: x.m?.ti || x.t, ms: 0, poster: '', plat: '', tipo: x.m?.tp || '', nota: null, eps: new Set(), sessoes: new Set() }
+      t.ms += x.ms; t.sessoes.add(c.id)
+      if (x.m) { t.poster ||= x.m.p; t.plat ||= x.m.pl; t.nota ??= x.m.n; if (x.m.e) t.eps.add(`${x.m.s}:${x.m.e}`) }
+      titulos.set(k, t)
+      proj.set(x.por, (proj.get(x.por) || 0) + x.ms)
+    }
+    const principal = [...c.proj].sort((a, b) => b.ms - a.ms)[0]
+    if (!maior || dur > maior.ms) maior = { ms: dur, ini: c.ini, titulo: principal && !/^tela de /i.test(principal.t) ? principal.m?.ti || principal.t : '', presentes: c.presentes.length }
+  }
+  const generico = t => /^tela de /i.test(t.titulo)
+  const top = [...titulos.values()].filter(t => t.ms >= 5 * 60e3 && !generico(t)).sort((a, b) => b.ms - a.ms).slice(0, 10)
+    .map(t => ({ titulo: t.titulo, ms: t.ms, poster: t.poster, plat: t.plat, tipo: t.tipo, nota: t.nota, eps: t.eps.size, sessoes: t.sessoes.size }))
+  return {
+    ano, anos, sessoes: calls.length, ms: total, msProj: totalProj, maior,
+    titulos: top, pessoas: [...pessoas.values()].sort((a, b) => b.n - a.n).slice(0, 12),
+    projetou: [...proj.entries()].map(([nome, ms]) => ({ nome, ms })).sort((a, b) => b.ms - a.ms).slice(0, 5),
+    meses, semana, horas,
+  }
+}
+
+// filmes que a turma já viu (IMDb): das sessões cadastradas (pela capa) e do que foi reconhecido nas calls
+async function vistos() {
+  const out = new Set()
+  const flat = (await redis('HGETALL', 'sessoes')) || []
+  for (let i = 1; i < flat.length; i += 2) { const m = String(flat[i]).match(/tt\d{5,12}/); if (m) out.add(m[0]) }
+  const ids = (await redis('ZRANGE', 'chamadas', 0, -1)) || []
+  for (const c of await lerChamadas(ids)) for (const x of c.proj) if (x.m?.i) out.add(x.m.i)
+  return { imdb: [...out] }
 }

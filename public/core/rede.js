@@ -72,7 +72,10 @@ export function lerShare(d) {
     preview: typeof d.preview === 'string' && /^data:image\/jpeg;base64,/.test(d.preview) && d.preview.length < 200000 ? d.preview : '',
     quality: d.quality || 'auto', t: Number.isFinite(+d.t) ? +d.t : NaN, tAt: Date.now(),
     midia: lerMidia(d.midia),
-    nfx: d.nfx && typeof d.nfx === 'object' ? { ctl: d.nfx.ctl === 'eu' ? 'eu' : 'todos' } : null,
+    nfx: d.nfx && typeof d.nfx === 'object' ? {
+      ctl: d.nfx.ctl === 'eu' ? 'eu' : 'todos', pular: ['abertura', 'resumo'].includes(d.nfx.pular) ? d.nfx.pular : '', fim: !!d.nfx.fim,
+      voto: d.nfx.voto && typeof d.nfx.voto.id === 'string' ? { id: d.nfx.voto.id.slice(0, 20), s: num(d.nfx.voto.s, 0, 99), n: num(d.nfx.voto.n, 0, 99), tot: num(d.nfx.voto.tot, 1, 99), ate: num(d.nfx.voto.ate, 0, 60000), fim: ['sim', 'nao', 'seguiu'].includes(d.nfx.voto.fim) ? d.nfx.voto.fim : '' } : null,
+    } : null,
   }
 }
 

@@ -20,7 +20,7 @@ export const MODOS = {
   leilao: { nome: 'Leilão', txt: '“Acerto com 2 frames!” Quem apostar menos tenta sozinho.', min: 2 },
 }
 export const CATS = {
-  todos: 'Todos', classicos: 'Clássicos (até 1979)', anos8090: 'Anos 80 e 90', novos: 'Anos 2000+', oscar: 'Ganhou o Oscar',
+  todos: 'Todos', nossos: 'Nossas sessões', classicos: 'Clássicos (até 1979)', anos8090: 'Anos 80 e 90', novos: 'Anos 2000+', oscar: 'Ganhou o Oscar',
   brasil: 'Brasileiros', animacao: 'Animação', acao: 'Ação e aventura', comedia: 'Comédia', terror: 'Terror', ficcao: 'Ficção e fantasia', suspense: 'Suspense e crime', romance: 'Romance',
 }
 const daCat = (f, c) => c === 'todos' ? true : c === 'classicos' ? f.ano < 1980 : c === 'anos8090' ? f.ano >= 1980 && f.ano < 2000 : c === 'novos' ? f.ano >= 2000 : (f.c || []).includes(c)
@@ -81,7 +81,10 @@ export function criaQuadro(ctx) {
 
   /* ---------- dados ---------- */
   let filmes = null, catalogo = null, contaCats = null, capasCat = null
-  const pegaFilmes = () => filmes ||= fetch(DADOS + 'filmes.json', { cache: 'no-cache' }).then(r => r.json()).then(l => {
+  // "Nossas sessões": filmes que a turma já viu no Cineminha (diário e o que foi reconhecido nas calls)
+  const pegaVistos = () => fetch('api/sessoes?vistos=1').then(r => r.json()).then(r => new Set(r.imdb || [])).catch(() => new Set())
+  const pegaFilmes = () => filmes ||= Promise.all([fetch(DADOS + 'filmes.json', { cache: 'no-cache' }).then(r => r.json()), pegaVistos()]).then(([l, vistos]) => {
+    for (const f of l) if (vistos.has(f.imdb)) f.c = [...(f.c || []), 'nossos']
     contaCats = Object.fromEntries(Object.keys(CATS).map(c => [c, l.filter(f => daCat(f, c)).length]))
     capasCat = Object.fromEntries(Object.keys(CATS).map(c => { const f = l.filter(x => daCat(x, c))[3] || l.find(x => daCat(x, c)); return [c, f ? frame(f.p, Math.min(2, f.n - 1)) : ''] }))
     if (V) render(); return l
@@ -505,10 +508,13 @@ export function criaQuadro(ctx) {
         el('div', { className: `${XX}-modo__txt` }, el('b', { textContent: md.nome }), el('small', { textContent: md.txt }),
           k === m ? el('ul', {}, ...REGRAS[k].map(r => el('li', { textContent: r }))) : '')), () => muda({ modo: k }))))
     // categorias com um frame de fundo (o primeiro filme de cada uma)
-    const cats = Object.keys(CATS).filter(c => !contaCats || contaCats[c] >= 3)
-    const gradeCats = el('div', { className: `${XX}-cats` }, ...cats.map(c => clicavel(
-      el('div', { className: `${XX}-cat ${c === V.op.cat ? 'on' : ''}`, style: capasCat?.[c] ? `--capa:url("${capasCat[c]}")` : '' },
-        el('b', { textContent: CATS[c] }), contaCats ? el('small', { textContent: `${contaCats[c]} filmes` }) : ''), () => muda({ cat: c }))))
+    // "Nossas sessões" aparece sempre (é a de vocês); com menos de 3 filmes fica apagada, com o que falta
+    const cats = Object.keys(CATS).filter(c => c === 'nossos' || !contaCats || contaCats[c] >= 3)
+    const gradeCats = el('div', { className: `${XX}-cats` }, ...cats.map(c => {
+      const poucos = contaCats && contaCats[c] < 3, card = el('div', { className: `${XX}-cat ${c === V.op.cat ? 'on' : ''} ${c === 'nossos' ? `${XX}-cat--nossos` : ''} ${poucos ? 'off' : ''}`, style: capasCat?.[c] ? `--capa:url("${capasCat[c]}")` : '' },
+        el('b', { textContent: CATS[c] }), contaCats ? el('small', { textContent: poucos ? `${contaCats[c]} de 3 · vejam mais filmes` : `${contaCats[c]} filmes` }) : '')
+      return poucos ? card : clicavel(card, () => muda({ cat: c }))
+    }))
     const seg = (rot, itens, atual, chave, fmt) => el('div', { className: `${XX}-seg` }, el('small', { textContent: rot }),
       el('div', { className: `${XX}-seg__opts` }, ...itens.map(x => clicavel(el('span', { className: x === atual ? 'on' : '', textContent: fmt(x) }), () => muda({ [chave]: x })))))
     const ajustes = el('div', { className: `${XX}-ajustes` },

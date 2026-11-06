@@ -213,3 +213,8 @@
 .qq-passes span.falta { background: rgba(244,236,223,.06); color: var(--qq-suave); }
 .qq-passes span.falta i { font-style: normal; animation: qq-pisca 1.2s steps(1) infinite; }
 .qq-foto--mini { width: 2.8cqh; height: 2.8cqh; }
+
+/* "Nossas sessões": destaque e estado apagado quando ainda há poucos filmes */
+.qq-cat--nossos { outline: 1px solid #f5b84166; }
+.qq-cat--nossos b::before { content: '★ '; color: #f5b841; }
+.qq-cat.off { opacity: .45; cursor: default; filter: grayscale(.6); }

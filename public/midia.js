@@ -28,7 +28,7 @@ export function lerTexto(texto) {
   const iT = linhas.findIndex(l => RE_TEMP.test(l))
   const iE = linhas.findIndex(l => RE_EP.test(l))
   const tit = i >= 0 ? linhas[i + 1] : iT > 0 && iE > iT && iE - iT <= 2 ? linhas[iT - 1] : null
-  if (tit) {
+  if (tit && !/^voc[êe]\b|assistindo|watching|^epis|^temporada/i.test(tit) && /[a-zà-ú]{2}/i.test(tit)) {
     const r = { plat: 'netflix', titulo: tit.slice(0, 100), s: iT >= 0 ? +linhas[iT].match(RE_TEMP)[1] : 0, e: 0, epNome: '' }
     if (iE >= 0) { const m = linhas[iE].match(RE_EP); r.e = +m[1]; r.epNome = m[2].length < 4 || /^\W*z?E\W*\d+\W*$/i.test(m[2]) ? '' : m[2].slice(0, 100) }
     if (r.e && !r.s) r.s = 1

@@ -38,12 +38,26 @@
     }
     return ultimoDom
   }
+  // Botões que a Netflix mostra por cima do vídeo: pular abertura/resumo e, no fim, próximo episódio
+  const BOTOES = {
+    abertura: ['[data-uia="player-skip-intro"]', /^(pular abertura|skip intro|saltar introdu)/i],
+    resumo: ['[data-uia="player-skip-recap"]', /^(pular resumo|skip recap|saltar resumo)/i],
+    proximo: ['[data-uia^="next-episode-seamless-button"]', /^(pr[óo]ximo epis[óo]dio|next episode)/i],
+    creditos: ['[data-uia="watch-credits-seamless-button"]', /^(assistir aos cr[ée]ditos|watch credits|ver cr[ée]ditos)/i],
+  }
+  const acha = qual => {
+    const [sel, re] = BOTOES[qual]
+    const b = document.querySelector(sel)
+    if (b) return b
+    return [...document.querySelectorAll('button')].find(x => x.offsetParent && re.test(x.textContent.trim()))
+  }
+  const botoes = () => ({ pular: acha('resumo') ? 'resumo' : acha('abertura') ? 'abertura' : '', fim: !!acha('proximo') })
   setInterval(() => {
     if (!/\/watch\//.test(location.pathname)) return
     const p = player(), v = video()
     try {
-      if (p) window.postMessage({ cineNfx: 'estado', paused: p.isPaused(), t: p.getCurrentTime() / 1000, d: p.getDuration() / 1000, midia: oQuePassa(p) }, location.origin)
-      else if (v) window.postMessage({ cineNfx: 'estado', paused: v.paused, t: v.currentTime, d: v.duration || 0, midia: oQuePassa(null) }, location.origin)
+      if (p) window.postMessage({ cineNfx: 'estado', paused: p.isPaused(), t: p.getCurrentTime() / 1000, d: p.getDuration() / 1000, midia: oQuePassa(p), ...botoes() }, location.origin)
+      else if (v) window.postMessage({ cineNfx: 'estado', paused: v.paused, t: v.currentTime, d: v.duration || 0, midia: oQuePassa(null), ...botoes() }, location.origin)
     } catch (e) { console.warn('[Cineminha]', e) }
   }, 1000)
   addEventListener('message', e => {
@@ -54,6 +68,9 @@
     const p = player(), v = video()
     console.info('[Cineminha] comando', op, d ?? '')
     try {
+      if (op === 'pular') { (acha('resumo') || acha('abertura'))?.click(); return }
+      if (op === 'proximo') { acha('proximo')?.click(); return }
+      if (op === 'creditos') { acha('creditos')?.click(); (p || v)?.pause?.(); return }
       if (!p) { if (v && op === 'toggle') v.paused ? v.play() : v.pause(); else if (v && op === 'play') v.play(); else if (v && op === 'pause') v.pause(); return }
       if (op === 'toggle') p.isPaused() ? p.play() : p.pause()
       else if (op === 'play') p.play()

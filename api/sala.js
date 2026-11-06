@@ -76,14 +76,14 @@ export default async function handler(req, res) {
           const id = `${b.r}:${callIni}`, h = `cham:${id}`
           await redis('HSETNX', h, 'ini', String(callIni))
           await redis('HSET', h, 'fim', String(now), 'r', b.r, `p:${key}`, info.name || key)
-          const pj = b.proj && typeof b.proj.t === 'string' && b.proj.t.trim() ? { t: b.proj.t.trim().slice(0, 140), k: String(b.proj.k || 'tela').slice(0, 12) } : null
+          const pj = b.proj && typeof b.proj.t === 'string' && b.proj.t.trim() ? { t: b.proj.t.trim().slice(0, 140), k: String(b.proj.k || 'tela').slice(0, 12), m: metaProj(b.proj.m) } : null
           if (pj) {
             const campo = `x:${pj.t.toLowerCase()}`
             let x = null
             try { x = JSON.parse(await redis('HGET', h, campo)) } catch {}
             // tempo projetado: soma os intervalos entre batidas (15 s), sem contar pausas longas
             const ms = (x?.ms || 0) + (x && now - x.fim < 60e3 ? now - x.fim : 0)
-            await redis('HSET', h, campo, JSON.stringify({ t: pj.t, k: pj.k, por: info.name || key, ini: x?.ini || now, fim: now, ms }))
+            await redis('HSET', h, campo, JSON.stringify({ t: pj.t, k: pj.k, por: info.name || key, ini: x?.ini || now, fim: now, ms, ...(pj.m || x?.m ? { m: pj.m || x.m } : {}) }))
           }
           await redis('ZADD', 'chamadas', 'NX', String(callIni), id)
           await redis('EXPIRE', h, 180 * 86400)
@@ -181,4 +181,16 @@ export default async function handler(req, res) {
     }
     json(res, 405, { error: 'método' })
   } catch (e) { json(res, 500, { error: String(e.message || e) }) }
+}
+
+// o que estava passando (série/filme reconhecido na projeção): só campos simples, para o diário
+function metaProj(m) {
+  if (!m || typeof m !== 'object' || typeof m.ti !== 'string' || !m.ti.trim()) return null
+  const tx = (v, n) => typeof v === 'string' ? v.slice(0, n) : ''
+  const nu = (v, hi) => Number.isFinite(+v) ? Math.max(0, Math.min(hi, +v)) : 0
+  return {
+    ti: tx(m.ti, 100), pl: m.pl === 'netflix' ? 'netflix' : '', s: nu(m.s, 99), e: nu(m.e, 999), ep: tx(m.ep, 100),
+    n: m.n == null ? null : nu(m.n, 10), p: /^https:\/\/[^\s"'<>]+$/.test(m.p || '') ? m.p.slice(0, 300) : '', i: /^tt\d{5,12}$/.test(m.i || '') ? m.i : '',
+    tp: m.tp === 'serie' ? 'serie' : 'filme', a: tx(m.a, 12),
+  }
 }

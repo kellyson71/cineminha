@@ -671,7 +671,8 @@ async function heartbeat() {
   const est = await coletaEstado().catch(() => null)
   ultimoEst = est
   const ev = evBuf.splice(0)
-  const proj = myShare ? { t: myShare.titulo || '', k: myShare.kind } : null
+  const md = myShare?.midia
+  const proj = myShare ? { t: myShare.titulo || '', k: myShare.kind, ...(md ? { m: { ti: md.titulo, pl: md.plat, s: md.s, e: md.e, ep: md.epNome, n: md.nota, p: md.poster, i: md.imdb, tp: md.tipo, a: md.ano } } : {}) } : null
   const r = await api('sala', { method: 'POST', body: { op: 'aqui', r: roomId, pw: roomPw, key: me.key, name: me.name, slug, filme: invite?.filme || CFG.subtitulo || '', est, ev, proj, registra: !/^teste/i.test(canal || '') } })
   if (!Array.isArray(r?.pres)) { evBuf.unshift(...ev.slice(-20)); return }
   if (!r.pres.some(x => x.key !== me.key)) voltaFim() // ninguém mais na sala: não há o que esperar
@@ -762,6 +763,7 @@ function updatePlayer(id) {
   p.play.hidden = !file; p.seek.hidden = !file; p.time.hidden = !file; p.back.hidden = p.fwd.hidden = !file
   p.back.disabled = p.fwd.disabled = !pode
   p.root.classList.toggle('sem-linha', !file)
+  nfxAcoes(id, tile, nf ? (id === selfId ? shareMsg().nfx : info.nfx) : null, pode)
   const md = info?.midia
   p.title.innerHTML = ''
   if (md) p.title.append(el('b', { textContent: md.titulo }), md.s ? el('span', { textContent: ` T${md.s}:E${md.e}${md.epNome ? ' ' + md.epNome : ''}` }) : '')
@@ -788,6 +790,33 @@ function updatePlayer(id) {
   tile.el.classList.toggle('file-session', file)
   if (info?.preview && tile.preview.getAttribute('src') !== info.preview) tile.preview.src = info.preview
   tile.preview.hidden = id === selfId || !arq || !info?.paused || !info?.preview
+}
+// Por cima do vídeo da Netflix: "Pular abertura" e a votação do próximo episódio
+function nfxAcoes(id, tile, n, pode) {
+  let box = tile.nfxBox
+  if (!box) { box = tile.nfxBox = el('div', { className: 'nfx-acoes' }); box.addEventListener('click', e => e.stopPropagation()); tile.el.append(box) }
+  const k = JSON.stringify([n?.pular, n?.voto?.id, n?.voto?.s, n?.voto?.n, n?.voto?.fim, pode, tile.meuVoto?.[n?.voto?.id]])
+  if (box.dataset.k === k) return
+  box.dataset.k = k
+  const itens = []
+  if (n?.pular && pode && !n?.voto) {
+    const b = el('button', { type: 'button', className: 'nfx-pular' }, icon('skip-forward'), el('span', { textContent: n.pular === 'resumo' ? 'Pular resumo' : 'Pular abertura' }))
+    b.addEventListener('click', () => playerCommand(id, 'pular'))
+    itens.push(b)
+  }
+  const v = n?.voto
+  if (v) {
+    const meu = (tile.meuVoto ||= {})[v.id]
+    const vota = val => { tile.meuVoto[v.id] = val; playerCommand(id, 'voto', { id: v.id, v: val }); box.dataset.k = ''; updatePlayer(id) }
+    const bt = (val, emo, txt, c) => { const b = el('button', { type: 'button', className: 'nfx-voto__b ' + c + (meu === val ? ' on' : ''), disabled: !!v.fim }, el('i', { textContent: emo }), el('span', { textContent: txt }), el('b', { textContent: val > 0 ? v.s : v.n })); b.addEventListener('click', () => vota(val)); return b }
+    const res = v.fim === 'sim' ? 'Mais um, então!' : v.fim === 'nao' ? 'Paramos por aqui' : v.fim ? 'A Netflix seguiu' : ''
+    const card = el('div', { className: 'nfx-voto' + (v.fim ? ' fim' : '') },
+      el('div', { className: 'nfx-voto__t' }, el('b', { textContent: res || 'Mais um episódio?' }), el('small', { textContent: v.fim ? `${v.s} × ${v.n}` : `${v.s + v.n} de ${v.tot} votaram` })),
+      el('div', { className: 'nfx-voto__bs' }, bt(1, '👍', 'Mais um', 'sim'), bt(-1, '👎', 'Parar', 'nao')),
+      v.fim ? '' : el('i', { className: 'nfx-voto__tempo', style: `animation-duration:${Math.max(0, v.ate)}ms` }))
+    itens.push(card)
+  }
+  box.replaceChildren(...itens)
 }
 function buildPlayer(id, tile) {
   const button = (name, title, fn) => {
@@ -1554,7 +1583,7 @@ navigator.mediaDevices?.addEventListener?.('devicechange', () => listDevices())
 function shareMsg() {
   const n = nfxDe(myShare)
   const t = myShare.kind === 'arquivo' && myShare.video ? myShare.video.currentTime : n ? n.t : undefined
-  if (n) return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: false, paused: n.paused, subs: false, t, duration: n.d, rate: 1, preview: '', quality: myShare.quality || 'auto', nfx: { ctl: prefs.nfxTodos === false ? 'eu' : 'todos' } }
+  if (n) return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: false, paused: n.paused, subs: false, t, duration: n.d, rate: 1, preview: '', quality: myShare.quality || 'auto', nfx: { ctl: prefs.nfxTodos === false ? 'eu' : 'todos', pular: n.pular, fim: n.fim, voto: myShare.voto ? { id: myShare.voto.id, s: myShare.voto.sim.size, n: myShare.voto.nao.size, ate: myShare.voto.ate - Date.now(), fim: myShare.voto.fim, tot: peers.size + 1 } : null } }
   return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: myShare.game, paused: !!myShare.paused, subs: !!myShare.subs, t, duration: myShare.video?.duration || 0, rate: myShare.video?.playbackRate || 1, preview: myShare.preview || '', quality: myShare.quality || 'auto' }
 }
 // quem transmite arquivo avisa o tempo do filme de vez em quando (para marcar mensagens)
@@ -1646,16 +1675,18 @@ async function detectaMidia(vt) {
   let mod
   try { mod = await import('./midia.js') } catch { return }
   if (myShare !== share) return
-  share.detector = mod.criaDetector(vt, r => { if (!nfxDe(share)) aplicaMidia(share, r) })
+  share.detector = mod.criaDetector(vt, r => { if (!nfxDe(share)) aplicaMidia(share, r, true) })
 }
 // a extensão (exata) ou o OCR acharam o que está passando: busca capa/nota e avisa todo mundo
-async function aplicaMidia(share, r) {
+async function aplicaMidia(share, r, ocr) {
   const k = `${r.titulo}|${r.s}|${r.e}`
   if (share.midiaK === k) return
   share.midiaK = k
   const mod = await import('./midia.js').catch(() => null)
   const m = mod ? await mod.buscaMidia(r) : null
   if (myShare !== share || share.midiaK !== k) return
+  // leitura da tela só vale se o título existir no catálogo (OCR às vezes lê lixo, ex.: "Você db")
+  if (ocr && !m) { share.midiaK = ''; return }
   share.midia = {
       plat: r.plat, titulo: r.titulo, s: r.s, e: r.e, epNome: r.epNome || m?.ep?.nome || '', tipo: m?.tipo || (r.s ? 'serie' : 'filme'),
       original: m?.filme || '', ano: m?.ano || '', nota: m?.nota ?? null, poster: m?.poster || '', fundo: m?.ep?.still || m?.background || '', imdb: m?.id || '',
@@ -1688,12 +1719,46 @@ function nfxEstado(d) {
   if (sh?.kind !== 'tela' || sh.game) return
   const ant = nfxDe(sh), agora = Date.now()
   if (!sh.nfx) console.info('[Cineminha] Netflix conectada pela extensão')
-  sh.nfx = { paused: !!d.paused, t: Math.max(0, +d.t || 0), d: Math.max(0, +d.d || 0), at: agora }
+  sh.nfx = { paused: !!d.paused, t: Math.max(0, +d.t || 0), d: Math.max(0, +d.d || 0), at: agora, pular: ['abertura', 'resumo'].includes(d.pular) ? d.pular : '', fim: !!d.fim }
+  // abertura/resumo: pula sozinho se quem projeta quiser; senão aparece o botão para a sala
+  if (sh.nfx.pular && !ant?.pular && prefs.nfxPular) setTimeout(() => { if (nfxDe(sh)?.pular) { nfxCmd('pular'); sysMsg(`Pulei ${sh.nfx.pular === 'resumo' ? 'o resumo' : 'a abertura'}`) } }, 700)
+  // fim do episódio (a Netflix mostra "Próximo episódio"): a sala vota se vê mais um
+  if (sh.nfx.fim && !ant?.fim && !sh.voto) iniciaVoto(sh)
+  if (!sh.nfx.fim && sh.voto && !sh.voto.fim) encerraVoto(sh, 'seguiu')
   if (d.midia?.titulo) aplicaMidia(sh, { plat: 'netflix', titulo: String(d.midia.titulo).slice(0, 100), s: +d.midia.s || 0, e: +d.midia.e || 0, epNome: String(d.midia.epNome || '').slice(0, 100) })
   const previsto = ant ? ant.t + (ant.paused ? 0 : (agora - ant.at) / 1000) : 0
-  if (!ant || ant.paused !== sh.nfx.paused || Math.abs(previsto - sh.nfx.t) > 3 || agora - (sh.nfxEnviado || 0) > 5000) {
+  if (!ant || ant.paused !== sh.nfx.paused || ant.pular !== sh.nfx.pular || ant.fim !== sh.nfx.fim || Math.abs(previsto - sh.nfx.t) > 3 || agora - (sh.nfxEnviado || 0) > 5000) {
     sh.nfxEnviado = agora; actions?.share.send(shareMsg()); renderTile(selfId)
   }
+}
+/* Votação "mais um episódio?": quem projeta conta os votos. Maioria da sala decide na hora;
+   senão, em 12 s vale o que tiver mais votos (empate ou ninguém votou: a Netflix segue sozinha). */
+const VOTO_MS = 12000
+function iniciaVoto(sh) {
+  sh.voto = { id: Date.now().toString(36), sim: new Set(), nao: new Set(), ate: Date.now() + VOTO_MS, fim: '' }
+  sh.voto.timer = setTimeout(() => encerraVoto(sh), VOTO_MS)
+  sfx('chat'); actions?.share.send(shareMsg()); renderTile(selfId)
+}
+function votou(sh, quem, v, id) {
+  const vt = sh?.voto
+  if (!vt || vt.fim || vt.id !== id) return
+  vt.sim.delete(quem); vt.nao.delete(quem)
+  ;(v > 0 ? vt.sim : vt.nao).add(quem)
+  const total = peers.size + 1
+  if (vt.sim.size > total / 2 || vt.nao.size > total / 2) encerraVoto(sh)
+  else { actions?.share.send(shareMsg()); renderTile(selfId) }
+}
+function encerraVoto(sh, motivo) {
+  const vt = sh.voto
+  if (!vt || vt.fim) return
+  clearTimeout(vt.timer)
+  const placar = `${vt.sim.size} × ${vt.nao.size}`
+  if (motivo === 'seguiu') vt.fim = 'seguiu'
+  else if (vt.sim.size > vt.nao.size) { vt.fim = 'sim'; nfxCmd('proximo'); sysMsg(`A sala votou: mais um episódio! (${placar})`) }
+  else if (vt.nao.size > vt.sim.size) { vt.fim = 'nao'; nfxCmd('creditos'); sysMsg(`A sala votou: paramos por aqui (${placar})`) }
+  else vt.fim = 'seguiu'
+  actions?.share.send(shareMsg()); renderTile(selfId)
+  setTimeout(() => { if (sh.voto === vt) { sh.voto = null; if (myShare === sh) { actions?.share.send(shareMsg()); renderTile(selfId) } } }, 6000)
 }
 function nfxCmd(op, d) { postMessage({ cineExt: 'netflix', tipo: 'cmd', op, d, id: Date.now() + '' + Math.random() }, location.origin) }
 // Trocar o que está sendo projetado sem parar a transmissão: troca as trilhas na mesma conexão
@@ -1865,7 +1930,7 @@ $('#btnPause').addEventListener('click', askPause)
 /* ---------- Controle remoto do arquivo (qualquer um pausa/volta/avança) ---------- */
 function ctl(id, op, d) {
   actions?.ctl.send({ op, d }, { target: id })
-  if (['quality','rate'].includes(op)) return
+  if (['quality','rate','voto','pular'].includes(op)) return
   toast(op === 'toggle' ? (shareInfo.get(id)?.paused ? 'Continuando…' : 'Pausando…') : op === 'at' ? `Pulando para ${fmtMt(d)}` : d < 0 ? `Voltando ${-d} s` : `Avançando ${d} s`, 1500)
 }
 function gotCtl(d, name, peerId) {
@@ -1874,6 +1939,11 @@ function gotCtl(d, name, peerId) {
     tuneSenders(); if (!peerId) { actions?.share.send(shareMsg()); updatePlayer(selfId) }; return
   }
   const n = nfxDe(myShare)
+  if (n && d?.op === 'voto' && d.d && typeof d.d.id === 'string') { votou(myShare, peerId || selfId, +d.d.v, d.d.id); return }
+  if (n && d?.op === 'pular') {
+    if (peerId && prefs.nfxTodos === false) return
+    nfxCmd('pular'); sysMsg(`${name} pulou ${n.pular === 'resumo' ? 'o resumo' : 'a abertura'}`); return
+  }
   if (n && d && ['toggle', 'at', 'seek'].includes(d.op)) {
     if (peerId && prefs.nfxTodos === false) return
     nfxCmd(d.op, d.d)
@@ -2789,8 +2859,52 @@ async function saveSummary() {
   if (r?.ok) { sessCache = null; toast('Sessão guardada no diário') }
 }
 let chamCache = []
+/* ---------- Retrospectiva: o ano do Cineminha em números ---------- */
+const retroEl = el('div', { className: 'retro', hidden: true })
+$('#diaryList').after(retroEl)
+const retroBtn = el('button', { type: 'button', className: 'diary-card__retro', title: 'O ano do Cineminha em números' }, icon('party-popper'), el('span', { textContent: 'Retrospectiva' }))
+$('#diaryX').before(retroBtn)
+retroBtn.addEventListener('click', () => mostraRetro(retroEl.hidden))
+function mostraRetro(on, ano) {
+  retroEl.hidden = !on; $('#diaryList').hidden = on
+  retroBtn.setAttribute('aria-pressed', String(on))
+  $('#diaryTitle').textContent = on ? 'Retrospectiva' : 'Diário de sessões'
+  if (on) carregaRetro(ano || new Date().getFullYear())
+}
+const horasTxt = ms => { const h = ms / 3.6e6; return h >= 10 ? `${Math.round(h)} h` : h >= 1 ? `${h.toFixed(1).replace('.', ',')} h` : `${Math.round(ms / 60000)} min` }
+async function carregaRetro(ano) {
+  retroEl.replaceChildren(el('p', { className: 'diary__empty', textContent: 'Fazendo as contas…' }))
+  const r = await api('sessoes?retro=' + ano)
+  if (!r?.ano) return retroEl.replaceChildren(el('p', { className: 'diary__empty', textContent: 'Não deu para carregar agora.' }))
+  if (!r.sessoes) return retroEl.replaceChildren(el('p', { className: 'diary__empty', textContent: `Nenhuma sessão registrada em ${ano} ainda.` }))
+  const MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'], SEM = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado']
+  const dia = SEM[r.semana.indexOf(Math.max(...r.semana))], hora = r.horas.indexOf(Math.max(...r.horas))
+  const maxMes = Math.max(...r.meses, 1)
+  const anos = r.anos.length > 1 ? el('div', { className: 'retro__anos' }, ...r.anos.map(a => { const b = el('button', { type: 'button', className: a === r.ano ? 'on' : '', textContent: a }); b.addEventListener('click', () => carregaRetro(a)); return b })) : ''
+  const sec = (t, ...kids) => el('section', { className: 'retro__sec' }, el('h3', { textContent: t }), ...kids)
+  retroEl.replaceChildren(
+    anos,
+    el('div', { className: 'retro__hero' },
+      el('small', { textContent: `${r.ano} no Cineminha` }),
+      el('b', { textContent: horasTxt(r.ms) }), el('span', { textContent: 'juntos na call' }),
+      el('div', { className: 'retro__nums' },
+        el('p', {}, el('b', { textContent: r.sessoes }), ' sessões'),
+        el('p', {}, el('b', { textContent: horasTxt(r.msProj) }), ' de tela'),
+        el('p', {}, el('b', { textContent: r.titulos.length }), ' títulos'))),
+    r.titulos.length ? sec('O que mais passou', el('ol', { className: 'retro__tops' }, ...r.titulos.map((t, i) => el('li', {},
+      t.poster ? el('img', { src: t.poster.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('span', { className: 'retro__semcapa' }, icon('film')),
+      el('i', { textContent: i + 1 }),
+      el('div', {}, el('b', { textContent: t.titulo }), el('small', { textContent: [horasTxt(t.ms), t.eps ? `${t.eps} episódio${t.eps > 1 ? 's' : ''}` : '', t.sessoes > 1 ? `${t.sessoes} sessões` : ''].filter(Boolean).join(' · ') })))))) : '',
+    sec('Quem mais apareceu', el('div', { className: 'retro__gente' }, ...r.pessoas.map((p, i) => el('div', { className: i === 0 ? 'top' : '' }, pfpImg(p.key, i === 0 ? 64 : 44, p.nome), el('b', { textContent: p.nome }), el('small', { textContent: `${p.n} ${p.n > 1 ? 'sessões' : 'sessão'}` }))))),
+    el('div', { className: 'retro__dupla' },
+      r.maior ? sec('Maratona do ano', el('p', { className: 'retro__grande', textContent: horasTxt(r.maior.ms) }), el('small', { textContent: [new Date(r.maior.ini).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' }), r.maior.titulo, `${r.maior.presentes} pessoas`].filter(Boolean).join(' · ') })) : '',
+      r.projetou[0]?.ms ? sec('Projecionista do ano', el('p', { className: 'retro__grande', textContent: r.projetou[0].nome }), el('small', { textContent: `${horasTxt(r.projetou[0].ms)} projetando` })) : '',
+      sec('O horário de vocês', el('p', { className: 'retro__grande', textContent: `${dia}, ${hora}h` }), el('small', { textContent: 'o dia e a hora em que mais começa sessão' }))),
+    sec('Mês a mês', el('div', { className: 'retro__meses' }, ...r.meses.map((ms, i) => el('div', { title: horasTxt(ms) }, el('i', { style: `--h:${Math.round(ms / maxMes * 100)}%` }), el('small', { textContent: MES[i] }))))))
+}
 async function openDiary() {
   closePops()
+  mostraRetro(false)
   $('#diaryList').replaceChildren(el('li', { className: 'diary__empty', textContent: 'Carregando…' }))
   $('#diaryModal').hidden = false
   const r = await api('sessoes')
@@ -2820,13 +2934,19 @@ async function openDiary() {
   // sessões da call registradas sozinhas (as que não viraram uma sessão cadastrada)
   const auto = chamCache.filter(c => !c.sessao).map(c => {
     const agora = Date.now() - c.fim < 15 * 60e3
-    const titulo = c.proj[0]?.t || 'Só conversa'
+    // reconhecido na projeção (Netflix…): capa, série, episódios e nota; o mais assistido da call manda
+    const m = [...c.proj].filter(x => x.m).sort((x, y) => y.ms - x.ms)[0]?.m
+    const titulo = m?.ti || c.proj[0]?.t || 'Só conversa'
+    const eps = m?.tp === 'serie' ? [...new Map(c.proj.filter(x => x.m?.ti === m.ti && x.m.e).map(x => [`${x.m.s}:${x.m.e}`, x.m])).values()].sort((x, y) => x.s - y.s || x.e - y.e) : []
+    const epTxt = eps.length ? [...new Set(eps.map(x => x.s))].map(t => `T${t} · ${eps.filter(x => x.s === t).map(x => 'E' + x.e).join(', ')}`).join(' · ') + (eps.length === 1 && eps[0].ep ? ` · ${eps[0].ep}` : '') : m?.a || ''
     const info = el('div', { className: 'diary__info' },
       el('span', { className: 'diary__when' }, agora ? el('em', { className: 'diary__agora', textContent: 'agora' }) : '', `${dia(c.ini)} · ${hm(c.ini)}–${hm(c.fim)}`),
       el('h3', { textContent: titulo }),
+      m ? el('p', { className: 'diary__meta diary__midia' }, m.pl ? el('span', { className: 'diary__plat', innerHTML: (ICONE_PLAT[m.pl] || '') + (NOME_PLAT[m.pl] || '') }) : '', epTxt ? el('span', { textContent: epTxt }) : '', m.n ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+m.n).toFixed(1)}` }) : '') : '',
       cast(c.presentes, durTxt(c.fim - c.ini)),
       c.proj.length > 1 || (c.proj[0] && c.proj[0].ms >= 60e3) ? projs(c) : '')
-    return { t: c.ini, node: el('li', { className: 'diary__item diary__item--auto' }, el('div', { className: 'diary__poster diary__poster--none' }, icon(c.proj[0]?.k === 'arquivo' ? 'film' : c.proj.length ? 'monitor' : 'users')), info) }
+    const capa = m?.p ? el('img', { className: 'diary__poster', src: m.p.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('div', { className: 'diary__poster diary__poster--none' }, icon(c.proj[0]?.k === 'arquivo' ? 'film' : c.proj.length ? 'monitor' : 'users'))
+    return { t: c.ini, node: el('li', { className: 'diary__item diary__item--auto' }, capa, info) }
   })
   const proximas = planned.filter(x => x.proxima), vistas = [...planned.filter(x => !x.proxima), ...auto].sort((a, b) => b.t - a.t)
   if (!proximas.length && !vistas.length) return $('#diaryList').replaceChildren(el('li', { className: 'diary__empty', textContent: 'Nada ainda. Cada sessão da call entra aqui sozinha, com o que foi projetado e quem estava.' }))
@@ -3335,6 +3455,7 @@ function renderSetPrefs() {
     setToggle('Chat fixo na tela cheia', 'Em vez de flutuar por cima do vídeo', () => prefs.chatFixo, v => setChatFixo(v)),
     setToggle('Avisos de volume', 'Sugere ajustes quando o filme abafa a conversa', () => prefs.nudges, v => { prefs.nudges = v; $('#nudgeOpt').checked = v }),
     setToggle('Avisar sobre bordas pretas', 'Oferece cortar as tarjas da projeção', () => prefs.avisoBordas !== false, v => { prefs.avisoBordas = v }),
+    setToggle('Pular aberturas sozinho', 'Na Netflix, com a extensão: abertura e resumo são pulados sem precisar clicar', () => !!prefs.nfxPular, v => { prefs.nfxPular = v }),
     setToggle('Todo mundo controla a minha Netflix', (nfx.ext ? 'Extensão conectada. ' : 'Precisa da extensão (cineminha-boo.vercel.app/baixar/extensao). ') + 'Play, pausa e pular valem para todos; desligado, só você controla', () => prefs.nfxTodos !== false, v => { prefs.nfxTodos = v; if (myShare) { actions?.share.send(shareMsg()); updatePlayer(selfId) } }),
     h('Rádio'),
     setVol('Volume da rádio', () => radio.getVol(), v => { radio.setVol(v); try { syncRadioVol() } catch {} }),
