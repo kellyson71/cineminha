@@ -2142,3 +2142,25 @@ html.voltando .volta, .volta.show { display: flex; }
 .theater:is(:fullscreen, .palco) ~ * .agora, .theater:is(:fullscreen, .palco) .agora { display: none; }
 .theater:is(:fullscreen, .palco) .tile .midia-card:not(.aberto) { opacity: 0; transform: translateY(-14px) scale(.96); pointer-events: none; }
 .theater:is(:fullscreen, .palco):not(.idle) .tile .midia-card.in { opacity: 1; transform: none; pointer-events: auto; }
+
+/* ===== Tela cheia em uma linha: bonecos | barrinha do vídeo | botões. Medidas em --esq/--dir (arrumaBarra).
+   Sem espaço (muita gente na fileira), a barrinha sobe e fica acima da linha. ===== */
+.theater:is(:fullscreen, .palco) .toolbar { left: auto; right: 16px; bottom: 12px; transform: none; }
+.theater:is(:fullscreen, .palco) .row { left: 16px; bottom: 12px; }
+.theater:is(:fullscreen, .palco) .tile .player-controls {
+  left: var(--esq, 16px); right: var(--dir, 16px); bottom: var(--bb, 12px); min-height: var(--tbh, 52px);
+  display: flex; align-items: center; gap: 4px; padding: 0 12px 0 6px !important;
+  background: rgba(12,12,16,.78); backdrop-filter: blur(6px); border-radius: 14px;
+}
+.theater:is(:fullscreen, .palco) .tile .player-controls .player-bar { display: contents; }
+.theater:is(:fullscreen, .palco) .tile .player-controls .player-linha { order: 2; flex: 1; min-width: 120px; margin: 0 8px; gap: 10px; }
+.theater:is(:fullscreen, .palco) .tile .player-controls .player-bar > :is(.player-button:first-child, .player-10) { order: 1; }
+.theater:is(:fullscreen, .palco) .tile .player-controls .player-bar > :not(:first-child, .player-10) { order: 3; }
+.theater:is(:fullscreen, .palco) .tile .player-controls .player-title { display: none; }
+.theater:is(:fullscreen, .palco) .tile .player-controls .player-button { width: 36px; height: 36px; padding: 6px; }
+.theater:is(:fullscreen, .palco) .tile .player-controls .player-button svg { width: 21px; height: 21px; }
+.theater:is(:fullscreen, .palco) .tile .player-controls .player-time { min-width: 0; font-size: .74rem; }
+.theater:is(:fullscreen, .palco) .tile .player-controls.sem-linha { display: none; }
+.theater:is(:fullscreen, .palco) .tile .player-settings { bottom: calc(100% + 8px); }
+.theater:is(:fullscreen, .palco).barra-acima .tile .player-controls { left: 16px; right: 16px; bottom: calc(var(--bb, 12px) + var(--tbh, 52px) + 12px); }
+.theater:is(:fullscreen, .palco) .player-center { display: none; }

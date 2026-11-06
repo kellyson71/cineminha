@@ -823,8 +823,8 @@ function buildPlayer(id, tile) {
   upload.append(el('span', { textContent: 'Carregar legenda' })); upload.classList.add('player-upload')
   const settings = el('div', { className: 'player-settings', hidden: true }, el('label', {}, el('span', { textContent: 'Qualidade' }), quality), rateLabel, upload, subtitleFile)
   const full = button('maximize', 'Tela cheia', toggleFs)
-  const back = button('rotate-ccw', 'Voltar 10 s', () => playerCommand(id, 'seek', -10)); back.classList.add('player-10')
-  const fwd = button('rotate-cw', 'Avançar 10 s', () => playerCommand(id, 'seek', 10)); fwd.classList.add('player-10')
+  const back = button('rotate-ccw', 'Voltar 5 s (←)', () => playerCommand(id, 'seek', -5)); back.classList.add('player-10')
+  const fwd = button('rotate-cw', 'Avançar 5 s (→)', () => playerCommand(id, 'seek', 5)); fwd.classList.add('player-10')
   const title = el('span', { className: 'player-title' })
   const vol = el('span', { className: 'player-vol' }, mute, volume)
   const bar = el('div', { className: 'player-bar' }, play, back, fwd, vol, title, subs, gear, full)
@@ -1071,6 +1071,7 @@ function renderTile(id) {
 }
 function layout() {
   agoraPassando()
+  setTimeout(() => arrumaBarra?.(), 0)
   const n = tiles.size + (midiaEl ? 1 : 0)
   if (midiaEl) { const thumb = n > 1 && !!focusId; midiaEl.classList.toggle('thumb', thumb); midiaEl.style.setProperty('--i', thumb ? tiles.size - 1 : 0) }
   if (focusId && !tiles.has(focusId)) focusId = null
@@ -1865,7 +1866,7 @@ $('#btnPause').addEventListener('click', askPause)
 function ctl(id, op, d) {
   actions?.ctl.send({ op, d }, { target: id })
   if (['quality','rate'].includes(op)) return
-  toast(op === 'toggle' ? (shareInfo.get(id)?.paused ? 'Continuando…' : 'Pausando…') : op === 'at' ? `Pulando para ${fmtMt(d)}` : d < 0 ? 'Voltando 10 s' : 'Avançando 10 s', 1500)
+  toast(op === 'toggle' ? (shareInfo.get(id)?.paused ? 'Continuando…' : 'Pausando…') : op === 'at' ? `Pulando para ${fmtMt(d)}` : d < 0 ? `Voltando ${-d} s` : `Avançando ${d} s`, 1500)
 }
 function gotCtl(d, name, peerId) {
   if (d?.op === 'quality' && myShare && ['auto','1080','720','480'].includes(String(d.d))) {
@@ -3362,6 +3363,7 @@ const imersivo = () => !!document.fullscreenElement || theater.classList.contain
 function setPalco(on) {
   if (on === theater.classList.contains('palco')) return
   theater.classList.toggle('palco', on)
+  setTimeout(arrumaBarra, 50)
   document.body.classList.toggle('palco-on', on)
   $('#btnPalco').setAttribute('aria-pressed', String(on))
   setIcon(iconOf($('#btnPalco')), on ? 'minimize' : 'maximize-2')
@@ -3399,6 +3401,7 @@ document.addEventListener('fullscreenchange', () => {
 // Em tela cheia, controles somem quando o mouse para
 let idleTimer
 function poke() {
+  arrumaBarra()
   theater.classList.remove('idle')
   clearTimeout(idleTimer)
   idleTimer = setTimeout(() => {
@@ -3412,6 +3415,26 @@ function poke() {
     theater.classList.add('idle')
   }, matchMedia('(pointer: coarse)').matches ? 5000 : 2500)
 }
+// Tela cheia em uma linha só: bonecos à esquerda, barrinha do vídeo no meio, botões à direita.
+// A barrinha ocupa o que sobra entre os dois; com muita gente na fileira e pouco espaço, ela sobe.
+function arrumaBarra() {
+  if (!imersivo()) { theater.classList.remove('barra-acima'); return }
+  const row = theater.querySelector('.row__seats'), tb = theater.querySelector('.toolbar')
+  const W = theater.clientWidth, rr = row?.getBoundingClientRect(), tr = tb?.getBoundingClientRect(), th = theater.getBoundingClientRect()
+  const esq = rr?.width ? rr.right - th.left + 14 : 16, dir = tr?.width ? th.right - tr.left + 12 : 16
+  theater.style.setProperty('--tbh', (tr?.height || 52) + 'px')
+  theater.classList.toggle('barra-acima', W - esq - dir < 420)
+  // a barrinha mora dentro de cada tela: converte para as bordas dela
+  for (const t of tiles.values()) {
+    const r = t.el.getBoundingClientRect()
+    t.el.style.setProperty('--esq', Math.max(8, esq - (r.left - th.left)) + 'px')
+    t.el.style.setProperty('--dir', Math.max(8, dir - (th.right - r.right)) + 'px')
+    t.el.style.setProperty('--bb', Math.max(0, (tr ? r.bottom - tr.bottom : 12)) + 'px')
+  }
+}
+new ResizeObserver(arrumaBarra).observe(theater)
+setTimeout(() => { const r = theater.querySelector('.row__seats'), t = theater.querySelector('.toolbar'); const o = new ResizeObserver(arrumaBarra); r && o.observe(r); t && o.observe(t) }, 0)
+document.addEventListener('fullscreenchange', () => setTimeout(arrumaBarra, 50))
 // Em tela cheia, a barra só acorda com o mouse perto dela (faixa de baixo, ou de cima quando a barra
 // fica no topo) ou em cima da barra/chat; mexer o mouse no meio do filme não mostra nada.
 function naZonaDaBarra(e) {
@@ -3465,6 +3488,13 @@ document.addEventListener('keydown', e => {
   }
   if (e.target.matches('input:not([type=range]), textarea, select') || e.ctrlKey || e.metaKey || e.altKey) return
   if (prefs.vmode === 'ptt' && e.code === prefs.pttKey) { e.preventDefault(); if (!pttDown) { pttDown = true; renderMic() } return }
+  // ← → voltam/avançam 5 s no vídeo controlável (o em foco, ou o único arquivo/Netflix na sala)
+  if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !e.target.matches('input[type=range]')) {
+    const ctrl = id => { const i = playerInfo(id); return i?.kind === 'arquivo' || (id === selfId ? !!nfxDe(myShare) : !!i?.nfx) }
+    const ids = [...tiles.keys()].filter(ctrl), id = focusId && ctrl(focusId) ? focusId : ids.length === 1 ? ids[0] : null
+    if (id) { e.preventDefault(); playerCommand(id, 'seek', e.key === 'ArrowLeft' ? -5 : 5); tiles.get(id)?.reveal?.() }
+    return
+  }
   if (e.repeat) return
   const k = e.key.toLowerCase()
   if (k === 'f') toggleFs()
