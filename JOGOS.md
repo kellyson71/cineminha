@@ -132,7 +132,7 @@ identidade visual própria. Sons: Kenney (CC0) em `public/jogos/coup/sons/`; Twe
 - **O servidor local usa o mesmo Redis da produção.** Teste sempre em `?sala=teste-xx-<timestamp>` e intercepte
   `**/api/**` no Playwright (`{'token':'a'*48,'perfis':{}}` para `conta`, `{}` para o resto) para não gravar nada.
 - Playwright (Python) com Chrome em `/opt/google/chrome/chrome`, headless, `--no-sandbox --use-fake-ui-for-media-stream
-  --use-fake-device-for-media-stream`, viewport 1400x900. Login: `#pw` = `cineminha`, clicar no `.whocard` com
+  --use-fake-device-for-media-stream`, viewport 1400x900. Login: `#pw` = a senha da sala, clicar no `.whocard` com
   `input[value=kellyson]` (e otavio, milenny, pedro), esperar `!document.body.classList.contains('locked')` e as poltronas.
   Abrir: `#btnJogo` → `.jogosmenu__it` com o nome do jogo.
 - Jogue rodadas completas com 3–4 navegadores, sem `pageerror`, e **olhe os screenshots** (legibilidade, sobreposição).

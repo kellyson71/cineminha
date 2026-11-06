@@ -1,0 +1,82 @@
+# Release do app desktop. Quando a versão em app/package.json muda (npm run lancar),
+# cria a tag vX.Y.Z e a release com os links de download e compila Linux e Windows nela.
+name: App desktop
+
+on:
+  push:
+    branches: [main]
+    paths: [app/package.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: app-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.v.outputs.tag }}
+      nova: ${{ steps.v.outputs.nova }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: app/package.json
+      - id: v
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="v$(node -p "require('./app/package.json').version")"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          if gh release view "$tag" > /dev/null 2>&1; then echo "nova=0" >> "$GITHUB_OUTPUT"; exit 0; fi
+          echo "nova=1" >> "$GITHUB_OUTPUT"
+          base="https://github.com/${{ github.repository }}/releases/download/$tag"
+          cat > notas.md <<EOF
+          ## Baixar
+
+          | Sistema | Arquivo |
+          |---|---|
+          | Windows | [Instalador]($base/Cineminha-instalador.exe) · [Portátil (sem instalar)]($base/Cineminha-portatil.exe) |
+          | Linux (qualquer distro) | [AppImage]($base/Cineminha-linux.AppImage) |
+          | Arch / CachyOS / Manjaro | [.pacman]($base/cineminha-linux.pacman) — \`sudo pacman -U cineminha-linux.pacman\` |
+          | Ubuntu / Debian / Mint | [.deb]($base/cineminha-linux.deb) |
+          | Fedora / openSUSE | [.rpm]($base/cineminha-linux.rpm) |
+
+          Quem já tem o app recebe esta versão sozinho (AppImage e Windows).
+
+          EOF
+          gh release create "$tag" --repo "${{ github.repository }}" --target "${{ github.sha }}" \
+            --title "Cineminha ${tag#v}" --notes-file notas.md --generate-notes
+
+  compilar:
+    needs: release
+    if: needs.release.outputs.nova == '1'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            alvo: --linux
+          - os: windows-latest
+            alvo: --win
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libarchive-tools rpm
+      - run: npm ci
+      - run: npx vite build
+      - run: npx electron-builder ${{ matrix.alvo }} --publish always
+        env:
+          GH_TOKEN: ${{ github.token }}

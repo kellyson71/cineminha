@@ -3,7 +3,7 @@
 Site para assistir filmes e jogar junto com os amigos (Otávio, Milenny, Kellyson e convidados).
 Cada um transmite a tela com som, todos conversam por voz e chat, e a sala mostra quem está "sentado" nas poltronas.
 
-- Produção: https://cineminha-boo.vercel.app (senha da sala `cineminha`, senha de admin `kellyson`)
+- Produção: https://cineminha-boo.vercel.app
 - Código: `~/projetos/cineminha` · deploy com `./deploy.sh` · servidor local com `node tools/dev.mjs` (porta 8790)
 - O Especial Boo (`~/projetos/especial-boo`) é o projeto de origem e **não deve ser mexido**.
 

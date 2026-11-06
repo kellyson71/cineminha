@@ -11,7 +11,8 @@
     "start": "vite build && electron .",
     "dist": "vite build && electron-builder --linux",
     "dist:win": "vite build && electron-builder --win",
-    "release": "vite build && electron-builder --linux --win --publish always"
+    "release": "vite build && electron-builder --linux --win --publish always",
+    "lancar": "node scripts/lancar.mjs"
   },
   "dependencies": {
     "electron-updater": "^6.8.11"
@@ -47,7 +48,8 @@
         "filter": [
           "**/*",
           "!jogos/faixa/**",
-          "!themes/**/*.psd"
+          "!themes/**/*.psd",
+          "!jogos/quadro/f/**"
         ]
       }
     ],
@@ -104,7 +106,7 @@
       "oneClick": true,
       "perMachine": false,
       "deleteAppDataOnUninstall": false,
-      "artifactName": "${productName}-${version}-instalador.exe"
+      "artifactName": "Cineminha-instalador.exe"
     },
     "mac": {
       "target": [
@@ -113,7 +115,7 @@
       "category": "public.app-category.entertainment"
     },
     "portable": {
-      "artifactName": "${productName}-${version}-portatil.exe"
+      "artifactName": "Cineminha-portatil.exe"
     },
     "pacman": {
       "depends": [
@@ -121,19 +123,25 @@
         "nss",
         "alsa-lib",
         "libpulse"
-      ]
+      ],
+      "artifactName": "cineminha-linux.pacman"
     },
     "deb": {
       "recommends": [
         "ffmpeg",
         "pulseaudio-utils"
-      ]
+      ],
+      "artifactName": "cineminha-linux.deb"
     },
     "rpm": {
       "fpm": [
         "--rpm-rpmbuild-define",
         "_build_id_links none"
-      ]
+      ],
+      "artifactName": "cineminha-linux.rpm"
+    },
+    "appImage": {
+      "artifactName": "Cineminha-linux.AppImage"
     }
   },
   "author": {

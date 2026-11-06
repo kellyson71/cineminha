@@ -46,5 +46,37 @@
     "api/ingresso.js": {
       "includeFiles": "public/index.html"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/baixar",
+      "destination": "https://github.com/kellyson71/cineminha/releases/latest",
+      "permanent": false
+    },
+    {
+      "source": "/baixar/windows",
+      "destination": "https://github.com/kellyson71/cineminha/releases/latest/download/Cineminha-instalador.exe",
+      "permanent": false
+    },
+    {
+      "source": "/baixar/linux",
+      "destination": "https://github.com/kellyson71/cineminha/releases/latest/download/Cineminha-linux.AppImage",
+      "permanent": false
+    },
+    {
+      "source": "/baixar/arch",
+      "destination": "https://github.com/kellyson71/cineminha/releases/latest/download/cineminha-linux.pacman",
+      "permanent": false
+    },
+    {
+      "source": "/baixar/deb",
+      "destination": "https://github.com/kellyson71/cineminha/releases/latest/download/cineminha-linux.deb",
+      "permanent": false
+    },
+    {
+      "source": "/baixar/rpm",
+      "destination": "https://github.com/kellyson71/cineminha/releases/latest/download/cineminha-linux.rpm",
+      "permanent": false
+    }
+  ]
 }
