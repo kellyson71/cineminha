@@ -1,4 +1,155 @@
 {
+ "2026-09-10": [
+  {
+   "id": "charlie-brown-jr-papo-reto-prazer-e-sexo-o-resto-e-negocio",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Papo Reto (Prazer É Sexo O Resto É Negócio)",
+   "a": "Charlie Brown Jr.",
+   "album": "Bocas Ordinárias",
+   "ano": 2003,
+   "dz": {
+    "t": 3412892,
+    "a": 8691
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 637709,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "clean-bandit-demi-lovato-solo-feat-demi-lovato",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Solo (feat. Demi Lovato)",
+   "a": "Clean Bandit",
+   "album": "Solo (feat. Demi Lovato)",
+   "ano": 2018,
+   "dz": {
+    "t": 497415082,
+    "a": 1000956
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 864528,
+   "generos": [
+    "Electro",
+    "Dance"
+   ],
+   "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "zedd-foxes-clarity",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Clarity",
+   "a": "ZEDD",
+   "album": "Clarity",
+   "ano": 2012,
+   "dz": {
+    "t": 60904700,
+    "a": 1198612
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 747555,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "DE",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-11": [
   {
    "id": "dead-or-alive-you-spin-me-round-like-a-record",
@@ -153,6 +304,116 @@
    ],
    "pais": "BR",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "doja-cat-streets",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Streets",
+   "a": "Doja Cat",
+   "album": "Hot Pink",
+   "ano": 2019,
+   "dz": {
+    "t": 797228502,
+    "a": 5578942
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 817600,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "calvin-harris-john-newman-blame-feat-john-newman",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Blame (feat. John Newman)",
+   "a": "Calvin Harris",
+   "album": "Motion",
+   "ano": 2014,
+   "dz": {
+    "t": 88936737,
+    "a": 12178
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 813626,
+   "generos": [
+    "Dance"
+   ],
+   "pais": null,
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -39341,6 +39602,265 @@
    ],
    "pais": null,
    "decada": 2020,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-25": [
+  {
+   "id": "nelly-furtado-maneater",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Maneater",
+   "a": "Nelly Furtado",
+   "album": "Loose",
+   "ano": 2007,
+   "dz": {
+    "t": 1151141,
+    "a": 133
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 931916,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "david-guetta-bebe-rexha-i-m-good-blue",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I'm Good (Blue)",
+   "a": "David Guetta",
+   "album": "I’m Good (Blue) (The Complete Collection)",
+   "ano": 2023,
+   "dz": {
+    "t": 2107937657,
+    "a": 542
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 809495,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "FR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "calvin-harris-disciples-how-deep-is-your-love",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "How Deep Is Your Love",
+   "a": "Calvin Harris",
+   "album": "How Deep Is Your Love",
+   "ano": 2015,
+   "dz": {
+    "t": 103996098,
+    "a": 12178
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 881841,
+   "generos": [
+    "Electro",
+    "Techno/House",
+    "Dance",
+    "Pop",
+    "Pop internacional",
+    "Rock",
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "kelis-milkshake",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Milkshake",
+   "a": "Kelis",
+   "album": "The Hits",
+   "ano": 2003,
+   "dz": {
+    "t": 2279314797,
+    "a": 2514
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 701396,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "kanye-west-dwele-flashing-lights",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Flashing Lights",
+   "a": "Kanye West",
+   "album": "Graduation",
+   "ano": 2007,
+   "dz": {
+    "t": 630827302,
+    "a": 230
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 891802,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2000,
    "tags_ok": true
   }
  ]
