@@ -2477,3 +2477,7 @@ body :is(.cp-topo, .dc-topo, .db-topo, .pp-topo, .ab-topo, .du-topo, .nt-topo, .
 .sons__chips button { height: 30px !important; padding: 0 12px !important; font-size: .74rem !important; }
 @media (max-width: 420px) { .sons__grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
 .sons__item .sons__name { display: -webkit-box !important; white-space: normal !important; overflow: hidden; width: 100%; word-break: break-word; }
+/* nota do episódio e da série lado a lado */
+.midia-card__nota { gap: 8px !important; }
+.midia-card__nota > span { display: inline-flex; align-items: baseline; gap: 3px; }
+.midia-card__nota small { font-size: .62rem; font-weight: 600; color: rgba(255,255,255,.6); margin-left: 1px; }

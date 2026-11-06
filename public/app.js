@@ -673,7 +673,7 @@ async function heartbeat() {
   ultimoEst = est
   const ev = evBuf.splice(0)
   const md = myShare?.midia
-  const proj = myShare ? { t: myShare.titulo || '', k: myShare.kind, ...(md ? { m: { ti: md.titulo, pl: md.plat, s: md.s, e: md.e, ep: md.epNome, n: md.nota, p: md.poster, i: md.imdb, tp: md.tipo, a: md.ano } } : {}) } : null
+  const proj = myShare ? { t: myShare.titulo || '', k: myShare.kind, ...(md ? { m: { ti: md.titulo, pl: md.plat, s: md.s, e: md.e, ep: md.epNome, n: md.nota, en: md.epNota, p: md.poster, i: md.imdb, tp: md.tipo, a: md.ano } } : {}) } : null
   const r = await api('sala', { method: 'POST', body: { op: 'aqui', r: roomId, pw: roomPw, key: me.key, name: me.name, slug, filme: invite?.filme || CFG.subtitulo || '', est, ev, proj, registra: !/^teste/i.test(canal || '') } })
   if (!Array.isArray(r?.pres)) { evBuf.unshift(...ev.slice(-20)); return }
   if (!r.pres.some(x => x.key !== me.key)) voltaFim() // ninguém mais na sala: não há o que esperar
@@ -842,7 +842,7 @@ function nfxAcoes(id, tile, n, pode) {
     }), v.nq ? el('small', { textContent: `sala: ★ ${v.nm.toFixed(1).replace('.', ',')} (${v.nq})` }) : el('small', { textContent: 'dê sua nota' }))
     const visto = md ? el('div', { className: 'nfx-visto' },
       md.poster ? el('img', { src: md.poster.replace('/poster/small/', '/poster/medium/'), alt: '' }) : '',
-      el('div', {}, el('small', { textContent: 'Vocês viram' }), el('b', { textContent: md.titulo }), md.s ? el('span', { textContent: `T${md.s} · E${md.e}${md.epNome ? ' · ' + md.epNome : ''}` }) : '')) : ''
+      el('div', {}, el('small', { textContent: 'Vocês viram' }), el('b', { textContent: md.titulo }), md.s ? el('span', { textContent: `T${md.s} · E${md.e}${md.epNome ? ' · ' + md.epNome : ''}${md.epNota ? ` · IMDb ★ ${(+md.epNota).toFixed(1)}` : ''}` }) : '')) : ''
     const card = el('div', { className: 'nfx-voto' + (v.fim ? ' fim' : '') },
       visto, estrelas,
       el('div', { className: 'nfx-voto__t' }, el('b', { textContent: res || 'Mais um episódio?' }), el('small', { textContent: v.fim ? `${v.s} × ${v.n}` : `${v.s + v.n} de ${v.tot} votaram` })),
@@ -1088,7 +1088,10 @@ function cartaoMidia(m, fixo) {
       el('span', { className: 'midia-card__plat', innerHTML: (ICONE_PLAT[m.plat] || '') + `<span>${NOME_PLAT[m.plat] || ''}</span>` }),
       el('b', { textContent: m.titulo, title: m.original && m.original !== m.titulo ? m.original : '' }),
       ep ? el('small', { textContent: ep }) : '',
-      m.nota ? el('span', { className: 'midia-card__nota', innerHTML: `<i>★</i>${m.nota.toFixed(1)}<em>IMDb</em>` }) : ''))
+      m.nota || m.epNota ? el('span', { className: 'midia-card__nota' },
+        m.epNota ? el('span', { title: 'Nota deste episódio no IMDb', innerHTML: `<i>★</i>${(+m.epNota).toFixed(1)}<small>episódio</small>` }) : '',
+        m.nota ? el('span', { title: 'Nota da série/filme no IMDb', innerHTML: `<i>★</i>${(+m.nota).toFixed(1)}<small>${m.epNota ? 'série' : ''}</small>` }) : '',
+        el('em', { textContent: 'IMDb' })) : ''))
   c.addEventListener('mouseenter', () => c.classList.add('aberto'))
   c.addEventListener('mouseleave', () => { if (!fixo) c.classList.remove('aberto') })
   c.addEventListener('click', e => e.stopPropagation())
@@ -1780,7 +1783,7 @@ async function aplicaMidia(share, r, ocr) {
   if (ocr && !m) { share.midiaK = ''; return }
   share.midia = {
       plat: r.plat, titulo: r.titulo, s: r.s, e: r.e, epNome: r.epNome || m?.ep?.nome || '', tipo: m?.tipo || (r.s ? 'serie' : 'filme'),
-      original: m?.filme || '', ano: m?.ano || '', nota: m?.nota ?? null, poster: m?.poster || '', fundo: m?.ep?.still || m?.background || '', imdb: m?.id || '',
+      original: m?.filme || '', ano: m?.ano || '', nota: m?.nota ?? null, epNota: m?.ep?.nota ?? null, epImdb: m?.ep?.imdb || '', poster: m?.poster || '', fundo: m?.ep?.still || m?.background || '', imdb: m?.id || '',
     }
   share.titulo = r.titulo + (r.s ? ` · T${r.s}E${r.e}` : '')
   actions?.share.send(shareMsg()); renderTile(selfId)
@@ -3195,7 +3198,7 @@ async function openDiary() {
     const info = el('div', { className: 'diary__info' },
       el('span', { className: 'diary__when' }, agora ? el('em', { className: 'diary__agora', textContent: 'agora' }) : '', `${dia(c.ini)} · ${hm(c.ini)}–${hm(c.fim)}`),
       el('h3', { textContent: titulo }),
-      m ? el('p', { className: 'diary__meta diary__midia' }, m.pl ? el('span', { className: 'diary__plat', innerHTML: (ICONE_PLAT[m.pl] || '') + (NOME_PLAT[m.pl] || '') }) : '', epTxt ? el('span', { textContent: epTxt }) : '', m.n ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+m.n).toFixed(1)} IMDb` }) : '', notaSala(c, m.ti)) : '',
+      m ? el('p', { className: 'diary__meta diary__midia' }, m.pl ? el('span', { className: 'diary__plat', innerHTML: (ICONE_PLAT[m.pl] || '') + (NOME_PLAT[m.pl] || '') }) : '', epTxt ? el('span', { textContent: epTxt }) : '', eps.length === 1 && eps[0].en ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+eps[0].en).toFixed(1)} episódio` }) : '', m.n ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+m.n).toFixed(1)} IMDb` }) : '', notaSala(c, m.ti)) : '',
       cast(c.presentes, durTxt(c.fim - c.ini)),
       c.proj.length > 1 || (c.proj[0] && c.proj[0].ms >= 60e3) ? projs(c) : '')
     const capa = m?.p ? el('img', { className: 'diary__poster', src: m.p.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('div', { className: 'diary__poster diary__poster--none' }, icon(c.proj[0]?.k === 'arquivo' ? 'film' : c.proj.length ? 'monitor' : 'users'))

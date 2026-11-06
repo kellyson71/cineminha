@@ -202,7 +202,7 @@ function metaProj(m) {
   const nu = (v, hi) => Number.isFinite(+v) ? Math.max(0, Math.min(hi, +v)) : 0
   return {
     ti: tx(m.ti, 100), pl: m.pl === 'netflix' ? 'netflix' : '', s: nu(m.s, 99), e: nu(m.e, 999), ep: tx(m.ep, 100),
-    n: m.n == null ? null : nu(m.n, 10), p: /^https:\/\/[^\s"'<>]+$/.test(m.p || '') ? m.p.slice(0, 300) : '', i: /^tt\d{5,12}$/.test(m.i || '') ? m.i : '',
+    n: m.n == null ? null : nu(m.n, 10), en: m.en == null ? null : nu(m.en, 10), p: /^https:\/\/[^\s"'<>]+$/.test(m.p || '') ? m.p.slice(0, 300) : '', i: /^tt\d{5,12}$/.test(m.i || '') ? m.i : '',
     tp: m.tp === 'serie' ? 'serie' : 'filme', a: tx(m.a, 12),
   }
 }

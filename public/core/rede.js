@@ -61,7 +61,7 @@ function lerMidia(m) {
   if (!m || typeof m !== 'object' || !['netflix', ''].includes(m.plat ?? '') || !txt(m.titulo, 100)) return null
   return {
     plat: m.plat || '', titulo: txt(m.titulo, 100), s: num(m.s, 0, 99), e: num(m.e, 0, 999), epNome: txt(m.epNome, 100), tipo: m.tipo === 'serie' ? 'serie' : 'filme',
-    original: txt(m.original, 120), ano: txt(m.ano, 12), nota: m.nota == null ? null : num(m.nota, 0, 10), poster: url(m.poster), fundo: url(m.fundo), imdb: /^tt\d+$/.test(m.imdb) ? m.imdb : '',
+    original: txt(m.original, 120), ano: txt(m.ano, 12), nota: m.nota == null ? null : num(m.nota, 0, 10), epNota: m.epNota == null ? null : num(m.epNota, 0, 10), poster: url(m.poster), fundo: url(m.fundo), imdb: /^tt\d+$/.test(m.imdb) ? m.imdb : '',
   }
 }
 // mensagem "share" de quem projeta, já limpa
