@@ -2562,7 +2562,8 @@ function renderSeats() {
     node.classList.toggle('sharing', here.some(x => tiles.has(x.id)))
     node.classList.toggle('ghost', here.length > 0 && here.every(x => x.ghost))
     // balãozinho de estado: projetando ou assistindo (mudo, som cortado e ausente já têm ícone no nome e o zzz)
-    const est = !here.length || node.classList.contains('away') ? '' : here.some(x => tiles.has(x.id)) ? '📽️' : tiles.size && !node.classList.contains('speaking') ? '🍿' : ''
+    // 🍿 só para quem não tem boneco com poses (os outros comem pipoca de verdade, no sprite)
+    const est = !here.length || node.classList.contains('away') ? '' : here.some(x => tiles.has(x.id)) ? '📽️' : !node._poses && tiles.size && !node.classList.contains('speaking') ? '🍿' : ''
     if (node.dataset.estado !== est) {
       node.dataset.estado = est
       let b = node.querySelector('.seat__estado')
@@ -2574,7 +2575,9 @@ function renderSeats() {
     else if (!volta) node.querySelector('.seat__volta')?.remove()
     const nm = here[0]?.name || person(key).nome
     node.querySelector('.seat__nm').textContent = nm
-    node._st = { away: node.classList.contains('away'), typing: here.some(x => x.typing), hidden: here.length > 0 && here.every(x => x.hidden) }
+    node._st = { away: node.classList.contains('away'), typing: here.some(x => x.typing), hidden: here.length > 0 && here.every(x => x.hidden),
+      // alguém está projetando e a pessoa só assiste: o boneco come pipoca
+      assistindo: here.length > 0 && tiles.size > 0 && !here.some(x => tiles.has(x.id)) && !node.classList.contains('speaking') }
     // mesas paralelas: o selo do jogo em que a pessoa está (só quando há mais de uma mesa)
     const mesa = here.find(x => x.id === selfId) ? foco : here[0]?.mesa || ''
     let selo = node.querySelector('.seat__mesa')
@@ -2631,7 +2634,7 @@ function applyPose(node) {
   if (t && t.until < Date.now()) { tempPose.delete(key); t = null }
   const name = st.away ? 'dormindo'
     : t ? (t.name === 'palmas' ? (Math.floor(Date.now() / 220) % 2 ? 'palmas2' : 'palmas1') : t.name)
-    : st.typing ? 'celular' : st.hidden ? 'colo' : 'base'
+    : st.typing ? 'celular' : st.hidden ? 'colo' : st.assistindo ? 'pipoca' : 'base'
   const img = node.querySelector('.seat__avatar img')
   const src = node._poses + name + '.webp'
   if (img && img.getAttribute('src') !== src) img.setAttribute('src', src)
