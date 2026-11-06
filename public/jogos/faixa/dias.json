@@ -1,4 +1,151 @@
 {
+ "2026-09-13": [
+  {
+   "id": "britney-spears-till-the-world-ends",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Till the World Ends",
+   "a": "Britney Spears",
+   "album": "Femme Fatale (Deluxe Version)",
+   "ano": 2011,
+   "dz": {
+    "t": 10287259,
+    "a": 483
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 744934,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "bon-jovi-livin-on-a-prayer",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Livin' On A Prayer",
+   "a": "Bon Jovi",
+   "album": "Slippery When Wet",
+   "ano": 1986,
+   "dz": {
+    "t": 538660022,
+    "a": 637
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 936708,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "nicki-minaj-anaconda",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Anaconda",
+   "a": "Nicki Minaj",
+   "album": "The Pinkprint",
+   "ano": 2014,
+   "dz": {
+    "t": 91543346,
+    "a": 382937
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 707090,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-14": [
   {
    "id": "selena-gomez-hands-to-myself",
@@ -143,6 +290,101 @@
    ],
    "pais": "GB",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "green-day-american-idiot",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "American Idiot",
+   "a": "Green Day",
+   "album": "American Idiot (Deluxe)",
+   "ano": 2004,
+   "dz": {
+    "t": 773367,
+    "a": 52
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 828332,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "earth-wind-fire-the-emotions-boogie-wonderland-with-the-emot",
+   "n": 4,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Boogie Wonderland (with The Emotions)",
+   "a": "Earth, Wind & Fire",
+   "album": "I Am",
+   "ano": 1979,
+   "dz": {
+    "t": 27533081,
+    "a": 248
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 886142,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 1970,
    "tags_ok": true
   }
  ],
@@ -37832,6 +38074,264 @@
    ],
    "pais": "US",
    "decada": 2000,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-22": [
+  {
+   "id": "gorillaz-de-la-soul-feel-good-inc",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Feel Good Inc.",
+   "a": "Gorillaz",
+   "album": "Demon Days",
+   "ano": 2004,
+   "dz": {
+    "t": 3129407,
+    "a": 14
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 963489,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "turma-do-pagode-grupo-menos-e-mais-bebe-e-vem-me-procurar-qu",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Bebe e Vem Me Procurar / Quem Ama Sente Saudade (Ao Vivo) Ao Vivo",
+   "a": "Turma do Pagode",
+   "album": "Bebe e Vem Me Procurar / Quem Ama Sente Saudade (Ao Vivo) Ao Vivo",
+   "ano": 2021,
+   "dz": {
+    "t": 1214741772,
+    "a": 373974
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 878556,
+   "generos": [
+    "Samba/Pagode",
+    "Folk"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "fall-out-boy-centuries",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Centuries",
+   "a": "Fall Out Boy",
+   "album": "American Beauty/American Psycho",
+   "ano": 2014,
+   "dz": {
+    "t": 92872156,
+    "a": 404
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 831238,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "matheus-kauan-a-rosa-e-o-beija-flor-na-praia-ao-vivo",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "A Rosa E O Beija-Flor (Na Praia / Ao Vivo)",
+   "a": "Matheus & Kauan",
+   "album": "Na Praia (Ao Vivo)",
+   "ano": 2015,
+   "dz": {
+    "t": 119873830,
+    "a": 3120261
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 596126,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "matue-anos-luz",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Anos Luz",
+   "a": "Matuê",
+   "album": "Anos Luz",
+   "ano": 2017,
+   "dz": {
+    "t": 3574946651,
+    "a": 11329214
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 679906,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
+   "decada": 2010,
    "tags_ok": true
   }
  ]
