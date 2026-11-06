@@ -251,6 +251,7 @@ try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(se
       <button class="btn btn--icon btn--ghost" id="btnReload" title="Recarregar a projeção (se travou)" hidden><svg data-icon="refresh-cw"></svg></button>
       <button class="btn btn--ghost" id="btnPause" title="Pedir pausa para quem projeta (P)" hidden><svg data-icon="pause"></svg><span>Pausa aí</span></button>
       <button class="btn btn--icon btn--ghost" id="btnSubs" title="Legendas" aria-pressed="true" hidden><svg data-icon="captions"></svg></button>
+      <button class="btn btn--somstop" id="btnSomStop" type="button" title="Parar o som para todos" hidden><svg data-icon="square"></svg><span>Parar som</span></button>
       <span class="toolbar__grow"></span>
       <div class="popwrap">
         <button class="btn btn--icon btn--ghost" id="btnReact" title="Reações (R)" aria-expanded="false"><svg data-icon="smile-plus"></svg></button>
@@ -276,7 +277,6 @@ try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(se
         <button class="btn btn--icon btn--ghost radiobtn" id="btnRadio" title="Rádio da sala: música de fundo para todos" aria-expanded="false"><svg data-icon="music"></svg><img class="radiobtn__capa" alt=""><span class="radiobtn__eq"><i></i><i></i><i></i></span></button>
         <div class="pop radio" id="radio" hidden></div>
       </div>
-      <button class="btn btn--somstop" id="btnSomStop" type="button" title="Parar o som para todos" hidden><svg data-icon="square"></svg><span>Parar som</span></button>
       <div class="popwrap">
         <button class="btn btn--icon btn--ghost" id="btnMixer" title="Áudio da sala e das pessoas" aria-expanded="false"><svg data-icon="sliders-horizontal"></svg></button>
         <div class="pop mixer" id="mixer" hidden>
