@@ -1609,7 +1609,7 @@ const dica = el('div', { className: 'dica', role: 'tooltip', hidden: true })
 let dicaDe = null, dicaT = 0
 document.addEventListener('pointerover', e => {
   const b = e.target.closest?.('.toolbar [title], .toolbar--voz [title], .player-controls [title], .nfx-acoes [title]')
-  if (!b || e.pointerType !== 'mouse' || b === dicaDe) return
+  if (!b || e.pointerType !== 'mouse' || b === dicaDe || b.id === 'btnReact') return
   escondeDica()
   dicaDe = b; b.dataset.dica = b.title; b.removeAttribute('title')
   clearTimeout(dicaT)
@@ -4147,6 +4147,20 @@ function toggleReactGrid(open = rgrid.hidden) {
   $('#btnReact').setAttribute('aria-expanded', String(open))
 }
 $('#btnReact').addEventListener('click', () => toggleReactGrid())
+// Passar o mouse no botão de reações: atalhos para ir direto a Reações, Memes ou Sons
+const atalhoReact = el('div', { className: 'react-atalho', hidden: true }, ...[['emoji', '😀', 'Reações'], ['memes', '🖼️', 'Memes'], ['sons', '🔊', 'Sons']].map(([tab, e, nome]) => {
+  const b = el('button', { type: 'button', title: nome }, el('i', { textContent: e }), el('span', { textContent: nome }))
+  b.addEventListener('click', () => { atalhoReact.hidden = true; toggleReactGrid(true); document.querySelector(`.reactgrid__tab[data-tab="${tab}"]`)?.click() })
+  return b
+}))
+$('#btnReact').closest('.popwrap').append(atalhoReact)
+let atalhoT = 0
+const mostraAtalho = on => { clearTimeout(atalhoT); atalhoT = setTimeout(() => { atalhoReact.hidden = !on || !rgrid.hidden }, on ? 260 : 220) }
+$('#btnReact').addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') mostraAtalho(true) })
+$('#btnReact').addEventListener('pointerleave', () => mostraAtalho(false))
+atalhoReact.addEventListener('pointerenter', () => clearTimeout(atalhoT))
+atalhoReact.addEventListener('pointerleave', () => mostraAtalho(false))
+$('#btnReact').addEventListener('click', () => { clearTimeout(atalhoT); atalhoReact.hidden = true })
 
 /* ---------- Soundboard (MyInstants): o som toca para todos, no canal "Sons" da mesa de som ---------- */
 const soundFrom = new Map(), soundBuf = new Map()
