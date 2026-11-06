@@ -752,8 +752,28 @@ function playerTime(id) {
   return Math.min(info?.duration || Infinity, at + (info?.paused ? 0 : (Date.now() - (info?.tAt || Date.now())) / 1000 * (info?.rate || 1)))
 }
 function playerCommand(id, op, value) {
+  feedbackPlayer(id, op, value)
   if (id === selfId) gotCtl({ op, d: value }, 'Você')
   else ctl(id, op, value)
+}
+// Retorno na hora do clique (como nos players de streaming): ↺ 5 s à esquerda, ↻ 5 s à direita,
+// play/pausa grande no meio. O ícone da barra troca já, sem esperar a confirmação de quem projeta.
+function feedbackPlayer(id, op, d) {
+  const t = tiles.get(id)
+  if (!t || !['seek', 'toggle', 'at'].includes(op)) return
+  let f
+  if (op === 'seek') {
+    const lado = d < 0 ? 'esq' : 'dir'
+    t.el.querySelector(`.pfb--${lado}`)?.remove()
+    f = el('div', { className: `pfb pfb--${lado}` }, el('span', {}, icon(d < 0 ? 'rotate-ccw' : 'rotate-cw'), el('b', { textContent: `${Math.abs(d)} s` })))
+  } else if (op === 'toggle') {
+    const ia = t.player?.play.firstChild?.dataset.icon === 'play' // mostrava play = estava pausado → vai tocar
+    if (t.player) setIcon(t.player.play.firstChild, ia ? 'pause' : 'play')
+    t.el.querySelector('.pfb--meio')?.remove()
+    f = el('div', { className: 'pfb pfb--meio' }, el('span', {}, icon(ia ? 'play' : 'pause')))
+  } else f = el('div', { className: 'pfb pfb--meio' }, el('span', {}, el('b', { textContent: fmtMt(+d) })))
+  t.el.append(f)
+  setTimeout(() => f.remove(), 750)
 }
 function updatePlayer(id) {
   const tile = tiles.get(id), info = playerInfo(id)
@@ -761,6 +781,8 @@ function updatePlayer(id) {
   const p = tile.player, arq = info?.kind === 'arquivo'
   const nf = id === selfId ? !!nfxDe(myShare) : !!info?.nfx, file = arq || nf
   const pode = !nf || id === selfId || info?.nfx?.ctl !== 'eu'
+  // pausado: na própria Netflix vem da extensão; num arquivo meu, do <video>; o resto, da mensagem de quem projeta
+  const pausado = id === selfId ? (nfxDe(myShare)?.paused ?? myShare?.video?.paused ?? !!info?.paused) : !!info?.paused
   p.play.hidden = !file; p.seek.hidden = !file; p.time.hidden = !file; p.back.hidden = p.fwd.hidden = !file
   p.back.disabled = p.fwd.disabled = !pode
   p.root.classList.toggle('sem-linha', !file)
@@ -768,13 +790,13 @@ function updatePlayer(id) {
   const md = info?.midia
   p.title.innerHTML = ''
   if (md) p.title.append(el('b', { textContent: md.titulo }), md.s ? el('span', { textContent: ` T${md.s}:E${md.e}${md.epNome ? ' ' + md.epNome : ''}` }) : '')
-  p.center.hidden = !file || !info?.paused || !pode
+  p.center.hidden = !file || !pausado || !pode
   p.play.disabled = !pode; p.seek.disabled = !pode
   p.rateLabel.hidden = !arq; p.upload.hidden = !(arq && id === selfId)
   p.subs.hidden = !info?.subs
   p.subs.setAttribute('aria-pressed', String(!!prefs.subs))
-  if (p.play.firstChild.dataset.icon !== (info?.paused ? 'play' : 'pause')) setIcon(p.play.firstChild, info?.paused ? 'play' : 'pause')
-  p.play.title = !pode ? 'Só quem projeta controla a Netflix' : info?.paused ? 'Reproduzir para todos' : 'Pausar para todos'
+  if (p.play.firstChild.dataset.icon !== (pausado ? 'play' : 'pause')) setIcon(p.play.firstChild, pausado ? 'play' : 'pause')
+  p.play.title = !pode ? 'Só quem projeta controla a Netflix' : pausado ? 'Reproduzir para todos' : 'Pausar para todos'
   const duration = (id === selfId && nfxDe(myShare)?.d) || info?.duration || (id === selfId ? myShare?.video?.duration : 0) || 0
   const at = playerTime(id)
   if (document.activeElement !== p.seek) { p.seek.max = duration || 1; p.seek.value = at; p.seek.style.setProperty('--p', pct(duration ? at / duration : 0)) }
@@ -790,7 +812,7 @@ function updatePlayer(id) {
   p.volume.disabled = !hasSound; p.mute.disabled = !hasSound
   tile.el.classList.toggle('file-session', file)
   if (info?.preview && tile.preview.getAttribute('src') !== info.preview) tile.preview.src = info.preview
-  tile.preview.hidden = id === selfId || !arq || !info?.paused || !info?.preview
+  tile.preview.hidden = id === selfId || !arq || !pausado || !info?.preview
 }
 // Por cima do vídeo da Netflix: "Pular abertura" e a votação do próximo episódio
 function nfxAcoes(id, tile, n, pode) {
@@ -863,7 +885,7 @@ function buildPlayer(id, tile) {
   const upload = button('captions', 'Carregar legenda SRT ou VTT', () => subtitleFile.click())
   upload.append(el('span', { textContent: 'Carregar legenda' })); upload.classList.add('player-upload')
   const settings = el('div', { className: 'player-settings', hidden: true }, el('label', {}, el('span', { textContent: 'Qualidade' }), quality), rateLabel, upload, subtitleFile)
-  const full = button('maximize', 'Tela cheia', toggleFs)
+  const full = button('maximize', 'Tela cheia', toggleFs); full.classList.add('player-full')
   const back = button('rotate-ccw', 'Voltar 5 s (←)', () => playerCommand(id, 'seek', -5)); back.classList.add('player-10')
   const fwd = button('rotate-cw', 'Avançar 5 s (→)', () => playerCommand(id, 'seek', 5)); fwd.classList.add('player-10')
   const title = el('span', { className: 'player-title' })
@@ -1531,21 +1553,41 @@ const ICONES_JOGO = {
   nt: '<svg viewBox="0 0 24 24"><path d="M5 4h14v12.5L15.5 20H5z" fill="#ffe066" transform="rotate(-6 12 12)"/><text x="12" y="15.6" text-anchor="middle" font-family="Georgia, serif" font-weight="900" font-size="11" fill="#22170e" transform="rotate(-6 12 12)">?</text></svg>',
   db: '<svg viewBox="0 0 24 24"><rect x="3.5" y="6" width="9" height="13" rx="1.4" fill="#f5f7f6" transform="rotate(-10 8 12.5)"/><rect x="11" y="4" width="9" height="13" rx="1.4" fill="#f5f7f6" transform="rotate(8 15.5 10.5)"/><text x="15.6" y="13.6" text-anchor="middle" font-family="Georgia, serif" font-weight="900" font-size="7.4" fill="#c2362c" transform="rotate(8 15.5 10.5)">7</text><text x="8" y="15.4" text-anchor="middle" font-family="Georgia, serif" font-weight="900" font-size="7" fill="#1d4c9b" transform="rotate(-10 8 12.5)">4</text></svg>',
 }
+// Menu de jogos em grade: o que está rolando vai no topo, com quem está jogando
+const LISTA_JOGOS = [
+  ['faixa', 'Faixa a Faixa', 'Música do dia', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--faixa', innerHTML: ICONES_JOGO.faixa })],
+  ['coup', 'Coup', '2 a 10', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--coup', src: 'jogos/coup/cartas/duque.webp', alt: '' })],
+  ['dc', 'Uno', '2 a 10', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--dc jogosmenu__arte', src: 'jogos/uno/logo.svg', alt: '' })],
+  ['pp', 'Red Flags', '3 ou mais', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--pp jogosmenu__arte', src: 'jogos/parperfeito/verso-vermelho.png', alt: '' })],
+  ['ab', 'Amigos de Merda', '3 ou mais', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--ab jogosmenu__arte', src: 'jogos/amigosdebosta/verso-preto.png', alt: '' })],
+  ['db', 'Dobradinha', '2 a 6', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--db', innerHTML: ICONES_JOGO.db })],
+  ['du', 'Dou-lhe Uma', '2 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--du', innerHTML: ICONES_JOGO.du })],
+  ['nt', 'Na Testa', '2 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--nt', innerHTML: ICONES_JOGO.nt })],
+  ['qq', 'Quadro a Quadro', '1 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--qq', innerHTML: ICONES_JOGO.qq })],
+]
+const DESC_JOGO = { faixa: 'Adivinhe a música do dia', coup: 'Blefe e intriga na corte', dc: 'Combine cor ou número', pp: 'Monte o pretendente ideal', ab: 'Votem em quem merece', db: 'Suba o valor; empatou, dobra', du: 'Leilão de listas: quem cita mais?', nt: 'Descubra quem está na sua testa', qq: 'Adivinhe o filme pelo frame' }
 function menuJogos(btn) {
   const aberto = document.querySelector('.jogosmenu')
   if (aberto) return aberto.remove()
-  const item = (img, nome, sub, fn) => { const b = el('button', { type: 'button', className: 'jogosmenu__it' }, img, el('span', {}, el('b', { textContent: nome }), el('small', { textContent: sub }))); b.addEventListener('click', () => { m.remove(); fn() }); return b }
-  const m = el('div', { className: 'jogosmenu' },
+  const naMesa = id => [me, ...peers.values()].filter(p => p?.mesa === id)
+  const abre = id => { m.remove(); abreJogo(id) }
+  const rolando = LISTA_JOGOS.filter(([id]) => jogos[id]?.ativo?.() || naMesa(id).length)
+  const cartao = ([id, nome, sub, arte]) => {
+    const quem = naMesa(id)
+    const b = el('button', { type: 'button', className: 'jogosmenu__card' + (quem.length ? ' on' : ''), title: DESC_JOGO[id] || '' },
+      el('span', { className: 'jogosmenu__arte-box' }, arte()), el('b', { textContent: nome }), el('small', { textContent: quem.length ? `${quem.length} jogando` : sub }))
+    b.addEventListener('click', () => abre(id)); return b
+  }
+  const m = el('div', { className: 'jogosmenu jogosmenu--grade' },
+    ...(rolando.length ? [el('small', { className: 'jogosmenu__k', textContent: 'Rolando agora' }), ...rolando.map(([id, nome, , arte]) => {
+      const quem = naMesa(id)
+      const b = el('button', { type: 'button', className: 'jogosmenu__agora' }, arte(),
+        el('span', {}, el('b', { textContent: nome }), el('small', { textContent: quem.length ? quem.map(p => p.name).slice(0, 4).join(', ') + (quem.length > 4 ? ` e mais ${quem.length - 4}` : '') : 'mesa aberta' })),
+        el('div', { className: 'jogosmenu__rostos' }, ...quem.slice(0, 4).map(p => pfpImg(p.key, 24, p.name))), el('em', { textContent: 'Entrar' }))
+      b.addEventListener('click', () => abre(id)); return b
+    })] : []),
     el('small', { className: 'jogosmenu__k', textContent: 'Jogar com a call' }),
-    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--faixa', innerHTML: ICONES_JOGO.faixa }), 'Faixa a Faixa', 'Adivinhe a música do dia', () => abreJogo('faixa')),
-    item(el('img', { className: 'jogosmenu__ic jogosmenu__ic--coup', src: 'jogos/coup/cartas/duque.webp', alt: '' }), 'Coup', 'Blefe e intriga na corte · 2 a 10', () => abreJogo('coup')),
-    item(el('img', { className: 'jogosmenu__ic jogosmenu__ic--dc jogosmenu__arte', src: 'jogos/uno/logo.svg', alt: '' }), 'Uno', 'Combine cor ou número · 2 a 10', () => abreJogo('dc')),
-    item(el('img', { className: 'jogosmenu__ic jogosmenu__ic--pp jogosmenu__arte', src: 'jogos/parperfeito/verso-vermelho.png', alt: '' }), 'Red Flags', 'Monte o pretendente ideal · 3 ou mais', () => abreJogo('pp')),
-    item(el('img', { className: 'jogosmenu__ic jogosmenu__ic--ab jogosmenu__arte', src: 'jogos/amigosdebosta/verso-preto.png', alt: '' }), 'Amigos de Merda', 'Votem em quem merece · 3 ou mais', () => abreJogo('ab')),
-    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--db', innerHTML: ICONES_JOGO.db }), 'Dobradinha', 'Suba o valor; empatou, dobra · 2 a 6', () => abreJogo('db')),
-    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--du', innerHTML: ICONES_JOGO.du }), 'Dou-lhe Uma', 'Leilão de listas: quem cita mais? · 2 ou mais', () => abreJogo('du')),
-    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--nt', innerHTML: ICONES_JOGO.nt }), 'Na Testa', 'Descubra quem está na sua testa · 2 ou mais', () => abreJogo('nt')),
-    item(el('span', { className: 'jogosmenu__ic jogosmenu__ic--qq', innerHTML: ICONES_JOGO.qq }), 'Quadro a Quadro', 'Adivinhe o filme pelo frame · 1 ou mais', () => abreJogo('qq')))
+    el('div', { className: 'jogosmenu__grade' }, ...LISTA_JOGOS.map(cartao)))
   // em tela cheia só o que está dentro do palco aparece
   ;(imersivo() ? theater : document.body).append(m)
   const r = btn.getBoundingClientRect()
@@ -1554,6 +1596,43 @@ function menuJogos(btn) {
   setTimeout(() => document.addEventListener('pointerdown', function fora(e) { if (!m.contains(e.target) && e.target !== btn && !btn.contains(e.target)) { m.remove(); document.removeEventListener('pointerdown', fora) } }), 0)
 }
 $('#btnJogo').addEventListener('click', e => { closePops(); menuJogos(e.currentTarget) })
+// tela vazia: atalhos grandes para começar
+$('#emptyTela')?.addEventListener('click', () => shareScreen())
+$('#emptyArquivo')?.addEventListener('click', () => $('#shareFile').click())
+$('#emptyJogo')?.addEventListener('click', e => { closePops(); menuJogos(e.currentTarget) })
+// Dicas estilizadas (no lugar do title do navegador, que demora e é feio) nos botões das barras
+const dica = el('div', { className: 'dica', role: 'tooltip', hidden: true })
+let dicaDe = null, dicaT = 0
+document.addEventListener('pointerover', e => {
+  const b = e.target.closest?.('.toolbar [title], .toolbar--voz [title], .player-controls [title], .nfx-acoes [title]')
+  if (!b || e.pointerType !== 'mouse' || b === dicaDe) return
+  escondeDica()
+  dicaDe = b; b.dataset.dica = b.title; b.removeAttribute('title')
+  clearTimeout(dicaT)
+  dicaT = setTimeout(() => {
+    if (dicaDe !== b) return
+    dica.textContent = b.dataset.dica; (imersivo() ? theater : document.body).append(dica); dica.hidden = false
+    const r = b.getBoundingClientRect(), w = dica.offsetWidth, h = dica.offsetHeight
+    const cima = r.top - h - 10 > 4
+    dica.style.left = Math.max(6, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 6)) + 'px'
+    dica.style.top = (cima ? r.top - h - 8 : r.bottom + 8) + 'px'
+  }, 350)
+})
+function escondeDica() {
+  clearTimeout(dicaT); dica.hidden = true
+  if (dicaDe) { if (!dicaDe.hasAttribute('title') && dicaDe.dataset.dica) dicaDe.title = dicaDe.dataset.dica; dicaDe = null }
+}
+document.addEventListener('pointerout', e => { if (dicaDe && !dicaDe.contains(e.relatedTarget)) escondeDica() })
+document.addEventListener('pointerdown', escondeDica, true)
+// Barra mais limpa: o que se usa pouco (rádio, áudio da sala, teatro, palco) fica atrás do "⋯".
+// Aparece sozinho se estiver em uso (rádio tocando, painel aberto).
+for (const sel of ['#btnRadio', '#btnMixer']) $(sel)?.closest('.popwrap')?.classList.add('toolbar__rara')
+for (const sel of ['#btnTeatro', '#btnPalco']) $(sel)?.classList.add('toolbar__rara')
+$('#btnMais').addEventListener('click', e => {
+  const tb = e.currentTarget.closest('.toolbar'), on = !tb.classList.contains('mais')
+  tb.classList.toggle('mais', on); e.currentTarget.setAttribute('aria-expanded', String(on))
+  setTimeout(() => arrumaBarra?.(), 0)
+})
 
 /* ---------- Transmitir: menu ---------- */
 const shareMenu = $('#shareMenu')
@@ -1714,6 +1793,28 @@ async function aplicaMidia(share, r, ocr) {
   }
 }
 
+// "Tela de Fulano" no diário não diz nada: quem projeta pode dizer o que está passando (busca capa e nota)
+function nomearProjecao() {
+  const sh = myShare
+  if (!sh) return
+  document.querySelector('.nomear')?.remove()
+  const inp = el('input', { maxlength: 100, placeholder: 'Ex.: O Conto da Aia T1E8, Duna, jogo de Minecraft…', value: sh.midia?.titulo || '' })
+  const box = el('form', { className: 'nomear' }, el('b', { textContent: 'O que está passando?' }), inp,
+    el('div', {}, el('button', { type: 'button', className: 'btn btn--ghost', textContent: 'Cancelar' }), el('button', { type: 'submit', className: 'btn btn--primary', textContent: 'Salvar' })))
+  box.querySelector('[type=button]').addEventListener('click', () => box.remove())
+  box.addEventListener('submit', e => {
+    e.preventDefault(); box.remove()
+    const t = inp.value.trim()
+    if (!t || myShare !== sh) return
+    const m = t.match(/^(.*?)\s*[TS](\d{1,2})\s*[:.]?\s*E(\d{1,3})\b/i)
+    sh.midiaK = ''
+    sh.titulo = t
+    aplicaMidia(sh, { plat: sh.midia?.plat || '', titulo: (m ? m[1] : t).trim(), s: m ? +m[2] : 0, e: m ? +m[3] : 0, epNome: '' })
+    toast('Anotado no diário')
+  })
+  ;(imersivo() ? theater : document.body).append(box)
+  inp.focus(); inp.select()
+}
 /* ---------- Extensão Cineminha · Netflix ----------
    Com a extensão (pasta extensao/netflix), quem projeta a Netflix recebe dela o tempo, a pausa e o título
    exatos, e a sala controla o player: play/pausa, pular e voltar. Quem pode controlar: todos ou só quem projeta. */
@@ -2117,6 +2218,7 @@ function openCtx(id, x, y) {
   if (info?.subs) items.push(ctxItem('captions', prefs.subs ? 'Esconder legendas' : 'Mostrar legendas', () => $('#btnSubs').click()))
   const tt = tiles.get(id)
   if (tt) items.push(ctxItem('rectangle-horizontal', tt.cropOn ? 'Mostrar a imagem inteira' : 'Remover bordas pretas', () => setBordas(tt, !tt.cropOn)))
+  if (mine && myShare?.kind === 'tela' && !myShare.game) items.push(ctxItem('clapperboard', myShare.midia ? 'Corrigir o que está passando' : 'Dizer o que está passando', nomearProjecao))
   if (tt?.cropOn) items.push(ctxItem('refresh-cw', 'Cortar as bordas de novo', () => { recortaBordas(tt); toast('Medindo as bordas de novo…', 2000) }))
   if (tiles.size > 1) items.push(ctxItem('maximize-2', focusId === id ? 'Ver todas as telas' : 'Deixar esta em destaque', () => { focusId = focusId === id ? null : id; layout() }))
   items.push(duckToggle())
@@ -2577,6 +2679,13 @@ function renderNet() {
   const st = $('#netStatus')
   st.querySelector('b').textContent = n === 1 ? 'Só você na sala' : `${n} na sala`
   st.classList.toggle('ok', n > 1)
+  // rostos de quem está (até 5) no lugar da bolinha
+  const keys = [...new Set([me.key, ...[...peers.values()].map(p => p.key), ...srvPres.keys()].filter(Boolean))]
+  let rostos = st.querySelector('.status__rostos')
+  if (!rostos) { rostos = el('span', { className: 'status__rostos' }); st.prepend(rostos) }
+  const k = keys.slice(0, 5).join(',')
+  if (rostos.dataset.k !== k) { rostos.dataset.k = k; rostos.replaceChildren(...keys.slice(0, 5).map(x => pfpImg(x, 22))) }
+  st.title = keys.map(x => person(x).nome).join(', ')
 }
 function renderAll() { renderSeats(); renderNet(); try { renderCallbar() } catch {} }
 
@@ -2919,6 +3028,20 @@ async function saveSummary() {
 }
 let chamCache = []
 // Esqueleto de carregamento (capa + linhas brilhando) no lugar de "Carregando…"
+// diário em linha do tempo: um separador por mês ("Novembro de 2026"; o ano só se não for o atual)
+function porMes(itens) {
+  const out = []; let ant = ''
+  for (const x of itens) {
+    const d = new Date(x.t), k = `${d.getFullYear()}-${d.getMonth()}`
+    if (k !== ant) {
+      ant = k
+      const mes = d.toLocaleDateString('pt-BR', { month: 'long' }), ano = d.getFullYear()
+      out.push(el('li', { className: 'diary__sec diary__mes', textContent: mes[0].toUpperCase() + mes.slice(1) + (ano !== new Date().getFullYear() ? ` de ${ano}` : '') }))
+    }
+    out.push(x.node)
+  }
+  return out
+}
 // média das estrelas que a sala deu nos episódios/filme daquela call
 function notaSala(c, ti) {
   const ns = (c.notas || []).filter(n => n.ti?.toLowerCase() === String(ti).toLowerCase())
@@ -3081,8 +3204,8 @@ async function openDiary() {
   const proximas = planned.filter(x => x.proxima), vistas = [...planned.filter(x => !x.proxima), ...auto].sort((a, b) => b.t - a.t)
   if (!proximas.length && !vistas.length) return $('#diaryList').replaceChildren(el('li', { className: 'diary__empty', textContent: 'Nada ainda. Cada sessão da call entra aqui sozinha, com o que foi projetado e quem estava.' }))
   $('#diaryList').replaceChildren(
-    ...(proximas.length ? [el('li', { className: 'diary__sec', textContent: 'Próximas' }), ...proximas.map(x => x.node)] : []),
-    ...(vistas.length ? [el('li', { className: 'diary__sec', textContent: 'Já vimos' }), ...vistas.map(x => x.node)] : []))
+    ...(proximas.length ? [el('li', { className: 'diary__sec', textContent: 'Próximas' }), ...proximas.map(x => (x.node.classList.add('diary__item--proxima'), x.node))] : []),
+    ...(vistas.length ? porMes(vistas) : []))
 }
 $('#btnDiary').addEventListener('click', openDiary)
 /* ---------- Canais ----------
@@ -3569,28 +3692,40 @@ function setVol(texto, get, set, max = 1) {
   r.addEventListener('input', () => { set(+r.value); o.textContent = pct(+r.value) })
   return el('label', { className: 'setp setp--vol' }, el('span', {}, el('b', { textContent: texto })), r, o)
 }
+// Ajustes em abas (Som, Tela, Netflix, Rádio); lembra a última aba aberta
+let abaAjustes = 'Som'
 function renderSetPrefs() {
   const box = $('#setPrefs')
-  const h = t => el('h3', { textContent: t })
-  box.replaceChildren(
-    h('Som'),
-    setVol('Volume geral', () => prefs.master ?? 1, v => { prefs.master = v; applyPrefs(); savePrefs() }),
-    setToggle('Entrar com o microfone mutado', '', () => prefs.entryMuted, v => { prefs.entryMuted = v; const c = $('#prefMuted'); if (c) c.checked = v }),
-    setToggle('Baixar o filme quando alguém fala', 'Volta ao normal quando a conversa para', () => prefs.duck, v => { prefs.duck = v; $('#duckOpt').checked = v; updateDucking() }),
-    setToggle('Áudio espacial', 'Cada voz vem do lado da poltrona (melhor com fone)', () => prefs.spatial, v => { prefs.spatial = v; prefs.spatialVersion = 3; $('#spatialOpt').checked = v; if ($('#audioSpatial')) $('#audioSpatial').checked = v; updatePans() }),
-    setToggle('Sons de aviso', 'Entrou, saiu, mensagem nova', () => prefs.sfx > 0, v => { if (!v && prefs.sfx > 0) prefs.sfxAntes = prefs.sfx; prefs.sfx = v ? (prefs.sfxAntes || .6) : 0; applyPrefs() }),
-    h('Tela'),
-    setToggle('Legendas', '', () => prefs.subs, v => { if (!!prefs.subs !== v) $('#btnSubs').click() }),
-    setToggle('Modo teatro', 'Tela mais larga, chat embaixo (T)', () => prefs.teatro, v => setTeatro(v)),
-    setToggle('Chat fixo na tela cheia', 'Em vez de flutuar por cima do vídeo', () => prefs.chatFixo, v => setChatFixo(v)),
-    setToggle('Avisos de volume', 'Sugere ajustes quando o filme abafa a conversa', () => prefs.nudges, v => { prefs.nudges = v; $('#nudgeOpt').checked = v }),
-    setToggle('Avisar sobre bordas pretas', 'Oferece cortar as tarjas da projeção', () => prefs.avisoBordas !== false, v => { prefs.avisoBordas = v }),
-    setToggle('Pular aberturas sozinho', 'Na Netflix, com a extensão: abertura e resumo são pulados sem precisar clicar', () => !!prefs.nfxPular, v => { prefs.nfxPular = v }),
-    setToggle('Todo mundo controla a minha Netflix', (nfx.ext ? 'Extensão conectada. ' : 'Precisa da extensão (cineminha-boo.vercel.app/baixar/extensao). ') + 'Play, pausa e pular valem para todos; desligado, só você controla', () => prefs.nfxTodos !== false, v => { prefs.nfxTodos = v; if (myShare) { actions?.share.send(shareMsg()); updatePlayer(selfId) } }),
-    h('Rádio'),
-    setVol('Volume da rádio', () => radio.getVol(), v => { radio.setVol(v); try { syncRadioVol() } catch {} }),
-    setToggle('Spotify pelo YouTube', 'Música inteira, sem login e com volume', () => radio.getFonte() !== 'sp', v => radio.setFonte(v ? 'yt' : 'sp')),
-  )
+  const ABAS = [
+    ['Som', () => [
+  setVol('Volume geral', () => prefs.master ?? 1, v => { prefs.master = v; applyPrefs(); savePrefs() }),
+  setToggle('Entrar com o microfone mutado', '', () => prefs.entryMuted, v => { prefs.entryMuted = v; const c = $('#prefMuted'); if (c) c.checked = v }),
+  setToggle('Baixar o filme quando alguém fala', 'Volta ao normal quando a conversa para', () => prefs.duck, v => { prefs.duck = v; $('#duckOpt').checked = v; updateDucking() }),
+  setToggle('Áudio espacial', 'Cada voz vem do lado da poltrona (melhor com fone)', () => prefs.spatial, v => { prefs.spatial = v; prefs.spatialVersion = 3; $('#spatialOpt').checked = v; if ($('#audioSpatial')) $('#audioSpatial').checked = v; updatePans() }),
+  setToggle('Sons de aviso', 'Entrou, saiu, mensagem nova', () => prefs.sfx > 0, v => { if (!v && prefs.sfx > 0) prefs.sfxAntes = prefs.sfx; prefs.sfx = v ? (prefs.sfxAntes || .6) : 0; applyPrefs() })
+    ]],
+    ['Tela', () => [
+  setToggle('Legendas', '', () => prefs.subs, v => { if (!!prefs.subs !== v) $('#btnSubs').click() }),
+  setToggle('Modo teatro', 'Tela mais larga, chat embaixo (T)', () => prefs.teatro, v => setTeatro(v)),
+  setToggle('Chat fixo na tela cheia', 'Em vez de flutuar por cima do vídeo', () => prefs.chatFixo, v => setChatFixo(v)),
+  setToggle('Avisos de volume', 'Sugere ajustes quando o filme abafa a conversa', () => prefs.nudges, v => { prefs.nudges = v; $('#nudgeOpt').checked = v }),
+  setToggle('Avisar sobre bordas pretas', 'Oferece cortar as tarjas da projeção', () => prefs.avisoBordas !== false, v => { prefs.avisoBordas = v })
+    ]],
+    ['Netflix', () => [
+  setToggle('Pular aberturas sozinho', 'Na Netflix, com a extensão: abertura e resumo são pulados sem precisar clicar', () => !!prefs.nfxPular, v => { prefs.nfxPular = v }),
+  setToggle('Todo mundo controla a minha Netflix', (nfx.ext ? 'Extensão conectada. ' : 'Precisa da extensão (cineminha-boo.vercel.app/baixar/extensao). ') + 'Play, pausa e pular valem para todos; desligado, só você controla', () => prefs.nfxTodos !== false, v => { prefs.nfxTodos = v; if (myShare) { actions?.share.send(shareMsg()); updatePlayer(selfId) } })
+    ]],
+    ['Rádio', () => [
+  setVol('Volume da rádio', () => radio.getVol(), v => { radio.setVol(v); try { syncRadioVol() } catch {} }),
+  setToggle('Spotify pelo YouTube', 'Música inteira, sem login e com volume', () => radio.getFonte() !== 'sp', v => radio.setFonte(v ? 'yt' : 'sp'))
+    ]]
+  ]
+  const abas = el('div', { className: 'setp-abas', role: 'tablist' }, ...ABAS.map(([n]) => {
+    const b = el('button', { type: 'button', role: 'tab', className: 'setp-aba', textContent: n, ariaSelected: String(n === abaAjustes) })
+    b.addEventListener('click', () => { abaAjustes = n; renderSetPrefs() }); return b
+  }))
+  const atual = ABAS.find(([n]) => n === abaAjustes) || ABAS[0]
+  box.replaceChildren(abas, el('div', { className: 'setp-painel', role: 'tabpanel' }, ...atual[1]()))
 }
 
 const chatVisible = () => !theater.classList.contains('no-chat')

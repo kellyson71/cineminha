@@ -217,7 +217,12 @@ try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(se
           <div class="empty__bg" aria-hidden="true"></div>
           <div class="empty__box">
             <h2>Ninguém projetando</h2>
-            <p>A sessão começa quando alguém projeta. Escolha <b>Projetar</b> na barra abaixo.</p>
+            <p>A sessão começa quando alguém projeta.</p>
+            <div class="empty__acoes">
+              <button type="button" class="empty__acao" id="emptyTela"><svg data-icon="monitor"></svg><b>Projetar uma aba</b><small>Netflix, YouTube, um jogo…</small></button>
+              <button type="button" class="empty__acao" id="emptyArquivo"><svg data-icon="film"></svg><b>Projetar um arquivo</b><small>.mp4 ou .mkv do seu PC</small></button>
+              <button type="button" class="empty__acao" id="emptyJogo"><svg data-icon="gamepad-2"></svg><b>Abrir um jogo</b><small>9 jogos para a call</small></button>
+            </div>
 
           </div>
         </div>
@@ -300,6 +305,7 @@ try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(se
           <button type="button" class="voice-options" id="btnDeafOptions" title="Opções de áudio" aria-label="Opções de áudio" aria-haspopup="dialog" aria-controls="audioMenu" aria-expanded="false"><svg data-icon="chevron-down"></svg></button>
         </div>
       </div>
+      <button class="btn btn--icon btn--ghost" id="btnMais" title="Mais: rádio, áudio da sala, modo teatro e palco" aria-expanded="false"><svg data-icon="ellipsis"></svg></button>
       <div id="settingsFsHome"></div>
       <button class="btn btn--icon" id="btnChat" title="Mostrar/ocultar chat (C)"><svg data-icon="message-square"></svg></button>
       <button class="btn btn--icon" id="btnTeatro" title="Modo teatro (T): tela mais larga, chat embaixo" aria-pressed="false"><svg data-icon="rectangle-horizontal"></svg></button>

@@ -2324,3 +2324,131 @@ html.voltando .volta, .volta.show { display: flex; }
 .retro__share { position: absolute; top: 14px; right: 14px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid rgba(255,244,230,.4); border-radius: 99px; background: rgba(0,0,0,.18); color: #fff4e6; font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer; }
 .retro__share:hover { background: rgba(0,0,0,.3); }
 .retro__share svg { width: 14px; height: 14px; }
+
+/* Menu de jogos em grade */
+.jogosmenu--grade { width: min(430px, calc(100vw - 16px)); padding: 10px; }
+.jogosmenu__grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.jogosmenu__card { display: grid; justify-items: center; gap: 4px; padding: 12px 6px 10px; border: 1px solid transparent; border-radius: 12px; background: rgba(255,255,255,.035); color: var(--fg, #ececf1); font: inherit; text-align: center; cursor: pointer; transition: background .15s, transform .15s, border-color .15s; }
+.jogosmenu__card:hover { background: rgba(255,255,255,.08); transform: translateY(-2px); }
+.jogosmenu__card.on { border-color: var(--live, #e5484d); }
+.jogosmenu__card b { font-size: .8rem; line-height: 1.15; }
+.jogosmenu__card small { font-size: .68rem; color: var(--fg-soft, rgba(236,236,241,.62)); }
+.jogosmenu__card.on small { color: var(--live, #e5484d); font-weight: 600; }
+.jogosmenu__arte-box { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 4px; }
+.jogosmenu__arte-box .jogosmenu__ic { width: 52px; height: 52px; border-radius: 12px; }
+.jogosmenu__arte-box .jogosmenu__ic svg { width: 32px !important; height: 32px !important; }
+.jogosmenu__agora { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 8px; padding: 10px; border: 1px solid rgba(229,72,77,.45); border-radius: 12px; background: linear-gradient(90deg, rgba(229,72,77,.16), rgba(229,72,77,.04)); color: var(--fg, #ececf1); font: inherit; text-align: left; cursor: pointer; }
+.jogosmenu__agora > span { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.jogosmenu__agora small { font-size: .72rem; color: var(--fg-soft, rgba(236,236,241,.62)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.jogosmenu__agora em { font-style: normal; font-size: .78rem; font-weight: 700; padding: 6px 12px; border-radius: 99px; background: var(--accent, #e5484d); color: #fff; }
+.jogosmenu__rostos { display: flex; } .jogosmenu__rostos > * { margin-left: -6px; border-radius: 50%; box-shadow: 0 0 0 2px #17171d; }
+
+/* "⋯": botões de uso raro escondidos até abrir (ou enquanto estão em uso) */
+.toolbar .toolbar__rara { display: none; }
+.toolbar.mais .toolbar__rara, .toolbar .toolbar__rara:has(.pop:not([hidden])), .toolbar .toolbar__rara:has(.radiobtn--on) { display: inline-flex; }
+.toolbar.mais .toolbar__rara { animation: rara-in .18s both; }
+@keyframes rara-in { from { opacity: 0; transform: translateX(8px); } }
+#btnMais[aria-expanded="true"] { background: rgba(255,255,255,.1); }
+
+/* Ninguém projetando: "Projetar" é o que mais chama atenção */
+.theater:not(.curtain-open) ~ * #btnShare, .theater:not(.curtain-open) #btnShare, body:not(:has(.theater.curtain-open)) #btnShare { box-shadow: 0 0 0 0 rgba(229,72,77,.55); animation: projetar-pulsa 2.2s ease-out infinite; }
+@keyframes projetar-pulsa { 0% { box-shadow: 0 0 0 0 rgba(229,72,77,.55); } 70%, 100% { box-shadow: 0 0 0 12px rgba(229,72,77,0); } }
+@media (prefers-reduced-motion: reduce) { #btnShare { animation: none !important; } }
+body:not(:has(.theater.curtain-open)) #btnShare { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+body:not(:has(.theater.curtain-open)) #btnShare:hover { background: var(--accent-hi); }
+.dica { position: fixed; z-index: 300; max-width: 260px; padding: 6px 10px; border-radius: 8px; background: #f4f4f6; color: #111; font-size: .76rem; font-weight: 600; line-height: 1.3; box-shadow: 0 8px 24px rgba(0,0,0,.4); pointer-events: none; animation: dica-in .12s both; }
+@keyframes dica-in { from { opacity: 0; transform: translateY(3px); } }
+
+/* Cabeçalho: logo + nome menores, canal como subtítulo, quem está em rostos, Convidar em destaque */
+.top .brand { display: inline-flex; align-items: center; gap: .4em; font-size: clamp(1.2rem, 2.4vw, 1.55rem); }
+.top .brand::before { content: ''; width: 1.1em; height: 1.1em; flex: none; background: url(assets/icon.svg) center / contain no-repeat; border-radius: .25em; }
+.status__rostos { display: inline-flex; margin-right: 2px; }
+.status__rostos > * { margin-left: -6px; border-radius: 50%; box-shadow: 0 0 0 2px var(--bg, #0b0b0e); }
+.status__rostos > *:first-child { margin-left: 0; }
+.status:has(.status__rostos > *) > i { display: none; }
+#btnInvite { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); color: var(--accent-hi); }
+#btnInvite:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+
+/* Tela vazia com atalhos */
+.empty__acoes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 18px; text-shadow: none; }
+.empty__acao { display: grid; justify-items: center; gap: 4px; padding: 16px 12px; border: 1px solid rgba(255,255,255,.14); border-radius: 14px; background: rgba(10,8,10,.55); backdrop-filter: blur(8px); color: #fff; font: inherit; cursor: pointer; transition: transform .15s, background .15s, border-color .15s; }
+.empty__acao:hover { transform: translateY(-3px); background: rgba(10,8,10,.75); border-color: rgba(255,255,255,.3); }
+.empty__acao:first-child { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, rgba(10,8,10,.6)); }
+.empty__acao svg { width: 26px; height: 26px; margin-bottom: 4px; }
+.empty__acao b { font-size: .9rem; } .empty__acao small { font-size: .72rem; opacity: .7; }
+@media (max-width: 640px) { .empty__acoes { grid-template-columns: 1fr; } .empty__acao { grid-template-columns: auto 1fr; justify-items: start; text-align: left; } .empty__acao svg { grid-row: span 2; margin: 0 6px 0 0; } }
+
+/* Plateia (fora da tela cheia): piso escuro com leve perspectiva, fileira da frente maior */
+.theater:not(:fullscreen, .palco) .row { position: relative; }
+.theater:not(:fullscreen, .palco) .row::before { content: ''; position: absolute; left: 4%; right: 4%; bottom: -6px; height: 70%; z-index: -1; border-radius: 50% 50% 14px 14px / 30% 30% 14px 14px; background: radial-gradient(60% 90% at 50% 100%, rgba(229,72,77,.08), transparent 70%), linear-gradient(transparent, rgba(0,0,0,.35)); transform: perspective(400px) rotateX(28deg); transform-origin: bottom; pointer-events: none; }
+
+/* Janelas (diário, convite, conta, sala, microfone…): um só estilo — mesmo raio, fundo, sombra, cabeçalho e fechar */
+.gate:not(.lobby) { background: rgba(4,4,6,.62); backdrop-filter: blur(6px); }
+.gate .gate__card { border-radius: 18px; border: 1px solid rgba(255,255,255,.09); background: linear-gradient(180deg, #17171d, #121217); box-shadow: 0 30px 90px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.04); animation: janela-in var(--dur-med, .22s) var(--ease, cubic-bezier(.2,.9,.3,1)) both; }
+@keyframes janela-in { from { opacity: 0; transform: translateY(10px) scale(.98); } }
+.gate__card :is(.diary-card__head, .invite-head) { display: flex; align-items: center; gap: 10px; margin: -4px 0 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.07); text-align: left; }
+.gate__card :is(.diary-card__head, .invite-head) h2, .gate__card > h2 { margin: 0; font-size: var(--fs-4, 1.15rem); font-weight: 700; letter-spacing: -.01em; }
+.gate__card :is(.diary-card__x, .invite-close) { width: 32px; height: 32px; display: grid; place-items: center; margin-left: auto; border: 0; border-radius: 50%; background: rgba(255,255,255,.06); color: inherit; cursor: pointer; transition: background .15s; }
+.gate__card :is(.diary-card__x, .invite-close):hover { background: rgba(255,255,255,.14); }
+.gate__card :is(.diary-card__x, .invite-close) svg { width: 16px; height: 16px; }
+.diary-card__retro + .diary-card__x { margin-left: 0; }
+
+/* Ajustes em abas */
+.setp-abas { display: flex; gap: 4px; margin: 2px 0 10px; padding: 3px; border-radius: 10px; background: rgba(255,255,255,.05); }
+.setp-aba { flex: 1; padding: 6px 8px; border: 0; border-radius: 8px; background: none; color: var(--fg-soft, rgba(236,236,241,.62)); font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer; }
+.setp-aba[aria-selected="true"] { background: rgba(255,255,255,.12); color: var(--fg, #fff); }
+.setp-painel { display: grid; gap: 2px; animation: rara-in .15s both; }
+
+/* Diário em linha do tempo */
+.diary__mes { position: sticky; top: 0; z-index: 2; padding: 10px 2px 6px !important; background: linear-gradient(#141419 70%, transparent); font-size: .78rem !important; letter-spacing: .06em; }
+.diary .diary__poster { width: 78px; height: 116px; border-radius: 10px; box-shadow: 0 8px 22px rgba(0,0,0,.45); }
+.diary__item--proxima { border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%); }
+
+/* ===== Padrões visuais =====
+   Tipografia em 5 tamanhos; 2 velocidades de animação; cores com significado:
+   vermelho = ao vivo / projetando / mudo, âmbar = atenção e destaque, branco = ligado (opções de visual). */
+:root {
+  --fs-1: .7rem; --fs-2: .8rem; --fs-3: .9rem; --fs-4: 1.15rem; --fs-5: 1.6rem;
+  --dur-fast: .14s; --dur-med: .24s; --ease: cubic-bezier(.2, .9, .3, 1);
+  --atencao: #ffc23d; --ligado: #ffffff;
+}
+.jogosmenu__k, .diary__sec, .retro__sec h3, .poll__total, .esq-item small { font-size: var(--fs-1); }
+.jogosmenu__card b, .setp-aba, .player-time, .midia-card__txt small { font-size: var(--fs-2); }
+.retro__tops b, .jogosmenu__agora b, .empty__acao b { font-size: var(--fs-3); }
+/* botões: um raio e um hover para todos os da barra e do topo */
+:is(.toolbar, .toolbar--voz, .top) .btn { border-radius: 12px; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
+:is(.toolbar, .toolbar--voz, .top) .btn--ghost:hover, :is(.toolbar, .toolbar--voz, .top) .btn--icon:hover { background: rgba(255,255,255,.09); }
+:is(.toolbar, .toolbar--voz) .btn:active { transform: scale(.96); }
+/* opções de visual ligadas = branco (vermelho fica para o que está ao vivo ou mudo) */
+:is(#btnTeatro, #btnPalco, #btnSubs, #btnMais)[aria-pressed="true"], #btnMais[aria-expanded="true"] { color: var(--ligado); border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.12); }
+.poll__op.on { border-color: rgba(255,255,255,.6); }
+/* animações no mesmo ritmo */
+.player-button, .jogosmenu__card, .empty__acao, .nfx-voto__b, .poll__op, .setp-aba { transition-duration: var(--dur-fast); transition-timing-function: var(--ease); }
+.midia-card, .nfx-acoes > *, .gate .gate__card { transition-timing-function: var(--ease); }
+
+/* Tela cheia: o botão de tela cheia do player some (a barra da sala já tem um) */
+.theater:is(:fullscreen, .palco) .player-full { display: none; }
+/* Dizer o que está passando */
+.nomear { position: fixed; left: 50%; top: 30%; z-index: 120; transform: translateX(-50%); width: min(420px, calc(100vw - 24px)); display: grid; gap: 10px; padding: 16px; border-radius: 16px; background: #17171d; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 24px 70px rgba(0,0,0,.6); animation: janela-in var(--dur-med) var(--ease) both; }
+.nomear input { padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); background: #0e0e12; color: inherit; font: inherit; }
+.nomear > div { display: flex; justify-content: flex-end; gap: 8px; }
+
+/* Jogos: o mesmo cabeçalho em todos (logo à esquerda, botões à direita, mesma altura e respiro).
+   "body" na frente para valer sobre o CSS de cada jogo, que carrega depois. */
+body :is(.cp-topo, .dc-topo, .db-topo, .pp-topo, .ab-topo, .du-topo, .nt-topo, .qq-topo) { min-height: 7.5cqh; padding: 1.6cqh 2.2cqh 1.2cqh; gap: 1.2cqh; align-items: center; }
+
+/* Retorno visual dos controles do player */
+.pfb { position: absolute; top: 0; bottom: 0; z-index: 6; display: grid; place-items: center; pointer-events: none; }
+.pfb--esq { left: 0; width: 38%; background: radial-gradient(80% 60% at 0% 50%, rgba(255,255,255,.14), transparent 70%); animation: pfb-lado .75s var(--ease) both; }
+.pfb--dir { right: 0; width: 38%; background: radial-gradient(80% 60% at 100% 50%, rgba(255,255,255,.14), transparent 70%); animation: pfb-lado .75s var(--ease) both; }
+.pfb--meio { left: 0; right: 0; }
+.pfb span { display: grid; justify-items: center; gap: 4px; padding: 16px; border-radius: 50%; color: #fff; filter: drop-shadow(0 2px 10px rgba(0,0,0,.6)); }
+.pfb--meio span { width: 84px; height: 84px; place-content: center; background: rgba(0,0,0,.45); backdrop-filter: blur(4px); animation: pfb-meio .7s var(--ease) both; }
+.pfb svg { width: 36px; height: 36px; }
+.pfb--esq svg { animation: pfb-gira-esq .5s var(--ease) both; } .pfb--dir svg { animation: pfb-gira-dir .5s var(--ease) both; }
+.pfb b { font-size: .95rem; font-weight: 700; }
+@keyframes pfb-lado { 0% { opacity: 0; } 15% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes pfb-meio { 0% { opacity: 0; transform: scale(.6); } 20% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.25); } }
+@keyframes pfb-gira-esq { from { transform: rotate(60deg); } } @keyframes pfb-gira-dir { from { transform: rotate(-60deg); } }
+/* Fora da tela cheia a fileira de bonecos fica na frente da tela: a barra do player sobe para não ficar atrás deles */
+.theater:not(:fullscreen, .palco) .tile .player-controls { bottom: max(var(--vy, 0px), calc(clamp(84px, 10vw, 120px) * .5)); }

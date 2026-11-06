@@ -58,9 +58,9 @@ const txt = (v, n) => typeof v === 'string' ? v.slice(0, n) : ''
 const url = v => typeof v === 'string' && /^https:\/\/[^\s"'()<>]+$/.test(v) ? v.slice(0, 500) : ''
 const num = (v, lo, hi) => Number.isFinite(+v) ? Math.max(lo, Math.min(hi, +v)) : 0
 function lerMidia(m) {
-  if (!m || typeof m !== 'object' || !['netflix'].includes(m.plat) || !txt(m.titulo, 100)) return null
+  if (!m || typeof m !== 'object' || !['netflix', ''].includes(m.plat ?? '') || !txt(m.titulo, 100)) return null
   return {
-    plat: m.plat, titulo: txt(m.titulo, 100), s: num(m.s, 0, 99), e: num(m.e, 0, 999), epNome: txt(m.epNome, 100), tipo: m.tipo === 'serie' ? 'serie' : 'filme',
+    plat: m.plat || '', titulo: txt(m.titulo, 100), s: num(m.s, 0, 99), e: num(m.e, 0, 999), epNome: txt(m.epNome, 100), tipo: m.tipo === 'serie' ? 'serie' : 'filme',
     original: txt(m.original, 120), ano: txt(m.ano, 12), nota: m.nota == null ? null : num(m.nota, 0, 10), poster: url(m.poster), fundo: url(m.fundo), imdb: /^tt\d+$/.test(m.imdb) ? m.imdb : '',
   }
 }

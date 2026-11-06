@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict'
 import { DEFAULT_VOICE, cleanVoice, normalizeAudioPrefs, spatialPosition, gateIsOpen } from '../public/audio-settings.js'
 assert.equal(DEFAULT_VOICE.gate, false)
-assert.equal(normalizeAudioPrefs({ spatial: false }).spatial, true)
-assert.equal(normalizeAudioPrefs({ spatial: false, spatialVersion: 2 }).spatial, false)
+// áudio espacial é opcional: preferência antiga (sem versão 3) começa desligada; a escolha salva na versão 3 vale
+assert.equal(normalizeAudioPrefs({ spatial: true }).spatial, false)
+assert.equal(normalizeAudioPrefs({ spatial: true, spatialVersion: 2 }).spatial, false)
+assert.equal(normalizeAudioPrefs({ spatial: true, spatialVersion: 3 }).spatial, true)
+assert.equal(normalizeAudioPrefs({ spatial: false, spatialVersion: 3 }).spatial, false)
 assert.equal(cleanVoice({ gain: 999, hold: 1, threshold: -999 }).gain, 18)
 assert.equal(cleanVoice({ gain: 999, hold: 1, threshold: -999 }).hold, 150)
 const left = spatialPosition(2, 0, 4), right = spatialPosition(0, 2, 4)
