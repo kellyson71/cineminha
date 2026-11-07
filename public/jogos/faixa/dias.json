@@ -1,4 +1,166 @@
 {
+ "2026-08-09": [
+  {
+   "id": "ze-felipe-roca-em-mim",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Roça Em Mim",
+   "a": "Zé Felipe",
+   "album": "Roça Em Mim",
+   "ano": 2022,
+   "dz": {
+    "t": 2008329317,
+    "a": 5576810
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 679518,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "prince-purple-rain",
+   "n": 1,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Purple Rain (2015 Paisley Park Remaster)",
+   "a": "Prince",
+   "album": "Purple Rain (Deluxe Expanded Edition)",
+   "ano": 2017,
+   "dz": {
+    "t": 374283061,
+    "a": 1878
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 959429,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "luisa-sonza-sagrado-profano",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sagrado Profano",
+   "a": "Luísa Sonza",
+   "album": "Escândalo Íntimo",
+   "ano": 2023,
+   "dz": {
+    "t": 2428168355,
+    "a": 10286020
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 651404,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-08-10": [
   {
    "id": "maroon-5-animals",
@@ -149,6 +311,103 @@
    ],
    "pais": "DE",
    "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "rogerinho-tchuco-nela",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tchuco Nela",
+   "a": "Rogerinho",
+   "album": "Tchuco Nela",
+   "ano": 2022,
+   "dz": {
+    "t": 1706350647,
+    "a": 14520277
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 587148,
+   "generos": [
+    "Axé/Forró",
+    "Sertanejo",
+    "Soul & Funk"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "coldplay-yellow",
+   "n": 4,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Yellow",
+   "a": "Coldplay",
+   "album": "Parachutes",
+   "ano": 2000,
+   "dz": {
+    "t": 3128096,
+    "a": 892
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 971942,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 2000,
    "tags_ok": true
   }
  ],
@@ -55676,6 +55935,270 @@
     "Pop"
    ],
    "pais": "AM",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-kevin-o-chris-papin",
+   "n": 1,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Papin",
+   "a": "MC Kevin o Chris",
+   "album": "Tamborzão Raiz",
+   "ano": 2022,
+   "dz": {
+    "t": 1964150517,
+    "a": 50258612
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 545968,
+   "generos": [
+    "Soul & Funk"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "blackbear-hot-girl-bummer",
+   "n": 2,
+   "origem": "tiktok",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hot Girl Bummer",
+   "a": "blackbear",
+   "album": "everything means nothing",
+   "ano": 2019,
+   "dz": {
+    "t": 1430026552,
+    "a": 1948791
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 764422,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "matue-vampiro",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Vampiro",
+   "a": "Matuê",
+   "album": "Vampiro",
+   "ano": 2022,
+   "dz": {
+    "t": 1623099982,
+    "a": 11329214
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 719339,
+   "generos": [
+    "Rap/Hip Hop",
+    "Filmes/Games"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "ze-neto-cristiano-notificacao-preferida",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Notificação Preferida (Ao Vivo)",
+   "a": "Zé Neto & Cristiano",
+   "album": "Esquece o Mundo Lá Fora (Ao Vivo | Deluxe)",
+   "ano": 2018,
+   "dz": {
+    "t": 524693182,
+    "a": 5895828
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "sertanejo"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "sofrencia",
+     "festa",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 769756,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-02-27": [
+  {
+   "id": "mc-livinho-hoje-eu-vou-parar-na-gaiola",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hoje Eu Vou Parar Na Gaiola",
+   "a": "Mc Livinho",
+   "album": "Hoje Eu Vou Parar Na Gaiola",
+   "ano": 2021,
+   "dz": {
+    "t": 1440594182,
+    "a": 5918943
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 593836,
+   "generos": [],
+   "pais": "BR",
    "decada": 2020,
    "tags_ok": true
   }
