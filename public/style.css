@@ -2857,3 +2857,18 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 .escolhe__nova input { flex: 1; min-width: 0; border: 0; background: none; color: inherit; font: inherit; outline: none; }
 .escolhe__nova .btn { flex: none; border-radius: 12px; }
 @media (max-width: 640px) { .escolhe__nova { flex-wrap: wrap; } .escolhe__nova .btn { width: 100%; } }
+
+/* Entrada: o nome em destaque; as pessoas fixas embaixo, menores */
+.entrada-nome #guestField { width: min(360px, 100%); margin: 1.2rem auto 0; }
+.entrada-nome #guestField span { font-size: .78rem; }
+.entrada-nome #guestName { height: 50px; font-size: 1.05rem; text-align: center; border-radius: 14px; }
+.entrada-nome .lobby__go { width: min(360px, 100%); margin: .7rem auto 0 !important; display: flex; justify-content: center; box-shadow: none; }
+.entrada-ou { display: flex; align-items: center; gap: 12px; width: min(560px, 100%); margin: 1.6rem auto .6rem; color: rgba(236,236,241,.45); font-size: .78rem; }
+.entrada-ou::before, .entrada-ou::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.1); }
+.entrada-nome .who { width: min(560px, 100%); margin: 0 auto; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
+.entrada-nome .whocard__in { flex-direction: row; justify-content: flex-start; gap: 8px; padding: 6px 8px; min-height: 0; border-radius: 12px; }
+.entrada-nome .whocard__boneco { display: none; }
+.entrada-nome .whocard__art { width: 30px; height: 30px; flex: none; }
+.entrada-nome .whocard__pfp { position: static; width: 30px !important; height: 30px !important; border: 0; box-shadow: none; }
+.entrada-nome .whocard__in b { font-size: .8rem; }
+.entrada-nome .whocard__in small { display: none; }

@@ -287,7 +287,7 @@ async function login(pw, key, name) {
   const when = 'É só entrar'
   $('#lobbyWhen').textContent = `Sessão · ${when}`
   $('#lobbyTitle').textContent = film || CFG.nome
-  $('#lobbySub').textContent = film ? `no ${CFG.nome}` : 'Escolha quem você é para entrar'
+  $('#lobbySub').textContent = film ? `no ${CFG.nome}` : (CFG.convidados && !invite ? 'Diga seu nome para entrar' : 'Escolha quem você é para entrar')
   if (invite) $('#pwField').hidden = true
   if (invite) renderTicket(invite, when)
 }
@@ -324,11 +324,22 @@ function whoCard(value, p, disabled, note) {
 }
 const ocupado = id => !!invite?.ocupados?.includes(id) && conta?.key !== id
 PEOPLE.filter(p => allowed(p.id) && !ocupado(p.id)).forEach(p => whoEl.append(whoCard(p.id, p, p.ausente, p.ausente ? 'não vem hoje' : '')))
-if (guestsOk) whoEl.append(whoCard('guest', { nome: 'Convidado', cor: '#a9b6bf', ...(CFG.convidado || {}) }))
+// Entrada aberta (sem convite): o principal é dizer o seu nome; "você é algum desses?" vem embaixo, menor
+const entradaNome = guestsOk && !invite
+if (entradaNome) {
+  document.body.classList.add('entrada-nome')
+  $('#guestField').hidden = false
+  $('#guestField span').textContent = 'Como te chamam?'
+  $('#guestName').placeholder = 'Seu nome'
+  $('#guestField').after($('.lobby__go'))
+  whoEl.before($('#guestField'), $('.lobby__go'), el('p', { className: 'entrada-ou' }, el('span', { textContent: 'ou, você é algum desses?' })))
+  whoEl.querySelector('legend')?.remove()
+  $('.lobby__go').lastChild.textContent = 'Entrar'
+} else if (guestsOk) whoEl.append(whoCard('guest', { nome: 'Convidado', cor: '#a9b6bf', ...(CFG.convidado || {}) }))
 if (invite && !whoEl.querySelector('input')) whoEl.append(el('p', { className: 'who__vazio', textContent: 'Todo mundo deste convite já entrou. Se você é um deles em outro aparelho, peça um link pessoal.' }))
 whoEl.addEventListener('change', () => {
   const picked = document.querySelector('input[name=who]:checked')?.value
-  $('#guestField').hidden = picked !== 'guest'
+  if (!entradaNome) $('#guestField').hidden = picked !== 'guest'
   if (picked === 'guest') return $('#guestName').focus()
   // com a senha já conhecida (convite ou digitada), clicar no cartão já entra
   if (invite || $('#pw').value.trim() || CFG.senhaAberta) $('#gateForm').requestSubmit()
@@ -347,8 +358,9 @@ $('#gateForm').addEventListener('submit', async e => {
   const pw = invite ? invite.pw : $('#pw').value.trim().toLowerCase() || CFG.senhaAberta || ''
   if (!pw) { $('#pw').focus(); return gateErr('Digite a senha da sala.') }
   if (!await okPw(pw)) return gateErr('Senha errada.')
-  const picked = document.querySelector('input[name=who]:checked')?.value
-  if (!picked) return gateErr('Escolha quem você é.')
+  // no modo "diga seu nome", digitar o nome e apertar Entrar é entrar como convidado
+  const picked = document.querySelector('input[name=who]:checked')?.value || (entradaNome && $('#guestName').value.trim() ? 'guest' : '')
+  if (!picked) return entradaNome ? ($('#guestName').focus(), gateErr('Diga seu nome ou escolha quem você é.')) : gateErr('Escolha quem você é.')
   let key, name
   if (picked === 'guest') {
     name = $('#guestName').value.trim().slice(0, 24)
