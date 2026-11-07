@@ -1,4 +1,158 @@
 {
+ "2026-08-22": [
+  {
+   "id": "david-guetta-nicki-minaj-turn-me-on-feat-nicki-minaj",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Turn Me On (feat. Nicki Minaj)",
+   "a": "David Guetta",
+   "album": "Nothing but the Beat (Ultimate Edition)",
+   "ano": 2011,
+   "dz": {
+    "t": 62847143,
+    "a": 542
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 761177,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "FR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "michael-jackson-smooth-criminal-2012-remaster",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Smooth Criminal (2012 Remaster)",
+   "a": "Michael Jackson",
+   "album": "Bad (Remastered)",
+   "ano": 1987,
+   "dz": {
+    "t": 59509511,
+    "a": 259
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 643001,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 1980,
+   "tags_ok": true
+  },
+  {
+   "id": "girl-in-red-we-fell-in-love-in-october",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "we fell in love in october",
+   "a": "girl in red",
+   "album": "we fell in love in october / forget her",
+   "ano": 2018,
+   "dz": {
+    "t": 1861248217,
+    "a": 14226477
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 958660,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-08-23": [
   {
    "id": "drake-majid-jordan-hold-on-we-re-going-home",
@@ -147,6 +301,102 @@
     "Rap/Hip Hop"
    ],
    "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "el-alfa-el-cherry-scom-cj-la-mama-de-la-mama",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "La Mamá de la Mamá",
+   "a": "El Alfa",
+   "album": "SAGITARIO",
+   "ano": 2021,
+   "dz": {
+    "t": 2308217445,
+    "a": 1611773
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 789148,
+   "generos": [
+    "Pop",
+    "Pop Latino"
+   ],
+   "pais": "DO",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "major-lazer-justin-bieber-m-cold-water-feat-justin-bieber-m",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cold Water",
+   "a": "Major Lazer",
+   "album": "Major Lazer Essentials",
+   "ano": 2018,
+   "dz": {
+    "t": 569166542,
+    "a": 282118
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 603872,
+   "generos": [
+    "Electro"
+   ],
+   "pais": "JM",
    "decada": 2010,
    "tags_ok": true
   }
@@ -48964,6 +49214,254 @@
    ],
    "pais": null,
    "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-02-13": [
+  {
+   "id": "avenged-sevenfold-dear-god",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dear God",
+   "a": "Avenged Sevenfold",
+   "album": "Avenged Sevenfold",
+   "ano": 2007,
+   "dz": {
+    "t": 6278230,
+    "a": 406
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 634398,
+   "generos": [
+    "Rock",
+    "Hard Rock"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "justin-bieber-love-yourself",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Love Yourself",
+   "a": "Justin Bieber",
+   "album": "Purpose (Deluxe)",
+   "ano": 2015,
+   "dz": {
+    "t": 112662368,
+    "a": 288166
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 888127,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "vulgo-fk-mc-cebezinho-kayblack-pedro-lotto-amusik-meca-cerej",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Meca Cereja",
+   "a": "Vulgo FK",
+   "album": "Meca Cereja",
+   "ano": 2022,
+   "dz": {
+    "t": 1950035707,
+    "a": 13416889
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 543385,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "fergie-clumsy",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Clumsy",
+   "a": "Fergie",
+   "album": "The Dutchess Deluxe",
+   "ano": 2006,
+   "dz": {
+    "t": 882288,
+    "a": 5843
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 556844,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "ava-max-kings-queens",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Kings & Queens",
+   "a": "Ava Max",
+   "album": "Kings & Queens",
+   "ano": 2020,
+   "dz": {
+    "t": 899198132,
+    "a": 12948083
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 838235,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
    "tags_ok": true
   }
  ]
