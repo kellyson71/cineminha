@@ -3148,7 +3148,7 @@ async function imagemRetro(r, btn) {
   try {
     const W = 1080, H = 1920, c = el('canvas', { width: W, height: H }), g = c.getContext('2d')
     const carrega = src => new Promise(ok => { const i = new Image(); i.crossOrigin = 'anonymous'; i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src })
-    const fonte = (peso, px) => `${peso} ${px}px Inter, "DM Sans", system-ui, sans-serif`
+    const fonte = (peso, px) => `${peso} ${px}px Inter, system-ui, sans-serif`
     const bg = g.createRadialGradient(0, 0, 0, 0, 0, 1900); bg.addColorStop(0, '#e5484d'); bg.addColorStop(.45, '#8a1c2b'); bg.addColorStop(1, '#16070b')
     g.fillStyle = bg; g.fillRect(0, 0, W, H)
     // logo: o "c" com o play
@@ -3256,6 +3256,7 @@ const textoR = new Map(), naoLidas = new Map()
 const chatR = () => chatCh ? textoR.get(chatCh) || roomId : roomId
 function chatChegou(m) {
   const ch = typeof m.ch === 'string' ? m.ch.slice(0, 30) : ''
+  if (m.key !== me.key && mencionaMe(m.text)) avisaMencao(m, ch)
   if (ch === chatCh) return addMsg(m)
   naoLidas.set(ch, (naoLidas.get(ch) || 0) + 1)
   if (!ch && !m.sys) { sfx('chat', m.key); showBubble(m) } // a conversa da call continua aparecendo nos bonecos
@@ -3265,7 +3266,7 @@ async function abreChat(ch, grande) {
   if (grande) chatGrande(true)
   if (ch === chatCh && messages.length) { renderLateral(); fechaLateral(); return }
   if (ch && !textoR.has(ch)) textoR.set(ch, 'x' + (await sha('texto:' + roomPw + ':' + ch)).slice(0, 40))
-  chatCh = ch; naoLidas.delete(ch)
+  chatCh = ch; naoLidas.delete(ch); mencoes.delete(ch)
   clearInterval(textoPoll); textoPoll = 0
   clearChat()
   const t = textos.find(x => x.id === ch)
@@ -3278,7 +3279,7 @@ async function abreChat(ch, grande) {
   if (ch) textoPoll = setInterval(async () => {
     const r = await api(`chat?r=${chatR()}&desde=${textoUltimo + 1}`)
     if (chatCh !== ch) return
-    for (const m of r?.list || []) { addMsg(m); textoUltimo = Math.max(textoUltimo, m.ts || 0) }
+    for (const m of r?.list || []) { if (!seen.has(m.id) && m.key !== me.key && mencionaMe(m.text)) avisaMencao(m, ch); addMsg(m); textoUltimo = Math.max(textoUltimo, m.ts || 0) }
   }, 5000)
   if (!chatVisible()) setChat(true)
   renderLateral(); fechaLateral(); renderChatCanais()
@@ -3364,8 +3365,9 @@ function renderLateral() {
   if (!me.key) return
   moveProjetar()
   if (painel.querySelector('.lateral__novo input') === document.activeElement) return // criando algo: não apaga o campo
-  const salas = [...canais]
+  const salas = ordena([...canais], prefs.ordemSalas)
   if (!salas.some(c => c.id === canal)) salas.push({ id: canal, nome: canalNome(canal), pres: [] })
+  const textosOrd = ordena([...textos], prefs.ordemChats)
   const aqui = new Map([[me.key, me.name], ...[...peers.values()].filter(p => p.key).map(p => [p.key, p.name])])
   const gente = c => c.id === canal ? [...aqui].map(([key, name]) => ({ key, name })) : (c.pres || []).filter(p => p.key !== me.key)
   const totalNaoLidas = [...naoLidas.values()].reduce((a, n) => a + n, 0)
@@ -3391,7 +3393,8 @@ function renderLateral() {
       return b
     }),
     el('i', { className: 'rail-sep' }),
-    bolinha([icon('message-square'), totalNaoLidas ? el('b', { className: 'rail-n rail-n--vermelho', textContent: totalNaoLidas > 99 ? '99+' : totalNaoLidas }) : ''], '', 'Chats'),
+    bolinha([icon('message-square'), mencoes.size ? el('b', { className: 'rail-n rail-n--mencao', textContent: '@' }) : totalNaoLidas ? el('b', { className: 'rail-n rail-n--vermelho', textContent: totalNaoLidas > 99 ? '99+' : totalNaoLidas }) : ''], '', mencoes.size ? 'Chats · te marcaram' : 'Chats'),
+    (() => { const b = bolinha(icon('ticket'), 'rail-convite', 'Convidar: copia o link · botão direito: personalizar', () => $('#btnInvite').click(), true); b.addEventListener('contextmenu', e => { e.preventDefault(); $('#btnInviteDetails').click() }); return b })(),
     bolinha(icon(myShare ? 'monitor-off' : 'projector'), 'rail-proj' + (myShare ? ' ativo' : ''), myShare ? 'Parar de projetar' : 'Projetar (tela, arquivo ou YouTube)', myShare ? () => stopShare() : null, !!myShare),
     el('span', { className: 'rail-grow' }),
     mic, som,
@@ -3412,14 +3415,14 @@ function renderLateral() {
       if (atual) li.dataset.key = p.key
       return li
     }))
-    return el('div', { className: 'lat-bloco' }, b, atual ? projSlot : '', lista)
+    return arrastavel(el('div', { className: 'lat-bloco' }, b, atual ? projSlot : '', lista), 'ordemSalas', c.id)
   }
   const linhaChat = (id, nome, ic) => {
-    const n = naoLidas.get(id) || 0
-    const b = el('button', { type: 'button', className: 'lat-chat' + (chatCh === id ? ' on' : '') + (n ? ' novo' : ''), title: 'Duplo clique: abrir o chat grande' }, icon(ic), el('span', { textContent: nome }), n ? el('b', { className: 'lat-badge', textContent: n > 99 ? '99+' : n }) : '')
+    const n = naoLidas.get(id) || 0, marcado = mencoes.get(id)
+    const b = el('button', { type: 'button', className: 'lat-chat' + (chatCh === id ? ' on' : '') + (n || marcado ? ' novo' : ''), title: 'Duplo clique: abrir o chat grande' }, icon(ic), el('span', { textContent: nome }), marcado ? el('b', { className: 'lat-badge lat-badge--mencao', textContent: '@' }) : n ? el('b', { className: 'lat-badge', textContent: n > 99 ? '99+' : n }) : '')
     b.addEventListener('click', () => abreChat(id))
     b.addEventListener('dblclick', () => abreChat(id, true))
-    return b
+    return id ? arrastavel(b, 'ordemChats', id) : b
   }
   const secSalas = secao('Salas de cinema', e => criaInline(e.currentTarget.parentElement, 'nome da sala', async nome => {
     const r = await api('sala', { method: 'POST', body: { op: 'canal-novo', pw: roomPw, nome, key: me.key } })
@@ -3446,12 +3449,107 @@ function renderLateral() {
     (() => { const b = el('button', { type: 'button', className: 'lat-eu__b', title: 'Configurações', ariaLabel: 'Configurações' }, icon('settings')); b.addEventListener('click', () => abreAjustes()); return b })())
   painel.replaceChildren(
     el('header', { className: 'lateral__topo' }, el('img', { src: 'assets/icon.svg', alt: '' }), el('b', { textContent: CFG.nome || 'Cineminha' }),
+      (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Convidar (copia o link) · botão direito: personalizar' }, icon('ticket')); b.addEventListener('click', () => $('#btnInvite').click()); b.addEventListener('contextmenu', e => { e.preventDefault(); fechaLateral(); $('#btnInviteDetails').click() }); return b })(),
       (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Diário de sessões' }, icon('book-open')); b.addEventListener('click', () => { fechaLateral(); openDiary() }); return b })(),
       (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Fechar (Esc)' }, icon('chevron-left')); b.addEventListener('click', fechaLateral); return b })()),
     el('div', { className: 'lateral__corpo' },
       secSalas, ...salas.map(linhaSala),
-      secChats, linhaChat('', 'conversa-da-sala', 'volume-2'), ...textos.map(t => linhaChat(t.id, t.nome, 'hash'))),
+      secChats, linhaChat('', 'conversa-da-sala', 'volume-2'), ...textosOrd.map(t => linhaChat(t.id, t.nome, 'hash'))),
     eu)
+}
+/* ---------- Menções com @ ----------
+   "@Nome" (ou @todos) no chat: a mensagem fica destacada para quem foi marcado, toca um som, acende o
+   chat na lateral com um "@" e, se a aba estiver em segundo plano, o título pisca. Digitar @ sugere nomes. */
+const nomesMencao = () => [...new Map([...PEOPLE.filter(p => !p.ausente).map(p => [p.nome, p.id]), ...[...peers.values()].filter(p => p.name).map(p => [p.name, p.key])]).keys()]
+const reEsc = t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+const mencionaMe = t => !!t && me.name && (new RegExp(`(^|\\s)@(${reEsc(me.name)}|todos|everyone)(?![\\wÀ-ú])`, 'i')).test(t)
+function textoComMencoes(t) {
+  const span = el('span', { className: 'msg__text' })
+  const nomes = nomesMencao().sort((a, b) => b.length - a.length).map(reEsc)
+  if (!t.includes('@') || !nomes.length) { span.textContent = t; return span }
+  const re = new RegExp(`@(${[...nomes, 'todos', 'everyone'].join('|')})(?![\\wÀ-ú])`, 'gi')
+  let i = 0
+  for (const x of t.matchAll(re)) {
+    if (x.index > i) span.append(t.slice(i, x.index))
+    span.append(el('b', { className: 'mencao' + (x[1].toLowerCase() === me.name?.toLowerCase() || /^(todos|everyone)$/i.test(x[1]) ? ' mencao--eu' : ''), textContent: x[0] }))
+    i = x.index + x[0].length
+  }
+  if (i < t.length) span.append(t.slice(i))
+  return span
+}
+const mencoes = new Map() // chat → marcado e ainda não viu
+let tituloPisca = 0
+function avisaMencao(m, ch) {
+  sfx('chat', m.key)
+  if (ch !== chatCh || document.hidden) { mencoes.set(ch, true); toast(`${m.name || 'Alguém'} te marcou${ch ? ` em #${textos.find(t => t.id === ch)?.nome || ch}` : ''}`, 4000) }
+  if (document.hidden && !tituloPisca) {
+    const orig = document.title
+    tituloPisca = setInterval(() => { document.title = document.title === orig ? `(@) ${m.name || 'Alguém'} te marcou` : orig }, 1200)
+    addEventListener('focus', function volta() { clearInterval(tituloPisca); tituloPisca = 0; document.title = orig; removeEventListener('focus', volta) })
+  }
+  renderLateral()
+}
+// sugestões ao digitar @
+const sugMencao = el('div', { className: 'sug-mencao', hidden: true })
+$('#chatForm').append(sugMencao)
+let sugIdx = 0
+function atualizaSug() {
+  const inp = $('#chatInput'), antes = inp.value.slice(0, inp.selectionStart), x = antes.match(/(^|\s)@([\wÀ-ú]*)$/)
+  if (!x) { sugMencao.hidden = true; return }
+  const q = x[2].toLowerCase(), lista = [...nomesMencao().filter(n => n !== me.name && n.toLowerCase().startsWith(q)), ...('todos'.startsWith(q) ? ['todos'] : [])].slice(0, 6)
+  if (!lista.length) { sugMencao.hidden = true; return }
+  sugIdx = Math.min(sugIdx, lista.length - 1)
+  sugMencao.replaceChildren(...lista.map((n, i) => {
+    const key = PEOPLE.find(p => p.nome === n)?.id || [...peers.values()].find(p => p.name === n)?.key
+    const b = el('button', { type: 'button', className: i === sugIdx ? 'on' : '' }, n === 'todos' ? el('span', { className: 'sug-mencao__todos', textContent: '@' }) : pfpImg(key, 22, n), el('span', { textContent: n === 'todos' ? 'todos (avisa a sala)' : n }))
+    b.addEventListener('pointerdown', e => { e.preventDefault(); escolheSug(n) })
+    return b
+  }))
+  sugMencao.hidden = false
+}
+function escolheSug(n) {
+  const inp = $('#chatInput'), pos = inp.selectionStart, antes = inp.value.slice(0, pos).replace(/@([\wÀ-ú]*)$/, `@${n} `)
+  inp.value = antes + inp.value.slice(pos); inp.setSelectionRange(antes.length, antes.length)
+  sugMencao.hidden = true; sugIdx = 0; inp.focus()
+}
+$('#chatInput').addEventListener('input', () => { sugIdx = 0; atualizaSug() })
+$('#chatInput').addEventListener('keydown', e => {
+  if (sugMencao.hidden) return
+  const bs = [...sugMencao.querySelectorAll('button')]
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); sugIdx = (sugIdx + (e.key === 'ArrowDown' ? 1 : -1) + bs.length) % bs.length; atualizaSug() }
+  else if (e.key === 'Tab' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); bs[sugIdx]?.dispatchEvent(new PointerEvent('pointerdown')) }
+  else if (e.key === 'Escape') sugMencao.hidden = true
+}, true)
+$('#chatInput').addEventListener('blur', () => setTimeout(() => { sugMencao.hidden = true }, 150))
+
+/* Arrastar para reordenar salas e chats na lateral (a ordem é de cada pessoa, fica nas preferências) */
+function ordena(lista, ordem) {
+  if (!Array.isArray(ordem) || !ordem.length) return lista
+  const pos = id => { const i = ordem.indexOf(id); return i < 0 ? 1e6 : i }
+  return lista.sort((a, b) => pos(a.id) - pos(b.id))
+}
+let arrastando = null
+function arrastavel(node, chave, id) {
+  node.draggable = true
+  node.dataset.ordem = chave; node.dataset.id = id
+  node.addEventListener('dragstart', e => { arrastando = { chave, id }; node.classList.add('arrastando'); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', id) })
+  node.addEventListener('dragend', () => { arrastando = null; node.classList.remove('arrastando'); painel.querySelectorAll('.solta-antes, .solta-depois').forEach(x => x.classList.remove('solta-antes', 'solta-depois')) })
+  node.addEventListener('dragover', e => {
+    if (!arrastando || arrastando.chave !== chave || arrastando.id === id) return
+    e.preventDefault()
+    const r = node.getBoundingClientRect(), antes = e.clientY < r.top + r.height / 2
+    node.classList.toggle('solta-antes', antes); node.classList.toggle('solta-depois', !antes)
+  })
+  node.addEventListener('dragleave', () => node.classList.remove('solta-antes', 'solta-depois'))
+  node.addEventListener('drop', e => {
+    if (!arrastando || arrastando.chave !== chave) return
+    e.preventDefault()
+    const ids = [...painel.querySelectorAll(`[data-ordem="${chave}"]`)].map(x => x.dataset.id).filter(x => x !== arrastando.id)
+    const antes = node.classList.contains('solta-antes')
+    ids.splice(ids.indexOf(id) + (antes ? 0 : 1), 0, arrastando.id)
+    prefs[chave] = ids; savePrefs(); arrastando = null; renderLateral()
+  })
+  return node
 }
 // Clicar na sua foto (trilho ou painel): sua conta, configurações e sair — o topo não precisa mais disso
 function menuPerfil(ancora) {
@@ -4661,7 +4759,7 @@ function msgNode(m) {
     b.addEventListener('click', () => seekMovie(m.mt))
     line.append(b)
   }
-  if (m.text) line.append(el('span', { className: 'msg__text', textContent: m.text }))
+  if (m.text) line.append(textoComMencoes(m.text))
   if (line.childNodes.length) body.append(line)
   if (m.gif) body.append(gifImg(m))
   if (Array.isArray(m.poll) && m.poll.length >= 2) { line.classList.add('poll__q'); body.append(el('div', { className: 'poll' })) }
@@ -4678,7 +4776,7 @@ function msgNode(m) {
     ...QUICK.map(e => actBtn(reactArt(EMO_BY[e], 20, true), EMO_BY[e].label, () => toggleMsgReact(m.id, e))),
     actBtn(icon('smile-plus'), 'Mais reações', ev => openMsgPick(m.id, ev.currentTarget)),
     actBtn(icon('reply'), 'Responder', () => startReply(m)))
-  const li = el('li', { className: 'msg' + (m.from === selfId ? ' mine' : '') },
+  const li = el('li', { className: 'msg' + (m.from === selfId ? ' mine' : '') + (m.from !== selfId && mencionaMe(m.text) ? ' msg--mencao' : '') },
     el('div', { className: 'msg__gutter' }, pfpImg(m.key, 36, m.name), el('time', { className: 'msg__clock', textContent: fmtClock(m.ts) })),
     body, acts)
   li.dataset.key = m.key

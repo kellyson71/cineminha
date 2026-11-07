@@ -4,3 +4,4 @@ node_modules
 tmp
 
 app/dist
+extensao/loja/*.zip
