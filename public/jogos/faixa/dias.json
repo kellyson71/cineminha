@@ -1,4 +1,151 @@
 {
+ "2026-08-21": [
+  {
+   "id": "hailee-steinfeld-grey-zedd-starving",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Starving",
+   "a": "Hailee Steinfeld",
+   "album": "Starving",
+   "ano": 2016,
+   "dz": {
+    "t": 128948012,
+    "a": 5961630
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 574194,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "kendrick-lamar-swimming-pools-drank",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Swimming Pools (Drank)",
+   "a": "Kendrick Lamar",
+   "album": "Swimming Pools (Drank)",
+   "ano": 2012,
+   "dz": {
+    "t": 52735971,
+    "a": 525046
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 824975,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "taylor-swift-shake-it-off",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Shake It Off",
+   "a": "Taylor Swift",
+   "album": "1989 (Deluxe)",
+   "ano": 2014,
+   "dz": {
+    "t": 89077555,
+    "a": 12246
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 900000,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-08-22": [
   {
    "id": "david-guetta-nicki-minaj-turn-me-on-feat-nicki-minaj",
@@ -150,6 +297,99 @@
    ],
    "pais": null,
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "charlie-brown-jr-ela-vai-voltar-todos-os-defeitos-de-uma-mul",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ela Vai Voltar (Todos Os Defeitos De Uma Mulher Perfeita)",
+   "a": "Charlie Brown Jr.",
+   "album": "Imunidade Musical",
+   "ano": 2005,
+   "dz": {
+    "t": 3412499,
+    "a": 8691
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 725062,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "o-zone-dragostea-din-tei",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dragostea din tei",
+   "a": "O-Zone",
+   "album": "DiscO-Zone",
+   "ano": 2004,
+   "dz": {
+    "t": 1411240392,
+    "a": 22
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 854224,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2000,
    "tags_ok": true
   }
  ],
@@ -49462,6 +49702,253 @@
    ],
    "pais": "US",
    "decada": 2020,
+   "tags_ok": true
+  }
+ ],
+ "2027-02-14": [
+  {
+   "id": "doja-cat-candy",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Candy",
+   "a": "Doja Cat",
+   "album": "Amala (Deluxe Version)",
+   "ano": 2018,
+   "dz": {
+    "t": 637121412,
+    "a": 5578942
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 819766,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "calvin-harris-rihanna-this-is-what-you-came-for",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "This Is What You Came For",
+   "a": "Calvin Harris",
+   "album": "This Is What You Came For",
+   "ano": 2016,
+   "dz": {
+    "t": 123883254,
+    "a": 12178
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 938929,
+   "generos": [
+    "Electro",
+    "Techno/House",
+    "Dance",
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-weeknd-call-out-my-name",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Call Out My Name (Live)",
+   "a": "The Weeknd",
+   "album": "Live At SoFi Stadium",
+   "ano": 2018,
+   "dz": {
+    "t": 2166259397,
+    "a": 4050205
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 505460,
+   "generos": [
+    "R&B"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "one-direction-little-things",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Little Things",
+   "a": "One Direction",
+   "album": "Take Me Home",
+   "ano": 2012,
+   "dz": {
+    "t": 61644197,
+    "a": 1007876
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "1.webm"
+    }
+   ],
+   "rank": 656067,
+   "generos": [
+    "Pop",
+    "Pop internacional",
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "pitbull-t-pain-hey-baby-drop-it-to-the-floor-feat-t-pain",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hey Baby (Drop It to the Floor) (feat. T-Pain)",
+   "a": "Pitbull",
+   "album": "Hey Baby (Drop It to the Floor) (feat. T-Pain)",
+   "ano": 2010,
+   "dz": {
+    "t": 7300948,
+    "a": 776
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 831229,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Dance",
+    "Rap/Hip Hop",
+    "Pop",
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2010,
    "tags_ok": true
   }
  ]
