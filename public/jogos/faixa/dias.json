@@ -154,6 +154,111 @@
    "pais": "CH",
    "decada": 2020,
    "tags_ok": true
+  },
+  {
+   "id": "matheus-kauan-meu-silencio",
+   "n": 3,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Meu Silêncio (Ao Vivo)",
+   "a": "Matheus & Kauan",
+   "album": "Meu Silêncio (Ao Vivo)",
+   "ano": 2026,
+   "dz": {
+    "t": 4008581661,
+    "a": 3120261
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 727196,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "benson-boone-beautiful-things",
+   "n": 4,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Beautiful Things",
+   "a": "Benson Boone",
+   "album": "Fireworks & Rollerblades",
+   "ano": 2024,
+   "dz": {
+    "t": 2704682202,
+    "a": 146543992
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 920263,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
   }
  ],
  "2026-07-31": [
@@ -61328,6 +61433,161 @@
    ],
    "pais": "GB",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "henrique-juliano-ate-voce-voltar",
+   "n": 1,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Até Você Voltar (Ao Vivo)",
+   "a": "Henrique & Juliano",
+   "album": "Até Você Voltar (Ao Vivo)",
+   "ano": 2014,
+   "dz": {
+    "t": 79120155,
+    "a": 4876653
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 818624,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "dilsinho-diferentao",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Diferentão Ao Vivo",
+   "a": "Dilsinho",
+   "album": "Diferentão (Ao Vivo)",
+   "ano": 2023,
+   "dz": {
+    "t": 2271799997,
+    "a": 5417614
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 732336,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "henrique-juliano-a-maior-saudade",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "A Maior Saudade (Ao Vivo)",
+   "a": "Henrique & Juliano",
+   "album": "Manifesto Musical, Vol. 1 (Ao Vivo)",
+   "ano": 2021,
+   "dz": {
+    "t": 3876980041,
+    "a": 4876653
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 780871,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
    "tags_ok": true
   }
  ]
