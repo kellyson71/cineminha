@@ -35,7 +35,27 @@ FONTES = {
     'sp-playlist': (10, 'das suas playlists'),
     'icone': (15, 'ícones que todo mundo conhece (Antigravity)'),
     'parecida': (10, 'conhecidas parecidas com as que você ouve (Antigravity)'),
+    # paradas (paradas.py, sem login; peso 0 = desligada até você ligar com "musica-cineminha fontes tiktok=20")
+    'sp-br': (8, 'Spotify Brasil: top 200 do dia'),
+    'sp-global': (4, 'Spotify mundo: top da semana'),
+    'sp-sempre': (8, 'Spotify Brasil: as mais tocadas de todos os tempos'),
+    'tiktok': (6, 'hits do TikTok (playlists de virais da Deezer)'),
+    'deezer-br': (4, 'Deezer: Top Brasil'),
 }
+CONFIG = L / 'fontes-config.json'  # pesos escolhidos por você (sobrepõem os de cima)
+try:
+    for _f, _p in json.loads(CONFIG.read_text()).get('pesos', {}).items():
+        if _f in FONTES: FONTES[_f] = (max(0, int(_p)), FONTES[_f][1])
+except Exception:
+    pass
+
+
+def salva_pesos(pesos):
+    cfg = json.loads(CONFIG.read_text()) if CONFIG.exists() else {}
+    cfg.setdefault('pesos', {}).update({f: max(0, int(p)) for f, p in pesos.items() if f in FONTES})
+    CONFIG.write_text(json.dumps(cfg, ensure_ascii=False, indent=1))
+    for f, p in cfg['pesos'].items():
+        if f in FONTES: FONTES[f] = (p, FONTES[f][1])
 
 
 def chave(t, a):
@@ -76,7 +96,9 @@ def fontes():
         'sp-playlist': [(x['t'], x['a'], {'pop': x.get('pop')}) for x in sp.get('playlists', [])],
         'icone': [(t, a, {}) for t, a in ler_txt('pesquisa-icones.txt')],
         'parecida': [(t, a, {}) for t, a in ler_txt('pesquisa-parecidas.txt')],
+        **{f: [(x['t'], x['a'], {'pos': x.get('pos')}) for x in lista] for f, lista in paradas().items() if f in FONTES},
     }
+    for f in FONTES: todas.setdefault(f, [])
     vistos, out = set(), {}
     for f in FONTES:
         out[f] = []
@@ -85,6 +107,14 @@ def fontes():
             if k in vistos: continue
             vistos.add(k); out[f].append((t, a, ex))
     return out
+
+
+def paradas():
+    try:
+        import paradas as PR
+        return PR.ler()
+    except Exception:
+        return {}
 
 
 def vereditos():

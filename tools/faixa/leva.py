@@ -8,6 +8,7 @@ Uso:
   leva.py 10 --so futuro     só para frente (ou --so passado)
   leva.py 30 --publicar 10   publica os dados a cada 10 músicas e no fim (padrão: só no fim)
   leva.py 30 --sem-publicar
+  leva.py --sem-parar --fontes tiktok,sp-br   só dessas fontes nesta leva (ignora os pesos zerados)
 Cada música passa por: fonte sorteada pelo peso → filtro de nome → veredito do Antigravity → popularidade na Deezer.
 """
 import datetime as dt, json, os, random, signal, subprocess, sys, time
@@ -18,6 +19,7 @@ import fabrica as F, diario as D, pesquisa as P
 RAIZ = F.RAIZ
 POR_DIA = D.POR_DIA
 parar = False
+SO_FONTES = None  # --fontes a,b: só essas nesta leva
 
 
 def _sinal(*_):
@@ -64,6 +66,8 @@ def candidatas():
     V = P.vereditos(); us = P.usadas()
     por = {}
     for f, xs in P.fontes().items():
+        if SO_FONTES and f not in SO_FONTES: continue
+        if not SO_FONTES and P.FONTES[f][0] <= 0: continue  # peso 0 = fonte desligada
         ok = [(t, a, ex) for t, a, ex in xs if P.chave(t, a) not in us and P.situacao(t, a, ex, V)[0] == 'ok']
         random.shuffle(ok); por[f] = ok
     return por
@@ -72,7 +76,7 @@ def candidatas():
 def sorteia(por):
     vivas = [f for f in por if por[f]]
     if not vivas: return None
-    f = random.choices(vivas, weights=[P.FONTES[f][0] for f in vivas])[0]
+    f = random.choices(vivas, weights=[max(1, P.FONTES[f][0]) for f in vivas])[0]
     t, a, ex = por[f].pop()
     return f, t, a
 
@@ -94,6 +98,18 @@ def main():
     meta = next((int(a) for a in args if a.isdigit()), 30)
     sem_parar = '--sem-parar' in args
     so = args[args.index('--so') + 1] if '--so' in args else None
+    global SO_FONTES
+    if '--fontes' in args:
+        SO_FONTES = {f.strip() for f in args[args.index('--fontes') + 1].split(',') if f.strip()}
+        errado = SO_FONTES - set(P.FONTES)
+        if errado: sys.exit(f'fonte desconhecida: {", ".join(errado)} (existem: {", ".join(P.FONTES)})')
+        print(f'  só destas fontes: {", ".join(sorted(SO_FONTES))}', flush=True)
+    # paradas (Spotify/TikTok/Deezer) com mais de 1 dia: baixa de novo antes de começar
+    try:
+        import paradas as PR
+        if PR.velho(): print('  atualizando as paradas…', flush=True); PR.atualiza()
+    except Exception as e:
+        print(f'  paradas: {e}', flush=True)
     cada = int(args[args.index('--publicar') + 1]) if '--publicar' in args and len(args) > args.index('--publicar') + 1 and args[args.index('--publicar') + 1].isdigit() else (10 if sem_parar else 0)
     publica = '--sem-publicar' not in args
     signal.signal(signal.SIGINT, _sinal); signal.signal(signal.SIGTERM, _sinal)
