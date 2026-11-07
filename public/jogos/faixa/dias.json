@@ -1,4 +1,165 @@
 {
+ "2026-08-28": [
+  {
+   "id": "jack-u-skrillex-diplo-justin-bieber-where-are-u-now-with-jus",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Where Are Ü Now (with Justin Bieber)",
+   "a": "Jack Ü",
+   "album": "Skrillex and Diplo present Jack Ü",
+   "ano": 2015,
+   "dz": {
+    "t": 95963378,
+    "a": 6699381
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 730153,
+   "generos": [
+    "Electro",
+    "Dance"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "paramore-still-into-you",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Still into You",
+   "a": "Paramore",
+   "album": "Paramore",
+   "ano": 2013,
+   "dz": {
+    "t": 65732147,
+    "a": 10977
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 711881,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-chainsmokers-paris",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Paris",
+   "a": "The Chainsmokers",
+   "album": "Paris",
+   "ano": 2017,
+   "dz": {
+    "t": 139904165,
+    "a": 4104927
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 729241,
+   "generos": [
+    "Electro",
+    "Electro Pop/Electro Rock",
+    "Dance",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-08-29": [
   {
    "id": "matheus-kauan-te-assumi-pro-brasil-ao-vivo",
@@ -158,6 +319,106 @@
    ],
    "pais": null,
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "nirvana-about-a-girl",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "About A Girl",
+   "a": "Nirvana",
+   "album": "Nirvana",
+   "ano": 1994,
+   "dz": {
+    "t": 529900441,
+    "a": 415
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 711895,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "calvin-harris-ellie-goulding-i-need-your-love-feat-ellie-gou",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I Need Your Love (feat. Ellie Goulding)",
+   "a": "Calvin Harris",
+   "album": "18 Months",
+   "ano": 2012,
+   "dz": {
+    "t": 61142290,
+    "a": 12178
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 875208,
+   "generos": [
+    "Dance"
+   ],
+   "pais": null,
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -45926,6 +46187,252 @@
     "Rock"
    ],
    "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-02-07": [
+  {
+   "id": "gabriel-o-pensador-ate-quando",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Até Quando?",
+   "a": "Gabriel o Pensador",
+   "album": "Seja Você Mesmo (Mas Não Seja Sempre O Mesmo)",
+   "ano": 2001,
+   "dz": {
+    "t": 13258634,
+    "a": 17089
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 544227,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "britney-spears-3",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "3",
+   "a": "Britney Spears",
+   "album": "The Essential Britney Spears",
+   "ano": 2002,
+   "dz": {
+    "t": 70016998,
+    "a": 483
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 645052,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "fifth-harmony-kid-ink-worth-it-feat-kid-ink",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Worth It (feat. Kid Ink)",
+   "a": "Fifth Harmony",
+   "album": "Worth It (feat. Kid Ink)",
+   "ano": 2015,
+   "dz": {
+    "t": 93477174,
+    "a": 4974921
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 850511,
+   "generos": [
+    "Dance",
+    "Pop",
+    "Pop internacional",
+    "Rock",
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-a-hora-e-agora-ao-vivo",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "A Hora É Agora (Ao Vivo)",
+   "a": "Jorge & Mateus",
+   "album": "A Hora É Agora (Ao Vivo Em Jurerê)",
+   "ano": 2012,
+   "dz": {
+    "t": 61025815,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 603419,
+   "generos": [
+    "MPB"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "justin-bieber-boyfriend",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Boyfriend",
+   "a": "Justin Bieber",
+   "album": "Believe (Deluxe Edition)",
+   "ano": 2012,
+   "dz": {
+    "t": 37027901,
+    "a": 288166
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 819086,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
    "decada": 2010,
    "tags_ok": true
   }
