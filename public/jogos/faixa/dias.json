@@ -1,4 +1,161 @@
 {
+ "2026-08-27": [
+  {
+   "id": "one-direction-steal-my-girl",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Steal My Girl",
+   "a": "One Direction",
+   "album": "FOUR (Deluxe)",
+   "ano": 2014,
+   "dz": {
+    "t": 90248129,
+    "a": 1007876
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 794897,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-seu-astral-ao-vivo",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Seu Astral (Ao Vivo)",
+   "a": "Jorge & Mateus",
+   "album": "Live In London - At The Royal Albert Hall (Ao Vivo)",
+   "ano": 2010,
+   "dz": {
+    "t": 72926478,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 650518,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "sia-sean-paul-cheap-thrills-feat-sean-paul",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cheap Thrills (feat. Sean Paul)",
+   "a": "Sia",
+   "album": "Cheap Thrills (feat. Sean Paul)",
+   "ano": 2015,
+   "dz": {
+    "t": 118986142,
+    "a": 3469
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 893834,
+   "generos": [
+    "Electro",
+    "Dance",
+    "Pop",
+    "Pop internacional",
+    "Rock",
+    "R&B"
+   ],
+   "pais": "AU",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-08-28": [
   {
    "id": "jack-u-skrillex-diplo-justin-bieber-where-are-u-now-with-jus",
@@ -157,6 +314,102 @@
    ],
    "pais": "US",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "katy-perry-teenage-dream",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Teenage Dream",
+   "a": "Katy Perry",
+   "album": "Teenage Dream: The Complete Confection",
+   "ano": 2010,
+   "dz": {
+    "t": 17135108,
+    "a": 144227
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 817900,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "tory-lanez-the-color-violet",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Color Violet",
+   "a": "Tory Lanez",
+   "album": "Alone At Prom",
+   "ano": 2021,
+   "dz": {
+    "t": 1579438382,
+    "a": 5575105
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 801103,
+   "generos": [
+    "R&B",
+    "Soul & Funk"
+   ],
+   "pais": "CA",
+   "decada": 2020,
    "tags_ok": true
   }
  ],
@@ -46433,6 +46686,258 @@
     "Pop"
    ],
    "pais": "CA",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-02-08": [
+  {
+   "id": "fergie-london-bridge",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "London Bridge",
+   "a": "Fergie",
+   "album": "The Dutchess Deluxe",
+   "ano": 2006,
+   "dz": {
+    "t": 882290,
+    "a": 5843
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 651195,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "metallica-enter-sandman",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Enter Sandman (Remastered 2021)",
+   "a": "Metallica",
+   "album": "Metallica (Remastered 2021)",
+   "ano": 1992,
+   "dz": {
+    "t": 1483825212,
+    "a": 119
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 929543,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "the-weeknd-gesaffelstein-i-was-never-there",
+   "n": 2,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I Was Never There",
+   "a": "The Weeknd",
+   "album": "My Dear Melancholy,",
+   "ano": 2019,
+   "dz": {
+    "t": 675343172,
+    "a": 4050205
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 816997,
+   "generos": [
+    "R&B"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "ariana-grande-zedd-break-free",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Break Free",
+   "a": "Ariana Grande",
+   "album": "My Everything",
+   "ano": 2014,
+   "dz": {
+    "t": 83844544,
+    "a": 1562681
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 773536,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "post-malone-ozzy-osbourne-travis-scott-take-what-you-want-fe",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Take What You Want",
+   "a": "Post Malone",
+   "album": "Hollywood's Bleeding",
+   "ano": 2019,
+   "dz": {
+    "t": 747399382,
+    "a": 7543848
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 699979,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
    "decada": 2010,
    "tags_ok": true
   }
