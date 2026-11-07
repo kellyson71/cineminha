@@ -1,4 +1,161 @@
 {
+ "2026-07-30": [
+  {
+   "id": "the-police-every-breath-you-take",
+   "n": 0,
+   "origem": "sp-br",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Every Breath You Take",
+   "a": "The Police",
+   "album": "The Very Best Of Sting And The Police",
+   "ano": 2002,
+   "dz": {
+    "t": 2525864,
+    "a": 1981
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 982603,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "marilia-mendonca-leao",
+   "n": 1,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Leão",
+   "a": "Marília Mendonça",
+   "album": "Decretos Reais, Vol. 2",
+   "ano": 2022,
+   "dz": {
+    "t": 2056080287,
+    "a": 7068771
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 884263,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "diego-victor-hugo-facas",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Facas Ao Vivo",
+   "a": "Diego & Victor Hugo",
+   "album": "Facas",
+   "ano": 2020,
+   "dz": {
+    "t": 1100416582,
+    "a": 7068753
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 702715,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "CH",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-07-31": [
   {
    "id": "gusttavo-lima-canudinho",
@@ -159,6 +316,109 @@
     "Sertanejo"
    ],
    "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "shawn-mendes-there-s-nothing-holdin-me-back",
+   "n": 3,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "There's Nothing Holdin' Me Back (Acoustic)",
+   "a": "Shawn Mendes",
+   "album": "There's Nothing Holdin' Me Back (Acoustic)",
+   "ano": 2016,
+   "dz": {
+    "t": 378754421,
+    "a": 5962948
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 730700,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-tuto-barbie",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Barbie",
+   "a": "Mc Tuto",
+   "album": "Barbie",
+   "ano": 2024,
+   "dz": {
+    "t": 3049631811,
+    "a": 66314222
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 654878,
+   "generos": [],
+   "pais": "BR",
    "decada": 2020,
    "tags_ok": true
   }
@@ -60826,6 +61086,248 @@
    ],
    "pais": "BR",
    "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "henrique-juliano-saudade-de-quem-eu-sou-ao-vivo",
+   "n": 1,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Saudade De Quem Eu Sou (Ao Vivo)",
+   "a": "Henrique & Juliano",
+   "album": "Manifesto Musical 2 (Ao Vivo)",
+   "ano": 2024,
+   "dz": {
+    "t": 3876592281,
+    "a": 4876653
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 859734,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "lady-gaga-paparazzi",
+   "n": 2,
+   "origem": "sp-global",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Paparazzi",
+   "a": "Lady Gaga",
+   "album": "The Fame Monster (International Deluxe)",
+   "ano": 2008,
+   "dz": {
+    "t": 4709950,
+    "a": 75491
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 939699,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "taylor-swift-the-fate-of-ophelia",
+   "n": 3,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Fate of Ophelia (The Chainsmokers Remix)",
+   "a": "Taylor Swift",
+   "album": "The Fate of Ophelia (The Chainsmokers Remix)",
+   "ano": 2025,
+   "dz": {
+    "t": 3680045492,
+    "a": 12246
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 577694,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "tove-lo-talking-body",
+   "n": 4,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Talking Body",
+   "a": "Tove Lo",
+   "album": "Queen Of The Clouds",
+   "ano": 2014,
+   "dz": {
+    "t": 84669123,
+    "a": 4103977
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 873957,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "SE",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-03-09": [
+  {
+   "id": "tyler-the-creator-see-you-again",
+   "n": 0,
+   "origem": "sp-global",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "See You Again (feat. Kali Uchis)",
+   "a": "Tyler, The Creator",
+   "album": "Flower Boy",
+   "ano": 2017,
+   "dz": {
+    "t": 384157591,
+    "a": 1194083
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 885558,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "GB",
+   "decada": 2010,
    "tags_ok": true
   }
  ]
