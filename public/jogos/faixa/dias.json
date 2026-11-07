@@ -1,4 +1,146 @@
 {
+ "2026-08-03": [
+  {
+   "id": "luan-santana-quando-a-bad-bater",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "quando a bad bater (ao vivo)",
+   "a": "Luan Santana",
+   "album": "quando a bad bater (ao vivo)",
+   "ano": 2019,
+   "dz": {
+    "t": 697514312,
+    "a": 1264078
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 571358,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jennifer-lopez-on-the-floor",
+   "n": 1,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "On The Floor",
+   "a": "Jennifer Lopez",
+   "album": "LOVE? (Deluxe Edition)",
+   "ano": 2011,
+   "dz": {
+    "t": 10496671,
+    "a": 45
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 798712,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "matheus-fernandes-balanco-da-rede",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Balanço da Rede",
+   "a": "Matheus Fernandes",
+   "album": "Balanço da Rede",
+   "ano": 2021,
+   "dz": {
+    "t": 1653003022,
+    "a": 5566782
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 636528,
+   "generos": [
+    "Axé/Forró"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-08-04": [
   {
    "id": "teto-m4",
@@ -153,6 +295,102 @@
    ],
    "pais": "AT",
    "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "ed-sheeran-shape-of-you",
+   "n": 3,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Shape of You",
+   "a": "Ed Sheeran",
+   "album": "Shape of You",
+   "ano": 2017,
+   "dz": {
+    "t": 139470659,
+    "a": 384236
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 968208,
+   "generos": [
+    "Pop",
+    "Singer & Songwriter"
+   ],
+   "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "wham-last-christmas",
+   "n": 4,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Last Christmas",
+   "a": "Wham!",
+   "album": "LAST CHRISTMAS",
+   "ano": 1984,
+   "dz": {
+    "t": 1036586,
+    "a": 216
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 968204,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 1980,
    "tags_ok": true
   }
  ],
@@ -58758,6 +58996,259 @@
     }
    ],
    "rank": 635146,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "racionais-mc-s-vida-loka-pt-1",
+   "n": 1,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Vida Loka, Pt. 1",
+   "a": "Racionais MC's",
+   "album": "Racionais Mc's",
+   "ano": 1994,
+   "dz": {
+    "t": 75846794,
+    "a": 4488457
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 741826,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "wesley-safadao-ele-e-ele-eu-sou-eu",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ele É Ele, Eu Sou Eu",
+   "a": "Wesley Safadão",
+   "album": "Safadão Amplificado",
+   "ano": 2020,
+   "dz": {
+    "t": 2022125277,
+    "a": 4611283
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 599426,
+   "generos": [
+    "Axé/Forró",
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "ze-neto-cristiano-estado-decadente",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Estado Decadente (Acústico)",
+   "a": "Zé Neto & Cristiano",
+   "album": "Acústico de Novo",
+   "ano": 2019,
+   "dz": {
+    "t": 614945882,
+    "a": 5895828
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 522716,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-tijolao",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tijolão (Ao Vivo)",
+   "a": "Jorge & Mateus",
+   "album": "Tijolão (ao Vivo)",
+   "ano": 2019,
+   "dz": {
+    "t": 679209382,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 658909,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-03-05": [
+  {
+   "id": "gusttavo-lima-bloqueado",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Bloqueado Ao Vivo",
+   "a": "Gusttavo Lima",
+   "album": "Buteco in Boston (Ao Vivo)",
+   "ano": 2021,
+   "dz": {
+    "t": 1583227252,
+    "a": 1541592
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 628397,
    "generos": [
     "Sertanejo"
    ],
