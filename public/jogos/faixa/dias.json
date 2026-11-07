@@ -54560,5 +54560,57 @@
    "decada": 2010,
    "tags_ok": true
   }
+ ],
+ "2027-02-24": [
+  {
+   "id": "alexandra-stan-mr-saxobeat-radio-edit",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Mr. Saxobeat (Radio Edit)",
+   "a": "Alexandra Stan",
+   "album": "Saxobeats",
+   "ano": 2011,
+   "dz": {
+    "t": 1077700822,
+    "a": 998013
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 862188,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "RO",
+   "decada": 2010,
+   "tags_ok": true
+  }
  ]
 }
