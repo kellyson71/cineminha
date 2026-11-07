@@ -3395,7 +3395,7 @@ function renderLateral() {
     bolinha(icon(myShare ? 'monitor-off' : 'projector'), 'rail-proj' + (myShare ? ' ativo' : ''), myShare ? 'Parar de projetar' : 'Projetar (tela, arquivo ou YouTube)', myShare ? () => stopShare() : null, !!myShare),
     el('span', { className: 'rail-grow' }),
     mic, som,
-    bolinha(pfpImg(me.key, 36, me.name), 'rail-eu' + (me.speaking ? ' fala' : ''), `${me.name} · ajustes`, () => abreAjustes(), true))
+    bolinha(pfpImg(me.key, 36, me.name), 'rail-eu' + (me.speaking ? ' fala' : ''), `${me.name} · conta, configurações e sair`, e => menuPerfil(e.currentTarget), true))
   if (!document.body.classList.contains('lateral-aberta')) return
   // ---------- painel ----------
   const linhaSala = c => {
@@ -3432,8 +3432,10 @@ function renderLateral() {
     if (!textos.some(t => t.id === r.texto.id)) textos.push(r.texto)
     toast(`Chat #${r.texto.nome} criado`); abreChat(r.texto.id)
   }), 'Criar chat')
+  const euRosto = el('button', { type: 'button', className: 'lat-rosto lat-rosto--b' + (me.speaking ? ' fala' : ''), title: 'Conta, configurações e sair' }, pfpImg(me.key, 32, me.name))
+  euRosto.addEventListener('click', e => menuPerfil(e.currentTarget))
   const eu = el('div', { className: 'lat-eu' },
-    el('span', { className: 'lat-rosto' + (me.speaking ? ' fala' : '') }, pfpImg(me.key, 32, me.name)),
+    euRosto,
     el('div', { className: 'lat-eu__txt' }, el('b', { textContent: me.name }), el('small', { textContent: `🔊 ${canalNome(canal)}` })),
     ...[['btnMic', me.muted ? 'mic-off' : 'mic', me.muted ? 'Ligar microfone' : 'Mutar', me.muted], ['btnDeaf', me.deaf ? 'headphone-off' : 'headphones', me.deaf ? 'Ligar o som' : 'Cortar o som', me.deaf]].map(([alvo, ic, t, vermelho]) => {
       const b = el('button', { type: 'button', className: 'lat-eu__b' + (vermelho ? ' off' : ''), title: t + ' · botão direito: voz e áudio', ariaLabel: t }, icon(ic))
@@ -3451,6 +3453,24 @@ function renderLateral() {
       secChats, linhaChat('', 'conversa-da-sala', 'volume-2'), ...textos.map(t => linhaChat(t.id, t.nome, 'hash'))),
     eu)
 }
+// Clicar na sua foto (trilho ou painel): sua conta, configurações e sair — o topo não precisa mais disso
+function menuPerfil(ancora) {
+  const ja = document.querySelector('.perfil-menu')
+  if (ja) { ja.remove(); return }
+  const item = (ic, txt, fn, cls) => { const b = el('button', { type: 'button', className: cls || '' }, icon(ic), el('span', { textContent: txt })); b.addEventListener('click', () => { m.remove(); fn() }); return b }
+  const m = el('div', { className: 'perfil-menu', role: 'menu' },
+    el('header', {}, pfpImg(me.key, 44, me.name), el('div', {}, el('b', { textContent: me.name }), el('small', { textContent: `🔊 ${canalNome(canal)}` }))),
+    item('user', 'Minha conta', () => { abreAjustes(); mostraAjuste('conta') }),
+    item('settings', 'Configurações', () => abreAjustes()),
+    el('i', { className: 'perfil-menu__sep' }),
+    item('log-out', 'Sair da conta', () => $('#topLogout').click(), 'perigo'))
+  document.body.append(m)
+  const r = ancora.getBoundingClientRect()
+  m.style.left = Math.min(r.right + 12, innerWidth - m.offsetWidth - 8) + 'px'
+  m.style.top = Math.max(8, Math.min(r.bottom - m.offsetHeight, innerHeight - m.offsetHeight - 8)) + 'px'
+  setTimeout(() => document.addEventListener('pointerdown', function fora(e) { if (!m.contains(e.target) && !ancora.contains(e.target)) { m.remove(); document.removeEventListener('pointerdown', fora) } }), 0)
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelector('.perfil-menu')?.remove() })
 // mantém a lista de quem está em cada sala atualizada
 let lateralTimer = 0
 $('#btnLateral')?.addEventListener('click', () => document.body.classList.contains('lateral-aberta') ? fechaLateral() : abreLateral())
