@@ -1,4 +1,156 @@
 {
+ "2026-08-07": [
+  {
+   "id": "mc-livinho-novidade-na-area",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Novidade na Área",
+   "a": "Mc Livinho",
+   "album": "Novidade na Área",
+   "ano": 2023,
+   "dz": {
+    "t": 2335385405,
+    "a": 5918943
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 600903,
+   "generos": [
+    "Soul & Funk"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "hugo-guilherme-mal-feito",
+   "n": 1,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Mal Feito (Ao Vivo)",
+   "a": "Hugo & Guilherme",
+   "album": "Mal Feito (Ao Vivo)",
+   "ano": 2022,
+   "dz": {
+    "t": 1589171262,
+    "a": 10633657
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 816650,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "AT",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "guilherme-benuto-assunto-delicado",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Assunto Delicado (Ao Vivo)",
+   "a": "Guilherme & Benuto",
+   "album": "Assunto Delicado (Ao Vivo)",
+   "ano": 2022,
+   "dz": {
+    "t": 1848789517,
+    "a": 61145262
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 620284,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-08-08": [
   {
    "id": "luiza-maurilio-s-de-saudade",
@@ -162,6 +314,111 @@
     "Pop"
    ],
    "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "ze-felipe-toma-toma-vapo-vapo",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Toma Toma Vapo Vapo",
+   "a": "Zé Felipe",
+   "album": "Joseph",
+   "ano": 2021,
+   "dz": {
+    "t": 1539159732,
+    "a": 5576810
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 516235,
+   "generos": [
+    "Axé/Forró"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "l7nnon-freio-da-blazer",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Freio da Blazer",
+   "a": "L7NNON",
+   "album": "Freio da Blazer",
+   "ano": 2021,
+   "dz": {
+    "t": 3465893511,
+    "a": 45663272
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 570888,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
    "decada": 2020,
    "tags_ok": true
   }
@@ -56715,6 +56972,252 @@
    "generos": [
     "Sertanejo"
    ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "giulia-be-menina-solta",
+   "n": 1,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "menina solta",
+   "a": "GIULIA BE",
+   "album": "menina solta",
+   "ano": 2019,
+   "dz": {
+    "t": 736110662,
+    "a": 51512592
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 592046,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "matheus-kauan-basiquinho",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Basiquinho (Ao Vivo)",
+   "a": "Matheus & Kauan",
+   "album": "Basiquinho (Ao Vivo)",
+   "ano": 2022,
+   "dz": {
+    "t": 1843993327,
+    "a": 3120261
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 526748,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "wesley-safadao-romance-com-safadeza",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Romance Com Safadeza",
+   "a": "Wesley Safadão",
+   "album": "Romance Com Safadeza",
+   "ano": 2018,
+   "dz": {
+    "t": 2010162487,
+    "a": 4611283
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 521773,
+   "generos": [
+    "Axé/Forró",
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "leo-santana-zona-de-perigo",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Zona De Perigo",
+   "a": "Léo Santana",
+   "album": "Zona De Perigo",
+   "ano": 2022,
+   "dz": {
+    "t": 2074433447,
+    "a": 4456001
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 634604,
+   "generos": [
+    "Axé/Forró"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
+ "2027-03-01": [
+  {
+   "id": "kayblack-melhor-so",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Melhor Só",
+   "a": "Kayblack",
+   "album": "Contradições",
+   "ano": 2023,
+   "dz": {
+    "t": 2203364927,
+    "a": 77482782
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 670877,
+   "generos": [],
    "pais": "BR",
    "decada": 2020,
    "tags_ok": true
