@@ -1,4 +1,171 @@
 {
+ "2026-08-14": [
+  {
+   "id": "gorillaz-shaun-ryder-roses-gabor-dare-feat-shaun-ryder-roses",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "DARE (feat. Shaun Ryder & Roses Gabor)",
+   "a": "Gorillaz",
+   "album": "Demon Days",
+   "ano": 2005,
+   "dz": {
+    "t": 3129413,
+    "a": 14
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 786072,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "wiz-khalifa-charlie-puth-see-you-again-feat-charlie-puth",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "See You Again (feat. Charlie Puth)",
+   "a": "Wiz Khalifa",
+   "album": "See You Again (feat. Charlie Puth)",
+   "ano": 2015,
+   "dz": {
+    "t": 95813354,
+    "a": 74804
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 862019,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "bruno-mars-marry-you",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Marry You",
+   "a": "Bruno Mars",
+   "album": "Doo-Wops & Hooligans",
+   "ano": 2010,
+   "dz": {
+    "t": 8011854,
+    "a": 429675
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 932513,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-08-15": [
   {
    "id": "beyonce-slim-thug-check-on-it",
@@ -148,6 +315,101 @@
    ],
    "pais": "BR",
    "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "grupo-menos-e-mais-di-proposito-vou-zuar-vai-me-dando-corda-",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Vai Me Dando Corda (Ao Vivo)",
+   "a": "Grupo Menos É Mais",
+   "album": "Churrasquinho Menos É Mais (Ao Vivo)",
+   "ano": 2019,
+   "dz": {
+    "t": 1123836962,
+    "a": 54330242
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 763300,
+   "generos": [
+    "Samba/Pagode"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "will-i-am-britney-spears-scream-shout",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Scream & Shout",
+   "a": "will.i.am",
+   "album": "Scream & Shout",
+   "ano": 2012,
+   "dz": {
+    "t": 62439051,
+    "a": 10226
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 902258,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -53047,6 +53309,278 @@
    ],
    "pais": "BR",
    "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-02-21": [
+  {
+   "id": "selena-gomez-come-get-it",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Come & Get It",
+   "a": "Selena Gomez",
+   "album": "Come & Get It",
+   "ano": 2013,
+   "dz": {
+    "t": 66404487,
+    "a": 292185
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 793783,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-enquanto-houver-razoes-ao-vivo",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Enquanto Houver Razões (Ao Vivo)",
+   "a": "Jorge & Mateus",
+   "album": "A Hora É Agora (Ao Vivo Em Jurerê)",
+   "ano": 2012,
+   "dz": {
+    "t": 61025816,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 601856,
+   "generos": [
+    "MPB"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "marilia-mendonca-como-faz-com-ela-ao-vivo",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Como Faz Com Ela (Ao Vivo)",
+   "a": "Marília Mendonça",
+   "album": "Marília Mendonça (Ao Vivo)",
+   "ano": 2016,
+   "dz": {
+    "t": 119849602,
+    "a": 7068771
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 769082,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "marilia-mendonca-traicao-nao-tem-perdao-ao-vivo",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Traição Não Tem Perdão (Ao Vivo)",
+   "a": "Marília Mendonça",
+   "album": "Realidade (Ao Vivo Em Manaus)",
+   "ano": 2017,
+   "dz": {
+    "t": 142647962,
+    "a": 7068771
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 543267,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "bk-julia-mestre-sango-gigantes-so-me-ligar",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Só me ligar",
+   "a": "BK'",
+   "album": "ICARUS",
+   "ano": 2022,
+   "dz": {
+    "t": 3261553681,
+    "a": 4633500
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 659146,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "GB",
+   "decada": 2020,
    "tags_ok": true
   }
  ]
