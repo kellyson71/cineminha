@@ -1,4 +1,162 @@
 {
+ "2026-09-07": [
+  {
+   "id": "fergie-will-i-am-fergalicious",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Fergalicious",
+   "a": "Fergie",
+   "album": "The Dutchess Deluxe",
+   "ano": 2006,
+   "dz": {
+    "t": 882287,
+    "a": 5843
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 676767,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "o-rappa-minha-alma-a-paz-que-eu-nao-quero",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Minha alma (A paz que eu não quero)",
+   "a": "O Rappa",
+   "album": "Lado B Lado A",
+   "ano": 1999,
+   "dz": {
+    "t": 3668419,
+    "a": 12807
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 780358,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "ellie-goulding-love-me-like-you-do-from-fifty-shades-of-grey",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Love Me Like You Do (From \"Fifty Shades Of Grey\")",
+   "a": "Ellie Goulding",
+   "album": "Fifty Shades Of Grey (Original Motion Picture Soundtrack)",
+   "ano": 2015,
+   "dz": {
+    "t": 94664184,
+    "a": 311820
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 854364,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-08": [
   {
    "id": "o-rappa-pescador-de-ilusoes",
@@ -146,6 +304,106 @@
    "generos": [],
    "pais": "CO",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "maiara-maraisa-sorte-que-ce-beija-bem-ao-vivo",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sorte Que Cê Beija Bem (Ao Vivo)",
+   "a": "Maiara & Maraisa",
+   "album": "Ao Vivo Em Campo Grande",
+   "ano": 2017,
+   "dz": {
+    "t": 144210952,
+    "a": 6511779
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 569570,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "selena-gomez-a-ap-rocky-good-for-you",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Good For You",
+   "a": "Selena Gomez",
+   "album": "Good For You",
+   "ano": 2015,
+   "dz": {
+    "t": 105755646,
+    "a": 292185
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 505089,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
    "tags_ok": true
   }
  ],
@@ -40856,6 +41114,267 @@
     "Pop"
    ],
    "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-28": [
+  {
+   "id": "the-pussycat-dolls-busta-rhymes-don-t-cha",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Don't Cha",
+   "a": "The Pussycat Dolls",
+   "album": "PCD",
+   "ano": 2005,
+   "dz": {
+    "t": 1161005,
+    "a": 83
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 841038,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "beyonce-chimamanda-ngozi-adichie-flawless-feat-chimamanda-ng",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "***Flawless (feat. Chimamanda Ngozi Adichie)",
+   "a": "Beyoncé",
+   "album": "BEYONCÉ [Platinum Edition]",
+   "ano": 2014,
+   "dz": {
+    "t": 90408889,
+    "a": 145
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 554896,
+   "generos": [
+    "Pop",
+    "Pop internacional",
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "edward-maya-vika-jigulina-stereo-love-original",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Stereo Love (Original)",
+   "a": "Edward Maya",
+   "album": "Stereo Love",
+   "ano": 2009,
+   "dz": {
+    "t": 15543069,
+    "a": 293767
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 677127,
+   "generos": [
+    "Electro",
+    "Techno/House",
+    "Dance"
+   ],
+   "pais": "RO",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "the-weeknd-kendrick-lamar-pray-for-me",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pray For Me",
+   "a": "The Weeknd",
+   "album": "Pray For Me",
+   "ano": 2018,
+   "dz": {
+    "t": 456011702,
+    "a": 4050205
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 870201,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "flo-rida-i-cry",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I Cry",
+   "a": "Flo Rida",
+   "album": "Wild Ones",
+   "ano": 2012,
+   "dz": {
+    "t": 38290631,
+    "a": 64333
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 715377,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
    "decada": 2010,
    "tags_ok": true
   }
