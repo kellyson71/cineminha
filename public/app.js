@@ -697,7 +697,7 @@ async function heartbeat() {
 }
 async function pollChat() {
   if (chatCh) return
-  const r = await api(`chat?n=20&r=${roomId}&desde=${callIni || 0}`)
+  const r = await api(`chat?n=20&r=${roomId}&desde=${Math.max(0, ...messages.map(m => m.ts || 0)) - 60e3}`)
   if (Array.isArray(r?.list)) r.list.forEach(m => addMsg(m))
 }
 addEventListener('pagehide', () => {
@@ -3257,7 +3257,9 @@ function chatChegou(m) {
   if (!ch && !m.sys) { sfx('chat', m.key); showBubble(m) } // a conversa da call continua aparecendo nos bonecos
   renderLateral()
 }
-async function abreChat(ch) {
+async function abreChat(ch, grande) {
+  if (grande) chatGrande(true)
+  if (ch === chatCh && messages.length) { renderLateral(); fechaLateral(); return }
   if (ch && !textoR.has(ch)) textoR.set(ch, 'x' + (await sha('texto:' + roomPw + ':' + ch)).slice(0, 40))
   chatCh = ch; naoLidas.delete(ch)
   clearInterval(textoPoll); textoPoll = 0
@@ -3275,7 +3277,38 @@ async function abreChat(ch) {
     for (const m of r?.list || []) { addMsg(m); textoUltimo = Math.max(textoUltimo, m.ts || 0) }
   }, 5000)
   if (!chatVisible()) setChat(true)
-  renderLateral(); fechaLateral()
+  renderLateral(); fechaLateral(); renderChatCanais()
+}
+// Chat grande (duplo clique no chat na lateral ou no título do chat): o histórico ocupa a tela; Esc volta
+function chatGrande(on = !$('#chat').classList.contains('chat--grande')) {
+  $('#chat').classList.toggle('chat--grande', on)
+  document.body.classList.toggle('chat-grande-on', on)
+  if (on) { (imersivo() ? theater : document.body).append($('#chatFundo') || el('div', { id: 'chatFundo', className: 'chat-fundo', onclick: () => chatGrande(false) })); $('#chatInput').focus() }
+  else $('#chatFundo')?.remove()
+  listEl.scrollTop = listEl.scrollHeight
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('#chat').classList.contains('chat--grande')) chatGrande(false) })
+// No próprio painel do chat: o título vira um seletor de chats
+function renderChatCanais() {
+  const h = $('#chat .chat__head')
+  let b = h.querySelector('.chat__trocar')
+  if (!b) {
+    b = el('button', { type: 'button', className: 'chat__trocar', title: 'Trocar de chat', ariaExpanded: 'false' }, icon('chevron-down'))
+    const g = el('button', { type: 'button', className: 'chat__trocar', title: 'Chat grande (duplo clique no título)' }, icon('maximize-2'))
+    g.addEventListener('click', () => chatGrande())
+    h.querySelector('h2').addEventListener('dblclick', () => chatGrande())
+    h.querySelector('h2').addEventListener('click', () => b.click())
+    b.addEventListener('click', () => {
+      const aberto = h.querySelector('.chat__canais')
+      if (aberto) return aberto.remove()
+      const it = (id, nome, ic) => { const x = el('button', { type: 'button', className: chatCh === id ? 'on' : '' }, icon(ic), el('span', { textContent: nome }), naoLidas.get(id) ? el('b', { className: 'lat-badge', textContent: naoLidas.get(id) }) : ''); x.addEventListener('click', () => { m.remove(); abreChat(id) }); return x }
+      const novo = el('button', { type: 'button', className: 'chat__canais-novo' }, icon('plus'), el('span', { textContent: 'Novo chat' }))
+      novo.addEventListener('click', () => { m.remove(); abreLateral(); setTimeout(() => painel.querySelectorAll('.lateral__mais')[1]?.click(), 50) })
+      const m = el('div', { className: 'chat__canais' }, it('', 'conversa-da-sala', 'volume-2'), ...textos.map(t => it(t.id, t.nome, 'hash')), novo)
+      h.append(m)
+    })
+    h.append(g, b)
+  }
 }
 async function loadTextos() {
   if (!roomPw) return
@@ -3283,22 +3316,38 @@ async function loadTextos() {
   if (Array.isArray(r?.textos)) { textos = r.textos; renderLateral() }
 }
 
+// Lateral = trilho fino sempre à mostra (salas em círculos, chats, projetar, mic, som e você) +
+// painel completo que abre por cima ao clicar no trilho (e fecha ao clicar fora).
 const lateral = el('nav', { className: 'lateral', ariaLabel: 'Salas e chats' })
+const rail = el('div', { className: 'lat-rail' }), painel = el('div', { className: 'lat-painel' })
+lateral.append(rail, painel)
 document.body.append(lateral, el('div', { className: 'lateral__fundo', onclick: () => fechaLateral() }))
+const abreLateral = () => { document.body.classList.add('lateral-aberta'); renderLateral() }
 const fechaLateral = () => document.body.classList.remove('lateral-aberta')
+rail.addEventListener('click', e => { if (!e.target.closest('[data-direto]')) abreLateral() })
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('lateral-aberta')) fechaLateral() })
+// o "Projetar" (com o menu de tela/arquivo/YouTube) mora na lateral fora da tela cheia; em tela cheia volta para a barra
+const projCasa = document.createComment('projetar'), projSlot = el('div', { className: 'lat-proj' })
+function moveProjetar() {
+  const w = $('#btnShare')?.closest('.popwrap'), dentro = !imersivo() && document.body.classList.contains('com-lateral') && innerWidth >= 1000
+  if (!w) return
+  if (dentro && !projSlot.contains(w)) { w.before(projCasa); projSlot.append(w, $('#btnTrocar')) }
+  else if (!dentro && projSlot.contains(w)) { projCasa.replaceWith(w); w.after($('#btnTrocar')) }
+}
+addEventListener('resize', () => moveProjetar())
 const secao = (titulo, onMais, dica) => {
   const h = el('div', { className: 'lateral__sec' }, el('span', { textContent: titulo }))
   if (onMais) { const b = el('button', { type: 'button', className: 'lateral__mais', title: dica, ariaLabel: dica }, icon('plus')); b.addEventListener('click', onMais); h.append(b) }
   return h
 }
-// criar sala ou chat: um campo aparece no lugar, Enter cria
+// criar sala ou chat: um campo aparece no lugar, Enter cria (a lateral não se redesenha enquanto você digita)
 function criaInline(onde, ph, fn) {
-  lateral.querySelector('.lateral__novo')?.remove()
+  painel.querySelector('.lateral__novo')?.remove()
   const inp = el('input', { maxLength: 30, placeholder: ph })
-  const f = el('form', { className: 'lateral__novo' }, inp)
-  f.addEventListener('submit', async e => { e.preventDefault(); const v = inp.value.trim(); f.remove(); if (v) await fn(v) })
-  inp.addEventListener('keydown', e => { if (e.key === 'Escape') f.remove() })
-  inp.addEventListener('blur', () => setTimeout(() => f.remove(), 150))
+  const f = el('form', { className: 'lateral__novo' }, inp, el('small', { textContent: 'Enter cria · Esc cancela' }))
+  f.addEventListener('submit', async e => { e.preventDefault(); const v = inp.value.trim(); f.remove(); if (v) await fn(v); renderLateral() })
+  inp.addEventListener('keydown', e => { if (e.key === 'Escape') { f.remove(); renderLateral() } })
+  inp.addEventListener('blur', () => setTimeout(() => { if (f.isConnected && !inp.value.trim()) { f.remove(); renderLateral() } }, 200))
   onde.after(f); inp.focus()
 }
 function estadoDe(key) {
@@ -3306,19 +3355,48 @@ function estadoDe(key) {
   for (const [id, p] of peers) if (p.key === key) return { muted: p.muted, deaf: p.deaf, speaking: p.speaking, proj: tiles.has(id) }
   return {}
 }
+const iniciais = n => String(n || '?').split(/\s+/).map(x => x[0]).join('').slice(0, 2).toUpperCase()
 function renderLateral() {
   if (!me.key) return
+  moveProjetar()
+  if (painel.querySelector('.lateral__novo input') === document.activeElement) return // criando algo: não apaga o campo
   const salas = [...canais]
   if (!salas.some(c => c.id === canal)) salas.push({ id: canal, nome: canalNome(canal), pres: [] })
   const aqui = new Map([[me.key, me.name], ...[...peers.values()].filter(p => p.key).map(p => [p.key, p.name])])
+  const gente = c => c.id === canal ? [...aqui].map(([key, name]) => ({ key, name })) : (c.pres || []).filter(p => p.key !== me.key)
+  const totalNaoLidas = [...naoLidas.values()].reduce((a, n) => a + n, 0)
+  // ---------- trilho ----------
+  const bolinha = (conteudo, cls, dica, fn, direto) => {
+    const b = el('button', { type: 'button', className: 'rail-b ' + (cls || ''), title: dica, ariaLabel: dica }, ...[].concat(conteudo))
+    if (direto) b.dataset.direto = '1'
+    if (fn) b.addEventListener('click', fn)
+    return b
+  }
+  const mic = bolinha(icon(me.muted ? 'mic-off' : 'mic'), me.muted ? 'off' : '', me.muted ? 'Ligar microfone (M)' : 'Mutar (M) · botão direito: voz e áudio', () => $('#btnMic').click(), true)
+  const som = bolinha(icon(me.deaf ? 'headphone-off' : 'headphones'), me.deaf ? 'off' : '', me.deaf ? 'Ligar o som (D)' : 'Cortar o som (D) · botão direito: voz e áudio', () => $('#btnDeaf').click(), true)
+  for (const b of [mic, som]) b.addEventListener('contextmenu', e => { e.preventDefault(); openAudioMenu(b, e.clientX, e.clientY) })
+  rail.replaceChildren(
+    bolinha(el('img', { src: 'assets/icon.svg', alt: '' }), 'rail-logo', 'Abrir salas e chats'),
+    el('i', { className: 'rail-sep' }),
+    ...salas.map(c => {
+      const n = gente(c).length, atual = c.id === canal
+      const b = bolinha([el('span', { textContent: iniciais(c.nome) }), n ? el('b', { className: 'rail-n', textContent: n }) : ''], 'rail-sala' + (atual ? ' on' : '') + (atual && tiles.size ? ' aovivo' : ''), `${c.nome}${n ? ` · ${n} na sala` : ''}${atual ? ' (você está aqui)' : ''}`, () => { if (!atual) switchCanal(c.id) }, true)
+      return b
+    }),
+    el('i', { className: 'rail-sep' }),
+    bolinha([icon('message-square'), totalNaoLidas ? el('b', { className: 'rail-n rail-n--vermelho', textContent: totalNaoLidas > 99 ? '99+' : totalNaoLidas }) : ''], '', 'Chats'),
+    bolinha(icon(myShare ? 'monitor-off' : 'projector'), 'rail-proj' + (myShare ? ' ativo' : ''), myShare ? 'Parar de projetar' : 'Projetar (tela, arquivo ou YouTube)', myShare ? () => stopShare() : null, !!myShare),
+    el('span', { className: 'rail-grow' }),
+    mic, som,
+    bolinha(pfpImg(me.key, 36, me.name), 'rail-eu' + (me.speaking ? ' fala' : ''), `${me.name} · ajustes`, () => abreAjustes(), true))
+  if (!document.body.classList.contains('lateral-aberta')) return
+  // ---------- painel ----------
   const linhaSala = c => {
-    const atual = c.id === canal
-    const gente = atual ? [...aqui].map(([key, name]) => ({ key, name })) : (c.pres || []).filter(p => p.key !== me.key)
-    const ativo = atual && tiles.size
+    const atual = c.id === canal, ativo = atual && tiles.size
     const b = el('button', { type: 'button', className: 'lat-sala' + (atual ? ' on' : ''), title: atual ? 'Você está nesta sala' : `Entrar em ${c.nome}` },
       icon(ativo ? 'projector' : 'volume-2'), el('span', { textContent: c.nome }), ativo ? el('em', { className: 'lat-aovivo', textContent: 'AO VIVO' }) : '')
-    b.addEventListener('click', () => atual ? null : switchCanal(c.id))
-    const lista = el('ul', { className: 'lat-gente' }, ...gente.map(p => {
+    b.addEventListener('click', () => { if (!atual) switchCanal(c.id) })
+    const lista = el('ul', { className: 'lat-gente' }, ...gente(c).map(p => {
       const st = atual ? estadoDe(p.key) : {}
       const li = el('li', { className: (st.speaking ? 'fala' : '') + (atual ? '' : ' longe'), title: p.name || person(p.key).nome },
         el('span', { className: 'lat-rosto' }, pfpImg(p.key, 24, p.name)), el('span', { className: 'lat-nome', textContent: p.name || person(p.key).nome }),
@@ -3327,35 +3405,40 @@ function renderLateral() {
       if (atual) li.dataset.key = p.key
       return li
     }))
-    return el('div', { className: 'lat-bloco' }, b, lista)
+    return el('div', { className: 'lat-bloco' }, b, atual ? projSlot : '', lista)
   }
   const linhaChat = (id, nome, ic) => {
     const n = naoLidas.get(id) || 0
-    const b = el('button', { type: 'button', className: 'lat-chat' + (chatCh === id ? ' on' : '') + (n ? ' novo' : '') }, icon(ic), el('span', { textContent: nome }), n ? el('b', { className: 'lat-badge', textContent: n > 99 ? '99+' : n }) : '')
+    const b = el('button', { type: 'button', className: 'lat-chat' + (chatCh === id ? ' on' : '') + (n ? ' novo' : ''), title: 'Duplo clique: abrir o chat grande' }, icon(ic), el('span', { textContent: nome }), n ? el('b', { className: 'lat-badge', textContent: n > 99 ? '99+' : n }) : '')
     b.addEventListener('click', () => abreChat(id))
+    b.addEventListener('dblclick', () => abreChat(id, true))
     return b
   }
   const secSalas = secao('Salas de cinema', e => criaInline(e.currentTarget.parentElement, 'nome da sala', async nome => {
     const r = await api('sala', { method: 'POST', body: { op: 'canal-novo', pw: roomPw, nome, key: me.key } })
     if (!r?.canal) return toast('Não consegui criar a sala.')
-    canais.push({ ...r.canal, pres: [] }); switchCanal(r.canal.id)
+    canais.push({ ...r.canal, pres: [] }); toast(`Sala “${r.canal.nome}” criada`); switchCanal(r.canal.id)
   }), 'Criar sala de cinema')
   const secChats = secao('Chats', e => criaInline(e.currentTarget.parentElement, 'nome-do-chat', async nome => {
     const r = await api('sala', { method: 'POST', body: { op: 'texto-novo', pw: roomPw, nome, key: me.key } })
     if (!r?.texto) return toast('Não consegui criar o chat.')
     if (!textos.some(t => t.id === r.texto.id)) textos.push(r.texto)
-    abreChat(r.texto.id)
+    toast(`Chat #${r.texto.nome} criado`); abreChat(r.texto.id)
   }), 'Criar chat')
   const eu = el('div', { className: 'lat-eu' },
     el('span', { className: 'lat-rosto' + (me.speaking ? ' fala' : '') }, pfpImg(me.key, 32, me.name)),
     el('div', { className: 'lat-eu__txt' }, el('b', { textContent: me.name }), el('small', { textContent: `🔊 ${canalNome(canal)}` })),
-    ...[['btnMic', me.muted ? 'mic-off' : 'mic', me.muted ? 'Ligar microfone' : 'Mutar', me.muted], ['btnDeaf', me.deaf ? 'headphone-off' : 'headphones', me.deaf ? 'Ligar o som' : 'Cortar o som', me.deaf], ['btnSettings', 'settings', 'Configurações', false]].map(([alvo, ic, t, vermelho]) => {
-      const b = el('button', { type: 'button', className: 'lat-eu__b' + (vermelho ? ' off' : ''), title: t, ariaLabel: t }, icon(ic))
-      b.addEventListener('click', () => $('#' + alvo)?.click()); return b
-    }))
-  lateral.replaceChildren(
+    ...[['btnMic', me.muted ? 'mic-off' : 'mic', me.muted ? 'Ligar microfone' : 'Mutar', me.muted], ['btnDeaf', me.deaf ? 'headphone-off' : 'headphones', me.deaf ? 'Ligar o som' : 'Cortar o som', me.deaf]].map(([alvo, ic, t, vermelho]) => {
+      const b = el('button', { type: 'button', className: 'lat-eu__b' + (vermelho ? ' off' : ''), title: t + ' · botão direito: voz e áudio', ariaLabel: t }, icon(ic))
+      b.addEventListener('click', () => $('#' + alvo)?.click())
+      b.addEventListener('contextmenu', e => { e.preventDefault(); openAudioMenu(b, e.clientX, e.clientY) })
+      return b
+    }),
+    (() => { const b = el('button', { type: 'button', className: 'lat-eu__b', title: 'Configurações', ariaLabel: 'Configurações' }, icon('settings')); b.addEventListener('click', () => abreAjustes()); return b })())
+  painel.replaceChildren(
     el('header', { className: 'lateral__topo' }, el('img', { src: 'assets/icon.svg', alt: '' }), el('b', { textContent: CFG.nome || 'Cineminha' }),
-      (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Diário de sessões' }, icon('book-open')); b.addEventListener('click', openDiary); return b })()),
+      (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Diário de sessões' }, icon('book-open')); b.addEventListener('click', () => { fechaLateral(); openDiary() }); return b })(),
+      (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Fechar (Esc)' }, icon('chevron-left')); b.addEventListener('click', fechaLateral); return b })()),
     el('div', { className: 'lateral__corpo' },
       secSalas, ...salas.map(linhaSala),
       secChats, linhaChat('', 'conversa-da-sala', 'volume-2'), ...textos.map(t => linhaChat(t.id, t.nome, 'hash'))),
@@ -3363,10 +3446,11 @@ function renderLateral() {
 }
 // mantém a lista de quem está em cada sala atualizada
 let lateralTimer = 0
-$('#btnLateral')?.addEventListener('click', () => document.body.classList.toggle('lateral-aberta'))
+$('#btnLateral')?.addEventListener('click', () => document.body.classList.contains('lateral-aberta') ? fechaLateral() : abreLateral())
 function ligaLateral() {
   document.body.classList.add('com-lateral')
   $('#chat .chat__head h2').textContent = 'Conversa da sala'; setIcon($('#chat .chat__head svg'), 'volume-2')
+  renderChatCanais(); moveProjetar()
   loadCanais(); loadTextos()
   clearInterval(lateralTimer); lateralTimer = setInterval(() => { if (!document.hidden) loadCanais() }, 10000)
 }
@@ -3434,6 +3518,11 @@ async function switchCanal(id) {
   if (trocando || id === canal || !roomPw) return
   if (myShare && !confirm('Você está projetando. Trocar de canal encerra a projeção. Continuar?')) return
   trocando = true
+  // entrou numa call: o chat volta a ser o da call
+  if (chatCh) {
+    chatCh = ''; clearInterval(textoPoll); textoPoll = 0
+    $('#chat .chat__head h2').textContent = 'Conversa da sala'; setIcon($('#chat .chat__head svg'), 'volume-2'); $('#chatInput').placeholder = 'Mensagem para a sala'
+  }
   closePops()
   // sai da sala atual
   clearInterval(presTimer); clearInterval(pollTimer); pollTimer = 0
@@ -3829,14 +3918,55 @@ document.addEventListener('pointerdown', e => {
     document.querySelectorAll('.player-settings').forEach(menu => menu.hidden = true)
     document.querySelectorAll('.player-controls [aria-expanded=true]').forEach(button => button.setAttribute('aria-expanded','false'))
   }
-  if (!e.target.closest('.popwrap, .seat, .msg__acts, .ctxmenu, .audio-menu')) closePops() })
+  if (!e.target.closest('.popwrap, .seat, .msg__acts, .ctxmenu, .audio-menu, .settings, .chat__canais')) closePops() })
 $('#btnSettings').addEventListener('click', () => {
   const p = $('#settings'), open = p.hidden
   closePops(open ? p : null)
+  if (open) { montaAjustes(); (imersivo() ? theater : document.body).append(p) } // janela no meio da tela (fora do topo)
   p.hidden = !open
   $('#btnSettings').setAttribute('aria-expanded', String(open))
-  if (open) { listDevices(); renderSetPrefs(); admFaixa() }
+  if (open) { listDevices(); renderSetPrefs(); admFaixa(); mostraAjuste(ajusteAtual) }
 })
+/* Configurações em janela (como no Discord): categorias à esquerda, a escolhida à direita */
+let ajusteAtual = 'voz', ajustesMontados = false
+const abreAjustes = () => { fechaLateral?.(); if ($('#settings').hidden) $('#btnSettings').click() }
+function montaAjustes() {
+  if (ajustesMontados) return
+  ajustesMontados = true
+  const st = $('#settings')
+  const grupo = (id, ...nodes) => el('section', { className: 'cfg-g', id: 'cfg-' + id }, ...nodes.filter(Boolean))
+  const vozH = [...st.querySelectorAll(':scope > h3')].find(h => /voz/i.test(h.textContent))
+  vozH?.remove()
+  const g = {
+    conta: grupo('conta', el('h2', { textContent: 'Minha conta' }), $('#btnConta'), $('#logout')),
+    voz: grupo('voz', el('h2', { textContent: 'Voz' }), st.querySelector(':scope > .seg'), $('#pttRow'), $('#micDevice').closest('.srow'),
+      (() => { const b = el('button', { type: 'button', className: 'btn btn--ghost btn--block' }, icon('sliders-horizontal'), el('span', { textContent: 'Entrada, saída e filtros de voz' })); b.addEventListener('click', e => { closePops(); openAudioMenu($('#btnMic'), innerWidth / 2 - 175, innerHeight / 2 - 250) }); return b })()),
+    ajustes: grupo('ajustes', el('h2', { className: 'cfg-titulo' }), $('#setPrefs')),
+    admin: grupo('admin', el('h2', { textContent: 'Admin' }), $('#admLogin'), $('#admTools')),
+  }
+  $('#admHeading')?.remove()
+  const NAV = [['conta', 'Minha conta', 'user'], ['voz', 'Voz', 'mic'], ['Som', 'Som', 'volume-2'], ['Tela', 'Tela', 'monitor'], ['Netflix', 'Netflix', 'film'], ['Rádio', 'Rádio', 'music'], ['admin', 'Admin', 'lock']]
+  const nav = el('aside', { className: 'cfg-nav' }, el('small', { textContent: 'Configurações' }), ...NAV.map(([id, nome, ic]) => {
+    const b = el('button', { type: 'button', className: 'cfg-nav__b' }, icon(ic), el('span', { textContent: nome }))
+    b.dataset.aj = id
+    b.addEventListener('click', () => mostraAjuste(id))
+    return b
+  }))
+  const x = el('button', { type: 'button', className: 'cfg-x', title: 'Fechar (Esc)', ariaLabel: 'Fechar' }, icon('x'))
+  x.addEventListener('click', () => closePops())
+  st.replaceChildren(nav, el('div', { className: 'cfg-corpo' }, ...Object.values(g)), x)
+  st.classList.add('cfg')
+}
+function mostraAjuste(id) {
+  ajusteAtual = id
+  const sub = ['Som', 'Tela', 'Netflix', 'Rádio'].includes(id)
+  if (sub) { abaAjustes = id; renderSetPrefs(); $('#cfg-ajustes .cfg-titulo').textContent = id }
+  document.querySelectorAll('#settings .cfg-g').forEach(g => { g.hidden = g.id !== 'cfg-' + (sub ? 'ajustes' : id) })
+  document.querySelectorAll('#settings .cfg-nav__b').forEach(b => {
+    b.classList.toggle('on', b.dataset.aj === id)
+    if (b.dataset.aj === 'admin') b.hidden = me.key !== 'kellyson'
+  })
+}
 // admin: a resposta do Faixa a Faixa que está tocando (borrada até passar o mouse); atualiza enquanto o painel está aberto
 function admFaixa() {
   const box = $('#admFaixa'), r = !$('#admTools').hidden && faixa?.resposta?.()
@@ -3977,7 +4107,7 @@ function moveVoz() {
   else if (!imersivo() && vozEl.contains(v)) { vozCasa.replaceWith(v); vozEl.remove() }
 }
 function arrumaBarra() {
-  moveVoz()
+  moveVoz(); try { moveProjetar() } catch {}
   if (!imersivo()) { theater.classList.remove('barra-acima'); return }
   const row = theater.querySelector('.row__seats'), tb = theater.querySelector('.toolbar:not(.toolbar--voz)')
   const W = theater.clientWidth, rr = row?.getBoundingClientRect(), tr = tb?.getBoundingClientRect(), th = theater.getBoundingClientRect()
@@ -4562,7 +4692,7 @@ function sendMsg(fields) {
 }
 function clearChat() { messages.length = 0; msgEls.clear(); msgReacts.clear(); listEl.replaceChildren() }
 async function loadHistory() {
-  const r = await api(chatCh ? `chat?r=${chatR()}&n=80` : `chat?r=${roomId}&desde=${callIni || Date.now() - 60e3}`)
+  const r = await api(`chat?r=${chatR()}&n=80`) // histórico permanente (antes: só desde o começo da call)
   if (Array.isArray(r?.list)) r.list.forEach(m => addMsg(m, true))
   if (r?.re && typeof r.re === 'object') for (const [id, byE] of Object.entries(r.re)) for (const [e, keys] of Object.entries(byE || {})) (Array.isArray(keys) ? keys : []).forEach(k => setMsgReact(id, e, k, true))
 }

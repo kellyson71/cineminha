@@ -2561,3 +2561,83 @@ body.com-lateral:not(.locked) .lateral { display: flex; }
 .lat-eu__b svg { width: 18px; height: 18px; }
 /* chat trocou de canal: entra suave */
 #chat.troca .chat__list { animation: rara-in .25s var(--ease) both; }
+
+/* ===== Lateral v2: trilho fino sempre à mostra + painel que abre por cima ===== */
+:root { --rail-w: 68px; --painel-w: 272px; }
+.lateral { width: var(--rail-w); flex-direction: row; background: var(--lat-bg2); }
+@media (min-width: 1000px) {
+  body.com-lateral:not(.locked) { padding-left: var(--rail-w); }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .toolbar .voicectl { display: none; } /* mic e som ficam no trilho */
+}
+.lat-rail { width: var(--rail-w); flex: none; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 0; overflow-y: auto; scrollbar-width: none; cursor: pointer; }
+.lat-rail::-webkit-scrollbar { display: none; }
+.rail-b { position: relative; display: grid; place-items: center; width: 46px; height: 46px; flex: none; border: 0; border-radius: 50%; background: #1b1b22; color: rgba(236,236,241,.8); font: inherit; font-weight: 800; font-size: .86rem; cursor: pointer; transition: border-radius var(--dur-med) var(--ease), background var(--dur-fast), color var(--dur-fast), transform var(--dur-fast) var(--ease); }
+.rail-b:hover { border-radius: 16px; background: var(--accent, #e5484d); color: #fff; }
+.rail-b svg { width: 21px; height: 21px; }
+.rail-b::before { content: ''; position: absolute; left: -11px; top: 50%; width: 4px; height: 0; border-radius: 0 4px 4px 0; background: #fff; transform: translateY(-50%); transition: height var(--dur-med) var(--ease); }
+.rail-b:hover::before { height: 18px; }
+.rail-sala.on { border-radius: 16px; background: var(--accent, #e5484d); color: #fff; }
+.rail-sala.on::before { height: 36px; }
+.rail-sala.aovivo::after { content: ''; position: absolute; right: -1px; bottom: -1px; width: 12px; height: 12px; border-radius: 50%; background: var(--live, #e5484d); box-shadow: 0 0 0 3px var(--lat-bg2); animation: aovivo 1.6s ease-in-out infinite; }
+.rail-n { position: absolute; right: -4px; bottom: -4px; min-width: 18px; height: 18px; padding: 0 4px; box-sizing: border-box; display: grid; place-items: center; border-radius: 99px; background: #2a2a33; box-shadow: 0 0 0 3px var(--lat-bg2); color: #fff; font-size: .62rem; font-weight: 800; }
+.rail-n--vermelho { background: var(--live, #e5484d); top: -4px; bottom: auto; animation: estado-pop .3s cubic-bezier(.2,1.6,.4,1) both; }
+.rail-logo { background: none; } .rail-logo img { width: 40px; height: 40px; border-radius: 12px; transition: transform var(--dur-fast) var(--ease); } .rail-logo:hover { background: none; } .rail-logo:hover img { transform: scale(1.06) rotate(-4deg); }
+.rail-sep { width: 32px; height: 2px; flex: none; border-radius: 2px; background: rgba(255,255,255,.08); }
+.rail-proj { background: color-mix(in srgb, var(--accent) 22%, #1b1b22); color: var(--accent-hi, #f2555a); }
+.rail-proj.ativo { background: var(--accent, #e5484d); color: #fff; }
+.rail-grow { flex: 1; }
+.rail-b.off { color: var(--live, #e5484d); background: color-mix(in srgb, var(--live) 16%, #1b1b22); }
+.rail-eu { padding: 0; overflow: visible; background: none; } .rail-eu:hover { background: none; } .rail-eu > * { border-radius: 50%; box-shadow: 0 0 0 2px transparent; transition: box-shadow .15s; }
+.rail-eu.fala > * { box-shadow: 0 0 0 3px #3ddc84; }
+/* painel: abre por cima do conteúdo, deslizando */
+.lat-painel { position: absolute; left: var(--rail-w); top: 0; bottom: 0; width: var(--painel-w); display: flex; flex-direction: column; background: var(--lat-bg); border-right: 1px solid rgba(255,255,255,.07); box-shadow: 24px 0 60px rgba(0,0,0,.45); transform: translateX(-8px); opacity: 0; visibility: hidden; transition: transform var(--dur-med) var(--ease), opacity var(--dur-med) var(--ease), visibility 0s linear var(--dur-med); }
+body.lateral-aberta .lat-painel { transform: none; opacity: 1; visibility: visible; transition-delay: 0s; }
+@media (min-width: 1000px) {
+  body.lateral-aberta .lateral__fundo { display: block; position: fixed; inset: 0; z-index: 59; background: rgba(0,0,0,.35); animation: rara-in .2s both; }
+}
+@media (max-width: 999px) {
+  .lat-rail { display: none; }
+  .lateral { width: var(--painel-w); }
+  .lat-painel { left: 0; }
+}
+.lat-bloco .lat-proj { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 4px 8px 26px; }
+.lat-proj .popwrap { flex: 1; }
+.lat-proj #btnShare { width: 100%; justify-content: center; height: 38px; border-radius: 10px; }
+.lat-proj #btnTrocar { flex: 1; height: 38px; }
+.lat-proj .pop { position: fixed !important; left: calc(var(--rail-w) + var(--painel-w) + 10px) !important; top: 70px !important; bottom: auto !important; right: auto !important; transform: none !important; z-index: 70; }
+.lateral__novo small { display: block; margin: 4px 2px 0; font-size: .64rem; color: rgba(236,236,241,.4); }
+
+/* ===== Configurações em janela ===== */
+.settings.cfg:not([hidden]) { position: fixed !important; inset: 0 !important; margin: auto !important; z-index: 220; width: min(820px, 94vw) !important; height: min(600px, 90vh) !important; max-height: none !important; display: grid !important; grid-template-columns: 210px 1fr; padding: 0 !important; overflow: hidden !important; border-radius: 18px !important; background: #15151b !important; box-shadow: 0 0 0 100vmax rgba(0,0,0,.62), 0 30px 90px rgba(0,0,0,.6) !important; animation: janela-in var(--dur-med) var(--ease) both; transform: none !important; }
+.cfg-nav { display: flex; flex-direction: column; gap: 2px; padding: 22px 10px; background: #101014; overflow-y: auto; }
+.cfg-nav small { margin: 0 10px 8px; font-size: var(--fs-1); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgba(236,236,241,.45); }
+.cfg-nav__b { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border: 0; border-radius: 8px; background: none; color: rgba(236,236,241,.68); font: inherit; font-size: .9rem; font-weight: 600; text-align: left; cursor: pointer; transition: background var(--dur-fast), color var(--dur-fast); }
+.cfg-nav__b svg { width: 17px; height: 17px; }
+.cfg-nav__b:hover { background: rgba(255,255,255,.05); color: #fff; }
+.cfg-nav__b.on { background: rgba(255,255,255,.1); color: #fff; }
+.cfg-corpo { overflow-y: auto; padding: 26px 30px; }
+.cfg-g { display: grid; gap: 10px; align-content: start; animation: rara-in .18s both; }
+.cfg-g[hidden] { display: none; }
+.cfg-g h2 { margin: 0 0 6px; font-size: var(--fs-5); font-weight: 800; letter-spacing: -.02em; }
+.cfg-g .setp-abas { display: none; }
+.cfg-x { position: absolute; top: 14px; right: 14px; display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; background: none; color: inherit; cursor: pointer; }
+.cfg-x:hover { background: rgba(255,255,255,.08); }
+.cfg-x svg { width: 16px; height: 16px; }
+@media (max-width: 640px) { .settings.cfg:not([hidden]) { grid-template-columns: 1fr; grid-template-rows: auto 1fr; } .cfg-nav { flex-direction: row; overflow-x: auto; padding: 12px; } .cfg-nav small { display: none; } .cfg-nav__b { flex: none; } .cfg-corpo { padding: 16px; } }
+
+/* ===== Chat: seletor no título e modo grande ===== */
+.chat__head { position: relative; }
+.chat__head h2 { cursor: pointer; }
+.chat__trocar { display: grid; place-items: center; width: 28px; height: 28px; margin-left: auto; border: 0; border-radius: 7px; background: none; color: rgba(236,236,241,.6); cursor: pointer; }
+.chat__trocar + .chat__trocar { margin-left: 2px; }
+.chat__trocar:hover { background: rgba(255,255,255,.08); color: #fff; }
+.chat__trocar svg { width: 16px; height: 16px; }
+.chat__canais { position: absolute; top: calc(100% + 4px); left: 8px; right: 8px; z-index: 30; display: grid; gap: 2px; padding: 6px; border-radius: 12px; background: #17171d; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 16px 40px rgba(0,0,0,.55); animation: rara-in .15s both; }
+.chat__canais button { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 0; border-radius: 8px; background: none; color: rgba(236,236,241,.75); font: inherit; font-size: .88rem; font-weight: 600; text-align: left; cursor: pointer; }
+.chat__canais button span { flex: 1; } .chat__canais button svg { width: 16px; height: 16px; }
+.chat__canais button:hover { background: rgba(255,255,255,.06); color: #fff; }
+.chat__canais button.on { background: rgba(255,255,255,.1); color: #fff; }
+.chat__canais-novo { border-top: 1px solid rgba(255,255,255,.07) !important; border-radius: 0 0 8px 8px !important; margin-top: 4px; color: var(--accent-hi, #f2555a) !important; }
+.chat-fundo { position: fixed; inset: 0; z-index: 180; background: rgba(0,0,0,.6); backdrop-filter: blur(4px); animation: rara-in .2s both; }
+#chat.chat--grande { position: fixed !important; inset: 5vh max(5vw, calc(50vw - 520px)) !important; z-index: 190 !important; width: auto !important; height: auto !important; max-height: none !important; display: flex !important; opacity: 1 !important; pointer-events: auto !important; border-radius: 18px !important; background: #141419 !important; box-shadow: 0 30px 90px rgba(0,0,0,.6) !important; animation: janela-in var(--dur-med) var(--ease) both; }
+#chat.chat--grande .chat__list { font-size: 1rem; }
