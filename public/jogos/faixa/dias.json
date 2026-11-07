@@ -1,4 +1,156 @@
 {
+ "2026-09-05": [
+  {
+   "id": "rihanna-s-m",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "S&M",
+   "a": "Rihanna",
+   "album": "Loud",
+   "ano": 2010,
+   "dz": {
+    "t": 13529559,
+    "a": 564
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 949369,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-nocaute",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Nocaute",
+   "a": "Jorge & Mateus",
+   "album": "Nocaute - Single",
+   "ano": 2014,
+   "dz": {
+    "t": 89399401,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 618401,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "o-rappa-anjos-pra-quem-tem-fe",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Anjos (Pra quem tem fé)",
+   "a": "O Rappa",
+   "album": "Nunca Tem Fim (Standard)",
+   "ano": 2013,
+   "dz": {
+    "t": 70046742,
+    "a": 12807
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 847743,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-06": [
   {
    "id": "dj-snake-lil-jon-turn-down-for-what",
@@ -155,6 +307,111 @@
    "generos": [],
    "pais": "CO",
    "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "fall-out-boy-uma-thurman",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Uma Thurman",
+   "a": "Fall Out Boy",
+   "album": "American Beauty/American Psycho",
+   "ano": 2015,
+   "dz": {
+    "t": 92872160,
+    "a": 404
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 563176,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "luan-santana-incondicional",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Incondicional Ao Vivo",
+   "a": "Luan Santana",
+   "album": "Registro Histórico",
+   "ano": 2025,
+   "dz": {
+    "t": 3713876912,
+    "a": 1264078
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 596288,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
    "tags_ok": true
   }
  ],
@@ -41877,6 +42134,255 @@
    ],
    "pais": "US",
    "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-30": [
+  {
+   "id": "vulgo-fk-kayblack-pedro-lotto-menage",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "MÉNAGE",
+   "a": "Vulgo FK",
+   "album": "F**K SONGS",
+   "ano": 2024,
+   "dz": {
+    "t": 3041909061,
+    "a": 13416889
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 554521,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "arctic-monkeys-i-wanna-be-yours",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I Wanna Be Yours",
+   "a": "Arctic Monkeys",
+   "album": "AM",
+   "ano": 2013,
+   "dz": {
+    "t": 70322142,
+    "a": 1182
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 929035,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "cristiano-araujo-maus-bocados",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Maus Bocados",
+   "a": "Cristiano Araújo",
+   "album": "Continua",
+   "ano": 2013,
+   "dz": {
+    "t": 70835778,
+    "a": 1702206
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 657092,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-weeknd-the-hills",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Hills",
+   "a": "The Weeknd",
+   "album": "Beauty Behind The Madness",
+   "ano": 2015,
+   "dz": {
+    "t": 106506512,
+    "a": 4050205
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 955992,
+   "generos": [
+    "R&B"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "ac-dc-you-shook-me-all-night-long",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "You Shook Me All Night Long",
+   "a": "AC/DC",
+   "album": "Back In Black",
+   "ano": 1980,
+   "dz": {
+    "t": 92720048,
+    "a": 115
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 872302,
+   "generos": [
+    "Rock",
+    "Hard Rock",
+    "Metal"
+   ],
+   "pais": null,
+   "decada": 1980,
    "tags_ok": true
   }
  ]
