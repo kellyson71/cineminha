@@ -7,6 +7,7 @@ export default {
   tema: '',               // '' = padrão escuro; 'halloween' = jornal recortado. Também dá para testar com ?tema=halloween
   appId: 'cineminha-2026',
   senhaHash: 'a3d6152d4e74eaf7f54fa54cb48888c023c5650a992a32ead8cc1481ee4dee05', // "cineminha"
+  senhaAberta: 'cineminha', // entrada sem senha: o site usa esta (vazio = volta a pedir a senha na entrada)
   adminHash: 'd8f92ee6a6cbc42e122fa7a4fe7794a870241e68678674627b5794813dff519a', // sha256("admin:" + senha de admin)
   giphyKey: '0yM0aIY5iVZWPygyynVoZcQAZPQ3oPv0',
   convidados: true,       // permite entrar digitando um nome

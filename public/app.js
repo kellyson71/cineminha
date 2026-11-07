@@ -331,18 +331,20 @@ whoEl.addEventListener('change', () => {
   $('#guestField').hidden = picked !== 'guest'
   if (picked === 'guest') return $('#guestName').focus()
   // com a senha já conhecida (convite ou digitada), clicar no cartão já entra
-  if (invite || $('#pw').value.trim()) $('#gateForm').requestSubmit()
+  if (invite || $('#pw').value.trim() || CFG.senhaAberta) $('#gateForm').requestSubmit()
 })
 function gateErr(msg) {
   $('#gateErr').textContent = msg
   $('#gateErr').hidden = false
   $('#gate').classList.remove('shake'); void $('#gate').offsetWidth; $('#gate').classList.add('shake')
 }
+// entrada aberta: sem campo de senha (o site usa a senha pública da config)
+if (CFG.senhaAberta && $('#pwField')) $('#pwField').hidden = true
 if (inviteMissing) gateErr('Esse convite não existe mais. Entre com a senha da sala.')
 const okPw = async pw => crypto.subtle ? await sha(pw) === CFG.senhaHash : true
 $('#gateForm').addEventListener('submit', async e => {
   e.preventDefault()
-  const pw = invite ? invite.pw : $('#pw').value.trim().toLowerCase()
+  const pw = invite ? invite.pw : $('#pw').value.trim().toLowerCase() || CFG.senhaAberta || ''
   if (!pw) { $('#pw').focus(); return gateErr('Digite a senha da sala.') }
   if (!await okPw(pw)) return gateErr('Senha errada.')
   const picked = document.querySelector('input[name=who]:checked')?.value
@@ -379,12 +381,65 @@ async function enter(pw, key, name) {
   document.body.classList.remove('locked')
   document.documentElement.classList.remove('auto')
   audioCtx()
+  // sem sala no link (e sem ser um F5 dentro de uma sala): a pessoa escolhe em qual sala entrar
+  if (!VOLTA && !ESTADO && !params.get('sala') && !invite?.sala) {
+    const id = await escolheSala()
+    canal = id
+    const u = new URL(location.href); id ? u.searchParams.set('sala', id) : u.searchParams.delete('sala'); history.replaceState(null, '', u.pathname + u.search)
+  }
   start(pw)
   if (ESTADO) { micOn(false, ESTADO.muted); if (ESTADO.deaf) setDeaf(true, true); if (ESTADO.rascunho) $('#chatInput').value = ESTADO.rascunho }
   else micOn(true)
   admRestore()
   if (!VOLTA) setTimeout(() => sfx('euEntrei'), 400)
   loadCanais()
+}
+
+/* ---------- Escolher a sala ao entrar ----------
+   Não existe mais "cair na principal": aparecem as salas com quem está em cada uma, e a pessoa escolhe
+   (ou cria uma nova, para jogar ou conversar sem atrapalhar ninguém). */
+async function escolheSala() {
+  const tela = el('div', { className: 'escolhe', role: 'dialog', ariaLabel: 'Escolha a sala' })
+  document.body.append(tela)
+  let lista = []
+  return new Promise(ok => {
+    const entra = id => { clearInterval(t); tela.classList.add('sai'); setTimeout(() => tela.remove(), 300); ok(id) }
+    const cartao = c => {
+      const gente = c.pres || []
+      const b = el('button', { type: 'button', className: 'escolhe__sala' + (gente.length ? ' cheia' : '') },
+        el('span', { className: 'escolhe__ic' }, gente.length ? el('span', { className: 'escolhe__rostos' }, ...gente.slice(0, 5).map(p => pfpImg(p.key, 34, p.name))) : icon('armchair')),
+        el('b', { textContent: c.nome }),
+        el('small', { textContent: gente.length ? gente.map(p => p.name || person(p.key).nome).slice(0, 4).join(', ') + (gente.length > 4 ? ` e mais ${gente.length - 4}` : '') : 'vazia' }),
+        el('em', { textContent: gente.length ? 'Entrar' : 'Entrar' }))
+      b.addEventListener('click', () => entra(c.id))
+      return b
+    }
+    const nova = el('form', { className: 'escolhe__nova' }, icon('plus'), el('input', { maxLength: 30, placeholder: 'Criar uma sala nova (ex.: Jogatina, Só nós dois)' }), el('button', { type: 'submit', className: 'btn btn--primary', textContent: 'Criar e entrar' }))
+    nova.addEventListener('submit', async e => {
+      e.preventDefault()
+      const nome = nova.querySelector('input').value.trim()
+      if (!nome) return nova.querySelector('input').focus()
+      const r = await api('sala', { method: 'POST', body: { op: 'canal-novo', pw: roomPw, nome, key: me.key } })
+      if (!r?.canal) return toast('Não consegui criar a sala.')
+      canais.push({ ...r.canal, pres: [] }); entra(r.canal.id)
+    })
+    const grade = el('div', { className: 'escolhe__grade' }, ...Array.from({ length: 3 }, () => el('div', { className: 'escolhe__sala esq' })))
+    tela.append(el('div', { className: 'escolhe__box' },
+      el('img', { className: 'escolhe__logo', src: 'assets/icon.svg', alt: '' }),
+      el('h2', { textContent: `Oi, ${me.name}! Em qual sala você vai?` }),
+      el('p', { textContent: 'Cada sala é uma call separada: dá para ver um filme numa e jogar em outra.' }),
+      grade, nova))
+    const atualiza = async () => {
+      const r = await api('sala', { method: 'POST', body: { op: 'canais', pw: roomPw } })
+      if (!Array.isArray(r?.canais)) return
+      canais = r.canais
+      // salas com gente primeiro; depois a ordem de cada um
+      lista = ordena([...r.canais], prefs.ordemSalas).sort((a, b) => (b.pres?.length || 0) - (a.pres?.length || 0))
+      grade.replaceChildren(...lista.map(cartao))
+    }
+    atualiza()
+    const t = setInterval(atualiza, 6000)
+  })
 }
 
 /* ---------- WebRTC: Opus estéreo nas transmissões ---------- */
