@@ -1,4 +1,160 @@
 {
+ "2026-09-03": [
+  {
+   "id": "shakira-el-cata-rabiosa-feat-el-cata",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Rabiosa (feat. El Cata)",
+   "a": "Shakira",
+   "album": "Sale el Sol",
+   "ano": 2010,
+   "dz": {
+    "t": 79589190,
+    "a": 160
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 527465,
+   "generos": [
+    "Pop",
+    "Pop Latino"
+   ],
+   "pais": "CO",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "nattan-leo-foguete-ultima-noite",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Última Noite",
+   "a": "NATTAN",
+   "album": "Última Noite",
+   "ano": 2024,
+   "dz": {
+    "t": 3034696631,
+    "a": 13097199
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 831684,
+   "generos": [],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "luan-santana-tanto-faz-ao-vivo",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tanto Faz (Ao Vivo)",
+   "a": "Luan Santana",
+   "album": "O Nosso Tempo É Hoje (Ao Vivo)",
+   "ano": 2013,
+   "dz": {
+    "t": 71389711,
+    "a": 1264078
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 625554,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-09-04": [
   {
    "id": "katy-perry-birthday",
@@ -152,6 +308,91 @@
     "Rock"
    ],
    "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "bruno-mars-when-i-was-your-man",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "When I Was Your Man",
+   "a": "Bruno Mars",
+   "album": "Unorthodox Jukebox",
+   "ano": 2012,
+   "dz": {
+    "t": 62724019,
+    "a": 429675
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "1.webm"
+    }
+   ],
+   "rank": 949124,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "selena-gomez-slow-down",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Slow Down",
+   "a": "Selena Gomez",
+   "album": "Stars Dance (Bonus Track Version)",
+   "ano": 2013,
+   "dz": {
+    "t": 69122686,
+    "a": 292185
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 747357,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
    "decada": 2010,
    "tags_ok": true
   }
@@ -42870,6 +43111,242 @@
     "Sertanejo"
    ],
    "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-02-01": [
+  {
+   "id": "imagine-dragons-arcane-league-of-legends-enemy-from-the-seri",
+   "n": 0,
+   "origem": "curtida",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Enemy (from the series Arcane League of Legends)",
+   "a": "Imagine Dragons",
+   "album": "Arcane League of Legends (Soundtrack from the Animated Series)",
+   "ano": 2023,
+   "dz": {
+    "t": 2817563352,
+    "a": 416239
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 552195,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "leandro-leonardo-continental-pense-em-mim",
+   "n": 1,
+   "origem": "curtida",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pense em mim",
+   "a": "Leandro & Leonardo ",
+   "album": "Sonho por Sonho",
+   "ano": 1990,
+   "dz": {
+    "t": 3902616,
+    "a": 67644
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 612760,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "elis-regina-adoniran-barbosa-tiro-ao-alvaro",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tiro Ao Álvaro",
+   "a": "Elis Regina",
+   "album": "Vento De Maio",
+   "ano": 1975,
+   "dz": {
+    "t": 3450534,
+    "a": 15827
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 623560,
+   "generos": [],
+   "pais": "BR",
+   "decada": 1970,
+   "tags_ok": true
+  },
+  {
+   "id": "linkin-park-faint",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Faint",
+   "a": "Linkin Park",
+   "album": "Meteora",
+   "ano": 2003,
+   "dz": {
+    "t": 14628999,
+    "a": 92
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 940586,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true
+  },
+  {
+   "id": "swedish-house-mafia-john-martin-don-t-you-worry-child",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Don't You Worry Child (Radio Edit)",
+   "a": "Swedish House Mafia",
+   "album": "Don't You Worry Child",
+   "ano": 2012,
+   "dz": {
+    "t": 60842359,
+    "a": 407188
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 898228,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "SE",
    "decada": 2010,
    "tags_ok": true
   }
