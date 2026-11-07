@@ -3399,7 +3399,7 @@ function renderLateral() {
     el('span', { className: 'rail-grow' }),
     mic, som,
     bolinha(pfpImg(me.key, 36, me.name), 'rail-eu' + (me.speaking ? ' fala' : ''), `${me.name} · conta, configurações e sair`, e => menuPerfil(e.currentTarget), true))
-  if (!document.body.classList.contains('lateral-aberta')) return
+  if (!document.body.classList.contains('lateral-aberta')) { if (!projSlot.isConnected) painel.append(projSlot); return } // o menu de projetar precisa continuar na página
   // ---------- painel ----------
   const linhaSala = c => {
     const atual = c.id === canal, ativo = atual && tiles.size
