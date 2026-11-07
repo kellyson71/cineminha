@@ -1,4 +1,147 @@
 {
+ "2026-08-11": [
+  {
+   "id": "the-cranberries-zombie-2025-remastered",
+   "n": 0,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Zombie (2025 Remastered)",
+   "a": "The Cranberries",
+   "album": "No Need To Argue (2025 Remastered)",
+   "ano": 1994,
+   "dz": {
+    "t": 3498055251,
+    "a": 196
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 683867,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "IE",
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "lmfao-sexy-and-i-know-it",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sexy And I Know It",
+   "a": "LMFAO",
+   "album": "Sorry For Party Rocking",
+   "ano": 2011,
+   "dz": {
+    "t": 12565421,
+    "a": 167225
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 814252,
+   "generos": [
+    "Dance",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "charlie-puth-we-don-t-talk-anymore",
+   "n": 2,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "We Don't Talk Anymore (feat. Selena Gomez)",
+   "a": "Charlie Puth",
+   "album": "Nine Track Mind",
+   "ano": 2016,
+   "dz": {
+    "t": 117797212,
+    "a": 1362735
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 888155,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
  "2026-08-12": [
   {
    "id": "sean-kingston-justin-bieber-eenie-meenie",
@@ -144,6 +287,123 @@
    ],
    "pais": null,
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-kid-laroi-stay",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "STAY",
+   "a": "The Kid Laroi",
+   "album": "STAY",
+   "ano": 2021,
+   "dz": {
+    "t": 1425844092,
+    "a": 51204222
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "tg": {
+    "pais": "AU",
+    "generos": [
+     "pop",
+     "trap"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "viral",
+     "festa",
+     "energia"
+    ],
+    "fama": 5
+   },
+   "rank": 943988,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Pop",
+    "Indie Pop/Folk"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "mike-posner-gigamesh-cooler-than-me-single-mix",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cooler Than Me (Single Mix)",
+   "a": "Mike Posner",
+   "album": "Cooler Than Me",
+   "ano": 2009,
+   "dz": {
+    "t": 5786444,
+    "a": 378294
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 822742,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
    "tags_ok": true
   }
  ],
@@ -54610,6 +54870,280 @@
    ],
    "pais": "RO",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "henrique-diego-raspao",
+   "n": 1,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Raspão (feat. Simone & Simaria) Ao Vivo",
+   "a": "Henrique & Diego",
+   "album": "De Braços Abertos (Ao Vivo)",
+   "ano": 2016,
+   "dz": {
+    "t": 144388354,
+    "a": 3029951
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "sertanejo"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "sofrencia",
+     "festa"
+    ],
+    "fama": 4
+   },
+   "rank": 674089,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "backstreet-boys-as-long-as-you-love-me",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "As Long as You Love Me",
+   "a": "Backstreet Boys",
+   "album": "Backstreet's Back (European Version)",
+   "ano": 1997,
+   "dz": {
+    "t": 15608664,
+    "a": 330
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 717064,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "rihanna-we-found-love",
+   "n": 3,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "We Found Love",
+   "a": "Rihanna",
+   "album": "Talk That Talk (Deluxe)",
+   "ano": 2011,
+   "dz": {
+    "t": 14525574,
+    "a": 564
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 983931,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-negao-original-ai-se-seu-closet-falasse-semi-nua",
+   "n": 4,
+   "origem": "tiktok",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ai Se Seu Closet Falasse (Semi Nua)",
+   "a": "Mc Negão Original",
+   "album": "Ai Se Seu Closet Falasse (Semi Nua)",
+   "ano": 2026,
+   "dz": {
+    "t": 3770375662,
+    "a": 109692442
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 622162,
+   "generos": [
+    "Soul & Funk"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
+ "2027-02-25": [
+  {
+   "id": "henrique-juliano-traumatizei-ao-vivo-em-brasilia",
+   "n": 0,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Traumatizei (Ao Vivo Em Brasília)",
+   "a": "Henrique & Juliano",
+   "album": "To Be, EP1 (Ao Vivo Em Brasília)",
+   "ano": 2023,
+   "dz": {
+    "t": 3881321011,
+    "a": 4876653
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 785868,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
    "tags_ok": true
   }
  ]
