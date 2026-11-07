@@ -2875,3 +2875,5 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 .perfil-menu button:disabled { opacity: .4; cursor: not-allowed; }
 .perfil-menu button.armado { background: var(--live, #e5484d) !important; color: #fff !important; }
 .perfil-menu__input { width: 100%; box-sizing: border-box; margin: 2px 0 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; background: #0e0e12; color: inherit; font: inherit; outline: none; }
+.escolhe__emoji { font-size: 1.5rem; line-height: 1; }
+.rail-emoji { font-size: 1.35rem; line-height: 1; }

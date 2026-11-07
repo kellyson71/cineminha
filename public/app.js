@@ -410,6 +410,8 @@ async function enter(pw, key, name) {
 /* ---------- Escolher a sala ao entrar ----------
    Não existe mais "cair na principal": aparecem as salas com quem está em cada uma, e a pessoa escolhe
    (ou cria uma nova, para jogar ou conversar sem atrapalhar ninguém). */
+// "🎮 Jogos" → ['🎮', 'Jogos']: o emoji do começo vira o ícone da sala
+const emojiDe = nome => { const m = String(nome || '').match(/^(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*)\s*(.*)$/u); return m ? [m[1], m[2] || nome] : ['', nome] }
 async function escolheSala() {
   const tela = el('div', { className: 'escolhe', role: 'dialog', ariaLabel: 'Escolha a sala' })
   document.body.append(tela)
@@ -419,8 +421,8 @@ async function escolheSala() {
     const cartao = c => {
       const gente = c.pres || []
       const b = el('button', { type: 'button', className: 'escolhe__sala' + (gente.length ? ' cheia' : '') },
-        el('span', { className: 'escolhe__ic' }, gente.length ? el('span', { className: 'escolhe__rostos' }, ...gente.slice(0, 5).map(p => pfpImg(p.key, 34, p.name))) : icon('armchair')),
-        el('b', { textContent: c.nome }),
+        el('span', { className: 'escolhe__ic' }, gente.length ? el('span', { className: 'escolhe__rostos' }, ...gente.slice(0, 5).map(p => pfpImg(p.key, 34, p.name))) : emojiDe(c.nome)[0] ? el('span', { className: 'escolhe__emoji', textContent: emojiDe(c.nome)[0] }) : icon('armchair')),
+        el('b', { textContent: emojiDe(c.nome)[1] }),
         el('small', { textContent: gente.length ? gente.map(p => p.name || person(p.key).nome).slice(0, 4).join(', ') + (gente.length > 4 ? ` e mais ${gente.length - 4}` : '') : 'vazia' }),
         el('em', { textContent: gente.length ? 'Entrar' : 'Entrar' }))
       b.addEventListener('click', () => entra(c.id))
@@ -3456,7 +3458,7 @@ function renderLateral() {
     ...salas.map(c => {
       const n = gente(c).length, atual = c.id === canal
       const rostos = gente(c).slice(0, 4)
-      const miolo = rostos.length ? el('span', { className: 'rail-rostos rail-rostos--' + rostos.length }, ...rostos.map(p => pfpImg(p.key, rostos.length === 1 ? 46 : 22, p.name))) : icon('armchair')
+      const miolo = rostos.length ? el('span', { className: 'rail-rostos rail-rostos--' + rostos.length }, ...rostos.map(p => pfpImg(p.key, rostos.length === 1 ? 46 : 22, p.name))) : emojiDe(c.nome)[0] ? el('span', { className: 'rail-emoji', textContent: emojiDe(c.nome)[0] }) : icon('armchair')
       const b = bolinha([miolo, n > 4 ? el('b', { className: 'rail-n', textContent: '+' + (n - 4) }) : ''], 'rail-sala' + (atual ? ' on' : '') + (atual && tiles.size ? ' aovivo' : '') + (rostos.length ? ' cheia' : ''), `${c.nome}${n ? ` · ${gente(c).map(p => p.name || person(p.key).nome).join(', ')}` : ' · vazia'}${atual ? ' · você está aqui' : ''}`, () => { if (!atual) switchCanal(c.id) }, true)
       b.dataset.nome = c.nome
       return b
