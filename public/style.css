@@ -2872,3 +2872,6 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 .entrada-nome .whocard__pfp { position: static; width: 30px !important; height: 30px !important; border: 0; box-shadow: none; }
 .entrada-nome .whocard__in b { font-size: .8rem; }
 .entrada-nome .whocard__in small { display: none; }
+.perfil-menu button:disabled { opacity: .4; cursor: not-allowed; }
+.perfil-menu button.armado { background: var(--live, #e5484d) !important; color: #fff !important; }
+.perfil-menu__input { width: 100%; box-sizing: border-box; margin: 2px 0 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; background: #0e0e12; color: inherit; font: inherit; outline: none; }

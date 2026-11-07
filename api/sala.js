@@ -187,16 +187,20 @@ export default async function handler(req, res) {
         await redis('HSET', 'textos', nome, JSON.stringify(texto))
         return json(res, 200, { texto })
       }
-      if (b.op === 'texto-apagar') {
-        if (!isAdmin(b.tok) || !okCanal(b.id) || !b.id) return json(res, 403, { error: 'admin' })
-        await redis('HDEL', 'textos', b.id)
-        return json(res, 200, { ok: true })
-      }
-      if (b.op === 'canal-apagar') {
-        if (!isAdmin(b.tok)) return json(res, 403, { error: 'admin' })
-        if (!okCanal(b.id) || !b.id) return json(res, 400, { error: 'canal' })
-        await redis('HDEL', 'canais', b.id)
-        return json(res, 200, { ok: true })
+      // renomear ou apagar sala/chat: quem criou ou o admin
+      if (['canal-apagar', 'canal-renomear', 'texto-renomear', 'texto-apagar'].includes(b.op)) {
+        const hash = b.op.startsWith('canal') ? 'canais' : 'textos'
+        if (!okCanal(b.id) || !b.id) return json(res, 400, { error: 'id' })
+        let cur = null
+        try { cur = JSON.parse(await redis('HGET', hash, b.id)) } catch {}
+        if (!cur) return json(res, 404, { error: 'não existe (as salas e chats padrão não mudam)' })
+        if (!isAdmin(b.tok) && (!cur.por || cur.por !== String(b.key || ''))) return json(res, 403, { error: 'só quem criou ou o admin' })
+        if (b.op.endsWith('apagar')) { await redis('HDEL', hash, b.id); return json(res, 200, { ok: true }) }
+        const nome = hash === 'textos' ? slugify(String(b.nome || '')).slice(0, 28) : String(b.nome || '').replace(/\s+/g, ' ').trim().slice(0, 32)
+        if (!nome) return json(res, 400, { error: 'nome' })
+        cur.nome = nome
+        await redis('HSET', hash, b.id, JSON.stringify(cur))
+        return json(res, 200, { ok: true, nome })
       }
       return json(res, 400, { error: 'op' })
     }

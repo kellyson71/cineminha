@@ -3472,9 +3472,10 @@ function renderLateral() {
   // ---------- painel ----------
   const linhaSala = c => {
     const atual = c.id === canal, ativo = atual && tiles.size
-    const b = el('button', { type: 'button', className: 'lat-sala' + (atual ? ' on' : ''), title: atual ? 'Você está nesta sala' : `Entrar em ${c.nome}` },
+    const b = el('button', { type: 'button', className: 'lat-sala' + (atual ? ' on' : ''), title: (atual ? 'Você está nesta sala' : `Entrar em ${c.nome}`) + (c.id ? ' · botão direito: renomear ou apagar' : '') },
       icon(ativo ? 'projector' : 'volume-2'), el('span', { textContent: c.nome }), ativo ? el('em', { className: 'lat-aovivo', textContent: 'AO VIVO' }) : '')
     b.addEventListener('click', () => { if (!atual) switchCanal(c.id) })
+    if (c.id) b.addEventListener('contextmenu', e => { e.preventDefault(); menuItemLateral(e, 'canal', c) })
     const lista = el('ul', { className: 'lat-gente' }, ...gente(c).map(p => {
       const st = atual ? estadoDe(p.key) : {}
       const li = el('li', { className: (st.speaking ? 'fala' : '') + (atual ? '' : ' longe'), title: p.name || person(p.key).nome },
@@ -3492,6 +3493,8 @@ function renderLateral() {
     const b = el('button', { type: 'button', className: 'lat-chat' + (chatCh === id ? ' on' : '') + (n || marcado ? ' novo' : ''), title: 'Duplo clique: abrir o chat grande' }, icon(ic), el('span', { textContent: nome }), marcado ? el('b', { className: 'lat-badge lat-badge--mencao', textContent: '@' }) : n ? el('b', { className: 'lat-badge', textContent: n > 99 ? '99+' : n }) : '')
     b.addEventListener('click', () => abreChat(id))
     b.addEventListener('dblclick', () => abreChat(id, true))
+    const t = textos.find(x => x.id === id)
+    if (t && !t.fixo) b.addEventListener('contextmenu', e => { e.preventDefault(); menuItemLateral(e, 'texto', t) })
     return id ? arrastavel(b, 'ordemChats', id) : b
   }
   const secSalas = secao('Salas de cinema', e => criaInline(e.currentTarget.parentElement, 'nome da sala', async nome => {
@@ -3657,6 +3660,41 @@ $('#chatInput').addEventListener('keydown', e => {
 }, true)
 $('#chatInput').addEventListener('blur', () => setTimeout(() => { sugMencao.hidden = true }, 150))
 
+/* Botão direito numa sala ou chat criado por alguém: renomear ou apagar (quem criou ou o admin) */
+function menuItemLateral(e, tipo, item) {
+  document.querySelector('.perfil-menu')?.remove()
+  const pode = !!admTok || (item.por && item.por === me.key)
+  const nomeTipo = tipo === 'canal' ? 'sala' : 'chat'
+  const acao = (op, extra) => api('sala', { method: 'POST', body: { op: `${tipo}-${op}`, pw: roomPw, tok: admTok || '', key: me.key, id: item.id, ...extra } })
+  const it = (ic, txt, fn, cls) => { const b = el('button', { type: 'button', className: cls || '', disabled: !pode }, icon(ic), el('span', { textContent: txt })); b.addEventListener('click', () => fn(b)); return b }
+  const m = el('div', { className: 'perfil-menu', role: 'menu' },
+    el('header', {}, el('div', {}, el('b', { textContent: (tipo === 'texto' ? '# ' : '') + item.nome }), el('small', { textContent: pode ? (item.por === me.key ? `você criou este ${nomeTipo}` : 'você é admin') : `só quem criou${item.por ? ` (${person(item.por).nome})` : ''} ou o admin mexe` }))),
+    it('pencil', 'Renomear', () => {
+      const inp = el('input', { className: 'perfil-menu__input', value: item.nome, maxLength: 32 })
+      m.querySelector('header').after(inp); inp.focus(); inp.select()
+      inp.addEventListener('keydown', async ev => {
+        if (ev.key === 'Escape') m.remove()
+        if (ev.key !== 'Enter' || !inp.value.trim()) return
+        const r = await acao('renomear', { nome: inp.value.trim() })
+        if (!r?.ok) return toast(r?.error || 'Não deu para renomear')
+        item.nome = r.nome; m.remove(); toast(`Agora é “${r.nome}”`)
+        tipo === 'canal' ? loadCanais() : loadTextos()
+        if (tipo === 'texto' && chatCh === item.id) $('#chat .chat__head h2').textContent = r.nome
+      })
+    }),
+    it('trash-2', `Apagar ${nomeTipo}`, async b => {
+      if (!b.classList.contains('armado')) { b.classList.add('armado'); b.querySelector('span').textContent = 'Clique de novo para apagar'; return }
+      const r = await acao('apagar')
+      m.remove()
+      if (!r?.ok) return toast(r?.error || 'Não deu para apagar')
+      toast(`${nomeTipo === 'sala' ? 'Sala' : 'Chat'} “${item.nome}” apagad${nomeTipo === 'sala' ? 'a' : 'o'}`)
+      if (tipo === 'texto') { textos = textos.filter(x => x.id !== item.id); if (chatCh === item.id) abreChat(''); renderLateral() } else loadCanais()
+    }, 'perigo'))
+  document.body.append(m)
+  m.style.left = Math.min(e.clientX, innerWidth - m.offsetWidth - 8) + 'px'
+  m.style.top = Math.min(e.clientY, innerHeight - m.offsetHeight - 8) + 'px'
+  setTimeout(() => document.addEventListener('pointerdown', function fora(ev) { if (!m.contains(ev.target)) { m.remove(); document.removeEventListener('pointerdown', fora) } }), 0)
+}
 /* Admin: arrastar uma pessoa da lista de uma sala para outra sala. O pedido vai pelo servidor (a pessoa
    pode estar numa call em que você não está) e ela troca de sala sozinha em até ~15 s. */
 let arrastaPessoa = null
