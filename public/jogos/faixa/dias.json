@@ -1,4 +1,163 @@
 {
+ "2026-09-06": [
+  {
+   "id": "dj-snake-lil-jon-turn-down-for-what",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Turn Down for What",
+   "a": "DJ Snake",
+   "album": "Turn Down for What",
+   "ano": 2013,
+   "dz": {
+    "t": 73707710,
+    "a": 482758
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 736233,
+   "generos": [
+    "Electro",
+    "Dubstep",
+    "Dance",
+    "Rap/Hip Hop",
+    "Pop",
+    "Pop internacional",
+    "Rock",
+    "R&B"
+   ],
+   "pais": "FR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "green-day-when-i-come-around",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "When I Come Around",
+   "a": "Green Day",
+   "album": "Dookie",
+   "ano": 1994,
+   "dz": {
+    "t": 678053,
+    "a": 52
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 744416,
+   "generos": [
+    "Alternativo",
+    "Rock",
+    "Indie rock/Rock pop"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true
+  },
+  {
+   "id": "shakira-underneath-your-clothes",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Underneath Your Clothes",
+   "a": "Shakira",
+   "album": "Laundry Service",
+   "ano": 2001,
+   "dz": {
+    "t": 15210161,
+    "a": 160
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 690966,
+   "generos": [],
+   "pais": "CO",
+   "decada": 2000,
+   "tags_ok": true
+  }
+ ],
  "2026-09-07": [
   {
    "id": "fergie-will-i-am-fergalicious",
@@ -153,6 +312,106 @@
     "Trilhas de filmes"
    ],
    "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "pitbull-ne-yo-time-of-our-lives",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Time of Our Lives",
+   "a": "Ne-Yo",
+   "album": "Globalization",
+   "ano": 2014,
+   "dz": {
+    "t": 89597767,
+    "a": 104
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 790903,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "justin-bieber-bloodpop-friends-with-bloodpop",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Friends",
+   "a": "Justin Bieber",
+   "album": "Friends",
+   "ano": 2017,
+   "dz": {
+    "t": 395664742,
+    "a": 288166
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 612022,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
    "decada": 2010,
    "tags_ok": true
   }
@@ -41375,6 +41634,248 @@
     "Rap/Hip Hop"
    ],
    "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-01-29": [
+  {
+   "id": "black-eyed-peas-just-cant-get-enough",
+   "n": 0,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Just Can’t Get Enough",
+   "a": "Black Eyed Peas",
+   "album": "The Beginning (Deluxe)",
+   "ano": 2010,
+   "dz": {
+    "t": 7706014,
+    "a": 1020109
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 854672,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "dj-khaled-justin-bieber-quavo-chance-the-rapper-lil-wayne-i-",
+   "n": 1,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I'm the One (feat. Justin Bieber, Quavo, Chance the Rapper & Lil Wayne)",
+   "a": "DJ Khaled",
+   "album": "Grateful",
+   "ano": 2017,
+   "dz": {
+    "t": 375689871,
+    "a": 5828
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 754139,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "daddy-yankee-snow-con-calma",
+   "n": 2,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Con Calma",
+   "a": "Daddy Yankee",
+   "album": "Con Calma",
+   "ano": 2019,
+   "dz": {
+    "t": 619949882,
+    "a": 3839
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 865545,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "PR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "vulgo-fk-mc-ph-veigh-pedro-lotto-fepache-ballena",
+   "n": 3,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ballena",
+   "a": "Vulgo FK",
+   "album": "Perdas & Ganhos, Vol. 2",
+   "ano": 2023,
+   "dz": {
+    "t": 2352842895,
+    "a": 13416889
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 693443,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "j-cole-cults-amber-coffman-she-knows-feat-amber-coffman-cult",
+   "n": 4,
+   "origem": "sp-playlist",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "She Knows",
+   "a": "J. Cole",
+   "album": "Born Sinner",
+   "ano": 2013,
+   "dz": {
+    "t": 1048706132,
+    "a": 339209
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 723258,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "US",
    "decada": 2010,
    "tags_ok": true
   }
