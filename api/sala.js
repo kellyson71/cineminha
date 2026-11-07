@@ -143,11 +143,11 @@ export default async function handler(req, res) {
       // admin: reconectar alguém (ou todos) e ver o diagnóstico da sala
       if (b.op === 'cmd') {
         if (!isAdmin(b.tok)) return json(res, 403, { error: 'admin' })
-        if (!okRoom(b.r) || !['reset'].includes(b.cmd)) return json(res, 400, { error: 'cmd' })
+        if (!okRoom(b.r) || !['reset', 'mover'].includes(b.cmd) || (b.cmd === 'mover' && !okCanal(b.canal))) return json(res, 400, { error: 'cmd' })
         const alvos = b.key === '*' ? (await presenca(b.r, now)).map(x => x.key) : [String(b.key || '').slice(0, 40)]
-        for (const k of alvos) await redis('HSET', `cmd:${b.r}`, k, JSON.stringify({ op: b.cmd, ts: now, por: String(b.por || '').slice(0, 24) }))
+        for (const k of alvos) await redis('HSET', `cmd:${b.r}`, k, JSON.stringify({ op: b.cmd, ts: now, por: String(b.por || '').slice(0, 24), ...(b.cmd === 'mover' ? { canal: b.canal } : {}) }))
         await redis('EXPIRE', `cmd:${b.r}`, 300)
-        await redis('LPUSH', `ev:${b.r}`, JSON.stringify({ ts: now, key: String(b.quem || 'admin').slice(0, 40), t: `pediu para reconectar ${String(b.nomeAlvo || b.key).slice(0, 24)}`, k: 'admin' }))
+        await redis('LPUSH', `ev:${b.r}`, JSON.stringify({ ts: now, key: String(b.quem || 'admin').slice(0, 40), t: b.cmd === 'mover' ? `levou ${String(b.nomeAlvo || b.key).slice(0, 24)} para outra sala` : `pediu para reconectar ${String(b.nomeAlvo || b.key).slice(0, 24)}`, k: 'admin' }))
         return json(res, 200, { ok: true, alvos })
       }
       if (b.op === 'diag-sala') {

@@ -72,6 +72,19 @@ export default async function handler(req, res) {
       await redis('DEL', `img:${id.slice(2)}`)
       return json(res, 200, { ok: true })
     }
+    // editar ou apagar a própria mensagem (confere a dona pelo key gravado na mensagem)
+    if (req.method === 'POST' && (b.edita || b.apaga) && okRoom(b.r)) {
+      const alvo = b.edita || b.apaga
+      if (typeof alvo.id !== 'string' || typeof alvo.key !== 'string') return json(res, 400, { error: 'msg' })
+      const list = (await redis('LRANGE', `chat:${b.r}`, 0, MAX - 1)) || []
+      const i = list.findIndex(x => { try { const m = JSON.parse(x); return m.id === alvo.id && m.key === alvo.key } catch { return false } })
+      if (i < 0) return json(res, 404, { error: 'msg' })
+      if (b.apaga) { await redis('LREM', `chat:${b.r}`, 1, list[i]); return json(res, 200, { ok: true }) }
+      if (typeof alvo.text !== 'string' || !alvo.text.trim() || alvo.text.length > 500) return json(res, 400, { error: 'texto' })
+      const m = JSON.parse(list[i]); m.text = alvo.text; m.ed = Date.now()
+      await redis('LSET', `chat:${b.r}`, String(i), JSON.stringify(m))
+      return json(res, 200, { ok: true })
+    }
     if (req.method === 'POST' && b.re) {
       const { id, e, k, on } = b.re
       if (typeof id !== 'string' || id.length > 80 || !/^[\w-]{2,20}$/.test(String(e)) || typeof k !== 'string' || k.length > 40) return json(res, 400, { error: 're' })
@@ -90,7 +103,8 @@ export default async function handler(req, res) {
       const keep = { id: m.id.slice(0, 80), key: String(m.key || '').slice(0, 40), name: String(m.name || '').slice(0, 24), text: m.text, ts: +m.ts || Date.now(), ...(m.gif ? { gif: String(m.gif), sticker: !!m.sticker, ...(m.foto ? { foto: 1 } : {}) } : {}),
         ...(m.re && typeof m.re.id === 'string' ? { re: { id: m.re.id.slice(0, 80), name: String(m.re.name || '').slice(0, 24), text: String(m.re.text || '').slice(0, 120) } } : {}),
         ...(Number.isFinite(+m.mt) && m.mt !== null && m.mt !== '' ? { mt: Math.max(0, Math.round(+m.mt)) } : {}),
-        ...(Array.isArray(m.poll) && m.poll.length >= 2 ? { poll: m.poll.slice(0, 6).map(o => String(o).slice(0, 60)) } : {}) }
+        ...(Array.isArray(m.poll) && m.poll.length >= 2 ? { poll: m.poll.slice(0, 6).map(o => String(o).slice(0, 60)) } : {}),
+        ...(typeof m.ch === 'string' && m.ch ? { ch: m.ch.slice(0, 30) } : {}) }
       await redis('LPUSH', `chat:${b.r}`, JSON.stringify(keep))
       await redis('LTRIM', `chat:${b.r}`, 0, MAX - 1)
       return json(res, 200, { ok: true })

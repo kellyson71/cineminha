@@ -57,6 +57,31 @@ export default async function handler(req, res) {
     res.statusCode = 200; res.setHeader('content-type', r.headers.get('content-type') || 'image/jpeg'); res.setHeader('cache-control', 'public, max-age=86400, s-maxage=604800')
     res.end(Buffer.from(await r.arrayBuffer())); return
   }
+  // prévia de link no chat: YouTube (oEmbed), IMDb e Letterboxd (as tags og: da página)
+  if (u.has('link')) {
+    let url
+    try { url = new URL(u.get('link')) } catch { return json(res, 400, { error: 'link' }) }
+    const host = url.hostname.replace(/^(www|m)\./, '')
+    if (url.protocol !== 'https:' || !['youtube.com', 'youtu.be', 'music.youtube.com', 'imdb.com', 'letterboxd.com', 'boxd.it'].includes(host)) return json(res, 400, { error: 'site' })
+    let prev = null
+    if (/youtu/.test(host)) {
+      const o = await getJson(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url.href)}`)
+      if (o?.title) prev = { site: 'YouTube', titulo: o.title.slice(0, 160), desc: String(o.author_name || '').slice(0, 80), img: https(o.thumbnail_url) }
+    } else if (/imdb/.test(host) && /\/title\/(tt\d{5,12})/.test(url.pathname)) {
+      // o IMDb bloqueia leitura automática da página: usa o catálogo pelo id
+      const id = url.pathname.match(/\/title\/(tt\d{5,12})/)[1]
+      const m = (await getJson(`${BASE}/meta/movie/${id}.json`))?.meta || (await getJson(`${BASE}/meta/series/${id}.json`))?.meta
+      if (m?.name) prev = { site: 'IMDb', titulo: `${m.name}${m.releaseInfo ? ` (${m.releaseInfo})` : ''}`.slice(0, 160), desc: [m.imdbRating ? `★ ${m.imdbRating}` : '', String(m.description || '')].filter(Boolean).join(' · ').slice(0, 220), img: https(m.poster) }
+    } else {
+      const html = await fetch(url.href, { headers: { 'user-agent': 'Mozilla/5.0 (compatible; Cineminha/1.0)', 'accept-language': 'pt-BR,pt;q=0.8,en;q=0.6' }, redirect: 'follow', signal: AbortSignal.timeout(7000) }).then(r => r.ok ? r.text() : '').catch(() => '')
+      const og = k => (html.match(new RegExp(`<meta[^>]+(?:property|name)=["']${k}["'][^>]+content=["']([^"']*)`, 'i')) || html.match(new RegExp(`<meta[^>]+content=["']([^"']*)["'][^>]+(?:property|name)=["']${k}["']`, 'i')) || [])[1]
+      const dec = t => String(t || '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#0?39;|&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+      const titulo = dec(og('og:title') || (html.match(/<title>([^<]*)/i) || [])[1])
+      if (titulo) prev = { site: /imdb/.test(host) ? 'IMDb' : 'Letterboxd', titulo: titulo.replace(/\s*[-|]\s*(IMDb|Letterboxd)\s*$/i, '').slice(0, 160), desc: dec(og('og:description')).slice(0, 220), img: https(dec(og('og:image'))) }
+    }
+    res.statusCode = 200; res.setHeader('content-type', 'application/json'); res.setHeader('cache-control', 'public, max-age=3600, s-maxage=86400')
+    res.end(JSON.stringify({ prev })); return
+  }
   if (u.has('midia')) {
     const q = (u.get('midia') || '').trim().slice(0, 100), s = +u.get('s') || 0, e = +u.get('e') || 0
     if (q.length < 2) return json(res, 200, { midia: null })

@@ -681,6 +681,7 @@ async function heartbeat() {
   if (r.callIni) callIni = r.callIni
   desdeSrv.clear(); r.pres.forEach(x => desdeSrv.set(x.key, x.desde))
   if (r.cmd?.op === 'reset') return reconectarPorAdmin(r.cmd.por)
+  if (r.cmd?.op === 'mover' && typeof r.cmd.canal === 'string' && r.cmd.canal !== canal) { toast(`${r.cmd.por || 'O admin'} te levou para ${canalNome(r.cmd.canal)}`, 4000); setTimeout(() => switchCanal(r.cmd.canal, true), 600) }
   renderCallbar()
   const direct = new Set([...peers.values()].map(p => p.key))
   const before = new Set(srvPres.keys())
@@ -3255,6 +3256,7 @@ let chatCh = '', textos = [], textoPoll = 0, textoUltimo = 0
 const textoR = new Map(), naoLidas = new Map()
 const chatR = () => chatCh ? textoR.get(chatCh) || roomId : roomId
 function chatChegou(m) {
+  if (m.edita != null || m.apaga) return aplicaEdicao(m, peers.get(m.from)?.key)
   const ch = typeof m.ch === 'string' ? m.ch.slice(0, 30) : ''
   if (m.key !== me.key && mencionaMe(m.text)) avisaMencao(m, ch)
   if (ch === chatCh) return addMsg(m)
@@ -3413,9 +3415,10 @@ function renderLateral() {
         st.proj ? el('em', { className: 'lat-tag', textContent: 'TELA' }) : '',
         st.muted ? el('span', { className: 'lat-ic' }, icon('mic-off')) : '', st.deaf ? el('span', { className: 'lat-ic' }, icon('headphone-off')) : '')
       if (atual) li.dataset.key = p.key
+      if (me.key === 'kellyson') pessoaArrastavel(li, p, atual ? roomId : c.r, c.id)
       return li
     }))
-    return arrastavel(el('div', { className: 'lat-bloco' }, b, atual ? projSlot : '', lista), 'ordemSalas', c.id)
+    return recebePessoa(arrastavel(el('div', { className: 'lat-bloco' }, b, atual ? projSlot : '', lista), 'ordemSalas', c.id), c)
   }
   const linhaChat = (id, nome, ic) => {
     const n = naoLidas.get(id) || 0, marcado = mencoes.get(id)
@@ -3457,6 +3460,71 @@ function renderLateral() {
       secChats, linhaChat('', 'conversa-da-sala', 'volume-2'), ...textosOrd.map(t => linhaChat(t.id, t.nome, 'hash'))),
     eu)
 }
+/* Prévia de links no chat (YouTube, IMDb, Letterboxd): capa, título e descrição num cartão */
+const SITES_PREVIA = /^https:\/\/(?:www\.|m\.)?(youtube\.com|youtu\.be|music\.youtube\.com|imdb\.com|letterboxd\.com|boxd\.it)\/\S+/i
+const linkComPrevia = t => t.split(/\s+/).find(w => SITES_PREVIA.test(w))?.replace(/[)\].,!?]+$/, '')
+const previas = new Map()
+function previaLink(url) {
+  const card = el('a', { className: 'msg__prev msg__prev--carregando', href: url, target: '_blank', rel: 'noopener noreferrer' }, el('span', { className: 'esq msg__prev-img' }), el('span', { className: 'msg__prev-txt' }, el('i', { className: 'esq esq--l1' }), el('i', { className: 'esq esq--l2' })))
+  if (!previas.has(url)) previas.set(url, api('filmes?link=' + encodeURIComponent(url)).then(r => r?.prev || null).catch(() => null))
+  previas.get(url).then(p => {
+    if (!p) return card.remove()
+    card.classList.remove('msg__prev--carregando')
+    card.replaceChildren(
+      p.img ? el('img', { className: 'msg__prev-img', src: p.img, alt: '', loading: 'lazy' }) : '',
+      el('span', { className: 'msg__prev-txt' }, el('small', { textContent: p.site }), el('b', { textContent: p.titulo }), p.desc ? el('span', { textContent: p.desc }) : ''))
+    card.classList.toggle('msg__prev--yt', p.site === 'YouTube')
+  })
+  return card
+}
+/* ---------- Editar e apagar a própria mensagem ----------
+   Muda na hora para quem está na call (P2P) e no histórico do servidor (para quem chegar depois). */
+function aplicaEdicao(d, quem) {
+  const m = messages.find(x => x.id === d.id)
+  if (!m || (quem && m.key !== quem)) return
+  const li = msgEls.get(d.id)
+  if (d.apaga) {
+    messages.splice(messages.indexOf(m), 1); msgEls.delete(d.id)
+    if (li) { li.classList.add('msg--sumindo'); setTimeout(() => li.remove(), 260) }
+    return
+  }
+  m.text = String(d.edita).slice(0, 500); m.ed = Date.now()
+  if (li) {
+    const line = li.querySelector('.msg__line'), velho = line?.querySelector('.msg__text')
+    velho?.replaceWith(textoComMencoes(m.text))
+    if (line && !line.querySelector('.msg__editada')) line.append(el('small', { className: 'msg__editada', textContent: '(editada)' }))
+  }
+}
+function editarMsg(m) {
+  const li = msgEls.get(m.id), alvo = li?.querySelector('.msg__text')
+  if (!alvo) return
+  const inp = el('textarea', { className: 'msg__editar', value: m.text, maxLength: 500, rows: 1 })
+  const dica = el('small', { className: 'msg__editar-dica', textContent: 'Enter salva · Esc cancela' })
+  alvo.replaceWith(inp); inp.after(dica)
+  inp.style.height = inp.scrollHeight + 'px'; inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length)
+  const volta = () => { inp.replaceWith(textoComMencoes(m.text)); dica.remove() }
+  inp.addEventListener('input', () => { inp.style.height = 'auto'; inp.style.height = inp.scrollHeight + 'px' })
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { e.preventDefault(); volta() }
+    else if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      const t = inp.value.trim()
+      if (!t || t === m.text) return volta()
+      volta(); aplicaEdicao({ id: m.id, edita: t })
+      actions?.chat.send({ id: m.id, edita: t, key: me.key, text: '', ts: Date.now() })
+      api('chat', { method: 'POST', body: { r: chatR(), edita: { id: m.id, key: me.key, text: t } } })
+    }
+  })
+  inp.addEventListener('blur', () => setTimeout(() => { if (inp.isConnected) volta() }, 150))
+}
+function apagarMsg(m, botao) {
+  // primeiro clique arma, o segundo apaga (sem janelinha de confirmação)
+  if (!botao.classList.contains('armado')) { botao.classList.add('armado'); botao.title = 'Clique de novo para apagar'; setTimeout(() => { botao.classList.remove('armado'); botao.title = 'Apagar' }, 2500); return }
+  aplicaEdicao({ id: m.id, apaga: 1 })
+  actions?.chat.send({ id: m.id, apaga: 1, key: me.key, text: '', ts: Date.now() })
+  api('chat', { method: 'POST', body: { r: chatR(), apaga: { id: m.id, key: me.key } } })
+}
+
 /* ---------- Menções com @ ----------
    "@Nome" (ou @todos) no chat: a mensagem fica destacada para quem foi marcado, toca um som, acende o
    chat na lateral com um "@" e, se a aba estiver em segundo plano, o título pisca. Digitar @ sugere nomes. */
@@ -3522,6 +3590,29 @@ $('#chatInput').addEventListener('keydown', e => {
 }, true)
 $('#chatInput').addEventListener('blur', () => setTimeout(() => { sugMencao.hidden = true }, 150))
 
+/* Admin: arrastar uma pessoa da lista de uma sala para outra sala. O pedido vai pelo servidor (a pessoa
+   pode estar numa call em que você não está) e ela troca de sala sozinha em até ~15 s. */
+let arrastaPessoa = null
+function pessoaArrastavel(li, p, r, de) {
+  li.draggable = true
+  li.title += ' · arraste para outra sala'
+  li.addEventListener('dragstart', e => { e.stopPropagation(); arrastaPessoa = { key: p.key, nome: p.name || person(p.key).nome, r, de }; li.classList.add('arrastando'); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', p.key) })
+  li.addEventListener('dragend', () => { arrastaPessoa = null; li.classList.remove('arrastando'); painel.querySelectorAll('.recebe').forEach(x => x.classList.remove('recebe')) })
+}
+function recebePessoa(bloco, c) {
+  bloco.addEventListener('dragover', e => { if (!arrastaPessoa || arrastaPessoa.de === c.id) return; e.preventDefault(); e.stopPropagation(); bloco.classList.add('recebe') })
+  bloco.addEventListener('dragleave', e => { if (!bloco.contains(e.relatedTarget)) bloco.classList.remove('recebe') })
+  bloco.addEventListener('drop', async e => {
+    if (!arrastaPessoa || arrastaPessoa.de === c.id) return
+    e.preventDefault(); e.stopPropagation(); bloco.classList.remove('recebe')
+    const a = arrastaPessoa; arrastaPessoa = null
+    if (!admTok) return toast('Entre como admin nas configurações para mover pessoas')
+    if (a.key === me.key) return switchCanal(c.id)
+    const r = await api('sala', { method: 'POST', body: { op: 'cmd', r: a.r, pw: roomPw, tok: admTok, cmd: 'mover', canal: c.id, key: a.key, por: me.name, quem: me.key, nomeAlvo: a.nome } })
+    toast(r?.ok ? `Levando ${a.nome} para ${c.nome}… (até 15 s)` : 'Não deu para mover agora', 3500)
+  })
+  return bloco
+}
 /* Arrastar para reordenar salas e chats na lateral (a ordem é de cada pessoa, fica nas preferências) */
 function ordena(lista, ordem) {
   if (!Array.isArray(ordem) || !ordem.length) return lista
@@ -3639,9 +3730,9 @@ $('#canalForm').addEventListener('submit', async e => {
   canais.push({ ...r.canal, pres: [] })
   switchCanal(r.canal.id)
 })
-async function switchCanal(id) {
+async function switchCanal(id, peloAdmin) {
   if (trocando || id === canal || !roomPw) return
-  if (myShare && !confirm('Você está projetando. Trocar de canal encerra a projeção. Continuar?')) return
+  if (myShare && !peloAdmin && !confirm('Você está projetando. Trocar de canal encerra a projeção. Continuar?')) return
   trocando = true
   // entrou numa call: o chat volta a ser o da call
   if (chatCh) {
@@ -4760,8 +4851,11 @@ function msgNode(m) {
     line.append(b)
   }
   if (m.text) line.append(textoComMencoes(m.text))
+  if (m.ed) line.append(el('small', { className: 'msg__editada', textContent: '(editada)' }))
+  const lk = m.text && linkComPrevia(m.text)
   if (line.childNodes.length) body.append(line)
   if (m.gif) body.append(gifImg(m))
+  if (lk) body.append(previaLink(lk))
   if (Array.isArray(m.poll) && m.poll.length >= 2) { line.classList.add('poll__q'); body.append(el('div', { className: 'poll' })) }
   const md = !m.gif && m.text && parseMidia(m.text)
   if (md) {
@@ -4775,7 +4869,8 @@ function msgNode(m) {
   const acts = el('div', { className: 'msg__acts' },
     ...QUICK.map(e => actBtn(reactArt(EMO_BY[e], 20, true), EMO_BY[e].label, () => toggleMsgReact(m.id, e))),
     actBtn(icon('smile-plus'), 'Mais reações', ev => openMsgPick(m.id, ev.currentTarget)),
-    actBtn(icon('reply'), 'Responder', () => startReply(m)))
+    actBtn(icon('reply'), 'Responder', () => startReply(m)),
+    ...(m.key === me.key && !m.gif && m.text ? [actBtn(icon('pencil'), 'Editar', () => editarMsg(m)), actBtn(icon('trash-2'), 'Apagar', ev => apagarMsg(m, ev.currentTarget))] : []))
   const li = el('li', { className: 'msg' + (m.from === selfId ? ' mine' : '') + (m.from !== selfId && mencionaMe(m.text) ? ' msg--mencao' : '') },
     el('div', { className: 'msg__gutter' }, pfpImg(m.key, 36, m.name), el('time', { className: 'msg__clock', textContent: fmtClock(m.ts) })),
     body, acts)
