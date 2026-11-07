@@ -1,4 +1,168 @@
 {
+ "2026-07-31": [
+  {
+   "id": "gusttavo-lima-canudinho",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Canudinho Ao Vivo",
+   "a": "Gusttavo Lima",
+   "album": "Canudinho Ao Vivo",
+   "ano": 2023,
+   "dz": {
+    "t": 2422612575,
+    "a": 1541592
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 750120,
+   "generos": [
+    "Axé/Forró",
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "diego-victor-hugo-tubaroes",
+   "n": 1,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tubarões Ao Vivo",
+   "a": "Diego & Victor Hugo",
+   "album": "Ao Vivo Em Uberlândia",
+   "ano": 2025,
+   "dz": {
+    "t": 3648749602,
+    "a": 7068753
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 932214,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "CH",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "tarcisio-do-acordeon-meia-noite-voce-tem-meu-whatsapp",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Meia Noite (Você tem meu Whatsapp)",
+   "a": "Tarcísio do Acordeon",
+   "album": "Meia Noite (Você tem meu Whatsapp)",
+   "ano": 2020,
+   "dz": {
+    "t": 1159617832,
+    "a": 84292982
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 658610,
+   "generos": [
+    "Axé/Forró",
+    "Sertanejo"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-08-01": [
   {
    "id": "guilherme-benuto-manda-um-oi",
@@ -158,6 +322,106 @@
    ],
    "pais": "BR",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "matheus-kauan-ao-vivo-e-a-cores",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ao Vivo E A Cores",
+   "a": "Matheus & Kauan",
+   "album": "Intensamente Hoje!",
+   "ano": 2018,
+   "dz": {
+    "t": 497488622,
+    "a": 3120261
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 653656,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "henrique-juliano-ultima-saudade-ao-vivo",
+   "n": 4,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Última Saudade (Ao Vivo)",
+   "a": "Henrique & Juliano",
+   "album": "Manifesto Musical 2, Vol. 1 (Ao Vivo)",
+   "ano": 2024,
+   "dz": {
+    "t": 3876591901,
+    "a": 4876653
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 913406,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
    "tags_ok": true
   }
  ],
@@ -60310,6 +60574,258 @@
    ],
    "pais": "BR",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "lady-gaga-die-with-a-smile",
+   "n": 1,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Die With A Smile (Acoustic)",
+   "a": "Lady Gaga",
+   "album": "Die With A Smile (Acoustic)",
+   "ano": 2024,
+   "dz": {
+    "t": 3097433281,
+    "a": 75491
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 906863,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "addison-rae-diet-pepsi",
+   "n": 2,
+   "origem": "tiktok",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Diet Pepsi",
+   "a": "Addison Rae",
+   "album": "Diet Pepsi",
+   "ano": 2024,
+   "dz": {
+    "t": 2934378651,
+    "a": 95074402
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 807056,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "chefin-212",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "212",
+   "a": "Chefin",
+   "album": "212",
+   "ano": 2022,
+   "dz": {
+    "t": 1618668922,
+    "a": 141995332
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 583585,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "felipe-e-rodrigo-ignora-ao-vivo",
+   "n": 4,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Ignora (Ao Vivo)",
+   "a": "Felipe e Rodrigo",
+   "album": "Velhos Hábitos Vol. 1 (Ao Vivo)",
+   "ano": 2025,
+   "dz": {
+    "t": 3682660782,
+    "a": 172071177
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 971721,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
+ "2027-03-08": [
+  {
+   "id": "mc-cabelinho-x1",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "X1",
+   "a": "MC Cabelinho",
+   "album": "LITTLE HAIR",
+   "ano": 2021,
+   "dz": {
+    "t": 1593885921,
+    "a": 11268268
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 640483,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "BR",
+   "decada": 2020,
    "tags_ok": true
   }
  ]
