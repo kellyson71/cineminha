@@ -1,4 +1,161 @@
 {
+ "2026-08-04": [
+  {
+   "id": "teto-m4",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "M4",
+   "a": "Teto",
+   "album": "M4",
+   "ano": 2021,
+   "dz": {
+    "t": 1214470822,
+    "a": 114472782
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 659443,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "simone-simaria-foi-pa-pum",
+   "n": 1,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Foi Pá Pum",
+   "a": "Simone & Simaria",
+   "album": "Debaixo Do Meu Telhado (EP 1)",
+   "ano": 2020,
+   "dz": {
+    "t": 1148388972,
+    "a": 4542250
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 544974,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "hugo-guilherme-elevador",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Elevador (Ao Vivo)",
+   "a": "Hugo & Guilherme",
+   "album": "Original (Ao Vivo)",
+   "ano": 2023,
+   "dz": {
+    "t": 2277012637,
+    "a": 10633657
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 544712,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "AT",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-08-05": [
   {
    "id": "kendrick-lamar-all-the-stars",
@@ -134,6 +291,101 @@
     }
    ],
    "rank": 826355,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "kanye-west-flashing-lights",
+   "n": 3,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Flashing Lights",
+   "a": "Kanye West",
+   "album": "Graduation",
+   "ano": 2019,
+   "dz": {
+    "t": 630827302,
+    "a": 230
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 891802,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "jorge-mateus-molhando-o-volante",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Molhando o Volante",
+   "a": "Jorge & Mateus",
+   "album": "Molhando o Volante",
+   "ano": 2021,
+   "dz": {
+    "t": 1567994302,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 743926,
    "generos": [
     "Sertanejo"
    ],
@@ -58255,6 +58507,262 @@
    ],
    "pais": "BR",
    "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "the-neighbourhood-sweater-weather",
+   "n": 1,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sweater Weather",
+   "a": "The Neighbourhood",
+   "album": "I Love You.",
+   "ano": 2012,
+   "dz": {
+    "t": 66506871,
+    "a": 296861
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 980750,
+   "generos": [
+    "Alternativo",
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "henrique-juliano-briga-feia",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Briga Feia (Ao Vivo)",
+   "a": "Henrique & Juliano",
+   "album": "Briga Feia (Ao Vivo)",
+   "ano": 2019,
+   "dz": {
+    "t": 3881784251,
+    "a": 4876653
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 640165,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "bk-musicas-de-amor-nunca-mais",
+   "n": 3,
+   "origem": "sp-br",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Músicas de amor nunca mais",
+   "a": "BK'",
+   "album": "ICARUS",
+   "ano": 2022,
+   "dz": {
+    "t": 3261553711,
+    "a": 4633500
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 696301,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "GB",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "atitude-67-cerveja-de-garrafa-fumaca-que-eu-faco",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cerveja De Garrafa (Fumaça Que Eu Faço) (Ao Vivo Em São Paulo / 2017)",
+   "a": "Atitude 67",
+   "album": "Atitude 67 - EP (Ao Vivo / Vol. 1)",
+   "ano": 2017,
+   "dz": {
+    "t": 412914282,
+    "a": 12515948
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 674344,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true
+  }
+ ],
+ "2027-03-04": [
+  {
+   "id": "jorge-mateus-5-regras",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "5 Regras (Ao Vivo)",
+   "a": "Jorge & Mateus",
+   "album": "É Simples Assim (Ao Vivo)",
+   "ano": 2022,
+   "dz": {
+    "t": 1825930367,
+    "a": 3881631
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 635146,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
    "tags_ok": true
   }
  ]
