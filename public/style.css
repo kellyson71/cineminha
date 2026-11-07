@@ -2794,3 +2794,10 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
   body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > .toolbar { margin-top: 2px; }
 }
 @media (min-width: 1000px) { body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > .live { display: none; } }
+/* Tela no alto e barra de ícones sempre visível embaixo (sem precisar rolar a página) */
+@media (min-width: 1000px) {
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage { justify-content: flex-start; min-height: 0; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) { --tela: calc((100dvh - 120px - var(--seat-h, 110px) * .45) * 16 / 9 + 16px); padding-top: 10px !important; }
+  body.com-lateral:not(.locked) .theater.no-chat:not(:fullscreen, .palco) { --tela: calc((100dvh - 124px - var(--seat-h, 110px) * .45) * 16 / 9 + 16px); }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > .toolbar { position: sticky; bottom: 8px; z-index: 8; padding: 6px; border-radius: 14px; background: rgba(11,11,14,.82); backdrop-filter: blur(8px); }
+}
