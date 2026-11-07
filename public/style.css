@@ -2801,3 +2801,10 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
   body.com-lateral:not(.locked) .theater.no-chat:not(:fullscreen, .palco) { --tela: calc((100dvh - 124px - var(--seat-h, 110px) * .45) * 16 / 9 + 16px); }
   body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > .toolbar { position: sticky; bottom: 8px; z-index: 8; padding: 6px; border-radius: 14px; background: rgba(11,11,14,.82); backdrop-filter: blur(8px); }
 }
+/* Computador com a lateral: a página tem exatamente a altura da janela (nada rola; o chat rola por dentro) */
+@media (min-width: 1000px) {
+  html:has(body.com-lateral:not(.locked)), body.com-lateral:not(.locked) { height: 100dvh; overflow: hidden; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) { height: 100dvh; min-height: 0; align-items: stretch; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .chat { position: relative; top: 0; height: auto; max-height: calc(100dvh - 20px); align-self: stretch; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage { min-height: 0; overflow: visible; }
+}
