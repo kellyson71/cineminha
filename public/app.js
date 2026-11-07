@@ -1610,7 +1610,7 @@ $('#emptyJogo')?.addEventListener('click', e => { closePops(); menuJogos(e.curre
 const dica = el('div', { className: 'dica', role: 'tooltip', hidden: true })
 let dicaDe = null, dicaT = 0
 document.addEventListener('pointerover', e => {
-  const b = e.target.closest?.('.toolbar [title], .toolbar--voz [title], .player-controls [title], .nfx-acoes [title]')
+  const b = e.target.closest?.('.toolbar [title], .toolbar--voz [title], .player-controls [title], .nfx-acoes [title], .lat-rail [title], .empty__acao[title]')
   if (!b || e.pointerType !== 'mouse' || b === dicaDe || b.id === 'btnReact') return
   escondeDica()
   dicaDe = b; b.dataset.dica = b.title; b.removeAttribute('title')
@@ -1619,9 +1619,13 @@ document.addEventListener('pointerover', e => {
     if (dicaDe !== b) return
     dica.textContent = b.dataset.dica; (imersivo() ? theater : document.body).append(dica); dica.hidden = false
     const r = b.getBoundingClientRect(), w = dica.offsetWidth, h = dica.offsetHeight
-    const cima = r.top - h - 10 > 4
-    dica.style.left = Math.max(6, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 6)) + 'px'
-    dica.style.top = (cima ? r.top - h - 8 : r.bottom + 8) + 'px'
+    const cima = r.top - h - 10 > 4 && !b.closest('.empty__acao')
+    dica.classList.toggle('dica--lado', !!b.closest('.lat-rail'))
+    if (b.closest('.lat-rail')) { dica.style.left = r.right + 12 + 'px'; dica.style.top = r.top + r.height / 2 - h / 2 + 'px' } // no trilho, à direita (como no Discord)
+    else {
+      dica.style.left = Math.max(6, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 6)) + 'px'
+      dica.style.top = (cima ? r.top - h - 8 : r.bottom + 8) + 'px'
+    }
   }, 350)
 })
 function escondeDica() {
@@ -2136,7 +2140,7 @@ function applyTileVols() {
   if (myShare?.video) myShare.video.volume = Math.min(1, (prefs.master ?? 1) * movieLevel() * tileVol(selfId))
 }
 function applyPrefs() {
-  try { setTeatro(!!prefs.teatro, true); setChatFixo(!!prefs.chatFixo, true) } catch {}
+  try { setChatFixo(!!prefs.chatFixo, true) } catch {}
   $('#masterVol').value = prefs.master ?? 1; $('#masterOut').textContent = pct(prefs.master ?? 1)
   $('#vol').value = prefs.vol; $('#volOut').textContent = pct(prefs.vol)
   $('#vvol').value = prefs.vvol; $('#vvolOut').textContent = pct(prefs.vvol)
@@ -3380,7 +3384,10 @@ function renderLateral() {
     el('i', { className: 'rail-sep' }),
     ...salas.map(c => {
       const n = gente(c).length, atual = c.id === canal
-      const b = bolinha([el('span', { textContent: iniciais(c.nome) }), n ? el('b', { className: 'rail-n', textContent: n }) : ''], 'rail-sala' + (atual ? ' on' : '') + (atual && tiles.size ? ' aovivo' : ''), `${c.nome}${n ? ` · ${n} na sala` : ''}${atual ? ' (você está aqui)' : ''}`, () => { if (!atual) switchCanal(c.id) }, true)
+      const rostos = gente(c).slice(0, 4)
+      const miolo = rostos.length ? el('span', { className: 'rail-rostos rail-rostos--' + rostos.length }, ...rostos.map(p => pfpImg(p.key, rostos.length === 1 ? 46 : 22, p.name))) : icon('armchair')
+      const b = bolinha([miolo, n > 4 ? el('b', { className: 'rail-n', textContent: '+' + (n - 4) }) : ''], 'rail-sala' + (atual ? ' on' : '') + (atual && tiles.size ? ' aovivo' : '') + (rostos.length ? ' cheia' : ''), `${c.nome}${n ? ` · ${gente(c).map(p => p.name || person(p.key).nome).join(', ')}` : ' · vazia'}${atual ? ' · você está aqui' : ''}`, () => { if (!atual) switchCanal(c.id) }, true)
+      b.dataset.nome = c.nome
       return b
     }),
     el('i', { className: 'rail-sep' }),
@@ -3733,6 +3740,8 @@ async function updateVoice(values, profile = 'custom') {
   renderVoiceOptions()
   await restartMic()
 }
+// janelinhas que abrem perto da borda esquerda não podem ficar atrás do trilho da lateral
+const minEsq = () => document.body.classList.contains('com-lateral') && innerWidth >= 1000 && !imersivo() ? 80 + (document.body.classList.contains('lateral-aberta') ? 272 : 0) : 8
 const audioMenu = el('section', { className: 'pop audio-menu', id: 'audioMenu', hidden: true, role: 'dialog', ariaLabel: 'Entrada, saída e processamento de voz' })
 audioMenu.innerHTML = `<header class="audio-menu__head"><span class="audio-menu__mark" title="Voz e áudio"><svg data-icon="headphones"></svg></span><button type="button" id="audioMenuClose" aria-label="Fechar" title="Fechar"><svg data-icon="x"></svg></button></header>
 <label class="audio-menu__field" title="Escolha o microfone usado na sala"><span><svg data-icon="mic"></svg>Entrada</span><select id="audioInput" aria-label="Entrada de som"></select></label>
@@ -3771,7 +3780,7 @@ function renderVoiceOptions() {
 function clampAudioMenu() {
   if (audioMenu.hidden) return
   audioMenu.style.top = Math.max(8, Math.min(parseFloat(audioMenu.style.top) || 8, innerHeight - audioMenu.offsetHeight - 8)) + 'px'
-  audioMenu.style.left = Math.max(8, Math.min(parseFloat(audioMenu.style.left) || 8, innerWidth - audioMenu.offsetWidth - 8)) + 'px'
+  audioMenu.style.left = Math.max(minEsq(), Math.min(parseFloat(audioMenu.style.left) || 8, innerWidth - audioMenu.offsetWidth - 8)) + 'px'
 }
 $('#voiceAdvanced').addEventListener('toggle', clampAudioMenu)
 addEventListener('resize', clampAudioMenu)
@@ -3780,7 +3789,7 @@ async function openAudioMenu(button, x, y) {
   renderVoiceOptions(); await listDevices()
   const rect = button.getBoundingClientRect()
   const left = x ?? rect.left, top = y ?? rect.top - audioMenu.offsetHeight - 10
-  audioMenu.style.left = Math.max(8, Math.min(left, innerWidth - audioMenu.offsetWidth - 8)) + 'px'
+  audioMenu.style.left = Math.max(minEsq(), Math.min(left, innerWidth - audioMenu.offsetWidth - 8)) + 'px'
   audioMenu.style.top = Math.max(8, Math.min(top, innerHeight - audioMenu.offsetHeight - 8)) + 'px'
   clampAudioMenu(); audioMenu.scrollTop = 0
   $('#audioInput').focus()
@@ -4000,7 +4009,6 @@ function renderSetPrefs() {
     ]],
     ['Tela', () => [
   setToggle('Legendas', '', () => prefs.subs, v => { if (!!prefs.subs !== v) $('#btnSubs').click() }),
-  setToggle('Modo teatro', 'Tela mais larga, chat embaixo (T)', () => prefs.teatro, v => setTeatro(v)),
   setToggle('Chat fixo na tela cheia', 'Em vez de flutuar por cima do vídeo', () => prefs.chatFixo, v => setChatFixo(v)),
   setToggle('Avisos de volume', 'Sugere ajustes quando o filme abafa a conversa', () => prefs.nudges, v => { prefs.nudges = v; $('#nudgeOpt').checked = v }),
   setToggle('Avisar sobre bordas pretas', 'Oferece cortar as tarjas da projeção', () => prefs.avisoBordas !== false, v => { prefs.avisoBordas = v })
@@ -4023,8 +4031,10 @@ function renderSetPrefs() {
 }
 
 const chatVisible = () => !theater.classList.contains('no-chat')
+// Chat escondido = modo teatro (a tela ocupa a largura); chat à mostra = layout normal. Não há mais botão de teatro.
 function setChat(show, quiet) {
   theater.classList.toggle('no-chat', !show)
+  setTeatro(!show, true)
   setIcon(iconOf($('#btnChat')), show ? 'message-square' : 'message-square-off')
   if (!quiet) { prefs.chat = show; savePrefs() }
 }
@@ -4191,7 +4201,7 @@ document.addEventListener('keydown', e => {
   const k = e.key.toLowerCase()
   if (k === 'f') toggleFs()
   else if (k === 'c') setChat(!chatVisible())
-  else if (k === 't') setTeatro(!theater.classList.contains('teatro'))
+  else if (k === 't') setChat(!chatVisible()) // T: esconde o chat e a tela vira teatro
   else if (k === 'g') setPalco(!theater.classList.contains('palco'))
   else if (/^[1-9]$/.test(k)) react(REACTS[+k - 1]?.id)
   else if (k === 'r') toggleReactGrid()
