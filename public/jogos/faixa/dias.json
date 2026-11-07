@@ -1,4 +1,166 @@
 {
+ "2026-08-02": [
+  {
+   "id": "murilo-huff-desejando-eu-ao-vivo",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Desejando Eu (Ao Vivo)",
+   "a": "Murilo Huff",
+   "album": "Desejando Eu (Ao Vivo)",
+   "ano": 2020,
+   "dz": {
+    "t": 3227085391,
+    "a": 7810466
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 589509,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "diego-victor-hugo-a-culpa-e-do-meu-grau",
+   "n": 1,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "A Culpa é do Meu Grau (feat. Zé Neto & Cristiano) Ao Vivo em Brasília",
+   "a": "Diego & Victor Hugo",
+   "album": "Diego & Victor Hugo Ao Vivo em Brasília",
+   "ano": 2019,
+   "dz": {
+    "t": 702209972,
+    "a": 7068753
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 522918,
+   "generos": [
+    "Sertanejo"
+   ],
+   "pais": "CH",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-paiva-zs-casei-com-a-putaria",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Casei Com a Putaria",
+   "a": "Mc Paiva ZS",
+   "album": "Casei Com a Putaria",
+   "ano": 2022,
+   "dz": {
+    "t": 1805332687,
+    "a": 115304412
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 549927,
+   "generos": [
+    "Soul & Funk"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
  "2026-08-03": [
   {
    "id": "luan-santana-quando-a-bad-bater",
@@ -137,6 +299,114 @@
     "Axé/Forró"
    ],
    "pais": null,
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "the-chainsmokers-closer",
+   "n": 3,
+   "origem": "sp-global",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Closer",
+   "a": "The Chainsmokers",
+   "album": "Closer",
+   "ano": 2016,
+   "dz": {
+    "t": 129310248,
+    "a": 4104927
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 840234,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Indie Rock",
+    "Electro",
+    "Techno/House",
+    "Dance",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-caverinha-cartao-black",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Cartão Black",
+   "a": "MC Caverinha",
+   "album": "Cartão Black",
+   "ano": 2023,
+   "dz": {
+    "t": 2259861377,
+    "a": 52941522
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "generos": [],
+   "pais": "BR",
    "decada": 2020,
    "tags_ok": true
   }
@@ -59253,6 +59523,261 @@
     "Sertanejo"
    ],
    "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "mc-marks-365-dias-vida-mansa",
+   "n": 1,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "365 Dias (Vida Mansa)",
+   "a": "MC Marks",
+   "album": "365 Dias (Vida Mansa)",
+   "ano": 2024,
+   "dz": {
+    "t": 3016378181,
+    "a": 11666599
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 678954,
+   "generos": [
+    "Soul & Funk"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "luan-pereira-ela-pirou-na-dodge-ram",
+   "n": 2,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "ELA PIROU NA DODGE RAM",
+   "a": "Luan Pereira",
+   "album": "ELA PIROU NA DODGE RAM",
+   "ano": 2023,
+   "dz": {
+    "t": 2585675182,
+    "a": 122123672
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 508568,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "dj-guuga-volta-bebe-volta-nenem",
+   "n": 3,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Volta Bebê, Volta Neném",
+   "a": "DJ Guuga",
+   "album": "Volta Bebê, Volta Neném",
+   "ano": 2021,
+   "dz": {
+    "t": 1285026422,
+    "a": 9596260
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 592639,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  },
+  {
+   "id": "gusttavo-lima-termina-comigo-antes",
+   "n": 4,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Termina Comigo Antes Ao Vivo",
+   "a": "Gusttavo Lima",
+   "album": "Termina Comigo Antes Ao Vivo",
+   "ano": 2022,
+   "dz": {
+    "t": 1693252897,
+    "a": 1541592
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 632022,
+   "generos": [
+    "Axé/Forró",
+    "Sertanejo"
+   ],
+   "pais": "BR",
+   "decada": 2020,
+   "tags_ok": true
+  }
+ ],
+ "2027-03-06": [
+  {
+   "id": "grelo-so-fe",
+   "n": 0,
+   "origem": "sp-sempre",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Só Fé",
+   "a": "Grelo",
+   "album": "É o Grelo",
+   "ano": 2024,
+   "dz": {
+    "t": 2898260631,
+    "a": 71286292
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 629923,
+   "generos": [
+    "Axé/Forró",
+    "Sertanejo"
+   ],
+   "pais": null,
    "decada": 2020,
    "tags_ok": true
   }
