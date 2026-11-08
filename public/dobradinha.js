@@ -197,6 +197,17 @@ export function criaDobradinha(ctx) {
     esqueceu(key)
     difunde()
   }
+  // quem está com o guarda-chuva pode jogá-lo em quem ainda não repôs a mão (contagem correndo)
+  function arremessa(key, alvo) {
+    const j = jog(alvo)
+    if (G.fase !== 'jogo' || G.esq !== key || alvo === key || !j || !G.repor?.[alvo]) return
+    delete G.repor[alvo]
+    G.esq = alvo
+    ev({ t: 'arremesso', de: key, para: alvo })
+    log(`${jog(key)?.nome || 'Alguém'} jogou o guarda-chuva em ${j.nome}, que esqueceu de repor a mão.`)
+    if (!j.mao.length && G.monte.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...G.monte.splice(-n)); ev({ t: 'compra', key: alvo, qtd: n }) }
+    difunde()
+  }
   function fimRodada(key) {
     clearTimeout(timer)
     G.ultFim = key; G.prazo = 0; G.etapa = 'joga'; G.repor = {}
@@ -235,6 +246,7 @@ export function criaDobradinha(ctx) {
       case 'pega': pegar(key); break
       case 'compra': comprar(key); break
       case 'passa': passar(key); break
+      case 'guarda': arremessa(key, d.alvo); break
     }
   }
   function vista(k) {
@@ -332,6 +344,9 @@ export function criaDobradinha(ctx) {
   const eu = () => V?.js.find(j => j.key === me.key)
   const N = k => k === me.key ? 'Você' : (V?.js.find(j => j.key === k)?.nome || ctx.nomeDe(k))
   const minhaVez = () => V?.fase === 'jogo' && V.vez === me.key
+  // estou com o guarda-chuva e alguém está com a contagem de repor correndo: posso jogar nele
+  const alvosGuarda = () => V?.fase === 'jogo' && V.esq === me.key ? V.js.filter(j => j.key !== me.key && V.repor?.[j.key] > 0).map(j => j.key) : []
+  function jogaGuarda(alvo) { som('clique', 0, .6); manda({ op: 'guarda', alvo }) }
   const podeRepor = () => V?.fase === 'jogo' && V.repor?.[me.key] > 0 && V.mao && V.mao.length < V.max && V.monte > 0
   function manda(d) {
     if (!V) return
@@ -353,6 +368,7 @@ export function criaDobradinha(ctx) {
       aplica(d.v)
     }
   }
+  let deGuarda = null
   function aplica(v) {
     const antes = V
     if (v && (!antes || antes.id !== v.id)) {
@@ -371,6 +387,9 @@ export function criaDobradinha(ctx) {
     if (evs.some(e => e.t === 'inicio')) entregando = true
     // vai levar a mesa: guarda onde estava cada carta antes de o render apagar a escalada
     const foto = evs.some(e => e.t === 'pegou') ? fotoMesa(antes) : null
+    // o guarda-chuva vai ser arremessado: guarda de onde ele sai antes do render tirar ele do lugar
+    const g = evs.find(e => e.t === 'arremesso')
+    if (g) { const n = tela.querySelector(g.de === me.key ? '.db-eu .db-guarda' : `.db-assento[data-key="${CSS.escape(g.de)}"] .db-guarda`) || lugarDe(g.de); deGuarda = n ? noTela(n) : null }
     render(antes)
     if (v) anima(evs, antes, foto)
   }
@@ -495,7 +514,9 @@ export function criaDobradinha(ctx) {
     else txt = minha ? [el('b', { textContent: 'Sua vez' }), ': jogue ', el('b', { textContent: `${V.valor} ou mais` }), ` (${V.valor} cravado dobra) ou leve a mesa`] : [el('b', { textContent: quem }), ' precisa de ', el('b', { textContent: `${V.valor} ou mais` })]
     const ult = V.log[V.log.length - 1]
     const repor = podeRepor() ? el('span', { className: 'db-status__repor' }, 'Reponha a mão: ', el('b', { textContent: 'clique no monte' }), ' antes do tempo acabar') : ''
-    return el('div', { className: 'db-status' + (minha ? ' minha' : '') }, el('span', { className: 'db-status__vez' }, ...txt), repor, ult ? el('small', { className: 'db-status__ult', textContent: ult }) : '')
+    const alvos = alvosGuarda()
+    const mira = alvos.length ? el('span', { className: 'db-status__mira' }, el('b', { textContent: alvos.map(N).join(' e ') }), ` esqueceu de repor: clique ${alvos.length > 1 ? 'em quem' : 'na foto'} para jogar o guarda-chuva`) : ''
+    return el('div', { className: 'db-status' + (minha ? ' minha' : '') }, el('span', { className: 'db-status__vez' }, ...txt), repor, mira, ult ? el('small', { className: 'db-status__ult', textContent: ult }) : '')
   }
   let colaAberta = ls.get('db.cola') !== false
   function cola() {
@@ -512,7 +533,7 @@ export function criaDobradinha(ctx) {
         item(carta({ id: 904, v: 'cur' }, 'db-micro'), 'Curinga', 'vale o que você escolher, de 2 a 12; faz par com qualquer número'),
         item(carta({ id: 905, v: 'passa' }, 'db-micro'), 'Passa', 'a lousa fica como está e a vez segue'),
         item(carta({ id: 906, v: 'inv' }, 'db-micro'), 'Inverte', dois ? 'fora do baralho com 2 pessoas' : 'como o Passa, e o sentido da mesa vira', dois ? 'fora' : ''),
-        item(guarda('db-micro-guarda'), 'Guarda-chuva', 'não repôs a mão a tempo? fica com ele: −1'),
+        item(guarda('db-micro-guarda'), 'Guarda-chuva', 'não repôs a mão a tempo? fica com ele: −1. Quem está com ele pode jogar em quem esqueceu'),
         item(comanda(3, '', 'db-micro-comanda'), 'Comanda', 'cartas levadas; quem tem mais faz menos pontos')))
     box.querySelector('.db-cola__aba').addEventListener('click', () => { colaAberta = !colaAberta; ls.set('db.cola', colaAberta); som('papel', 0, .5); render() })
     return box
@@ -558,6 +579,11 @@ export function criaDobradinha(ctx) {
       el('span', { className: 'db-placa' }, x.nome, x.pts?.length ? el('i', { textContent: ` · ${x.tot} pt${x.tot === 1 ? '' : 's'}` }) : ''),
       x.conv ? el('small', { className: `db-conv db-conv--${x.conv}`, textContent: x.conv === 'sim' ? 'vai jogar' : x.conv === 'nao' ? 'só assiste' : 'decidindo…' }) : '',
       x.n != null ? comanda(x.conta, x.key) : '')
+    if (alvosGuarda().includes(x.key)) {
+      s.classList.add('alvo-guarda'); s.title = `Jogar o guarda-chuva em ${x.nome}`
+      s.querySelector('.db-medalha').append(el('b', { className: 'db-mira' }, svg('guarda')))
+      s.addEventListener('click', () => jogaGuarda(x.key))
+    }
     if (V.repor?.[x.key]) s.querySelector('.db-medalha').append(el('i', { className: 'db-anel', 'data-fim': String(V.recebido + V.repor[x.key]), 'data-tot': String(REPOR_MS), title: 'ainda pode repor a mão' }))
     if (x.n == null) return [s]
     const n = Math.min(x.n, 8)
@@ -597,7 +623,7 @@ export function criaDobradinha(ctx) {
     mao.addEventListener('click', e => { if (e.target === mao && sel.length) desmarca() })
     if (joga && sel.length) area.append(el('small', { className: 'db-dica-sel', textContent: possivel(selCartas(), V.valor) ? 'clique de novo, na mesa ou em Jogar · botão direito tira' : sel.length === 1 ? 'escolha a outra do par' : 'esse par não chega' }))
     area.append(mao, comanda(j.conta, me.key, 'db-comanda--eu'))
-    if (V.esq === me.key) area.append(guarda('db-guarda--eu'))
+    if (V.esq === me.key) area.append(guarda('db-guarda--eu' + (alvosGuarda().length ? ' pronto' : '')))
     if (V.repor?.[me.key]) area.append(el('i', { className: 'db-pavio', 'data-fim': String(V.recebido + V.repor[me.key]), 'data-tot': String(REPOR_MS) }))
     return area
   }
@@ -641,6 +667,7 @@ export function criaDobradinha(ctx) {
       const falta = Math.min(V.max - V.mao.length, V.monte)
       bts.push(botao(`Comprar ${falta}`, () => { som('desliza'); manda({ op: 'compra' }) }, 'db-btn--forte db-btn--grande db-btn--repor', 'Repõe a mão antes do tempo acabar (senão fica com o guarda-chuva)'))
     }
+    for (const k of alvosGuarda().slice(0, 3)) bts.push(botao([svg('guarda'), `Jogar em ${N(k)}`], () => jogaGuarda(k), 'db-btn--guarda', `${N(k)} esqueceu de repor a mão: passe o guarda-chuva (−1) para essa pessoa`))
     if (minhaVez()) {
       const cs = selCartas()
       if (cs.length) {
@@ -727,6 +754,66 @@ export function criaDobradinha(ctx) {
       const n = conteudo; n.classList.add('db-voa'); tela.append(n)
       n.animate([{ transform: `translate(${A.x}px,${A.y}px) translate(-50%,-50%) rotate(${rot - 20}deg) scale(.85)` }, { transform: `translate(${B.x}px,${B.y}px) translate(-50%,-50%) rotate(${rot}deg) scale(${escala})` }], { duration: dur, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => { n.remove(); fim?.() }
     }, atraso)
+  }
+  // o guarda-chuva sai girando num arco de quem jogou até quem esqueceu, deixa rastro e cai com pancada
+  function arremesso(e, at) {
+    const A = deGuarda || (lugarDe(e.de) && noTela(lugarDe(e.de))); deGuarda = null
+    const destino = () => tela.querySelector(e.para === me.key ? '.db-eu .db-guarda' : `.db-assento[data-key="${CSS.escape(e.para)}"] .db-guarda`)
+    const medalha = () => e.para === me.key ? tela.querySelector('.db-eu .db-boneco') : tela.querySelector(`.db-assento[data-key="${CSS.escape(e.para)}"] .db-medalha`)
+    const alvo0 = destino()
+    if (!A || !alvo0) return 0
+    const B = noTela(alvo0)
+    alvo0.style.visibility = 'hidden'
+    const T = tela.clientHeight, W = T * .065
+    const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches
+    const PREP = calmo ? 0 : 260, VOO = calmo ? 420 : 950
+    const dist = Math.hypot(B.x - A.x, B.y - A.y)
+    const C = { x: (A.x + B.x) / 2, y: Math.max(T * .02, Math.min(A.y, B.y) - Math.max(T * .16, dist * .38)) } // ponto alto do arco (sem sair da tela)
+    const pt = t => ({ x: (1 - t) ** 2 * A.x + 2 * (1 - t) * t * C.x + t * t * B.x, y: (1 - t) ** 2 * A.y + 2 * (1 - t) * t * C.y + t * t * B.y })
+    const voltas = B.x >= A.x ? 1 : -1
+    const fim = B.w / W
+    som('clique', at, .5)
+    balao(e.de, e.de === me.key ? 'Toma!' : 'Toma, esqueceu!', 'leve', at)
+    setTimeout(() => {
+      const g = guarda('db-guarda--voa db-guarda--arremesso'); g.style.width = W + 'px'; tela.append(g)
+      const sombra = el('i', { className: 'db-sombra-voo' }); tela.append(sombra)
+      const tot = PREP + VOO, fr = []
+      // preparo: recua, inclina e cresce, como quem pega impulso
+      fr.push({ offset: 0, transform: `translate(${A.x}px,${A.y}px) translate(-50%,-50%) rotate(10deg) scale(${A.w / W})` })
+      if (PREP) fr.push({ offset: PREP / tot, transform: `translate(${A.x - voltas * W * .5}px,${A.y + W * .25}px) translate(-50%,-50%) rotate(${-voltas * 40}deg) scale(1.25)`, easing: 'cubic-bezier(.5,0,.75,0)' })
+      const PASSOS = 16
+      for (let i = 1; i <= PASSOS; i++) {
+        const t = i / PASSOS, p = pt(t)
+        const esc = 1.25 + Math.sin(Math.PI * t) * .55 + (fim - 1.25) * t ** 3
+        fr.push({ offset: (PREP + VOO * t) / tot, transform: `translate(${p.x}px,${p.y}px) translate(-50%,-50%) rotate(${voltas * 720 * (1 - (1 - t) ** 1.6) + 14 * t}deg) scale(${i === PASSOS ? fim : esc})` })
+      }
+      g.animate(fr, { duration: tot, easing: 'linear', fill: 'forwards' }).onfinish = () => g.remove()
+      sombra.animate([
+        { transform: `translate(${A.x}px,${A.y + A.h * .6}px) translate(-50%,-50%) scale(.9)`, opacity: .45 },
+        { transform: `translate(${(A.x + B.x) / 2}px,${(A.y + B.y) / 2 + T * .06}px) translate(-50%,-50%) scale(.45)`, opacity: .18, offset: (PREP + VOO * .5) / tot },
+        { transform: `translate(${B.x}px,${B.y + B.h * .6}px) translate(-50%,-50%) scale(.8)`, opacity: .4 },
+      ], { duration: tot, easing: 'linear', fill: 'forwards' }).onfinish = () => sombra.remove()
+      // rastro: guarda-chuvinhas fantasmas pelo caminho
+      if (!calmo) for (let i = 1; i < 12; i++) setTimeout(() => {
+        const p = pt(i / 12), r = el('i', { className: 'db-rastro' }, svg('guarda')); r.style.width = W * .7 + 'px'
+        r.style.transform = `translate(${p.x}px,${p.y}px) translate(-50%,-50%) rotate(${i * 60 * voltas}deg)`
+        tela.append(r); setTimeout(() => r.remove(), 650)
+      }, PREP + VOO * i / 12)
+      som('desliza', PREP, .9)
+    }, at)
+    // pancada: o guarda-chuva aparece no lugar, a foto treme, um estalo de luz e o −1
+    const pousa = at + PREP + VOO
+    setTimeout(() => {
+      const d = destino(); if (d) { d.style.visibility = ''; d.classList.add('chegou-guarda') }
+      const m = medalha()
+      if (m) { m.classList.remove('pancada'); void m.offsetWidth; m.classList.add('pancada'); setTimeout(() => m.classList.remove('pancada'), 700) }
+      const bum = el('i', { className: 'db-impacto' }, ...Array.from({ length: 8 }, (_, i) => el('i', { style: `--a:${i * 45}deg` })))
+      bum.style.left = B.x + 'px'; bum.style.top = B.y + 'px'; tela.append(bum); setTimeout(() => bum.remove(), 750)
+      const menos = el('b', { className: 'db-menos1', textContent: '−1' }); menos.style.left = B.x + 'px'; menos.style.top = Math.max(B.y, T * .2) + 'px'; tela.append(menos); setTimeout(() => menos.remove(), 1300)
+    }, pousa)
+    som('golpe', pousa, .9)
+    balao(e.para, e.para === me.key ? 'Esqueceu de repor! −1' : 'Pegou o guarda-chuva! −1', 'forte', pousa + 120)
+    return PREP + VOO + 300
   }
   function balao(k, txt, cls = '', at = 0) {
     setTimeout(() => {
@@ -819,6 +906,7 @@ export function criaDobradinha(ctx) {
         som('golpe', at + 450, .7)
         balao(e.key, e.key === me.key ? 'Esqueceu de comprar! −1' : 'Esqueceu de comprar!', 'forte', at + 500)
       }
+      else if (e.t === 'arremesso') t += arremesso(e, at)
       else if (e.t === 'tempo') balao(e.key, 'Tempo esgotado', 'leve', at)
       else if (e.t === 'saiu') { toast(`${e.nome} saiu da mesa`, 3200); som('desliza', at, .6) }
       else if (e.t === 'rodada') som('moedas', at + 300, .8)

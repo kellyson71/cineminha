@@ -401,3 +401,34 @@
 .db-aulamodal { position: absolute; inset: 0; z-index: 24; display: grid; place-items: center; background: rgba(10,16,30,.8); backdrop-filter: blur(3px); }
 .db-aulamodal__x { position: absolute; top: 2cqh; right: 2cqh; }
 .dba-pessoa.dba-pessoa--eu { width: auto; padding: 0 1.6cqh; border-radius: 99px; color: #2a1b06; }
+
+/* guarda-chuva arremessado em quem esqueceu de repor */
+.db-assento.alvo-guarda { cursor: pointer; z-index: 4; }
+.db-assento.alvo-guarda .db-retrato { box-shadow: 0 0 0 .4cqh var(--vermelho), 0 0 2.8cqh rgba(217,72,64,.75); animation: db-mira-pulsa .8s ease-in-out infinite alternate; }
+.db-assento.alvo-guarda:hover .db-retrato { scale: 1.08; }
+.db-mira { position: absolute; left: 50%; top: 50%; width: 13cqh; height: 13cqh; translate: -50% -50%; border-radius: 50%; pointer-events: none; display: grid; place-items: center;
+  border: .3cqh dashed rgba(217,72,64,.9); animation: db-gira 5s linear infinite; }
+.db-mira .db-svg { position: absolute; top: -1.6cqh; width: 3.4cqh; color: var(--vermelho); filter: drop-shadow(0 .2cqh .4cqh rgba(0,0,0,.5)); animation: db-gira 5s linear infinite reverse; }
+@keyframes db-mira-pulsa { to { box-shadow: 0 0 0 .6cqh var(--vermelho), 0 0 4cqh rgba(217,72,64,.9); } }
+.db-guarda--eu.pronto { animation: db-guarda-coca .9s ease-in-out infinite; box-shadow: inset 0 0 0 .22cqh var(--louca), 0 0 2.4cqh rgba(217,72,64,.8); }
+@keyframes db-guarda-coca { 0%, 100% { rotate: 10deg; } 30% { rotate: -14deg; translate: 0 -.8cqh; } 60% { rotate: 18deg; } }
+.db-status__mira { padding: .6cqh 1.6cqh; border-radius: 1.2cqh; background: var(--papel); color: #2a1b06; font: 500 2cqh/1.2 'Barlow Semi Condensed', sans-serif; box-shadow: inset 0 .35cqh 0 var(--vermelho), 0 .6cqh 1.6cqh rgba(0,0,0,.4); }
+.db-status__mira b { font-weight: 700; color: var(--vermelho); }
+.db-btn--guarda { background: var(--vermelho); color: #fff; border-color: transparent; font-weight: 700; display: inline-flex; align-items: center; gap: .8cqh; animation: db-repor-pulsa .9s ease-in-out infinite alternate; }
+.db-btn--guarda .db-svg { width: 2.6cqh; }
+.db-guarda--arremesso { z-index: 32; box-shadow: inset 0 0 0 .22cqh var(--louca), 0 1.2cqh 2.4cqh rgba(0,0,0,.45), 0 0 2cqh rgba(255,200,180,.5); }
+.db-sombra-voo { position: absolute; left: 0; top: 0; z-index: 29; width: 5cqh; height: 1.6cqh; border-radius: 50%; background: radial-gradient(rgba(0,0,0,.55), transparent 70%); pointer-events: none; }
+.db-rastro { position: absolute; left: 0; top: 0; z-index: 31; aspect-ratio: 5/7.2; display: grid; place-items: center; border-radius: .5cqh; background: rgba(217,72,64,.55); color: var(--louca); pointer-events: none; animation: db-rastro .65s ease-out forwards; }
+.db-rastro .db-svg { width: 70%; }
+@keyframes db-rastro { from { opacity: .6; scale: .9; } to { opacity: 0; scale: .35; } }
+.db-impacto { position: absolute; z-index: 33; width: 0; height: 0; pointer-events: none; }
+.db-impacto::before { content: ""; position: absolute; left: -6cqh; top: -6cqh; width: 12cqh; height: 12cqh; border-radius: 50%; border: .5cqh solid rgba(255,235,210,.95); box-shadow: 0 0 2cqh rgba(217,72,64,.8); animation: db-onda .6s ease-out forwards; }
+.db-impacto > i { position: absolute; left: -.3cqh; top: -.3cqh; width: .6cqh; height: 3cqh; border-radius: 99px; background: #ffe7c2; transform-origin: 50% 0; rotate: var(--a); animation: db-raio .5s ease-out forwards; }
+@keyframes db-onda { from { scale: .2; opacity: 1; } to { scale: 1.5; opacity: 0; } }
+@keyframes db-raio { from { translate: 0 0; opacity: 1; scale: 1 .3; } to { opacity: 0; scale: 1 1; transform: translateY(5cqh); } }
+.db-menos1 { position: absolute; z-index: 34; translate: -50% -50%; font: 400 5cqh/1 var(--letreiro); color: var(--vermelho); -webkit-text-stroke: .25cqh #fff; paint-order: stroke; pointer-events: none; animation: db-menos1 1.3s cubic-bezier(.2,.9,.3,1.2) forwards; }
+@keyframes db-menos1 { 0% { opacity: 0; transform: scale(.4); } 20% { opacity: 1; transform: scale(1.3) translateY(-3cqh); } 70% { opacity: 1; transform: scale(1) translateY(-6cqh); } 100% { opacity: 0; transform: translateY(-9cqh); } }
+.pancada { animation: db-pancada .6s ease-out; }
+@keyframes db-pancada { 0% { transform: none; filter: brightness(2); } 15% { transform: translate(-1cqh, .6cqh) rotate(-6deg); } 35% { transform: translate(.9cqh, -.3cqh) rotate(5deg); } 55% { transform: translate(-.5cqh, 0) rotate(-3deg); filter: brightness(1.2); } 100% { transform: none; filter: none; } }
+.db-guarda.chegou-guarda { animation: db-cai .35s cubic-bezier(.2,.9,.3,1.4) both; }
+@media (prefers-reduced-motion: reduce) { .db-mira, .db-mira .db-svg, .db-guarda--eu.pronto, .db-assento.alvo-guarda .db-retrato { animation: none; } }
