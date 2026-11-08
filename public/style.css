@@ -1791,8 +1791,8 @@ body.lights-off .theater:is(:fullscreen, .palco):not(.chat-fixo).idle .chat { op
 .fx-linha__pts { text-align: right; font-weight: 700; }
 .fx-linha__pts.atual { color: #fff; font-size: .78rem; }
 .fx-linha.on:not(.atual) .fx-linha__pts { opacity: .4; text-decoration: line-through; }
-.fx-linha.dica .fx-linha__nome { font-weight: 600; font-size: .8rem; }
-.fx-linha.dica.on { background: rgba(242,179,61,.1); }
+.fx-linha--dica .fx-linha__nome { font-weight: 600; font-size: .8rem; }
+.fx-linha--dica.on { background: rgba(242,179,61,.1); }
 .fx-ic--dica { display: grid; place-items: center; color: #ffd166; } .fx-ic--dica svg { width: 20px; height: 20px; }
 /* player */
 .fx-player__mini { width: 34px; height: 34px; padding: 0; border-radius: 50%; }

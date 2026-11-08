@@ -699,7 +699,7 @@ export function criaFaixa(ctx) {
         t.tipo === 'pulou' ? (t.quem ? '' : 'pulou') : t.tipo === 'artista' ? `artista ✓ ${t.txt}` : t.tipo === 'certo' ? `✓ ${t.txt}` : `✗ ${t.txt}`))
       let nome = aberta ? p.nome : ''
       if (p.dica && aberta) nome = [m.ano ? `Lançada em ${m.ano}` : '', `artista: ${iniciais(m.a)}`].filter(Boolean).join(' · ')
-      return el('li', { className: 'fx-linha' + (aberta ? ' on' : '') + (atual ? ' atual' : '') + (j.ok === k ? ' certo' : '') + (p.dica ? ' dica' : '') },
+      return el('li', { className: 'fx-linha' + (aberta ? ' on' : '') + (atual ? ' atual' : '') + (j.ok === k ? ' certo' : '') + (p.dica ? ' fx-linha--dica' : '') },
         el('span', { className: 'fx-linha__n', textContent: k }),
         aberta ? iconeDe(p.tipo, atual) : el('span', { className: 'fx-ic fx-ic--fechado' }, icon(p.dica ? 'lightbulb' : 'lock')),
         el('b', { className: 'fx-linha__nome', textContent: nome || (p.dica ? 'Dica' : '') }),
@@ -737,7 +737,7 @@ export function criaFaixa(ctx) {
       const k = i + 1, aberta = k <= passo, atual = aberta && k === passo
       let nome = aberta ? p.nome : ''
       if (p.dica && aberta) nome = `artista: ${iniciais(m.a)}`
-      return el('li', { className: 'fx-linha' + (aberta ? ' on' : '') + (atual ? ' atual' : '') + (p.dica ? ' dica' : '') },
+      return el('li', { className: 'fx-linha' + (aberta ? ' on' : '') + (atual ? ' atual' : '') + (p.dica ? ' fx-linha--dica' : '') },
         el('span', { className: 'fx-linha__n', textContent: k }),
         aberta ? iconeDe(p.tipo, atual) : el('span', { className: 'fx-ic fx-ic--fechado' }, icon(p.dica ? 'lightbulb' : 'lock')),
         el('b', { className: 'fx-linha__nome', textContent: nome || (p.dica ? 'Dica' : '') }), el('span', { className: 'fx-linha__res' }), el('span', { className: 'fx-linha__pts' }))
