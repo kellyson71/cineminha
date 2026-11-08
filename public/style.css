@@ -2900,3 +2900,8 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
   body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).idle { cursor: auto; }
   .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on) .chat__modo { display: none; }
 }
+/* Faixa a Faixa (versus): último chute de cada um, visível para quem já terminou a música */
+.fx-jogs__chute { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .72rem; color: rgba(255,255,255,.6); }
+.fx-jogs__chute--certo { color: #3ddc84; }
+.fx-jogs__chute--artista { color: #ffcc66; }
+.fx-jogs__chute--errou { color: #ff8a80; }

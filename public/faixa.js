@@ -126,6 +126,10 @@ export function criaFaixa(ctx) {
   const passoDe = j => individual() ? j.n : S.modo === 'leilao' ? leiN() : S.modo === 'ano' ? total() : S.camada
   const pontosEquipe = () => Math.max(0, ...Object.values(S?.placar || {}))
   const coop = () => S?.modo === 'coletivo'
+  // versus: cada um por si. Quem já acertou ou desistiu da música passa a ver o que os outros digitam e chutam
+  const VERSUS = ['individual', 'cegas', 'corrida']
+  const prontoEm = s => { const j = s?.jog?.[me.key]; return !!j && (!!j.ok || !!j.fora) }
+  const espia = () => !!S && VERSUS.includes(S.modo) && S.fase === 'tocando' && prontoEm(S)
   const maxLance = () => Math.max(1, Math.min(5, total() - 1))
 
   async function carrega(forcar) {
@@ -163,7 +167,7 @@ export function criaFaixa(ctx) {
       carrega().then(() => { avisos(antes, S); render(); prepara() })
       return
     }
-    if (d.dig !== undefined) { if (deKey && S && S.modo !== 'cegas') ctx.digitandoFaixa?.(deKey, !!d.dig, coop() ? String(d.txt || '').slice(0, 60) : ''); return }
+    if (d.dig !== undefined) { if (deKey && S && (S.modo !== 'cegas' || espia())) ctx.digitandoFaixa?.(deKey, !!d.dig, coop() || espia() ? String(d.txt || '').slice(0, 60) : ''); return }
     if (d.menu !== undefined) return verMenu(d.menu, deKey)
     if (d.tl) return gotTl(d.tl, deKey)
     if (d.tlPede) return pedeuTl(d.tlPede, deKey)
@@ -366,7 +370,7 @@ export function criaFaixa(ctx) {
       else if (j.art && !x.art) toast(`${j.nome} acertou o artista`, 1800)
     }
     // cooperativo: o chute de cada um aparece no balão em cima do boneco dele
-    if (b.modo === 'coletivo' && a?.id === b.id && a?.i === b.i) for (const [k, j] of Object.entries(b.jog || {})) {
+    if ((b.modo === 'coletivo' || (VERSUS.includes(b.modo) && b.fase === 'tocando' && prontoEm(b))) && a?.id === b.id && a?.i === b.i) for (const [k, j] of Object.entries(b.jog || {})) {
       const x = a.jog?.[k]
       if (k === me.key || !x || j.tent.length <= x.tent.length) continue
       const t = j.tent[j.tent.length - 1]
@@ -604,7 +608,7 @@ export function criaFaixa(ctx) {
     const avisaDig = on => {
       clearTimeout(digT); if (on) digT = setTimeout(() => avisaDig(false), 4000)
       if (!S) return
-      const txt = on && coop() ? input.value.trim().slice(0, 60) : ''
+      const txt = on && (coop() || VERSUS.includes(S.modo)) ? input.value.trim().slice(0, 60) : '' // no versus só aparece para quem já terminou a música
       if (on === dig && txt === digTxt) return
       dig = on; digTxt = txt
       clearTimeout(digEnvio); digEnvio = setTimeout(() => ctx.send({ dig, txt: digTxt }), on ? 120 : 0)
@@ -886,7 +890,8 @@ export function criaFaixa(ctx) {
     return el('aside', { className: 'fx-lado' + (coop() ? ' fx-lado--coop' : '') }, equipe,
       el('small', { className: 'fx-kicker', textContent: coop() ? 'Equipe' : 'Jogadores' }),
       el('ul', { className: 'fx-jogs' }, ...rank.map(([k, j]) => {
-        const esconde = cegas && k !== me.key
+        const esconde = cegas && k !== me.key && !espia()
+        const ult = espia() && k !== me.key ? j.tent?.[j.tent.length - 1] : null
         const L = S.lei
         const st = MODOS[S.modo].novo && S.fase !== 'tocando' ? '' : S.modo === 'leilao' && L ? (L.ouvinte === k ? `tenta com ${L.n}` : L.lance?.key === k ? `lance ${L.lance.n}` : !L.ordem.includes(k) ? 'entra na próxima' : !L.ativos.includes(k) ? 'passou' : L.vez === k ? 'dando o lance' : '')
           : S.modo === 'ano' ? (j.trav ? 'travou' : 'pensando…')
@@ -894,7 +899,8 @@ export function criaFaixa(ctx) {
           : esconde ? (j.ok || j.fora ? 'pronto' : 'pensando…') : j.ok ? '✓ música' : j.art ? '½ artista' : j.fora ? 'sem dicas' : ''
         const bolas = !esconde && S.fase === 'tocando' && individual() ? Array.from({ length: total() }, (_, i) => el('i', { className: i < j.n ? (j.ok === i + 1 ? 'ok' : 'on') : '' })) : []
         return el('li', { className: !esconde && j.ok ? 'ok' : '' }, ctx.pfp(k, 26),
-          el('span', { className: 'fx-jogs__nome' }, el('b', { textContent: j.nome }), el('span', { className: 'fx-jogs__passos' }, ...bolas, st ? el('small', { textContent: st }) : '')),
+          el('span', { className: 'fx-jogs__nome' }, el('b', { textContent: j.nome }), el('span', { className: 'fx-jogs__passos' }, ...bolas, st ? el('small', { textContent: st }) : ''),
+            ult ? el('small', { className: 'fx-jogs__chute fx-jogs__chute--' + ult.tipo, title: 'Último chute', textContent: ult.tipo === 'pulou' ? 'pulou ⏭' : `${ult.tipo === 'certo' ? '✓' : ult.tipo === 'artista' ? '½' : '✗'} ${ult.txt}` }) : ''),
           coop() ? el('em', { className: 'fx-jogs__acertos', title: 'Músicas que acertou para a equipe', textContent: S.contrib?.[k] ? `★ ${S.contrib[k]}` : '' }) : el('em', { textContent: esconde ? '' : S.placar[k] || 0 }))
       })),
       ehHost() && S.fase === 'tocando' ? botao('eye', 'Revelar', revelar, 'fx-btn--sec') : '')
