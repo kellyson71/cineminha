@@ -6,10 +6,10 @@ Tudo o que um jogo novo precisa seguir. Os oito jogos atuais são a referência 
 |---|---|---|---|
 | Faixa a Faixa | `public/faixa.js`, `faixa.css`, `jogos/faixa/` | (sem chave, legado) | adivinhar a música, áudio por camadas |
 | Coup | `public/coup.js`, `coup.css`, `jogos/coup/` | `coup` | blefe, mesa 3D em perspectiva |
-| Uno | `public/descarte.js`, `descarte.css`, `jogos/uno/` | `dc` | cartas de cor e número, cartas em CSS/SVG |
+| Uno | `public/descarte.js`, `descarte.css`, `jogos/uno/` | `dc` | cartas de cor e número; mesa inclinada (46°) com temas de mesa locais (`dc.mesa`), anel de setas e facho para quem tem a vez, pilha bagunçada (14 cartas, giro/desvio por id), voos em arco com virada 3D e batida nas cartas de ação, mão em leque com FLIP; temas Minimalista (padrão) e Clássico em SVG; seletor com caixas originais em CSS 3D e preferência local em `dc.tema` |
 | Red Flags | `public/parperfeito.js`, `parperfeito.css`, `jogos/parperfeito/` | `pp` | festa, rodadas com juiz, cartas de texto |
 | Amigos de Merda | `public/amigosdebosta.js`, `amigosdebosta.css`, `jogos/amigosdebosta/` | `ab` | votação simultânea; baralho do mod (86 pretas + 22 rosas), frentes em HTML/CSS |
-| Dobradinha | `public/dobradinha.js`, `dobradinha.css` | `db` | escalada de valores (igual dobra), mesa de boteco, cartas em CSS/SVG |
+| Dobro | `public/dobradinha.js`, `dobradinha.css`, `jogos/dobro/` | `db` | escalada de valores (igual dobra), mesa de boteco, cartas originais em atlas AVIF com fallback WebP |
 | Dou-lhe Uma | `public/doulheuma.js`, `doulheuma.css`, `jogos/doulheuma/` | `du` | leilão de listas (quem cita mais), sem relógio; tarja de TV de leilão rural |
 | Na Testa | `public/natesta.js`, `natesta.css`, `jogos/natesta/` | `nt` | quem sou eu? (post-it na testa, perguntas de sim/não); mural de cortiça |
 
@@ -88,7 +88,7 @@ sempre falso: cada jogo segue o seu, mesmo sem foco.
 1. **Campo `id` na intenção.** `manda(d)` monta `{ id: V.id, ...d }`. Um `id` dentro de `d` (ex.: id da carta) **sobrescreve
    o id da partida** e o host ignora a jogada em silêncio. Use `carta`, `cartas`, `alvo`… Aconteceu no Uno e no Red Flags.
 1b. **Campo `n` num evento.** `ev(e)` numera os eventos com `n`; um `n` dentro de `e` (ex.: quantidade de cartas) quebra a
-   numeração e o cliente descarta o evento como velho (sem animação). Use `qtd`, e monte `{ ...e, n: ++G.evN }`. Aconteceu na Dobradinha.
+   numeração e o cliente descarta o evento como velho (sem animação). Use `qtd`, e monte `{ ...e, n: ++G.evN }`. Aconteceu no Dobro.
 2. **`data-*` com o `ctx.el`.** Não vira atributo; use o wrapper local.
 3. **Classes genéricas colidindo com o `style.css`.** `.sel`, `.row`, `.on`… já existem no site e mudam display/fundo.
    Prefixe tudo (`xx-`).
@@ -96,12 +96,41 @@ sempre falso: cada jogo segue o seu, mesmo sem foco.
    vermelha: as cartas vermelhas ficavam sem cor. Dê nomes descritivos (`--giro`, `--i`).
 5. **Elementos 3D cortados.** Balões e textos dentro de um plano com `preserve-3d` somem atrás do plano. Desenhe balões numa
    camada 2D por cima (posição calculada pelo `getBoundingClientRect` do alvo).
+5b. **Filho que cancela exatamente a inclinação da mesa 3D.** Num plano a `rotateX(46deg)`, um assento com `rotateX(-46deg)`
+   faz o Chrome errar a oclusão e deixar de pintar o fundo do jogo fora do plano (aparecia a cortina do teatro por
+   cima). Use um valor próximo (`-44deg`). Ampliar algo em pé com `scale` também o recorta contra o plano: mude
+   largura/altura. Com jogo aberto a `.curtain` fica escondida (`style.css`). Aconteceu no Uno.
 6. **Caractere como ícone** (♥, ⚑) fica torto no centro. Use SVG.
 7. **Re-render tirando o foco do campo** que a pessoa está digitando: guarde e restaure o foco/seleção (ver Red Flags).
 8. **Regras globais dentro do CSS do jogo** (menu de jogos, fileira de poltronas) somem enquanto o jogo não carregou: vão
    no `style.css`.
 9. **Fileira de poltronas** fica por cima do canto inferior esquerdo da tela fora da tela cheia: deixe respiro embaixo ou
    esconda (`.theater.xx-on .row`).
+
+## Motor de mesa de cartas (compartilhado)
+
+`public/cartas-mesa.js` + `cartas-mesa.css` (ponha `'cartas-mesa.css'` no `css` do registro): `criaMesa({ tela, carta,
+cartaSel, palco })` devolve o voo de carta (arco Bézier subindo para a câmera, inclinação pela velocidade, sombra, virada
+3D `vira`, batida `slam` com `bate()`, pouso inclinado `deita`), `impacto` (onda/faíscas/mesa sacode), FLIP da mão
+(`fotos` antes do render, `flip` depois), `inclina` (carta segue o mouse via `--tx/--ty`), `pousa` + `pousando` (carta
+escondida no destino até o voo chegar) e `criaGiro` (anel/sentido e facho da vez num laço próprio que sobrevive ao
+render). Usado no Uno e no Dobro; a mão de ambos usa encaixe parado (`.xx-slot`, recebe o hover) com a carta dentro
+subindo por `--lift/--sc`. Em `vista(k)` mande a mão como cópia (`mao.slice()`): no host, a referência do `G` faz a
+carta nova não parecer nova.
+
+### Mesa de bar (`public/boteco3d.js`)
+
+`criaBoteco({ tela, palco, plano, centro, tamanho })`: mesa de plástico de bar (modelo e skins do mod "Traditional
+Brazilian Bar Table") na calçada do Marcílio Bar (imagem fixa `jogos/boteco/fundo-bar.webp`, gerada pelo usuário,
+posta no palco pela classe `.b3d-fundo`). Padrão no Uno e no Dobro. As cartas continuam em HTML. Dois modos
+(`localStorage 'mesa.qualidade'`, escolhido no painel Baralho e mesa do Uno; sem escolha, máquina fraca fica no leve):
+- `3d`: o Three.js (`public/vendor`, só aqui) desenha a mesa UMA vez com câmera tirada do CSS do palco/plano, copia
+  para um canvas 2D e descarta o WebGL. Redesenha só ao redimensionar ou trocar a cor. Nada de laço, PMREM ou sombras
+  em tempo real (travava máquina fraca); cartas 3D também foram descartadas por peso.
+- `2d`: sem WebGL; o tampo é a textura recortada (`.b2d-tampo`) deitada no plano.
+`balanca(f)` faz a mesa sentir pancadas (batida, carta pousando, compra grande). A luz do balcão e o grão de papel nas
+cartas são CSS (`--cm-luz`, `--cm-brilho`, `--cm-grao` em soft-light dentro da carta). Chame `encaixa()` + `liga(cor)`
+depois de cada render e `desliga()` ao fechar. Créditos em `public/jogos/boteco/CREDITOS.txt`.
 
 ## Direitos autorais
 
@@ -111,7 +140,7 @@ identidade visual própria. Sons: Kenney (CC0) em `public/jogos/coup/sons/`; Twe
 
 ## Identidade e interface
 
-- Cada jogo tem **identidade visual própria** (Coup: renascença/pergaminho; Uno: baralho clássico com logo e elipse; Red Flags: vermelho/branco com versos da Oficina;
+- Cada jogo tem **identidade visual própria** (Coup: renascença/pergaminho; Uno: baralho minimalista nas referências do usuário, com opção de voltar ao Clássico; Red Flags: vermelho/branco com versos da Oficina;
   Amigos de Merda: preto/rosa com versos da Oficina; Faixa a Faixa: minimal + punk/show). Nada de cara genérica de IA.
 - Página inicial = **tutorial visual**. Jogos com regra difícil usam o motor de aula (`public/aula.js` + `aula.css`, ponha
   `'aula.css'` no `css` do registro): passos curtos, uma regra por cena, e o último passo interativo. As cenas são
@@ -142,3 +171,7 @@ identidade visual própria. Sons: Kenney (CC0) em `public/jogos/coup/sons/`; Twe
 ## Artes dos jogos existentes
 
 A pedido do usuário, Uno usa o logo da Mattel, Red Flags e Amigos de Merda usam os versos dos downloads da Oficina da Steam. Imagens locais em `public/jogos/uno/`, `public/jogos/parperfeito/` e `public/jogos/amigosdebosta/`; as fontes constam em `CREDITOS.txt` nessas pastas. O menu carrega apenas as miniaturas; os versos de cada mesa carregam com o CSS do jogo.
+
+## Dobro: assets e desempenho
+
+O nome visível é **Dobro**. `db`, `db.G`, `criaDobradinha` e os nomes dos módulos foram mantidos para preservar a restauração e o protocolo existentes. As 18 artes únicas do mod usam um único atlas de 6 × 3: `cartas.avif` (54,9 KiB) ou `cartas.webp` (76,7 KiB), escolhido por `image-set`. A carta Esquecido e as duas faces da carta de sentido também vêm do pacote original. O menu baixa apenas a miniatura; o atlas entra com o jogo. Fontes, scripts de geração e a comparação com SVG constam em [dobro-assets.md](docs/jogos/dobro-assets.md).

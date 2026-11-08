@@ -1,15 +1,20 @@
-// Dobradinha: jogo de escalada numa mesa de boteco. Cada um joga uma carta (ou duas iguais) de valor igual ou maior que o
+// Dobro: jogo de escalada numa mesa de boteco. Cada um joga uma carta (ou duas iguais) de valor igual ou maior que o
 // da lousa; empatar o valor dobra. Quem não pode (ou não quer) subir leva as cartas da mesa para a comanda, e cartas na
 // comanda são ruins: no fim da rodada, quem tem mais cartas faz menos pontos. Depois de jogar, a vez já passa e a pessoa
-// tem REPOR_MS para repor a mão clicando no monte (o jogo não espera); quem não repõe a tempo fica com o guarda-chuva
-// esquecido (-1 ponto na rodada).
+// tem REPOR_MS para repor a mão clicando no monte (o jogo não espera); quem não repõe a tempo fica com o Esquecido
+// (-1 ponto na rodada).
 // Mesma arquitetura dos outros jogos: o host guarda tudo e manda para cada um só o que pode ver ({ db: ... }).
 
 import { criaAula } from './aula.js'
 import { passosDobradinha } from './dobradinha-aula.js'
+import { criaMesa } from './cartas-mesa.js'
+import { criaBoteco, SKINS_BAR } from './boteco3d.js'
 
 const SOM = n => `jogos/coup/sons/${n}.mp3`
-const CAPA = 'jogos/dobradinha/capa.webp', MARCA = 'jogos/dobradinha/marca.webp'
+const CAPA = 'jogos/dobro/capa.webp', MARCA = 'jogos/dobro/marca.webp'
+// Uma textura para o baralho inteiro (18 artes únicas, sem repetir as cópias do mod).
+// A chave db e os nomes dos módulos continuam os mesmos para restaurar partidas salvas.
+const ARTE = { passa: 0, inv: 1, cur: 2, ...Object.fromEntries(Array.from({ length: 11 }, (_, i) => [i + 2, i + 3])) }
 const SONS = ['embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'leque', 'carimbo', 'papel', 'vez', 'clique', 'tique', 'pular', 'inverter', 'moedas', 'golpe']
 const VOL = { embaralhar: .5, carimbo: .6, papel: .45, vez: .5, clique: .3, tique: .28, pular: .6, inverter: .6, moedas: .5, golpe: .45, leque: .7 }
 const SAIU_MS = 12000, HOST_MS = 10000, MIN_JOG = 2, MAX_JOG = 6
@@ -57,17 +62,17 @@ const possivel = (cs, valor) => soCuringa(cs) ? ESCOLHAS.some(e => calcula(cs, v
 const SVG = {
   passa: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M11 18h26M11 30h26"/></svg>',
   inv: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a12 12 0 0 1 21-6l3 3"/><path d="M36 9v8h-8"/><path d="M36 28a12 12 0 0 1-21 6l-3-3"/><path d="M12 39v-8h8"/></svg>',
-  guarda: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 23a18 16 0 0 1 36 0c-2.4-2-5-2-7.2 0-2.2-2-4.8-2-7.2 0-2.2-2-5-2-7.2 0-2.2-2-4.8-2-7.2 0-2.2-2-4.8-2-7.2 0z" fill="currentColor" fill-opacity=".18"/><path d="M24 7v1.6M24 23v14a4 4 0 0 1-8 0"/></svg>',
+  guarda: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="3" width="28" height="42" rx="4"/><path d="M24 12v16"/><circle cx="24" cy="36" r="1.6" fill="currentColor"/></svg>',
   seta: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M40 24a16 16 0 1 1-5-11.6"/><path d="M36 5v8h-8"/></svg>',
 }
 
 export function criaDobradinha(ctx) {
   const { icon, toast, sysMsg, me } = ctx
   const tela = ctx.tela
-  // o ctx.el não transforma data-* em atributo: este wrapper faz (os seletores [data-...] dependem disso)
+  // O ctx.el não transforma data-* e aria-* em atributos: os seletores e rótulos dependem deste wrapper.
   const el = (tag, props = {}, ...kids) => {
     const dados = {}, resto = {}
-    for (const [k, v] of Object.entries(props)) (k.startsWith('data-') ? dados : resto)[k] = v
+    for (const [k, v] of Object.entries(props)) (k.startsWith('data-') || k.startsWith('aria-') ? dados : resto)[k] = v
     const n = ctx.el(tag, resto, ...kids.flat())
     for (const [k, v] of Object.entries(dados)) n.setAttribute(k, v)
     return n
@@ -91,7 +96,7 @@ export function criaDobradinha(ctx) {
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
       js: [], monte: [], fora: [], mesa: [], valor: 0, dir: 1, vez: 0, etapa: 'joga', esq: null, rodada: 0, nRodadas: 3,
       resumo: null, vencedores: [], ultFim: null, prazo: 0, repor: {}, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
-    sysMsg(`${me.name} abriu uma mesa de Dobradinha`)
+    sysMsg(`${me.name} abriu uma mesa de Dobro`)
     difunde()
   }
   function comecar() {
@@ -104,7 +109,7 @@ export function criaDobradinha(ctx) {
     G.js = ks.map(k => ({ key: k, nome: ctx.nomeDe(k), mao: [], conta: 0, pts: [], tot: 0 }))
     G.nRodadas = G.op.rodadas === 'n' ? ks.length : G.op.rodadas
     G.rodada = 0; G.dir = 1; G.vez = rnd(ks.length); G.log = []; G.vencedores = []; G.ultFim = null
-    sysMsg(`Dobradinha começou: ${G.js.map(j => j.nome).join(', ')}`)
+    sysMsg(`Dobro começou: ${G.js.map(j => j.nome).join(', ')}`)
     novaRodada(true)
   }
   function novaRodada(primeira) {
@@ -132,7 +137,7 @@ export function criaDobradinha(ctx) {
     if (G.etapa === 'repor' && G.fase === 'jogo') { G.repor[G.js[G.vez].key] = Date.now() + REPOR_MS; G.etapa = 'joga'; G.vez = depois(G.vez, 1) }
     G.prazo = 0
   }
-  // quem jogou e ainda não repôs: o jogo segue; acabou o tempo, fica com o guarda-chuva
+  // quem jogou e ainda não repôs: o jogo segue; acabou o tempo, fica com o Esquecido
   setInterval(() => {
     if (!G || G.host !== me.key || G.fase !== 'jogo' || !G.repor) return
     const agora = Date.now(), vencidos = Object.keys(G.repor).filter(k => agora >= G.repor[k])
@@ -156,7 +161,7 @@ export function criaDobradinha(ctx) {
     if (!j || j.mao.length >= maoMax() || !G.monte.length) return
     G.esq = key
     ev({ t: 'esqueceu', key })
-    log(`${j.nome} não repôs a mão a tempo e ficou com o guarda-chuva.`)
+    log(`${j.nome} não repôs a mão a tempo e ficou com o Esquecido.`)
     // mão vazia não dá para jogar: compra o que falta mesmo assim
     if (!j.mao.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...puxa(key, n)); ev({ t: 'compra', key, qtd: n }) }
   }
@@ -209,14 +214,14 @@ export function criaDobradinha(ctx) {
     esqueceu(key)
     difunde()
   }
-  // quem está com o guarda-chuva pode jogá-lo em quem ainda não repôs a mão (contagem correndo)
+  // quem está com o Esquecido pode jogá-lo em quem ainda não repôs a mão (contagem correndo)
   function arremessa(key, alvo) {
     const j = jog(alvo)
     if (G.fase !== 'jogo' || G.esq !== key || alvo === key || !j || !G.repor?.[alvo]) return
     delete G.repor[alvo]
     G.esq = alvo
     ev({ t: 'arremesso', de: key, para: alvo })
-    log(`${jog(key)?.nome || 'Alguém'} jogou o guarda-chuva em ${j.nome}, que esqueceu de repor a mão.`)
+    log(`${jog(key)?.nome || 'Alguém'} jogou o Esquecido em ${j.nome}, que esqueceu de repor a mão.`)
     if (!j.mao.length && G.monte.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...puxa(alvo, n)); ev({ t: 'compra', key: alvo, qtd: n }) }
     difunde()
   }
@@ -239,7 +244,7 @@ export function criaDobradinha(ctx) {
       G.vencedores = vs.map(j => j.key)
       G.fase = 'fim'
       ev({ t: 'vence', keys: G.vencedores })
-      sysMsg(`🏆 ${vs.map(j => j.nome).join(' e ')} ${vs.length > 1 ? 'venceram' : 'venceu'} a Dobradinha`)
+      sysMsg(`🏆 ${vs.map(j => j.nome).join(' e ')} ${vs.length > 1 ? 'venceram' : 'venceu'} o Dobro`)
     } else G.fase = 'placar'
     difunde()
   }
@@ -266,7 +271,7 @@ export function criaDobradinha(ctx) {
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: G.fase, op: G.op, conv: G.conv,
       js: G.js.map(j => ({ key: j.key, nome: j.nome, n: j.mao.length, conta: j.conta, tot: j.tot, pts: j.pts })),
-      mao: jog(k)?.mao || null, mesa: G.mesa.slice(-6), nMesa: nMesa(), valor: G.valor, monte: G.monte.length, max: G.js.length ? maoMax() : 6,
+      mao: jog(k)?.mao.slice() || null, mesa: G.mesa.slice(-6), nMesa: nMesa(), valor: G.valor, monte: G.monte.length, max: G.js.length ? maoMax() : 6,
       vez: G.js[G.vez]?.key || null, etapa: G.etapa, esq: G.esq, dir: G.dir, rodada: G.rodada, nRodadas: G.nRodadas,
       resumo: G.resumo, vencedores: G.vencedores, log: G.log.slice(-40), ev: G.ev, prazo: 0,
       fila: k === ADMIN ? G.fila?.[k] || [] : null,
@@ -297,7 +302,7 @@ export function criaDobradinha(ctx) {
     const eraVez = i === G.vez
     G.js.splice(i, 1)
     ausDesde.delete(key)
-    ev({ t: 'saiu', key, nome }); log(`${nome} saiu da mesa.`); sysMsg(`${nome} saiu da Dobradinha`)
+    ev({ t: 'saiu', key, nome }); log(`${nome} saiu da mesa.`); sysMsg(`${nome} saiu do Dobro`)
     if (G.fase === 'fim') return difunde()
     if (G.js.length < MIN_JOG) {
       clearTimeout(timer)
@@ -344,7 +349,7 @@ export function criaDobradinha(ctx) {
     G = backup; backup = null; hostSumiu = 0
     G.host = me.key; G.hostNome = me.name; G.seq += 5
     log(`${nomeAntigo} caiu; ${me.name} assumiu a mesa.`)
-    sysMsg(`${nomeAntigo} caiu: ${me.name} assumiu a mesa da Dobradinha`)
+    sysMsg(`${nomeAntigo} caiu: ${me.name} assumiu a mesa do Dobro`)
     armaTempo()
     remove(antigo)
     if (G) difunde()
@@ -352,13 +357,23 @@ export function criaDobradinha(ctx) {
 
   /* =================================================================== cliente */
   let V = null, ultEv = 0, dispensado = '', sel = [], escolhe = false, entregando = false
+  // motor compartilhado com o Uno: voos com arco e virada, batida, FLIP da mão, giro do sentido e facho da vez
+  const M = criaMesa({ tela, carta: c => carta(c), cartaSel: '.db-carta', palco: '.db-palco' })
+  const pousando = M.pousando, calmo = M.calmo
+  let antesRender = null, ultFotos = new Map()
+  const VEL_SENTIDO = 22 // graus por segundo
+  // mesa de bar 3D com a esquina do boteco ao fundo (padrão); 'lata' volta para a mesa desenhada em CSS
+  const MESAS_DB = [...SKINS_BAR.map(([k, nm, cor]) => [k, `Mesa de bar ${nm}`, cor]), ['lata', 'Mesa desenhada', '#e8a817']]
+  let mesaDb = MESAS_DB.some(([k]) => k === ls.get('db.mesa')) ? ls.get('db.mesa') : 'skol'
+  const boteco = criaBoteco({ tela, palco: '.db-palco', plano: '.db-plano', centro: [.5, .52], tamanho: [.54, .74] })
+  const giroMesa = M.criaGiro({ anel: '.db-sentido', luz: '.db-luz', vel: () => VEL_SENTIDO, ativo: () => V?.fase === 'jogo' })
   const vistos = new Set()
   const novo = id => { if (vistos.has(id)) return false; vistos.add(id); return true }
   const souHost = () => V && V.host === me.key
   const eu = () => V?.js.find(j => j.key === me.key)
   const N = k => k === me.key ? 'Você' : (V?.js.find(j => j.key === k)?.nome || ctx.nomeDe(k))
   const minhaVez = () => V?.fase === 'jogo' && V.vez === me.key
-  // estou com o guarda-chuva e alguém está com a contagem de repor correndo: posso jogar nele
+  // estou com o Esquecido e alguém está com a contagem de repor correndo: posso jogar nele
   const alvosGuarda = () => V?.fase === 'jogo' && V.esq === me.key ? V.js.filter(j => j.key !== me.key && V.repor?.[j.key] > 0).map(j => j.key) : []
   function jogaGuarda(alvo) { som('clique', 0, .6); manda({ op: 'guarda', alvo }) }
   const podeRepor = () => V?.fase === 'jogo' && V.repor?.[me.key] > 0 && V.mao && V.mao.length < V.max && V.monte > 0
@@ -401,7 +416,7 @@ export function criaDobradinha(ctx) {
     if (evs.some(e => e.t === 'inicio')) entregando = true
     // vai levar a mesa: guarda onde estava cada carta antes de o render apagar a escalada
     const foto = evs.some(e => e.t === 'pegou') ? fotoMesa(antes) : null
-    // o guarda-chuva vai ser arremessado: guarda de onde ele sai antes do render tirar ele do lugar
+    // o Esquecido vai ser arremessado: guarda de onde ele sai antes do render tirar ele do lugar
     const g = evs.find(e => e.t === 'arremesso')
     if (g) { const n = tela.querySelector(g.de === me.key ? '.db-eu .db-guarda' : `.db-assento[data-key="${CSS.escape(g.de)}"] .db-guarda`) || lugarDe(g.de); deGuarda = n ? noTela(n) : null }
     render(antes)
@@ -435,22 +450,14 @@ export function criaDobradinha(ctx) {
   /* ---------- peças ---------- */
   const botao = (conteudo, fn, cls = '', title = '') => { const b = el('button', { type: 'button', className: `db-btn ${cls}`, title }); b.append(...[conteudo].flat()); b.addEventListener('click', e => { e.stopPropagation(); b.blur(); som('clique'); fn(e) }); return b }
   const svg = (k, cls = '') => { const s = el('span', { className: `db-svg ${cls}` }); s.innerHTML = SVG[k]; return s }
-  const grupo = v => v <= 4 ? 'baixo' : v <= 8 ? 'meio' : 'alto'
-  function simbolo(c, canto) {
-    if (num(c)) return el('span', { className: 'db-num', textContent: String(c.v) })
-    if (c.v === 'cur') return el('span', { className: 'db-num', textContent: '?' })
-    return svg(c.v)
-  }
   function carta(c, cls = '', esc = null) {
-    if (!c) return el('div', { className: `db-carta db-costas ${cls}` }, el('span', { className: 'db-costas__selo', textContent: 'Dobradinha' }))
-    const tipo = num(c) ? `db-n db-g-${grupo(c.v)}` : `db-${c.v}`
-    return el('div', { className: `db-carta ${tipo} ${cls}`, 'data-id': String(c.id), 'data-v': String(c.v) },
-      el('i', { className: 'db-orn' }), el('i', { className: 'db-brilho' }),
-      el('span', { className: 'db-canto' }, simbolo(c, true)),
-      el('span', { className: 'db-meio' }, simbolo(c), c.v === 'cur' ? el('small', { className: 'db-sub', textContent: esc ? `valeu ${esc}` : '2 a 12' }) : c.v === 'passa' ? el('small', { className: 'db-sub', textContent: 'passa' }) : c.v === 'inv' ? el('small', { className: 'db-sub', textContent: 'inverte' }) : ''),
-      el('span', { className: 'db-canto db-canto--b' }, simbolo(c, true)))
+    const arte = c ? ARTE[c.v] : 14
+    return el('div', { className: `db-carta db-arte db-arte-${arte}${c ? '' : ' db-costas'} ${cls}`, role: 'img',
+      'aria-label': c ? `${nomeCarta(c)}${c.v === 'cur' && esc ? `, valeu ${esc}` : ''}` : 'Verso do Dobro',
+      ...(c ? { 'data-id': String(c.id), 'data-v': String(c.v) } : {}) },
+      c?.v === 'cur' && esc ? el('span', { className: 'db-valor-esc', textContent: `= ${esc}` }) : '')
   }
-  const guarda = (cls = '') => el('div', { className: `db-guarda ${cls}`, 'data-info': 'Guarda-chuva esquecido\nQuem não repõe a mão a tempo fica com ele: −1 ponto no fim da rodada' }, svg('guarda'))
+  const guarda = (cls = '') => el('div', { className: `db-guarda db-arte db-arte-15 ${cls}`, role: 'img', 'aria-label': 'Carta Esquecido', 'data-info': 'Carta Esquecido\nQuem não repõe a mão a tempo fica com ela: −1 ponto no fim da rodada' })
   const retrato = (k, nm, cls = '') => el('span', { className: `db-retrato ${cls}` }, ctx.pfp(k, 64, nm))
   // comanda: os risquinhos de giz contam as cartas levadas (grupos de 5)
   // comanda: as cartas levadas viram um bolo de cartas viradas na frente da pessoa; quanto mais cartas, maior e mais bagunçado
@@ -494,20 +501,25 @@ export function criaDobradinha(ctx) {
   }
 
   function render(antes) {
+    antesRender = antes
+    const fotos = M.fotos('.db-mao')
     tela.classList.toggle('db--on', !!V)
     ctx.onAtivo?.(!!V)
-    if (!V) { tela.replaceChildren(); vistos.clear(); return }
+    if (!V) { boteco.desliga(); tela.replaceChildren(); vistos.clear(); return }
     const conv = V.fase === 'convite', j = eu()
     const lugares = conv ? Object.keys(V.conv).filter(k => k !== me.key).map(k => ({ key: k, nome: ctx.nomeDe(k), conv: V.conv[k] }))
       : (() => { const js = V.js; const i = js.findIndex(x => x.key === me.key); return i < 0 ? js : [...js.slice(i + 1), ...js.slice(0, i)] })()
     const angs = angulos(lugares.length, conv || !!j)
-    const plano = el('div', { className: 'db-plano' }, el('div', { className: 'db-lata' }), conv ? '' : centro())
+    const plano = el('div', { className: 'db-plano' }, el('div', { className: 'db-lata' }), conv ? '' : el('i', { className: 'db-luz' }), conv ? '' : centro())
     lugares.forEach((x, n) => plano.append(...assento(x, angs[n])))
     const topoBar = el('header', { className: 'db-topo' },
-      el('img', { className: 'db-logo', src: MARCA, alt: 'Dobradinha', draggable: false }),
+      el('img', { className: 'db-logo', src: MARCA, alt: 'Dobro', draggable: false }),
       !conv && V.rodada ? el('span', { className: 'db-rodada', textContent: `rodada ${V.rodada} de ${V.nRodadas}` }) : '',
       el('span', { className: 'db-grow' }),
       souAdmin() && V.fase !== 'fim' ? botao(icon('zap'), () => { filaAberta = !filaAberta; render() }, 'db-btn--ic db-btn--admin' + (filaAberta ? ' on' : ''), 'Admin: escolher as próximas cartas que você compra') : '',
+      botao(el('i', { className: 'db-cor-mesa', style: `--cor:${MESAS_DB.find(m => m[0] === mesaDb)[2]}` }), () => {
+        const i = MESAS_DB.findIndex(m => m[0] === mesaDb); mesaDb = MESAS_DB[(i + 1) % MESAS_DB.length][0]; ls.set('db.mesa', mesaDb); render()
+      }, 'db-btn--ic', `${MESAS_DB.find(m => m[0] === mesaDb)[1]} · clique para trocar`),
       conv ? '' : botao(icon('lightbulb'), () => { aulaAberta = !aulaAberta; if (aulaAberta) pegaAula().reinicia(); else aula?.para(); render() }, 'db-btn--ic' + (aulaAberta ? ' on' : ''), 'Como jogar'),
       botao(icon('list-music'), () => tela.querySelector('.db-log')?.classList.toggle('aberto'), 'db-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'db-btn--ic', 'Fechar a mesa para todos')
@@ -521,6 +533,11 @@ export function criaDobradinha(ctx) {
     tela.classList.toggle('acabou', V.fase === 'fim' || V.fase === 'placar')
     ctx.hydrate(tela)
     poeSetaVez()
+    M.flip(fotos, '.db-mao'); ultFotos = fotos
+    tela.dataset.mesa = mesaDb === 'lata' ? 'lata' : 'bar'
+    if (mesaDb !== 'lata') { boteco.encaixa(); boteco.liga(mesaDb) } else boteco.desliga()
+    const plano_ = tela.querySelector('.db-plano'), vez = V.fase === 'jogo' ? V.vez : null
+    giroMesa.sincroniza(vez && plano_ ? M.anguloAte(plano_, vez === me.key ? null : tela.querySelector(`.db-assento[data-key="${CSS.escape(vez)}"]`)) : null)
     if (entregando) tela.querySelectorAll('.db-mao .db-carta, .db-leque-mesa .db-carta').forEach(n => n.classList.add('oculta'))
     tela.querySelector('.db-log ol')?.scrollTo(0, 1e6)
     if (aula?.raiz.isConnected) aula.acorda(); else aula?.para()
@@ -534,7 +551,7 @@ export function criaDobradinha(ctx) {
     const ult = V.log[V.log.length - 1]
     const repor = podeRepor() ? el('span', { className: 'db-status__repor' }, 'Reponha a mão: ', el('b', { textContent: 'clique no monte' }), ' antes do tempo acabar') : ''
     const alvos = alvosGuarda()
-    const mira = alvos.length ? el('span', { className: 'db-status__mira' }, el('b', { textContent: alvos.map(N).join(' e ') }), ` esqueceu de repor: clique ${alvos.length > 1 ? 'em quem' : 'na foto'} para jogar o guarda-chuva`) : ''
+    const mira = alvos.length ? el('span', { className: 'db-status__mira' }, el('b', { textContent: alvos.map(N).join(' e ') }), ` esqueceu de repor: clique ${alvos.length > 1 ? 'em quem' : 'na foto'} para jogar o Esquecido`) : ''
     return el('div', { className: 'db-status' + (minha ? ' minha' : '') }, el('span', { className: 'db-status__vez' }, ...txt), repor, mira, ult ? el('small', { className: 'db-status__ult', textContent: ult }) : '')
   }
   let colaAberta = ls.get('db.cola') !== false
@@ -552,7 +569,7 @@ export function criaDobradinha(ctx) {
         item(carta({ id: 904, v: 'cur' }, 'db-micro'), 'Curinga', 'vale o que você escolher, de 2 a 12; faz par com qualquer número'),
         item(carta({ id: 905, v: 'passa' }, 'db-micro'), 'Passa', 'a lousa fica como está e a vez segue'),
         item(carta({ id: 906, v: 'inv' }, 'db-micro'), 'Inverte', dois ? 'fora do baralho com 2 pessoas' : 'como o Passa, e o sentido da mesa vira', dois ? 'fora' : ''),
-        item(guarda('db-micro-guarda'), 'Guarda-chuva', 'não repôs a mão a tempo? fica com ele: −1. Quem está com ele pode jogar em quem esqueceu'),
+        item(guarda('db-micro-guarda'), 'Esquecido', 'não repôs a mão a tempo? fica com ele: −1. Quem está com ele pode jogar em quem esqueceu'),
         item(comanda(3, '', 'db-micro-comanda'), 'Comanda', 'cartas levadas; quem tem mais faz menos pontos')))
     box.querySelector('.db-cola__aba').addEventListener('click', () => { colaAberta = !colaAberta; ls.set('db.cola', colaAberta); som('papel', 0, .5); render() })
     return box
@@ -582,12 +599,14 @@ export function criaDobradinha(ctx) {
     const degraus = V.mesa.flatMap((p, k) => p.cartas.map((c, m) => ({ c, k, m, esc: p.esc, cls: k === ult ? (p.dobrou ? 'topo dobrou' : 'topo') : '' })))
     const pronta = minha && V.etapa === 'joga' && sel.length && possivel(selCartas(), V.valor)
     const esc = el('div', { className: 'db-escalada' + (pronta ? ' alvo' : ''), style: `--n:${V.mesa.length}`, title: pronta ? 'Clique para jogar as cartas escolhidas' : '' },
-      ...degraus.map(({ c, k, m, esc, cls }) => { const n = carta(c, `db-na-mesa ${cls}`, esc); n.style.setProperty('--k', k); n.style.setProperty('--m', m); n.style.setProperty('--giro', giro(c.id) + 'deg'); return n }))
+      ...degraus.map(({ c, k, m, esc, cls }) => { const n = carta(c, `db-na-mesa ${cls}` + (pousando.has(c.id) ? ' oculta' : ''), esc); n.style.setProperty('--k', k); n.style.setProperty('--m', m); n.style.setProperty('--giro', giro(c.id) + 'deg'); return n }))
     if (pronta) esc.addEventListener('click', () => enviar())
     const esqLivre = !V.esq ? guarda('db-guarda--mesa') : ''
     const lo = lousa()
     if (pronta) { lo.classList.add('alvo'); lo.addEventListener('click', () => enviar()) }
-    return el('div', { className: 'db-centro' + (pronta ? ' pronta' : '') }, el('div', { className: `db-sentido ${V.dir > 0 ? 'hora' : 'anti'}` }, svg('seta')), el('div', { className: 'db-monte-col' }, monte, esqLivre), esc, lo)
+    const direcao = V.js.length > 2 ? el('div', { className: `db-direcao db-arte db-arte-${V.dir > 0 ? 16 : 17}`, role: 'img',
+      'aria-label': V.dir > 0 ? 'Sentido horário' : 'Sentido anti-horário', 'data-info': V.dir > 0 ? 'Sentido horário' : 'Sentido anti-horário' }) : ''
+    return el('div', { className: 'db-centro' + (pronta ? ' pronta' : '') }, el('div', { className: `db-sentido ${V.dir > 0 ? 'hora' : 'anti'}` }, svg('seta')), el('div', { className: 'db-monte-col' }, monte, el('div', { className: 'db-monte-extras' }, direcao, esqLivre)), esc, lo)
   }
   // setinha amarela pulando em cima da cabeça de quem tem a vez
   const setaVez = (cls = '') => el('i', { className: `db-seta-vez ${cls}`, 'aria-hidden': 'true' }, el('b', { textContent: 'vez' }))
@@ -609,7 +628,7 @@ export function criaDobradinha(ctx) {
     if (alvo.tagName === 'IMG' && !alvo.complete) alvo.addEventListener('load', poe, { once: true })
   }
   function assento(x, ang) {
-    const P = pos(ang, 45, 41), C = pos(ang, 29, 25.5)
+    const P = pos(ang, 43, 41), C = pos(ang, 31, 27.5)
     const vez = V.fase === 'jogo' && V.vez === x.key
     const ven = V.vencedores?.includes(x.key)
     const s = el('div', { className: 'db-assento' + (vez ? ' vez' : '') + (ven ? ' vencedor' : ''), style: `left:${P.x}%;top:${P.y}%`, 'data-key': x.key },
@@ -618,16 +637,17 @@ export function criaDobradinha(ctx) {
       x.conv ? el('small', { className: `db-conv db-conv--${x.conv}`, textContent: x.conv === 'sim' ? 'vai jogar' : x.conv === 'nao' ? 'só assiste' : 'decidindo…' }) : '',
       x.n != null ? comanda(x.conta, x.key) : '')
     if (alvosGuarda().includes(x.key)) {
-      s.classList.add('alvo-guarda'); s.title = `Jogar o guarda-chuva em ${x.nome}`
+      s.classList.add('alvo-guarda'); s.title = `Jogar o Esquecido em ${x.nome}`
       s.querySelector('.db-medalha').append(el('b', { className: 'db-mira' }, svg('guarda')))
       s.addEventListener('click', () => jogaGuarda(x.key))
     }
     if (V.repor?.[x.key]) s.querySelector('.db-medalha').append(el('i', { className: 'db-anel', 'data-fim': String(V.recebido + V.repor[x.key]), 'data-tot': String(REPOR_MS), title: 'ainda pode repor a mão' }))
     if (x.n == null) return [s]
+    const eraN = antesRender?.id === V.id && antesRender.rodada === V.rodada ? antesRender.js?.find(y => y.key === x.key)?.n : x.n
+    s.querySelector('.db-medalha').append(el('b', { className: 'db-qtd' + (eraN != null && eraN !== x.n ? (x.n > eraN ? ' pula sobe' : ' pula') : ''), textContent: x.n }))
     const n = Math.min(x.n, 8)
-    const leque = el('div', { className: 'db-leque-mesa', style: `left:${C.x}%;top:${C.y}%;--rot:${ang - 90}deg;--n:${n}`, 'data-mao': x.key, 'data-info': `${x.nome}: ${x.n} carta${x.n === 1 ? '' : 's'} na mão` },
-      ...Array.from({ length: n }, (_, i) => { const c = carta(null); c.style.setProperty('--i', i); return c }),
-      el('b', { className: 'db-qtd', textContent: x.n }))
+    const leque = el('div', { className: 'db-leque-mesa', style: `left:${C.x}%;top:${C.y}%;--yaw:${(-Math.cos(ang * Math.PI / 180) * 34).toFixed(1)}deg;--n:${n}`, 'data-mao': x.key, 'data-info': `${x.nome}: ${x.n} carta${x.n === 1 ? '' : 's'} na mão` },
+      el('div', { className: 'db-leque-mesa__em-pe' }, ...Array.from({ length: n }, (_, i) => { const c = carta(null); c.style.setProperty('--i', i); c.style.setProperty('--o', (i - (n - 1) / 2).toFixed(2)); return c })))
     return [leque, s]
   }
   // ordem da mão: números crescentes, depois curinga, passa e inverte
@@ -671,13 +691,16 @@ export function criaDobradinha(ctx) {
       ...ordenada.map((c, i) => {
         const escolhida = sel.includes(c.id)
         const pode = joga && util(c)
-        const n = carta(c, (escolhida ? 'escolhida' : pode ? 'pode' : joga ? 'nao' : '') + (antes && antes.id === V.id && antes.rodada === V.rodada && !ids.has(c.id) ? ' chegou' : ''))
-        n.style.setProperty('--i', i)
+        const n = carta(c, (escolhida ? 'escolhida' : pode ? 'pode' : joga ? 'nao' : '') + (pousando.has(c.id) ? ' oculta' : antes && antes.id === V.id && antes.rodada === V.rodada && !ids.has(c.id) ? ' chegou' : ''))
+        // arco: as do meio mais altas, as pontas giram; o encaixe fica parado e recebe o hover, a carta é que sobe
+        const tot = ordenada.length, off = i - (tot - 1) / 2, abre = Math.min(3.2, 26 / Math.max(tot, 1)), cai = Math.min(1.8, .3 + tot * .14) / Math.max(1, ((tot - 1) / 2) ** 2)
+        const slot = el('div', { className: 'db-slot', style: `--i:${i};--off:${off.toFixed(2)};--rz:${(off * abre).toFixed(2)}deg;--ay:${(off * off * cai).toFixed(3)}cqh` }, n)
         n.addEventListener('click', () => clicaCarta(c))
         n.addEventListener('contextmenu', e => { if (sel.includes(c.id)) { e.preventDefault(); desmarca(c.id) } })
-        return n
+        return slot
       }))
     mao.addEventListener('click', e => { if (e.target === mao && sel.length) desmarca() })
+    M.inclina(mao)
     if (joga && sel.length) area.append(el('small', { className: 'db-dica-sel', textContent: possivel(selCartas(), V.valor) ? 'clique de novo, na mesa ou em Jogar · botão direito tira' : sel.length === 1 ? 'escolha a outra do par' : 'esse par não chega' }))
     area.append(mao, comanda(j.conta, me.key, 'db-comanda--eu'))
     if (V.esq === me.key) area.append(guarda('db-guarda--eu' + (alvosGuarda().length ? ' pronto' : '')))
@@ -701,7 +724,9 @@ export function criaDobradinha(ctx) {
   const daMao = new Map()
   // tirar da seleção: botão direito na carta, Esc ou clicar no vazio perto da mão
   function desmarca(id) { sel = id == null ? [] : sel.filter(x => x !== id); escolhe = false; som('clique', 0, .6); render() }
-  function tremer(id) { const n = tela.querySelector(`.db-mao .db-carta[data-id="${id}"]`); n?.classList.remove('treme'); void n?.offsetWidth; n?.classList.add('treme') }
+  function tremer(id) {
+    tela.querySelector(`.db-mao .db-carta[data-id="${id}"]`)?.animate([{ translate: '0 0' }, { translate: '-1cqh 0' }, { translate: '1cqh 0' }, { translate: '-.6cqh 0' }, { translate: '.3cqh 0' }, { translate: '0 0' }], { duration: 340, easing: 'ease-out' })
+  }
   const selCartas = () => sel.map(id => V.mao.find(c => c.id === id)).filter(Boolean)
   function enviar(esc) {
     const cs = selCartas()
@@ -722,9 +747,9 @@ export function criaDobradinha(ctx) {
     // repor a mão não depende da vez: o jogo já seguiu
     if (podeRepor()) {
       const falta = Math.min(V.max - V.mao.length, V.monte)
-      bts.push(botao(`Comprar ${falta}`, () => { som('desliza'); manda({ op: 'compra' }) }, 'db-btn--forte db-btn--grande db-btn--repor', 'Repõe a mão antes do tempo acabar (senão fica com o guarda-chuva)'))
+      bts.push(botao(`Comprar ${falta}`, () => { som('desliza'); manda({ op: 'compra' }) }, 'db-btn--forte db-btn--grande db-btn--repor', 'Repõe a mão antes do tempo acabar (senão fica com o Esquecido)'))
     }
-    for (const k of alvosGuarda().slice(0, 3)) bts.push(botao([svg('guarda'), `Jogar em ${N(k)}`], () => jogaGuarda(k), 'db-btn--guarda', `${N(k)} esqueceu de repor a mão: passe o guarda-chuva (−1) para essa pessoa`))
+    for (const k of alvosGuarda().slice(0, 3)) bts.push(botao([svg('guarda'), `Jogar em ${N(k)}`], () => jogaGuarda(k), 'db-btn--guarda', `${N(k)} esqueceu de repor a mão: passe o Esquecido (−1) para essa pessoa`))
     if (minhaVez()) {
       const cs = selCartas()
       if (cs.length) {
@@ -770,7 +795,7 @@ export function criaDobradinha(ctx) {
           return el('tr', { className: vs.includes(x.key) ? 'ven' : '' },
             el('td', {}, el('span', { className: 'db-conta__quem' }, retrato(x.key, x.nome), el('span', { textContent: x.key === me.key ? `${x.nome} (você)` : x.nome }))),
             el('td', { textContent: r ? String(r.conta) : '–' }),
-            el('td', {}, r ? [`${r.pos}º · ${r.pts}`, r.esq ? el('span', { className: 'db-conta__esq', title: 'Guarda-chuva esquecido: −1' }, svg('guarda'), '−1') : ''] : '–'),
+            el('td', {}, r ? [`${r.pos}º · ${r.pts}`, r.esq ? el('span', { className: 'db-conta__esq', title: 'Carta Esquecido: −1' }, svg('guarda'), '−1') : ''] : '–'),
             el('td', { className: 'db-conta__tot', textContent: String(x.tot) }))
         }))),
       souHost() ? el('div', { className: 'db-linha' }, fim ? [botao('Nova partida', revanche, 'db-btn--forte'), botao('Fechar', encerrar)] : botao(`Rodada ${V.rodada + 1}`, () => novaRodada(false), 'db-btn--forte db-btn--grande'))
@@ -780,7 +805,7 @@ export function criaDobradinha(ctx) {
   function convite() {
     const host = souHost()
     const n = Object.entries(V.conv).filter(([k, v]) => v === 'sim' && ctx.presentes().includes(k)).length
-    const capa = el('div', { className: 'db-capa' }, el('img', { src: CAPA, alt: 'Dobradinha', draggable: false }))
+    const capa = el('div', { className: 'db-capa' }, el('img', { src: CAPA, alt: 'Dobro', draggable: false }))
     const ir = host ? botao(n > MAX_JOG ? `Máximo ${MAX_JOG}` : n >= MIN_JOG ? `Começar · ${n}` : 'Esperando jogadores', comecar, 'db-btn--forte db-btn--grande') : el('small', { className: 'db-espera', textContent: `${V.hostNome} vai começar` })
     if (host && (n < MIN_JOG || n > MAX_JOG)) ir.disabled = true
     const rodadas = el('div', { className: 'db-rodadas' }, el('small', { textContent: 'partida' }), ...RODADAS.map(([v, nm]) => {
@@ -796,7 +821,7 @@ export function criaDobradinha(ctx) {
     const entra = novo('conv:' + V.id)
     if (entra) som('papel')
     return el('div', { className: 'db-bilhete' + (entra ? ' entra' : '') },
-      el('div', { className: 'db-linha db-linha--esq' }, retrato(V.host, V.hostNome), el('span', {}, el('b', { textContent: V.hostNome }), ' chamou você para a Dobradinha')),
+      el('div', { className: 'db-linha db-linha--esq' }, retrato(V.host, V.hostNome), el('span', {}, el('b', { textContent: V.hostNome }), ' chamou você para o Dobro')),
       el('div', { className: 'db-linha' }, botao('Jogar', () => manda({ op: 'resp', sim: true }), 'db-btn--forte'), botao('Só assistir', () => manda({ op: 'resp', sim: false }), 'db-btn--leve')))
   }
 
@@ -812,7 +837,7 @@ export function criaDobradinha(ctx) {
       n.animate([{ transform: `translate(${A.x}px,${A.y}px) translate(-50%,-50%) rotate(${rot - 20}deg) scale(.85)` }, { transform: `translate(${B.x}px,${B.y}px) translate(-50%,-50%) rotate(${rot}deg) scale(${escala})` }], { duration: dur, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => { n.remove(); fim?.() }
     }, atraso)
   }
-  // o guarda-chuva sai girando num arco de quem jogou até quem esqueceu, deixa rastro e cai com pancada
+  // o Esquecido sai girando num arco de quem jogou até quem esqueceu, deixa rastro e cai com pancada
   function arremesso(e, at) {
     const A = deGuarda || (lugarDe(e.de) && noTela(lugarDe(e.de))); deGuarda = null
     const destino = () => tela.querySelector(e.para === me.key ? '.db-eu .db-guarda' : `.db-assento[data-key="${CSS.escape(e.para)}"] .db-guarda`)
@@ -858,7 +883,7 @@ export function criaDobradinha(ctx) {
       }, PREP + VOO * i / 12)
       som('desliza', PREP, .9)
     }, at)
-    // pancada: o guarda-chuva aparece no lugar, a foto treme, um estalo de luz e o −1
+    // pancada: o Esquecido aparece no lugar, a foto treme, um estalo de luz e o −1
     const pousa = at + PREP + VOO
     setTimeout(() => {
       const d = destino(); if (d) { d.style.visibility = ''; d.classList.add('chegou-guarda') }
@@ -869,7 +894,7 @@ export function criaDobradinha(ctx) {
       const menos = el('b', { className: 'db-menos1', textContent: '−1' }); menos.style.left = B.x + 'px'; menos.style.top = Math.max(B.y, T * .2) + 'px'; tela.append(menos); setTimeout(() => menos.remove(), 1300)
     }, pousa)
     som('golpe', pousa, .9)
-    balao(e.para, e.para === me.key ? 'Esqueceu de repor! −1' : 'Pegou o guarda-chuva! −1', 'forte', pousa + 120)
+    balao(e.para, e.para === me.key ? 'Esqueceu de repor! −1' : 'Pegou o Esquecido! −1', 'forte', pousa + 120)
     return PREP + VOO + 300
   }
   function balao(k, txt, cls = '', at = 0) {
@@ -919,44 +944,70 @@ export function criaDobradinha(ctx) {
     setTimeout(() => { para.classList.remove('ganhou'); void para.offsetWidth; para.classList.add('ganhou') }, at + 1450 + foto.length * 35)
     return 1500 + foto.length * 35
   }
+  // jogada: a carta sai do lugar exato da mão (a dos outros, do leque, virando no ar) e sobe a escalada.
+  // Dobrou, Passa, Inverte ou par: sobe alto e bate na mesa (onda, faíscas, a mesa sacode).
+  function animaJogada(e, at, esc) {
+    const h = M.cqh(), meu = e.key === me.key, cs = e.cartas
+    const forte = !!(e.dobrou || e.acao || cs.length > 1), dur = forte ? 820 : 560, passo = forte ? 70 : 120
+    const origem = meu ? null : M.ponto(lugarDe(e.key), 5 * h)
+    let fimAt = 0
+    cs.forEach((c, k) => {
+      const n = esc?.querySelector(`.db-carta[data-id="${c.id}"]`)
+      if (!n) return
+      pousando.add(c.id); n.classList.add('oculta')
+      const r = daMao.get(String(c.id)) || ultFotos.get(c.id); daMao.delete(String(c.id))
+      const A = meu ? (r ? { x: r.x, y: r.y, w: r.w } : M.ponto(tela.querySelector('.db-mao'), 12 * h)) : origem
+      const B = M.ponto(n), ultima = k === cs.length - 1
+      M.voo(c, A, B, { atraso: at + k * passo, dur, alto: 6, lado: (k - (cs.length - 1) / 2) * 3.4, giro0: meu ? 0 : -giro(c.id) * 2, giro1: giro(c.id), vira: !meu, slam: forte, deita: 20,
+        bate: ultima && forte ? () => { M.impacto(B, e.dobrou ? '#e8a817' : '#f3efe6', true); boteco.balanca(1); som('golpe', 0, .6) } : null,
+        fim: () => { M.pousa(c.id, '.db-escalada'); boteco.balanca(.3); if (!forte) { M.impacto(B, '#f3efe6', false); som('poe', 0, .7) } } })
+      fimAt = k * passo + dur * (forte ? .64 : .8)
+    })
+    if (cs.length > 1) som('leque', at, .8)
+    return fimAt
+  }
+  // repor: as cartas descolam do monte em rajada; as minhas viram no ar e encaixam no lugar certo da mão
+  function animaCompra(e, at, monte, ids) {
+    const n = e.qtd || 1, eu_ = e.key === me.key, alvo = lugarDe(e.key), h = M.cqh()
+    if (!monte || !alvo) { ids.forEach(id => M.pousa(id, '.db-mao')); return 0 }
+    const topo = monte.querySelector('.db-carta:last-child') || monte, A = M.ponto(topo, topo.getBoundingClientRect().width)
+    for (const id of ids) { pousando.add(id); const c = tela.querySelector(`.db-mao .db-carta[data-id="${id}"]`); c?.classList.add('oculta'); c?.classList.remove('chegou') }
+    const voos = Math.max(n, ids.length), passo = 110, dur = 520
+    if (!calmo()) setTimeout(() => topo.animate?.([{ translate: '0 0' }, { translate: '0 -1.2cqh' }, { translate: '0 0' }], { duration: 220, easing: 'ease-out' }), at)
+    for (let i = 0; i < voos; i++) {
+      const id = ids[i], slot = id != null ? tela.querySelector(`.db-mao .db-carta[data-id="${id}"]`) : null
+      const c = id != null ? V.mao?.find(x => x.id === id) : null
+      const B = slot ? M.ponto(slot, slot.offsetWidth) : M.ponto(alvo, eu_ ? 12 * h : 5 * h)
+      M.voo(c || null, A, B, { atraso: at + i * passo, dur, alto: 5, giro0: (Math.random() * 20) - 10, giro1: slot ? parseFloat(slot.parentElement?.style.getPropertyValue('--rz')) || 0 : (Math.random() * 20) - 10, vira: !!c,
+        fim: () => { if (id != null) M.pousa(id, '.db-mao') } })
+      som('desliza', at + i * passo, eu_ ? .8 : .55)
+    }
+    return voos * passo + dur * .4
+  }
   function anima(evs, antes, foto) {
     const esc = tela.querySelector('.db-escalada'), monte = tela.querySelector('.db-monte')
+    // cartas que chegaram na minha mão (para voarem do monte até o lugar certo, virando no ar)
+    const minhasNovas = antes && antes.id === V.id && antes.rodada === V.rodada && V.mao && antes.mao ? V.mao.map(c => c.id).filter(id => !antes.mao.some(c => c.id === id)) : []
     let t = 0
     for (const e of evs) {
       const at = t
       if (e.t === 'inicio') { balao(V.vez, 'Eu abro', 'leve', 3600); distribui(); t += 3200 }
       else if (e.t === 'joga') {
-        e.cartas.forEach((c, k) => {
-          const n = esc?.querySelector(`.db-carta[data-id="${c.id}"]`)
-          if (e.key !== me.key) {
-            som('poe', at + k * 140, .8)
-            if (n) { n.style.visibility = 'hidden'; voa(lugarDe(e.key), n, carta(c), { atraso: at + k * 140, rot: giro(c.id), fim: () => { n.style.visibility = '' } }) }
-          } else if (n && daMao.has(String(c.id))) {
-            const r = daMao.get(String(c.id)); daMao.delete(String(c.id))
-            const de = el('i', { style: `position:absolute;left:${r.x}px;top:${r.y}px;width:1px;height:1px` }); tela.append(de)
-            n.style.visibility = 'hidden'
-            voa(de, n, carta(c), { atraso: k * 90, dur: 480, rot: giro(c.id), fim: () => { n.style.visibility = ''; n.classList.add('caiu') } })
-            setTimeout(() => de.remove(), 700)
-          } else if (n) { n.style.animationDelay = `${k * 90}ms`; n.classList.add('caiu') }
-        })
-        setTimeout(() => tela.querySelector('.db-lousa__v')?.classList.add('escreve'), at + 260)
-        if (e.dobrou) { carimbo('dobrou!', at + 380); som('carimbo', at + 380, .8) }
-        else if (e.acao === 'passa') { som('pular', at + 200); balao(e.key, 'Passa!', 'leve', at + 150) }
+        const d = animaJogada(e, at, esc)
+        setTimeout(() => tela.querySelector('.db-lousa__v')?.classList.add('escreve'), at + d)
+        if (e.dobrou) { carimbo('dobrou!', at + d + 80); som('carimbo', at + d + 80, .8) }
+        else if (e.acao === 'passa') { som('pular', at + d); balao(e.key, 'Passa!', 'leve', at + 150) }
         if (e.esc && e.key !== me.key) balao(e.key, `Curinga vale ${e.esc}`, 'leve', at + 200)
-        t += 160 + e.cartas.length * 120
+        t += d + 200
       }
-      else if (e.t === 'inverte') { som('inverter', at); tela.querySelector('.db-sentido')?.classList.add('gira'); balao(e.key, 'Inverte!', 'leve', at) }
+      else if (e.t === 'inverte') { som('inverter', at); setTimeout(() => giroMesa.inverte('.db-sentido'), at + 250); balao(e.key, 'Inverte!', 'leve', at) }
       else if (e.t === 'pegou') {
         const d = levaMesa(foto, e.key, at)
         som('leque', at, .8); som('desliza', at + 450, .8); som('papel', at + d - 100, .7)
         balao(e.key, e.key === me.key ? `+${e.qtd} na sua comanda` : `Levou ${e.qtd} carta${e.qtd === 1 ? '' : 's'}`, e.qtd >= 8 ? 'forte' : 'leve', at + d - 200)
         t += d
       }
-      else if (e.t === 'compra') {
-        const n = e.qtd || 1
-        for (let i = 0; i < n; i++) { voa(monte, lugarDe(e.key), carta(null), { atraso: at + i * 120, dur: 360 }); som('desliza', at + i * 120, e.key === me.key ? .8 : .55) }
-        t += n * 120
-      }
+      else if (e.t === 'compra') t += animaCompra(e, at, monte, e.key === me.key ? minhasNovas.splice(0, e.qtd || 1) : [])
       else if (e.t === 'esqueceu') {
         const g = guarda('db-guarda--voa')
         voa(tela.querySelector('.db-centro') || monte, e.key === me.key ? tela.querySelector('.db-eu .db-guarda') || tela.querySelector('.db-eu') : tela.querySelector(`.db-assento[data-key="${CSS.escape(e.key)}"] .db-medalha`), g, { atraso: at, dur: 600 })
@@ -1002,8 +1053,13 @@ export function criaDobradinha(ctx) {
       const pilha = cartas[cartas.length - 1]
       cartas.slice(0, -1).forEach((n, i) => setTimeout(() => n.remove(), i * ordem.length * passo / cartas.length))
       setTimeout(() => pilha.remove(), ordem.length * passo + 360)
-      ordem.forEach((n, k) => voa(pilha, n, carta(null), { atraso: k * passo, dur: 340, fim: () => { n.classList.remove('oculta'); if (k % 2 === 0) som('desliza', 0, .45) } }))
-      setTimeout(() => { entregando = false; tela.querySelectorAll('.db-carta.oculta').forEach(n => n.classList.remove('oculta')) }, ordem.length * passo + 500)
+      const h = M.cqh()
+      ordem.forEach((n, k) => {
+        const minha = !!n.closest('.db-mao'), c = minha ? V.mao?.find(x => x.id === +n.dataset.id) : null
+        M.voo(c, M.ponto(pilha, pilha.getBoundingClientRect().width), M.ponto(n, minha ? n.offsetWidth : 5 * h), { atraso: k * passo, dur: 420, alto: 4, giro0: (Math.random() * 30) - 15, vira: !!c,
+          fim: () => { n.classList.remove('oculta'); if (k % 2 === 0) som('desliza', 0, .45) } })
+      })
+      setTimeout(() => { entregando = false; tela.querySelectorAll('.db-carta.oculta').forEach(n => { if (!pousando.has(+n.dataset.id)) n.classList.remove('oculta') }) }, ordem.length * passo + 700)
     }, dur + 120)
   }
   ;(function loop() {
@@ -1040,11 +1096,11 @@ export function criaDobradinha(ctx) {
 
   function iniciar(chamados) {
     carregaSons()
-    if (V && !souHost()) return toast(`Já tem uma mesa de Dobradinha aberta (de ${V.hostNome})`)
+    if (V && !souHost()) return toast(`Já tem uma mesa de Dobro aberta (de ${V.hostNome})`)
     if (G) return toast('A mesa já está aberta')
     abrir(chamados)
   }
-  window.__db = () => ({ G, V, render, difunde })
+  window.__db = () => ({ G, V, render, difunde, boteco })
   return {
     got: (d, k) => { carregaSons(); got(d, k) }, iniciar, ativo: () => !!V,
     // para o app: troca de jogo e mesas paralelas

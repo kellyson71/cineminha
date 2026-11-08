@@ -11,7 +11,7 @@ import { criaRadio, parseRadio } from './radio.js'
 let faixa = null // minijogo Faixa a Faixa, ver faixa.js
 let coup = null // Coup na mesa, ver coup.js
 let descarte = null // Uno (cartas de cor e número), ver descarte.js
-let dobradinha = null // Dobradinha (escalada de cartas no boteco), ver dobradinha.js
+let dobradinha = null // Dobro (escalada de cartas no boteco), ver dobradinha.js
 let douLheUma = null // Dou-lhe Uma (leilão de listas), ver doulheuma.js
 let naTesta = null // Na Testa (quem sou eu?), ver natesta.js
 let quadro = null // Quadro a Quadro (adivinhe o filme pelo frame), ver quadro.js
@@ -881,7 +881,7 @@ function updatePlayer(id) {
   const pausado = id === selfId ? (nfxDe(myShare)?.paused ?? myShare?.video?.paused ?? !!info?.paused) : !!info?.paused
   p.play.hidden = !file; p.seek.hidden = !file; p.time.hidden = !file; p.back.hidden = p.fwd.hidden = !file
   p.back.disabled = p.fwd.disabled = !pode
-  p.root.classList.toggle('sem-linha', !file)
+  if (p.root.classList.contains('sem-linha') !== !file) { p.root.classList.toggle('sem-linha', !file); arrumaPlayer() }
   nfxAcoes(id, tile, nf ? (id === selfId ? shareMsg().nfx : info.nfx) : null, pode)
   const md = info?.midia
   p.title.innerHTML = ''
@@ -989,6 +989,7 @@ function buildPlayer(id, tile) {
   const bar = el('div', { className: 'player-bar' }, play, back, fwd, vol, title, subs, gear, full)
   const linha = el('div', { className: 'player-linha' }, seek, time)
   const root = el('div', { className: 'player-controls' }, linha, bar, settings)
+  root._tile = tile
   tile.el.append(center, root)
   root.addEventListener('keydown', e => {
     e.stopPropagation()
@@ -1135,7 +1136,20 @@ function addTile(id, stream, localVideo) {
     node.style.setProperty('--vx', x + 'px'); node.style.setProperty('--vy', y + 'px')
   }
   t.fit = fit
-  video.addEventListener('loadedmetadata', fit); video.addEventListener('resize', () => { t.crop = null; t.cropFound = null; t.barKey = ''; t.cropLocked = false; fit() })
+  video.addEventListener('loadedmetadata', fit)
+  // A resolução muda sozinha na transmissão (qualidade automática sobe e desce: 1080p ↔ 720p). Antes isso
+  // apagava o corte e media tudo de novo: a imagem expandia e cortava de novo "do nada". Agora, com a mesma
+  // proporção, o corte é só reescalado e continua fixo; só mede de novo se a proporção mudar (outra janela/aba).
+  video.addEventListener('resize', () => {
+    const vw = video.videoWidth, vh = video.videoHeight, a = t.dims
+    t.dims = vw && vh ? { vw, vh } : null
+    if (a && vw && vh && Math.abs(vw / vh - a.vw / a.vh) < .02) {
+      const esc = b => b && { x: b.x * vw / a.vw, y: b.y * vh / a.vh, w: b.w * vw / a.vw, h: b.h * vh / a.vh }
+      t.crop = esc(t.crop); t.cropFound = esc(t.cropFound); t.cropNext = undefined
+      t.barKey = '' // as leituras recomeçam na escala nova, mas o corte travado não mexe
+    } else { t.crop = null; t.cropFound = null; t.barKey = ''; t.cropLocked = false }
+    fit()
+  })
   t.cropTimer = setInterval(() => detectBars(t), 1000)
   t.fitObs = new ResizeObserver(fit); t.fitObs.observe(node)
   ligaSomDaTile(t, id, stream)
@@ -1598,7 +1612,7 @@ function mesaMudou(id, on) {
   }
   desenhaMesas()
 }
-function iconeMesa(id) { return ({ coup: 'jogos/coup/cartas/duque.webp', dc: 'jogos/uno/logo.svg', pp: 'jogos/parperfeito/verso-vermelho.png', ab: 'jogos/amigosdebosta/verso-preto.png', db: 'jogos/dobradinha/capa.webp' })[id] }
+function iconeMesa(id) { return ({ coup: 'jogos/coup/cartas/duque.webp', dc: 'jogos/uno/logo.svg', pp: 'jogos/parperfeito/verso-vermelho.png', ab: 'jogos/amigosdebosta/verso-preto.png', db: 'jogos/dobro/capa.webp' })[id] }
 function desenhaMesas() {
   let box = $('#mesas')
   const ids = ativos()
@@ -1660,7 +1674,7 @@ const LISTA_JOGOS = [
   ['dc', 'Uno', '2 a 10', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--dc jogosmenu__arte', src: 'jogos/uno/logo.svg', alt: '' })],
   ['pp', 'Red Flags', '3 ou mais', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--pp jogosmenu__arte', src: 'jogos/parperfeito/verso-vermelho.png', alt: '' })],
   ['ab', 'Amigos de Merda', '3 ou mais', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--ab jogosmenu__arte', src: 'jogos/amigosdebosta/verso-preto.png', alt: '' })],
-  ['db', 'Dobradinha', '2 a 6', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--db', innerHTML: ICONES_JOGO.db })],
+  ['db', 'Dobro', '2 a 6', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--db jogosmenu__arte', src: 'jogos/dobro/miniatura.webp', alt: '' })],
   ['du', 'Dou-lhe Uma', '2 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--du', innerHTML: ICONES_JOGO.du })],
   ['nt', 'Na Testa', '2 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--nt', innerHTML: ICONES_JOGO.nt })],
   ['qq', 'Quadro a Quadro', '1 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--qq', innerHTML: ICONES_JOGO.qq })],
@@ -2862,11 +2876,11 @@ function sessTempo() {
   const ini = callIni || entrouEm
   const d = durTxt(Date.now() - ini)
   const keys = [...new Set([me.key, ...[...peers.values()].map(p => p.key), ...srvPres.keys()].filter(Boolean))]
-  const dica = `Sessão começou às ${new Date(ini).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}\nNa call: ${keys.map(k => k === me.key ? 'você' : person(k).nome).join(', ')}`
+  const dica = `Tempo de sessão: ${d}\nComeçou às ${new Date(ini).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}\nNa call: ${keys.map(k => k === me.key ? 'você' : person(k).nome).join(', ')}`
   for (const t of [$('#sessTempo'), $('#sessTempoBaixo')]) {
     if (!t) continue
     t.hidden = !room
-    t.querySelector('b').textContent = d === 'agora' ? 'começou agora' : `há ${d}`
+    t.querySelector('b').textContent = t.id === 'sessTempoBaixo' ? d : d === 'agora' ? 'começou agora' : `há ${d}` // embaixo: só o número, para ocupar pouco
     t.title = dica
   }
   // tempos da lateral (há quanto tempo cada sala e cada pessoa está na call)
@@ -4475,8 +4489,31 @@ function moveVoz() {
   if (imersivo() && !vozEl.contains(v)) { v.before(vozCasa); vozEl.append(v); theater.append(vozEl) }
   else if (!imersivo() && vozEl.contains(v)) { vozCasa.replaceWith(v); vozEl.remove() }
 }
+/* Computador com a lateral (fora da tela cheia): tudo numa linha embaixo da tela, como na tela cheia:
+   bonecos | barra do player | botões. A barra do vídeo principal sai de dentro do vídeo e vai para o meio
+   dessa linha (fica sempre visível e não tampa a imagem). Tela de compartilhamento sem linha do tempo
+   continua com a barra dentro do vídeo, no hover. */
+const playerSlot = el('div', { className: 'barra-player' })
+$('#theater .stage').append(playerSlot)
+const linhaUnica = () => !imersivo() && innerWidth >= 1000 && document.body.classList.contains('com-lateral') && !document.body.classList.contains('locked')
+function arrumaPlayer() {
+  let alvo = null
+  if (linhaUnica()) {
+    const ok = t => t?.player && !t.el.classList.contains('thumb') && !t.player.root.classList.contains('sem-linha')
+    alvo = (focusId && ok(tiles.get(focusId)) ? tiles.get(focusId) : [...tiles.values()].find(ok)) || null
+  }
+  for (const r of [...playerSlot.children]) {
+    if (r === alvo?.player.root) continue
+    r.querySelector('.player-settings')?.setAttribute('hidden', '')
+    if (r._tile?.el.isConnected) r._tile.el.append(r); else r.remove()
+  }
+  if (alvo && alvo.player.root.parentNode !== playerSlot) playerSlot.append(alvo.player.root)
+  theater.classList.toggle('player-fora', !!alvo)
+}
+new MutationObserver(() => arrumaPlayer()).observe($('#tiles'), { childList: true, subtree: true, attributeFilter: ['class'] })
 function arrumaBarra() {
   moveVoz(); try { moveProjetar() } catch {}
+  arrumaPlayer()
   if (!imersivo()) { theater.classList.remove('barra-acima'); return }
   const row = theater.querySelector('.row__seats'), tb = theater.querySelector('.toolbar:not(.toolbar--voz)')
   const W = theater.clientWidth, rr = row?.getBoundingClientRect(), tr = tb?.getBoundingClientRect(), th = theater.getBoundingClientRect()

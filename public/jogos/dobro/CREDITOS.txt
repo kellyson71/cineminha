@@ -1,0 +1,23 @@
+Dobro — assets originais do pacote do Tabletop Simulator, usados a pedido do usuário.
+Oficina: https://steamcommunity.com/sharedfiles/filedetails/?id=3366858020
+Mod: Dobro (EN/PT-BR), por Misu. Cópia local baixada em 03/11/2026.
+
+Créditos do manual oficial:
+Design: Fel Barros, Lucas Castanho e Pedro Vinicius.
+Ilustrações: Bibadash/Shutterstock.com. Design gráfico: Luis Francisco.
+©2022 Grok Games.
+
+cartas.avif / cartas.webp:
+Atlas de 18 artes únicas (224 × 311 px por arte, 6 colunas × 3 linhas).
+Frentes, atlas original de 10 × 6: https://i.imgur.com/sb0CnqS.jpeg
+Verso: https://steamusercontent-a.akamaihd.net/ugc/23175424392363563/6FB37E1E790F6ABDBB513E04464E48B6E01C5782/
+Esquecido: https://drive.google.com/uc?export=download&id=1nQO6wANRbZnful8I6o0KsM9CR8m29zys
+Sentido horário: https://drive.google.com/uc?export=download&id=1cCh2pY36Gf6SBLRIsFf0ExFd6_5ZJVJH
+Sentido anti-horário: https://drive.google.com/uc?export=download&id=1cE79mGWoCdnAtpQRNB9ixBMvCy6JXXPQ
+
+marca.webp: recorte do nome no verso original.
+capa.webp / miniatura.webp: recorte da capa original, extraída da imagem da página 1 do manual:
+https://ludopedia-anexos.nyc3.digitaloceanspaces.com/dobro_manual_oficial_grok_games_276596.pdf
+
+Otimização em 08/11/2026. Fontes originais preservadas em Downloads; sem imagens externas em tempo de execução.
+Geração: tools/dobro/prepara.py. Medições: docs/jogos/dobro-assets.md.

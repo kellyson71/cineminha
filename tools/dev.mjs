@@ -8,7 +8,7 @@ const root = new URL('..', import.meta.url).pathname
 if (existsSync(join(root, '.env.local'))) for (const l of readFileSync(join(root, '.env.local'), 'utf8').split('\n')) {
   const m = l.match(/^([A-Z_]+)="?(.*?)"?$/); if (m) process.env[m[1]] ??= m[2]
 }
-const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.mp3': 'audio/mpeg', '.wasm': 'application/wasm' }
+const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.avif': 'image/avif', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.mp3': 'audio/mpeg', '.wasm': 'application/wasm' }
 const port = +process.env.PORT || 8790
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://x')

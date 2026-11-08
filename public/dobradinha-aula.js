@@ -1,4 +1,4 @@
-// Aula da Dobradinha: oito cenas curtas, uma regra por cena, e no fim um treino (escolher a carta certa).
+// Aula do Dobro: oito cenas curtas, uma regra por cena, e no fim um treino (escolher a carta certa).
 // Peças com classes de batida (ver aula.css): eN entra, sN sai, vN/wN move, mN apaga, dN destaca, pN carimba, tN treme.
 
 const CURSOR = '<svg viewBox="0 0 32 32"><path d="M9 3.5c0-1.4 1.6-2.2 2.7-1.3l15 12.4c1.1.9.5 2.7-.9 2.8l-6.2.4 3.6 7.6c.5 1 0 2.2-1 2.6l-2.4 1.1c-1 .5-2.2 0-2.6-1l-3.6-7.7-4.4 4.3c-1 1-2.8.3-2.8-1.2z" fill="#fff" stroke="#1b1208" stroke-width="1.6" stroke-linejoin="round"/></svg>'
@@ -65,7 +65,7 @@ export function passosDobradinha({ el, carta, svg, guarda, dois }) {
     },
     {
       k: 'repor', titulo: 'Jogou? Reponha a mão', batidas: [400, 1100, 1500, 2200, 3800, 4600, 5600], dur: 8200, sons: { 3: 'desliza1', 6: 'pular' },
-      sub: 'Depois de jogar, a vez já segue: clique no monte para completar a mão antes do tempo acabar. Esqueceu? Fica com o guarda-chuva: −1 ponto na rodada.',
+      sub: 'Depois de jogar, a vez já segue: clique no monte para completar a mão antes do tempo acabar. Esqueceu? Fica com o Esquecido: −1 ponto na rodada.',
       cena: () => [
         ...[3, 8, 5, 11].map((v, i) => c(v, 5 + i * 8, 23, '', 6.6)),
         A(el('i', { className: 'dba-vaga' }), 37, 23), A(el('i', { className: 'dba-vaga' }), 45, 23),

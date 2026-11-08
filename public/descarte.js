@@ -4,6 +4,11 @@
 // Regras opcionais: acumular +2/+4, comprar até poder jogar, penalidade por não avisar a última
 // e o 7 do silêncio (depois de um 7, quem falar na call antes da próxima carta compra 2).
 
+import { arteMinimalista } from './jogos/uno/minimalista.js'
+import { arteClassica } from './jogos/uno/classico.js'
+import { criaMesa } from './cartas-mesa.js'
+import { criaBoteco, SKINS_BAR, qualidadeMesa, escolheQualidadeMesa } from './boteco3d.js'
+
 const SOM = n => `jogos/coup/sons/${n}.mp3`
 const CORES = { r: 'vermelho', y: 'amarelo', g: 'verde', b: 'azul' }
 const OPCOES = [
@@ -20,6 +25,28 @@ const OPCOES = [
   ['semPiedade', 'Sem Piedade', 'Entram Pula Todos, Descarta a Cor, Inverte +4, Roleta, +6 e +10; qualquer carta de compra empilha sobre outra. Sem limite de cartas.'],
 ]
 const DESLIGADAS = ['seteTroca', 'zero', 'corte', 'semPiedade'] // regras da casa começam desligadas
+// estilos prontos no lobby: cada um liga um conjunto de regras (o resto fica desligado)
+const ESTILOS = [
+  ['classico', 'Clássico', 'As regras da caixa, sem invenção.', [], [{ c: 'r', v: '7' }, { c: 'b', v: 'inverte' }, { c: null, v: '+4' }]],
+  ['casa', 'Da casa', 'O jeito do grupo: acumula, avisa e bate no 9.', ['acumula', 'ate3', 'penalidade', 'sete', 'trocaLivre', 'semAcao', 'bate'], [{ c: 'y', v: '9' }, { c: 'g', v: '+2' }, { c: 'r', v: '7' }]],
+  ['caos', 'Caos', 'Troca de mão, giro, corte e tudo da casa.', ['acumula', 'ate3', 'penalidade', 'sete', 'seteTroca', 'zero', 'trocaLivre', 'corte', 'bate'], [{ c: 'b', v: '0' }, { c: 'r', v: '7' }, { c: 'g', v: '9' }]],
+  ['piedade', 'Sem Piedade', 'Cartas novas, +6, +10 e Roleta. Sem limite.', ['semPiedade', 'acumula', 'ate3', 'penalidade', 'seteTroca', 'zero', 'trocaLivre', 'semAcao'], [{ c: null, v: '+10' }, { c: null, v: 'roleta' }, { c: 'g', v: 'pulaT' }]],
+]
+// cada regra no lobby: grupo, texto curto e as cartinhas que ilustram
+const REGRAS = {
+  acumula: ['Compras', 'Devolva +2 com +2 ou +4: a soma passa adiante.', [{ c: 'g', v: '+2' }, { c: null, v: '+4' }]],
+  ate3: ['Compras', 'Compre até 3 tentando jogar. Desligada: só 1.', [null, null, null]],
+  penalidade: ['Voz', 'Com 1 carta, avise. Se pegarem você antes, +2.', [{ c: 'y', v: '5' }], 'Uno!'],
+  sete: ['Voz', 'Depois de um 7, quem falar na call compra 2.', [{ c: 'b', v: '7' }], 'shh'],
+  seteTroca: ['Trocas', 'Quem joga um 7 troca de mão com alguém.', [{ c: 'r', v: '7' }, null], 'troca'],
+  zero: ['Trocas', 'Saiu um 0: as mãos giram no sentido do jogo.', [{ c: 'y', v: '0' }], 'gira'],
+  trocaLivre: ['Trocas', 'No 7 e no 0, trocar ou girar é escolha de quem jogou.', [{ c: 'g', v: '7' }, { c: 'b', v: '0' }]],
+  corte: ['Reflexo', 'A carta idêntica à da mesa entra fora da vez.', [{ c: 'r', v: '5' }, { c: 'r', v: '5' }]],
+  bate: ['Reflexo', 'Saiu um 9: bata no monte. O mais lento compra 2.', [{ c: 'g', v: '9' }], 'mao'],
+  semAcao: ['Final', 'A última carta precisa ser um número.', [{ c: 'b', v: 'pula' }], 'nao'],
+  semPiedade: ['Baralho', 'Entram +6, +10, Roleta, Pula Todos e mais.', [{ c: null, v: '+6' }, { c: null, v: 'roleta' }, { c: null, v: '+10' }]],
+}
+const ORDEM_REGRAS = ['acumula', 'ate3', 'penalidade', 'sete', 'seteTroca', 'zero', 'trocaLivre', 'corte', 'bate', 'semAcao', 'semPiedade']
 const TEMPOS = [0, 15, 20, 30] // tempo por vez (0 = sem limite)
 const SONS = ['golpe', 'pular', 'inverter', 'embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'leque', 'carimbo', 'papel', 'vez', 'clique', 'tique']
 const VOL = { golpe: .5, pular: .7, inverter: .7, desliza1: .9, desliza2: .9, desliza3: .9, leque: .7, embaralhar: .5, carimbo: .7, papel: .45, vez: .5, clique: .3, tique: .28 }
@@ -85,6 +112,11 @@ const SVG = {
   shh: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M24 8v20"/><circle cx="24" cy="36" r="2.2" fill="currentColor"/></svg>',
 }
 
+// roda de escolha de cor do coringa
+const RODA_SVG = '<svg viewBox="-90 -90 180 180"><g class="dc-cores__fatia" data-cor="r" tabindex="0" role="button" aria-label="vermelho" style="--hx:0.0px;--hy:-5.0px;--k:0;color:var(--r)"><title>vermelho</title><path d="M-52.2 -58.0A78 78 0 0 1 52.2 -58.0L25.5 -30.8A40 40 0 0 0 -25.5 -30.8Z" fill="currentColor"/><text x="0.0" y="-56.4" fill="#fff">vermelho</text></g><g class="dc-cores__fatia" data-cor="y" tabindex="0" role="button" aria-label="amarelo" style="--hx:5.0px;--hy:0.0px;--k:1;color:var(--y)"><title>amarelo</title><path d="M58.0 -52.2A78 78 0 0 1 58.0 52.2L30.8 25.5A40 40 0 0 0 30.8 -25.5Z" fill="currentColor"/><text x="59.0" y="2.6" fill="#3b3009">amarelo</text></g><g class="dc-cores__fatia" data-cor="g" tabindex="0" role="button" aria-label="verde" style="--hx:0.0px;--hy:5.0px;--k:2;color:var(--g)"><title>verde</title><path d="M52.2 58.0A78 78 0 0 1 -52.2 58.0L-25.5 30.8A40 40 0 0 0 25.5 30.8Z" fill="currentColor"/><text x="0.0" y="61.6" fill="#fff">verde</text></g><g class="dc-cores__fatia" data-cor="b" tabindex="0" role="button" aria-label="azul" style="--hx:-5.0px;--hy:0.0px;--k:3;color:var(--b)"><title>azul</title><path d="M-58.0 52.2A78 78 0 0 1 -58.0 -52.2L-30.8 -25.5A40 40 0 0 0 -30.8 25.5Z" fill="currentColor"/><text x="-59.0" y="2.6" fill="#fff">azul</text></g></svg>'
+// anel do sentido: duas setas curvas opostas
+const ANEL_SVG = '<svg viewBox="-62 -62 124 124" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="6"><path d="M-32.8 -39.1A51 51 0 0 1 45 -23.9"/><path d="M32.8 39.1A51 51 0 0 1 -45 23.9"/></g><g fill="currentColor" stroke-width="2.5"><path d="M49.5 -12.3 52 -30 36.4 -21Z"/><path d="M-49.5 12.3 -52 30 -36.4 21Z"/></g></svg>'
+
 // ícone do botão de ordenar: três cartinhas (por cor: agrupadas por cor; por número: 1 2 3)
 const ICONE_COR = '<svg viewBox="0 0 32 24"><rect x="2" y="4" width="11" height="16" rx="2" fill="#e5484d" transform="rotate(-10 7 12)"/><rect x="10.5" y="3" width="11" height="16" rx="2" fill="#e5484d" opacity=".75"/><rect x="19" y="4" width="11" height="16" rx="2" fill="#3a8ee6" transform="rotate(10 25 12)"/></svg>'
 const ICONE_NUM = '<svg viewBox="0 0 32 24" font-family="Bricolage Grotesque, Inter, sans-serif" font-weight="800" font-size="8" text-anchor="middle"><g transform="rotate(-10 7 12)"><rect x="2" y="4" width="11" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><text x="7.5" y="15" fill="currentColor">1</text></g><rect x="10.5" y="3" width="11" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><text x="16" y="14" fill="currentColor">2</text><g transform="rotate(10 25 12)"><rect x="19" y="4" width="11" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><text x="24.5" y="15" fill="currentColor">3</text></g></svg>'
@@ -94,7 +126,7 @@ export function criaDescarte(ctx) {
   const tela = ctx.tela
   const el = (tag, props = {}, ...kids) => {
     const dados = {}, resto = {}
-    for (const [k, v] of Object.entries(props)) (k.startsWith('data-') ? dados : resto)[k] = v
+    for (const [k, v] of Object.entries(props)) (k.startsWith('data-') || k.startsWith('aria-') ? dados : resto)[k] = v
     const n = ctx.el(tag, resto, ...kids.flat())
     for (const [k, v] of Object.entries(dados)) n.setAttribute(k, v)
     return n
@@ -409,11 +441,10 @@ export function criaDescarte(ctx) {
     }
   }
   function vista(k) {
-    const t = G.descarte.slice(-5)
     return {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: G.fase, op: G.op, conv: G.conv, placar: G.placar,
       js: G.js.map(j => ({ key: j.key, nome: j.nome, n: j.mao.length, avisou: j.avisou, pegavel: j.pegavel })),
-      mao: jog(k)?.mao || null, descarte: t, cor: G.cor, dir: G.dir, vez: G.js[G.vez]?.key || null, monte: G.monte.length,
+      mao: jog(k)?.mao.slice() || null, descarte: G.descarte.slice(-14), cor: G.cor, dir: G.dir, vez: G.js[G.vez]?.key || null, monte: G.monte.length,
       bate: G.bate ? { k: G.bate.k, resta: Math.max(0, G.bate.ate - Date.now()), bateram: Object.keys(G.bate.rt) } : null,
       pend: G.pend, pendTipo: G.pendTipo, compradas: G.js[G.vez]?.key === k ? G.compradas || 0 : 0, lim: limite(),
       sil: G.sil ? { resta: Math.max(0, GRACA_7 - (Date.now() - G.sil.desde)), falaram: G.sil.falaram } : null,
@@ -510,9 +541,16 @@ export function criaDescarte(ctx) {
   }
 
   /* =================================================================== cliente */
+  let antesRender = null, ultFotos = new Map()
+  // motor compartilhado com o Dobro: voos, impacto, FLIP da mão, giro do anel e do facho
+  const M = criaMesa({ tela, carta: c => carta(c), cartaSel: '.dc-carta', palco: '.dc-palco' })
+  const pousando = M.pousando // cartas voando: ficam escondidas no destino até pousar
+  const calmo = () => matchMedia('(prefers-reduced-motion: reduce)').matches
   let V = null, ultEv = 0, dispensado = '', escolheCor = false, entregando = false, sel = [], ordem = ls.get('dc.ordem') || 'cor'
   const vistos = new Set()
   let guiaAberto = false, guiaAnima = false
+  let tema = ls.get('dc.tema') === 'classico' ? 'classico' : 'minimalista'
+  let temaAberto = false
   let bateK = 0, bateT0 = 0, bateFeito = false, bateMs = 0, bateRes = null, semNove = 0
   const novo = id => { if (vistos.has(id)) return false; vistos.add(id); return true }
   const souHost = () => V && V.host === me.key
@@ -587,24 +625,17 @@ export function criaDescarte(ctx) {
   /* ---------- peças ---------- */
   const botao = (conteudo, fn, cls = '', title = '') => { const b = el('button', { type: 'button', className: `dc-btn ${cls}`, title }); b.append(...[conteudo].flat()); b.addEventListener('click', e => { e.stopPropagation(); b.blur(); som('clique'); fn(e) }); return b }
   const svg = (k, cls = '') => { const s = el('span', { className: `dc-svg ${cls}` }); s.innerHTML = SVG[k]; return s }
-  function simbolo(v) {
-    if (v in SVG) return svg(v)
-    return el('span', { className: 'dc-num' + (v.length > 1 ? ' dc-num--mais' : ''), textContent: v })
-  }
   function carta(c, cls = '') {
-    if (!c) return el('div', { className: `dc-carta costas ${cls}` }, el('span', { className: 'dc-marca', textContent: 'Uno' }), el('i', { className: 'dc-faixas' }))
-    const cor = c.c || 'k'
-    const canto = () => c.c ? simbolo(c.v) : c.v === 'roleta' ? svg('roleta') : svg('cor')
-    const meio = c.v === 'inv4' ? [svg('inverte', 'dc-fundo'), el('span', { className: 'dc-num dc-num--mais', textContent: '+4' })]
-      : COMPRA_COR(c.v) ? [svg('cor', 'dc-aro'), el('span', { className: 'dc-num dc-num--mais' + (c.v.length > 2 ? ' dc-num--dez' : ''), textContent: c.v })]
-      : simbolo(c.v)
-    return el('div', { className: `dc-carta dc-${cor} ${cls}`, 'data-v': c.v, 'data-id': c.id == null ? '' : String(c.id) },
-      el('span', { className: 'dc-canto' }, canto()),
-      el('span', { className: 'dc-meio' }, meio),
-      el('span', { className: 'dc-canto dc-canto--b' }, canto()))
+    const n = el('div', { className: `dc-carta ${c ? `dc-${c.c || 'k'}` : 'costas'} ${cls}`,
+      ...(c ? { 'data-v': c.v, 'data-id': c.id == null ? '' : String(c.id), 'aria-label': nomeCarta(c) } : { 'aria-label': 'Carta virada' }) })
+    n.innerHTML = tema === 'classico' ? arteClassica(c?.v, c?.c) : arteMinimalista(c?.v)
+    return n
   }
   const retrato = (k, nm, cls = '') => el('span', { className: `dc-retrato ${cls}` }, ctx.pfp(k, 64, nm))
-  const giro = id => ((id * 47) % 31) - 15 // rotação fixa de cada carta no monte
+  // pilha bagunçada: cada carta tem giro e deslocamento próprios, fixos pelo id (todo mundo vê a mesma pilha)
+  const mistura = (id, s) => { let x = Math.imul((id + 7) * 2654435761 ^ s * 40503, 2246822519); x ^= x >>> 13; x = Math.imul(x, 3266489917); x ^= x >>> 16; return (x >>> 0) / 4294967296 }
+  const giro = id => Math.round(mistura(id, 1) * 48 - 24)
+  const desvio = id => [mistura(id, 2) * 2.6 - 1.3, mistura(id, 3) * 2.6 - 1.3] // em cqh
 
   function angulos(n, comigo) {
     if (!comigo) return Array.from({ length: n }, (_, i) => 90 + 180 / n + i * 360 / n)
@@ -615,33 +646,142 @@ export function criaDescarte(ctx) {
   const pos = (ang, rx, ry) => ({ x: 50 + rx * Math.cos(ang * Math.PI / 180), y: 50 + ry * Math.sin(ang * Math.PI / 180) })
 
   /* ---------- render ---------- */
+  function fechaTemas() {
+    temaAberto = false
+    render()
+    tela.querySelector('.dc-tema')?.focus({ preventScroll: true })
+  }
+  function trocaTema(novo) {
+    tema = novo === 'classico' ? 'classico' : 'minimalista'
+    ls.set('dc.tema', tema)
+    // Seleção de cartas e escolha de cor continuam guardadas na própria partida.
+    fechaTemas()
+  }
+  function teclaTemas(e) {
+    if (e.key === 'Escape') { e.preventDefault(); fechaTemas() }
+    else if (e.key === 'Tab') {
+      const bts = [...tela.querySelectorAll('.dc-temas button')], primeiro = bts[0], ultimo = bts.at(-1)
+      if (e.shiftKey && (document.activeElement === primeiro || !tela.querySelector('.dc-temas')?.contains(document.activeElement))) { e.preventDefault(); ultimo?.focus() }
+      else if (!e.shiftKey && (document.activeElement === ultimo || !tela.querySelector('.dc-temas')?.contains(document.activeElement))) { e.preventDefault(); primeiro?.focus() }
+    }
+  }
+  function seletorTema() {
+    const b = botao([
+      el('span', { className: `dc-tema__mini dc-tema__mini--${tema}`, 'aria-hidden': 'true', textContent: 'UNO' }),
+      el('span', { className: `dc-tema__feltro dc-feltro-op__oval--${mesa}`, 'aria-hidden': 'true' }),
+      el('span', { className: 'dc-tema__nome', textContent: tema === 'classico' ? 'Clássico' : 'Minimalista' }), icon('chevron-down'),
+    ], () => {
+      temaAberto = true
+      render()
+      tela.querySelector(`.dc-baralho[data-tema-opcao="${tema}"]`)?.focus({ preventScroll: true })
+    }, 'dc-tema', 'Baralho e mesa')
+    b.setAttribute('aria-label', 'Escolher o baralho e a mesa')
+    b.setAttribute('aria-haspopup', 'dialog')
+    b.setAttribute('aria-expanded', String(temaAberto))
+    return b
+  }
+  function caixasTema() {
+    if (!temaAberto) return ''
+    const fundo = el('div', { className: 'dc-temas' },
+      el('section', { className: 'dc-temas__painel', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'dc-temas-titulo' },
+        el('header', { className: 'dc-temas__topo' },
+          el('div', {}, el('small', { textContent: 'UNO' }), el('h2', { id: 'dc-temas-titulo', textContent: 'Baralho e mesa' })),
+          botao(icon('x'), fechaTemas, 'dc-btn--ic', 'Fechar escolha de baralho')),
+        el('div', { className: 'dc-temas__caixas' }, ...[['classico', 'Clássico'], ['minimalista', 'Minimalista']].map(([id, nome]) => {
+          const caixa = el('span', { className: `dc-caixa dc-caixa--${id}`, 'aria-hidden': 'true' },
+            el('span', { className: 'dc-caixa__frente' }, el('img', { src: `jogos/uno/caixa-${id}.webp`, alt: '', draggable: false })),
+            el('span', { className: 'dc-caixa__lateral', textContent: 'UNO' }),
+            el('span', { className: 'dc-caixa__tampa', textContent: 'UNO' }))
+          const b = el('button', { type: 'button', className: `dc-baralho${tema === id ? ' atual' : ''}`, 'data-tema-opcao': id,
+            'aria-label': `Usar UNO ${nome}`, 'aria-pressed': String(tema === id) },
+            el('span', { className: 'dc-baralho__palco' }, el('i', { className: 'dc-baralho__sombra' }), caixa),
+            el('b', { className: 'dc-baralho__nome', textContent: nome }),
+            el('span', { className: 'dc-baralho__estado' }, tema === id ? icon('check') : '', tema === id ? 'Em uso' : 'Escolher'))
+          b.addEventListener('click', () => trocaTema(id))
+          b.addEventListener('pointermove', e => {
+            if (e.pointerType !== 'mouse' || calmo()) return
+            const r = b.getBoundingClientRect()
+            caixa.style.setProperty('--dc-caixa-x', `${-18 - (e.clientY - r.top - r.height / 2) / r.height * 12}deg`)
+            caixa.style.setProperty('--dc-caixa-y', `${-32 + (e.clientX - r.left - r.width / 2) / r.width * 24}deg`)
+          })
+          b.addEventListener('pointerleave', () => { caixa.style.removeProperty('--dc-caixa-x'); caixa.style.removeProperty('--dc-caixa-y') })
+          return b
+        })),
+        secaoMesas()))
+    fundo.addEventListener('click', e => { if (e.target === fundo) fechaTemas() })
+    // O diálogo recebe Enter/Espaço; as teclas não acionam os atalhos da call ou da mão.
+    fundo.addEventListener('keydown', e => { e.stopPropagation(); teclaTemas(e) })
+    return fundo
+  }
+  // tema da mesa (só para quem escolhe): feltro e borda
+  const MESAS = [['grafite', 'Grafite'], ['feltro', 'Feltro verde'], ['vinho', 'Vinho'], ['noite', 'Azul noite'], ['madeira', 'Madeira']]
+  // mesa de bar em 3D com a esquina do boteco ao fundo (Three.js só quando escolhida)
+  const BARES = SKINS_BAR.map(([k, nm, cor]) => [`bar-${k}`, nm, cor])
+  let mesa = [...MESAS, ...BARES].some(([k]) => k === ls.get('dc.mesa')) ? ls.get('dc.mesa') : 'bar-skol'
+  const boteco = criaBoteco({ tela, palco: '.dc-palco', plano: '.dc-plano', centro: [.5, .52], tamanho: [.62, .86] })
+  const escolheMesa = k => { mesa = k; ls.set('dc.mesa', k); som('clique'); render(); tela.querySelector('.dc-feltro-op.atual, .dc-bar-op.atual')?.focus({ preventScroll: true }) }
+  function secaoMesas() {
+    return el('div', { className: 'dc-temas__mesas' },
+      el('small', { className: 'dc-temas__sub', textContent: 'Mesa de bar · na calçada do Marcílio Bar' }),
+      el('div', { className: 'dc-temas__bares', role: 'radiogroup', 'aria-label': 'Mesa de bar' }, ...BARES.map(([k, nm, cor]) => {
+        const b = el('button', { type: 'button', className: 'dc-bar-op' + (mesa === k ? ' atual' : ''), role: 'radio', 'aria-checked': String(mesa === k), 'aria-label': `Mesa de bar ${nm}`, style: `--bar:${cor}` },
+          el('span', { className: 'dc-bar-op__mesa' }, el('i')), el('b', { textContent: nm }))
+        b.addEventListener('click', e => { e.stopPropagation(); escolheMesa(k) })
+        return b
+      })),
+      el('div', { className: 'dc-temas__qual', role: 'radiogroup', 'aria-label': 'Qualidade da mesa de bar' },
+        el('small', { textContent: 'Qualidade' }),
+        ...[['3d', '3D', 'Mesa desenhada em 3D (uma vez só; leve depois de pronta)'], ['2d', 'Leve', 'Mesa plana, sem 3D: para computador mais fraco']].map(([q, nm, dica]) => {
+          const b = el('button', { type: 'button', className: 'dc-temas__qop' + (qualidadeMesa() === q ? ' on' : ''), textContent: nm, title: dica, role: 'radio', 'aria-checked': String(qualidadeMesa() === q) })
+          b.addEventListener('click', e => { e.stopPropagation(); escolheQualidadeMesa(q); som('clique'); render() })
+          return b
+        })),
+      el('small', { className: 'dc-temas__sub', textContent: 'Feltro' }),
+      el('div', { className: 'dc-temas__feltros', role: 'radiogroup', 'aria-label': 'Tema da mesa' }, ...MESAS.map(([k, nm]) => {
+        const b = el('button', { type: 'button', className: 'dc-feltro-op' + (mesa === k ? ' atual' : ''), role: 'radio', 'aria-checked': String(mesa === k), 'aria-label': `Mesa ${nm}` },
+          el('span', { className: `dc-feltro-op__oval dc-feltro-op__oval--${k}` }, el('i')), el('b', { textContent: nm }))
+        b.addEventListener('click', e => { e.stopPropagation(); escolheMesa(k) })
+        return b
+      })))
+  }
   function render(antes) {
+    const focoTema = temaAberto ? document.activeElement?.closest?.('[data-tema-opcao]')?.dataset.temaOpcao : null
+    antesRender = antes
+    const fotos = fotoMao()
+    tela.dataset.tema = tema
+    tela.dataset.mesa = mesa.startsWith('bar-') ? 'bar' : mesa
     tela.classList.toggle('dc--on', !!V)
     ctx.onAtivo?.(!!V)
-    if (!V) { tela.replaceChildren(); vistos.clear(); return }
+    if (!V) { temaAberto = false; boteco.desliga(); tela.replaceChildren(); vistos.clear(); return }
     const conv = V.fase === 'convite', j = eu()
     const lugares = conv ? Object.keys(V.conv).filter(k => k !== me.key).map(k => ({ key: k, nome: ctx.nomeDe(k), conv: V.conv[k] }))
       : (() => { const js = V.js; const i = js.findIndex(x => x.key === me.key); return i < 0 ? js : [...js.slice(i + 1), ...js.slice(0, i)] })()
     const angs = angulos(lugares.length, conv || !!j)
     const plano = el('div', { className: 'dc-plano' }, el('div', { className: 'dc-feltro' }), conv ? '' : centro())
-    lugares.forEach((x, n) => plano.append(...assento(x, angs[n])))
+    if (!conv) lugares.forEach((x, n) => plano.append(...assento(x, angs[n])))
     const topoBar = el('header', { className: 'dc-topo' },
-      el('img', { className: 'dc-logo dc-logo--oficial', src: 'jogos/uno/logo.svg', alt: 'Uno' }),
+      el('img', { className: 'dc-logo dc-logo--oficial', src: tema === 'minimalista' ? 'jogos/uno/logo-minimalista.svg' : 'jogos/uno/logo.svg', alt: 'Uno' }),
       el('span', { className: 'dc-grow' }),
+      seletorTema(),
       botao(icon('list-music'), () => tela.querySelector('.dc-log')?.classList.toggle('aberto'), 'dc-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'dc-btn--ic', 'Fechar a mesa para todos')
         : botao(icon('x'), () => { dispensado = V.id; aplica(null) }, 'dc-btn--ic', 'Sair da mesa (só para você)'))
     if (souAdmin() && V.fase !== 'fim') topoBar.insertBefore(botao(icon('zap'), () => { filaAberta = !filaAberta; render() }, 'dc-btn--ic dc-btn--admin' + (filaAberta ? ' on' : ''), 'Admin: escolher as próximas cartas que você compra'), topoBar.querySelector('.dc-grow').nextSibling)
     if (V.op.semPiedade) topoBar.insertBefore(botao(icon('book-open'), () => { guiaAberto = !guiaAberto; guiaAnima = guiaAberto; render() }, 'dc-btn--ic' + (guiaAberto ? ' on' : ''), 'Cartas do Sem Piedade'), topoBar.querySelector('.dc-grow').nextSibling)
     plano.classList.toggle('jogando', emJogo(V.fase))
-    const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, vezFaixa(antes), minhaArea(antes), controles(), meio(), silencio(), bilhete(), quadro(), ...bateUI(), guia(), filaUI(),
+    const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, minhaArea(antes), controles(), meio(), silencio(), bilhete(), quadro(), ...bateUI(), guia(), filaUI(), caixasTema(),
       el('div', { className: 'dc-log' }, el('ol', {}, ...V.log.slice(-40).map(t => el('li', { textContent: t }))))]
     if (!conv && V.fase !== 'fim' && !ctx.presentes().includes(V.host)) kids.push(el('div', { className: 'dc-pausa' }, el('b', { textContent: 'Partida pausada' }), el('span', { textContent: `${V.hostNome} abriu a mesa e caiu. Continua de onde parou quando voltar.` })))
     tela.replaceChildren(...kids)
     tela.classList.toggle('acabou', V.fase === 'fim')
     ctx.hydrate(tela)
+    if (focoTema) tela.querySelector(`.dc-baralho[data-tema-opcao="${focoTema}"]`)?.focus({ preventScroll: true })
     if (entregando) tela.querySelectorAll('.dc-mao .dc-carta, .dc-leque-mesa .dc-carta').forEach(n => n.classList.add('oculta'))
     tela.querySelector('.dc-log ol')?.scrollTo(0, 1e6)
+    flip(fotos); ultFotos = fotos
+    // mesa de bar 3D atrás do plano das cartas (sem WebGL, fica o feltro)
+    if (mesa.startsWith('bar-')) { boteco.encaixa(); boteco.liga(mesa.slice(4)) } else boteco.desliga()
+    posCores(); miraLuz()
     posBate()
     voz()
   }
@@ -736,18 +876,28 @@ export function criaDescarte(ctx) {
   function centro() {
     const minha = V.fase === 'jogo' && V.vez === me.key
     const podeComprar = minha && (V.pend > 0 || V.compradas < V.lim)
-    const monte = el('div', { className: 'dc-monte' + (podeComprar ? ' pode' : ''), 'data-info': `Monte: ${V.monte} cartas${podeComprar ? (V.pend ? `\nClique para comprar ${V.pend}` : '\nClique para comprar') : ''}` },
-      ...Array.from({ length: Math.min(6, Math.max(1, Math.ceil(V.monte / 18))) }, (_, i) => carta(null, `dc-pilha-i`)).map((n, i) => { n.style.setProperty('--i', i); return n }))
+    // monte com volume: camadas empilhadas de verdade no eixo Z (mais cartas, mais alto)
+    const camadas = V.monte ? Math.min(8, Math.max(2, Math.ceil(V.monte / 12))) : 0
+    const monte = el('div', { className: 'dc-monte' + (podeComprar ? ' pode' : '') + (V.monte ? '' : ' vazio'), style: `--camadas:${camadas}`, 'data-info': `Monte: ${V.monte} cartas${podeComprar ? (V.pend ? `\nClique para comprar ${V.pend}` : '\nClique para comprar') : ''}` },
+      el('i', { className: 'dc-monte__sombra' }),
+      ...Array.from({ length: camadas }, (_, i) => { const n = carta(null, 'dc-camada'); n.style.setProperty('--i', i); return n }))
     if (podeComprar) monte.addEventListener('click', () => { som('desliza'); manda({ op: 'compra' }) })
     const desc = el('div', { className: `dc-descarte dc-cor-${V.cor}`, 'data-info': `Mesa: ${CORES[V.cor]}${V.pend ? `\nAcumulado: +${V.pend}` : ''}` },
-      el('i', { className: 'dc-aura' }),
-      ...V.descarte.map((c, i) => { const n = carta(c, 'dc-no-monte'); n.style.setProperty('--giro', giro(c.id) + 'deg'); n.style.setProperty('--i', i); return n }),
+      ...V.descarte.map((c, i) => {
+        const n = carta(c, 'dc-no-monte'), [dx, dy] = desvio(c.id)
+        n.style.cssText += `--giro:${giro(c.id)}deg;--dx:${dx.toFixed(2)}cqh;--dy:${dy.toFixed(2)}cqh;--i:${i}`
+        if (pousando.has(c.id)) n.classList.add('oculta')
+        return n
+      }),
       V.pend ? el('b', { className: 'dc-pend', textContent: `+${V.pend}` }) : '')
     if (minha) desc.addEventListener('click', () => enviar())
-    return el('div', { className: 'dc-centro' }, el('div', { className: `dc-sentido ${V.dir > 0 ? 'hora' : 'anti'}` }, svg('seta')), monte, desc)
+    // anel de setas na cor da mesa (gira no sentido do jogo) e o facho de luz para quem tem a vez
+    const anel = el('div', { className: `dc-anelvez dc-cor-${V.cor}` }, el('div', { className: 'dc-anelvez__giro' }))
+    anel.firstChild.innerHTML = ANEL_SVG
+    return el('div', { className: 'dc-centro' }, el('i', { className: `dc-luz dc-cor-${V.cor}` }), anel, monte, desc)
   }
   function assento(x, ang) {
-    const P = pos(ang, 45, 41), C = pos(ang, 29, 25.5)
+    const P = pos(ang, 41, 41), C = pos(ang, 30, 27.5)
     const vez = emJogo(V.fase) && V.vez === x.key
     const alvoTroca = V.fase === 'troca7' && V.vez === me.key && x.key !== me.key && x.n != null
     const s = el('div', { className: 'dc-assento' + (vez ? ' vez' : '') + (alvoTroca ? ' alvo' : '') + (V.vencedor === x.key ? ' vencedor' : '') + (V.fase === 'jogo' && x.n === 1 ? ' um' : ''), style: `left:${P.x}%;top:${P.y}%`, 'data-key': x.key },
@@ -759,10 +909,13 @@ export function criaDescarte(ctx) {
     if (vez && V.prazo) s.querySelector('.dc-medalha').append(el('i', { className: 'dc-anel', 'data-fim': String(V.recebido + V.prazo), 'data-tot': String(V.op.tempo * 1000) }))
     if (vez && V.fase !== 'jogo') s.append(el('small', { className: 'dc-conv dc-conv--escolhe', textContent: V.fase === 'troca7' ? 'escolhendo com quem trocar…' : 'decidindo se gira…' }))
     if (x.n == null) return [s]
-    const n = Math.min(x.n, 14)
-    const leque = el('div', { className: 'dc-leque-mesa', style: `left:${C.x}%;top:${C.y}%;--rot:${ang - 90}deg;--n:${n}`, 'data-mao': x.key, 'data-info': `${x.nome}: ${x.n} carta${x.n === 1 ? '' : 's'}` },
-      ...Array.from({ length: n }, (_, i) => { const c = carta(null); c.style.setProperty('--i', i); return c }),
-      el('b', { className: 'dc-qtd', textContent: x.n }))
+    // contador de cartas no retrato: dá um pulo quando o número muda
+    const eraN = antesRender?.id === V.id ? antesRender.js?.find(y => y.key === x.key)?.n : x.n
+    s.querySelector('.dc-medalha').append(el('b', { className: 'dc-qtd' + (eraN != null && eraN !== x.n ? (x.n > eraN ? ' pula sobe' : ' pula') : ''), textContent: x.n }))
+    // leque em pé, de costas para a gente e virado para o centro da mesa
+    const n = Math.min(x.n, 12)
+    const leque = el('div', { className: 'dc-leque-mesa', style: `left:${C.x}%;top:${C.y}%;--yaw:${(-Math.cos(ang * Math.PI / 180) * 34).toFixed(1)}deg;--n:${n}`, 'data-mao': x.key, 'data-info': `${x.nome}: ${x.n} carta${x.n === 1 ? '' : 's'}` },
+      el('div', { className: 'dc-leque-mesa__em-pe' }, ...Array.from({ length: n }, (_, i) => { const c = carta(null); c.style.setProperty('--i', i); c.style.setProperty('--o', (i - (n - 1) / 2).toFixed(2)); return c })))
     return [leque, s]
   }
   // admin: painelzinho com as cartas fortes em destaque; clicar põe na fila das próximas compras
@@ -793,7 +946,7 @@ export function criaDescarte(ctx) {
     const chegouVez = emJogo(V.fase) && V.vez === me.key && antes && antes.id === V.id && antes.vez !== me.key
     const area = el('div', { className: 'dc-eu' + (emJogo(V.fase) && V.vez === me.key ? ' vez' : '') + (chegouVez ? ' chegou-vez' : '') + (emJogo(V.fase) ? ' em-jogo' : '') + (V.vencedor === me.key ? ' vencedor' : '') + (V.fase === 'jogo' && V.mao?.length === 1 ? ' um' : ''), 'data-key': me.key },
       bon ? el('img', { className: 'dc-boneco', src: bon, alt: '', draggable: false }) : el('div', { className: 'dc-boneco dc-boneco--pfp' }, retrato(me.key, me.name)))
-    if (conv) { if (V.conv[me.key]) area.append(el('small', { className: `dc-conv dc-conv--${V.conv[me.key]}`, textContent: V.conv[me.key] === 'sim' ? 'você vai jogar' : 'você só assiste' })); return area }
+    if (conv) return ''
     if (!j || !V.mao) { area.append(el('small', { className: 'dc-dica', textContent: 'assistindo' })); return area }
     const ids = new Set((antes?.mao || []).map(c => c.id))
     const porCor = (a, b) => ('rygbk'.indexOf(a.c || 'k') - 'rygbk'.indexOf(b.c || 'k')) || ordemV(a.v) - ordemV(b.v)
@@ -803,15 +956,20 @@ export function criaDescarte(ctx) {
       ...ordenada.map((c, i) => {
         const ordem = sel.indexOf(c.id)
         const pode = minha && !sel.length && serveCli(c)
-        const n = carta(c, (ordem >= 0 ? 'escolhida' : pode ? 'pode' : minha && !sel.length ? 'nao' : '') + (antes && antes.id === V.id && !ids.has(c.id) ? ' chegou' : ''))
-        n.style.setProperty('--i', duas ? (i < meio ? i : i - meio) : i)
+        const n = carta(c, (ordem >= 0 ? 'escolhida' : pode ? 'pode' : minha && !sel.length ? 'nao' : '') + (antes && antes.id === V.id && !ids.has(c.id) && !pousando.has(c.id) ? ' chegou' : '') + (pousando.has(c.id) ? ' oculta' : ''))
+        // arco: as do meio ficam mais altas, as pontas descem e giram (menos giro quanto mais cartas)
+        const k = duas ? (i < meio ? i : i - meio) : i, tot = duas ? (i < meio ? meio : ordenada.length - meio) : ordenada.length
+        const off = k - (tot - 1) / 2, abre = Math.min(3.4, 30 / Math.max(tot, 1)), cai = Math.min(1.8, .3 + tot * .12) / Math.max(1, ((tot - 1) / 2) ** 2)
+        // o encaixe fica parado no arco e recebe o hover; a carta dentro dele é que sobe (sem tremer na borda)
+        const slot = el('div', { className: 'dc-slot' + (duas && i < meio ? ' atras' : ''), style: `--i:${k};--off:${off.toFixed(2)};--rz:${(off * abre).toFixed(2)}deg;--ay:${(off * off * cai).toFixed(3)}cqh` }, n)
         if (duas && i < meio) n.classList.add('atras')
         if (minha || (V.op.corte && V.fase === 'jogo')) {
           n.addEventListener('click', () => clicaCarta(c))
           n.addEventListener('dblclick', () => { if (sel.length === 1 && sel[0] === c.id) enviar() })
         }
-        return n
+        return slot
       }))
+    M.inclina(mao)
     area.append(mao)
     // mão grande: o boneco se afasta para caber
     area.classList.toggle('cheia', ordenada.length > 11 && ordenada.length <= 16)
@@ -852,7 +1010,10 @@ export function criaDescarte(ctx) {
     render()
   }
   const avisoAcao = () => toast('Não dá para bater com carta de ação: termine com um número.', 2600)
-  function tremer(id) { const n = tela.querySelector(`.dc-mao .dc-carta[data-id="${id}"]`); n?.classList.remove('treme'); void n?.offsetWidth; n?.classList.add('treme') }
+  function tremer(id) {
+    const n = tela.querySelector(`.dc-mao .dc-carta[data-id="${id}"]`)
+    n?.animate([{ translate: '0 0' }, { translate: '-1cqh 0' }, { translate: '1cqh 0' }, { translate: '-.6cqh 0' }, { translate: '.3cqh 0' }, { translate: '0 0' }], { duration: 340, easing: 'ease-out' })
+  }
   function enviar(cor) {
     if (!sel.length) return
     const ult = V.mao.find(x => x.id === sel[sel.length - 1])
@@ -903,29 +1064,20 @@ export function criaDescarte(ctx) {
     }
     if ((V.fase === 'troca7' || V.fase === 'gira0') && V.vez === me.key && eu()) return escolha()
     if (escolheCor) {
-      return el('div', { className: 'dc-cores' }, el('small', { textContent: 'Escolha a cor' }),
-        el('div', { className: 'dc-cores__cartas' }, ...Object.entries(CORES).map(([k, nm], i) => {
-          const b = el('button', { type: 'button', className: `dc-carta dc-${k} dc-corcarta`, title: nm, style: `--i:${i - 1.5}` }, el('span', { className: 'dc-corcarta__nome', textContent: nm }))
-          b.addEventListener('click', () => enviar(k))
-          return b
-        })),
-        botao('Cancelar', () => { escolheCor = false; render() }, 'dc-btn--leve'))
+      // roda de cores em volta da pilha: quatro pétalas, a cor escolhida já tinge o anel
+      const roda = el('div', { className: 'dc-cores' + (novo(`cores:${V.id}:${V.descarte.at(-1)?.id}:${sel.join()}`) ? ' entra' : '') })
+      roda.innerHTML = RODA_SVG
+      roda.querySelector('svg').addEventListener('click', e => { const f = e.target.closest('[data-cor]'); if (f) { som('poe', 0, .6); enviar(f.getAttribute('data-cor')) } })
+      roda.querySelector('svg').addEventListener('keydown', e => { const f = e.target.closest('[data-cor]'); if (f && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); enviar(f.getAttribute('data-cor')) } })
+      const x = el('button', { type: 'button', className: 'dc-cores__x', title: 'Cancelar (Esc)' }, icon('x'))
+      x.addEventListener('click', () => { escolheCor = false; render() })
+      roda.append(el('div', { className: 'dc-cores__pe' }, el('small', { textContent: 'Escolha a cor' }), x))
+      // passar o mouse numa cor já tinge o anel da mesa
+      roda.addEventListener('pointerover', e => { const f = e.target.closest?.('[data-cor]'); const an = tela.querySelector('.dc-anelvez'); if (an) an.style.color = f ? corCss(f.getAttribute('data-cor')) : '' })
+      roda.addEventListener('pointerleave', () => { const an = tela.querySelector('.dc-anelvez'); if (an) an.style.color = '' })
+      return roda
     }
     return ''
-  }
-  // de quem é a vez: faixa no alto com a foto, o que a pessoa precisa fazer e quem vem depois
-  function vezFaixa(antes) {
-    if (!emJogo(V.fase) || !V.vez) return ''
-    const minha = V.vez === me.key, i = V.js.findIndex(x => x.key === V.vez), n = V.js.length
-    const prox = n > 1 ? V.js[((i + V.dir) % n + n) % n] : null
-    const acao = V.fase === 'troca7' ? (minha ? 'escolha com quem trocar' : 'escolhendo com quem trocar')
-      : V.fase === 'gira0' ? (minha ? 'gira as mãos ou não?' : 'decidindo se gira as mãos')
-      : V.pend ? `+${V.pend} acumulado` : ''
-    const mudou = antes?.vez !== V.vez || antes?.fase !== V.fase
-    return el('div', { className: 'dc-vezfaixa' + (minha ? ' minha' : '') + (mudou ? ' entra' : '') + (V.pend && V.fase === 'jogo' ? ' perigo' : '') },
-      retrato(V.vez, N(V.vez)),
-      el('span', { className: 'dc-vezfaixa__txt' }, el('b', { textContent: minha ? 'Sua vez' : `Vez de ${N(V.vez)}` }), acao ? el('small', { textContent: acao }) : ''),
-      prox && prox.key !== V.vez ? el('span', { className: 'dc-vezfaixa__prox', title: 'Quem joga depois' }, el('small', { textContent: 'depois' }), retrato(prox.key, N(prox.key)), el('em', { textContent: N(prox.key) })) : '')
   }
   // 7 / 0: menu de escolha para quem jogou
   function escolha() {
@@ -967,34 +1119,84 @@ export function criaDescarte(ctx) {
     guiaAnima = false
     return fundo
   }
+  // Lobby: estilos prontos no alto, regras como cartões ilustrados (ligada = acesa), e no rodapé tempo, quem joga e começar.
+  // Só o host mexe; os outros veem tudo e a regra que mudou pisca.
+  function estiloAtual() {
+    const ligadas = OPCOES.map(([k]) => k).filter(k => V.op[k])
+    return ESTILOS.find(([, , , on]) => on.length === ligadas.length && on.every(k => V.op[k]))?.[0] || null
+  }
+  function leque(cs, cls = '') {
+    return el('span', { className: `dc-leque ${cls}`, style: `--n:${cs.length}` }, ...cs.map((c, i) => { const n = carta(c ? { id: null, ...c } : null); n.style.setProperty('--i', i); n.style.setProperty('--o', (i - (cs.length - 1) / 2).toFixed(2)); return n }))
+  }
+  const SELO = { 'Uno!': () => el('b', { className: 'dc-regra__selo dc-regra__selo--fala', textContent: 'Uno!' }), shh: () => el('b', { className: 'dc-regra__selo' }, svg('shh')),
+    troca: () => el('b', { className: 'dc-regra__selo' }, icon('refresh-cw')), gira: () => el('b', { className: 'dc-regra__selo' }, icon('rotate-cw')),
+    mao: () => el('b', { className: 'dc-regra__selo dc-regra__selo--mao' }, svg('mao')), nao: () => el('b', { className: 'dc-regra__selo dc-regra__selo--nao' }, icon('x')) }
   function convite() {
-    const host = souHost()
-    const n = Object.entries(V.conv).filter(([k, v]) => v === 'sim' && ctx.presentes().includes(k)).length
-    const ops = el('div', { className: 'dc-ops' }, ...OPCOES.map(([k, nm, dica]) => {
-      const on = V.op[k]
-      const b = el('button', { type: 'button', className: 'dc-op' + (on ? ' on' : ''), title: dica, disabled: !host }, el('i'), el('span', { textContent: nm }))
-      if (host) b.addEventListener('click', () => { G.op[k] = !G.op[k]; som('clique'); difunde() })
+    const host = souHost(), op = V.op, era = antesRender?.id === V.id ? antesRender.op : null
+    const pres = new Set(ctx.presentes())
+    const jogam = Object.entries(V.conv).filter(([k, v]) => v === 'sim' && pres.has(k)).map(([k]) => k)
+    const atual = estiloAtual()
+    const aplicaEstilo = on => { for (const [k] of OPCOES) G.op[k] = on.includes(k); som('leque', 0, .6); difunde() }
+    // estilos prontos
+    const estilos = el('div', { className: 'dc-estilos', role: host ? 'radiogroup' : null, 'aria-label': 'Estilo de jogo' }, ...ESTILOS.map(([k, nm, txt, on, cs], i) => {
+      const b = el('button', { type: 'button', className: 'dc-estilo' + (atual === k ? ' atual' : '') + (k === 'piedade' ? ' dc-estilo--piedade' : ''), disabled: !host, style: `--k:${i}`, role: 'radio', 'aria-checked': String(atual === k) },
+        leque(cs, 'dc-leque--estilo'), el('span', { className: 'dc-estilo__txt' }, el('b', { textContent: nm }), el('small', { textContent: txt })),
+        atual === k ? el('i', { className: 'dc-estilo__ok' }, icon('check')) : '')
+      if (host) b.addEventListener('click', () => aplicaEstilo(on))
       return b
     }))
-    if (V.op.semPiedade) ops.append(botao([icon('book-open'), 'Ver as cartas novas'], () => { guiaAberto = guiaAnima = true; render() }, 'dc-btn--leve dc-guia-btn'))
-    const exemplo = el('div', { className: 'dc-exemplo' }, ...[{ id: 1, c: 'r', v: '7' }, { id: 2, c: 'b', v: 'inverte' }, { id: 3, c: null, v: '+4' }, { id: 4, c: 'y', v: '+2' }, { id: 5, c: 'g', v: 'pula' }].map((c, i) => { const x = carta(c); x.style.setProperty('--i', i - 2); return x }))
-    const ir = host ? botao(n >= 2 ? `Começar · ${n}` : 'Esperando jogadores', comecar, 'dc-btn--forte dc-btn--grande') : el('small', { className: 'dc-espera', textContent: `${V.hostNome} vai começar` })
-    if (host && n < 2) ir.disabled = true
-    const tempos = el('div', { className: 'dc-tempos' }, el('small', { textContent: 'tempo por vez' }), ...TEMPOS.map(t => {
-      const on = (V.op.tempo || 0) === t
-      if (!host) return el('span', { className: on ? 'on' : '', textContent: t ? `${t}s` : 'sem' })
-      return botao(t ? `${t}s` : 'sem', () => { G.op.tempo = t; difunde() }, on ? 'on' : '')
+    // regras
+    const ligadas = ORDEM_REGRAS.filter(k => op[k]).length
+    const regras = el('div', { className: 'dc-regras' }, ...ORDEM_REGRAS.map((k, i) => {
+      const [nm, longa] = OPCOES.find(o => o[0] === k).slice(1), [grupo, curta, cs, selo] = REGRAS[k]
+      const preso = k === 'trocaLivre' && !op.seteTroca && !op.zero
+      const b = el('button', { type: 'button', className: `dc-regra dc-regra--${grupo.toLowerCase()}` + (op[k] ? ' on' : '') + (preso ? ' presa' : '') + (era && era[k] !== op[k] ? ' mudou' : ''),
+        disabled: !host || preso, title: preso ? 'Ligue o 7 troca de mão ou o 0 gira as mãos primeiro.' : longa, 'aria-pressed': String(!!op[k]), style: `--k:${i}` },
+        el('span', { className: 'dc-regra__arte' }, leque(cs), selo ? SELO[selo]() : ''),
+        el('span', { className: 'dc-regra__txt' }, el('small', { className: 'dc-regra__grupo', textContent: grupo }), el('b', { textContent: nm }), el('span', { textContent: preso ? 'Precisa do 7 ou do 0.' : curta })),
+        el('i', { className: 'dc-regra__chave', 'aria-hidden': 'true' }))
+      if (host && !preso) b.addEventListener('click', () => { G.op[k] = !G.op[k]; som(G.op[k] ? 'poe' : 'clique', 0, .6); difunde() })
+      return b
     }))
-    return el('div', { className: 'dc-convite' }, exemplo, ops, tempos,
-      el('div', { className: 'dc-linha' }, host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'dc-btn--leve') : '', ir))
+    // tempo por vez
+    const tempos = el('div', { className: 'dc-tempo', role: 'radiogroup', 'aria-label': 'Tempo por vez' }, el('span', { className: 'dc-tempo__ic' }, icon('clock')),
+      ...TEMPOS.map(t => {
+        const on = (op.tempo || 0) === t
+        const b = el('button', { type: 'button', className: 'dc-tempo__op' + (on ? ' on' : ''), textContent: t ? `${t}s` : 'Livre', disabled: !host, role: 'radio', 'aria-checked': String(on), title: t ? `${t} segundos por vez; acabou, compra e passa` : 'Sem limite de tempo' })
+        if (host) b.addEventListener('click', () => { G.op.tempo = t; som('clique'); difunde() })
+        return b
+      }))
+    // quem está na mesa
+    const ks = [...new Set([me.key, ...Object.keys(V.conv)])].filter(k => k === me.key || pres.has(k))
+    const roda = el('div', { className: 'dc-roda' }, ...ks.map(k => {
+      const st = V.conv[k] || '?'
+      return el('span', { className: `dc-roda__p dc-roda__p--${st}`, title: `${N(k)}: ${st === 'sim' ? 'vai jogar' : st === 'nao' ? 'só assiste' : 'decidindo…'}` },
+        retrato(k, N(k)), el('small', { textContent: k === me.key ? 'Você' : N(k) }), st === 'nao' ? el('i', {}, icon('eye')) : st === '?' ? el('i', { textContent: '…' }) : '')
+    }))
+    const euJogo = V.conv[me.key] === 'sim'
+    // quem foi chamado e ainda não respondeu: as duas opções, bem visíveis
+    const decide = !host && (V.conv[me.key] || '?') === '?'
+    const eu_ = decide ? el('span', { className: 'dc-linha dc-lobby__decide' }, botao('Só assistir', () => manda({ op: 'resp', sim: false }), 'dc-btn--leve'), botao([icon('gamepad-2'), 'Jogar'], () => manda({ op: 'resp', sim: true }), 'dc-btn--forte dc-btn--grande'))
+      : botao(euJogo ? [icon('eye'), 'Só assistir'] : [icon('gamepad-2'), 'Quero jogar'], () => {
+      if (host) { G.conv[me.key] = euJogo ? 'nao' : 'sim'; difunde() } else manda({ op: 'resp', sim: !euJogo })
+    }, 'dc-btn--leve dc-btn--peq', euJogo ? 'Sair da partida e só assistir' : 'Entrar na partida')
+    const ir = host ? botao([icon('play'), jogam.length >= 2 ? `Começar com ${jogam.length}` : 'Faltam jogadores'], comecar, 'dc-btn--forte dc-btn--grande dc-comecar')
+      : el('span', { className: 'dc-espera' }, retrato(V.host, V.hostNome), el('span', {}, el('b', { textContent: V.hostNome }), ' escolhe as regras e começa'))
+    if (host && jogam.length < 2) ir.disabled = true
+    const titulo = el('header', { className: 'dc-lobby__topo' },
+      el('div', {}, el('small', { textContent: host ? 'Monte a mesa' : 'Mesa sendo montada' }), el('h2', { textContent: atual ? ESTILOS.find(e => e[0] === atual)[1] : 'Personalizado' })),
+      el('span', { className: 'dc-lobby__resumo' }, el('b', { textContent: ligadas }), ` regra${ligadas === 1 ? '' : 's'} da casa`, op.tempo ? ` · ${op.tempo}s por vez` : ' · tempo livre'),
+      op.semPiedade ? botao([icon('book-open'), 'Cartas novas'], () => { guiaAberto = guiaAnima = true; render() }, 'dc-btn--leve dc-btn--peq') : '')
+    return el('div', { className: 'dc-lobby' + (host ? ' host' : '') + (novo('lobby:' + V.id) ? ' entra' : '') },
+      titulo, estilos,
+      el('div', { className: 'dc-lobby__sec' }, el('small', { textContent: host ? 'Regras: toque para ligar ou desligar' : 'Regras' })),
+      regras,
+      el('footer', { className: 'dc-lobby__pe' }, tempos, roda, el('span', { className: 'dc-grow' }), eu_, ir))
   }
   function bilhete() {
-    if (V.fase !== 'convite' || souHost() || V.conv[me.key] !== '?') return ''
-    const entra = novo('conv:' + V.id)
-    if (entra) som('papel')
-    return el('div', { className: 'dc-bilhete' + (entra ? ' entra' : '') },
-      el('div', { className: 'dc-linha dc-linha--esq' }, retrato(V.host, V.hostNome), el('span', {}, el('b', { textContent: V.hostNome }), ' chamou você para o Uno')),
-      el('div', { className: 'dc-linha' }, botao('Jogar', () => manda({ op: 'resp', sim: true }), 'dc-btn--forte'), botao('Só assistir', () => manda({ op: 'resp', sim: false }), 'dc-btn--leve')))
+    // chamaram você: o lobby já mostra Jogar / Só assistir; aqui só o som do convite chegando
+    if (V.fase === 'convite' && !souHost() && V.conv[me.key] === '?' && novo('conv:' + V.id)) som('papel')
+    return ''
   }
   function silencio() {
     if (!V.sil || V.fase !== 'jogo') return ''
@@ -1005,13 +1207,31 @@ export function criaDescarte(ctx) {
   /* ---------- animações ---------- */
   const noTela = n => { const r = n.getBoundingClientRect(), t = tela.getBoundingClientRect(); return { x: r.left - t.left + r.width / 2, y: r.top - t.top + r.height / 2, w: r.width, h: r.height } }
   const lugarDe = k => k === me.key ? tela.querySelector('.dc-mao') || tela.querySelector('.dc-eu') : tela.querySelector(`.dc-leque-mesa[data-mao="${CSS.escape(k)}"]`) || tela.querySelector(`.dc-assento[data-key="${CSS.escape(k)}"]`)
-  function voa(de, para, conteudo, { dur = 420, atraso = 0, rot = 0, fim } = {}) {
-    setTimeout(() => {
-      if (!de || !para) return
-      const A = noTela(de), B = noTela(para)
-      const n = conteudo; n.classList.add('dc-voa'); tela.append(n)
-      n.animate([{ transform: `translate(${A.x}px,${A.y}px) translate(-50%,-50%) rotate(${rot - 25}deg) scale(.8)` }, { transform: `translate(${B.x}px,${B.y}px) translate(-50%,-50%) rotate(${rot}deg) scale(1)` }], { duration: dur, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => { n.remove(); fim?.() }
-    }, atraso)
+  const cqh = () => tela.clientHeight / 100
+  // ponto de um voo: centro na tela e largura que a carta tem ali
+  const ponto = (n, larg) => n?.isConnected ? { ...noTela(n), ...(larg ? { w: larg } : {}) } : null
+  const largMesa = () => 4.6 * cqh() // carta do leque de quem está na mesa
+  const corCss = c => (c && getComputedStyle(tela).getPropertyValue('--' + c).trim()) || '#f4f2ee'
+  const fotoMao = () => M.fotos('.dc-mao'), flip = f => M.flip(f, '.dc-mao')
+  const voo = M.voo, tremeMesa = M.treme
+  const pousa = (id, sel) => { M.pousa(id, sel); if (sel === '.dc-descarte') boteco.balanca(.3) } // a mesa sente a carta pousar
+  const impacto = (p, cor, forte) => { M.impacto(p, corCss(cor), forte, cor ? null : ['r', 'y', 'g', 'b'].map(corCss)); if (forte) boteco.balanca(1) }
+  // seletor de cor em volta da pilha
+  function posCores() {
+    const c = tela.querySelector('.dc-cores'), d = tela.querySelector('.dc-descarte')
+    if (!c || !d) return
+    const p = noTela(d); c.style.left = p.x + 'px'; c.style.top = p.y + 'px'
+  }
+  // anel e facho giram num laço próprio (o render refaz a tela inteira e não pode zerar o giro)
+  const VEL_ANEL = 24 // graus por segundo
+  const giroMesa = M.criaGiro({ anel: '.dc-anelvez__giro', luz: '.dc-luz', vel: () => VEL_ANEL * (V?.dir || 1), ativo: () => !!V && emJogo(V.fase) })
+  const anelInverte = () => giroMesa.inverte('.dc-anelvez')
+  function miraLuz() {
+    // a cor nova entra por cima da antiga
+    if (antesRender?.id === V.id && antesRender.cor && antesRender.cor !== V.cor && !calmo())
+      for (const n of tela.querySelectorAll('.dc-anelvez')) n.animate([{ color: corCss(antesRender.cor) }, { color: corCss(V.cor) }], { duration: 450, easing: 'ease' })
+    const plano = tela.querySelector('.dc-plano'), vez = emJogo(V.fase) ? V.vez : null
+    giroMesa.sincroniza(vez && plano ? M.anguloAte(plano, vez === me.key ? null : tela.querySelector(`.dc-assento[data-key="${CSS.escape(vez)}"]`)) : null)
   }
   function balao(k, txt, cls = '', at = 0) {
     setTimeout(() => {
@@ -1037,23 +1257,14 @@ export function criaDescarte(ctx) {
       tela.append(f); setTimeout(() => f.remove(), 1100)
     }, 380)
     const desc = tela.querySelector('.dc-descarte'), monte = tela.querySelector('.dc-monte')
+    // cartas que chegaram na minha mão (para voarem do monte até o lugar certo, virando no ar)
+    const minhasNovas = antes && antes.id === V.id && V.mao && antes.mao ? V.mao.map(c => c.id).filter(id => !antes.mao.some(c => c.id === id)) : []
     let t = 0
     for (const e of evs) {
       const at = t
       if (e.t === 'inicio') { distribui(); t += 1800 }
-      else if (e.t === 'joga') {
-        const cs = e.cartas || [e.carta]
-        if (e.key !== me.key) {
-          if (cs.length > 1) som('leque', at, .9)
-          cs.forEach((c, k) => {
-            som('poe', at + k * 130, .8)
-            const n = desc?.querySelector(`.dc-carta[data-id="${c.id}"]`)
-            if (n) { n.style.visibility = 'hidden'; voa(lugarDe(e.key), desc, carta(c), { atraso: at + k * 130, rot: giro(c.id), fim: () => { n.style.visibility = '' } }) }
-          })
-        } else cs.forEach((c, k) => { const n = desc?.querySelector(`.dc-carta[data-id="${c.id}"]`); if (n) { n.style.animationDelay = `${k * 90}ms`; n.classList.add('caiu') } })
-        t += 120 + cs.length * 90
-      }
-      else if (e.t === 'compra') t += animaCompra(e, at, monte)
+      else if (e.t === 'joga') t += animaJogada(e, at, desc)
+      else if (e.t === 'compra') t += animaCompra(e, at, monte, e.key === me.key ? minhasNovas.splice(0, e.qtd || 1) : [])
       else if (e.t === 'roleta') { som('embaralhar', at, .5); balao(e.key, e.achou ? `Roleta: ${e.qtd} até sair ${CORES[e.cor]}` : `Roleta: ${e.qtd} cartas`, 'forte', at + 300) }
       else if (e.t === 'descCor') { som('leque', at, .9); balao(e.key, `Descartou mais ${e.qtd} ${CORES[e.cor]}!`, 'leve', at + 200) }
       else if (e.t === 'fica') balao(e.key, e.o === '7' ? 'Fiquei com a minha' : 'Não girou', 'leve', at)
@@ -1069,7 +1280,7 @@ export function criaDescarte(ctx) {
         setTimeout(() => { if (bateRes && bateRes.k === e.k) { bateRes = null; tela.querySelector('.dc-bateres')?.remove() } }, 2400)
         if (!tela.querySelector('.dc-bateres')) { tela.append(painelBate()); posBate() }
       }
-      else if (e.t === 'inverte') { som('inverter', at); tela.querySelector('.dc-sentido')?.classList.add('gira') }
+      else if (e.t === 'inverte') { som('inverter', at); setTimeout(anelInverte, at + 250) }
       else if (e.t === 'gira') { som('leque', at); som('inverter', at + 150, .6); tela.querySelectorAll('.dc-leque-mesa').forEach(n => n.classList.add('girou')); tela.querySelector('.dc-mao')?.classList.add('girou') }
       else if (e.t === 'troca') { som('leque', at); balao(e.key, `Troquei com ${N(e.alvo)}!`, 'leve', at) }
       else if (e.t === 'corte') { som('carimbo', at, .8); balao(e.key, 'Corte!', 'forte', at) }
@@ -1082,36 +1293,60 @@ export function criaDescarte(ctx) {
       else if (e.t === 'vence') som('leque', at + 200)
     }
   }
-  // compra: poucas cartas vão uma a uma; muitas viram uma chuva em arco com um contador que sobe a cada carta
-  function animaCompra(e, at, monte) {
-    const n = e.qtd || 1, alvo = lugarDe(e.key)
-    if (!monte || !alvo) return 0
-    const muitas = n >= 4, voos = Math.min(n, muitas ? 18 : n)
-    const passo = muitas ? Math.max(45, Math.min(110, 1100 / voos)) : 150
-    const dur = muitas ? 560 : 380
+  // jogada: a carta sai de quem jogou (a minha, do lugar exato na mão; a dos outros, do leque, virando no ar)
+  // e pousa na pilha no giro dela. Ação, compra e várias de uma vez sobem alto e batem na mesa.
+  const BATE = new Set(['+2', '+4', '+6', '+10', 'inv4', 'pula', 'pulaT', 'inverte', 'roleta', 'desc'])
+  function animaJogada(e, at, desc) {
+    const cs = e.cartas || [e.carta]
+    if (!desc || !cs.length) return 0
+    const meu = e.key === me.key, h = cqh()
+    const ult = cs[cs.length - 1], forte = BATE.has(ult.v) || cs.length > 1
+    const B = noTela(desc), origem = meu ? null : ponto(lugarDe(e.key), largMesa())
+    const dur = forte ? 820 : 560, passo = forte ? 70 : 110
+    if (cs.length > 1) som('leque', at, .9)
+    cs.forEach((c, k) => {
+      pousando.add(c.id)
+      desc.querySelector(`.dc-carta[data-id="${c.id}"]`)?.classList.add('oculta')
+      const A = meu ? (ultFotos.get(c.id) || ponto(tela.querySelector('.dc-mao'), 12 * h)) : origem
+      const [dx, dy] = desvio(c.id), alvo = { x: B.x + dx * h, y: B.y + dy * h * .8, w: B.w }
+      const ultima = k === cs.length - 1
+      voo(c, A, alvo, { atraso: at + k * passo, dur, alto: 6 + (k % 2) * 2, lado: (k - (cs.length - 1) / 2) * 3.4, giro0: meu ? 0 : -giro(c.id) / 2, giro1: giro(c.id),
+        vira: !meu, slam: forte, deita: true,
+        bate: ultima && forte ? () => { impacto(B, e.cor || ult.c, true); som('golpe', 0, .75) } : null,
+        fim: () => { pousa(c.id, '.dc-descarte'); if (!forte) { impacto(alvo, c.c || e.cor, false); som('poe', 0, .75) } } })
+    })
+    return passo * (cs.length - 1) + (forte ? dur * .7 : dur * .5)
+  }
+  // compra: as cartas descolam do topo do monte em rajada e voam em arco. As minhas viram no ar e encaixam no
+  // lugar certo da mão; muitas viram uma chuva com contador que sobe a cada carta.
+  function animaCompra(e, at, monte, ids = []) {
+    const n = e.qtd || 1, eu_ = e.key === me.key, alvoGeral = lugarDe(e.key)
+    if (!monte || !alvoGeral) { ids.forEach(id => pousa(id, '.dc-mao')); return 0 }
+    const h = cqh(), muitas = n >= 4
+    const voos = eu_ ? Math.max(ids.length, Math.min(n, 18)) : Math.min(n, muitas ? 18 : n)
+    const passo = muitas ? Math.max(45, Math.min(95, 1300 / voos)) : 110
+    const dur = muitas ? 600 : 520
+    const topo = monte.querySelector('.dc-camada:last-of-type') || monte
+    const A = ponto(topo, topo.getBoundingClientRect().width)
+    // as minhas ficam escondidas até a carta voando chegar
+    for (const id of ids) { pousando.add(id); const c = tela.querySelector(`.dc-mao .dc-carta[data-id="${id}"]`); c?.classList.add('oculta'); c?.classList.remove('chegou') }
     if (muitas) setTimeout(() => apanha(e.key, n), at)
     for (let i = 0; i < voos; i++) {
-      const k = Math.round((i + 1) * n / voos)
-      voaArco(monte, alvo, carta(null), { atraso: at + i * passo, dur, alto: muitas ? 9 + (i % 4) * 2.5 : 4, espalha: muitas ? (i % 5 - 2) * 1.6 : 0, giro: muitas ? 540 : 180,
-        fim: muitas ? () => contador(e.key, k, n, i === voos - 1) : null })
-      if (e.key !== me.key || i > 0) som('desliza', at + i * passo, (e.key === me.key ? .9 : .7) * (muitas ? .8 : 1))
+      const k = Math.round((i + 1) * n / voos), id = ids[i]
+      const slot = id != null ? tela.querySelector(`.dc-mao .dc-carta[data-id="${id}"]`) : null
+      const B = slot ? ponto(slot, slot.offsetWidth) : ponto(alvoGeral, eu_ ? 12 * h : largMesa())
+      if (B && !slot && muitas) B.x += (i % 5 - 2) * 1.6 * h
+      const c = id != null ? V.mao?.find(x => x.id === id) : null
+      // o topo do monte dá um saltinho antes de soltar a carta
+      if (i === 0 && !calmo()) setTimeout(() => topo.animate?.([{ translate: '0 0' }, { translate: '0 -1.2cqh' }, { translate: '0 0' }], { duration: 220, easing: 'ease-out' }), at)
+      voo(c || null, A, B, { atraso: at + i * passo, dur, alto: muitas ? 9 + (i % 4) * 2.5 : 5, lado: muitas ? (i % 3 - 1) * 3 : 0, giro0: rnd(20) - 10, giro1: slot ? parseFloat(slot.parentElement?.style.getPropertyValue('--rz')) || 0 : rnd(24) - 12, vira: !!c,
+        fim: () => { if (id != null) pousa(id, '.dc-mao'); if (muitas) { contador(e.key, k, n, i === voos - 1); boteco.balanca(.22) } } })
+      if (!eu_ || i > 0) som('desliza', at + i * passo, (eu_ ? .9 : .7) * (muitas ? .8 : 1))
     }
+    // ids que sobraram (mais cartas que voos): aparecem junto com o último
+    if (ids.length > voos) setTimeout(() => ids.slice(voos).forEach(id => pousa(id, '.dc-mao')), at + voos * passo + dur)
     if (!muitas && n > 1) balao(e.key, `+${n}`, 'leve', at + voos * passo)
-    return voos * passo + (muitas ? dur : 0)
-  }
-  function voaArco(de, para, n, { dur = 420, atraso = 0, alto = 6, espalha = 0, giro = 180, fim } = {}) {
-    setTimeout(() => {
-      if (!de?.isConnected || !para?.isConnected) return
-      const A = noTela(de), B = noTela(para), h = tela.clientHeight / 100
-      const bx = B.x + espalha * h, mx = (A.x + bx) / 2, my = Math.min(A.y, B.y) - alto * h
-      n.classList.add('dc-voa'); tela.append(n)
-      const r0 = rnd(30) - 15
-      n.animate([
-        { transform: `translate(${A.x}px,${A.y}px) translate(-50%,-50%) rotate(${r0}deg) scale(.85)`, opacity: .6 },
-        { transform: `translate(${mx}px,${my}px) translate(-50%,-50%) rotate(${r0 + giro / 2}deg) scale(1.25)`, opacity: 1, offset: .45 },
-        { transform: `translate(${bx}px,${B.y}px) translate(-50%,-50%) rotate(${r0 + giro}deg) scale(.9)`, opacity: 1 },
-      ], { duration: dur, easing: 'cubic-bezier(.3,.6,.35,1)' }).onfinish = () => { n.remove(); fim?.() }
-    }, atraso)
+    return voos * passo + (muitas ? dur : dur * .4)
   }
   // contador "+N" em cima de quem está comprando: sobe a cada carta que chega
   function contador(k, qtd, total, ultimo) {
@@ -1140,12 +1375,20 @@ export function criaDescarte(ctx) {
     if (!monte) { entregando = false; return }
     som('embaralhar')
     monte.classList.add('embaralhando')
-    const alvos = [...tela.querySelectorAll('.dc-mao .dc-carta, .dc-leque-mesa .dc-carta')]
     setTimeout(() => {
       monte.classList.remove('embaralhando')
-      alvos.forEach((n, k) => voa(monte, n, carta(null), { atraso: k * 28, dur: 300, fim: () => { n.classList.remove('oculta'); if (k % 3 === 0) som('desliza', 0, .5) } }))
-      setTimeout(() => { entregando = false; tela.querySelectorAll('.dc-carta.oculta').forEach(n => n.classList.remove('oculta')) }, alvos.length * 28 + 500)
-    }, 1200)
+      const topo = monte.querySelector('.dc-camada:last-of-type') || monte, A = ponto(topo, topo.getBoundingClientRect().width)
+      // uma volta na mesa por vez, como quem dá as cartas
+      const mao = [...tela.querySelectorAll('.dc-mao .dc-carta')], leques = [...tela.querySelectorAll('.dc-leque-mesa')].map(l => [...l.querySelectorAll('.dc-carta')])
+      const filas = [mao, ...leques], ordem = []
+      for (let r = 0; r < 7; r++) for (const f of filas) if (f[r]) ordem.push([f[r], f === mao])
+      ordem.forEach(([n, minha], k) => {
+        const id = minha ? +n.dataset.id : null, c = minha ? V.mao?.find(x => x.id === id) : null
+        voo(c, A, ponto(n, minha ? n.offsetWidth : largMesa()), { atraso: k * 38, dur: 460, alto: 4, giro0: rnd(30) - 15, vira: !!c,
+          fim: () => { n.classList.remove('oculta'); if (k % 3 === 0) som('desliza', 0, .5) } })
+      })
+      setTimeout(() => { entregando = false; tela.querySelectorAll('.dc-carta.oculta').forEach(n => { if (!pousando.has(+n.dataset.id)) n.classList.remove('oculta') }) }, ordem.length * 38 + 700)
+    }, 1100)
   }
   ;(function loop() {
     if (V) {
@@ -1161,7 +1404,12 @@ export function criaDescarte(ctx) {
     setTimeout(() => requestAnimationFrame(loop), 120)
   })()
   document.addEventListener('keydown', e => {
-    if (!V || e.target.closest?.('input, textarea, [contenteditable]')) return
+    if (!V) return
+    if (temaAberto) {
+      teclaTemas(e)
+      return
+    }
+    if (e.target.closest?.('input, textarea, select, [contenteditable]')) return
     if (e.key === 'Escape' && (escolheCor || sel.length)) { escolheCor = false; sel = []; render() }
     else if (e.key === 'Enter' && sel.length && !escolheCor) { e.preventDefault(); enviar() }
     else if ((e.key === ' ' || e.code === 'Space') && !e.repeat && !e.ctrlKey && !e.metaKey && !e.altKey && V.op.bate && V.fase === 'jogo' && eu() && tela.getClientRects().length && !e.target.closest?.('select, [contenteditable], button, a')) {
@@ -1190,7 +1438,7 @@ export function criaDescarte(ctx) {
     if (G) return toast('A mesa já está aberta')
     abrir(chamados)
   }
-  window.__descarte = () => ({ G, V, render, difunde })
+  window.__descarte = () => ({ G, V, render, difunde, boteco })
   return {
     got: (d, k) => { carregaSons(); got(d, k) }, iniciar, ativo: () => !!V,
     // para o app: troca de jogo e mesas paralelas

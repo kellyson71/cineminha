@@ -94,7 +94,7 @@ Tempo por vez: 0, 15, 20 ou 30 s (`TEMPOS`, `:19`). Quando acaba, o host compra 
 
 ---
 
-## 3. Dobradinha — suba o valor; empatou, dobra
+## 3. Dobro — suba o valor; empatou, dobra
 `public/dobradinha.js` (894) · `dobradinha.css` · `dobradinha-aula.js` · `public/jogos/dobradinha/` · chave `db` · de 2 a 6 jogadores
 
 **Regras** (mecânica do "Dobro"; `calcula`, `dobradinha.js:37`)
@@ -171,7 +171,7 @@ Tempo por vez: 0, 15, 20 ou 30 s (`TEMPOS`, `:19`). Quando acaba, o host compra 
 - A carta voa até a pilha de quem ganhou (`fazVooCarta`, `:577`).
 - Tique na contagem e coroa no fim (`fim`, `:591`).
 
-**Pendente:** o usuário pediu uma mesa parecida com a da Dobradinha, sem perder a rapidez.
+**Pendente:** o usuário pediu uma mesa parecida com a do Dobro, sem perder a rapidez.
 
 ---
 
@@ -209,7 +209,7 @@ Tempo por vez: 0, 15, 20 ou 30 s (`TEMPOS`, `:19`). Quando acaba, o host compra 
 |---|---|---|---|---|---|
 | Coup | 2–6 | 10–15 min | por turno, com reação | blefe falado | mesa 3D, revelação com suspense |
 | Uno | 2+ | 10–20 min | por turno, opcionalmente com relógio | "Uno!" por voz, 7 do silêncio | monte, selo do acumulado |
-| Dobradinha | 2–6 | 5–10 min por rodada | por turno, rápido | não | boteco, levar a mesa |
+| Dobro | 2–6 | 5–10 min por rodada | por turno, rápido | não | boteco, levar a mesa |
 | Red Flags | 3+ | 15–25 min | fases simultâneas | discussão do solteiro | pilhas em cascata |
 | Amigos de Merda | 3+ | 10 min | todos ao mesmo tempo | leitura em voz alta | setas de voto |
 | Faixa a Faixa | 1+ | 5 min por dia | simultâneo | cantar junto | áudio por camadas |
@@ -227,6 +227,6 @@ Tempo por vez: 0, 15, 20 ou 30 s (`TEMPOS`, `:19`). Quando acaba, o host compra 
 
 - Coup: o bilhete aparece só para o alvo; os outros dependem do "Duvido!" ao lado da foto, que é fácil de não ver.
 - Uno: a regra de comprar até 3 é nova, testada com 2 jogadores e ainda não publicada.
-- Dobradinha: a cola, o clique para enviar e o visual novo das cartas não tiveram uma rodada completa de teste.
+- Dobro: nome e cartas originais atualizados em 08/11/2026; rodada completa com 4 navegadores, tutorial, reposição, saída e sucessão do host verificados. Medições em `dobro-assets.md`.
 - Amigos de Merda: a mesa simples ainda não tem a cara dos outros jogos.
 - Red Flags e Amigos de Merda dependem de cartas de texto: o tamanho do baralho limita quantas partidas dá para jogar sem repetir.

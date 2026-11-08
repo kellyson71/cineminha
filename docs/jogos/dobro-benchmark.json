@@ -1,0 +1,93 @@
+{
+  "atlas-160-q82.webp": {
+    "bytes": 54322,
+    "width": 960,
+    "height": 666,
+    "rgba_bytes": 2557440,
+    "decode_ms_median": 19.1,
+    "render_main_thread_ms_median": 3.95,
+    "psnr_db": 32.17,
+    "dom_57_cards": 57
+  },
+  "atlas-224-q72.webp": {
+    "bytes": 59002,
+    "width": 1344,
+    "height": 933,
+    "rgba_bytes": 5015808,
+    "decode_ms_median": 24,
+    "render_main_thread_ms_median": 3.65,
+    "psnr_db": 34.67,
+    "dom_57_cards": 57
+  },
+  "atlas-224-q82.webp": {
+    "bytes": 78578,
+    "width": 1344,
+    "height": 933,
+    "rgba_bytes": 5015808,
+    "decode_ms_median": 28.2,
+    "render_main_thread_ms_median": 3.72,
+    "psnr_db": 35.75,
+    "dom_57_cards": 57
+  },
+  "atlas-256-q82.webp": {
+    "bytes": 90678,
+    "width": 1536,
+    "height": 1068,
+    "rgba_bytes": 6561792,
+    "decode_ms_median": 33.7,
+    "render_main_thread_ms_median": 3.24,
+    "psnr_db": 36.47,
+    "dom_57_cards": 57
+  },
+  "atlas-320-q82.webp": {
+    "bytes": 116090,
+    "width": 1920,
+    "height": 1332,
+    "rgba_bytes": 10229760,
+    "decode_ms_median": 47.8,
+    "render_main_thread_ms_median": 2.9,
+    "psnr_db": 38.2,
+    "dom_57_cards": 57
+  },
+  "atlas-224-q55.avif": {
+    "bytes": 56195,
+    "width": 1344,
+    "height": 933,
+    "rgba_bytes": 5015808,
+    "decode_ms_median": 32.9,
+    "render_main_thread_ms_median": 3.01,
+    "psnr_db": 36.03,
+    "dom_57_cards": 57
+  },
+  "atlas-224-q70.avif": {
+    "bytes": 85199,
+    "width": 1344,
+    "height": 933,
+    "rgba_bytes": 5015808,
+    "decode_ms_median": 30.3,
+    "render_main_thread_ms_median": 3.0,
+    "psnr_db": 36.89,
+    "dom_57_cards": 57
+  },
+  "vetor.svg": {
+    "bytes": 1300502,
+    "gzip_bytes": 419157,
+    "width": 1344,
+    "height": 933,
+    "paths": 216,
+    "decode_ms_median": 89.2,
+    "render_main_thread_ms_median": 122.9,
+    "psnr_db": 24.13,
+    "dom_57_cards": 855
+  },
+  "environment": {
+    "chrome": "156.0.8078.47",
+    "cards": 57,
+    "card_css_px": [
+      120,
+      166.6
+    ],
+    "samples": 7,
+    "note": "CPU do main thread via CDP TaskDuration; decodificação local sem rede; PSNR frente à referência de 224px; RGBA é estimativa width*height*4, não medição de memória."
+  }
+}

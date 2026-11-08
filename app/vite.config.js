@@ -8,7 +8,7 @@ import path from 'node:path'
 // e só entra no pacote o que o app importa (com hash, cache eterno).
 const site = fileURLToPath(new URL('../public', import.meta.url))
 const SITE = process.env.CINE_SITE || 'https://cineminha-boo.vercel.app'
-const TIPOS = { '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.mp3': 'audio/mpeg', '.wasm': 'application/wasm', '.woff2': 'font/woff2' }
+const TIPOS = { '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.avif': 'image/avif', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.mp3': 'audio/mpeg', '.wasm': 'application/wasm', '.woff2': 'font/woff2' }
 
 // Em dev, o mesmo que o protocolo cine:// faz no pacote: arquivos do site (jogos, sons) e api/ no servidor
 const arquivosDoSite = {

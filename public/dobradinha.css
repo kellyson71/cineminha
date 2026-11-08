@@ -1,4 +1,4 @@
-/* Dobradinha: mesa de boteco. Parede de azulejo anil, mesa de lata amarela, cartas de azulejo pintado,
+/* Dobro: mesa de boteco. Parede de azulejo anil, mesa de lata amarela, cartas de azulejo pintado,
    valor em jogo escrito a giz na lousa de preços, cartas levadas riscadas na comanda. Medidas em cqh/cqw. */
 .db { display: none; position: absolute; inset: 0; z-index: 6; overflow: hidden; border-radius: inherit; container-type: size;
   --lata: #e8a817; --lata-escura: #b97f0a; --anil: #1d4c9b; --anil-fundo: #11203b; --louca: #f5f7f6; --lousa: #24302a; --giz: #efede3;
@@ -15,8 +15,8 @@
   background-size: 9cqh 9cqh; -webkit-mask: radial-gradient(90% 75% at 50% 40%, transparent 30%, #000 75%); mask: radial-gradient(90% 75% at 50% 40%, transparent 30%, #000 75%); }
 
 /* mesa */
-.db-palco { position: absolute; inset: 0; perspective: 130cqh; perspective-origin: 50% 28%; }
-.db-plano { position: absolute; left: 7cqw; right: 7cqw; top: 10cqh; bottom: 13cqh; transform: rotateX(24deg); transform-style: preserve-3d; transform-origin: 50% 60%; }
+.db-palco { position: absolute; inset: 0; perspective: 120cqh; perspective-origin: 50% 20%; }
+.db-plano { position: absolute; left: 7cqw; right: 7cqw; top: 10cqh; bottom: 13cqh; transform: rotateX(32deg); transform-style: preserve-3d; transform-origin: 50% 60%; }
 .db-lata { position: absolute; inset: 7% 9%; border-radius: 7% / 11%;
   background: radial-gradient(70% 60% at 45% 40%, #f6bd2b 0%, var(--lata) 55%, #d6970f 100%);
   box-shadow: inset 0 0 0 .5cqh rgba(255,236,170,.35), inset 0 0 0 1.1cqh rgba(0,0,0,.08), inset 0 0 0 1.4cqh rgba(255,230,150,.25), 0 0 0 .45cqh var(--lata-escura), 0 4cqh 7cqh rgba(0,0,0,.55); }
@@ -26,46 +26,42 @@
   background: radial-gradient(circle at 18% 72%, transparent 4.2cqh, rgba(120,70,0,.13) 4.3cqh 4.7cqh, transparent 4.8cqh), radial-gradient(circle at 83% 26%, transparent 3.6cqh, rgba(120,70,0,.1) 3.7cqh 4cqh, transparent 4.1cqh); }
 .db-centro { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%) translateZ(.3cqh); display: flex; align-items: center; gap: 3.6cqh; }
 
-/* cartas: azulejo pintado */
-.db-carta { --w: 6cqh; position: relative; width: var(--w); aspect-ratio: 5/7.2; border-radius: 9% / 6.25%; flex: none; overflow: hidden; user-select: none; color: var(--anil);
-  background-color: var(--louca);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 72' preserveAspectRatio='none'%3E%3Crect x='2.6' y='2.6' width='44.8' height='66.8' rx='3' fill='none' stroke='%231d4c9b' stroke-width='1.3'/%3E%3Crect x='4.8' y='4.8' width='40.4' height='62.4' rx='1.8' fill='none' stroke='%231d4c9b' stroke-width='.45'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cg fill='%231d4c9b'%3E%3Cellipse cx='5' cy='2.2' rx='1.3' ry='2.2'/%3E%3Cellipse cx='5' cy='7.8' rx='1.3' ry='2.2'/%3E%3Cellipse cx='2.2' cy='5' rx='2.2' ry='1.3'/%3E%3Cellipse cx='7.8' cy='5' rx='2.2' ry='1.3'/%3E%3C/g%3E%3Ccircle cx='5' cy='5' r='1.1' fill='%23f5f7f6'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cg fill='%231d4c9b'%3E%3Cellipse cx='5' cy='2.2' rx='1.3' ry='2.2'/%3E%3Cellipse cx='5' cy='7.8' rx='1.3' ry='2.2'/%3E%3Cellipse cx='2.2' cy='5' rx='2.2' ry='1.3'/%3E%3Cellipse cx='7.8' cy='5' rx='2.2' ry='1.3'/%3E%3C/g%3E%3Ccircle cx='5' cy='5' r='1.1' fill='%23f5f7f6'/%3E%3C/svg%3E"),
-    linear-gradient(155deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 35%), linear-gradient(0deg, rgba(29,76,155,.06), transparent 40%);
-  background-size: 100% 100%, 16% auto, 16% auto, 100% 100%, 100% 100%; background-repeat: no-repeat;
-  background-position: 0 0, 50% 7%, 50% 93%, 0 0, 0 0;
-  box-shadow: 0 0 0 1px rgba(20,30,50,.25), inset 0 1px 0 #fff, 0 .3cqh .8cqh rgba(0,0,0,.4); }
-.db-g-baixo { color: var(--anil); } .db-g-meio { color: var(--garrafa); } .db-g-alto { color: var(--vermelho); }
-.db .db-carta .db-meio, .db .db-carta .db-canto { display: grid !important; place-items: center; }
-.db-carta .db-meio { position: absolute; inset: 0; align-content: center; gap: calc(var(--w) * .02); }
-.db-num { font: 400 calc(var(--w) * .5)/1 var(--letreiro); letter-spacing: -.02em; text-shadow: calc(var(--w) * .018) calc(var(--w) * .025) 0 rgba(20,30,50,.18); }
-.db-carta[data-v='10'] .db-meio .db-num, .db-carta[data-v='11'] .db-meio .db-num, .db-carta[data-v='12'] .db-meio .db-num { font-size: calc(var(--w) * .4); }
-.db-carta[data-v='6'] .db-meio .db-num, .db-carta[data-v='9'] .db-meio .db-num { text-decoration: underline; text-decoration-thickness: .05em; text-underline-offset: .1em; }
-.db-canto { position: absolute; left: 12%; top: 8.5%; width: 22%; }
-.db-canto--b { left: auto; top: auto; right: 12%; bottom: 8.5%; rotate: 180deg; }
-.db-canto .db-num { font-size: calc(var(--w) * .15); text-shadow: none; }
-.db-canto .db-svg { width: 100%; }
-.db-sub { font: 700 calc(var(--w) * .085)/1 'Barlow Semi Condensed', sans-serif; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
+/* Cartas originais do Dobro: atlas de 6 × 3, 224 × 311 px por arte.
+   image-set seleciona só um formato; o WebP também cobre navegadores sem AVIF. */
+.db-arte {
+  background-color: #b7aa9e;
+  background-image: url('jogos/dobro/cartas.webp');
+  background-image: image-set(url('jogos/dobro/cartas.avif') type('image/avif'), url('jogos/dobro/cartas.webp') type('image/webp'));
+  background-size: 600% 300%; background-repeat: no-repeat; background-position: 40% 100%;
+}
+.db-arte-0 { background-position: 0% 0%; }
+.db-arte-1 { background-position: 20% 0%; }
+.db-arte-2 { background-position: 40% 0%; }
+.db-arte-3 { background-position: 60% 0%; }
+.db-arte-4 { background-position: 80% 0%; }
+.db-arte-5 { background-position: 100% 0%; }
+.db-arte-6 { background-position: 0% 50%; }
+.db-arte-7 { background-position: 20% 50%; }
+.db-arte-8 { background-position: 40% 50%; }
+.db-arte-9 { background-position: 60% 50%; }
+.db-arte-10 { background-position: 80% 50%; }
+.db-arte-11 { background-position: 100% 50%; }
+.db-arte-12 { background-position: 0% 100%; }
+.db-arte-13 { background-position: 20% 100%; }
+.db-arte-14 { background-position: 40% 100%; }
+.db-arte-15 { background-position: 60% 100%; }
+.db-arte-16 { background-position: 80% 100%; }
+.db-arte-17 { background-position: 100% 100%; }
+.db-carta { --w: 6cqh; position: relative; width: var(--w); aspect-ratio: 18/25; border-radius: 5% / 3.6%; flex: none; overflow: hidden; user-select: none;
+  box-shadow: 0 0 0 1px rgba(20,30,50,.25), 0 .3cqh .8cqh rgba(0,0,0,.4); }
+.db-carta.oculta { visibility: hidden; }
+.db-valor-esc { position: absolute; right: 7%; bottom: 7%; padding: .15em .3em; border-radius: .25em; background: #f5f7f6; color: #11203b; font: 700 calc(var(--w) * .16)/1 'Barlow Semi Condensed', sans-serif; box-shadow: 0 .15cqh .4cqh #0004; }
 .db-svg { display: block; aspect-ratio: 1; }
 .db-svg svg { width: 100%; height: 100%; display: block; }
-.db-carta .db-meio .db-svg { width: 52%; }
-/* especiais: azulejo chapado de cor, moldura clara */
-.db-cur, .db-passa, .db-inv { color: var(--louca); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 72' preserveAspectRatio='none'%3E%3Crect x='2.6' y='2.6' width='44.8' height='66.8' rx='3' fill='none' stroke='%23f5f7f6' stroke-width='1.3'/%3E%3Crect x='4.8' y='4.8' width='40.4' height='62.4' rx='1.8' fill='none' stroke='%23f5f7f6' stroke-width='.45' stroke-dasharray='1.4 1.2'/%3E%3C/svg%3E"), linear-gradient(155deg, rgba(255,255,255,.25) 0%, rgba(255,255,255,0) 35%); background-size: 100% 100%; }
-.db-cur { background-color: var(--lata); color: var(--anil); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 72' preserveAspectRatio='none'%3E%3Crect x='2.6' y='2.6' width='44.8' height='66.8' rx='3' fill='none' stroke='%231d4c9b' stroke-width='1.3'/%3E%3Crect x='4.8' y='4.8' width='40.4' height='62.4' rx='1.8' fill='none' stroke='%231d4c9b' stroke-width='.45' stroke-dasharray='1.4 1.2'/%3E%3C/svg%3E"), linear-gradient(155deg, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 35%); }
-.db-passa { background-color: var(--anil); }
-.db-inv { background-color: var(--garrafa); }
-/* verso: padrão de azulejo anil com o selo */
-.db-carta.db-costas { background-color: var(--anil);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg fill='%23f5f7f6' fill-opacity='.85'%3E%3Cellipse cx='10' cy='5.5' rx='1.7' ry='3.4'/%3E%3Cellipse cx='10' cy='14.5' rx='1.7' ry='3.4'/%3E%3Cellipse cx='5.5' cy='10' rx='3.4' ry='1.7'/%3E%3Cellipse cx='14.5' cy='10' rx='3.4' ry='1.7'/%3E%3C/g%3E%3Ccircle cx='10' cy='10' r='1.4' fill='%23e8a817'/%3E%3Cg fill='%23f5f7f6' fill-opacity='.5'%3E%3Ccircle cx='0' cy='0' r='1.6'/%3E%3Ccircle cx='20' cy='0' r='1.6'/%3E%3Ccircle cx='0' cy='20' r='1.6'/%3E%3Ccircle cx='20' cy='20' r='1.6'/%3E%3C/g%3E%3C/svg%3E"), linear-gradient(155deg, rgba(255,255,255,.2), transparent 40%);
-  background-size: 34% auto, 100% 100%; background-repeat: repeat, no-repeat; background-position: 50% 50%, 0 0;
-  box-shadow: 0 0 0 1px rgba(10,20,40,.4), inset 0 0 0 calc(var(--w) * .045) var(--louca), inset 0 0 0 calc(var(--w) * .06) var(--anil), 0 .3cqh .8cqh rgba(0,0,0,.45); }
-.db-costas__selo { position: absolute; left: 50%; top: 50%; translate: -50% -50%; padding: calc(var(--w) * .05) calc(var(--w) * .07); border-radius: 50%; background: var(--louca); color: var(--anil); font: 400 calc(var(--w) * .12)/1 var(--letreiro); white-space: nowrap; box-shadow: 0 0 0 calc(var(--w) * .02) var(--lata); }
-.db-carta.oculta { visibility: hidden; }
 
-/* monte e guarda-chuva */
+/* monte, sentido e carta Esquecido */
 .db-monte-col { display: flex; flex-direction: column; align-items: center; gap: 1.6cqh; }
-.db-monte { position: relative; width: 7.4cqh; aspect-ratio: 5/7.2; --w: 7.4cqh; border-radius: .6cqh; }
+.db-monte { position: relative; width: 7.4cqh; aspect-ratio: 18/25; --w: 7.4cqh; border-radius: .6cqh; }
 .db-monte .db-carta { position: absolute; inset: 0; --w: 7.4cqh; transform: translate(calc(var(--i) * -.18cqh), calc(var(--i) * -.32cqh)); }
 .db-monte:not(:has(.db-carta)) { box-shadow: inset 0 0 0 .25cqh rgba(91,58,33,.35); }
 .db-monte__vazio { position: absolute; inset: 0; display: grid; place-items: center; font: 2.2cqh var(--mao-livre); color: rgba(91,58,33,.7); }
@@ -76,7 +72,7 @@
 .db-monte.embaralhando .db-carta:nth-child(even) { animation: db-riffle-b 1s ease-in-out; }
 @keyframes db-riffle-a { 35% { transform: translate(-4cqh, -1cqh) rotate(-14deg); } 70% { transform: translate(0, -.8cqh); } }
 @keyframes db-riffle-b { 35% { transform: translate(4cqh, -1cqh) rotate(14deg); } 70% { transform: translate(0, -.4cqh); } }
-.db-guarda { width: 4.6cqh; aspect-ratio: 5/7.2; border-radius: .5cqh; display: grid; place-items: center; background: var(--vermelho); color: var(--louca); box-shadow: inset 0 0 0 .22cqh var(--louca), 0 .3cqh .8cqh rgba(0,0,0,.4); cursor: help; flex: none; }
+.db-guarda { width: 4.6cqh; aspect-ratio: 18/25; border-radius: .5cqh; display: grid; place-items: center; box-shadow: 0 .3cqh .8cqh rgba(0,0,0,.4); cursor: help; flex: none; }
 .db-guarda .db-svg { width: 76%; }
 .db-guarda--mesa { rotate: -12deg; }
 .db-guarda--dono { position: absolute; right: -2.6cqh; top: -1.2cqh; width: 3.6cqh; rotate: 14deg; z-index: 3; animation: db-entra .4s cubic-bezier(.2,.9,.3,1.3) both; }
@@ -89,9 +85,7 @@
 .db-escalada .db-carta { position: absolute; --w: 7.6cqh; left: calc(var(--k) * 3.3cqh + var(--m) * 1.5cqh); bottom: calc(var(--k) * 1.1cqh + var(--m) * .3cqh); rotate: var(--giro); }
 .db-escalada .db-carta.caiu { animation: db-cai .35s cubic-bezier(.2,.8,.3,1.2) both; }
 @keyframes db-cai { from { transform: scale(1.25) translateY(-2cqh); } }
-.db-sentido { position: absolute; left: 50%; top: 50%; width: 46cqh; translate: -50% -50%; color: rgba(91,58,33,.17); pointer-events: none; animation: db-gira 16s linear infinite; }
-.db-sentido.anti { animation-direction: reverse; scale: -1 1; }
-.db-sentido.gira { animation-duration: 1.2s; }
+.db-sentido { position: absolute; left: 50%; top: 50%; width: 46cqh; translate: -50% -50%; color: rgba(91,58,33,.17); pointer-events: none; will-change: rotate; }
 @keyframes db-gira { to { rotate: 360deg; } }
 
 /* lousa de preços com o valor a giz */
@@ -119,10 +113,18 @@
 @keyframes db-pula { 40% { scale: 1.25; } }
 
 /* lugares */
-.db-leque-mesa { position: absolute; transform: translate(-50%, -50%) translateZ(.4cqh) rotate(var(--rot)); width: calc(5cqh + var(--n) * 1.1cqh); height: 7.2cqh; cursor: help; }
-.db-leque-mesa .db-carta { position: absolute; --w: 5cqh; left: calc(var(--i) * 1.1cqh); top: 0; rotate: calc((var(--i) - var(--n) / 2) * 3deg); transform-origin: 50% 120%; }
-.db-qtd { position: absolute; left: 50%; top: 100%; translate: -50% .5cqh; padding: .2cqh .8cqh; border-radius: 99px; background: rgba(17,32,59,.8); font: 700 1.8cqh/1.2 'Barlow Semi Condensed', sans-serif; color: var(--tinta); rotate: calc(-1 * var(--rot)); }
-.db-assento { position: absolute; transform-origin: 50% 100%; transform: translate(-50%, -100%) translateZ(1.2cqh) rotateX(-24deg); display: flex; flex-direction: column; align-items: center; gap: .5cqh; z-index: 2; }
+.db-leque-mesa { position: absolute; width: 0; height: 0; transform: translateZ(.2cqh); transform-style: preserve-3d; cursor: help; }
+.db-leque-mesa::before { content: ""; position: absolute; left: calc(var(--n) * -.8cqh - 2.4cqh); width: calc(var(--n) * 1.6cqh + 4.8cqh); top: -1.2cqh; height: 2.6cqh; border-radius: 50%; background: rgba(0,0,0,.4); filter: blur(.8cqh); }
+.db-leque-mesa__em-pe { position: absolute; left: 0; top: 0; transform-style: preserve-3d; transform: rotateX(-28deg) rotateY(var(--yaw, 0deg)); transform-origin: 0 0; }
+.db-leque-mesa .db-carta { position: absolute; --w: 5cqh; left: 0; bottom: 0; translate: -50% 0; transform-origin: 50% 160%; transform: translateX(calc(var(--o) * 1.5cqh)) rotate(calc(var(--o) * min(7deg, calc(40deg / var(--n))))) translateZ(calc(var(--i) * .05cqh)); box-shadow: 0 0 0 1px rgba(255,255,255,.25), -.2cqh .3cqh .6cqh rgba(0,0,0,.45); }
+.db-qtd { position: absolute; right: -1.2cqh; bottom: -.6cqh; z-index: 3; min-width: 3.4cqh; padding: .35cqh .7cqh; border-radius: 99px; background: var(--louca); color: var(--anil-fundo); font: 700 2cqh/1 'Barlow Semi Condensed', sans-serif; text-align: center; box-shadow: 0 .4cqh 1cqh rgba(0,0,0,.55), 0 0 0 .25cqh var(--anil-fundo); }
+.db-qtd.pula { animation: db-qtd-pula .5s cubic-bezier(.3,1.7,.5,1); }
+.db-qtd.pula.sobe { background: var(--lata); }
+@keyframes db-qtd-pula { 0% { scale: 1; } 35% { scale: 1.55; rotate: -10deg; } 70% { scale: .92; rotate: 4deg; } }
+
+.db-sentido.anti { scale: -1 1; }
+/* rotateX do assento perto, mas não igual, ao do plano: igual faz o Chrome errar a oclusão (ver JOGOS.md, 5b) */
+.db-assento { position: absolute; transform-origin: 50% 100%; transform: translate(-50%, -100%) translateZ(2.4cqh) rotateX(-30deg); display: flex; flex-direction: column; align-items: center; gap: .5cqh; z-index: 2; }
 .db-medalha { position: relative; }
 .db-retrato { display: block; width: 8.6cqh; height: 8.6cqh; border-radius: 50%; padding: .3cqh; background: var(--anil-fundo); box-shadow: 0 0 0 .25cqh var(--louca), 0 .8cqh 1.6cqh rgba(0,0,0,.5); transition: box-shadow .25s; }
 .db-retrato > .pfp { display: grid; place-items: center; width: 100% !important; height: 100% !important; border-radius: 50%; object-fit: cover; font-size: 3.4cqh !important; }
@@ -147,16 +149,20 @@
 .db-eu.vez .db-boneco { filter: drop-shadow(0 0 1.6cqh rgba(232,168,23,.55)); }
 .db-eu.fala .db-boneco { filter: drop-shadow(0 0 1.2cqh rgba(61,220,132,.6)); }
 .db-mao { position: absolute; left: var(--mao-esq); right: 17cqw; bottom: 2cqh; height: 20cqh; --passo: min(10.5cqh, calc((58cqw - 12cqh) / max(1, var(--n) - 1))); }
-.db-mao .db-carta { position: absolute; --w: 12cqh; bottom: 0; left: calc(50% - 6cqh + (var(--i) - (var(--n) - 1) / 2) * var(--passo)); rotate: calc((var(--i) - (var(--n) - 1) / 2) * 2deg); transform-origin: 50% 160%; cursor: pointer; transition: translate .25s cubic-bezier(.2,.8,.3,1), filter .2s, box-shadow .2s; }
-.db-mao .db-carta:hover { translate: 0 -1.6cqh; z-index: 4; }
-.db-mao .db-carta.pode { translate: 0 -1.2cqh; }
-.db-mao .db-carta.pode:hover { translate: 0 -3.6cqh; z-index: 5; }
-.db-mao .db-carta.nao { filter: brightness(.6) saturate(.6); }
-.db-mao .db-carta.escolhida { translate: 0 -5cqh; z-index: 6; box-shadow: 0 0 0 .35cqh var(--lata), 0 1.4cqh 2.6cqh rgba(0,0,0,.55); }
+.db-mao .db-slot { position: absolute; bottom: 0; left: calc(50% - 6cqh + var(--off) * var(--passo)); width: 12cqh; aspect-ratio: 18/25; transform-origin: 50% 100%; transform: translateY(var(--ay, 0)) rotate(var(--rz, 0deg)); animation: db-flutua 3.4s ease-in-out infinite; animation-delay: calc(var(--i) * -.55s); }
+.db-mao .db-slot:hover { z-index: 20; }
+.db-mao .db-slot:has(> .pode):hover { z-index: 30; }
+.db-mao .db-slot:has(> .escolhida) { z-index: 25; animation: none; }
+.db-mao .db-carta { position: absolute; inset: 0; --w: 12cqh; width: 100%; transform-origin: 50% 100%; cursor: pointer;
+  transform: perspective(60cqh) translateY(var(--lift, 0)) rotate(var(--desgira, 0deg)) scale(var(--sc, 1)) rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg));
+  transition: transform .26s cubic-bezier(.2,.9,.3,1.25), filter .2s, box-shadow .2s; }
+.db-mao .db-slot:hover > .db-carta { --lift: -1.6cqh; }
+.db-mao .db-carta.pode { --lift: -1.2cqh; }
+.db-mao .db-slot:hover > .db-carta.pode { --lift: -4.2cqh; --sc: 1.13; --desgira: calc(-1 * var(--rz)); box-shadow: 0 0 0 .3cqh var(--lata), 0 2.4cqh 3cqh rgba(0,0,0,.55); }
+.db-mao .db-carta.nao { --lift: .5cqh; filter: brightness(.6) saturate(.6); }
+.db-mao .db-carta.escolhida { --lift: -5.6cqh; --sc: 1.06; --desgira: calc(-1 * var(--rz)); z-index: 6; box-shadow: 0 0 0 .4cqh var(--lata), 0 0 3cqh rgba(232,168,23,.55), 0 1.6cqh 2.8cqh rgba(0,0,0,.55); }
 .db-mao .db-carta.chegou { animation: db-chegou .45s cubic-bezier(.2,.8,.3,1.2); }
 @keyframes db-chegou { from { translate: 0 -6cqh; opacity: 0; } }
-.db-mao .db-carta.treme { animation: db-treme .35s; }
-@keyframes db-treme { 25% { transform: translateX(-.8cqh); } 50% { transform: translateX(.8cqh); } 75% { transform: translateX(-.4cqh); } }
 .db-dica { position: absolute; left: var(--mao-esq); bottom: 23.5cqh; padding: .7cqh 1.6cqh .8cqh; border-radius: .6cqh; background: var(--anil-fundo); font: 400 2.6cqh/1 var(--letreiro); color: var(--lata); box-shadow: 0 .6cqh 1.4cqh rgba(0,0,0,.4); rotate: -2deg; pointer-events: none; }
 .db-eu > .db-conv { position: absolute; left: 24cqw; bottom: 6cqh; }
 .db-comanda--eu { position: absolute; right: 17.5cqw; bottom: 23.2cqh; rotate: 2deg; }
@@ -271,23 +277,8 @@
 @keyframes db-repor-pulsa { to { filter: brightness(1.15); } }
 .db-solta { position: absolute !important; left: 0 !important; top: 0 !important; z-index: 30; pointer-events: none; margin: 0; }
 
-/* ===== cartas mais bonitas: medalhão de azulejo, ornamentos e brilho do esmalte ===== */
-.db-orn { position: absolute; inset: 0; pointer-events: none; background: currentColor; opacity: .26; -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2050%2072%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23000%27%3E%3Ccircle%20cx%3D%2725%27%20cy%3D%2736%27%20r%3D%2714.6%27%20stroke-width%3D%271.1%27/%3E%3Ccircle%20cx%3D%2725%27%20cy%3D%2736%27%20r%3D%2712.2%27%20stroke-width%3D%27.5%27%20stroke-dasharray%3D%271.3%201.3%27/%3E%3C/g%3E%3Cg%20fill%3D%27%23000%27%3E%3Ccircle%20cx%3D%2742.60%27%20cy%3D%2736.00%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2737.45%27%20cy%3D%2748.45%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2725.00%27%20cy%3D%2753.60%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2712.55%27%20cy%3D%2748.45%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%277.40%27%20cy%3D%2736.00%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2712.55%27%20cy%3D%2723.55%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2725.00%27%20cy%3D%2718.40%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2737.45%27%20cy%3D%2723.55%27%20r%3D%271.1%27/%3E%3Cellipse%20cx%3D%2744.76%27%20cy%3D%2711.76%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28135%2044.76%2011.76%29%27/%3E%3Cellipse%20cx%3D%2740.24%27%20cy%3D%2711.76%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28225%2040.24%2011.76%29%27/%3E%3Cellipse%20cx%3D%2740.24%27%20cy%3D%277.24%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28315%2040.24%207.24%29%27/%3E%3Cellipse%20cx%3D%2744.76%27%20cy%3D%277.24%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28405%2044.76%207.24%29%27/%3E%3Ccircle%20cx%3D%2742.5%27%20cy%3D%279.5%27%20r%3D%271.2%27/%3E%3Cellipse%20cx%3D%279.76%27%20cy%3D%2764.76%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28135%209.76%2064.76%29%27/%3E%3Cellipse%20cx%3D%275.24%27%20cy%3D%2764.76%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28225%205.24%2064.76%29%27/%3E%3Cellipse%20cx%3D%275.24%27%20cy%3D%2760.24%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28315%205.24%2060.24%29%27/%3E%3Cellipse%20cx%3D%279.76%27%20cy%3D%2760.24%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28405%209.76%2060.24%29%27/%3E%3Ccircle%20cx%3D%277.5%27%20cy%3D%2762.5%27%20r%3D%271.2%27/%3E%3C/g%3E%3C/svg%3E") center / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2050%2072%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23000%27%3E%3Ccircle%20cx%3D%2725%27%20cy%3D%2736%27%20r%3D%2714.6%27%20stroke-width%3D%271.1%27/%3E%3Ccircle%20cx%3D%2725%27%20cy%3D%2736%27%20r%3D%2712.2%27%20stroke-width%3D%27.5%27%20stroke-dasharray%3D%271.3%201.3%27/%3E%3C/g%3E%3Cg%20fill%3D%27%23000%27%3E%3Ccircle%20cx%3D%2742.60%27%20cy%3D%2736.00%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2737.45%27%20cy%3D%2748.45%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2725.00%27%20cy%3D%2753.60%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2712.55%27%20cy%3D%2748.45%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%277.40%27%20cy%3D%2736.00%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2712.55%27%20cy%3D%2723.55%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2725.00%27%20cy%3D%2718.40%27%20r%3D%271.1%27/%3E%3Ccircle%20cx%3D%2737.45%27%20cy%3D%2723.55%27%20r%3D%271.1%27/%3E%3Cellipse%20cx%3D%2744.76%27%20cy%3D%2711.76%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28135%2044.76%2011.76%29%27/%3E%3Cellipse%20cx%3D%2740.24%27%20cy%3D%2711.76%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28225%2040.24%2011.76%29%27/%3E%3Cellipse%20cx%3D%2740.24%27%20cy%3D%277.24%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28315%2040.24%207.24%29%27/%3E%3Cellipse%20cx%3D%2744.76%27%20cy%3D%277.24%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28405%2044.76%207.24%29%27/%3E%3Ccircle%20cx%3D%2742.5%27%20cy%3D%279.5%27%20r%3D%271.2%27/%3E%3Cellipse%20cx%3D%279.76%27%20cy%3D%2764.76%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28135%209.76%2064.76%29%27/%3E%3Cellipse%20cx%3D%275.24%27%20cy%3D%2764.76%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28225%205.24%2064.76%29%27/%3E%3Cellipse%20cx%3D%275.24%27%20cy%3D%2760.24%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28315%205.24%2060.24%29%27/%3E%3Cellipse%20cx%3D%279.76%27%20cy%3D%2760.24%27%20rx%3D%271.3%27%20ry%3D%272.5%27%20transform%3D%27rotate%28405%209.76%2060.24%29%27/%3E%3Ccircle%20cx%3D%277.5%27%20cy%3D%2762.5%27%20r%3D%271.2%27/%3E%3C/g%3E%3C/svg%3E") center / 100% 100% no-repeat; }
-.db-costas .db-orn { display: none; }
-.db-carta { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 72' preserveAspectRatio='none'%3E%3Crect x='2.6' y='2.6' width='44.8' height='66.8' rx='3' fill='none' stroke='%231d4c9b' stroke-width='1.3'/%3E%3Crect x='4.8' y='4.8' width='40.4' height='62.4' rx='1.8' fill='none' stroke='%231d4c9b' stroke-width='.45'/%3E%3C/svg%3E"), radial-gradient(70% 55% at 50% 50%, #fff 0%, transparent 70%), linear-gradient(160deg, #fbfcfb 0%, #eef2f1 100%); background-size: 100% 100%; background-position: 0 0; }
-.db-cur { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 72' preserveAspectRatio='none'%3E%3Crect x='2.6' y='2.6' width='44.8' height='66.8' rx='3' fill='none' stroke='%231d4c9b' stroke-width='1.3'/%3E%3Crect x='4.8' y='4.8' width='40.4' height='62.4' rx='1.8' fill='none' stroke='%231d4c9b' stroke-width='.45' stroke-dasharray='1.4 1.2'/%3E%3C/svg%3E"), radial-gradient(70% 55% at 50% 45%, #ffd25a, var(--lata) 70%, #cf920c); }
-.db-passa { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 72' preserveAspectRatio='none'%3E%3Crect x='2.6' y='2.6' width='44.8' height='66.8' rx='3' fill='none' stroke='%23f5f7f6' stroke-width='1.3'/%3E%3Crect x='4.8' y='4.8' width='40.4' height='62.4' rx='1.8' fill='none' stroke='%23f5f7f6' stroke-width='.45' stroke-dasharray='1.4 1.2'/%3E%3C/svg%3E"), radial-gradient(70% 55% at 50% 45%, #2f66c4, var(--anil) 70%, #143a7a); }
-.db-inv { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 72' preserveAspectRatio='none'%3E%3Crect x='2.6' y='2.6' width='44.8' height='66.8' rx='3' fill='none' stroke='%23f5f7f6' stroke-width='1.3'/%3E%3Crect x='4.8' y='4.8' width='40.4' height='62.4' rx='1.8' fill='none' stroke='%23f5f7f6' stroke-width='.45' stroke-dasharray='1.4 1.2'/%3E%3C/svg%3E"), radial-gradient(70% 55% at 50% 45%, #2c8a5c, var(--garrafa) 70%, #124530); }
-.db-cur .db-orn, .db-passa .db-orn, .db-inv .db-orn { opacity: .3; }
-.db-num { position: relative; }
-.db-brilho { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.75) 48%, rgba(255,255,255,.15) 54%, transparent 62%) 160% 0 / 260% 100% no-repeat; mix-blend-mode: soft-light; opacity: 0; }
-.db-mao .db-carta:hover .db-brilho, .db-mao .db-carta.escolhida .db-brilho, .db-escalada .db-carta.topo .db-brilho { opacity: 1; animation: db-esmalte 1.6s ease-in-out infinite; }
-@keyframes db-esmalte { from { background-position: 160% 0; } to { background-position: -60% 0; } }
 /* mão viva: balanço leve, escolhida sobe e brilha */
-.db-mao .db-carta { animation: db-flutua 3.4s ease-in-out infinite; animation-delay: calc(var(--i) * -.55s); }
-@keyframes db-flutua { 50% { transform: translateY(-.5cqh); } }
-.db-mao .db-carta:hover { scale: 1.05; }
-.db-mao .db-carta.escolhida { translate: 0 -5.6cqh; scale: 1.06; box-shadow: 0 0 0 .4cqh var(--lata), 0 0 3cqh rgba(232,168,23,.55), 0 1.6cqh 2.8cqh rgba(0,0,0,.55); animation: none; }
+@keyframes db-flutua { 50% { translate: 0 -.5cqh; } }
 .db-mao .db-carta.escolhida::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; box-shadow: inset 0 0 0 .25cqh rgba(255,255,255,.7); pointer-events: none; }
 .db-dica-sel { position: absolute; left: 50%; bottom: 25.5cqh; translate: -50% 0; padding: .5cqh 1.4cqh; border-radius: 99px; background: rgba(17,32,59,.92); font-size: 1.9cqh; color: var(--tinta); white-space: nowrap; pointer-events: none !important; animation: db-entra .25s both; }
 /* mesa: a última jogada em destaque, a que dobrou reluz, alvo para soltar */
@@ -369,14 +360,14 @@
 .dba-giro { width: 7cqh; color: #2a1b06; animation: dba-giro 3.2s cubic-bezier(.6,0,.3,1) infinite; }
 .dba-giro .db-svg { display: block; width: 100%; }
 @keyframes dba-giro { 0%, 10% { rotate: 0deg; scale: 1 1; } 45% { rotate: 360deg; scale: 1 1; } 55% { scale: -1 1; rotate: 360deg; } 100% { rotate: 0deg; scale: -1 1; } }
-.dba-vaga { width: 6.6cqh; aspect-ratio: 5/7.2; border-radius: .6cqh; border: .3cqh dashed rgba(42,27,6,.55); box-sizing: border-box; }
-.dba-monte { width: 6.6cqh; aspect-ratio: 5/7.2; }
+.dba-vaga { width: 6.6cqh; aspect-ratio: 18/25; border-radius: .6cqh; border: .3cqh dashed rgba(42,27,6,.55); box-sizing: border-box; }
+.dba-monte { width: 6.6cqh; aspect-ratio: 18/25; }
 .dba-monte .db-carta { position: absolute; inset: 0; --w: 6.6cqh; }
 .dba-monte .db-carta:nth-child(2) { translate: -.2cqh -.35cqh; } .dba-monte .db-carta:nth-child(3) { translate: -.4cqh -.7cqh; } .dba-monte .db-carta:nth-child(4) { translate: -.6cqh -1.05cqh; box-shadow: 0 0 0 .3cqh var(--louca), 0 0 2cqh rgba(255,255,255,.6); }
 .dba-prazo { width: 20cqh; height: 1cqh; border-radius: 99px; background: rgba(42,27,6,.25); overflow: hidden; }
 .dba-prazo::after { content: ""; position: absolute; inset: 0; background: var(--vermelho); transform-origin: left; }
 .au-cena.b5 .dba-prazo::after { animation: au-enche 1s linear reverse both; }
-.au-cena .dba-guarda { width: 8cqh; height: 8cqh; padding: 1cqh; border-radius: 1cqh; background: var(--vermelho); color: var(--louca); box-shadow: 0 .6cqh 1.4cqh rgba(0,0,0,.4); z-index: 6; }
+.au-cena .dba-guarda { width: 8cqh; height: 8cqh; padding: 1cqh; border-radius: 1cqh; color: var(--louca); box-shadow: 0 .6cqh 1.4cqh rgba(0,0,0,.4); z-index: 6; }
 .au-cena .dba-guarda .db-svg { display: block; width: 100%; }
 .dba-pilha { width: 10cqh; height: 15cqh; }
 .dba-pilha i { position: absolute; left: 0; bottom: calc(var(--q) * 1.3cqh); width: 10cqh; height: 3cqh; border-radius: .4cqh; background: var(--louca); box-shadow: 0 0 0 1px rgba(20,30,50,.3), 0 .3cqh .5cqh rgba(0,0,0,.25); rotate: calc((var(--q) - 4) * 1.4deg); }
@@ -402,7 +393,7 @@
 .db-aulamodal__x { position: absolute; top: 2cqh; right: 2cqh; }
 .dba-pessoa.dba-pessoa--eu { width: auto; padding: 0 1.6cqh; border-radius: 99px; color: #2a1b06; }
 
-/* guarda-chuva arremessado em quem esqueceu de repor */
+/* carta Esquecido arremessada em quem esqueceu de repor */
 .db-assento.alvo-guarda { cursor: pointer; z-index: 4; }
 .db-assento.alvo-guarda .db-retrato { box-shadow: 0 0 0 .4cqh var(--vermelho), 0 0 2.8cqh rgba(217,72,64,.75); animation: db-mira-pulsa .8s ease-in-out infinite alternate; }
 .db-assento.alvo-guarda:hover .db-retrato { scale: 1.08; }
@@ -418,7 +409,7 @@
 .db-btn--guarda .db-svg { width: 2.6cqh; }
 .db-guarda--arremesso { z-index: 32; box-shadow: inset 0 0 0 .22cqh var(--louca), 0 1.2cqh 2.4cqh rgba(0,0,0,.45), 0 0 2cqh rgba(255,200,180,.5); }
 .db-sombra-voo { position: absolute; left: 0; top: 0; z-index: 29; width: 5cqh; height: 1.6cqh; border-radius: 50%; background: radial-gradient(rgba(0,0,0,.55), transparent 70%); pointer-events: none; }
-.db-rastro { position: absolute; left: 0; top: 0; z-index: 31; aspect-ratio: 5/7.2; display: grid; place-items: center; border-radius: .5cqh; background: rgba(217,72,64,.55); color: var(--louca); pointer-events: none; animation: db-rastro .65s ease-out forwards; }
+.db-rastro { position: absolute; left: 0; top: 0; z-index: 31; aspect-ratio: 18/25; display: grid; place-items: center; border-radius: .5cqh; background: rgba(217,72,64,.55); color: var(--louca); pointer-events: none; animation: db-rastro .65s ease-out forwards; }
 .db-rastro .db-svg { width: 70%; }
 @keyframes db-rastro { from { opacity: .6; scale: .9; } to { opacity: 0; scale: .35; } }
 .db-impacto { position: absolute; z-index: 33; width: 0; height: 0; pointer-events: none; }
@@ -444,8 +435,8 @@
 
 /* mão: fora da vez fica um pouco mais baixa e apagada (ainda dá para ver); na sua vez sobe e brilha */
 .db-eu.em-jogo .db-mao { transition: translate .35s cubic-bezier(.2,.8,.3,1), filter .35s; }
-.db-eu.em-jogo:not(.vez) .db-mao { translate: 0 5.5cqh; filter: brightness(.8) saturate(.85); }
-.db-eu.em-jogo:not(.vez) .db-mao:hover { translate: 0 3cqh; filter: none; }
+.db-eu.em-jogo:not(.vez) .db-mao { translate: 0 2cqh; filter: brightness(.8) saturate(.85); }
+.db-eu.em-jogo:not(.vez) .db-mao:hover { translate: 0 .6cqh; filter: none; }
 .db-eu.vez .db-mao { filter: drop-shadow(0 0 1.6cqh rgba(232,168,23,.55)); }
 .db-eu.chegou-vez .db-mao { animation: db-mao-sobe .5s cubic-bezier(.2,.9,.3,1.25); }
 @keyframes db-mao-sobe { from { translate: 0 5.5cqh; filter: brightness(.8); } }
@@ -489,3 +480,33 @@
 .db-fila__item b { font-size: 1.3cqh; opacity: .6; }
 .db-fila__item:hover { background: var(--vermelho); color: #fff; }
 .db-fila__limpa { align-self: flex-end; border: 0; background: none; color: var(--apagado); font: 500 1.7cqh/1 'Barlow Semi Condensed', sans-serif; cursor: pointer; text-decoration: underline; }
+
+/* As duas cartas auxiliares usam as próprias artes do pacote. */
+.db-monte-extras { display: flex; align-items: center; gap: 1.2cqh; }
+.db-direcao { width: 4.6cqh; aspect-ratio: 18/25; flex: none; border-radius: 5% / 3.6%; box-shadow: 0 .3cqh .8cqh rgba(0,0,0,.4); }
+.db .au-cena .dba-guarda { width: 6.4cqh; height: auto; aspect-ratio: 18/25; padding: 0; border-radius: 5% / 3.6%; }
+
+/* ---------- motor compartilhado (cartas-mesa): proporção do voo, facho da vez, foto de quem joga ---------- */
+.db { --cm-proporcao: 18/25; }
+.db-luz { position: absolute; left: 50%; top: 52%; width: 150cqh; height: 150cqh; margin: -75cqh 0 0 -75cqh; border-radius: 50%; pointer-events: none; opacity: 0; transition: opacity .5s; color: #fff3d2;
+  background: conic-gradient(from 0deg, transparent 0deg, transparent 64deg, color-mix(in srgb, currentColor 24%, transparent) 77deg, color-mix(in srgb, currentColor 38%, transparent) 90deg, color-mix(in srgb, currentColor 24%, transparent) 103deg, transparent 116deg);
+  -webkit-mask: radial-gradient(closest-side, transparent 14%, #000 24%, rgba(0,0,0,.5) 48%, transparent 72%); mask: radial-gradient(closest-side, transparent 14%, #000 24%, rgba(0,0,0,.5) 48%, transparent 72%); will-change: rotate; transform: translateZ(.02cqh); }
+.db-luz.on { opacity: 1; }
+/* quem tem a vez: foto maior (tamanho no layout; scale seria recortado contra o plano 3D) */
+.db-assento .db-retrato { transition: box-shadow .25s, width .3s cubic-bezier(.2,.9,.3,1.3), height .3s cubic-bezier(.2,.9,.3,1.3); }
+.db-assento.vez .db-retrato { width: 10.6cqh; height: 10.6cqh; }
+.db-assento.vez { z-index: 3; }
+@container (max-height: 520px) { .db-assento.vez .db-retrato { width: 13.5cqh; height: 13.5cqh; } }
+@media (prefers-reduced-motion: reduce) { .db-assento .db-retrato { transition: none; } .db-mao .db-slot { animation: none; } }
+
+/* mesa de bar 3D (boteco3d.js): some a mesa desenhada quando o 3D está pronto */
+.db.b3d-ok .db-lata { opacity: 0; }
+.db.b3d-ok .db-sentido { color: rgba(255,255,255,.22); }
+.db-cor-mesa { display: block; width: 2.4cqh; height: 2.4cqh; min-width: 14px; min-height: 14px; border-radius: .5cqh; background: var(--cor); box-shadow: inset 0 -.3cqh 0 rgba(0,0,0,.25), 0 0 0 .2cqh rgba(255,255,255,.7); transform: perspective(8cqh) rotateX(35deg); }
+
+/* luz e textura nas cartas quando a mesa é de bar (::before; o ::after é o anel da escolhida) */
+.db[data-mesa='bar'] .db-carta::before { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; pointer-events: none;
+  background: var(--cm-luz), var(--cm-brilho), var(--cm-grao); background-size: 100% 100%, 100% 100%, 140px 140px; mix-blend-mode: soft-light; opacity: .85; }
+.db[data-mesa='bar'] .db-mao .db-carta::before { opacity: .6; }
+.db[data-mesa='bar'] .db-escalada .db-carta { box-shadow: 0 0 0 1px rgba(20,30,50,.25), 0 .5cqh .8cqh rgba(40,20,0,.4); }
+.db[data-mesa='bar'] .db-escalada .db-carta.topo { box-shadow: 0 0 0 1px rgba(20,30,50,.25), 0 1cqh 1.6cqh rgba(40,20,0,.5); }

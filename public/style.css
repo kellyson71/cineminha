@@ -1900,11 +1900,10 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 .top__tempo { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; cursor: default; }
 .top__tempo svg { width: 12px; height: 12px; opacity: .8; }
 .top__tempo b { font-weight: 600; color: var(--fg-soft); }
-.toolbar__tempo { display: inline-flex; align-items: center; gap: 5px; padding: 0 6px; font-size: .76rem; color: var(--fg-faint); white-space: nowrap; cursor: default; }
+.toolbar__tempo { display: inline-flex; align-items: center; gap: 4px; padding: 0 4px; font-size: .72rem; color: var(--fg-faint); white-space: nowrap; cursor: default; }
 .toolbar__tempo[hidden] { display: none; }
-.toolbar__tempo svg { width: 14px; height: 14px; opacity: .8; }
+.toolbar__tempo svg { width: 13px; height: 13px; opacity: .7; }
 .toolbar__tempo b { font-weight: 600; color: var(--fg-soft); font-variant-numeric: tabular-nums; }
-@media (max-width: 640px) { .toolbar__tempo > span { display: none; } }
 .lat-tempo { margin-left: auto; padding-left: 6px; font-style: normal; font-size: .68rem; font-variant-numeric: tabular-nums; color: rgba(236,236,241,.42); white-space: nowrap; }
 .lat-tempo:empty { display: none; }
 .top .top__diary { width: 34px; height: 34px; padding: 0; margin-left: 2px; margin-right: 0; opacity: .7; align-self: center; }
@@ -1977,6 +1976,8 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 /* durante qualquer jogo, a fileira de poltronas some de verdade (não rouba cliques no canto da tela) */
 .theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on) .row { visibility: hidden; }
 .theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on) .row * { pointer-events: none !important; }
+/* com jogo aberto a cortina fechada não serve; e o Chrome às vezes a desenha por cima das mesas 3D (fora do plano inclinado) */
+.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on) .curtain { visibility: hidden; }
 
 /* categorias do Faixa a Faixa: progresso de ouvidas e o resto recolhido */
 .fx-catnota { margin: 0; display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 12px; background: rgba(255,255,255,.05); font-size: .78rem; color: var(--fg-soft); }
@@ -2922,3 +2923,60 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 .fx-jogs__chute--certo { color: #3ddc84; }
 .fx-jogs__chute--artista { color: #ffcc66; }
 .fx-jogs__chute--errou { color: #ff8a80; }
+
+/* ===== Computador com a lateral, fora da tela cheia: a tela ocupa quase toda a altura e embaixo dela fica
+   UMA linha, como na tela cheia: bonecos | barra do player | botões. O "passando agora" de cima sai e o
+   cartão do filme fica no canto do vídeo (abre ao passar o mouse). Medidas: 12 topo + 8 + ~70 linha + 10. ===== */
+.barra-player { display: none; }
+@media (min-width: 1000px) {
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco),
+  body.com-lateral:not(.locked) .theater.no-chat:not(:fullscreen, .palco) { --tela: calc((100dvh - 112px) * 16 / 9 + 16px); }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto; align-content: center; align-items: center; height: 100%;
+    column-gap: 12px; row-gap: 8px; width: 100%; max-width: min(100%, var(--tela)); margin: 0 auto; justify-self: center;
+  }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > * { grid-row: 2; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > .screen { grid-column: 1 / -1; grid-row: 1; max-width: none !important; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > :is(.agora, .live, .callbar) { display: none !important; }
+  /* bonecos pequenos, só quem está online (como na tela cheia) */
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > .row { grid-column: 1; margin: 0; padding: 0 0 0 4px; width: auto; max-width: none !important; min-width: 0; align-self: end; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row__seats { width: auto; align-items: flex-start; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row__seats::before { display: none; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row__line { grid-template-columns: repeat(var(--n), 64px); gap: 4px; justify-content: start; width: auto; margin-bottom: calc(var(--depth) * -10px); }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row .seat-empty,
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row .seat:not(.online) { display: none; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row .seat.online { pointer-events: auto; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row .seat__avatar { height: 56px; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row .seat--pfp .seat__avatar .pfp { width: 40px; height: 40px; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row .seat__name { font-size: .66rem; margin-top: 2px; opacity: .7; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row .seat.speaking .seat__name { opacity: 1; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .row .pvol { top: auto; bottom: calc(100% + 4px); }
+  /* botões à direita, na mesma linha */
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > .toolbar { grid-column: 3; position: relative; bottom: auto; width: auto !important; max-width: none !important; margin: 0; flex-wrap: nowrap; justify-self: end; }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .stage > .toolbar .toolbar__grow { display: none; }
+  /* barra do player no meio: fora do vídeo, sempre visível e mais transparente (não tampa nada) */
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .barra-player { display: block; grid-column: 2; min-width: 0; }
+  .barra-player .player-controls {
+    position: relative; inset: auto; opacity: 1 !important; pointer-events: auto !important;
+    display: flex; align-items: center; gap: 4px; min-height: 50px; padding: 0 10px 0 6px !important;
+    background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; backdrop-filter: none;
+  }
+  .barra-player .player-controls:hover { background: rgba(255,255,255,.06); }
+  .barra-player .player-bar { display: contents; }
+  .barra-player .player-linha { order: 2; flex: 1; min-width: 120px; margin: 0 8px; display: flex; align-items: center; gap: 10px; }
+  .barra-player .player-bar > :is(.player-button:first-child, .player-10) { order: 1; }
+  .barra-player .player-bar > :not(:first-child, .player-10) { order: 3; }
+  .barra-player .player-title { display: none; }
+  .barra-player .player-button { width: 36px; height: 36px; padding: 7px; }
+  .barra-player .player-button svg { width: 20px; height: 20px; }
+  .barra-player .player-seek { margin: 0; }
+  .barra-player .player-time { font-size: .74rem; }
+  .barra-player .player-settings { right: 0; bottom: calc(100% + 8px); }
+  /* com a barra fora, a tela não tem nada por cima: legenda mais baixa e o "play" do meio some */
+  .theater.player-fora:not(:fullscreen, .palco) .tile.file-session .tile__sub { bottom: 7%; }
+  .theater.player-fora:not(:fullscreen, .palco) .nfx-acoes { bottom: calc(var(--vy, 0px) + 24px); }
+  /* cartão do filme no canto do vídeo, no lugar da faixa de cima */
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco) .tile .midia-card { display: flex; }
+}
+/* telas mais estreitas: com o player na linha, o tempo da sessão fica só na lateral (sobra barra de progresso) */
+@media (min-width: 1000px) and (max-width: 1400px) { .theater.player-fora:not(:fullscreen, .palco) .toolbar__tempo { display: none; } }

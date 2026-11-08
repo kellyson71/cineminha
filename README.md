@@ -53,7 +53,7 @@ ligue o **Modo do desenvolvedor** → **Carregar sem compactação** → escolha
 
 ## Jogos
 
-Faixa a Faixa, Coup, Uno, Red Flags, Amigos de Merda, Dobradinha, Dou-lhe Uma, Na Testa e Quadro a Quadro.
+Faixa a Faixa, Coup, Uno, Red Flags, Amigos de Merda, Dobro, Dou-lhe Uma, Na Testa e Quadro a Quadro.
 Todos rodam na call, com um host que decide as jogadas e os outros conectados direto a ele. Regras e
 arquitetura em [JOGOS.md](JOGOS.md).
 

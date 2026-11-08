@@ -1,0 +1,6015 @@
+{
+ "atualizado": 1794019811,
+ "fontes": {
+  "sp-br": [
+   {
+    "t": "Pós",
+    "a": "Felipe e Rodrigo",
+    "pos": 1
+   },
+   {
+    "t": "Postinho de Gasolina",
+    "a": "João Gustavo e Murilo",
+    "pos": 2
+   },
+   {
+    "t": "Geme Baixo",
+    "a": "MC Jvila",
+    "pos": 3
+   },
+   {
+    "t": "Flash (Minha Mente)",
+    "a": "Hugo & Guilherme",
+    "pos": 4
+   },
+   {
+    "t": "Mega Hair",
+    "a": "Netto Brito",
+    "pos": 5
+   },
+   {
+    "t": "Cadeira Cativa",
+    "a": "Zé Neto & Cristiano",
+    "pos": 6
+   },
+   {
+    "t": "Flash",
+    "a": "Hugo & Guilherme",
+    "pos": 7
+   },
+   {
+    "t": "Ta Pedindo Toma",
+    "a": "MC Leozinho ZS",
+    "pos": 8
+   },
+   {
+    "t": "Ignora (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 9
+   },
+   {
+    "t": "Puxa o Lança",
+    "a": "MC Jvila",
+    "pos": 10
+   },
+   {
+    "t": "Cuida do Pet",
+    "a": "Oldilla",
+    "pos": 11
+   },
+   {
+    "t": "Eu Não Sou Terapia",
+    "a": "Danilo e Davi",
+    "pos": 12
+   },
+   {
+    "t": "Aproveita Que Eu Tô Brigado",
+    "a": "NATTAN",
+    "pos": 13
+   },
+   {
+    "t": "Eu Te Seguro",
+    "a": "Panda",
+    "pos": 14
+   },
+   {
+    "t": "Um Peão Desse",
+    "a": "CountryBeat",
+    "pos": 15
+   },
+   {
+    "t": "Pau Pra Toda Obra",
+    "a": "Mc Jacaré",
+    "pos": 16
+   },
+   {
+    "t": "Peão Todo Tatuado",
+    "a": "Jeninho",
+    "pos": 17
+   },
+   {
+    "t": "EXAGERADO",
+    "a": "MC Jvila",
+    "pos": 18
+   },
+   {
+    "t": "GRWM",
+    "a": "Mc Iguinho Ct",
+    "pos": 19
+   },
+   {
+    "t": "Mentira ou Verdade",
+    "a": "DJ Biel do Furduncinho",
+    "pos": 20
+   },
+   {
+    "t": "Oi, Tudo Bem?",
+    "a": "Zé Neto & Cristiano",
+    "pos": 21
+   },
+   {
+    "t": "Dois Gumes (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 22
+   },
+   {
+    "t": "Lembrança Boa",
+    "a": "Pedro e Benicio",
+    "pos": 23
+   },
+   {
+    "t": "Cheiro De Culpado",
+    "a": "Júnior e Cézar",
+    "pos": 24
+   },
+   {
+    "t": "Meu Silêncio",
+    "a": "Matheus & Kauan",
+    "pos": 25
+   },
+   {
+    "t": "Famoso Ímã | O poderoso chatão",
+    "a": "Mc Lele JP",
+    "pos": 26
+   },
+   {
+    "t": "Eu Duvido",
+    "a": "Guilherme & Benuto",
+    "pos": 27
+   },
+   {
+    "t": "Ritmo Era Uma Vez (Fantasy)",
+    "a": "MC VN Cria",
+    "pos": 28
+   },
+   {
+    "t": "Menos Foco Mais Ansiedade (Ce Ta Nervosa)",
+    "a": "dj andreoli",
+    "pos": 29
+   },
+   {
+    "t": "Primavera",
+    "a": "Jorge & Mateus",
+    "pos": 30
+   },
+   {
+    "t": "Última Saudade (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 31
+   },
+   {
+    "t": "Só Com Ela",
+    "a": "Murilo Huff",
+    "pos": 32
+   },
+   {
+    "t": "Telefone Sem Fio",
+    "a": "Mari Fernandez",
+    "pos": 33
+   },
+   {
+    "t": "Nada Pra Fazer (Casa das P*)",
+    "a": "MC GP",
+    "pos": 34
+   },
+   {
+    "t": "Carnívoro",
+    "a": "Mc Jacaré",
+    "pos": 35
+   },
+   {
+    "t": "Beatriz",
+    "a": "2ZDinizz",
+    "pos": 36
+   },
+   {
+    "t": "Imagina Você",
+    "a": "Ícaro e Gilmar",
+    "pos": 37
+   },
+   {
+    "t": "Me Fala Qual Necessidade",
+    "a": "Henry Freitas",
+    "pos": 38
+   },
+   {
+    "t": "Mulher Nunca Foi Pra Menino",
+    "a": "Danilo e Davi",
+    "pos": 39
+   },
+   {
+    "t": "Diário de um Cafajeste",
+    "a": "DJ Oreia",
+    "pos": 40
+   },
+   {
+    "t": "Deixe Me Ir",
+    "a": "1Kilo",
+    "pos": 41
+   },
+   {
+    "t": "QUANDO EU TOMO GIN DE 10",
+    "a": "Mc Neguinho do Morro",
+    "pos": 42
+   },
+   {
+    "t": "Pegada Bruta",
+    "a": "CountryBeat",
+    "pos": 43
+   },
+   {
+    "t": "Tubarões",
+    "a": "Diego & Victor Hugo",
+    "pos": 44
+   },
+   {
+    "t": "Mente Barulhenta",
+    "a": "Mc IG",
+    "pos": 45
+   },
+   {
+    "t": "Não Mexe nas Minhas Gavetas",
+    "a": "Danilo e Davi",
+    "pos": 46
+   },
+   {
+    "t": "Plano C",
+    "a": "Zé Neto & Cristiano",
+    "pos": 47
+   },
+   {
+    "t": "Saudade Estranha - Du Nada",
+    "a": "Murilo Huff",
+    "pos": 48
+   },
+   {
+    "t": "Nem Balancei",
+    "a": "João Gustavo e Murilo",
+    "pos": 49
+   },
+   {
+    "t": "SET BOCA 09",
+    "a": "MC Ryan SP",
+    "pos": 50
+   },
+   {
+    "t": "Posso Até Não Te Dar Flores",
+    "a": "DJ Japa NK",
+    "pos": 51
+   },
+   {
+    "t": "Bandoleira",
+    "a": "MC Ryan SP",
+    "pos": 52
+   },
+   {
+    "t": "Traidor",
+    "a": "Zé Vaqueiro",
+    "pos": 53
+   },
+   {
+    "t": "Moça Pra Casar",
+    "a": "Diego & Victor Hugo",
+    "pos": 54
+   },
+   {
+    "t": "Apaga Apaga Apaga",
+    "a": "Danilo e Davi",
+    "pos": 55
+   },
+   {
+    "t": "Anjos (Pra quem tem fé)",
+    "a": "O Rappa",
+    "pos": 56
+   },
+   {
+    "t": "Baqueado",
+    "a": "Panda",
+    "pos": 57
+   },
+   {
+    "t": "SWIM",
+    "a": "BTS",
+    "pos": 58
+   },
+   {
+    "t": "Displicente",
+    "a": "Wesley Safadão",
+    "pos": 59
+   },
+   {
+    "t": "Sinais de fogo",
+    "a": "Preta Gil",
+    "pos": 60
+   },
+   {
+    "t": "Set Dj Gm 6.0",
+    "a": "Dj GM",
+    "pos": 61
+   },
+   {
+    "t": "Dois Enganados",
+    "a": "Murilo Huff",
+    "pos": 62
+   },
+   {
+    "t": "Menos Foco Mais Ansiedade 2",
+    "a": "dj andreoli",
+    "pos": 63
+   },
+   {
+    "t": "Foi por Conveniência",
+    "a": "Marília Mendonça",
+    "pos": 64
+   },
+   {
+    "t": "Eu Me Apaixonei",
+    "a": "Vitinho Imperador",
+    "pos": 65
+   },
+   {
+    "t": "Uma Galera Chora",
+    "a": "George Henrique & Rodrigo",
+    "pos": 66
+   },
+   {
+    "t": "AH, JESUS / CORAÇÃO IGUAL AO TEU",
+    "a": "Julliany Souza",
+    "pos": 67
+   },
+   {
+    "t": "Tempo Perdido",
+    "a": "Legião Urbana",
+    "pos": 68
+   },
+   {
+    "t": "Alguns Defeitos",
+    "a": "Léo Foguete",
+    "pos": 69
+   },
+   {
+    "t": "MTG Pra Ficar Legal",
+    "a": "DJ JZ",
+    "pos": 70
+   },
+   {
+    "t": "Admita",
+    "a": "Matheus & Kauan",
+    "pos": 71
+   },
+   {
+    "t": "Seja Ex (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 72
+   },
+   {
+    "t": "Imagina Se Me Odiasse",
+    "a": "Kaique e Felipe",
+    "pos": 73
+   },
+   {
+    "t": "Gosta De Rua (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 74
+   },
+   {
+    "t": "OS CARA MEXE",
+    "a": "Pedro e Benicio",
+    "pos": 75
+   },
+   {
+    "t": "Bebe e Vem Me Procurar / Quem Ama Sente Saudade (Ao Vivo)",
+    "a": "Turma do Pagode",
+    "pos": 76
+   },
+   {
+    "t": "Nicole Kidman",
+    "a": "ADÉLA",
+    "pos": 77
+   },
+   {
+    "t": "Amor",
+    "a": "Emmanuel Cortes",
+    "pos": 78
+   },
+   {
+    "t": "Caos De Alguém (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 79
+   },
+   {
+    "t": "Entregador de Flor",
+    "a": "Diego & Victor Hugo",
+    "pos": 80
+   },
+   {
+    "t": "Pra Sempre Com Você",
+    "a": "Jorge & Mateus",
+    "pos": 81
+   },
+   {
+    "t": "Até Você Voltar",
+    "a": "Henrique & Juliano",
+    "pos": 82
+   },
+   {
+    "t": "Eu Era",
+    "a": "Marcos & Belutti",
+    "pos": 83
+   },
+   {
+    "t": "Role Perfeito",
+    "a": "Kaique e Felipe",
+    "pos": 84
+   },
+   {
+    "t": "P do Pecado",
+    "a": "Grupo Menos É Mais",
+    "pos": 85
+   },
+   {
+    "t": "Irmão da Lua, Amigo das Estrelas",
+    "a": "Zezé Di Camargo & Luciano",
+    "pos": 86
+   },
+   {
+    "t": "Pra Não Esquecer De Mim",
+    "a": "Aaron Modesto",
+    "pos": 87
+   },
+   {
+    "t": "Exigente",
+    "a": "Deu Bão",
+    "pos": 88
+   },
+   {
+    "t": "A Morte do Autotune",
+    "a": "Matuê",
+    "pos": 89
+   },
+   {
+    "t": "O Que Falta Em Você Sou Eu",
+    "a": "Marília Mendonça",
+    "pos": 90
+   },
+   {
+    "t": "Poesia Acústica #6 Era uma Vez",
+    "a": "MC Cabelinho",
+    "pos": 91
+   },
+   {
+    "t": "Vou pela Madrugada",
+    "a": "Mc Negão Original",
+    "pos": 92
+   },
+   {
+    "t": "Reliquia do 2T",
+    "a": "DJ Gu",
+    "pos": 93
+   },
+   {
+    "t": "Saudade De Quem Eu Sou (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 94
+   },
+   {
+    "t": "Contagem Regressiva 2",
+    "a": "Mc IG",
+    "pos": 95
+   },
+   {
+    "t": "Amor Dos Outros (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 96
+   },
+   {
+    "t": "Deixa Eu",
+    "a": "Murilo Huff",
+    "pos": 97
+   },
+   {
+    "t": "Coração Partido (Corazón Partío)",
+    "a": "Grupo Menos É Mais",
+    "pos": 98
+   },
+   {
+    "t": "Barulho Do Foguete",
+    "a": "Zé Neto & Cristiano",
+    "pos": 99
+   },
+   {
+    "t": "Caso Indefinido",
+    "a": "Cristiano Araújo",
+    "pos": 100
+   },
+   {
+    "t": "Desocupa",
+    "a": "Matheus Vargas",
+    "pos": 101
+   },
+   {
+    "t": "Housewife",
+    "a": "Tate McRae",
+    "pos": 102
+   },
+   {
+    "t": "Troca de Calçada",
+    "a": "Marília Mendonça",
+    "pos": 103
+   },
+   {
+    "t": "Máquina do Tempo",
+    "a": "Matuê",
+    "pos": 104
+   },
+   {
+    "t": "Foi assim",
+    "a": "Sotam",
+    "pos": 105
+   },
+   {
+    "t": "Noite Fracassada",
+    "a": "Heitor Santos",
+    "pos": 106
+   },
+   {
+    "t": "Não é Pressa, é Pressão",
+    "a": "Rincon",
+    "pos": 107
+   },
+   {
+    "t": "5 Letras",
+    "a": "Kamisa 10",
+    "pos": 108
+   },
+   {
+    "t": "Raspão",
+    "a": "Henrique & Diego",
+    "pos": 109
+   },
+   {
+    "t": "Poesia Acústica #2: Sobre Nós",
+    "a": "Delacruz",
+    "pos": 110
+   },
+   {
+    "t": "Ama Um Maloqueiro",
+    "a": "Rafa e Junior",
+    "pos": 111
+   },
+   {
+    "t": "Flash",
+    "a": "Lucas & Higor",
+    "pos": 112
+   },
+   {
+    "t": "A Mais Amada Do Brasil",
+    "a": "Xand Avião",
+    "pos": 113
+   },
+   {
+    "t": "É Ruim Ver Os Outros Vivendo (Ex É Ex)",
+    "a": "Mc Jacaré",
+    "pos": 114
+   },
+   {
+    "t": "Os Anjos Cantam",
+    "a": "Jorge & Mateus",
+    "pos": 115
+   },
+   {
+    "t": "Pela Última Vez",
+    "a": "Grupo Menos É Mais",
+    "pos": 116
+   },
+   {
+    "t": "Amo Minha Favela",
+    "a": "DJ Japa NK",
+    "pos": 117
+   },
+   {
+    "t": "Tudo É Perda",
+    "a": "Felipe Rodrigues",
+    "pos": 118
+   },
+   {
+    "t": "POR AÍ",
+    "a": "DJ TOPO",
+    "pos": 119
+   },
+   {
+    "t": "Arrependidaço",
+    "a": "Ferrugem",
+    "pos": 120
+   },
+   {
+    "t": "Oxe",
+    "a": "Panda",
+    "pos": 121
+   },
+   {
+    "t": "Bebe, Beija e Trai",
+    "a": "Mayke & Rodrigo",
+    "pos": 122
+   },
+   {
+    "t": "Jontex (fumaça do ice)",
+    "a": "Mc Menor Rf",
+    "pos": 123
+   },
+   {
+    "t": "Não Namora",
+    "a": "Clayton & Romário",
+    "pos": 124
+   },
+   {
+    "t": "Ain't In LA",
+    "a": "ADÉLA",
+    "pos": 125
+   },
+   {
+    "t": "Como Faz Com Ela",
+    "a": "Marília Mendonça",
+    "pos": 126
+   },
+   {
+    "t": "Amor e Fé",
+    "a": "Hungria",
+    "pos": 127
+   },
+   {
+    "t": "Ilusão De Ótica",
+    "a": "Matheus & Kauan",
+    "pos": 128
+   },
+   {
+    "t": "Palpite",
+    "a": "Vanessa Rangel",
+    "pos": 129
+   },
+   {
+    "t": "Suíte 14",
+    "a": "Henrique & Diego",
+    "pos": 130
+   },
+   {
+    "t": "Lisboa",
+    "a": "ANAVITÓRIA",
+    "pos": 131
+   },
+   {
+    "t": "SET DO JAPA NK 2.0",
+    "a": "DJ Japa NK",
+    "pos": 132
+   },
+   {
+    "t": "Sweater Weather",
+    "a": "The Neighbourhood",
+    "pos": 133
+   },
+   {
+    "t": "Die With A Smile",
+    "a": "Lady Gaga",
+    "pos": 134
+   },
+   {
+    "t": "Mundão Moderno",
+    "a": "Bison e Comassetto",
+    "pos": 135
+   },
+   {
+    "t": "PENSANDO EM MIM",
+    "a": "Matchola",
+    "pos": 136
+   },
+   {
+    "t": "Quem É Esse?",
+    "a": "Julliany Souza",
+    "pos": 137
+   },
+   {
+    "t": "Última Noite",
+    "a": "Léo Foguete",
+    "pos": 138
+   },
+   {
+    "t": "NOITE PERFEITA",
+    "a": "Brandão85",
+    "pos": 139
+   },
+   {
+    "t": "JETSKI",
+    "a": "PEDRO SAMPAIO",
+    "pos": 140
+   },
+   {
+    "t": "Se For Chorar Manda Áudio",
+    "a": "Lu & Rayane",
+    "pos": 141
+   },
+   {
+    "t": "In the End",
+    "a": "Linkin Park",
+    "pos": 142
+   },
+   {
+    "t": "Every Breath You Take",
+    "a": "The Police",
+    "pos": 143
+   },
+   {
+    "t": "Comedinha Ficou Bravo 2",
+    "a": "Mc Negão Original",
+    "pos": 144
+   },
+   {
+    "t": "Paredes",
+    "a": "Jorge & Mateus",
+    "pos": 145
+   },
+   {
+    "t": "Rua do Ouro",
+    "a": "Dj Brenno Paixão",
+    "pos": 146
+   },
+   {
+    "t": "Amanhecer",
+    "a": "BK",
+    "pos": 147
+   },
+   {
+    "t": "Pot-Pourri: Melhor Eu Ir / Ligando Os Fatos / Sonho de Amor / Deixa Eu Te Querer",
+    "a": "Grupo Menos É Mais",
+    "pos": 148
+   },
+   {
+    "t": "Saudade do Carai",
+    "a": "Mari Fernandez",
+    "pos": 149
+   },
+   {
+    "t": "Cê Perdeu (Igual Eu)",
+    "a": "Simone Mendes",
+    "pos": 150
+   },
+   {
+    "t": "Sweet Child O' Mine",
+    "a": "Guns N' Roses",
+    "pos": 151
+   },
+   {
+    "t": "Quarta Cadeira",
+    "a": "Matheus & Kauan",
+    "pos": 152
+   },
+   {
+    "t": "Músicas de amor nunca mais",
+    "a": "BK",
+    "pos": 153
+   },
+   {
+    "t": "Lençol Dobrado",
+    "a": "João Gustavo e Murilo",
+    "pos": 154
+   },
+   {
+    "t": "Bola Uma Vela (Trava Chip)",
+    "a": "MC Meno K",
+    "pos": 155
+   },
+   {
+    "t": "Pirocada Quente",
+    "a": "MC Jvila",
+    "pos": 156
+   },
+   {
+    "t": "Se Saudade Sentir (Se Prepara 3)",
+    "a": "Mc Livinho",
+    "pos": 157
+   },
+   {
+    "t": "Vingança",
+    "a": "Mc Jacaré",
+    "pos": 158
+   },
+   {
+    "t": "Podcast (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 159
+   },
+   {
+    "t": "Leão",
+    "a": "Marília Mendonça",
+    "pos": 160
+   },
+   {
+    "t": "Talvez você precise de mim",
+    "a": "Veigh",
+    "pos": 161
+   },
+   {
+    "t": "É Tudo Sobre Você / Ser Mudado",
+    "a": "MORADA",
+    "pos": 162
+   },
+   {
+    "t": "Só os Loucos Sabem",
+    "a": "Charlie Brown Jr.",
+    "pos": 163
+   },
+   {
+    "t": "Tu és + Águas Purificadoras",
+    "a": "fhop music",
+    "pos": 164
+   },
+   {
+    "t": "Te Encontrar na Lapa",
+    "a": "2ZDinizz",
+    "pos": 165
+   },
+   {
+    "t": "Anos Luz",
+    "a": "Matuê",
+    "pos": 166
+   },
+   {
+    "t": "Calcinha de Renda",
+    "a": "Panda",
+    "pos": 167
+   },
+   {
+    "t": "Oi Balde",
+    "a": "Zé Neto & Cristiano",
+    "pos": 168
+   },
+   {
+    "t": "Quando Bate Aquela Saudade",
+    "a": "Rubel",
+    "pos": 169
+   },
+   {
+    "t": "Nárnia",
+    "a": "Matheus & Kauan",
+    "pos": 170
+   },
+   {
+    "t": "NORMAL",
+    "a": "BTS",
+    "pos": 171
+   },
+   {
+    "t": "Menor Neurose",
+    "a": "DJ Gu",
+    "pos": 172
+   },
+   {
+    "t": "Cacos De Vidro (sample: Esperar pra Ver)",
+    "a": "BK",
+    "pos": 173
+   },
+   {
+    "t": "A Casa É Sua",
+    "a": "Casa Worship",
+    "pos": 174
+   },
+   {
+    "t": "Vou Ter Que Superar",
+    "a": "Matheus & Kauan",
+    "pos": 175
+   },
+   {
+    "t": "Minha alma (A paz que eu não quero)",
+    "a": "O Rappa",
+    "pos": 176
+   },
+   {
+    "t": "Poesia Acústica #9 Melhor Forma",
+    "a": "Pineapple StormTv",
+    "pos": 177
+   },
+   {
+    "t": "Logo Logo (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 178
+   },
+   {
+    "t": "Amigo Da Minha Saudade (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 179
+   },
+   {
+    "t": "Ainda Gosto Dela",
+    "a": "Skank",
+    "pos": 180
+   },
+   {
+    "t": "Não Mereço Ser Amante",
+    "a": "Sorriso Maroto",
+    "pos": 181
+   },
+   {
+    "t": "Bring Me To Life",
+    "a": "Evanescence",
+    "pos": 182
+   },
+   {
+    "t": "Traumatizei (Ao Vivo Em Brasília)",
+    "a": "Henrique & Juliano",
+    "pos": 183
+   },
+   {
+    "t": "Semi Nua 2",
+    "a": "Mc Iguinho Ct",
+    "pos": 184
+   },
+   {
+    "t": "Assunto Que Dói",
+    "a": "Gusttavo Lima",
+    "pos": 185
+   },
+   {
+    "t": "Iris",
+    "a": "The Goo Goo Dolls",
+    "pos": 186
+   },
+   {
+    "t": "Gauchinha",
+    "a": "DJ Japa NK",
+    "pos": 187
+   },
+   {
+    "t": "Billie Jean",
+    "a": "Michael Jackson",
+    "pos": 188
+   },
+   {
+    "t": "Sorri, Sou Rei",
+    "a": "Natiruts",
+    "pos": 189
+   },
+   {
+    "t": "Apaguei Pra Todos",
+    "a": "Ferrugem",
+    "pos": 190
+   },
+   {
+    "t": "Se...",
+    "a": "Djavan",
+    "pos": 191
+   },
+   {
+    "t": "back to friends",
+    "a": "sombr",
+    "pos": 192
+   },
+   {
+    "t": "Nocaute",
+    "a": "Jorge & Mateus",
+    "pos": 193
+   },
+   {
+    "t": "Exagerado",
+    "a": "Cazuza",
+    "pos": 194
+   },
+   {
+    "t": "Luxúria",
+    "a": "Xamã",
+    "pos": 195
+   },
+   {
+    "t": "ME POSTOU NO DAILY - FESTA DO BIG G",
+    "a": "MC GP",
+    "pos": 196
+   },
+   {
+    "t": "Tudo Vai Dar Certo",
+    "a": "Natiruts",
+    "pos": 197
+   },
+   {
+    "t": "Chuva de Bençãos",
+    "a": "Clayton & Romário",
+    "pos": 198
+   },
+   {
+    "t": "Sign of the Times",
+    "a": "Harry Styles",
+    "pos": 199
+   },
+   {
+    "t": "the cure",
+    "a": "Olivia Rodrigo",
+    "pos": 200
+   }
+  ],
+  "sp-global": [
+   {
+    "t": "Housewife",
+    "a": "Tate McRae",
+    "pos": 1
+   },
+   {
+    "t": "BbY WOW",
+    "a": "KAROL G",
+    "pos": 2
+   },
+   {
+    "t": "Nicole Kidman",
+    "a": "ADÉLA",
+    "pos": 3
+   },
+   {
+    "t": "Stop The Wedding!",
+    "a": "Ashe",
+    "pos": 4
+   },
+   {
+    "t": "Ain't In LA",
+    "a": "ADÉLA",
+    "pos": 5
+   },
+   {
+    "t": "the cure",
+    "a": "Olivia Rodrigo",
+    "pos": 6
+   },
+   {
+    "t": "back to friends",
+    "a": "sombr",
+    "pos": 7
+   },
+   {
+    "t": "Beauty And A Beat",
+    "a": "Justin Bieber",
+    "pos": 8
+   },
+   {
+    "t": "The One That Got Away",
+    "a": "Katy Perry",
+    "pos": 9
+   },
+   {
+    "t": "Earrings",
+    "a": "Malcolm Todd",
+    "pos": 10
+   },
+   {
+    "t": "Die With A Smile",
+    "a": "Lady Gaga",
+    "pos": 11
+   },
+   {
+    "t": "Iris",
+    "a": "The Goo Goo Dolls",
+    "pos": 12
+   },
+   {
+    "t": "Babydoll",
+    "a": "Jamie Miller",
+    "pos": 13
+   },
+   {
+    "t": "Just Give Me a Reason",
+    "a": "P!nk",
+    "pos": 14
+   },
+   {
+    "t": "Sweater Weather",
+    "a": "The Neighbourhood",
+    "pos": 15
+   },
+   {
+    "t": "Pós",
+    "a": "Felipe e Rodrigo",
+    "pos": 16
+   },
+   {
+    "t": "Thriller",
+    "a": "Michael Jackson",
+    "pos": 17
+   },
+   {
+    "t": "stupid song",
+    "a": "Olivia Rodrigo",
+    "pos": 18
+   },
+   {
+    "t": "Love Me Not",
+    "a": "Ravyn Lenae",
+    "pos": 19
+   },
+   {
+    "t": "Great Expectation",
+    "a": "SIENNA SPIRO",
+    "pos": 20
+   },
+   {
+    "t": "Billie Jean",
+    "a": "Michael Jackson",
+    "pos": 21
+   },
+   {
+    "t": "End of Beginning",
+    "a": "Djo",
+    "pos": 22
+   },
+   {
+    "t": "SWIM",
+    "a": "BTS",
+    "pos": 23
+   },
+   {
+    "t": "Man I Need",
+    "a": "Olivia Dean",
+    "pos": 24
+   },
+   {
+    "t": "Choosin' Texas",
+    "a": "Ella Langley",
+    "pos": 25
+   },
+   {
+    "t": "Suzuki (from GTAVI: The Album)",
+    "a": "Fuerza Regida",
+    "pos": 26
+   },
+   {
+    "t": "Self Aware",
+    "a": "Temper City",
+    "pos": 27
+   },
+   {
+    "t": "Babydoll",
+    "a": "Dominic Fike",
+    "pos": 28
+   },
+   {
+    "t": "Loser",
+    "a": "Tame Impala",
+    "pos": 29
+   },
+   {
+    "t": "Mr. Brightside",
+    "a": "The Killers",
+    "pos": 30
+   },
+   {
+    "t": "expectations",
+    "a": "Olivia Rodrigo",
+    "pos": 31
+   },
+   {
+    "t": "Creep",
+    "a": "Radiohead",
+    "pos": 32
+   },
+   {
+    "t": "Treat You Better",
+    "a": "Shawn Mendes",
+    "pos": 33
+   },
+   {
+    "t": "BIRDS OF A FEATHER",
+    "a": "Billie Eilish",
+    "pos": 34
+   },
+   {
+    "t": "One Of The Girls",
+    "a": "The Weeknd",
+    "pos": 35
+   },
+   {
+    "t": "Every Breath You Take",
+    "a": "The Police",
+    "pos": 36
+   },
+   {
+    "t": "Alfaaz",
+    "a": "Hamza Malik",
+    "pos": 37
+   },
+   {
+    "t": "Sign of the Times",
+    "a": "Harry Styles",
+    "pos": 38
+   },
+   {
+    "t": "Sailor Song",
+    "a": "Gigi Perez",
+    "pos": 39
+   },
+   {
+    "t": "Coming Up Roses",
+    "a": "Harry Styles",
+    "pos": 40
+   },
+   {
+    "t": "hate that i made you love me",
+    "a": "Ariana Grande",
+    "pos": 41
+   },
+   {
+    "t": "Ordinary",
+    "a": "Alex Warren",
+    "pos": 42
+   },
+   {
+    "t": "Cinderella",
+    "a": "Mac Miller",
+    "pos": 43
+   },
+   {
+    "t": "I Wanna Be Yours",
+    "a": "Arctic Monkeys",
+    "pos": 44
+   },
+   {
+    "t": "Postinho de Gasolina",
+    "a": "João Gustavo e Murilo",
+    "pos": 45
+   },
+   {
+    "t": "Starboy",
+    "a": "The Weeknd",
+    "pos": 46
+   },
+   {
+    "t": "Bring Me To Life",
+    "a": "Evanescence",
+    "pos": 47
+   },
+   {
+    "t": "Beat It",
+    "a": "Michael Jackson",
+    "pos": 48
+   },
+   {
+    "t": "Wonderwall",
+    "a": "Oasis",
+    "pos": 49
+   },
+   {
+    "t": "The Fate of Ophelia",
+    "a": "Taylor Swift",
+    "pos": 50
+   },
+   {
+    "t": "Dai Dai",
+    "a": "Shakira",
+    "pos": 51
+   },
+   {
+    "t": "Yellow",
+    "a": "Coldplay",
+    "pos": 52
+   },
+   {
+    "t": "drop dead",
+    "a": "Olivia Rodrigo",
+    "pos": 53
+   },
+   {
+    "t": "Training Season",
+    "a": "Dua Lipa",
+    "pos": 54
+   },
+   {
+    "t": "Ghostbusters",
+    "a": "Ray Parker Jr.",
+    "pos": 55
+   },
+   {
+    "t": "Cuando No Era Cantante RMX - Remix",
+    "a": "El Bogueto",
+    "pos": 56
+   },
+   {
+    "t": "Blinding Lights",
+    "a": "The Weeknd",
+    "pos": 57
+   },
+   {
+    "t": "Animal",
+    "a": "KATSEYE",
+    "pos": 58
+   },
+   {
+    "t": "Locked out of Heaven",
+    "a": "Bruno Mars",
+    "pos": 59
+   },
+   {
+    "t": "WILDFLOWER",
+    "a": "Billie Eilish",
+    "pos": 60
+   },
+   {
+    "t": "Risk It All",
+    "a": "Bruno Mars",
+    "pos": 61
+   },
+   {
+    "t": "505",
+    "a": "Arctic Monkeys",
+    "pos": 62
+   },
+   {
+    "t": "Dracula - JENNIE Remix",
+    "a": "Tame Impala",
+    "pos": 63
+   },
+   {
+    "t": "The Night We Met",
+    "a": "Lord Huron",
+    "pos": 64
+   },
+   {
+    "t": "Sure Thing",
+    "a": "Miguel",
+    "pos": 65
+   },
+   {
+    "t": "Die On This Hill",
+    "a": "SIENNA SPIRO",
+    "pos": 66
+   },
+   {
+    "t": "In the End",
+    "a": "Linkin Park",
+    "pos": 67
+   },
+   {
+    "t": "DtMF",
+    "a": "Bad Bunny",
+    "pos": 68
+   },
+   {
+    "t": "Raindance",
+    "a": "Dave",
+    "pos": 69
+   },
+   {
+    "t": "So Easy (To Fall In Love)",
+    "a": "Olivia Dean",
+    "pos": 70
+   },
+   {
+    "t": "No Scrubs",
+    "a": "TLC",
+    "pos": 71
+   },
+   {
+    "t": "Riptide",
+    "a": "Vance Joy",
+    "pos": 72
+   },
+   {
+    "t": "Rein Me In",
+    "a": "Sam Fender",
+    "pos": 73
+   },
+   {
+    "t": "One Dance",
+    "a": "Drake",
+    "pos": 74
+   },
+   {
+    "t": "Sports car",
+    "a": "Tate McRae",
+    "pos": 75
+   },
+   {
+    "t": "Movin' To The Sun",
+    "a": "HUGEL",
+    "pos": 76
+   },
+   {
+    "t": "Jamaican (Bam Bam)",
+    "a": "HUGEL",
+    "pos": 77
+   },
+   {
+    "t": "Shape of You",
+    "a": "Ed Sheeran",
+    "pos": 78
+   },
+   {
+    "t": "Beautiful Things",
+    "a": "Benson Boone",
+    "pos": 79
+   },
+   {
+    "t": "Do I Wanna Know?",
+    "a": "Arctic Monkeys",
+    "pos": 80
+   },
+   {
+    "t": "You’re Under Arrest",
+    "a": "ILLIT",
+    "pos": 81
+   },
+   {
+    "t": "Just the Way You Are",
+    "a": "Bruno Mars",
+    "pos": 82
+   },
+   {
+    "t": "WHERE IS MY HUSBAND!",
+    "a": "RAYE",
+    "pos": 83
+   },
+   {
+    "t": "Viva La Vida",
+    "a": "Coldplay",
+    "pos": 84
+   },
+   {
+    "t": "BAILE INoLVIDABLE",
+    "a": "Bad Bunny",
+    "pos": 85
+   },
+   {
+    "t": "Die For You",
+    "a": "The Weeknd",
+    "pos": 86
+   },
+   {
+    "t": "Dracula",
+    "a": "Tame Impala",
+    "pos": 87
+   },
+   {
+    "t": "Payphone",
+    "a": "Maroon 5",
+    "pos": 88
+   },
+   {
+    "t": "honeybee",
+    "a": "Olivia Rodrigo",
+    "pos": 89
+   },
+   {
+    "t": "Last Christmas",
+    "a": "Wham!",
+    "pos": 90
+   },
+   {
+    "t": "Patient Zero",
+    "a": "Taylor Swift",
+    "pos": 91
+   },
+   {
+    "t": "Apocalypse",
+    "a": "Cigarettes After Sex",
+    "pos": 92
+   },
+   {
+    "t": "Sunflower - Spider-Man: Into the Spider-Verse",
+    "a": "Post Malone",
+    "pos": 93
+   },
+   {
+    "t": "deja vu",
+    "a": "Olivia Rodrigo",
+    "pos": 94
+   },
+   {
+    "t": "Golden",
+    "a": "HUNTR/X",
+    "pos": 95
+   },
+   {
+    "t": "Reflections",
+    "a": "The Neighbourhood",
+    "pos": 96
+   },
+   {
+    "t": "EoO",
+    "a": "Bad Bunny",
+    "pos": 97
+   },
+   {
+    "t": "As It Was",
+    "a": "Harry Styles",
+    "pos": 98
+   },
+   {
+    "t": "Monster Mash",
+    "a": "Bobby \"Boris\" Pickett",
+    "pos": 99
+   },
+   {
+    "t": "Smells Like Teen Spirit",
+    "a": "Nirvana",
+    "pos": 100
+   },
+   {
+    "t": "Don't Stop The Music",
+    "a": "Rihanna",
+    "pos": 101
+   },
+   {
+    "t": "Counting Stars",
+    "a": "OneRepublic",
+    "pos": 102
+   },
+   {
+    "t": "All I Want for Christmas Is You",
+    "a": "Mariah Carey",
+    "pos": 103
+   },
+   {
+    "t": "Closer",
+    "a": "The Chainsmokers",
+    "pos": 104
+   },
+   {
+    "t": "Lush Life",
+    "a": "Zara Larsson",
+    "pos": 105
+   },
+   {
+    "t": "Lies",
+    "a": "Zach Bryan",
+    "pos": 106
+   },
+   {
+    "t": "Si Antes Te Hubiera Conocido",
+    "a": "KAROL G",
+    "pos": 107
+   },
+   {
+    "t": "That’s So True",
+    "a": "Gracie Abrams",
+    "pos": 108
+   },
+   {
+    "t": "Zombie - 2025 Remastered",
+    "a": "The Cranberries",
+    "pos": 109
+   },
+   {
+    "t": "Numb",
+    "a": "Linkin Park",
+    "pos": 110
+   },
+   {
+    "t": "UNETHICAL",
+    "a": "Faouzia",
+    "pos": 111
+   },
+   {
+    "t": "oh yeah?",
+    "a": "Steve Lacy",
+    "pos": 112
+   },
+   {
+    "t": "Paparazzi",
+    "a": "Lady Gaga",
+    "pos": 113
+   },
+   {
+    "t": "Dreams - 2001 Remaster",
+    "a": "Fleetwood Mac",
+    "pos": 114
+   },
+   {
+    "t": "This Is Halloween",
+    "a": "The Citizens of Halloween",
+    "pos": 115
+   },
+   {
+    "t": "Sesi Potret",
+    "a": "eńau",
+    "pos": 116
+   },
+   {
+    "t": "Give Me Everything",
+    "a": "Pitbull",
+    "pos": 117
+   },
+   {
+    "t": "Take on Me - 2015 Remaster",
+    "a": "a-ha",
+    "pos": 118
+   },
+   {
+    "t": "Amor",
+    "a": "Emmanuel Cortes",
+    "pos": 119
+   },
+   {
+    "t": "Sweet Child O' Mine",
+    "a": "Guns N' Roses",
+    "pos": 120
+   },
+   {
+    "t": "Only Girl (In The World)",
+    "a": "Rihanna",
+    "pos": 121
+   },
+   {
+    "t": "Purple Rain",
+    "a": "Prince",
+    "pos": 122
+   },
+   {
+    "t": "Danza Kuduro",
+    "a": "Don Omar",
+    "pos": 123
+   },
+   {
+    "t": "Poker Face",
+    "a": "Lady Gaga",
+    "pos": 124
+   },
+   {
+    "t": "Everybody Wants To Rule The World",
+    "a": "Tears For Fears",
+    "pos": 125
+   },
+   {
+    "t": "Hips Don't Lie",
+    "a": "Shakira",
+    "pos": 126
+   },
+   {
+    "t": "Somewhere Only We Know",
+    "a": "Keane",
+    "pos": 127
+   },
+   {
+    "t": "See You Again",
+    "a": "Tyler, The Creator",
+    "pos": 128
+   },
+   {
+    "t": "Homewrecker",
+    "a": "sombr",
+    "pos": 129
+   },
+   {
+    "t": "we fell in love in october",
+    "a": "girl in red",
+    "pos": 130
+   },
+   {
+    "t": "Na Para Bang",
+    "a": "Mariah Deborah",
+    "pos": 131
+   },
+   {
+    "t": "ako ang bagyo",
+    "a": "SHEAN",
+    "pos": 132
+   },
+   {
+    "t": "Umbrella",
+    "a": "Rihanna",
+    "pos": 133
+   },
+   {
+    "t": "APT.",
+    "a": "ROSÉ",
+    "pos": 134
+   },
+   {
+    "t": "Let Me Love You",
+    "a": "DJ Snake",
+    "pos": 135
+   },
+   {
+    "t": "Barsaat",
+    "a": "Banjaare",
+    "pos": 136
+   },
+   {
+    "t": "Kiss It Better",
+    "a": "Rihanna",
+    "pos": 137
+   },
+   {
+    "t": "Olimpo",
+    "a": "Neton Vega",
+    "pos": 138
+   },
+   {
+    "t": "There's Nothing Holdin' Me Back",
+    "a": "Shawn Mendes",
+    "pos": 139
+   },
+   {
+    "t": "Young And Beautiful",
+    "a": "Lana Del Rey",
+    "pos": 140
+   },
+   {
+    "t": "My Body Isn't Ready",
+    "a": "sombr",
+    "pos": 141
+   },
+   {
+    "t": "Stateside + Zara Larsson",
+    "a": "PinkPantheress",
+    "pos": 142
+   },
+   {
+    "t": "We Found Love",
+    "a": "Rihanna",
+    "pos": 143
+   },
+   {
+    "t": "The Man Who Can't Be Moved",
+    "a": "The Script",
+    "pos": 144
+   },
+   {
+    "t": "COQUETA",
+    "a": "Fuerza Regida",
+    "pos": 145
+   },
+   {
+    "t": "S&M",
+    "a": "Rihanna",
+    "pos": 146
+   },
+   {
+    "t": "On The Floor",
+    "a": "Jennifer Lopez",
+    "pos": 147
+   },
+   {
+    "t": "Orbiter",
+    "a": "Noah Kahan",
+    "pos": 148
+   },
+   {
+    "t": "Promiscuous",
+    "a": "Nelly Furtado",
+    "pos": 149
+   },
+   {
+    "t": "About You",
+    "a": "The 1975",
+    "pos": 150
+   },
+   {
+    "t": "Disturbia",
+    "a": "Rihanna",
+    "pos": 151
+   },
+   {
+    "t": "Manchild",
+    "a": "Sabrina Carpenter",
+    "pos": 152
+   },
+   {
+    "t": "Feel Good Inc",
+    "a": "Gorillaz",
+    "pos": 153
+   },
+   {
+    "t": "Duvet",
+    "a": "bôa",
+    "pos": 154
+   },
+   {
+    "t": "Into You",
+    "a": "Ariana Grande",
+    "pos": 155
+   },
+   {
+    "t": "bloodstream",
+    "a": "Alyssa Grace",
+    "pos": 156
+   },
+   {
+    "t": "All The Stars",
+    "a": "Kendrick Lamar",
+    "pos": 157
+   },
+   {
+    "t": "Another Love",
+    "a": "Tom Odell",
+    "pos": 158
+   },
+   {
+    "t": "Fade Into You",
+    "a": "Mazzy Star",
+    "pos": 159
+   },
+   {
+    "t": "Sparks",
+    "a": "Coldplay",
+    "pos": 160
+   },
+   {
+    "t": "Boston",
+    "a": "STELLA LEFTY",
+    "pos": 161
+   },
+   {
+    "t": "RIKI",
+    "a": "Neton Vega",
+    "pos": 162
+   },
+   {
+    "t": "OLIVIA LA FLAKA",
+    "a": "Natanael Cano",
+    "pos": 163
+   },
+   {
+    "t": "Empire State Of Mind",
+    "a": "JAŸ-Z",
+    "pos": 164
+   },
+   {
+    "t": "Just Dance",
+    "a": "Lady Gaga",
+    "pos": 165
+   },
+   {
+    "t": "The Reason",
+    "a": "Hoobastank",
+    "pos": 166
+   },
+   {
+    "t": "We Are The People",
+    "a": "Empire Of The Sun",
+    "pos": 167
+   },
+   {
+    "t": "That's What I Like",
+    "a": "Bruno Mars",
+    "pos": 168
+   },
+   {
+    "t": "Dunia Yang Nanti",
+    "a": "Raim Laode",
+    "pos": 169
+   },
+   {
+    "t": "Pure",
+    "a": "SIENNA SPIRO",
+    "pos": 170
+   },
+   {
+    "t": "Last Friday Night (T.G.I.F.)",
+    "a": "Katy Perry",
+    "pos": 171
+   },
+   {
+    "t": "12 to 12",
+    "a": "sombr",
+    "pos": 172
+   },
+   {
+    "t": "Toxic",
+    "a": "Britney Spears",
+    "pos": 173
+   },
+   {
+    "t": "Midnight Sun",
+    "a": "Zara Larsson",
+    "pos": 174
+   },
+   {
+    "t": "Me Rehúso",
+    "a": "Danny Ocean",
+    "pos": 175
+   },
+   {
+    "t": "Perfect",
+    "a": "Ed Sheeran",
+    "pos": 176
+   },
+   {
+    "t": "The Scientist",
+    "a": "Coldplay",
+    "pos": 177
+   },
+   {
+    "t": "SUPERESTRELLA",
+    "a": "Aitana",
+    "pos": 178
+   },
+   {
+    "t": "Linger",
+    "a": "The Cranberries",
+    "pos": 179
+   },
+   {
+    "t": "Lose Control",
+    "a": "Teddy Swims",
+    "pos": 180
+   },
+   {
+    "t": "Talking Body",
+    "a": "Tove Lo",
+    "pos": 181
+   },
+   {
+    "t": "NORMAL",
+    "a": "BTS",
+    "pos": 182
+   },
+   {
+    "t": "When I Was Your Man",
+    "a": "Bruno Mars",
+    "pos": 183
+   },
+   {
+    "t": "Unforgettable",
+    "a": "French Montana",
+    "pos": 184
+   },
+   {
+    "t": "Iqro'",
+    "a": "Raim Laode",
+    "pos": 185
+   },
+   {
+    "t": "Peli De Terror",
+    "a": "Køddy G",
+    "pos": 186
+   },
+   {
+    "t": "Espresso",
+    "a": "Sabrina Carpenter",
+    "pos": 187
+   },
+   {
+    "t": "Let Down",
+    "a": "Radiohead",
+    "pos": 188
+   },
+   {
+    "t": "De Lejitos - Remix",
+    "a": "Jay Wheeler",
+    "pos": 189
+   },
+   {
+    "t": "Janice STFU",
+    "a": "Drake",
+    "pos": 190
+   },
+   {
+    "t": "The Less I Know The Better",
+    "a": "Tame Impala",
+    "pos": 191
+   },
+   {
+    "t": "Baby",
+    "a": "Justin Bieber",
+    "pos": 192
+   },
+   {
+    "t": "I Gotta Feeling",
+    "a": "Black Eyed Peas",
+    "pos": 193
+   },
+   {
+    "t": "We Don't Talk Anymore",
+    "a": "Charlie Puth",
+    "pos": 194
+   },
+   {
+    "t": "Flashing Lights",
+    "a": "Kanye West",
+    "pos": 195
+   },
+   {
+    "t": "Don't Stop Believin' (2022 Remaster)",
+    "a": "Journey",
+    "pos": 196
+   },
+   {
+    "t": "Spooky, Scary Skeletons - Undead Tombstone Remix",
+    "a": "Andrew Gold",
+    "pos": 197
+   },
+   {
+    "t": "Blank Space",
+    "a": "Taylor Swift",
+    "pos": 198
+   },
+   {
+    "t": "Flash (Minha Mente)",
+    "a": "Hugo & Guilherme",
+    "pos": 199
+   },
+   {
+    "t": "Maneater",
+    "a": "Nelly Furtado",
+    "pos": 200
+   }
+  ],
+  "sp-sempre": [
+   {
+    "t": "Lapada Dela",
+    "a": "Grupo Menos É Mais",
+    "pos": 1
+   },
+   {
+    "t": "Coração Partido (Corazón Partío)",
+    "a": "Grupo Menos É Mais",
+    "pos": 2
+   },
+   {
+    "t": "P do Pecado",
+    "a": "Grupo Menos É Mais",
+    "pos": 3
+   },
+   {
+    "t": "Tubarões",
+    "a": "Diego & Victor Hugo",
+    "pos": 4
+   },
+   {
+    "t": "Leão",
+    "a": "Marília Mendonça",
+    "pos": 5
+   },
+   {
+    "t": "Erro Gostoso",
+    "a": "Simone Mendes",
+    "pos": 6
+   },
+   {
+    "t": "Posso Até Não Te Dar Flores",
+    "a": "DJ Japa NK",
+    "pos": 7
+   },
+   {
+    "t": "Nosso Quadro",
+    "a": "AgroPlay",
+    "pos": 8
+   },
+   {
+    "t": "Última Saudade",
+    "a": "Henrique & Juliano",
+    "pos": 9
+   },
+   {
+    "t": "Apaga Apaga Apaga",
+    "a": "Danilo e Davi",
+    "pos": 10
+   },
+   {
+    "t": "Eu Te Seguro",
+    "a": "Panda",
+    "pos": 11
+   },
+   {
+    "t": "Barulho Do Foguete",
+    "a": "Zé Neto & Cristiano",
+    "pos": 12
+   },
+   {
+    "t": "Bombonzinho",
+    "a": "Israel & Rodolffo",
+    "pos": 13
+   },
+   {
+    "t": "Aquela Pessoa",
+    "a": "Henrique & Juliano",
+    "pos": 14
+   },
+   {
+    "t": "Apaguei Pra Todos",
+    "a": "Ferrugem",
+    "pos": 15
+   },
+   {
+    "t": "Eu Gosto Assim",
+    "a": "Gustavo Mioto",
+    "pos": 16
+   },
+   {
+    "t": "Arranhão",
+    "a": "Henrique & Juliano",
+    "pos": 17
+   },
+   {
+    "t": "Let's Go 4",
+    "a": "MC PH",
+    "pos": 18
+   },
+   {
+    "t": "De Trás Pra Frente",
+    "a": "Henrique & Juliano",
+    "pos": 19
+   },
+   {
+    "t": "Traumatizei",
+    "a": "Henrique & Juliano",
+    "pos": 20
+   },
+   {
+    "t": "Oi Balde",
+    "a": "Zé Neto & Cristiano",
+    "pos": 21
+   },
+   {
+    "t": "Liberdade Provisória",
+    "a": "Henrique & Juliano",
+    "pos": 22
+   },
+   {
+    "t": "Mal Feito",
+    "a": "Hugo & Guilherme",
+    "pos": 23
+   },
+   {
+    "t": "Ilusão De Ótica",
+    "a": "Matheus & Kauan",
+    "pos": 24
+   },
+   {
+    "t": "Entregador de Flor",
+    "a": "Diego & Victor Hugo",
+    "pos": 25
+   },
+   {
+    "t": "Gosta De Rua",
+    "a": "Felipe e Rodrigo",
+    "pos": 26
+   },
+   {
+    "t": "Eu Me Apaixonei",
+    "a": "Vitinho Imperador",
+    "pos": 27
+   },
+   {
+    "t": "Duas Três",
+    "a": "Guilherme & Benuto",
+    "pos": 28
+   },
+   {
+    "t": "Cópia Proibida",
+    "a": "Léo Foguete",
+    "pos": 29
+   },
+   {
+    "t": "Baqueado",
+    "a": "Panda",
+    "pos": 30
+   },
+   {
+    "t": "Die With A Smile",
+    "a": "Lady Gaga",
+    "pos": 31
+   },
+   {
+    "t": "Como É Que A Gente Fica",
+    "a": "Henrique & Juliano",
+    "pos": 32
+   },
+   {
+    "t": "Ama Um Maloqueiro",
+    "a": "Rafa e Junior",
+    "pos": 33
+   },
+   {
+    "t": "FAMOSINHA",
+    "a": "Dj Caio Vieira",
+    "pos": 34
+   },
+   {
+    "t": "Seu Brilho Sumiu",
+    "a": "Israel & Rodolffo",
+    "pos": 35
+   },
+   {
+    "t": "Tá OK",
+    "a": "DENNIS",
+    "pos": 36
+   },
+   {
+    "t": "Fui Mlk",
+    "a": "Nilo",
+    "pos": 37
+   },
+   {
+    "t": "Haja Colírio",
+    "a": "Guilherme & Benuto",
+    "pos": 38
+   },
+   {
+    "t": "Vampiro",
+    "a": "Matuê",
+    "pos": 39
+   },
+   {
+    "t": "Deixa Eu",
+    "a": "Murilo Huff",
+    "pos": 40
+   },
+   {
+    "t": "Deixe Me Ir",
+    "a": "1Kilo",
+    "pos": 41
+   },
+   {
+    "t": "Novo Balanço",
+    "a": "Veigh",
+    "pos": 42
+   },
+   {
+    "t": "ME POSTOU NO DAILY - FESTA DO BIG G",
+    "a": "MC GP",
+    "pos": 43
+   },
+   {
+    "t": "Pela Última Vez",
+    "a": "Grupo Menos É Mais",
+    "pos": 44
+   },
+   {
+    "t": "Última Noite",
+    "a": "Léo Foguete",
+    "pos": 45
+   },
+   {
+    "t": "Vai Lá Em Casa Hoje",
+    "a": "George Henrique & Rodrigo",
+    "pos": 46
+   },
+   {
+    "t": "Quarta Cadeira",
+    "a": "Matheus & Kauan",
+    "pos": 47
+   },
+   {
+    "t": "Barbie",
+    "a": "MC Tuto",
+    "pos": 48
+   },
+   {
+    "t": "Sweater Weather",
+    "a": "The Neighbourhood",
+    "pos": 49
+   },
+   {
+    "t": "Love Gostosinho",
+    "a": "NATTAN",
+    "pos": 50
+   },
+   {
+    "t": "Briga Feia",
+    "a": "Henrique & Juliano",
+    "pos": 51
+   },
+   {
+    "t": "Bebe e Vem Me Procurar / Quem Ama Sente Saudade (Ao Vivo)",
+    "a": "Turma do Pagode",
+    "pos": 52
+   },
+   {
+    "t": "Diário de um Cafajeste",
+    "a": "DJ Oreia",
+    "pos": 53
+   },
+   {
+    "t": "As It Was",
+    "a": "Harry Styles",
+    "pos": 54
+   },
+   {
+    "t": "Esqueça-Me Se For Capaz",
+    "a": "Marília Mendonça",
+    "pos": 55
+   },
+   {
+    "t": "Pot-Pourri: Melhor Eu Ir / Ligando Os Fatos / Sonho de Amor / Deixa Eu Te Querer",
+    "a": "Grupo Menos É Mais",
+    "pos": 56
+   },
+   {
+    "t": "Notificação Preferida",
+    "a": "Zé Neto & Cristiano",
+    "pos": 57
+   },
+   {
+    "t": "Meu Pedaço de Pecado",
+    "a": "João Gomes",
+    "pos": 58
+   },
+   {
+    "t": "Máquina do Tempo",
+    "a": "Matuê",
+    "pos": 59
+   },
+   {
+    "t": "Tu és + Águas Purificadoras",
+    "a": "fhop music",
+    "pos": 60
+   },
+   {
+    "t": "Não Vitalício (Nunca Mais)",
+    "a": "Matheus & Kauan",
+    "pos": 61
+   },
+   {
+    "t": "Poesia Acústica #6: Era uma Vez",
+    "a": "Pineapple StormTv",
+    "pos": 62
+   },
+   {
+    "t": "DONA DE MIM",
+    "a": "Ana Castela",
+    "pos": 63
+   },
+   {
+    "t": "A Maior Saudade",
+    "a": "Henrique & Juliano",
+    "pos": 64
+   },
+   {
+    "t": "SEQUÊNCIA FEITICEIRA",
+    "a": "PEDRO SAMPAIO",
+    "pos": 65
+   },
+   {
+    "t": "Lençol Dobrado",
+    "a": "João Gustavo e Murilo",
+    "pos": 66
+   },
+   {
+    "t": "THE BOX MEDLEY FUNK 2",
+    "a": "THE BOX",
+    "pos": 67
+   },
+   {
+    "t": "Casei Com a Putaria",
+    "a": "Mc Paiva ZS",
+    "pos": 68
+   },
+   {
+    "t": "MTG NA IMAGINAÇÃO - TOPO SESSIONS VOL. 1",
+    "a": "DJ TOPO",
+    "pos": 69
+   },
+   {
+    "t": "Canudinho",
+    "a": "Gusttavo Lima",
+    "pos": 70
+   },
+   {
+    "t": "Faz um Vuk Vuk (Teto Espelhado)",
+    "a": "MC Kevin o Chris",
+    "pos": 71
+   },
+   {
+    "t": "Manda um Oi",
+    "a": "Guilherme & Benuto",
+    "pos": 72
+   },
+   {
+    "t": "Batom de Cereja",
+    "a": "Israel & Rodolffo",
+    "pos": 73
+   },
+   {
+    "t": "Licor 43",
+    "a": "KayBlack",
+    "pos": 74
+   },
+   {
+    "t": "Blinding Lights",
+    "a": "The Weeknd",
+    "pos": 75
+   },
+   {
+    "t": "Baby Me Atende",
+    "a": "Matheus Fernandes",
+    "pos": 76
+   },
+   {
+    "t": "Seja Ex",
+    "a": "Henrique & Juliano",
+    "pos": 77
+   },
+   {
+    "t": "Malvadão 3",
+    "a": "Xamã",
+    "pos": 78
+   },
+   {
+    "t": "Daqui pra Sempre",
+    "a": "Manu",
+    "pos": 79
+   },
+   {
+    "t": "A Morte do Autotune",
+    "a": "Matuê",
+    "pos": 80
+   },
+   {
+    "t": "Coração de Gelo",
+    "a": "WIU",
+    "pos": 81
+   },
+   {
+    "t": "Vou Ter Que Superar",
+    "a": "Matheus & Kauan",
+    "pos": 82
+   },
+   {
+    "t": "Tempo Perdido",
+    "a": "Legião Urbana",
+    "pos": 83
+   },
+   {
+    "t": "Pipoco",
+    "a": "Ana Castela",
+    "pos": 84
+   },
+   {
+    "t": "Don't Start Now",
+    "a": "Dua Lipa",
+    "pos": 85
+   },
+   {
+    "t": "Molhando o Volante",
+    "a": "Jorge & Mateus",
+    "pos": 86
+   },
+   {
+    "t": "Facas",
+    "a": "Diego & Victor Hugo",
+    "pos": 87
+   },
+   {
+    "t": "Pactos",
+    "a": "Matheus & Kauan",
+    "pos": 88
+   },
+   {
+    "t": "Ballena",
+    "a": "Vulgo FK",
+    "pos": 89
+   },
+   {
+    "t": "Volta por Baixo",
+    "a": "Henrique & Juliano",
+    "pos": 90
+   },
+   {
+    "t": "Saudade Burra",
+    "a": "Lauana Prado",
+    "pos": 91
+   },
+   {
+    "t": "Meu Abrigo",
+    "a": "Melim",
+    "pos": 92
+   },
+   {
+    "t": "Watermelon Sugar",
+    "a": "Harry Styles",
+    "pos": 93
+   },
+   {
+    "t": "Recairei",
+    "a": "Os Barões Da Pisadinha",
+    "pos": 94
+   },
+   {
+    "t": "Saveiro",
+    "a": "Kaique e Felipe",
+    "pos": 95
+   },
+   {
+    "t": "Reliquia do 2T",
+    "a": "DJ Gu",
+    "pos": 96
+   },
+   {
+    "t": "Felina",
+    "a": "WIU",
+    "pos": 97
+   },
+   {
+    "t": "Melhor Só",
+    "a": "KayBlack",
+    "pos": 98
+   },
+   {
+    "t": "Ignora (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 99
+   },
+   {
+    "t": "Balanço da Rede",
+    "a": "Matheus Fernandes",
+    "pos": 100
+   },
+   {
+    "t": "Saudade De Quem Eu Sou",
+    "a": "Henrique & Juliano",
+    "pos": 101
+   },
+   {
+    "t": "Dois Tristes",
+    "a": "Simone Mendes",
+    "pos": 102
+   },
+   {
+    "t": "Troca de Calçada",
+    "a": "Marília Mendonça",
+    "pos": 103
+   },
+   {
+    "t": "Amigo Da Minha Saudade",
+    "a": "Henrique & Juliano",
+    "pos": 104
+   },
+   {
+    "t": "Quando Apaga A Luz",
+    "a": "Gustavo Mioto",
+    "pos": 105
+   },
+   {
+    "t": "Carnívoro",
+    "a": "Mc Jacaré",
+    "pos": 106
+   },
+   {
+    "t": "MTG QUEM NÃO QUER SOU EU",
+    "a": "DJ TOPO",
+    "pos": 107
+   },
+   {
+    "t": "Meu Amor",
+    "a": "Henrique & Juliano",
+    "pos": 108
+   },
+   {
+    "t": "A Danada Me Ligando",
+    "a": "MC Cebezinho",
+    "pos": 109
+   },
+   {
+    "t": "I Wanna Be Yours",
+    "a": "Arctic Monkeys",
+    "pos": 110
+   },
+   {
+    "t": "5 Regras",
+    "a": "Jorge & Mateus",
+    "pos": 111
+   },
+   {
+    "t": "JETSKI",
+    "a": "PEDRO SAMPAIO",
+    "pos": 112
+   },
+   {
+    "t": "Um Mês E Pouco",
+    "a": "Zé Neto & Cristiano",
+    "pos": 113
+   },
+   {
+    "t": "Desbloqueado",
+    "a": "Diego & Victor Hugo",
+    "pos": 114
+   },
+   {
+    "t": "Haverá Sinais",
+    "a": "Jorge & Mateus",
+    "pos": 115
+   },
+   {
+    "t": "Me Leva Pra Casa / Escrito Nas Estrelas / Saudade",
+    "a": "Lauana Prado",
+    "pos": 116
+   },
+   {
+    "t": "Mentira Estampada",
+    "a": "Wesley Safadão",
+    "pos": 117
+   },
+   {
+    "t": "Solteiro Forçado - Boiadeira Internacional",
+    "a": "Ana Castela",
+    "pos": 118
+   },
+   {
+    "t": "MEIO TERMO",
+    "a": "Luan Santana",
+    "pos": 119
+   },
+   {
+    "t": "Amo Minha Favela",
+    "a": "DJ Japa NK",
+    "pos": 120
+   },
+   {
+    "t": "Assunto Delicado",
+    "a": "Guilherme & Benuto",
+    "pos": 121
+   },
+   {
+    "t": "Bloqueado",
+    "a": "Gusttavo Lima",
+    "pos": 122
+   },
+   {
+    "t": "Shape of You",
+    "a": "Ed Sheeran",
+    "pos": 123
+   },
+   {
+    "t": "Dois Enganados",
+    "a": "Murilo Huff",
+    "pos": 124
+   },
+   {
+    "t": "Eu Vou na Sua Casa",
+    "a": "Felipe Amorim",
+    "pos": 125
+   },
+   {
+    "t": "Todo Seu",
+    "a": "Jorge & Mateus",
+    "pos": 126
+   },
+   {
+    "t": "Ele É Ele, Eu Sou Eu",
+    "a": "Wesley Safadão",
+    "pos": 127
+   },
+   {
+    "t": "Cantada Boba",
+    "a": "Jorge & Mateus",
+    "pos": 128
+   },
+   {
+    "t": "A Gente Fez Amor",
+    "a": "Gusttavo Lima",
+    "pos": 129
+   },
+   {
+    "t": "DENTRO DA HILUX",
+    "a": "Luan Pereira",
+    "pos": 130
+   },
+   {
+    "t": "Mala dos Porta-Mala",
+    "a": "Gusttavo Lima",
+    "pos": 131
+   },
+   {
+    "t": "SET DO JAPA NK 2.0",
+    "a": "DJ Japa NK",
+    "pos": 132
+   },
+   {
+    "t": "A Culpa É Nossa",
+    "a": "Maiara & Maraisa",
+    "pos": 133
+   },
+   {
+    "t": "Dois Fugitivos",
+    "a": "Simone Mendes",
+    "pos": 134
+   },
+   {
+    "t": "Supera",
+    "a": "Marília Mendonça",
+    "pos": 135
+   },
+   {
+    "t": "Acordo",
+    "a": "Henrique & Juliano",
+    "pos": 136
+   },
+   {
+    "t": "Investe Em Mim",
+    "a": "Jonas Esticado",
+    "pos": 137
+   },
+   {
+    "t": "Oh Garota Eu Quero Você Só Pra Mim",
+    "a": "Oruam",
+    "pos": 138
+   },
+   {
+    "t": "Evoque Prata",
+    "a": "MC MENOR HR",
+    "pos": 139
+   },
+   {
+    "t": "Peão Todo Tatuado",
+    "a": "Jeninho",
+    "pos": 140
+   },
+   {
+    "t": "Cheiro De Culpado",
+    "a": "Júnior e Cézar",
+    "pos": 141
+   },
+   {
+    "t": "Bênçãos Que Não Têm Fim (Counting My Blessings)",
+    "a": "Isadora Pompeo",
+    "pos": 142
+   },
+   {
+    "t": "Saudade Proibida",
+    "a": "Simone Mendes",
+    "pos": 143
+   },
+   {
+    "t": "Cê Tá Preparada",
+    "a": "Tayrone",
+    "pos": 144
+   },
+   {
+    "t": "12 Horas / Pra Você Acreditar",
+    "a": "Panda",
+    "pos": 145
+   },
+   {
+    "t": "Triplex",
+    "a": "Matheus Fernandes",
+    "pos": 146
+   },
+   {
+    "t": "Cronômetro",
+    "a": "Matheus & Kauan",
+    "pos": 147
+   },
+   {
+    "t": "Xonei",
+    "a": "Jorge & Mateus",
+    "pos": 148
+   },
+   {
+    "t": "Cidade Vizinha",
+    "a": "Henrique & Juliano",
+    "pos": 149
+   },
+   {
+    "t": "Beautiful Things",
+    "a": "Benson Boone",
+    "pos": 150
+   },
+   {
+    "t": "Escondendo o Ouro",
+    "a": "Zé Neto & Cristiano",
+    "pos": 151
+   },
+   {
+    "t": "Bebi Liguei",
+    "a": "Marília Mendonça",
+    "pos": 152
+   },
+   {
+    "t": "Atrasadinha",
+    "a": "Felipe Araújo",
+    "pos": 153
+   },
+   {
+    "t": "Toca o Trompete",
+    "a": "Felipe Amorim",
+    "pos": 154
+   },
+   {
+    "t": "X1",
+    "a": "MC Cabelinho",
+    "pos": 155
+   },
+   {
+    "t": "S de Saudade",
+    "a": "Luíza & Maurílio",
+    "pos": 156
+   },
+   {
+    "t": "Cadeira Cativa",
+    "a": "Zé Neto & Cristiano",
+    "pos": 157
+   },
+   {
+    "t": "Anestesiado",
+    "a": "Murilo Huff",
+    "pos": 158
+   },
+   {
+    "t": "Roça Em Mim",
+    "a": "Zé Felipe",
+    "pos": 159
+   },
+   {
+    "t": "Ai Preto",
+    "a": "L7NNON",
+    "pos": 160
+   },
+   {
+    "t": "Novidade na Área",
+    "a": "Mc Livinho",
+    "pos": 161
+   },
+   {
+    "t": "Tijolão",
+    "a": "Jorge & Mateus",
+    "pos": 162
+   },
+   {
+    "t": "Aquele Lugar",
+    "a": "Grupo Menos É Mais",
+    "pos": 163
+   },
+   {
+    "t": "Raspão",
+    "a": "Henrique & Diego",
+    "pos": 164
+   },
+   {
+    "t": "Ciumeira",
+    "a": "Marília Mendonça",
+    "pos": 165
+   },
+   {
+    "t": "Mtg Quero Te Encontrar",
+    "a": "DJ LG PROD",
+    "pos": 166
+   },
+   {
+    "t": "Alô Ambev (Segue Sua Vida)",
+    "a": "Zé Neto & Cristiano",
+    "pos": 167
+   },
+   {
+    "t": "No Ouvidinho",
+    "a": "Felipe Amorim",
+    "pos": 168
+   },
+   {
+    "t": "Every Breath You Take",
+    "a": "The Police",
+    "pos": 169
+   },
+   {
+    "t": "Talvez você precise de mim",
+    "a": "Veigh",
+    "pos": 170
+   },
+   {
+    "t": "Propaganda",
+    "a": "Jorge & Mateus",
+    "pos": 171
+   },
+   {
+    "t": "BIRDS OF A FEATHER",
+    "a": "Billie Eilish",
+    "pos": 172
+   },
+   {
+    "t": "ABALO EMOCIONAL",
+    "a": "Luan Santana",
+    "pos": 173
+   },
+   {
+    "t": "Largado Às Traças",
+    "a": "Zé Neto & Cristiano",
+    "pos": 174
+   },
+   {
+    "t": "Graveto",
+    "a": "Marília Mendonça",
+    "pos": 175
+   },
+   {
+    "t": "Famoso Ímã | O poderoso chatão",
+    "a": "Mc Lele JP",
+    "pos": 176
+   },
+   {
+    "t": "Comunicação Falhou",
+    "a": "Mari Fernandez",
+    "pos": 177
+   },
+   {
+    "t": "Aquariano Nato",
+    "a": "MC Saci",
+    "pos": 178
+   },
+   {
+    "t": "Pátio do Posto",
+    "a": "Zé Neto & Cristiano",
+    "pos": 179
+   },
+   {
+    "t": "Cheirosa",
+    "a": "Jorge & Mateus",
+    "pos": 180
+   },
+   {
+    "t": "Nosso Primeiro Beijo",
+    "a": "Gloria Groove",
+    "pos": 181
+   },
+   {
+    "t": "Lose Control",
+    "a": "Teddy Swims",
+    "pos": 182
+   },
+   {
+    "t": "É Tudo Sobre Você / Ser Mudado",
+    "a": "MORADA",
+    "pos": 183
+   },
+   {
+    "t": "Presepada",
+    "a": "Marília Mendonça",
+    "pos": 184
+   },
+   {
+    "t": "Quase Algo",
+    "a": "Henrique & Juliano",
+    "pos": 185
+   },
+   {
+    "t": "Segredo",
+    "a": "KayBlack",
+    "pos": 186
+   },
+   {
+    "t": "Gatilho",
+    "a": "Matheus & Kauan",
+    "pos": 187
+   },
+   {
+    "t": "Romântico",
+    "a": "Henrique & Juliano",
+    "pos": 188
+   },
+   {
+    "t": "Beijo de Glicose",
+    "a": "Diego & Victor Hugo",
+    "pos": 189
+   },
+   {
+    "t": "Quem É Esse?",
+    "a": "Julliany Souza",
+    "pos": 190
+   },
+   {
+    "t": "Ela e Ela",
+    "a": "Zé Neto & Cristiano",
+    "pos": 191
+   },
+   {
+    "t": "Parada Louca",
+    "a": "Mari Fernandez",
+    "pos": 192
+   },
+   {
+    "t": "Vou pela Madrugada",
+    "a": "Mc Negão Original",
+    "pos": 193
+   },
+   {
+    "t": "Malvadinho",
+    "a": "MC LUUKY",
+    "pos": 194
+   },
+   {
+    "t": "Gauchinha",
+    "a": "DJ Japa NK",
+    "pos": 195
+   },
+   {
+    "t": "Ouvi Dizer",
+    "a": "Melim",
+    "pos": 196
+   },
+   {
+    "t": "Pilantra e Meio",
+    "a": "Eric Land",
+    "pos": 197
+   },
+   {
+    "t": "Tapão Na Raba",
+    "a": "Raí Saia Rodada",
+    "pos": 198
+   },
+   {
+    "t": "DANÇARINA",
+    "a": "PEDRO SAMPAIO",
+    "pos": 199
+   },
+   {
+    "t": "Cobaia",
+    "a": "Lauana Prado",
+    "pos": 200
+   },
+   {
+    "t": "Sereia",
+    "a": "Orochi",
+    "pos": 201
+   },
+   {
+    "t": "sentaDONA (Remix) s2",
+    "a": "Davi Kneip",
+    "pos": 202
+   },
+   {
+    "t": "MORENA",
+    "a": "Luan Santana",
+    "pos": 203
+   },
+   {
+    "t": "GALOPA",
+    "a": "PEDRO SAMPAIO",
+    "pos": 204
+   },
+   {
+    "t": "Quer Voar",
+    "a": "Matuê",
+    "pos": 205
+   },
+   {
+    "t": "Preferida",
+    "a": "KayBlack",
+    "pos": 206
+   },
+   {
+    "t": "One Of The Girls",
+    "a": "The Weeknd",
+    "pos": 207
+   },
+   {
+    "t": "Sem Aliança no Dedo",
+    "a": "MC Xenon",
+    "pos": 208
+   },
+   {
+    "t": "Mãe Solteira",
+    "a": "DG e Batidão Stronda",
+    "pos": 209
+   },
+   {
+    "t": "Deixa",
+    "a": "Lagum",
+    "pos": 210
+   },
+   {
+    "t": "Fronteira",
+    "a": "Ana Castela",
+    "pos": 211
+   },
+   {
+    "t": "Opa Cadê Eu",
+    "a": "Clayton & Romário",
+    "pos": 212
+   },
+   {
+    "t": "Lisboa",
+    "a": "ANAVITÓRIA",
+    "pos": 213
+   },
+   {
+    "t": "Basta Você Me Ligar",
+    "a": "Os Barões Da Pisadinha",
+    "pos": 214
+   },
+   {
+    "t": "Me Ama Ou Me Larga",
+    "a": "Simone Mendes",
+    "pos": 215
+   },
+   {
+    "t": "Cuida do Pet",
+    "a": "Oldilla",
+    "pos": 216
+   },
+   {
+    "t": "Resenha do Arrocha",
+    "a": "J. Eskine",
+    "pos": 217
+   },
+   {
+    "t": "Baile do Bruxo",
+    "a": "Tropa do Bruxo",
+    "pos": 218
+   },
+   {
+    "t": "Arruma Um Bão",
+    "a": "Israel & Rodolffo",
+    "pos": 219
+   },
+   {
+    "t": "Termina Comigo Antes",
+    "a": "Gusttavo Lima",
+    "pos": 220
+   },
+   {
+    "t": "Só Não Divulga",
+    "a": "Fernando & Sorocaba",
+    "pos": 221
+   },
+   {
+    "t": "Não Sei o Que Lá",
+    "a": "Marília Mendonça",
+    "pos": 222
+   },
+   {
+    "t": "Believer",
+    "a": "Imagine Dragons",
+    "pos": 223
+   },
+   {
+    "t": "Hear Me Now",
+    "a": "Alok",
+    "pos": 224
+   },
+   {
+    "t": "Zona De Perigo",
+    "a": "Léo Santana",
+    "pos": 225
+   },
+   {
+    "t": "Todo Mundo Menos Você",
+    "a": "Marília Mendonça",
+    "pos": 226
+   },
+   {
+    "t": "Eu Já Tava Bem",
+    "a": "Wesley Safadão",
+    "pos": 227
+   },
+   {
+    "t": "Mtg Forró e Desmantelo",
+    "a": "dj sv",
+    "pos": 228
+   },
+   {
+    "t": "Barzinho Aleatório",
+    "a": "Zé Neto & Cristiano",
+    "pos": 229
+   },
+   {
+    "t": "Amor de Fim de Noite",
+    "a": "Orochi",
+    "pos": 230
+   },
+   {
+    "t": "Namorando Ou Não",
+    "a": "Clayton & Romário",
+    "pos": 231
+   },
+   {
+    "t": "Pandora",
+    "a": "DJ Matt D",
+    "pos": 232
+   },
+   {
+    "t": "Até Você Voltar",
+    "a": "Henrique & Juliano",
+    "pos": 233
+   },
+   {
+    "t": "Mágica",
+    "a": "Hugo & Guilherme",
+    "pos": 234
+   },
+   {
+    "t": "POCPOC",
+    "a": "PEDRO SAMPAIO",
+    "pos": 235
+   },
+   {
+    "t": "Todo Mundo Vai Sofrer",
+    "a": "Marília Mendonça",
+    "pos": 236
+   },
+   {
+    "t": "Crack com Mussilon",
+    "a": "Matuê",
+    "pos": 237
+   },
+   {
+    "t": "Bebe, Beija e Trai",
+    "a": "Mayke & Rodrigo",
+    "pos": 238
+   },
+   {
+    "t": "Pirocada Quente",
+    "a": "MC Jvila",
+    "pos": 239
+   },
+   {
+    "t": "Luz do Luar",
+    "a": "Mc Tato",
+    "pos": 240
+   },
+   {
+    "t": "Aquelas Coisas",
+    "a": "João Gomes",
+    "pos": 241
+   },
+   {
+    "t": "Conexões de Máfia",
+    "a": "Matuê",
+    "pos": 242
+   },
+   {
+    "t": "Poesia Acústica 13",
+    "a": "Pineapple StormTv",
+    "pos": 243
+   },
+   {
+    "t": "INDUSTRY BABY",
+    "a": "Lil Nas X",
+    "pos": 244
+   },
+   {
+    "t": "O Meu Coração Em Suas Mãos (Colgando en tu manos)",
+    "a": "Hugo & Guilherme",
+    "pos": 245
+   },
+   {
+    "t": "Logo Eu",
+    "a": "Jorge & Mateus",
+    "pos": 246
+   },
+   {
+    "t": "ERRO PLANEJADO",
+    "a": "Luan Santana",
+    "pos": 247
+   },
+   {
+    "t": "Devia Ser Proibido",
+    "a": "Henrique & Juliano",
+    "pos": 248
+   },
+   {
+    "t": "menina solta",
+    "a": "GIULIA BE",
+    "pos": 249
+   },
+   {
+    "t": "Pra Sempre Com Você",
+    "a": "Jorge & Mateus",
+    "pos": 250
+   },
+   {
+    "t": "Vida Loka, Pt. 1",
+    "a": "Racionais MC's",
+    "pos": 251
+   },
+   {
+    "t": "Litrão",
+    "a": "Matheus & Kauan",
+    "pos": 252
+   },
+   {
+    "t": "Who",
+    "a": "Jimin",
+    "pos": 253
+   },
+   {
+    "t": "Vazou Na Braquiara",
+    "a": "Hugo & Guilherme",
+    "pos": 254
+   },
+   {
+    "t": "Nota de Repúdio",
+    "a": "Gusttavo Lima",
+    "pos": 255
+   },
+   {
+    "t": "Você Beberia Ou Não Beberia?",
+    "a": "Zé Neto & Cristiano",
+    "pos": 256
+   },
+   {
+    "t": "Ela",
+    "a": "Sorriso Maroto",
+    "pos": 257
+   },
+   {
+    "t": "ELA PIROU NA DODGE RAM",
+    "a": "Luan Pereira",
+    "pos": 258
+   },
+   {
+    "t": "In the End",
+    "a": "Linkin Park",
+    "pos": 259
+   },
+   {
+    "t": "MOLETOM",
+    "a": "Luan Pereira",
+    "pos": 260
+   },
+   {
+    "t": "Sagrado Profano",
+    "a": "Luísa Sonza",
+    "pos": 261
+   },
+   {
+    "t": "Toma Toma Vapo Vapo",
+    "a": "Zé Felipe",
+    "pos": 262
+   },
+   {
+    "t": "Coração Cachorro",
+    "a": "Avine Vinny",
+    "pos": 263
+   },
+   {
+    "t": "Vidinha de Balada",
+    "a": "Henrique & Juliano",
+    "pos": 264
+   },
+   {
+    "t": "Dia de Fluxo",
+    "a": "AgroPlay",
+    "pos": 265
+   },
+   {
+    "t": "Lance Individual",
+    "a": "Jorge & Mateus",
+    "pos": 266
+   },
+   {
+    "t": "Dois Enganados",
+    "a": "Murilo Huff",
+    "pos": 267
+   },
+   {
+    "t": "Tá Rocheda",
+    "a": "Os Barões Da Pisadinha",
+    "pos": 268
+   },
+   {
+    "t": "Novinha do Onlyfans (Tchan Ran Tchan Tchan)",
+    "a": "Kadu Martins",
+    "pos": 269
+   },
+   {
+    "t": "Revoada No Colchão",
+    "a": "Zé Felipe",
+    "pos": 270
+   },
+   {
+    "t": "Dance Monkey",
+    "a": "Tones And I",
+    "pos": 271
+   },
+   {
+    "t": "SENTADÃO",
+    "a": "PEDRO SAMPAIO",
+    "pos": 272
+   },
+   {
+    "t": "Oh Juliana",
+    "a": "Niack",
+    "pos": 273
+   },
+   {
+    "t": "Bipolar",
+    "a": "Mc Davi",
+    "pos": 274
+   },
+   {
+    "t": "Gol Bolinha, Gol Quadrado 2",
+    "a": "Mc Pedrinho",
+    "pos": 275
+   },
+   {
+    "t": "Se Eu Te Perdoar",
+    "a": "Clayton & Romário",
+    "pos": 276
+   },
+   {
+    "t": "Não Recomendo",
+    "a": "Matheus & Kauan",
+    "pos": 277
+   },
+   {
+    "t": "Halls na Língua",
+    "a": "Kadu Martins",
+    "pos": 278
+   },
+   {
+    "t": "Nem Namorado e Nem Ficante",
+    "a": "Israel & Rodolffo",
+    "pos": 279
+   },
+   {
+    "t": "Ferida Curada",
+    "a": "Zé Neto & Cristiano",
+    "pos": 280
+   },
+   {
+    "t": "Rolê",
+    "a": "Tarcísio do Acordeon",
+    "pos": 281
+   },
+   {
+    "t": "Ameaça",
+    "a": "Paulo Pires",
+    "pos": 282
+   },
+   {
+    "t": "A Internet É Toxica",
+    "a": "Dj Lc",
+    "pos": 283
+   },
+   {
+    "t": "Malvada",
+    "a": "Zé Felipe",
+    "pos": 284
+   },
+   {
+    "t": "Saudade do Carai",
+    "a": "Mari Fernandez",
+    "pos": 285
+   },
+   {
+    "t": "Esse B.O é Meu",
+    "a": "Guilherme & Benuto",
+    "pos": 286
+   },
+   {
+    "t": "Imã de Problema",
+    "a": "Henry Freitas",
+    "pos": 287
+   },
+   {
+    "t": "Paradigmas",
+    "a": "Jorge & Mateus",
+    "pos": 288
+   },
+   {
+    "t": "Áudio",
+    "a": "Diego & Victor Hugo",
+    "pos": 289
+   },
+   {
+    "t": "Ranking",
+    "a": "Jorge & Mateus",
+    "pos": 290
+   },
+   {
+    "t": "Mulher Foda",
+    "a": "Simone Mendes",
+    "pos": 291
+   },
+   {
+    "t": "Amor Na Praia",
+    "a": "NATTAN",
+    "pos": 292
+   },
+   {
+    "t": "Poesia Acústica #9: Melhor Forma",
+    "a": "Pineapple StormTv",
+    "pos": 293
+   },
+   {
+    "t": "Última Noite",
+    "a": "NATTAN",
+    "pos": 294
+   },
+   {
+    "t": "Ordinary",
+    "a": "Alex Warren",
+    "pos": 295
+   },
+   {
+    "t": "Meu Número",
+    "a": "Hugo & Guilherme",
+    "pos": 296
+   },
+   {
+    "t": "Sogra",
+    "a": "Dilsinho",
+    "pos": 297
+   },
+   {
+    "t": "Engana Dizendo Que Ama",
+    "a": "Veigh",
+    "pos": 298
+   },
+   {
+    "t": "Tenho Que Me Decidir",
+    "a": "MC PH",
+    "pos": 299
+   },
+   {
+    "t": "Me Caiu Tão Bem",
+    "a": "Murilo Huff",
+    "pos": 300
+   },
+   {
+    "t": "Dengo",
+    "a": "João Gomes",
+    "pos": 301
+   },
+   {
+    "t": "Não Mexe nas Minhas Gavetas",
+    "a": "Danilo e Davi",
+    "pos": 302
+   },
+   {
+    "t": "Melhor Ser uma Saudade",
+    "a": "Zé Neto & Cristiano",
+    "pos": 303
+   },
+   {
+    "t": "Vai malandra",
+    "a": "Anitta",
+    "pos": 304
+   },
+   {
+    "t": "Ficha Limpa",
+    "a": "Gusttavo Lima",
+    "pos": 305
+   },
+   {
+    "t": "Descer Pra BC",
+    "a": "Brenno & Matheus",
+    "pos": 306
+   },
+   {
+    "t": "Não Nasceu pra Namorar",
+    "a": "MC Zaquin",
+    "pos": 307
+   },
+   {
+    "t": "Localiza Aí BB",
+    "a": "Vitor e Luan",
+    "pos": 308
+   },
+   {
+    "t": "Fim de Semana no Rio",
+    "a": "Teto",
+    "pos": 309
+   },
+   {
+    "t": "João 20 + pra Sempre",
+    "a": "Vitor Santana",
+    "pos": 310
+   },
+   {
+    "t": "Imprevisto",
+    "a": "Yago Oproprio",
+    "pos": 311
+   },
+   {
+    "t": "Ao Vivo E A Cores",
+    "a": "Matheus & Kauan",
+    "pos": 312
+   },
+   {
+    "t": "Vida Louca",
+    "a": "Mc Poze do Rodo",
+    "pos": 313
+   },
+   {
+    "t": "Se For Amor",
+    "a": "João Gomes",
+    "pos": 314
+   },
+   {
+    "t": "212",
+    "a": "Chefin",
+    "pos": 315
+   },
+   {
+    "t": "Vai Cair Água",
+    "a": "Diego & Arnaldo",
+    "pos": 316
+   },
+   {
+    "t": "Saudade da Minha Vida",
+    "a": "Gusttavo Lima",
+    "pos": 317
+   },
+   {
+    "t": "Quando a vontade bater",
+    "a": "Pk",
+    "pos": 318
+   },
+   {
+    "t": "3 Batidas",
+    "a": "Guilherme & Benuto",
+    "pos": 319
+   },
+   {
+    "t": "Bala Love",
+    "a": "Mc Anjim",
+    "pos": 320
+   },
+   {
+    "t": "Basiquinho",
+    "a": "Matheus & Kauan",
+    "pos": 321
+   },
+   {
+    "t": "Quero Você do Jeito Que Quiser",
+    "a": "Marília Mendonça",
+    "pos": 322
+   },
+   {
+    "t": "Quero Ver é Me Esquecer",
+    "a": "Os Barões Da Pisadinha",
+    "pos": 323
+   },
+   {
+    "t": "Gaiola É o Troco",
+    "a": "MC Du Black",
+    "pos": 324
+   },
+   {
+    "t": "Sweet Child O' Mine",
+    "a": "Guns N' Roses",
+    "pos": 325
+   },
+   {
+    "t": "Fode Bem",
+    "a": "Felipe Amorim",
+    "pos": 326
+   },
+   {
+    "t": "Toma Tapa",
+    "a": "Mc Jacaré",
+    "pos": 327
+   },
+   {
+    "t": "365 Dias (Vida Mansa)",
+    "a": "MC Marks",
+    "pos": 328
+   },
+   {
+    "t": "Peça Íntima",
+    "a": "Murilo Huff",
+    "pos": 329
+   },
+   {
+    "t": "400K",
+    "a": "Mc IG",
+    "pos": 330
+   },
+   {
+    "t": "Veneno",
+    "a": "Murilo Huff",
+    "pos": 331
+   },
+   {
+    "t": "Os Bico Tão Se Perguntando (Let’s Go 3)",
+    "a": "MC PH",
+    "pos": 332
+   },
+   {
+    "t": "SWIM",
+    "a": "BTS",
+    "pos": 333
+   },
+   {
+    "t": "Baile no Morro",
+    "a": "MC Tairon",
+    "pos": 334
+   },
+   {
+    "t": "Palhaça",
+    "a": "Naiara Azevedo",
+    "pos": 335
+   },
+   {
+    "t": "Cartão Black",
+    "a": "MC Caverinha",
+    "pos": 336
+   },
+   {
+    "t": "Bagulho Louco",
+    "a": "Mc Paiva ZS",
+    "pos": 337
+   },
+   {
+    "t": "Envolver",
+    "a": "Anitta",
+    "pos": 338
+   },
+   {
+    "t": "Perdoou Nada",
+    "a": "Israel & Rodolffo",
+    "pos": 339
+   },
+   {
+    "t": "Média Boa",
+    "a": "Felipe e Rodrigo",
+    "pos": 340
+   },
+   {
+    "t": "Péssimo Negócio",
+    "a": "Dilsinho",
+    "pos": 341
+   },
+   {
+    "t": "Foi Intenso",
+    "a": "Zé Neto & Cristiano",
+    "pos": 342
+   },
+   {
+    "t": "DEJA VU",
+    "a": "Luan Santana",
+    "pos": 343
+   },
+   {
+    "t": "Morena De Goiânia",
+    "a": "Hugo & Guilherme",
+    "pos": 344
+   },
+   {
+    "t": "Kenny G",
+    "a": "Matuê",
+    "pos": 345
+   },
+   {
+    "t": "Troca",
+    "a": "Jorge & Mateus",
+    "pos": 346
+   },
+   {
+    "t": "ESCADA DO PRÉDIO",
+    "a": "PEDRO SAMPAIO",
+    "pos": 347
+   },
+   {
+    "t": "Elevador",
+    "a": "Hugo & Guilherme",
+    "pos": 348
+   },
+   {
+    "t": "Digitando",
+    "a": "Gustavo Moura & Rafael",
+    "pos": 349
+   },
+   {
+    "t": "Meia Noite (Você tem meu Whatsapp)",
+    "a": "Tarcísio do Acordeon",
+    "pos": 350
+   },
+   {
+    "t": "Do Job",
+    "a": "MC Tuto",
+    "pos": 351
+   },
+   {
+    "t": "Desocupa",
+    "a": "Matheus Vargas",
+    "pos": 352
+   },
+   {
+    "t": "Calcinha de Renda",
+    "a": "Panda",
+    "pos": 353
+   },
+   {
+    "t": "Disco Arranhado - Funk Remix",
+    "a": "Malu",
+    "pos": 354
+   },
+   {
+    "t": "M4",
+    "a": "Teto",
+    "pos": 355
+   },
+   {
+    "t": "Expectativa x Realidade",
+    "a": "Matheus & Kauan",
+    "pos": 356
+   },
+   {
+    "t": "TUM BÁ TUM",
+    "a": "Tropa do Bruxo",
+    "pos": 357
+   },
+   {
+    "t": "Serenata",
+    "a": "Marília Mendonça",
+    "pos": 358
+   },
+   {
+    "t": "Amor e Fé",
+    "a": "Hungria",
+    "pos": 359
+   },
+   {
+    "t": "Foi Pá Pum",
+    "a": "Simone & Simaria",
+    "pos": 360
+   },
+   {
+    "t": "Tchuco Nela",
+    "a": "Rogerinho",
+    "pos": 361
+   },
+   {
+    "t": "Toma Gostosona",
+    "a": "Mc Lele JP",
+    "pos": 362
+   },
+   {
+    "t": "Stay",
+    "a": "The Kid LAROI",
+    "pos": 363
+   },
+   {
+    "t": "Solteiro Não Trai",
+    "a": "Gustavo Mioto",
+    "pos": 364
+   },
+   {
+    "t": "Pulei na Piscina",
+    "a": "Guilherme & Benuto",
+    "pos": 365
+   },
+   {
+    "t": "Te Amo Demais",
+    "a": "Marília Mendonça",
+    "pos": 366
+   },
+   {
+    "t": "Acabei de Terminar",
+    "a": "Paulo e Nathan",
+    "pos": 367
+   },
+   {
+    "t": "Deu Moral",
+    "a": "Zé Neto & Cristiano",
+    "pos": 368
+   },
+   {
+    "t": "Vitamina C",
+    "a": "Suel",
+    "pos": 369
+   },
+   {
+    "t": "Zero Saudade",
+    "a": "Os Barões Da Pisadinha",
+    "pos": 370
+   },
+   {
+    "t": "Surtada - Remix Brega Funk",
+    "a": "Dadá Boladão",
+    "pos": 371
+   },
+   {
+    "t": "Só os Loucos Sabem",
+    "a": "Charlie Brown Jr.",
+    "pos": 372
+   },
+   {
+    "t": "Fala Mal de Mim",
+    "a": "Gusttavo Lima",
+    "pos": 373
+   },
+   {
+    "t": "Locked out of Heaven",
+    "a": "Bruno Mars",
+    "pos": 374
+   },
+   {
+    "t": "Namora Aí",
+    "a": "MC Ryan SP",
+    "pos": 375
+   },
+   {
+    "t": "Medley de Igaratá 3",
+    "a": "Mc Negão Original",
+    "pos": 376
+   },
+   {
+    "t": "É Ele",
+    "a": "Drops INA",
+    "pos": 377
+   },
+   {
+    "t": "Me Bloqueia (Ao Vivo)",
+    "a": "Ferrugem",
+    "pos": 378
+   },
+   {
+    "t": "Desliza (\"Ólhinho\" No Corpinho)",
+    "a": "Léo Santana",
+    "pos": 379
+   },
+   {
+    "t": "Morar Nesse Motel",
+    "a": "Gusttavo Lima",
+    "pos": 380
+   },
+   {
+    "t": "Evento Cancelado",
+    "a": "Henrique & Juliano",
+    "pos": 381
+   },
+   {
+    "t": "Señorita",
+    "a": "Shawn Mendes",
+    "pos": 382
+   },
+   {
+    "t": "Hit Contagiante",
+    "a": "Felipe Original",
+    "pos": 383
+   },
+   {
+    "t": "Pupila",
+    "a": "ANAVITÓRIA",
+    "pos": 384
+   },
+   {
+    "t": "Vai Lá",
+    "a": "Maiara & Maraisa",
+    "pos": 385
+   },
+   {
+    "t": "The Fate of Ophelia",
+    "a": "Taylor Swift",
+    "pos": 386
+   },
+   {
+    "t": "Figurinha",
+    "a": "Douglas & Vinicius",
+    "pos": 387
+   },
+   {
+    "t": "Shallow",
+    "a": "Lady Gaga",
+    "pos": 388
+   },
+   {
+    "t": "Não, Não Vou",
+    "a": "Mari Fernandez",
+    "pos": 389
+   },
+   {
+    "t": "Caos De Alguém",
+    "a": "Felipe e Rodrigo",
+    "pos": 390
+   },
+   {
+    "t": "Senta Danada",
+    "a": "Zé Felipe",
+    "pos": 391
+   },
+   {
+    "t": "quando a bad bater",
+    "a": "Luan Santana",
+    "pos": 392
+   },
+   {
+    "t": "A Cara do Crime (Nós Incomoda)",
+    "a": "Mc Poze do Rodo",
+    "pos": 393
+   },
+   {
+    "t": "Paredes",
+    "a": "Jorge & Mateus",
+    "pos": 394
+   },
+   {
+    "t": "Saudade Estranha",
+    "a": "Murilo Huff",
+    "pos": 395
+   },
+   {
+    "t": "Vento Forte",
+    "a": "Mc Jacaré",
+    "pos": 396
+   },
+   {
+    "t": "Baby Eu Tava na Rua da Água",
+    "a": "TR",
+    "pos": 397
+   },
+   {
+    "t": "Mentirosa",
+    "a": "Hugo & Guilherme",
+    "pos": 398
+   },
+   {
+    "t": "Pau Pra Toda Obra",
+    "a": "Mc Jacaré",
+    "pos": 399
+   },
+   {
+    "t": "Set dos Casados",
+    "a": "Mc Davi",
+    "pos": 400
+   },
+   {
+    "t": "Não Para",
+    "a": "Belle Kaffer",
+    "pos": 401
+   },
+   {
+    "t": "Chorei na Vaquejada",
+    "a": "Eric Land",
+    "pos": 402
+   },
+   {
+    "t": "Liberdade (Quando o Grave Bate Forte)",
+    "a": "Alok",
+    "pos": 403
+   },
+   {
+    "t": "Bebi Minha Bicicleta (Coração Falido)",
+    "a": "Zé Neto & Cristiano",
+    "pos": 404
+   },
+   {
+    "t": "Espaçosa Demais",
+    "a": "Felipe Araújo",
+    "pos": 405
+   },
+   {
+    "t": "Nem Doeu",
+    "a": "Matheus & Kauan",
+    "pos": 406
+   },
+   {
+    "t": "Beatriz",
+    "a": "2ZDinizz",
+    "pos": 407
+   },
+   {
+    "t": "085",
+    "a": "Rogerinho",
+    "pos": 408
+   },
+   {
+    "t": "BRABA",
+    "a": "Luísa Sonza",
+    "pos": 409
+   },
+   {
+    "t": "Cerveja De Garrafa (Fumaça Que Eu Faço)",
+    "a": "Atitude 67",
+    "pos": 410
+   },
+   {
+    "t": "Vagabundo Chora",
+    "a": "Guilherme & Benuto",
+    "pos": 411
+   },
+   {
+    "t": "Corte Americano",
+    "a": "Filipe Ret",
+    "pos": 412
+   },
+   {
+    "t": "Bandido Não Dança",
+    "a": "Mc Paiva ZS",
+    "pos": 413
+   },
+   {
+    "t": "O Sol",
+    "a": "Vitor Kley",
+    "pos": 414
+   },
+   {
+    "t": "Postinho de Gasolina",
+    "a": "João Gustavo e Murilo",
+    "pos": 415
+   },
+   {
+    "t": "OLHO MARROM",
+    "a": "Luan Santana",
+    "pos": 416
+   },
+   {
+    "t": "Quem Me Dera",
+    "a": "Márcia Fellipe",
+    "pos": 417
+   },
+   {
+    "t": "Espresso",
+    "a": "Sabrina Carpenter",
+    "pos": 418
+   },
+   {
+    "t": "Tô Voltando - (Boiadeira Internacional)",
+    "a": "Ana Castela",
+    "pos": 419
+   },
+   {
+    "t": "Esquema Preferido",
+    "a": "DJ Ivis",
+    "pos": 420
+   },
+   {
+    "t": "300 no 7",
+    "a": "MC GP",
+    "pos": 421
+   },
+   {
+    "t": "Cem Mil",
+    "a": "Gusttavo Lima",
+    "pos": 422
+   },
+   {
+    "t": "Flowers",
+    "a": "Miley Cyrus",
+    "pos": 423
+   },
+   {
+    "t": "Imagina A Sentada",
+    "a": "Matheus & Kauan",
+    "pos": 424
+   },
+   {
+    "t": "Diz Aí Qual é o Plano?",
+    "a": "Mc IG",
+    "pos": 425
+   },
+   {
+    "t": "Cidade Inteira",
+    "a": "Eric Land",
+    "pos": 426
+   },
+   {
+    "t": "Agora Vai Sentar",
+    "a": "MC's Jhowzinho & Kadinho",
+    "pos": 427
+   },
+   {
+    "t": "Parado no Bailão",
+    "a": "MC L da Vinte",
+    "pos": 428
+   },
+   {
+    "t": "Desce Pro Play (PA PA PA)",
+    "a": "ZAAC",
+    "pos": 429
+   },
+   {
+    "t": "Última Saudade (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 430
+   },
+   {
+    "t": "Sonho Dela",
+    "a": "CountryBeat",
+    "pos": 431
+   },
+   {
+    "t": "Só Fé",
+    "a": "Grelo",
+    "pos": 432
+   },
+   {
+    "t": "FALTA DE QUÊ?",
+    "a": "Luan Pereira",
+    "pos": 433
+   },
+   {
+    "t": "Amor da Despedida",
+    "a": "Os Barões Da Pisadinha",
+    "pos": 434
+   },
+   {
+    "t": "Cavalo de Pau",
+    "a": "Bruno & Denner",
+    "pos": 435
+   },
+   {
+    "t": "Combatchy",
+    "a": "Anitta",
+    "pos": 436
+   },
+   {
+    "t": "É Problema",
+    "a": "Matheus & Kauan",
+    "pos": 437
+   },
+   {
+    "t": "Eu Duvido",
+    "a": "Guilherme & Benuto",
+    "pos": 438
+   },
+   {
+    "t": "Hoje Eu Vou Parar Na Gaiola",
+    "a": "Mc Livinho",
+    "pos": 439
+   },
+   {
+    "t": "Anti-Amor",
+    "a": "Gustavo Mioto",
+    "pos": 440
+   },
+   {
+    "t": "Mesma História",
+    "a": "Orochi",
+    "pos": 441
+   },
+   {
+    "t": "Vagabundo",
+    "a": "Matheus & Kauan",
+    "pos": 442
+   },
+   {
+    "t": "Pra Não Esquecer De Mim",
+    "a": "Aaron Modesto",
+    "pos": 443
+   },
+   {
+    "t": "Ovelhinha (Ao Vivo)",
+    "a": "Isadora Pompeo",
+    "pos": 444
+   },
+   {
+    "t": "Pane no Sistema",
+    "a": "GREGO",
+    "pos": 445
+   },
+   {
+    "t": "Resumindo",
+    "a": "Zé Neto & Cristiano",
+    "pos": 446
+   },
+   {
+    "t": "Te Prometo",
+    "a": "DENNIS",
+    "pos": 447
+   },
+   {
+    "t": "Regime Fechado",
+    "a": "Simone & Simaria",
+    "pos": 448
+   },
+   {
+    "t": "MONTERO (Call Me By Your Name)",
+    "a": "Lil Nas X",
+    "pos": 449
+   },
+   {
+    "t": "Sem Sal",
+    "a": "Marília Mendonça",
+    "pos": 450
+   },
+   {
+    "t": "Último Beijo",
+    "a": "Bruno & Marrone",
+    "pos": 451
+   },
+   {
+    "t": "Sei Tocar Violão",
+    "a": "Clayton & Romário",
+    "pos": 452
+   },
+   {
+    "t": "Uma e Quinze da Manhã",
+    "a": "Natanzinho Lima",
+    "pos": 453
+   },
+   {
+    "t": "Metade De Mim",
+    "a": "Hugo & Guilherme",
+    "pos": 454
+   },
+   {
+    "t": "Coladinha em Mim",
+    "a": "Gustavo Mioto",
+    "pos": 455
+   },
+   {
+    "t": "Só Pra Castigar",
+    "a": "Wesley Safadão",
+    "pos": 456
+   },
+   {
+    "t": "Fuleragem",
+    "a": "MC WM",
+    "pos": 457
+   },
+   {
+    "t": "Marca Evidente",
+    "a": "Israel & Rodolffo",
+    "pos": 458
+   },
+   {
+    "t": "VERMELHO",
+    "a": "Gloria Groove",
+    "pos": 459
+   },
+   {
+    "t": "Torre Eiffel",
+    "a": "Manu",
+    "pos": 460
+   },
+   {
+    "t": "Papin",
+    "a": "MC Kevin o Chris",
+    "pos": 461
+   },
+   {
+    "t": "Nada Com Nada",
+    "a": "Gustavo Mioto",
+    "pos": 462
+   },
+   {
+    "t": "Desejando Eu (Ao Vivo)",
+    "a": "Murilo Huff",
+    "pos": 463
+   },
+   {
+    "t": "Puta Mexicana",
+    "a": "DJ Jeeh FDC",
+    "pos": 464
+   },
+   {
+    "t": "A Culpa é do Meu Grau",
+    "a": "Diego & Victor Hugo",
+    "pos": 465
+   },
+   {
+    "t": "Deserto (Ao Vivo)",
+    "a": "Maria Marçal",
+    "pos": 466
+   },
+   {
+    "t": "Apelido Carinhoso",
+    "a": "Gusttavo Lima",
+    "pos": 467
+   },
+   {
+    "t": "MODO TURBO",
+    "a": "Luísa Sonza",
+    "pos": 468
+   },
+   {
+    "t": "Amor de Verdade",
+    "a": "MC Kekel",
+    "pos": 469
+   },
+   {
+    "t": "Viva Voz",
+    "a": "Lauana Prado",
+    "pos": 470
+   },
+   {
+    "t": "Eu Não Previ",
+    "a": "Traia Véia",
+    "pos": 471
+   },
+   {
+    "t": "Ta Tum Tum",
+    "a": "MC Kevinho",
+    "pos": 472
+   },
+   {
+    "t": "Vai Tomando Pock Pock",
+    "a": "Mc Lele JP",
+    "pos": 473
+   },
+   {
+    "t": "Estado Decadente",
+    "a": "Zé Neto & Cristiano",
+    "pos": 474
+   },
+   {
+    "t": "Trevo (Tu)",
+    "a": "ANAVITÓRIA",
+    "pos": 475
+   },
+   {
+    "t": "Desandei",
+    "a": "Lauana Prado",
+    "pos": 476
+   },
+   {
+    "t": "Freio da Blazer",
+    "a": "L7NNON",
+    "pos": 477
+   },
+   {
+    "t": "A Noite (La Notte)",
+    "a": "Gusttavo Lima",
+    "pos": 478
+   },
+   {
+    "t": "Roses - Imanbek Remix",
+    "a": "SAINt JHN",
+    "pos": 479
+   },
+   {
+    "t": "Fazer Falta",
+    "a": "Mc Livinho",
+    "pos": 480
+   },
+   {
+    "t": "Beijo Equivocado",
+    "a": "George Henrique & Rodrigo",
+    "pos": 481
+   },
+   {
+    "t": "Wi-Fi",
+    "a": "Traia Véia",
+    "pos": 482
+   },
+   {
+    "t": "Maçã Verde",
+    "a": "MC Hariel",
+    "pos": 483
+   },
+   {
+    "t": "Não Vai Embora",
+    "a": "Dilsinho",
+    "pos": 484
+   },
+   {
+    "t": "Pirulito Vermelho",
+    "a": "Diego & Victor Hugo",
+    "pos": 485
+   },
+   {
+    "t": "Me Atraiu",
+    "a": "Gabriela Rocha",
+    "pos": 486
+   },
+   {
+    "t": "Volta Bebê, Volta Neném",
+    "a": "Dj Guuga",
+    "pos": 487
+   },
+   {
+    "t": "Tudo no Sigilo",
+    "a": "Vytinho NG",
+    "pos": 488
+   },
+   {
+    "t": "Me Sinto Abençoado",
+    "a": "Mc Poze do Rodo",
+    "pos": 489
+   },
+   {
+    "t": "Gostosinha é Ela",
+    "a": "Felipe Amorim",
+    "pos": 490
+   },
+   {
+    "t": "Sonho de Amor",
+    "a": "Natanzinho Lima",
+    "pos": 491
+   },
+   {
+    "t": "Medley da Gaiola - Dennis DJ Remix",
+    "a": "MC Kevin o Chris",
+    "pos": 492
+   },
+   {
+    "t": "Diferentão",
+    "a": "Dilsinho",
+    "pos": 493
+   },
+   {
+    "t": "Evoluiu",
+    "a": "MC Kevin o Chris",
+    "pos": 494
+   },
+   {
+    "t": "Chega E Senta",
+    "a": "John Amplificado",
+    "pos": 495
+   },
+   {
+    "t": "Me Fala Qual Necessidade",
+    "a": "Henry Freitas",
+    "pos": 496
+   },
+   {
+    "t": "Kikando e Me Olhando",
+    "a": "MC Braz",
+    "pos": 497
+   },
+   {
+    "t": "Amor Da Sua Cama",
+    "a": "Felipe Araújo",
+    "pos": 498
+   },
+   {
+    "t": "Romance Com Safadeza",
+    "a": "Wesley Safadão",
+    "pos": 499
+   },
+   {
+    "t": "Perfeito Pra Ficar Sozinho",
+    "a": "Murilo Huff",
+    "pos": 500
+   }
+  ],
+  "tiktok": [
+   {
+    "t": "Copines",
+    "a": "Aya Nakamura",
+    "pos": 1,
+    "rank": 962587
+   },
+   {
+    "t": "Cravo e canela",
+    "a": "Anitta",
+    "pos": 2,
+    "rank": 549460
+   },
+   {
+    "t": "O mundo é nosso",
+    "a": "Duduzinho",
+    "pos": 3,
+    "rank": 426354
+   },
+   {
+    "t": "Rock Music",
+    "a": "Charli xcx",
+    "pos": 4,
+    "rank": 536975
+   },
+   {
+    "t": "Resenha Na Laje",
+    "a": "Kew",
+    "pos": 5,
+    "rank": 589660
+   },
+   {
+    "t": "Tipo Virginia",
+    "a": "Dj Gv de Campos",
+    "pos": 6,
+    "rank": 369234
+   },
+   {
+    "t": "Brasil com S",
+    "a": "M4IA",
+    "pos": 7,
+    "rank": 458203
+   },
+   {
+    "t": "Bola Uma Vela (Trava Chip)",
+    "a": "MC Meno K",
+    "pos": 8,
+    "rank": 767705
+   },
+   {
+    "t": "Bad",
+    "a": "Wale",
+    "pos": 9,
+    "rank": 746060
+   },
+   {
+    "t": "Girl Like Me",
+    "a": "PinkPantheress",
+    "pos": 10,
+    "rank": 717897
+   },
+   {
+    "t": "iloveitiloveitiloveit",
+    "a": "Bella Kay",
+    "pos": 11,
+    "rank": 810438
+   },
+   {
+    "t": "Gauchinha (Delicinha)",
+    "a": "MC Meno K",
+    "pos": 12,
+    "rank": 535029
+   },
+   {
+    "t": "World, Hold On",
+    "a": "Bob Sinclar",
+    "pos": 13,
+    "rank": 356478
+   },
+   {
+    "t": "Hoje",
+    "a": "LUDMILLA",
+    "pos": 14,
+    "rank": 532433
+   },
+   {
+    "t": "Mimosa 2000",
+    "a": "Furacão 2000",
+    "pos": 15,
+    "rank": 638677
+   },
+   {
+    "t": "you broke my heart (Hoodtrap / Mylancore Remix)",
+    "a": "kobzx2z",
+    "pos": 16,
+    "rank": 524170
+   },
+   {
+    "t": "Ai Se Seu Closet Falasse (Semi Nua)",
+    "a": "Mc Negão Original",
+    "pos": 17,
+    "rank": 622162
+   },
+   {
+    "t": "ME POSTOU NO DAILY - FESTA DO BIG G",
+    "a": "Mc GP",
+    "pos": 18,
+    "rank": 794360
+   },
+   {
+    "t": "Posso Até Não Te Dar Flores",
+    "a": "DJ Japa NK",
+    "pos": 19,
+    "rank": 830706
+   },
+   {
+    "t": "SET DO JAPA NK 2.0",
+    "a": "DJ Japa NK",
+    "pos": 20,
+    "rank": 844653
+   },
+   {
+    "t": "Foto",
+    "a": "Marvvila",
+    "pos": 21,
+    "rank": 645109
+   },
+   {
+    "t": "SEQUÊNCIA CARAMELO",
+    "a": "PEDRO SAMPAIO",
+    "pos": 22,
+    "rank": 700629
+   },
+   {
+    "t": "JETSKI",
+    "a": "PEDRO SAMPAIO",
+    "pos": 23,
+    "rank": 855434
+   },
+   {
+    "t": "MEGA FOLDED",
+    "a": "DJ ML da Vila",
+    "pos": 24,
+    "rank": 439177
+   },
+   {
+    "t": "SEQUÊNCIA FEITICEIRA",
+    "a": "PEDRO SAMPAIO",
+    "pos": 25,
+    "rank": 814954
+   },
+   {
+    "t": "Desliza (\"Ólhinho\" No Corpinho)",
+    "a": "Léo Santana",
+    "pos": 26,
+    "rank": 744952
+   },
+   {
+    "t": "No Broke Boys",
+    "a": "Disco Lines",
+    "pos": 27,
+    "rank": 946199
+   },
+   {
+    "t": "Hold My Hand",
+    "a": "Jess Glynne",
+    "pos": 28,
+    "rank": 577103
+   },
+   {
+    "t": "Shape of You",
+    "a": "Ed Sheeran",
+    "pos": 29,
+    "rank": 968208
+   },
+   {
+    "t": "back to friends",
+    "a": "sombr",
+    "pos": 30,
+    "rank": 980345
+   },
+   {
+    "t": "Sparks",
+    "a": "Coldplay",
+    "pos": 31,
+    "rank": 847409
+   },
+   {
+    "t": "Dreams",
+    "a": "Fleetwood Mac",
+    "pos": 32,
+    "rank": 112220
+   },
+   {
+    "t": "Iris",
+    "a": "The Goo Goo Dolls",
+    "pos": 33,
+    "rank": 944560
+   },
+   {
+    "t": "Forever Young",
+    "a": "Alphaville",
+    "pos": 34,
+    "rank": 960598
+   },
+   {
+    "t": "Ordinary",
+    "a": "Alex Warren",
+    "pos": 35,
+    "rank": 990241
+   },
+   {
+    "t": "End of Beginning",
+    "a": "Djo",
+    "pos": 36,
+    "rank": 999711
+   },
+   {
+    "t": "Purple Rain",
+    "a": "Prince",
+    "pos": 37,
+    "rank": 22389
+   },
+   {
+    "t": "Beanie",
+    "a": "10X",
+    "pos": 38,
+    "rank": 583689
+   },
+   {
+    "t": "JAPONÊS",
+    "a": "Brandão85",
+    "pos": 39,
+    "rank": 669256
+   },
+   {
+    "t": "Sugar On My Tongue",
+    "a": "Tyler, The Creator",
+    "pos": 40,
+    "rank": 783472
+   },
+   {
+    "t": "ESSA TÁ QUENTE",
+    "a": "DJ Mimo Prod",
+    "pos": 41,
+    "rank": 218424
+   },
+   {
+    "t": "Amo Minha Favela",
+    "a": "DJ Japa NK",
+    "pos": 42,
+    "rank": 747855
+   },
+   {
+    "t": "Eu Até Gosto de Você",
+    "a": "Mc Jacaré",
+    "pos": 43,
+    "rank": 672272
+   },
+   {
+    "t": "Fanatismo",
+    "a": "Yasmin Sensação",
+    "pos": 44,
+    "rank": 437113
+   },
+   {
+    "t": "Melzinho",
+    "a": "Talita Mel",
+    "pos": 45,
+    "rank": 8835
+   },
+   {
+    "t": "Eu Me Apaixonei",
+    "a": "Vitinho Imperador",
+    "pos": 46,
+    "rank": 936817
+   },
+   {
+    "t": "Sonho de Amor",
+    "a": "Natanzinho Lima",
+    "pos": 47,
+    "rank": 895700
+   },
+   {
+    "t": "Quero Ser o Seu Amor",
+    "a": "Marília Tavares",
+    "pos": 48,
+    "rank": 674247
+   },
+   {
+    "t": "Se Eu Te Perdoar",
+    "a": "Clayton & Romário",
+    "pos": 49,
+    "rank": 882989
+   },
+   {
+    "t": "Pela Última Vez",
+    "a": "Grupo Menos É Mais",
+    "pos": 50,
+    "rank": 967659
+   },
+   {
+    "t": "Havaianas",
+    "a": "Som de Faculdade",
+    "pos": 51,
+    "rank": 627336
+   },
+   {
+    "t": "Era Sol Que Me Faltava",
+    "a": "AgroPlay",
+    "pos": 52,
+    "rank": 410362
+   },
+   {
+    "t": "Esse Cupido Não Me Ajuda",
+    "a": "Dexhenry",
+    "pos": 53,
+    "rank": 526912
+   },
+   {
+    "t": "SEQUÊNCIA DE RITMADA 7",
+    "a": "mc lipzl",
+    "pos": 54,
+    "rank": 528731
+   },
+   {
+    "t": "LÁ LÁ LÁ LÁ LÁLÁLÁ EM MENOS DE DEZ SEGUNDOS",
+    "a": "BK2P",
+    "pos": 55,
+    "rank": 386724
+   },
+   {
+    "t": "MTG SOZINHA NESSA TORRE SINA DE OFELIA",
+    "a": "DL Original",
+    "pos": 56,
+    "rank": 283228
+   },
+   {
+    "t": "P.I.T.T.Y. (Parecendo Uma Cafetina)",
+    "a": "NandaTsunami",
+    "pos": 57,
+    "rank": 716474
+   },
+   {
+    "t": "4 Raws",
+    "a": "EsDeeKid",
+    "pos": 58,
+    "rank": 749339
+   },
+   {
+    "t": "What You Saying",
+    "a": "Lil Uzi Vert",
+    "pos": 59,
+    "rank": 773440
+   },
+   {
+    "t": "Beez In The Trap",
+    "a": "Nicki Minaj",
+    "pos": 60,
+    "rank": 62089
+   },
+   {
+    "t": "party 4 u",
+    "a": "Charli xcx",
+    "pos": 61,
+    "rank": 757069
+   },
+   {
+    "t": "I Thought I Saw Your Face Today",
+    "a": "She & Him",
+    "pos": 62,
+    "rank": 855552
+   },
+   {
+    "t": "Wait",
+    "a": "M83",
+    "pos": 63,
+    "rank": 213064
+   },
+   {
+    "t": "Madeline",
+    "a": "Lily Allen",
+    "pos": 64,
+    "rank": 527423
+   },
+   {
+    "t": "Loser",
+    "a": "Tame Impala",
+    "pos": 65,
+    "rank": 775125
+   },
+   {
+    "t": "Housewife",
+    "a": "Tate McRae",
+    "pos": 66,
+    "rank": 998094
+   },
+   {
+    "t": "Dai Dai",
+    "a": "Shakira",
+    "pos": 67,
+    "rank": 990618
+   },
+   {
+    "t": "CUERPO (TUMBAO)",
+    "a": "Beyoncé",
+    "pos": 68,
+    "rank": 612174
+   },
+   {
+    "t": "SWIM",
+    "a": "BTS",
+    "pos": 69,
+    "rank": 963304
+   },
+   {
+    "t": "oh yeah?",
+    "a": "Steve Lacy",
+    "pos": 70,
+    "rank": 944190
+   },
+   {
+    "t": "Babydoll",
+    "a": "Dominic Fike",
+    "pos": 71,
+    "rank": 985606
+   },
+   {
+    "t": "Wonderwall",
+    "a": "Oasis",
+    "pos": 72,
+    "rank": 595892
+   },
+   {
+    "t": "Earrings",
+    "a": "Malcolm Todd",
+    "pos": 73,
+    "rank": 959265
+   },
+   {
+    "t": "Sexo, Violencia y Llantas",
+    "a": "ROSALÍA",
+    "pos": 74,
+    "rank": 759857
+   },
+   {
+    "t": "Choosin' Texas",
+    "a": "Ella Langley",
+    "pos": 75,
+    "rank": 978085
+   },
+   {
+    "t": "Sign of the Times",
+    "a": "Harry Styles",
+    "pos": 76,
+    "rank": 962970
+   },
+   {
+    "t": "Billie Jean",
+    "a": "Michael Jackson",
+    "pos": 77,
+    "rank": 688996
+   },
+   {
+    "t": "Sweater Weather",
+    "a": "The Neighbourhood",
+    "pos": 78,
+    "rank": 980750
+   },
+   {
+    "t": "American Girls",
+    "a": "Harry Styles",
+    "pos": 79,
+    "rank": 933725
+   },
+   {
+    "t": "Suit & Tie",
+    "a": "Justin Timberlake",
+    "pos": 80,
+    "rank": 657915
+   },
+   {
+    "t": "GIRLS",
+    "a": "The Kid Laroi",
+    "pos": 81,
+    "rank": 866132
+   },
+   {
+    "t": "DtMF",
+    "a": "Bad Bunny",
+    "pos": 82,
+    "rank": 981279
+   },
+   {
+    "t": "Cherry Pie",
+    "a": "Warrant",
+    "pos": 83,
+    "rank": 691525
+   },
+   {
+    "t": "U + Ur Hand",
+    "a": "P!nk",
+    "pos": 84,
+    "rank": 763190
+   },
+   {
+    "t": "NORMAL",
+    "a": "BTS",
+    "pos": 85,
+    "rank": 875390
+   },
+   {
+    "t": "Sue me",
+    "a": "Audrey Hobert",
+    "pos": 86,
+    "rank": 785463
+   },
+   {
+    "t": "Dracula",
+    "a": "Tame Impala",
+    "pos": 87,
+    "rank": 982905
+   },
+   {
+    "t": "Lush Life",
+    "a": "Zara Larsson",
+    "pos": 88,
+    "rank": 987028
+   },
+   {
+    "t": "Back To Black",
+    "a": "Amy Winehouse",
+    "pos": 89,
+    "rank": 971939
+   },
+   {
+    "t": "Beat It",
+    "a": "Michael Jackson",
+    "pos": 90,
+    "rank": 800473
+   },
+   {
+    "t": "Feet Don't Fail Me Now",
+    "a": "Joy Crookes",
+    "pos": 91,
+    "rank": 875523
+   },
+   {
+    "t": "STAY",
+    "a": "The Kid Laroi",
+    "pos": 92,
+    "rank": 943988
+   },
+   {
+    "t": "WHERE IS MY HUSBAND!",
+    "a": "Raye",
+    "pos": 93,
+    "rank": 991846
+   },
+   {
+    "t": "WHITE KEYS",
+    "a": "Dominic Fike",
+    "pos": 94,
+    "rank": 887767
+   },
+   {
+    "t": "Obsessica",
+    "a": "Malcolm Todd",
+    "pos": 95,
+    "rank": 878278
+   },
+   {
+    "t": "tell me what you want",
+    "a": "Sasha Keable",
+    "pos": 96,
+    "rank": 820812
+   },
+   {
+    "t": "hot girl bummer",
+    "a": "blackbear",
+    "pos": 97,
+    "rank": 25199
+   },
+   {
+    "t": "Saving Grace",
+    "a": "Kirby",
+    "pos": 98,
+    "rank": 467346
+   },
+   {
+    "t": "BAILE INoLVIDABLE",
+    "a": "Bad Bunny",
+    "pos": 99,
+    "rank": 971935
+   },
+   {
+    "t": "Chicago",
+    "a": "Michael Jackson",
+    "pos": 100,
+    "rank": 898755
+   },
+   {
+    "t": "The Fate of Ophelia",
+    "a": "Taylor Swift",
+    "pos": 101,
+    "rank": 999852
+   },
+   {
+    "t": "Sometimes",
+    "a": "Mattyeux",
+    "pos": 102,
+    "rank": 837063
+   },
+   {
+    "t": "DANCE...",
+    "a": "Slayyyter",
+    "pos": 103,
+    "rank": 586756
+   },
+   {
+    "t": "WE ON GO",
+    "a": "BIA",
+    "pos": 104,
+    "rank": 843542
+   },
+   {
+    "t": "Shower",
+    "a": "Becky G",
+    "pos": 105,
+    "rank": 886025
+   },
+   {
+    "t": "Hips Don't Lie",
+    "a": "Shakira",
+    "pos": 106,
+    "rank": 538902
+   },
+   {
+    "t": "Amor",
+    "a": "Emmanuel Cortés",
+    "pos": 107,
+    "rank": 752112
+   },
+   {
+    "t": "Self Aware",
+    "a": "Temper City",
+    "pos": 108,
+    "rank": 981001
+   },
+   {
+    "t": "Reflections",
+    "a": "The Neighbourhood",
+    "pos": 109,
+    "rank": 923046
+   },
+   {
+    "t": "CHANEL",
+    "a": "Tyla",
+    "pos": 110,
+    "rank": 823022
+   },
+   {
+    "t": "Heaven Can Wait",
+    "a": "Michael Jackson",
+    "pos": 111,
+    "rank": 800304
+   },
+   {
+    "t": "TIT FOR TAT",
+    "a": "Tate McRae",
+    "pos": 112,
+    "rank": 847450
+   },
+   {
+    "t": "If I Get High",
+    "a": "Nothing But Thieves",
+    "pos": 113,
+    "rank": 545653
+   },
+   {
+    "t": "Midnight Sun",
+    "a": "Zara Larsson",
+    "pos": 114,
+    "rank": 905730
+   },
+   {
+    "t": "Just The Way You Are",
+    "a": "Milky",
+    "pos": 115,
+    "rank": 740263
+   },
+   {
+    "t": "BEAT UP CHANEL$",
+    "a": "Slayyyter",
+    "pos": 116,
+    "rank": 517224
+   },
+   {
+    "t": "Champagne Coast",
+    "a": "Blood Orange",
+    "pos": 117,
+    "rank": 222643
+   },
+   {
+    "t": "Gut Genug (mit Blumengarten & Shirin David)",
+    "a": "KITSCHKRIEG",
+    "pos": 118,
+    "rank": 838181
+   },
+   {
+    "t": "GIRL LIKE ME",
+    "a": "Black Eyed Peas",
+    "pos": 119,
+    "rank": 756248
+   },
+   {
+    "t": "Adore You",
+    "a": "Miley Cyrus",
+    "pos": 120,
+    "rank": 710408
+   },
+   {
+    "t": "The First Time",
+    "a": "Damiano David",
+    "pos": 121,
+    "rank": 950522
+   },
+   {
+    "t": "STAY HERE 4 LIFE",
+    "a": "A$AP Rocky",
+    "pos": 122,
+    "rank": 721413
+   },
+   {
+    "t": "JUMP",
+    "a": "BLACKPINK",
+    "pos": 123,
+    "rank": 923507
+   },
+   {
+    "t": "like JENNIE",
+    "a": "JENNIE",
+    "pos": 124,
+    "rank": 832011
+   },
+   {
+    "t": "TYRANT",
+    "a": "Beyoncé",
+    "pos": 125,
+    "rank": 706231
+   },
+   {
+    "t": "Should I Stay or Should I Go",
+    "a": "The Clash",
+    "pos": 126,
+    "rank": 669342
+   },
+   {
+    "t": "we fell in love in october",
+    "a": "girl in red",
+    "pos": 127,
+    "rank": 958660
+   },
+   {
+    "t": "IS IT",
+    "a": "Tyla",
+    "pos": 128,
+    "rank": 572641
+   },
+   {
+    "t": "Beast",
+    "a": "Mia Martina",
+    "pos": 129,
+    "rank": 702401
+   },
+   {
+    "t": "See You Again",
+    "a": "Tyler, The Creator",
+    "pos": 130,
+    "rank": 885558
+   },
+   {
+    "t": "All I Want Is You",
+    "a": "Miguel",
+    "pos": 131,
+    "rank": 608670
+   },
+   {
+    "t": "90210",
+    "a": "Travis Scott",
+    "pos": 132,
+    "rank": 729544
+   },
+   {
+    "t": "La Perla",
+    "a": "ROSALÍA",
+    "pos": 133,
+    "rank": 856122
+   },
+   {
+    "t": "Die With A Smile",
+    "a": "Lady Gaga",
+    "pos": 134,
+    "rank": 997757
+   },
+   {
+    "t": "Criminal",
+    "a": "Britney Spears",
+    "pos": 135,
+    "rank": 885542
+   },
+   {
+    "t": "Dream",
+    "a": "LISA",
+    "pos": 136,
+    "rank": 610272
+   },
+   {
+    "t": "Constellations",
+    "a": "Jade LeMac",
+    "pos": 137,
+    "rank": 839195
+   },
+   {
+    "t": "Mystery of Love",
+    "a": "Sufjan Stevens",
+    "pos": 138,
+    "rank": 37211
+   },
+   {
+    "t": "Summer Love/Set The Mood Prelude",
+    "a": "Justin Timberlake",
+    "pos": 139,
+    "rank": 0
+   },
+   {
+    "t": "NIGHTS LIKE THIS",
+    "a": "The Kid Laroi",
+    "pos": 140,
+    "rank": 773622
+   },
+   {
+    "t": "greedy",
+    "a": "Tate McRae",
+    "pos": 141,
+    "rank": 930668
+   },
+   {
+    "t": "All Night",
+    "a": "Beyoncé",
+    "pos": 142,
+    "rank": 347649
+   },
+   {
+    "t": "Matilda",
+    "a": "Harry Styles",
+    "pos": 143,
+    "rank": 832095
+   },
+   {
+    "t": "Chest Pain (I Love)",
+    "a": "Malcolm Todd",
+    "pos": 144,
+    "rank": 758779
+   },
+   {
+    "t": "Let Me Love You",
+    "a": "Mario",
+    "pos": 145,
+    "rank": 538330
+   },
+   {
+    "t": "Stargazing",
+    "a": "Myles Smith",
+    "pos": 146,
+    "rank": 908118
+   },
+   {
+    "t": "Diet Pepsi",
+    "a": "Addison Rae",
+    "pos": 147,
+    "rank": 807056
+   },
+   {
+    "t": "Flowers",
+    "a": "Miley Cyrus",
+    "pos": 148,
+    "rank": 966114
+   },
+   {
+    "t": "As It Was",
+    "a": "Harry Styles",
+    "pos": 149,
+    "rank": 969095
+   },
+   {
+    "t": "SNAP",
+    "a": "Rosa Linn",
+    "pos": 150,
+    "rank": 385571
+   }
+  ],
+  "deezer-br": [
+   {
+    "t": "Pós",
+    "a": "Felipe e Rodrigo",
+    "pos": 1,
+    "rank": 988594
+   },
+   {
+    "t": "Postinho de Gasolina",
+    "a": "João Gustavo e Murilo",
+    "pos": 2,
+    "rank": 977199
+   },
+   {
+    "t": "Flash",
+    "a": "Hugo & Guilherme",
+    "pos": 3,
+    "rank": 979135
+   },
+   {
+    "t": "Peão Todo Tatuado",
+    "a": "Jeninho",
+    "pos": 4,
+    "rank": 972910
+   },
+   {
+    "t": "Mega Hair",
+    "a": "Netto Brito",
+    "pos": 5,
+    "rank": 956510
+   },
+   {
+    "t": "Eu Te Seguro",
+    "a": "Panda",
+    "pos": 6,
+    "rank": 973194
+   },
+   {
+    "t": "Flash (Minha Mente) ?",
+    "a": "Hugo & Guilherme",
+    "pos": 7,
+    "rank": 960424
+   },
+   {
+    "t": "Um Peão Desse",
+    "a": "CountryBeat",
+    "pos": 8,
+    "rank": 973371
+   },
+   {
+    "t": "Ignora (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 9,
+    "rank": 971721
+   },
+   {
+    "t": "Última Saudade (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 10,
+    "rank": 913406
+   },
+   {
+    "t": "Eu Não Sou Terapia",
+    "a": "Danilo e Davi",
+    "pos": 11,
+    "rank": 970746
+   },
+   {
+    "t": "Cheiro De Culpado",
+    "a": "Júnior e Cézar",
+    "pos": 12,
+    "rank": 961068
+   },
+   {
+    "t": "Ilusão De Ótica",
+    "a": "Matheus & Kauan",
+    "pos": 13,
+    "rank": 959488
+   },
+   {
+    "t": "P do Pecado",
+    "a": "Grupo Menos É Mais",
+    "pos": 14,
+    "rank": 970316
+   },
+   {
+    "t": "Pela Última Vez",
+    "a": "Grupo Menos É Mais",
+    "pos": 15,
+    "rank": 967659
+   },
+   {
+    "t": "Ta Pedindo Toma",
+    "a": "MC Leozinho ZS",
+    "pos": 16,
+    "rank": 947897
+   },
+   {
+    "t": "AH, JESUS / CORAÇÃO IGUAL AO TEU",
+    "a": "Julliany Souza",
+    "pos": 17,
+    "rank": 916233
+   },
+   {
+    "t": "Plano C",
+    "a": "Zé Neto & Cristiano",
+    "pos": 18,
+    "rank": 931263
+   },
+   {
+    "t": "Apaga Apaga Apaga",
+    "a": "Danilo e Davi",
+    "pos": 19,
+    "rank": 952716
+   },
+   {
+    "t": "Aproveita Que Eu Tô Brigado",
+    "a": "NATTAN",
+    "pos": 20,
+    "rank": 915965
+   },
+   {
+    "t": "Tudo É Perda",
+    "a": "Felipe Rodrigues",
+    "pos": 21,
+    "rank": 902613
+   },
+   {
+    "t": "Só Com Ela",
+    "a": "Murilo Huff",
+    "pos": 22,
+    "rank": 930942
+   },
+   {
+    "t": "Bala Alojada",
+    "a": "Gusttavo Lima",
+    "pos": 23,
+    "rank": 932517
+   },
+   {
+    "t": "Eu Me Apaixonei",
+    "a": "Vitinho Imperador",
+    "pos": 24,
+    "rank": 936817
+   },
+   {
+    "t": "Pau Pra Toda Obra",
+    "a": "Mc Jacaré",
+    "pos": 25,
+    "rank": 920429
+   },
+   {
+    "t": "Xonei",
+    "a": "Jorge & Mateus",
+    "pos": 26,
+    "rank": 922427
+   },
+   {
+    "t": "Não é Pressa, é Pressão",
+    "a": "Rincon",
+    "pos": 27,
+    "rank": 950275
+   },
+   {
+    "t": "Quarto 67",
+    "a": "Guilherme & Benuto",
+    "pos": 28,
+    "rank": 909694
+   },
+   {
+    "t": "Eu Duvido",
+    "a": "Guilherme & Benuto",
+    "pos": 29,
+    "rank": 914182
+   },
+   {
+    "t": "Brinda Aê",
+    "a": "Grupo Menos É Mais",
+    "pos": 30,
+    "rank": 935400
+   },
+   {
+    "t": "Saudade Inconveniente",
+    "a": "Grupo Menos É Mais",
+    "pos": 31,
+    "rank": 869141
+   },
+   {
+    "t": "Saudade Estranha - Du Nada",
+    "a": "Murilo Huff",
+    "pos": 32,
+    "rank": 934699
+   },
+   {
+    "t": "Amigo Da Minha Saudade (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 33,
+    "rank": 882397
+   },
+   {
+    "t": "Saudade do Carai",
+    "a": "Mari Fernandez",
+    "pos": 34,
+    "rank": 919273
+   },
+   {
+    "t": "Arrependidaço (Onde Você Anda)",
+    "a": "Ferrugem",
+    "pos": 35,
+    "rank": 889360
+   },
+   {
+    "t": "Gosta De Rua (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 36,
+    "rank": 897326
+   },
+   {
+    "t": "Desocupa",
+    "a": "Matheus Vargas",
+    "pos": 37,
+    "rank": 897642
+   },
+   {
+    "t": "Baqueado",
+    "a": "Panda",
+    "pos": 38,
+    "rank": 905078
+   },
+   {
+    "t": "Um Novo Dia",
+    "a": "Get Worship",
+    "pos": 39,
+    "rank": 862738
+   },
+   {
+    "t": "Puxa o Lança",
+    "a": "MC Jvila",
+    "pos": 40,
+    "rank": 853056
+   },
+   {
+    "t": "Geme Baixo",
+    "a": "MC Jvila",
+    "pos": 41,
+    "rank": 863470
+   },
+   {
+    "t": "Quem É Esse?",
+    "a": "Julliany Souza",
+    "pos": 42,
+    "rank": 867547
+   },
+   {
+    "t": "Cuida do Pet",
+    "a": "Oldilla",
+    "pos": 43,
+    "rank": 880741
+   },
+   {
+    "t": "É Tudo Sobre Você",
+    "a": "MORADA",
+    "pos": 44,
+    "rank": 834037
+   },
+   {
+    "t": "Calcinha de Renda",
+    "a": "Panda",
+    "pos": 45,
+    "rank": 856882
+   },
+   {
+    "t": "Insegurança / Fim de Noite",
+    "a": "Mj Records",
+    "pos": 46,
+    "rank": 859713
+   },
+   {
+    "t": "Gilete no Box",
+    "a": "Grupo Menos É Mais",
+    "pos": 47,
+    "rank": 921942
+   },
+   {
+    "t": "Mentira ou Verdade",
+    "a": "DJ Biel do Furduncinho",
+    "pos": 48,
+    "rank": 861795
+   },
+   {
+    "t": "Saudade Burra",
+    "a": "Lauana Prado",
+    "pos": 49,
+    "rank": 877522
+   },
+   {
+    "t": "Deixa Eu",
+    "a": "Murilo Huff",
+    "pos": 50,
+    "rank": 889047
+   },
+   {
+    "t": "Esquina",
+    "a": "Felipe e Rodrigo",
+    "pos": 51,
+    "rank": 871588
+   },
+   {
+    "t": "Haverá Sinais",
+    "a": "Jorge & Mateus",
+    "pos": 52,
+    "rank": 889822
+   },
+   {
+    "t": "Diário de um Cafajeste",
+    "a": "DJ Oreia",
+    "pos": 53,
+    "rank": 888996
+   },
+   {
+    "t": "Saudade De Quem Eu Sou (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 54,
+    "rank": 859734
+   },
+   {
+    "t": "SET BOCA 09",
+    "a": "MC Ryan SP",
+    "pos": 55,
+    "rank": 880841
+   },
+   {
+    "t": "Seja Ex (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 56,
+    "rank": 878046
+   },
+   {
+    "t": "Ama Um Maloqueiro",
+    "a": "Rafa e Junior",
+    "pos": 57,
+    "rank": 854008
+   },
+   {
+    "t": "Perdas e Danos",
+    "a": "Sorriso Maroto",
+    "pos": 58,
+    "rank": 890916
+   },
+   {
+    "t": "In the End",
+    "a": "Linkin Park",
+    "pos": 59,
+    "rank": 982895
+   },
+   {
+    "t": "Se Eu Te Perdoar",
+    "a": "Clayton & Romário",
+    "pos": 60,
+    "rank": 882989
+   },
+   {
+    "t": "Olha Onde Eu Tô",
+    "a": "Ana Castela",
+    "pos": 61,
+    "rank": 899341
+   },
+   {
+    "t": "Dois Gumes (Ao Vivo)",
+    "a": "Felipe e Rodrigo",
+    "pos": 62,
+    "rank": 862899
+   },
+   {
+    "t": "Tempo Perdido",
+    "a": "Legião Urbana",
+    "pos": 63,
+    "rank": 830693
+   },
+   {
+    "t": "Body Splash",
+    "a": "Felipe Araújo",
+    "pos": 64,
+    "rank": 887819
+   },
+   {
+    "t": "Reliquia do 2T",
+    "a": "DJ Gu",
+    "pos": 65,
+    "rank": 873469
+   },
+   {
+    "t": "Ordinary",
+    "a": "Alex Warren",
+    "pos": 66,
+    "rank": 990241
+   },
+   {
+    "t": "Um Beijo por Minuto (25 Milhões)",
+    "a": "Natanzinho Lima",
+    "pos": 67,
+    "rank": 843988
+   },
+   {
+    "t": "Cronômetro",
+    "a": "Matheus & Kauan",
+    "pos": 68,
+    "rank": 866746
+   },
+   {
+    "t": "Não Mereço Ser Amante",
+    "a": "Sorriso Maroto",
+    "pos": 69,
+    "rank": 897771
+   },
+   {
+    "t": "Não Namora",
+    "a": "Clayton & Romário",
+    "pos": 70,
+    "rank": 878875
+   },
+   {
+    "t": "Tu és + Águas Purificadoras",
+    "a": "fhop music",
+    "pos": 71,
+    "rank": 833183
+   },
+   {
+    "t": "Numb",
+    "a": "Linkin Park",
+    "pos": 72,
+    "rank": 974827
+   },
+   {
+    "t": "Carona",
+    "a": "Matheus & Kauan",
+    "pos": 73,
+    "rank": 854934
+   },
+   {
+    "t": "Investigador (Sem Coração)",
+    "a": "Turma do Pagode",
+    "pos": 74,
+    "rank": 840862
+   },
+   {
+    "t": "Só Eu Senti (Ao Vivo)",
+    "a": "Henrique & Juliano",
+    "pos": 75,
+    "rank": 863021
+   },
+   {
+    "t": "Saudade Proibida",
+    "a": "Simone Mendes",
+    "pos": 76,
+    "rank": 860288
+   },
+   {
+    "t": "Escondendo o Ouro",
+    "a": "Zé Neto & Cristiano",
+    "pos": 77,
+    "rank": 836992
+   },
+   {
+    "t": "Bondade de Deus",
+    "a": "Isaías Saad",
+    "pos": 78,
+    "rank": 765648
+   },
+   {
+    "t": "João 20 + pra Sempre",
+    "a": "Vitor Santana",
+    "pos": 79,
+    "rank": 806170
+   },
+   {
+    "t": "Não Me Cutuca",
+    "a": "Anitta",
+    "pos": 80,
+    "rank": 826523
+   },
+   {
+    "t": "Billie Jean",
+    "a": "Michael Jackson",
+    "pos": 81,
+    "rank": 971418
+   },
+   {
+    "t": "Voltável",
+    "a": "Ícaro e Gilmar",
+    "pos": 82,
+    "rank": 859268
+   },
+   {
+    "t": "Sign of the Times",
+    "a": "Harry Styles",
+    "pos": 83,
+    "rank": 962970
+   },
+   {
+    "t": "Dois Enganados",
+    "a": "Murilo Huff",
+    "pos": 84,
+    "rank": 829437
+   },
+   {
+    "t": "SET DO JAPA NK 2.0",
+    "a": "DJ Japa NK",
+    "pos": 85,
+    "rank": 844653
+   },
+   {
+    "t": "Me Atraiu",
+    "a": "Gabriela Rocha",
+    "pos": 86,
+    "rank": 792742
+   },
+   {
+    "t": "Lindo Momento",
+    "a": "Julliany Souza",
+    "pos": 87,
+    "rank": 793392
+   },
+   {
+    "t": "Apaguei Pra Todos",
+    "a": "Ferrugem",
+    "pos": 88,
+    "rank": 847515
+   },
+   {
+    "t": "Imagina Se Me Odiasse",
+    "a": "Kaique e Felipe",
+    "pos": 89,
+    "rank": 827955
+   },
+   {
+    "t": "Único",
+    "a": "Fernandinho",
+    "pos": 90,
+    "rank": 792875
+   },
+   {
+    "t": "Dai Dai",
+    "a": "Shakira",
+    "pos": 91,
+    "rank": 990618
+   },
+   {
+    "t": "Die With A Smile",
+    "a": "Lady Gaga",
+    "pos": 92,
+    "rank": 997757
+   },
+   {
+    "t": "Sweet Child O' Mine",
+    "a": "Guns N' Roses",
+    "pos": 93,
+    "rank": 934281
+   },
+   {
+    "t": "Anjos (Pra quem tem fé)",
+    "a": "O Rappa",
+    "pos": 94,
+    "rank": 847743
+   },
+   {
+    "t": "Menos Foco Mais Ansiedade (Ce Ta Nervosa)",
+    "a": "dj andreoli",
+    "pos": 95,
+    "rank": 844997
+   },
+   {
+    "t": "Você Já Sabe",
+    "a": "Anitta",
+    "pos": 96,
+    "rank": 830843
+   },
+   {
+    "t": "Se Saudade Sentir (Se Prepara 3)",
+    "a": "Mc Livinho",
+    "pos": 97,
+    "rank": 828170
+   },
+   {
+    "t": "Telefone Sem Fio",
+    "a": "Mari Fernandez",
+    "pos": 98,
+    "rank": 892513
+   },
+   {
+    "t": "SWIM",
+    "a": "BTS",
+    "pos": 99,
+    "rank": 963304
+   },
+   {
+    "t": "Ela",
+    "a": "Sorriso Maroto",
+    "pos": 100,
+    "rank": 814655
+   }
+  ]
+ }
+}

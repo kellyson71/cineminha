@@ -1,3 +1,21 @@
 UNO: logo da Mattel. Arquivo obtido do Wikimedia Commons em 03/11/2026.
 https://commons.wikimedia.org/wiki/File:UNO_Logo.svg
 https://upload.wikimedia.org/wikipedia/commons/f/f9/UNO_Logo.svg
+
+Tema Minimalista: reprodução vetorial das referências de UNO Minimalista enviadas pelo usuário em 08/11/2026.
+Design de referência: Warleson Oliveira / Mattel (conforme a embalagem nas imagens).
+Símbolos extras do Sem Piedade: adaptações para este jogo, no mesmo estilo.
+verso-minimalista.svg: reprodução vetorial do verso na foto enviada pelo usuário em 08/11/2026,
+com marca UNO amarela, elipse vermelha e faixa inferior nas quatro cores.
+Algarismos: contornos de Noto Sans Light, Noto Project Authors, SIL Open Font License 1.1.
+https://github.com/notofonts/latin-greek-cyrillic
+Licença em OFL-NotoSans.txt. Não há fonte externa carregada pelo tema.
+
+Tema Clássico: reprodução vetorial baseada na referência enviada pelo usuário em 08/11/2026.
+UNO e design de referência: Mattel. Cartas extras do Sem Piedade adaptadas ao mesmo estilo.
+Algarismos: Liberation Sans Bold Italic, Google Corporation (2010), Red Hat, Inc. (2012), SIL Open Font License 1.1.
+Licença em OFL-LiberationSans.txt. O verso usa o logo da Mattel creditado acima.
+
+logo-minimalista.svg: vetorização das letras e dos arcos da nova foto do logo enviada pelo usuário em 08/11/2026.
+caixa-minimalista.webp e caixa-classico.webp: faces das embalagens nas fotos enviadas pelo usuário,
+retificadas e comprimidas para o seletor de baralho em CSS 3D. Laterais e tampas modeladas em CSS.

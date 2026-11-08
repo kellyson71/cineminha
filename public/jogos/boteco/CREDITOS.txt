@@ -1,0 +1,9 @@
+Mesa de bar e cenário (usados a pedido do usuário)
+
+- mesa.obj e mesa-{branca,skol,brahma,antarctica}.webp: mod "Traditional Brazilian Bar Table", de Jerry123i
+  (Garoa Studios), Oficina do Tabletop Simulator:
+  https://steamcommunity.com/sharedfiles/filedetails/?id=2143168226
+  As skins trazem as marcas Skol, Brahma e Antarctica (Ambev), como no mod.
+- fundo-bar.webp: calçada do Marcílio Bar à noite, imagem gerada pelo usuário (Gemini) a partir de uma foto do bar.
+  Originais em raw/boteco/.
+- Three.js r169 (MIT) em public/vendor/three.module.min.js.
