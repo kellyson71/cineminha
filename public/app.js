@@ -415,16 +415,26 @@ const emojiDe = nome => { const m = String(nome || '').match(/^(\p{Extended_Pict
 async function escolheSala() {
   const tela = el('div', { className: 'escolhe', role: 'dialog', ariaLabel: 'Escolha a sala' })
   document.body.append(tela)
-  let lista = []
+  let lista = [], assinatura = '', desvio = 0 // desvio: relógio do servidor - relógio daqui
+  const agora = () => Date.now() + desvio
   return new Promise(ok => {
-    const entra = id => { clearInterval(t); tela.classList.add('sai'); setTimeout(() => tela.remove(), 300); ok(id) }
+    const entra = id => { clearInterval(t); clearInterval(tk); tela.classList.add('sai'); setTimeout(() => tela.remove(), 300); ok(id) }
+    // os tempos ficam em data-desde e só o texto é trocado (sem recriar o cartão, que piscava)
+    const tempo = (desde, cls) => { const x = el('i', { className: cls }); x.dataset.desde = desde || ''; return x }
+    const tick = () => tela.querySelectorAll('[data-desde]').forEach(x => { const d = +x.dataset.desde; x.textContent = d ? durTxt(agora() - d) : '' })
     const cartao = c => {
-      const gente = c.pres || []
+      const gente = [...(c.pres || [])].sort((a, b) => (a.desde || 0) - (b.desde || 0))
+      const nome = p => p.name || person(p.key).nome
       const b = el('button', { type: 'button', className: 'escolhe__sala' + (gente.length ? ' cheia' : '') },
         el('span', { className: 'escolhe__ic' }, gente.length ? el('span', { className: 'escolhe__rostos' }, ...gente.slice(0, 5).map(p => pfpImg(p.key, 34, p.name))) : emojiDe(c.nome)[0] ? el('span', { className: 'escolhe__emoji', textContent: emojiDe(c.nome)[0] }) : icon('armchair')),
         el('b', { textContent: emojiDe(c.nome)[1] }),
-        el('small', { textContent: gente.length ? gente.map(p => p.name || person(p.key).nome).slice(0, 4).join(', ') + (gente.length > 4 ? ` e mais ${gente.length - 4}` : '') : 'vazia' }),
-        el('em', { textContent: gente.length ? 'Entrar' : 'Entrar' }))
+        gente.length
+          ? el('span', { className: 'escolhe__gente' },
+            ...gente.slice(0, 4).map(p => el('small', { title: `${nome(p)} está na sala há quanto tempo` }, el('span', { textContent: nome(p) }), tempo(p.desde))),
+            gente.length > 4 ? el('small', { textContent: `e mais ${gente.length - 4}` }) : '')
+          : el('small', { textContent: 'vazia' }),
+        gente.length && c.callIni ? el('span', { className: 'escolhe__call', title: 'Há quanto tempo a call dessa sala está rolando' }, el('span', { className: 'escolhe__aovivo' }), 'call há ', tempo(c.callIni)) : '',
+        el('em', { textContent: 'Entrar' }))
       b.addEventListener('click', () => entra(c.id))
       return b
     }
@@ -443,16 +453,30 @@ async function escolheSala() {
       el('h2', { textContent: `Oi, ${me.name}! Em qual sala você vai?` }),
       el('p', { textContent: 'Cada sala é uma call separada: dá para ver um filme numa e jogar em outra.' }),
       grade, nova))
+    let ocupado = false
     const atualiza = async () => {
-      const r = await api('sala', { method: 'POST', body: { op: 'canais', pw: roomPw } })
-      if (!Array.isArray(r?.canais)) return
-      canais = r.canais
-      // salas com gente primeiro; depois a ordem de cada um
-      lista = ordena([...r.canais], prefs.ordemSalas).sort((a, b) => (b.pres?.length || 0) - (a.pres?.length || 0))
-      grade.replaceChildren(...lista.map(cartao))
+      if (ocupado) return // rede lenta: não empilha pedidos
+      ocupado = true
+      try {
+        const r = await api('sala', { method: 'POST', body: { op: 'canais', pw: roomPw } })
+        if (!Array.isArray(r?.canais) || !tela.isConnected) return
+        if (r.agora) desvio = r.agora - Date.now()
+        canais = r.canais
+        // salas com gente primeiro; depois a ordem de cada um
+        lista = ordena([...r.canais], prefs.ordemSalas).sort((a, b) => (b.pres?.length || 0) - (a.pres?.length || 0))
+        // só redesenha quando algo mudou de verdade (quem está, nome, início da call)
+        const ass = JSON.stringify(lista.map(c => [c.id, c.nome, c.callIni, (c.pres || []).map(p => [p.key, p.name, p.desde])]))
+        if (ass !== assinatura) {
+          const primeira = !assinatura
+          assinatura = ass
+          grade.classList.toggle('viva', !primeira) // a animação de entrada só na primeira vez
+          grade.replaceChildren(...lista.map(cartao))
+        }
+        tick()
+      } finally { ocupado = false }
     }
     atualiza()
-    const t = setInterval(atualiza, 6000)
+    const t = setInterval(atualiza, 6000), tk = setInterval(tick, 15000)
   })
 }
 
@@ -2832,18 +2856,23 @@ function renderCallbar() {
   bar.replaceChildren(total, el('span', { className: 'callbar__sep' }), ...chips)
   tickCallbar()
 }
-// tempo da sessão, embaixo do título (quem está na call fica no hover)
+// tempo da sessão: no topo (quando aparece) e na barra de baixo; quem está na call fica no hover
+const tempoVivo = (desde, cls = '') => { const x = el('i', { className: 'tempo-vivo ' + cls }); x.dataset.desde = desde || ''; x.textContent = desde ? durTxt(Date.now() - desde) : ''; return x }
 function sessTempo() {
-  const t = $('#sessTempo')
-  if (!t) return
   const ini = callIni || entrouEm
-  t.hidden = !room
   const d = durTxt(Date.now() - ini)
-  t.querySelector('b').textContent = d === 'agora' ? 'começou agora' : `há ${d}`
   const keys = [...new Set([me.key, ...[...peers.values()].map(p => p.key), ...srvPres.keys()].filter(Boolean))]
-  t.title = `Sessão começou às ${new Date(ini).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}\nNa call: ${keys.map(k => k === me.key ? 'você' : person(k).nome).join(', ')}`
+  const dica = `Sessão começou às ${new Date(ini).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}\nNa call: ${keys.map(k => k === me.key ? 'você' : person(k).nome).join(', ')}`
+  for (const t of [$('#sessTempo'), $('#sessTempoBaixo')]) {
+    if (!t) continue
+    t.hidden = !room
+    t.querySelector('b').textContent = d === 'agora' ? 'começou agora' : `há ${d}`
+    t.title = dica
+  }
+  // tempos da lateral (há quanto tempo cada sala e cada pessoa está na call)
+  document.querySelectorAll('.tempo-vivo').forEach(x => { const v = +x.dataset.desde; x.textContent = v ? durTxt(Date.now() - v) : '' })
 }
-setInterval(sessTempo, 20000)
+setInterval(sessTempo, 15000)
 function tickCallbar() { document.querySelectorAll('#callbar .callbar__t').forEach(x => { const d = +x.dataset.desde; x.textContent = d ? durTxt(Date.now() - d) : '' }) }
 setInterval(tickCallbar, 20000)
 
@@ -3403,6 +3432,17 @@ const fechaLateral = () => document.body.classList.remove('lateral-aberta')
 rail.addEventListener('click', e => { if (!e.target.closest('[data-direto]')) abreLateral() })
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('lateral-aberta')) fechaLateral() })
 // o "Projetar" (com o menu de tela/arquivo/YouTube) mora na lateral fora da tela cheia; em tela cheia volta para a barra
+// Troca o conteúdo só se o HTML mudou (tempos que andam sozinhos não contam). Antes a lateral era
+// recriada inteira a cada 10 s: as fotos recarregavam e as animações de entrada rodavam de novo (piscava).
+function trocaSeMudou(alvo, filhos, antes) {
+  const tmp = document.createElement('div')
+  tmp.append(...filhos.filter(x => x !== '' && x != null))
+  const sig = tmp.innerHTML.replace(/(<i class="tempo-vivo[^>]*>)[^<]*/g, '$1').replace(/ · call há [^·"]*/g, '')
+  if (alvo._sig === sig && alvo.childNodes.length) { antes?.(); return false }
+  alvo._sig = sig
+  alvo.replaceChildren(...tmp.childNodes)
+  return true
+}
 const projCasa = document.createComment('projetar'), projSlot = el('div', { className: 'lat-proj' })
 function moveProjetar() {
   const w = $('#btnShare')?.closest('.popwrap'), dentro = !imersivo() && document.body.classList.contains('com-lateral') && innerWidth >= 1000
@@ -3452,14 +3492,14 @@ function renderLateral() {
   const mic = bolinha(icon(me.muted ? 'mic-off' : 'mic'), me.muted ? 'off' : '', me.muted ? 'Ligar microfone (M)' : 'Mutar (M) · botão direito: voz e áudio', () => $('#btnMic').click(), true)
   const som = bolinha(icon(me.deaf ? 'headphone-off' : 'headphones'), me.deaf ? 'off' : '', me.deaf ? 'Ligar o som (D)' : 'Cortar o som (D) · botão direito: voz e áudio', () => $('#btnDeaf').click(), true)
   for (const b of [mic, som]) b.addEventListener('contextmenu', e => { e.preventDefault(); openAudioMenu(b, e.clientX, e.clientY) })
-  rail.replaceChildren(
+  trocaSeMudou(rail, [
     bolinha(el('img', { src: 'assets/icon.svg', alt: '' }), 'rail-logo', 'Abrir salas e chats'),
     el('i', { className: 'rail-sep' }),
     ...salas.map(c => {
       const n = gente(c).length, atual = c.id === canal
       const rostos = gente(c).slice(0, 4)
       const miolo = rostos.length ? el('span', { className: 'rail-rostos rail-rostos--' + rostos.length }, ...rostos.map(p => pfpImg(p.key, rostos.length === 1 ? 46 : 22, p.name))) : emojiDe(c.nome)[0] ? el('span', { className: 'rail-emoji', textContent: emojiDe(c.nome)[0] }) : icon('armchair')
-      const b = bolinha([miolo, n > 4 ? el('b', { className: 'rail-n', textContent: '+' + (n - 4) }) : ''], 'rail-sala' + (atual ? ' on' : '') + (atual && tiles.size ? ' aovivo' : '') + (rostos.length ? ' cheia' : ''), `${c.nome}${n ? ` · ${gente(c).map(p => p.name || person(p.key).nome).join(', ')}` : ' · vazia'}${atual ? ' · você está aqui' : ''}`, () => { if (!atual) switchCanal(c.id) }, true)
+      const b = bolinha([miolo, n > 4 ? el('b', { className: 'rail-n', textContent: '+' + (n - 4) }) : ''], 'rail-sala' + (atual ? ' on' : '') + (atual && tiles.size ? ' aovivo' : '') + (rostos.length ? ' cheia' : ''), `${c.nome}${n ? ` · ${gente(c).map(p => p.name || person(p.key).nome).join(', ')}` : ' · vazia'}${(atual ? callIni || entrouEm : n && c.callIni) ? ` · call há ${durTxt(Date.now() - (atual ? callIni || entrouEm : c.callIni))}` : ''}${atual ? ' · você está aqui' : ''}`, () => { if (!atual) switchCanal(c.id) }, true)
       b.dataset.nome = c.nome
       return b
     }),
@@ -3469,13 +3509,15 @@ function renderLateral() {
     bolinha(icon(myShare ? 'monitor-off' : 'projector'), 'rail-proj' + (myShare ? ' ativo' : ''), myShare ? 'Parar de projetar' : 'Projetar (tela, arquivo ou YouTube)', myShare ? () => stopShare() : null, !!myShare),
     el('span', { className: 'rail-grow' }),
     mic, som,
-    bolinha(pfpImg(me.key, 36, me.name), 'rail-eu' + (me.speaking ? ' fala' : ''), `${me.name} · conta, configurações e sair`, e => menuPerfil(e.currentTarget), true))
-  if (!document.body.classList.contains('lateral-aberta')) { if (!projSlot.isConnected) painel.append(projSlot); return } // o menu de projetar precisa continuar na página
+    bolinha(pfpImg(me.key, 36, me.name), 'rail-eu' + (me.speaking ? ' fala' : ''), `${me.name} · conta, configurações e sair`, e => menuPerfil(e.currentTarget), true)])
+  if (!document.body.classList.contains('lateral-aberta')) { painel._sig = null; if (!projSlot.isConnected) painel.append(projSlot); return } // o menu de projetar precisa continuar na página
   // ---------- painel ----------
+  const projAntes = projSlot.parentNode, projProx = projSlot.nextSibling
   const linhaSala = c => {
     const atual = c.id === canal, ativo = atual && tiles.size
     const b = el('button', { type: 'button', className: 'lat-sala' + (atual ? ' on' : ''), title: (atual ? 'Você está nesta sala' : `Entrar em ${c.nome}`) + (c.id ? ' · botão direito: renomear ou apagar' : '') },
-      icon(ativo ? 'projector' : 'volume-2'), el('span', { textContent: c.nome }), ativo ? el('em', { className: 'lat-aovivo', textContent: 'AO VIVO' }) : '')
+      icon(ativo ? 'projector' : 'volume-2'), el('span', { textContent: c.nome }), ativo ? el('em', { className: 'lat-aovivo', textContent: 'AO VIVO' }) : '',
+      (atual || gente(c).length) && (atual ? callIni || entrouEm : c.callIni) ? tempoVivo(atual ? callIni || entrouEm : c.callIni, 'lat-tempo') : '')
     b.addEventListener('click', () => { if (!atual) switchCanal(c.id) })
     if (c.id) b.addEventListener('contextmenu', e => { e.preventDefault(); menuItemLateral(e, 'canal', c) })
     const lista = el('ul', { className: 'lat-gente' }, ...gente(c).map(p => {
@@ -3483,6 +3525,7 @@ function renderLateral() {
       const li = el('li', { className: (st.speaking ? 'fala' : '') + (atual ? '' : ' longe'), title: p.name || person(p.key).nome },
         el('span', { className: 'lat-rosto' }, pfpImg(p.key, 24, p.name)), el('span', { className: 'lat-nome', textContent: p.name || person(p.key).nome }),
         st.proj ? el('em', { className: 'lat-tag', textContent: 'TELA' }) : '',
+        tempoVivo(atual ? desdeSrv.get(p.key) || (p.key === me.key ? entrouEm : 0) : p.desde, 'lat-tempo'),
         st.muted ? el('span', { className: 'lat-ic' }, icon('mic-off')) : '', st.deaf ? el('span', { className: 'lat-ic' }, icon('headphone-off')) : '')
       if (atual) li.dataset.key = p.key
       if (me.key === 'kellyson') pessoaArrastavel(li, p, atual ? roomId : c.r, c.id)
@@ -3522,7 +3565,7 @@ function renderLateral() {
       return b
     }),
     (() => { const b = el('button', { type: 'button', className: 'lat-eu__b', title: 'Configurações', ariaLabel: 'Configurações' }, icon('settings')); b.addEventListener('click', () => abreAjustes()); return b })())
-  painel.replaceChildren(
+  trocaSeMudou(painel, [
     el('header', { className: 'lateral__topo' }, el('img', { src: 'assets/icon.svg', alt: '' }), el('b', { textContent: CFG.nome || 'Cineminha' }),
       (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Convidar (copia o link) · botão direito: personalizar' }, icon('ticket')); b.addEventListener('click', () => $('#btnInvite').click()); b.addEventListener('contextmenu', e => { e.preventDefault(); fechaLateral(); $('#btnInviteDetails').click() }); return b })(),
       (() => { const b = el('button', { type: 'button', className: 'lateral__ic', title: 'Diário de sessões' }, icon('book-open')); b.addEventListener('click', () => { fechaLateral(); openDiary() }); return b })(),
@@ -3530,7 +3573,7 @@ function renderLateral() {
     el('div', { className: 'lateral__corpo' },
       secSalas, ...salas.map(linhaSala),
       secChats, linhaChat('', 'conversa-da-sala', 'volume-2'), ...textosOrd.map(t => linhaChat(t.id, t.nome, 'hash'))),
-    eu)
+    eu], () => { if (projAntes && painel.contains(projAntes)) projAntes.insertBefore(projSlot, projProx?.parentNode === projAntes ? projProx : null) })
 }
 /* Prévia de links no chat (YouTube, IMDb, Letterboxd): capa, título e descrição num cartão */
 const SITES_PREVIA = /^https:\/\/(?:www\.|m\.)?(youtube\.com|youtu\.be|music\.youtube\.com|imdb\.com|letterboxd\.com|boxd\.it)\/\S+/i

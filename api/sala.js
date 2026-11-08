@@ -20,7 +20,11 @@ async function canais(pw, now) {
   const list = [{ id: '', nome: 'Principal', criado: 0 }]
   for (let i = 0; i < flat.length; i += 2) { try { list.push(JSON.parse(flat[i + 1])) } catch {} }
   list.sort((a, b) => (a.criado || 0) - (b.criado || 0))
-  return Promise.all(list.map(async c => ({ ...c, r: roomOf(pw, c.id), pres: await presenca(roomOf(pw, c.id), now) })))
+  // callIni: desde quando a call dessa sala está rolando (só quando tem gente)
+  return Promise.all(list.map(async c => {
+    const r = roomOf(pw, c.id), pres = await presenca(r, now)
+    return { ...c, r, pres, callIni: pres.length ? +(await redis('GET', `callini:${r}`)) || null : null }
+  }))
 }
 const TEXTOS_PADRAO = [{ id: 'geral', nome: 'geral', fixo: 1 }, { id: 'indicacoes', nome: 'indicações', fixo: 1 }, { id: 'memes', nome: 'memes', fixo: 1 }]
 const okRoom = r => typeof r === 'string' && /^[a-f0-9x]{6,64}$/.test(r)
@@ -158,7 +162,7 @@ export default async function handler(req, res) {
       }
       // Canais: o principal (id '') sempre existe; os outros ficam no hash "canais".
       // A sala de cada canal é sha('sala:' + senha + ':' + id), igual ao navegador.
-      if (b.op === 'canais') return json(res, 200, { canais: await canais(b.pw, now) })
+      if (b.op === 'canais') return json(res, 200, { canais: await canais(b.pw, now), agora: now })
       if (b.op === 'canal-novo') {
         const nome = String(b.nome || '').replace(/\s+/g, ' ').trim().slice(0, 32)
         if (!nome) return json(res, 400, { error: 'nome' })

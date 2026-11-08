@@ -1900,6 +1900,13 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 .top__tempo { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; cursor: default; }
 .top__tempo svg { width: 12px; height: 12px; opacity: .8; }
 .top__tempo b { font-weight: 600; color: var(--fg-soft); }
+.toolbar__tempo { display: inline-flex; align-items: center; gap: 5px; padding: 0 6px; font-size: .76rem; color: var(--fg-faint); white-space: nowrap; cursor: default; }
+.toolbar__tempo[hidden] { display: none; }
+.toolbar__tempo svg { width: 14px; height: 14px; opacity: .8; }
+.toolbar__tempo b { font-weight: 600; color: var(--fg-soft); font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) { .toolbar__tempo > span { display: none; } }
+.lat-tempo { margin-left: auto; padding-left: 6px; font-style: normal; font-size: .68rem; font-variant-numeric: tabular-nums; color: rgba(236,236,241,.42); white-space: nowrap; }
+.lat-tempo:empty { display: none; }
 .top .top__diary { width: 34px; height: 34px; padding: 0; margin-left: 2px; margin-right: 0; opacity: .7; align-self: center; }
 .top .top__diary:hover { opacity: 1; }
 .top > .invite-split { margin-left: auto; }
@@ -2876,6 +2883,16 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 .perfil-menu button.armado { background: var(--live, #e5484d) !important; color: #fff !important; }
 .perfil-menu__input { width: 100%; box-sizing: border-box; margin: 2px 0 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; background: #0e0e12; color: inherit; font: inherit; outline: none; }
 .escolhe__emoji { font-size: 1.5rem; line-height: 1; }
+.escolhe__grade.viva .escolhe__sala { animation: none; }
+.escolhe__gente { display: grid; gap: 2px; width: 100%; }
+.escolhe__gente small { display: flex; justify-content: space-between; gap: 10px; }
+.escolhe__gente small span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.escolhe__gente i, .escolhe__call i { font-style: normal; font-variant-numeric: tabular-nums; color: rgba(236,236,241,.5); }
+.escolhe__call { display: inline-flex; align-items: center; gap: 6px; margin-top: 2px; padding: 3px 9px; border-radius: 99px; background: rgba(61,220,132,.1); color: #3ddc84; font-size: .74rem; font-weight: 600; }
+.escolhe__call i { color: inherit; }
+.escolhe__aovivo { width: 6px; height: 6px; border-radius: 50%; background: #3ddc84; animation: escolhe-pulso 2s infinite; }
+@keyframes escolhe-pulso { 0% { box-shadow: 0 0 0 0 rgba(61,220,132,.6); } 70%, 100% { box-shadow: 0 0 0 6px rgba(61,220,132,0); } }
+@media (prefers-reduced-motion: reduce) { .escolhe__aovivo { animation: none; } }
 .rail-emoji { font-size: 1.35rem; line-height: 1; }
 
 /* ===== Jogo em tela cheia/palco: nada por cima da mesa. O chat vira coluna à direita e as barras (voz e botões)
