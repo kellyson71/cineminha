@@ -7,7 +7,7 @@
 import { arteMinimalista } from './jogos/uno/minimalista.js'
 import { arteClassica } from './jogos/uno/classico.js'
 import { criaMesa } from './cartas-mesa.js'
-import { criaBoteco, SKINS_BAR, qualidadeMesa, escolheQualidadeMesa } from './boteco3d.js'
+import { criaBoteco, SKINS_BAR, secaoBar } from './boteco3d.js'
 
 const SOM = n => `jogos/coup/sons/${n}.mp3`
 const CORES = { r: 'vermelho', y: 'amarelo', g: 'verde', b: 'azul' }
@@ -61,12 +61,15 @@ const VALOR = { '+2': 2, '+4': 4, '+6': 6, '+10': 10, inv4: 4 } // cartas de com
 const ehCompra = v => v in VALOR
 const COMPRA_COR = v => v === '+4' || v === '+6' || v === '+10' || v === 'inv4'
 const ehNumero = v => /^\d$/.test(v)
-const emJogo = f => f === 'jogo' || f === 'troca7' || f === 'gira0' // fases com a partida rolando
+const emJogo = f => f === 'jogo' || f === 'troca7' || f === 'gira0' || f === 'roleta'
+const ROLETA_REVELA_MS = 1250 // dá tempo de virar, conferir a cor e levar a carta à mão
 const ADMIN = 'kellyson' // modo admin (logado no painel Admin): escolhe as próximas cartas que vai comprar
-// cartas que o admin pode pôr na fila (as do Sem Piedade só aparecem com ele ligado)
-const FILA_BASE = ['+4', '+2', 'cor', 'pula', 'inverte']
-const FILA_SP = ['+10', '+6', 'inv4', 'roleta', 'pulaT', 'desc']
-const FILA_OK = new Set([...FILA_BASE, ...FILA_SP, ...'0123456789'])
+// cartas que o admin pode pôr na fila: coloridas levam a cor ('r:+2', 'b:desc'); coringas vão sem cor ('+10')
+// (as do Sem Piedade só valem com ele ligado)
+const FILA_COR = [...'0123456789', 'pula', 'inverte', '+2'], FILA_COR_SP = ['pulaT', 'desc']
+const FILA_CORINGA = ['cor', '+4'], FILA_CORINGA_SP = ['+6', '+10', 'inv4', 'roleta']
+const filaItem = x => { const m = /^([rygb]):(.+)$/.exec(String(x)); return m ? { c: m[1], v: m[2] } : { c: null, v: String(x) } }
+const filaValida = (x, sp) => { const { c, v } = filaItem(x); return c ? FILA_COR.includes(v) || (sp && FILA_COR_SP.includes(v)) : FILA_CORINGA.includes(v) || (sp && FILA_CORINGA_SP.includes(v)) }
 const NOMES = { pula: 'Pular', inverte: 'Inverter', pulaT: 'Pula Todos', desc: 'Descarta a Cor', inv4: 'Inverte +4', roleta: 'Roleta', cor: 'Coringa' }
 
 const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n }
@@ -148,7 +151,7 @@ export function criaDescarte(ctx) {
     G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, fase: 'convite',
       op: { ...Object.fromEntries(OPCOES.map(([k]) => [k, DESLIGADAS.includes(k) ? op[k] === true : op[k] !== false])), tempo: TEMPOS.includes(op.tempo) ? op.tempo : 0 },
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
-      js: [], monte: [], descarte: [], cor: null, dir: 1, vez: 0, pend: 0, pendTipo: null, compradas: 0, sil: null, bate: null, bateK: 0,
+      js: [], monte: [], descarte: [], cor: null, dir: 1, vez: 0, pend: 0, pendTipo: null, compradas: 0, roleta: null, sil: null, bate: null, bateK: 0,
       placar: pl && pl.p && Date.now() - pl.t < 12 * 3600e3 ? pl.p : {}, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
     sysMsg(`${me.name} abriu uma mesa de Uno`)
     difunde()
@@ -166,7 +169,7 @@ export function criaDescarte(ctx) {
     // primeira carta: um número (coringas e ações voltam para o meio do monte)
     let i = G.monte.findLastIndex(c => /^\d$/.test(c.v))
     G.descarte = [G.monte.splice(i, 1)[0]]
-    G.cor = topo().c; G.dir = 1; G.pend = 0; G.pendTipo = null; G.compradas = 0; G.sil = null; G.bate = null
+    G.cor = topo().c; G.dir = 1; G.pend = 0; G.pendTipo = null; G.compradas = 0; G.roleta = null; G.sil = null; G.bate = null
     const ult = ls.get('dc.vencedor')
     G.vez = ks.includes(ult) ? ks.indexOf(ult) : rnd(ks.length)
     G.fase = 'jogo'; G.log = []; G.vencedor = null; G.turno = 0; G.estourou = []
@@ -183,12 +186,20 @@ export function criaDescarte(ctx) {
     if (G.monte.length) ev({ t: 'embaralha' })
   }
   // tira uma carta do monte; o admin pode ter escolhido as próximas (vem a primeira da fila que ainda estiver no monte)
+  // Sem fila, a compra é aleatória (o topo do monte embaralhado). Com fila (admin), vem exatamente a próxima da fila:
+  // do monte; se não estiver lá, do descarte (menos a de cima); se nem lá, entra uma carta nova no jogo.
   function tira(key) {
     const fila = G.fila?.[key]
     while (fila?.length) {
-      const v = fila.shift()
-      const ok = G.monte.flatMap((c, i) => c.v === v ? [i] : [])
-      if (ok.length) return G.monte.splice(ok[rnd(ok.length)], 1)[0]
+      const { c, v } = filaItem(fila.shift())
+      if (!filaValida(c ? `${c}:${v}` : v, G.op.semPiedade)) continue
+      const igual = x => x.v === v && (c ? x.c === c : !x.c)
+      const noMonte = G.monte.flatMap((x, i) => igual(x) ? [i] : [])
+      if (noMonte.length) return G.monte.splice(noMonte[rnd(noMonte.length)], 1)[0]
+      const k = G.descarte.slice(0, -1).findIndex(igual)
+      if (k >= 0) { const { esc, ...carta } = G.descarte.splice(k, 1)[0]; return carta }
+      G.idNovo = Math.max(G.idNovo || 0, 999, ...G.monte.map(x => x.id), ...G.descarte.map(x => x.id), ...G.js.flatMap(j => j.mao.map(x => x.id))) + 1
+      return { id: G.idNovo, c, v }
     }
     return G.monte.pop()
   }
@@ -214,6 +225,12 @@ export function criaDescarte(ctx) {
   function armaTempo(extra = 0) {
     clearTimeout(timer)
     G.turno = (G.turno || 0) + 1
+    if (G.fase === 'roleta' && G.roleta?.concluida) {
+      G.prazo = 0
+      const r = G.roleta
+      timer = setTimeout(() => { if (G?.fase === 'roleta' && G.roleta === r) terminaRoleta() }, Math.max(0, r.liberaEm - Date.now()))
+      return
+    }
     G.prazo = G.op.tempo && G.fase !== 'fim' ? Date.now() + G.op.tempo * 1000 + extra : 0
     if (!G.prazo) return
     const t = G.turno
@@ -221,6 +238,7 @@ export function criaDescarte(ctx) {
   }
   function tempoAcabou() {
     const j = G.js[G.vez]
+    if (G.fase === 'roleta') return compraRoleta(j.key, G.roleta?.passo, true)
     ev({ t: 'tempo', key: j.key })
     log(`O tempo de ${j.nome} acabou.`)
     // 7/0: com a troca opcional, o tempo esgotado deixa tudo como está; sem ela, troca com alguém ao acaso
@@ -308,20 +326,33 @@ export function criaDescarte(ctx) {
     if (era7 && G.op.sete) G.sil = novoSil()
     avanca(1)
   }
-  // Roleta: o próximo vira cartas até sair a cor escolhida, fica com todas e perde a vez
+  // Roleta é uma etapa pública: só o próximo jogador vira uma carta por intenção.
   function roleta(i) {
     const alvo = G.js[depois(i, 1)]
-    let n = 0, achou = false
-    while (n < 40) {
-      const [c] = compra(alvo, 1, true)
-      if (!c) break
-      n++
-      if (c.c === G.cor) { achou = true; break }
-    }
-    if (n) ev({ t: 'compra', key: alvo.key, qtd: n })
-    ev({ t: 'roleta', key: alvo.key, qtd: n, cor: G.cor, achou })
-    log(`Roleta: ${alvo.nome} virou ${n} carta${n === 1 ? '' : 's'} até sair ${CORES[G.cor]} e perdeu a vez.`)
-    avanca(2)
+    G.vez = idx(alvo.key); G.compradas = 0; G.fase = 'roleta'
+    G.roleta = { key: alvo.key, cor: G.cor, qtd: 0, passo: 0, ultima: null, liberaEm: Date.now() + 1000, concluida: false, achou: false }
+    ev({ t: 'roletaInicio', key: alvo.key, cor: G.cor })
+    log(`Roleta: ${alvo.nome} deve virar uma carta por vez até sair ${CORES[G.cor]}; fica com todas e perde a vez.`)
+    armaTempo(1000); difunde()
+  }
+  function compraRoleta(key, passo, automatico = false) {
+    const r = G.roleta, j = jog(key)
+    if (G.fase !== 'roleta' || !r || r.concluida || r.key !== key || !j || passo !== r.passo || Date.now() < r.liberaEm) return
+    const [c] = compra(j, 1, true)
+    r.passo++; r.liberaEm = Date.now() + ROLETA_REVELA_MS
+    if (c) { r.qtd++; r.ultima = c; r.achou = c.c === r.cor }
+    r.concluida = !c || r.achou
+    ev({ t: 'roletaCarta', key, carta: c || null, cor: r.cor, qtd: r.qtd, achou: r.achou, passo: r.passo })
+    if (automatico) log(`O tempo acabou; ${j.nome} virou uma carta da Roleta.`)
+    armaTempo(ROLETA_REVELA_MS); difunde()
+  }
+  function terminaRoleta() {
+    const r = G.roleta
+    if (G.fase !== 'roleta' || !r?.concluida) return
+    ev({ t: 'roletaFim', key: r.key, qtd: r.qtd, cor: r.cor, achou: r.achou })
+    ev({ t: 'pula', key: r.key })
+    log(`Roleta: ${jog(r.key)?.nome || 'Jogador'} ficou com ${r.qtd} carta${r.qtd === 1 ? '' : 's'}${r.achou ? ` até sair ${CORES[r.cor]}` : '; o monte acabou'} e perdeu a vez.`)
+    G.roleta = null; G.fase = 'jogo'; avanca(1)
   }
   function comprar(key) {
     const i = idx(key), j = G.js[i]
@@ -368,7 +399,7 @@ export function criaDescarte(ctx) {
   const nome = k => jog(k)?.nome || ctx.nomeDe(k)
   function fim(key) {
     clearTimeout(timer)
-    G.fase = 'fim'; G.vencedor = key; G.sil = null; G.bate = null
+    G.fase = 'fim'; G.vencedor = key; G.sil = null; G.bate = null; G.roleta = null
     G.placar[key] = (G.placar[key] || 0) + 1
     ls.set('dc.placar', { t: Date.now(), p: G.placar }); ls.set('dc.vencedor', key)
     ev({ t: 'vence', key })
@@ -379,7 +410,7 @@ export function criaDescarte(ctx) {
   function revanche() {
     const ant = new Set([...G.js.map(j => j.key), ...(G.estourou || [])])
     G.conv = Object.fromEntries(ctx.presentes().map(k => [k, ant.has(k) || k === me.key ? 'sim' : '?']))
-    Object.assign(G, { id: Math.random().toString(36).slice(2, 9), fase: 'convite', js: [], monte: [], descarte: [], vencedor: null, log: [], ev: [], evN: 0, sil: null, bate: null })
+    Object.assign(G, { id: Math.random().toString(36).slice(2, 9), fase: 'convite', js: [], monte: [], descarte: [], vencedor: null, log: [], ev: [], evN: 0, sil: null, bate: null, roleta: null })
     difunde()
   }
   // ---- 9 bate no monte
@@ -432,12 +463,13 @@ export function criaDescarte(ctx) {
       case 'sai': if (key !== G.host) remove(key); break // saiu para outra mesa
       case 'joga': jogar(key, d); break
       case 'compra': comprar(key); break
+      case 'roleta': compraRoleta(key, d.passo); break
       case 'passa': passar(key); break
       case 'ultima': ultima(key); break
       case 'pega': pegar(key, d.alvo); break
       case 'troca': decide(key, d); break
       case 'bate': bateu(key, d); break
-      case 'fila': if (key === ADMIN && Array.isArray(d.fila)) { (G.fila ||= {})[key] = d.fila.map(String).filter(v => FILA_OK.has(v)).slice(0, 20); difunde() } break
+      case 'fila': if (key === ADMIN && Array.isArray(d.fila)) { (G.fila ||= {})[key] = d.fila.map(String).filter(x => filaValida(x, G.op.semPiedade)).slice(0, 30); difunde() } break
     }
   }
   function vista(k) {
@@ -447,6 +479,7 @@ export function criaDescarte(ctx) {
       mao: jog(k)?.mao.slice() || null, descarte: G.descarte.slice(-14), cor: G.cor, dir: G.dir, vez: G.js[G.vez]?.key || null, monte: G.monte.length,
       bate: G.bate ? { k: G.bate.k, resta: Math.max(0, G.bate.ate - Date.now()), bateram: Object.keys(G.bate.rt) } : null,
       pend: G.pend, pendTipo: G.pendTipo, compradas: G.js[G.vez]?.key === k ? G.compradas || 0 : 0, lim: limite(),
+      roleta: G.fase === 'roleta' && G.roleta ? { ...G.roleta, libera: Math.max(0, G.roleta.liberaEm - Date.now()), liberaEm: undefined } : null,
       sil: G.sil ? { resta: Math.max(0, GRACA_7 - (Date.now() - G.sil.desde)), falaram: G.sil.falaram } : null,
       fila: k === ADMIN ? G.fila?.[k] || [] : null, vencedor: G.vencedor || null, log: G.log.slice(-40), ev: G.ev, prazo: G.prazo ? Math.max(0, G.prazo - Date.now()) : 0,
     }
@@ -454,13 +487,13 @@ export function criaDescarte(ctx) {
   function difunde() {
     if (!G) return
     G.seq++; G.t = Date.now()
-    ls.set('dc.G', G)
+    ls.set('dc.G', { ...G, fila: undefined }) // a fila do admin não fica salva em lugar nenhum
     const ks = new Set([...ctx.presentes(), ...G.js.map(j => j.key), ...Object.keys(G.conv || {})])
     for (const k of ks) if (k !== me.key) ctx.sendTo(k, { dc: { v: vista(k) } })
     // cópia completa para o sucessor (o próximo jogador conectado), para ele assumir se eu cair
     const pres = new Set(ctx.presentes())
     G.sucessor = G.js.map(j => j.key).find(k => k !== me.key && pres.has(k)) || [...pres].find(k => k !== me.key) || null
-    if (G.sucessor) ctx.sendTo(G.sucessor, { dc: { bk: G } })
+    if (G.sucessor) ctx.sendTo(G.sucessor, { dc: { bk: { ...G, fila: undefined } } })
     aplica(vista(me.key))
   }
   // alguém saiu de vez: as cartas voltam para o monte e a pessoa sai da mesa
@@ -471,6 +504,7 @@ export function criaDescarte(ctx) {
     const j = G.js[i], nome = j.nome
     G.monte.push(...j.mao); embaralha(G.monte)
     const eraVez = i === G.vez
+    if (G.roleta?.key === key) { G.roleta = null; G.fase = 'jogo' }
     G.js.splice(i, 1)
     ev({ t: 'saiu', key, nome }); log(`${nome} saiu da mesa.`); sysMsg(`${nome} saiu do Uno`)
     ausDesde.delete(key)
@@ -556,6 +590,8 @@ export function criaDescarte(ctx) {
   const souHost = () => V && V.host === me.key
   const eu = () => V?.js.find(j => j.key === me.key)
   const N = k => k === me.key ? 'Você' : (V?.js.find(j => j.key === k)?.nome || ctx.nomeDe(k))
+  const podeVirarRoleta = () => V?.fase === 'roleta' && V.roleta?.key === me.key && !V.roleta.concluida && Date.now() >= V.recebido + V.roleta.libera
+  function viraRoleta() { if (podeVirarRoleta()) manda({ op: 'roleta', passo: V.roleta.passo }) }
   function manda(d) {
     if (!V) return
     const m = { id: V.id, ...d }
@@ -586,6 +622,7 @@ export function criaDescarte(ctx) {
     }
     // a mão do 9 apareceu: cada um mede o PRÓPRIO tempo de reação a partir de agora
     if (v?.bate && v.bate.k !== bateK) { bateK = v.bate.k; bateT0 = performance.now(); bateFeito = v.bate.bateram.includes(me.key); bateMs = 0 }
+    if (me.key === ADMIN && antes?.fila && v?.fila && antes.id === v.id && v.fila.length < antes.fila.length) ctx.logInterno?.(`fila do admin usada: ${antes.fila.slice(0, antes.fila.length - v.fila.length).join(' ')} (restam ${v.fila.length})`)
     V = v
     if (v) v.recebido = Date.now()
     if (antes?.vez !== v?.vez || antes?.descarte?.at(-1)?.id !== v?.descarte?.at(-1)?.id) { escolheCor = false; sel = [] }
@@ -722,20 +759,8 @@ export function criaDescarte(ctx) {
   const escolheMesa = k => { mesa = k; ls.set('dc.mesa', k); som('clique'); render(); tela.querySelector('.dc-feltro-op.atual, .dc-bar-op.atual')?.focus({ preventScroll: true }) }
   function secaoMesas() {
     return el('div', { className: 'dc-temas__mesas' },
-      el('small', { className: 'dc-temas__sub', textContent: 'Mesa de bar · na calçada do Marcílio Bar' }),
-      el('div', { className: 'dc-temas__bares', role: 'radiogroup', 'aria-label': 'Mesa de bar' }, ...BARES.map(([k, nm, cor]) => {
-        const b = el('button', { type: 'button', className: 'dc-bar-op' + (mesa === k ? ' atual' : ''), role: 'radio', 'aria-checked': String(mesa === k), 'aria-label': `Mesa de bar ${nm}`, style: `--bar:${cor}` },
-          el('span', { className: 'dc-bar-op__mesa' }, el('i')), el('b', { textContent: nm }))
-        b.addEventListener('click', e => { e.stopPropagation(); escolheMesa(k) })
-        return b
-      })),
-      el('div', { className: 'dc-temas__qual', role: 'radiogroup', 'aria-label': 'Qualidade da mesa de bar' },
-        el('small', { textContent: 'Qualidade' }),
-        ...[['3d', '3D', 'Mesa desenhada em 3D (uma vez só; leve depois de pronta)'], ['2d', 'Leve', 'Mesa plana, sem 3D: para computador mais fraco']].map(([q, nm, dica]) => {
-          const b = el('button', { type: 'button', className: 'dc-temas__qop' + (qualidadeMesa() === q ? ' on' : ''), textContent: nm, title: dica, role: 'radio', 'aria-checked': String(qualidadeMesa() === q) })
-          b.addEventListener('click', e => { e.stopPropagation(); escolheQualidadeMesa(q); som('clique'); render() })
-          return b
-        })),
+      // mesa de bar (com a textura de cada uma), qualidade e fundo: seção compartilhada com o Dobro
+      secaoBar({ atual: mesa.startsWith('bar-') ? mesa.slice(4) : null, escolhe: k => escolheMesa('bar-' + k), redesenha: () => { som('clique'); render() } }),
       el('small', { className: 'dc-temas__sub', textContent: 'Feltro' }),
       el('div', { className: 'dc-temas__feltros', role: 'radiogroup', 'aria-label': 'Tema da mesa' }, ...MESAS.map(([k, nm]) => {
         const b = el('button', { type: 'button', className: 'dc-feltro-op' + (mesa === k ? ' atual' : ''), role: 'radio', 'aria-checked': String(mesa === k), 'aria-label': `Mesa ${nm}` },
@@ -766,7 +791,8 @@ export function criaDescarte(ctx) {
       botao(icon('list-music'), () => tela.querySelector('.dc-log')?.classList.toggle('aberto'), 'dc-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'dc-btn--ic', 'Fechar a mesa para todos')
         : botao(icon('x'), () => { dispensado = V.id; aplica(null) }, 'dc-btn--ic', 'Sair da mesa (só para você)'))
-    if (souAdmin() && V.fase !== 'fim') topoBar.insertBefore(botao(icon('zap'), () => { filaAberta = !filaAberta; render() }, 'dc-btn--ic dc-btn--admin' + (filaAberta ? ' on' : ''), 'Admin: escolher as próximas cartas que você compra'), topoBar.querySelector('.dc-grow').nextSibling)
+    // admin: sem botão; três cliques rápidos no logo abrem a fila (para os outros, o logo não faz nada)
+    topoBar.querySelector('.dc-logo')?.addEventListener('pointerdown', cliqueLogo)
     if (V.op.semPiedade) topoBar.insertBefore(botao(icon('book-open'), () => { guiaAberto = !guiaAberto; guiaAnima = guiaAberto; render() }, 'dc-btn--ic' + (guiaAberto ? ' on' : ''), 'Cartas do Sem Piedade'), topoBar.querySelector('.dc-grow').nextSibling)
     plano.classList.toggle('jogando', emJogo(V.fase))
     const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, minhaArea(antes), controles(), meio(), silencio(), bilhete(), quadro(), ...bateUI(), guia(), filaUI(), caixasTema(),
@@ -881,7 +907,8 @@ export function criaDescarte(ctx) {
     const monte = el('div', { className: 'dc-monte' + (podeComprar ? ' pode' : '') + (V.monte ? '' : ' vazio'), style: `--camadas:${camadas}`, 'data-info': `Monte: ${V.monte} cartas${podeComprar ? (V.pend ? `\nClique para comprar ${V.pend}` : '\nClique para comprar') : ''}` },
       el('i', { className: 'dc-monte__sombra' }),
       ...Array.from({ length: camadas }, (_, i) => { const n = carta(null, 'dc-camada'); n.style.setProperty('--i', i); return n }))
-    if (podeComprar) monte.addEventListener('click', () => { som('desliza'); manda({ op: 'compra' }) })
+    if (V.fase === 'roleta' && V.roleta?.key === me.key) { monte.dataset.roletaMonte = '1'; monte.classList.toggle('pode', podeVirarRoleta()); monte.addEventListener('click', viraRoleta) }
+    else if (podeComprar) monte.addEventListener('click', () => { som('desliza'); manda({ op: 'compra' }) })
     const desc = el('div', { className: `dc-descarte dc-cor-${V.cor}`, 'data-info': `Mesa: ${CORES[V.cor]}${V.pend ? `\nAcumulado: +${V.pend}` : ''}` },
       ...V.descarte.map((c, i) => {
         const n = carta(c, 'dc-no-monte'), [dx, dy] = desvio(c.id)
@@ -920,24 +947,40 @@ export function criaDescarte(ctx) {
   }
   // admin: painelzinho com as cartas fortes em destaque; clicar põe na fila das próximas compras
   let filaAberta = false
+  let cliquesLogo = []
+  function cliqueLogo() {
+    const agora = Date.now(); cliquesLogo = [...cliquesLogo.filter(t => agora - t < 1200), agora]
+    if (cliquesLogo.length < 3 || !souAdmin() || V.fase === 'fim') return
+    cliquesLogo = []; filaAberta = !filaAberta; render()
+  }
   const souAdmin = () => me.key === ADMIN && me.admin && V?.fila
+  let filaCor = 'r'
   function filaUI() {
     if (!filaAberta || !souAdmin()) return ''
-    const fila = V.fila || []
-    const muda = f => manda({ op: 'fila', fila: f })
-    const opcao = v => {
-      const c = carta(FILA_SP.includes(v) || ['+4', 'cor'].includes(v) ? { id: -1, c: null, v } : { id: -1, c: 'r', v }, 'dc-fila__c')
-      const b = el('button', { type: 'button', className: 'dc-fila__op', title: `Pôr ${NOMES[v] || v} na fila` }, c)
-      b.addEventListener('click', () => muda([...fila, v])); return b
-    }
-    const nums = el('div', { className: 'dc-fila__nums' }, ...'0123456789'.split('').map(v => { const b = el('button', { type: 'button', textContent: v, title: `Pôr um ${v} na fila` }); b.addEventListener('click', () => muda([...fila, v])); return b }))
-    const lista = el('div', { className: 'dc-fila__lista' }, fila.length ? fila.map((v, i) => { const b = el('button', { type: 'button', className: 'dc-fila__item', title: 'Tirar da fila' }, el('b', { textContent: `${i + 1}º` }), NOMES[v] || (v === 'cor' ? 'Coringa' : v)); b.addEventListener('click', () => muda(fila.filter((_, k) => k !== i))); return b }) : el('small', { textContent: 'vazia: as compras vêm normais' }))
+    const fila = V.fila || [], sp = V.op.semPiedade
+    const muda = f => { manda({ op: 'fila', fila: f }); ctx.logInterno?.(`fila do admin: ${f.join(' ') || 'vazia'}`) }
+    const mini = (x, cls = '') => { const { c, v } = filaItem(x); return carta({ id: -1, c, v }, `dc-fila__c ${cls}`) }
+    const poe = x => muda([...fila, x])
+    const cores = el('div', { className: 'dc-fila__cores', role: 'radiogroup', 'aria-label': 'Cor' }, ...Object.entries(CORES).map(([k, nm]) => {
+      const b = el('button', { type: 'button', className: `dc-fila__cor dc-${k}` + (filaCor === k ? ' on' : ''), title: nm, role: 'radio', 'aria-checked': String(filaCor === k) })
+      b.addEventListener('click', () => { filaCor = k; render() }); return b
+    }))
+    const grade = (lista, cor) => el('div', { className: 'dc-fila__ops' }, ...lista.map(v => {
+      const x = cor ? `${filaCor}:${v}` : v
+      const b = el('button', { type: 'button', className: 'dc-fila__op', title: `Pôr ${nomeCarta({ c: cor ? filaCor : null, v })} na fila` }, mini(x))
+      b.addEventListener('click', () => poe(x)); return b
+    }))
+    const lista = el('div', { className: 'dc-fila__lista' }, fila.length ? fila.map((x, i) => {
+      const b = el('button', { type: 'button', className: 'dc-fila__item', title: `${i + 1}ª compra: ${nomeCarta(filaItem(x))} · clique para tirar` }, el('b', { textContent: `${i + 1}` }), mini(x))
+      b.addEventListener('click', () => muda(fila.filter((_, k) => k !== i))); return b
+    }) : el('small', { textContent: 'vazia: as compras vêm aleatórias' }))
     const limpar = el('button', { type: 'button', className: 'dc-fila__limpa', textContent: 'Limpar' }); limpar.addEventListener('click', () => muda([]))
     const fechar = el('button', { type: 'button', className: 'dc-fila__x', title: 'Fechar' }, icon('x')); fechar.addEventListener('click', () => { filaAberta = false; render() })
     return el('div', { className: 'dc-fila' },
-      el('header', {}, el('b', {}, icon('zap'), 'Próximas compras'), fechar),
-      el('div', { className: 'dc-fila__ops' }, ...[...(V.op.semPiedade ? FILA_SP : []), ...FILA_BASE].map(opcao)),
-      nums, lista, fila.length ? limpar : '')
+      el('header', {}, el('b', { textContent: 'Próximas compras' }), fechar),
+      el('small', { className: 'dc-fila__k', textContent: 'Com cor' }), cores, grade([...FILA_COR, ...(sp ? FILA_COR_SP : [])], true),
+      el('small', { className: 'dc-fila__k', textContent: 'Coringas' }), grade([...FILA_CORINGA, ...(sp ? FILA_CORINGA_SP : [])], false),
+      el('small', { className: 'dc-fila__k', textContent: `Fila (${fila.length})` }), lista, fila.length ? limpar : '')
   }
   function minhaArea(antes) {
     const j = eu(), conv = V.fase === 'convite'
@@ -945,7 +988,7 @@ export function criaDescarte(ctx) {
     const minha = V.fase === 'jogo' && V.vez === me.key
     const chegouVez = emJogo(V.fase) && V.vez === me.key && antes && antes.id === V.id && antes.vez !== me.key
     const area = el('div', { className: 'dc-eu' + (emJogo(V.fase) && V.vez === me.key ? ' vez' : '') + (chegouVez ? ' chegou-vez' : '') + (emJogo(V.fase) ? ' em-jogo' : '') + (V.vencedor === me.key ? ' vencedor' : '') + (V.fase === 'jogo' && V.mao?.length === 1 ? ' um' : ''), 'data-key': me.key },
-      bon ? el('img', { className: 'dc-boneco', src: bon, alt: '', draggable: false }) : el('div', { className: 'dc-boneco dc-boneco--pfp' }, retrato(me.key, me.name)))
+      ctx.poseCartas?.(me.key) && j ? bonecoCartas(ctx.poseCartas(me.key), 'dc') : bon ? el('img', { className: 'dc-boneco', src: bon, alt: '', draggable: false }) : el('div', { className: 'dc-boneco dc-boneco--pfp' }, retrato(me.key, me.name)))
     if (conv) return ''
     if (!j || !V.mao) { area.append(el('small', { className: 'dc-dica', textContent: 'assistindo' })); return area }
     const ids = new Set((antes?.mao || []).map(c => c.id))
@@ -1041,6 +1084,12 @@ export function criaDescarte(ctx) {
   // botões do momento (canto direito) e o aviso de última
   function controles() {
     const j = eu()
+    if (j && V.fase === 'roleta') {
+      if (V.roleta?.key !== me.key || V.roleta.concluida) return ''
+      const b = botao('Virar 1 carta', viraRoleta, 'dc-btn--forte dc-btn--grande', 'Vire uma carta do monte até encontrar a cor escolhida')
+      b.dataset.roletaCompra = '1'; b.disabled = !podeVirarRoleta()
+      return el('div', { className: 'dc-controles' }, b)
+    }
     if (!j || V.fase !== 'jogo') return ''
     const minha = V.vez === me.key
     const bts = []
@@ -1054,6 +1103,7 @@ export function criaDescarte(ctx) {
   }
   function meio() {
     if (V.fase === 'convite') return convite()
+    if (V.fase === 'roleta' && V.roleta) return painelRoleta()
     if (V.fase === 'fim') {
       const v = V.vencedor
       const r = Object.entries(V.placar || {}).sort((a, b) => b[1] - a[1])
@@ -1078,6 +1128,18 @@ export function criaDescarte(ctx) {
       return roda
     }
     return ''
+  }
+  function painelRoleta() {
+    const r = V.roleta, minha = r.key === me.key
+    const texto = r.concluida ? (r.achou ? 'Saiu a cor!' : 'O monte acabou') : minha ? 'Vire uma carta por vez' : `${N(r.key)} está virando as cartas`
+    return el('section', { className: 'dc-roleta', style: `--dc-cor-roleta:${corCss(r.cor)}`, 'aria-label': 'Roleta de cores' },
+      el('div', { className: 'dc-roleta__texto', 'aria-live': 'polite' },
+        el('b', { className: 'dc-roleta__titulo', textContent: 'Roleta' }),
+        el('span', { className: 'dc-roleta__cor' }, el('i'), `Até sair ${CORES[r.cor]}`),
+        el('strong', { textContent: texto }),
+        el('small', { textContent: r.concluida ? `+${r.qtd} carta${r.qtd === 1 ? '' : 's'} · perdeu a vez` : `${r.qtd} carta${r.qtd === 1 ? '' : 's'} comprada${r.qtd === 1 ? '' : 's'} · fica com todas e perde a vez` })),
+      el('div', { className: 'dc-roleta__revelada' + (r.achou ? ' achou' : '') },
+        el('i', { className: 'dc-roleta__roda', 'aria-hidden': 'true' }), r.ultima ? carta(r.ultima, 'dc-roleta__carta') : carta(null, 'dc-roleta__carta')))
   }
   // 7 / 0: menu de escolha para quem jogou
   function escolha() {
@@ -1263,13 +1325,16 @@ export function criaDescarte(ctx) {
     for (const e of evs) {
       const at = t
       if (e.t === 'inicio') { distribui(); t += 1800 }
-      else if (e.t === 'joga') t += animaJogada(e, at, desc)
+      else if (e.t === 'joga') { if (e.key === me.key) poseJogaAte = Date.now() + 1000; t += animaJogada(e, at, desc) }
       else if (e.t === 'compra') t += animaCompra(e, at, monte, e.key === me.key ? minhasNovas.splice(0, e.qtd || 1) : [])
-      else if (e.t === 'roleta') { som('embaralhar', at, .5); balao(e.key, e.achou ? `Roleta: ${e.qtd} até sair ${CORES[e.cor]}` : `Roleta: ${e.qtd} cartas`, 'forte', at + 300) }
-      else if (e.t === 'descCor') { som('leque', at, .9); balao(e.key, `Descartou mais ${e.qtd} ${CORES[e.cor]}!`, 'leve', at + 200) }
+      else if (e.t === 'roletaInicio') { som('inverter', at, .6); balao(e.key, `Roleta: vire até sair ${CORES[e.cor]}`, 'forte', at); if (e.key === me.key) toast(`Roleta: vire uma carta por vez até sair ${CORES[e.cor]}. Você fica com todas e perde a vez.`, 5000) }
+      else if (e.t === 'roletaCarta') animaRoletaCarta(e, at)
+      else if (e.t === 'roletaFim') { som('carimbo', at, .7); balao(e.key, `Roleta: +${e.qtd} · perdeu a vez`, 'forte', at) }
+      else if (e.t === 'roleta') balao(e.key, `Roleta: +${e.qtd}`, 'forte', at) // eventos de partidas antigas
+      else if (e.t === 'descCor') { animaDescartaCor(e, at); som('leque', at, .9); balao(e.key, `Descartou mais ${e.qtd} ${CORES[e.cor]}!`, 'leve', at + 200) }
       else if (e.t === 'fica') balao(e.key, e.o === '7' ? 'Fiquei com a minha' : 'Não girou', 'leve', at)
       else if (e.t === 'pula') { som('pular', at); balao(e.key, 'Pulou a vez', 'leve', at) }
-      else if (e.t === 'pulaT') { som('pular', at); balao(e.key, 'Pulou todo mundo!', 'forte', at) }
+      else if (e.t === 'pulaT') { animaPulaTodos(e, at); som('pular', at); balao(e.key, 'Pulou todo mundo! Jogue de novo', 'forte', at) }
       else if (e.t === 'estourou') { som('carimbo', at); toast(`${e.nome} estourou: ${e.qtd} cartas`, 3800) }
       else if (e.t === 'bate') som('clique', at)
       else if (e.t === 'bateSem') { som('golpe', at, .7); balao(e.key, 'Bateu sem 9: compra 1', 'forte', at); if (e.key === me.key) toast('Bateu sem 9: compra 1', 2600) }
@@ -1296,11 +1361,58 @@ export function criaDescarte(ctx) {
   // jogada: a carta sai de quem jogou (a minha, do lugar exato na mão; a dos outros, do leque, virando no ar)
   // e pousa na pilha no giro dela. Ação, compra e várias de uma vez sobem alto e batem na mesa.
   const BATE = new Set(['+2', '+4', '+6', '+10', 'inv4', 'pula', 'pulaT', 'inverte', 'roleta', 'desc'])
+  function animaCompraEspecial(c, e, at) {
+    setTimeout(() => {
+      if (!V || V.fase === 'fim') return
+      const qtd = VALOR[c.v], caixa = el('div', { className: `dc-especial-carga${c.v === 'inv4' ? ' dc-especial-carga--inverte' : ''}`, 'aria-hidden': 'true' },
+        el('b', { textContent: `${c.v === 'inv4' ? '↶ ' : ''}+${qtd}` }),
+        el('span', {}, ...Array.from({ length: qtd }, (_, i) => el('i', { style: `--dc-atraso:${i * 50}ms` }))))
+      tela.append(caixa); setTimeout(() => caixa.remove(), 1600)
+    }, at)
+  }
+  function animaPulaTodos(e, at) {
+    setTimeout(() => {
+      if (!V) return
+      for (const j of V.js.filter(j => j.key !== e.key)) {
+        const alvo = j.key === me.key ? tela.querySelector('.dc-mao') : tela.querySelector(`.dc-assento[data-key="${CSS.escape(j.key)}"] .dc-retrato`)
+        if (!alvo) continue
+        const p = noTela(alvo), marca = el('b', { className: 'dc-pula-todos-marca', textContent: '⊘', 'aria-hidden': 'true', style: `left:${p.x}px;top:${p.y}px` })
+        tela.append(marca); setTimeout(() => marca.remove(), 1300)
+      }
+    }, at)
+  }
+  function animaDescartaCor(e, at) {
+    setTimeout(() => {
+      const mao = lugarDe(e.key); if (!mao) return
+      const p = noTela(mao), faixa = el('div', { className: 'dc-varre-cor', 'aria-hidden': 'true', style: `left:${p.x}px;top:${p.y}px;width:${Math.max(p.w, 12 * cqh())}px;--dc-cor-varre:${corCss(e.cor)}` })
+      tela.append(faixa); setTimeout(() => faixa.remove(), 1100)
+    }, at)
+  }
+  function animaRoletaCarta(e, at) {
+    if (!e.carta) return
+    const c = e.carta, minha = e.key === me.key, h = cqh()
+    const monte = tela.querySelector('.dc-monte'), revelada = tela.querySelector('.dc-roleta__carta')
+    if (!monte || !revelada) return
+    const A = ponto(monte), B = ponto(revelada), mao = minha ? tela.querySelector(`.dc-mao .dc-carta[data-id="${c.id}"]`) : lugarDe(e.key)
+    const C = ponto(mao, minha ? 12 * h : largMesa())
+    revelada.classList.add('oculta')
+    if (minha) { pousando.add(c.id); mao?.classList.add('oculta'); mao?.classList.remove('chegou') }
+    som('desliza', at, .7)
+    let revelou = false
+    const revela = () => { if (revelou) return; revelou = true; revelada.classList.remove('oculta'); if (e.achou) som('carimbo', 0, .8); else som('poe', 0, .6) }
+    voo(c, A, B, { atraso: at, dur: 380, alto: 4, vira: true, fim: revela })
+    // Uma aba em segundo plano pode suspender o onfinish da animação.
+    setTimeout(revela, at + 450)
+    voo(minha ? c : null, B, C, { atraso: at + 690, dur: 430, alto: 3, lado: 2, deita: !minha,
+      fim: () => { if (minha) pousa(c.id, '.dc-mao'); contador(e.key, e.qtd, e.qtd, e.achou) } })
+    if (minha) setTimeout(() => pousa(c.id, '.dc-mao'), at + 1130)
+  }
   function animaJogada(e, at, desc) {
     const cs = e.cartas || [e.carta]
     if (!desc || !cs.length) return 0
     const meu = e.key === me.key, h = cqh()
     const ult = cs[cs.length - 1], forte = BATE.has(ult.v) || cs.length > 1
+    if (['+6', '+10', 'inv4'].includes(ult.v)) animaCompraEspecial(ult, e, at + 450)
     const B = noTela(desc), origem = meu ? null : ponto(lugarDe(e.key), largMesa())
     const dur = forte ? 820 : 560, passo = forte ? 70 : 110
     if (cs.length > 1) som('leque', at, .9)
@@ -1390,8 +1502,34 @@ export function criaDescarte(ctx) {
       setTimeout(() => { entregando = false; tela.querySelectorAll('.dc-carta.oculta').forEach(n => { if (!pousando.has(+n.dataset.id)) n.classList.remove('oculta') }) }, ordem.length * 38 + 700)
     }, 1100)
   }
+  // poses de carta do boneco "você" (quem tem a pasta 'cartas' no config): mudam sem render, no laço
+  const POSES_CARTAS = ['poucas', 'muitas', 'uma', 'dormindo', 'pensando', 'joga']
+  let poseJogaAte = 0, ultimoGesto = Date.now(), posesCarregadas = false
+  for (const t of ['pointerdown', 'keydown']) document.addEventListener(t, () => { ultimoGesto = Date.now() }, { passive: true })
+  function poseAgora() {
+    if (Date.now() < poseJogaAte) return 'joga'
+    const minha = V?.fase === 'jogo' && V.vez === me.key, n = V?.mao?.length || 0
+    if (!minha && Date.now() - ultimoGesto > 90000) return 'dormindo'
+    if (n === 1) return 'uma'
+    if (minha) return 'pensando'
+    return n >= 10 ? 'muitas' : 'poucas'
+  }
+  function bonecoCartas(base, cls) {
+    if (!posesCarregadas) { posesCarregadas = true; POSES_CARTAS.forEach(n => { new Image().src = `${base}${n}.webp` }) }
+    const img = el('img', { className: `${cls}-boneco ${cls}-boneco--cartas`, src: `${base}${poseAgora()}.webp`, alt: '', draggable: false })
+    img.dataset.base = base
+    return img
+  }
+  function atualizaPose(cls) {
+    const b = tela.querySelector(`.${cls}-boneco--cartas`); if (!b) return
+    const src = `${b.dataset.base}${poseAgora()}.webp`
+    if (!b.src.endsWith(src)) b.src = src
+  }
   ;(function loop() {
+    atualizaPose('dc')
     if (V) {
+      tela.querySelectorAll('[data-roleta-compra]').forEach(n => { n.disabled = !podeVirarRoleta() })
+      tela.querySelectorAll('[data-roleta-monte]').forEach(n => n.classList.toggle('pode', podeVirarRoleta()))
       const pres = new Set(ctx.presentes())
       for (const s of tela.querySelectorAll('.dc-assento[data-key], .dc-eu[data-key]')) { s.classList.toggle('fala', !!ctx.falando?.(s.dataset.key)); s.classList.toggle('caiu', !pres.has(s.dataset.key)) }
       for (const tm of tela.querySelectorAll('[data-fim]')) {

@@ -1522,6 +1522,8 @@ function ctxJogo(id) {
   const tela = el('div', { className: J.tela, id: J.tela + 'Tela' }); $('#screenInner').append(tela)
   return {
     $, el, icon, toast, sysMsg, me, tela,
+    // registro interno (diário da sala, só no diagnóstico do admin): nada aparece para quem joga
+    logInterno: t => evento('jogo', `${J.nome}: ${t}`),
     send: (d, target) => actions?.jogo.send(d, target ? { target } : undefined),
     sendTo: (key, d) => { const ids = [...peers].filter(([, p]) => p.key === key).map(([pid]) => pid); if (ids.length) actions?.jogo.send(d, { target: ids }) },
     audioCtx: () => audioCtx(), saida: () => { audioCtx(); return mix.jogo },
@@ -1529,6 +1531,7 @@ function ctxJogo(id) {
     nomeDe: k => k === me.key ? me.name : [...peers.values()].find(p => p.key === k)?.name || person(k).nome,
     pfp: (k, s, n) => pfpImg(k, s, n),
     boneco: k => person(k).boneco || '',
+    poseCartas: k => person(k).cartas || '', // pasta das poses de carta (cadeira de bar), se a pessoa tiver
     falando: k => k === me.key ? (me.speaking && !me.muted) : [...peers.values()].some(p => p.key === k && p.speaking && !p.muted),
     mudo: () => me.muted || me.deaf,
     outroJogo: () => false, faixaAtiva: () => false, // mesas paralelas: cada jogo segue o seu; o app mostra uma por vez

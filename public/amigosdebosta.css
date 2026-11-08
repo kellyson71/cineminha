@@ -265,3 +265,10 @@
 .ab-roleta.parou .ab-roleta__p:not(.on) { opacity: .45; }
 @keyframes ab-roleta-ganha { to { transform: translateY(-1cqh) scale(1.18) rotate(-3deg); } }
 .ab-regra__ic.vale::after { display: none; }
+
+/* pular carta (com a maioria pedindo) */
+.ab-nota__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 1cqh; }
+.ab-pular { gap: .7cqh; }
+.ab-pular svg { width: 2.2cqh; height: 2.2cqh; }
+.ab-pular.on { border-style: solid; background: rgba(31,29,43,.08); }
+.ab-pular__n { font-style: normal; font-weight: 700; padding: 0 .6cqh; border-radius: 99px; background: rgba(31,29,43,.12); }

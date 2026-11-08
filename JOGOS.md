@@ -6,10 +6,10 @@ Tudo o que um jogo novo precisa seguir. Os oito jogos atuais são a referência 
 |---|---|---|---|
 | Faixa a Faixa | `public/faixa.js`, `faixa.css`, `jogos/faixa/` | (sem chave, legado) | adivinhar a música, áudio por camadas |
 | Coup | `public/coup.js`, `coup.css`, `jogos/coup/` | `coup` | blefe, mesa 3D em perspectiva |
-| Uno | `public/descarte.js`, `descarte.css`, `jogos/uno/` | `dc` | cartas de cor e número; mesa inclinada (46°) com temas de mesa locais (`dc.mesa`), anel de setas e facho para quem tem a vez, pilha bagunçada (14 cartas, giro/desvio por id), voos em arco com virada 3D e batida nas cartas de ação, mão em leque com FLIP; temas Minimalista (padrão) e Clássico em SVG; seletor com caixas originais em CSS 3D e preferência local em `dc.tema` |
+| Uno | `public/descarte.js`, `descarte.css`, `jogos/uno/` | `dc` | cartas de cor e número; mesa inclinada (46°) com temas de mesa locais (`dc.mesa`), anel de setas e facho para quem tem a vez, pilha bagunçada (14 cartas, giro/desvio por id), voos em arco com virada 3D e batida nas cartas de ação, mão em leque com FLIP; temas Minimalista (padrão) e Clássico em SVG; seletor com caixas originais em CSS 3D e preferência local em `dc.tema`; Sem Piedade com Roleta pública de uma carta por clique e efeitos próprios das ações novas |
 | Red Flags | `public/parperfeito.js`, `parperfeito.css`, `jogos/parperfeito/` | `pp` | festa, rodadas com juiz, cartas de texto |
 | Amigos de Merda | `public/amigosdebosta.js`, `amigosdebosta.css`, `jogos/amigosdebosta/` | `ab` | votação simultânea; baralho do mod (86 pretas + 22 rosas), frentes em HTML/CSS |
-| Dobro | `public/dobradinha.js`, `dobradinha.css`, `jogos/dobro/` | `db` | escalada de valores (igual dobra), mesa de boteco, cartas originais em atlas AVIF com fallback WebP |
+| Dobro | `public/dobradinha.js`, `dobradinha.css`, `jogos/dobro/` | `db` | escalada de valores (igual dobra), pilhas recolhidas no tampo, atlas AVIF/WebP; 3 s de proteção antes dos 9 s de contagem do Esquecido, arrastável; cola recolhida e paginada, cartas centrais maiores e destaque do destino ao levar a mesa |
 | Dou-lhe Uma | `public/doulheuma.js`, `doulheuma.css`, `jogos/doulheuma/` | `du` | leilão de listas (quem cita mais), sem relógio; tarja de TV de leilão rural |
 | Na Testa | `public/natesta.js`, `natesta.css`, `jogos/natesta/` | `nt` | quem sou eu? (post-it na testa, perguntas de sim/não); mural de cortiça |
 
@@ -131,6 +131,21 @@ posta no palco pela classe `.b3d-fundo`). Padrão no Uno e no Dobro. As cartas c
 `balanca(f)` faz a mesa sentir pancadas (batida, carta pousando, compra grande). A luz do balcão e o grão de papel nas
 cartas são CSS (`--cm-luz`, `--cm-brilho`, `--cm-grao` em soft-light dentro da carta). Chame `encaixa()` + `liga(cor)`
 depois de cada render e `desliga()` ao fechar. Créditos em `public/jogos/boteco/CREDITOS.txt`.
+
+## Admin nos jogos de carta (Uno e Dobro)
+
+Sem botão: **três cliques rápidos no logo do jogo** abrem "Próximas compras" (só para `kellyson` logado como admin;
+para os outros o logo não faz nada). Sem fila, a compra é aleatória. A fila só vai na vista do admin, não é salva no
+`localStorage` nem na cópia do sucessor, e não aparece no histórico da mesa nem no chat; o uso vai só para o diário
+interno da sala (`ctx.logInterno`, visível no Diagnóstico do admin). Uno: itens `cor:valor` ('r:+2', 'g:pulaT') ou
+coringa sem cor ('+10'); a carta sai do monte, do descarte ou entra nova. Dobro: só sai carta que existe no baralho
+(monte ou as 10 de fora com 2 pessoas, trocada por uma do monte); a que não existe espera na fila.
+
+## Poses de carta do boneco
+
+Quem tem `cartas: 'assets/poses/<pessoa>/cartas/'` no `config.js` aparece na cadeira de bar no Uno e no Dobro
+(`ctx.poseCartas`): poucas, muitas (10+), uma (1 carta), pensando (sua vez), joga (1 s depois de jogar), dormindo
+(90 s sem mexer fora da vez). Originais em `raw/poses-cartas/`. Hoje: Kellyson e Jeyce.
 
 ## Direitos autorais
 

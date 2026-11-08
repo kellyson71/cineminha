@@ -65,7 +65,7 @@ export function passosDobradinha({ el, carta, svg, guarda, dois }) {
     },
     {
       k: 'repor', titulo: 'Jogou? Reponha a mão', batidas: [400, 1100, 1500, 2200, 3800, 4600, 5600], dur: 8200, sons: { 3: 'desliza1', 6: 'pular' },
-      sub: 'Depois de jogar, a vez já segue: clique no monte para completar a mão antes do tempo acabar. Esqueceu? Fica com o Esquecido: −1 ponto na rodada.',
+      sub: 'Jogou? Clique no monte para completar a mão. Você tem 3 segundos protegido do Esquecido; depois começa a contagem de 9 segundos. Esqueceu? −1 ponto na rodada.',
       cena: () => [
         ...[3, 8, 5, 11].map((v, i) => c(v, 5 + i * 8, 23, '', 6.6)),
         A(el('i', { className: 'dba-vaga' }), 37, 23), A(el('i', { className: 'dba-vaga' }), 45, 23),

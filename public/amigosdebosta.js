@@ -88,11 +88,22 @@ export function criaAmigosDeBosta(ctx) {
   function compraCarta() {
     if (!G.deck.length) { G.deck = embaralha(G.desc); G.desc = [] }
     G.carta = G.deck.pop() || null
-    G.votos = {}; G.emp = null; G.vencRodada = null; G.unanime = false; G.coroar = false; G.abre = 0; G.fimVoto = 0
+    G.votos = {}; G.emp = null; G.vencRodada = null; G.unanime = false; G.coroar = false; G.abre = 0; G.fimVoto = 0; G.pular = []
     G.fase = 'leitura'
     log(`Rodada ${G.rodada}: ${jog(leitor()).nome} lê a carta.`)
     ev({ t: 'carta', quem: leitor() })
     difunde()
+  }
+  // pular a carta: ninguém quer responder? com a maioria da mesa pedindo, ela vai para o descarte e vem outra
+  const precisaPular = () => Math.floor(G.js.length / 2) + 1
+  function pular(key) {
+    if ((G.fase !== 'leitura' && G.fase !== 'votando') || !jog(key) || !G.carta) return
+    G.pular ||= []
+    G.pular = G.pular.includes(key) ? G.pular.filter(k => k !== key) : [...G.pular, key]
+    if (G.pular.length < precisaPular()) { ev({ t: 'pularPede', key, qtd: G.pular.length }); return difunde() }
+    G.desc.push(G.carta)
+    ev({ t: 'pulou' }); log('A mesa pulou a carta.')
+    compraCarta()
   }
   function valendo(key) {
     if (G.fase !== 'leitura' || (key !== leitor() && key !== G.host)) return
@@ -245,6 +256,7 @@ export function criaAmigosDeBosta(ctx) {
       case 'resp': if (G.fase === 'convite') { G.conv[key] = d.sim ? 'sim' : 'nao'; difunde() } break
       case 'sai': if (key !== G.host) remove(key); break // saiu para outra mesa
       case 'valendo': valendo(key); break
+      case 'pular': pular(key); break
       case 'vota': vota(key, d.alvo); break
       case 'troca': respEmpate(key, d.alvo || null); break
       case 'vistas': if (G.fase === 'convite' && Array.isArray(d.l)) { (G.vistas ||= {})[key] = d.l.filter(x => typeof x === 'string').slice(-VISTAS_MAX) } break
@@ -264,6 +276,7 @@ export function criaAmigosDeBosta(ctx) {
       roleta: G.roleta && { tied: G.roleta.tied, vence: G.roleta.vence, restaMs: Math.max(0, G.roleta.fim - agora) },
       emp: G.emp && { tied: G.emp.tied, elig: G.emp.elig, resp: Object.keys(G.emp.resp), restaMs: Math.max(0, G.emp.fim - agora) },
       abreMs: f === 'votando' ? Math.max(0, G.abre - agora) : 0, restaMs: f === 'votando' && G.fimVoto ? Math.max(0, G.fimVoto - agora) : 0,
+      pular: G.pular || [], precisaPular: G.js.length ? precisaPular() : 0,
       vencRodada: G.vencRodada, unanime: G.unanime, coroar: G.coroar, vencedor: G.vencedor, log: G.log.slice(-30), ev: G.ev,
     }
   }
@@ -485,14 +498,14 @@ export function criaAmigosDeBosta(ctx) {
     if (f === 'leitura') {
       return nota(
         el('p', {}, souLeitor ? 'Sua vez! Leia a pergunta em voz alta.' : [quem(V.vez), ' está lendo a pergunta em voz alta…']),
-        souLeitor || souHost() ? botao('Valendo!', () => manda({ op: 'valendo' }), 'ab-btn--forte ab-btn--grande') : '')
+        el('div', { className: 'ab-nota__acoes' }, souLeitor || souHost() ? botao('Valendo!', () => manda({ op: 'valendo' }), 'ab-btn--forte ab-btn--grande') : '', botaoPular()))
     }
     if (f === 'votando') {
       const faltam = V.js.length - V.votou.length
       const alvo = V.meuVoto
       return nota(
         el('p', {}, !jogando ? 'Só assistindo a votação.' : alvo ? ['Você apontou ', el('b', { textContent: alvo === me.key ? 'você mesmo' : N(alvo) }), '. Pode mudar até o último votar.'] : V.op.si ? 'Clique na foto de quem merece. Vale em você também!' : 'Clique na foto de quem merece. Não vale em você!'),
-        el('small', { className: 'ab-nota__st', textContent: faltam > 0 ? `faltam ${faltam} votar` : 'todos votaram' }))
+        el('small', { className: 'ab-nota__st', textContent: faltam > 0 ? `faltam ${faltam} votar` : 'todos votaram' }), botaoPular())
     }
     if (f === 'empate') {
       const e = V.emp, elig = e.elig.includes(me.key), resp = e.resp.includes(me.key)
@@ -522,6 +535,14 @@ export function criaAmigosDeBosta(ctx) {
         pode ? botao(V.coroar ? 'Coroar!' : 'Próxima pergunta', () => manda({ op: 'proxima' }), 'ab-btn--forte') : el('small', { className: 'ab-nota__st', textContent: 'quem leu avança a rodada' }))
     }
     return nota()
+  }
+  // pular a carta: cada um pede; com a maioria, vem outra (pedir de novo desfaz)
+  function botaoPular() {
+    if (!eu()) return ''
+    const pedi = V.pular?.includes(me.key), n = V.pular?.length || 0
+    const b = botao([icon('skip-forward'), pedi ? 'Desfazer pulo' : 'Pular carta', n ? el('em', { className: 'ab-pular__n', textContent: `${n}/${V.precisaPular}` }) : ''],
+      () => manda({ op: 'pular' }), 'ab-btn--leve ab-pular' + (pedi ? ' on' : ''), `Ninguém quer essa? Com ${V.precisaPular} pedindo, a carta vai pro descarte e vem outra`)
+    return b
   }
   const botaoPessoa = (k, fn) => botao([retrato(k, N(k)), el('span', { textContent: N(k) })], fn, 'ab-btn--pessoa')
 
@@ -671,6 +692,8 @@ export function criaAmigosDeBosta(ctx) {
       else if (e.t === 'ganhou') som('leque', (V.votos ? Object.keys(V.votos).length : 0) * 320 + 1400)
       else if (e.t === 'coroa') som('leque', 200)
       else if (e.t === 'saiu') toast(`${e.nome} saiu da mesa`, 3200)
+      else if (e.t === 'pularPede') { som('clique', 0, .6); if (e.key !== me.key) toast(`${N(e.key)} quer pular esta carta (${e.qtd}/${V.precisaPular})`, 2200) }
+      else if (e.t === 'pulou') { som('embaralhar', 0, .5); toast('A mesa pulou a carta', 2000) }
     }
   }
 

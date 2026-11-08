@@ -28,6 +28,58 @@ export function qualidadeMesa() {
 }
 export const escolheQualidadeMesa = q => ls.set('mesa.qualidade', q)
 
+// fundo personalizado: uma imagem da própria pessoa (fica só no navegador dela) no lugar da calçada do Marcílio Bar
+let fundoURL = null
+const fundoMuda = new Set()
+{ const salvo = ls.get('mesa.fundo'); if (salvo?.startsWith('data:image/')) fetch(salvo).then(r => r.blob()).then(b => { fundoURL = URL.createObjectURL(b); fundoMuda.forEach(f => f()) }).catch(() => {}) }
+export const fundoPersonalizado = () => fundoURL
+export async function escolheFundoMesa(arquivo) {
+  const img = await createImageBitmap(arquivo)
+  const W = Math.min(1920, img.width), H = Math.round(img.height * W / img.width)
+  const c = document.createElement('canvas'); c.width = W; c.height = H
+  c.getContext('2d').drawImage(img, 0, 0, W, H)
+  let url = c.toDataURL('image/webp', .8)
+  if (url.length > 1.8e6) url = c.toDataURL('image/jpeg', .7)
+  try { localStorage.setItem('mesa.fundo', url) } catch { /* sem espaço: vale só nesta aba */ }
+  const b = await (await fetch(url)).blob()
+  if (fundoURL) URL.revokeObjectURL(fundoURL)
+  fundoURL = URL.createObjectURL(b); fundoMuda.forEach(f => f())
+}
+export function limpaFundoMesa() {
+  try { localStorage.removeItem('mesa.fundo') } catch {}
+  if (fundoURL) URL.revokeObjectURL(fundoURL)
+  fundoURL = null; fundoMuda.forEach(f => f())
+}
+
+// seção "Mesa de bar" dos painéis de mesa (Uno e Dobro): as 4 mesas com a textura real do tampo, a qualidade e o fundo
+export function secaoBar({ atual, escolhe, redesenha }) {
+  const h = (tag, cls, props = {}, ...filhos) => { const n = document.createElement(tag); if (cls) n.className = cls; Object.assign(n, props); n.append(...filhos.filter(Boolean)); return n }
+  const opcao = (cls, ativo, rotulo, prev, fn, dica = '') => {
+    const b = h('button', `cm-mesa-op ${cls}` + (ativo ? ' atual' : ''), { type: 'button', title: dica }, prev, h('b', '', { textContent: rotulo }))
+    b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', String(ativo))
+    b.addEventListener('click', e => { e.stopPropagation(); fn() }); return b
+  }
+  const tampo = (k, cor) => { const t = h('span', 'cm-prev-bar'); t.style.cssText = `--tampo:url(${BASE}mesa-${k}.webp);--tampo-cor:${cor};--tampo-uv:${100 / TAMPO_UV}%`; t.append(h('i')); return t }
+  const bares = h('div', 'cm-mesa-grade', {}, ...SKINS_BAR.map(([k, nm, cor]) => opcao('', atual === k, nm, tampo(k, cor), () => escolhe(k), `Mesa de bar ${nm}`)))
+  const q = qualidadeMesa()
+  const qual = h('div', 'cm-mesa-qual', {}, h('small', '', { textContent: 'Qualidade' }),
+    ...[['3d', '3D', 'Mesa desenhada em 3D (uma vez só; leve depois de pronta)'], ['2d', 'Leve', 'Mesa plana, sem 3D: para computador mais fraco']].map(([k, nm, dica]) => {
+      const b = h('button', 'cm-mesa-qop' + (q === k ? ' on' : ''), { type: 'button', textContent: nm, title: dica })
+      b.addEventListener('click', e => { e.stopPropagation(); escolheQualidadeMesa(k); redesenha() }); return b
+    }))
+  // fundo: o do Marcílio Bar ou uma imagem própria
+  const arq = h('input', '', { type: 'file', accept: 'image/*', hidden: true })
+  arq.addEventListener('change', async () => { const f = arq.files?.[0]; if (!f) return; try { await escolheFundoMesa(f) } catch (e) { console.warn('[boteco3d] fundo', e) } redesenha() })
+  const miniFundo = url => { const t = h('span', 'cm-prev-fundo'); if (url) t.style.backgroundImage = `url(${url})`; else t.append(h('i', '', { textContent: '+' })); return t }
+  const fundos = h('div', 'cm-mesa-grade cm-mesa-grade--fundo', {},
+    opcao('', !fundoURL, 'Marcílio Bar', miniFundo(`${BASE}fundo-bar.webp`), () => { limpaFundoMesa(); redesenha() }, 'A calçada do Marcílio Bar à noite'),
+    opcao('', !!fundoURL, fundoURL ? 'Sua imagem' : 'Escolher imagem', miniFundo(fundoURL), () => arq.click(), 'Uma imagem do seu computador (fica só no seu navegador)'),
+    arq)
+  return h('div', 'cm-mesa', {},
+    h('small', 'cm-mesa-sub', { textContent: 'Mesa de bar' }), bares, qual,
+    h('small', 'cm-mesa-sub', { textContent: 'Fundo da mesa de bar' }), fundos)
+}
+
 // leitor de OBJ mínimo (v / vt / vn / f, faces em leque): devolve arrays não indexados
 function leObj(txt) {
   const v = [], vt = [], vn = [], pos = [], uv = [], nor = []
@@ -51,12 +103,14 @@ function leObj(txt) {
 
 export function criaBoteco({ tela, palco, plano, centro = [.5, .52], tamanho = [.74, .78] }) {
   let skin = null, ligado = false, modo = null, versao = 0, timer = 0, tamAnt = '', falhou3d = false
+  let ultimoDesenho = null, tentou = false
   const quadro = document.createElement('canvas'); quadro.className = 'b3d'; quadro.setAttribute('aria-hidden', 'true')
   const tampo = document.createElement('div'); tampo.className = 'b2d-tampo'; tampo.setAttribute('aria-hidden', 'true')
   const calmo = () => matchMedia('(prefers-reduced-motion: reduce)').matches
   new ResizeObserver(() => { if (ligado && modo === '3d') pede() }).observe(tela)
 
-  const fundoNoPalco = () => { const pal = tela.querySelector(palco); if (pal) pal.classList.toggle('b3d-fundo', ligado) }
+  const fundoNoPalco = () => { const pal = tela.querySelector(palco); if (!pal) return; pal.classList.toggle('b3d-fundo', ligado); pal.style.setProperty('--fundo-bar', fundoURL ? `url(${fundoURL})` : '') }
+  fundoMuda.add(() => { if (ligado) fundoNoPalco() })
   // põe a mesa (quadro do 3D ou tampo 2D) no DOM novo depois de cada render do jogo
   function poe() {
     const pal = tela.querySelector(palco), pla = tela.querySelector(plano)
@@ -91,7 +145,7 @@ export function criaBoteco({ tela, palco, plano, centro = [.5, .52], tamanho = [
       if (v !== versao || !ligado || modo !== '3d') return
       // um renderer descartável: desenha uma vez e some
       const cv = document.createElement('canvas')
-      renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'low-power' })
+      renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, preserveDrawingBuffer: true, powerPreference: 'low-power' })
       renderer.setClearColor(0x000000, 0); renderer.setPixelRatio(dpr); renderer.setSize(W, H, false)
       renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05
       const scene = new T.Scene(), camera = new T.PerspectiveCamera()
@@ -132,15 +186,23 @@ export function criaBoteco({ tela, palco, plano, centro = [.5, .52], tamanho = [
       const cx = PW * centro[0] - tox, cy = PH * centro[1] - toy
       mesa.position.set(cx - (bb.max.x + bb.min.x) / 2 * sx, -cy + (bb.max.z + bb.min.z) / 2 * sz, -bb.max.y * sy)
       renderer.render(scene, camera)
-      // copia o quadro para o canvas 2D (na mesma tarefa, antes de o navegador limpar o buffer) e descarta o WebGL
+      // cópia garantida do quadro (o Chrome pode adiar um drawImage direto do WebGL e perder a imagem quando o
+      // contexto é descartado logo depois); só então o canvas 2D recebe a imagem e o WebGL vai embora
+      const bmp = await createImageBitmap(cv)
+      if (v !== versao || !ligado || modo !== '3d') { bmp.close(); throw Object.assign(new Error('obsoleto'), { obsoleto: true }) }
       quadro.width = cv.width; quadro.height = cv.height
-      const g = quadro.getContext('2d'); g.clearRect(0, 0, quadro.width, quadro.height); g.drawImage(cv, 0, 0)
+      const g = quadro.getContext('2d'); g.clearRect(0, 0, quadro.width, quadro.height); g.drawImage(bmp, 0, 0); bmp.close()
+      // confere: se saiu vazio (contexto perdido no meio), tenta de novo uma vez
+      if (!g.getImageData(quadro.width >> 1, Math.round(quadro.height * .55), 1, 1).data[3] && !tentou) { tentou = true; tamAnt = ''; renderer.dispose(); renderer.forceContextLoss(); renderer = null; return desenha3d() }
+      tentou = false
       tamAnt = tam
+      ultimoDesenho = { W, H, a, PW, PH, ox: pla.offsetLeft, oy: pla.offsetTop, P, t: Date.now() }
       geo.dispose(); tex.dispose(); mesa.material.dispose(); sombra.geometry.dispose(); sombra.material.map.dispose(); sombra.material.dispose()
       renderer.dispose(); renderer.forceContextLoss(); renderer = null
       poe()
       tela.classList.add('b3d-ok')
     } catch (e) {
+      if (e?.obsoleto) { try { renderer?.dispose(); renderer?.forceContextLoss() } catch {} return }
       // sem WebGL (ou falhou): fica a mesa 2D
       console.warn('[boteco3d] sem 3D, usando a mesa 2D:', e)
       try { renderer?.dispose(); renderer?.forceContextLoss() } catch {}
@@ -172,6 +234,7 @@ export function criaBoteco({ tela, palco, plano, centro = [.5, .52], tamanho = [
     balanca,
     desliga() { ligado = false; versao++; clearTimeout(timer); quadro.remove(); tampo.remove(); tela.classList.remove('b3d-ok'); fundoNoPalco() },
     modo: () => modo,
+    diag: () => ({ ultimoDesenho, tamAnt, ligado, modo, w: quadro.width, noDom: quadro.isConnected }),
     calmo,
   }
 }

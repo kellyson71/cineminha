@@ -24,7 +24,7 @@
 .db-lata::before { content: ""; position: absolute; inset: 16% 26%; border-radius: 50%; box-shadow: inset 0 .4cqh 0 rgba(255,240,190,.35), inset 0 -.4cqh 0 rgba(120,75,0,.18), 0 .4cqh 0 rgba(255,240,190,.25); }
 .db-lata::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
   background: radial-gradient(circle at 18% 72%, transparent 4.2cqh, rgba(120,70,0,.13) 4.3cqh 4.7cqh, transparent 4.8cqh), radial-gradient(circle at 83% 26%, transparent 3.6cqh, rgba(120,70,0,.1) 3.7cqh 4cqh, transparent 4.1cqh); }
-.db-centro { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%) translateZ(.3cqh); display: flex; align-items: center; gap: 3.6cqh; }
+.db-centro { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%) translateZ(.3cqh); display: flex; align-items: center; gap: 2.8cqh; }
 
 /* Cartas originais do Dobro: atlas de 6 × 3, 224 × 311 px por arte.
    image-set seleciona só um formato; o WebP também cobre navegadores sem AVIF. */
@@ -80,16 +80,16 @@
 .db-guarda--voa { position: absolute !important; left: 0 !important; top: 0 !important; width: 5cqh; z-index: 30; pointer-events: none; }
 
 /* a escalada: cada jogada sobe um degrau */
-.db-escalada { position: relative; height: 12cqh; width: calc(7.6cqh + max(0, var(--n) - 1) * 3.3cqh + 1.6cqh); min-width: 9cqh; transition: width .3s; }
-.db-escalada:empty { border-radius: .8cqh; box-shadow: inset 0 0 0 .25cqh rgba(91,58,33,.3); width: 7.6cqh; min-width: 0; height: 11cqh; }
-.db-escalada .db-carta { position: absolute; --w: 7.6cqh; left: calc(var(--k) * 3.3cqh + var(--m) * 1.5cqh); bottom: calc(var(--k) * 1.1cqh + var(--m) * .3cqh); rotate: var(--giro); }
+.db-escalada { position: relative; height: 14cqh; width: calc(9.2cqh + max(0, var(--n) - 1) * 3.3cqh + 1.6cqh); min-width: 10.8cqh; transition: width .3s; }
+.db-escalada:empty { border-radius: .8cqh; box-shadow: inset 0 0 0 .25cqh rgba(91,58,33,.3); width: 9.2cqh; min-width: 0; height: 12.8cqh; }
+.db-escalada .db-carta { position: absolute; --w: 9.2cqh; left: calc(var(--k) * 3.3cqh + var(--m) * 1.5cqh); bottom: calc(var(--k) * 1.1cqh + var(--m) * .3cqh); rotate: var(--giro); }
 .db-escalada .db-carta.caiu { animation: db-cai .35s cubic-bezier(.2,.8,.3,1.2) both; }
 @keyframes db-cai { from { transform: scale(1.25) translateY(-2cqh); } }
 .db-sentido { position: absolute; left: 50%; top: 50%; width: 46cqh; translate: -50% -50%; color: rgba(91,58,33,.17); pointer-events: none; will-change: rotate; }
 @keyframes db-gira { to { rotate: 360deg; } }
 
 /* lousa de preços com o valor a giz */
-.db-lousa { position: relative; width: 15cqh; height: 13.4cqh; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: .7cqh; color: var(--giz); cursor: help;
+.db-lousa { position: relative; width: 12.8cqh; height: 13cqh; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: .7cqh; color: var(--giz); cursor: help;
   background: radial-gradient(60% 50% at 40% 40%, rgba(239,237,227,.08), transparent 70%), radial-gradient(40% 30% at 70% 75%, rgba(239,237,227,.06), transparent 70%), var(--lousa);
   box-shadow: 0 0 0 .8cqh var(--madeira), 0 0 0 .95cqh #3e2715, 0 1.6cqh 2.6cqh rgba(0,0,0,.45), inset 0 0 2cqh rgba(0,0,0,.5); }
 .db-lousa__k { font: 2cqh/1 var(--mao-livre); opacity: .75; }
@@ -128,7 +128,7 @@
 .db-medalha { position: relative; }
 .db-retrato { display: block; width: 8.6cqh; height: 8.6cqh; border-radius: 50%; padding: .3cqh; background: var(--anil-fundo); box-shadow: 0 0 0 .25cqh var(--louca), 0 .8cqh 1.6cqh rgba(0,0,0,.5); transition: box-shadow .25s; }
 .db-retrato > .pfp { display: grid; place-items: center; width: 100% !important; height: 100% !important; border-radius: 50%; object-fit: cover; font-size: 3.4cqh !important; }
-.db-placa { padding: .35cqh 1.1cqh; border-radius: 99px; background: rgba(17,32,59,.88); font: 600 1.9cqh/1.2 'Barlow Semi Condensed', sans-serif; white-space: nowrap; }
+.db-placa { padding: .35cqh 1.1cqh; border-radius: 99px; background: rgba(17,32,59,.94); font: 600 max(12px, 1.9cqh)/1.2 'Barlow Semi Condensed', sans-serif; white-space: nowrap; }
 .db-placa i { font-style: normal; color: var(--lata); }
 .db-assento.vez .db-retrato { box-shadow: 0 0 0 .35cqh var(--lata), 0 0 2.6cqh rgba(232,168,23,.6); }
 .db-assento.fala .db-retrato { box-shadow: 0 0 0 .35cqh #3ddc84, 0 0 2cqh rgba(61,220,132,.5); }
@@ -165,7 +165,6 @@
 @keyframes db-chegou { from { translate: 0 -6cqh; opacity: 0; } }
 .db-dica { position: absolute; left: var(--mao-esq); bottom: 23.5cqh; padding: .7cqh 1.6cqh .8cqh; border-radius: .6cqh; background: var(--anil-fundo); font: 400 2.6cqh/1 var(--letreiro); color: var(--lata); box-shadow: 0 .6cqh 1.4cqh rgba(0,0,0,.4); rotate: -2deg; pointer-events: none; }
 .db-eu > .db-conv { position: absolute; left: 24cqw; bottom: 6cqh; }
-.db-comanda--eu { position: absolute; right: 17.5cqw; bottom: 23.2cqh; rotate: 2deg; }
 .db-pavio { position: absolute; left: var(--mao-esq); right: 17cqw; bottom: 22.2cqh; height: .7cqh; border-radius: 99px; background: rgba(243,239,230,.12); overflow: hidden; }
 .db-pavio::before { content: ""; position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--t, 1)); background: linear-gradient(90deg, var(--lata-escura), var(--lata)); }
 .db-pavio.fim::before { background: linear-gradient(90deg, #7d1a20, var(--vermelho)); animation: db-pisca .5s infinite alternate; }
@@ -191,8 +190,8 @@
 .db-linha--esq { justify-content: flex-start; }
 .db-topo { position: absolute; top: 0; left: 0; right: 0; z-index: 7; display: flex; align-items: center; gap: 1.2cqh; padding: 1.4cqh 2cqh; pointer-events: none; }
 .db-topo > * { pointer-events: auto; }
-.db-logo { height: 4.6cqh; width: auto; padding: .7cqh 1.2cqh; border-radius: .9cqh; background: #ee1c0e; box-shadow: 0 .4cqh 0 #a3150b, 0 .8cqh 1.8cqh rgba(0,0,0,.45); rotate: -2deg; box-sizing: content-box; }
-.db-rodada { padding: .4cqh 1.1cqh; border-radius: 99px; background: rgba(17,32,59,.75); font: 600 1.8cqh/1.2 'Barlow Semi Condensed', sans-serif; color: var(--apagado); }
+.db-logo { height: max(18px, 4cqh); width: auto; padding: .5cqh .9cqh; border-radius: .9cqh; background: #ee1c0e; box-shadow: 0 .4cqh 0 #a3150b, 0 .8cqh 1.8cqh rgba(0,0,0,.45); rotate: -2deg; box-sizing: content-box; }
+.db-rodada { padding: .4cqh 1.1cqh; border-radius: 99px; background: rgba(17,32,59,.9); font: 600 max(11px, 1.8cqh)/1.2 'Barlow Semi Condensed', sans-serif; color: var(--tinta); }
 .db-grow { flex: 1; pointer-events: none; }
 
 /* curinga: escolher o valor a giz */
@@ -266,12 +265,12 @@
 }
 
 /* faixa de status: de quem é a vez, o que fazer e a última jogada */
-.db-status { position: absolute; left: 2cqh; top: 6.8cqh; z-index: 7; display: flex; flex-direction: column; align-items: flex-start; gap: .5cqh; max-width: 36cqw; pointer-events: none; }
-.db-status__vez { padding: .8cqh 1.8cqh; border-radius: 1.4cqh; background: rgba(17,32,59,.92); box-shadow: 0 0 0 1px var(--linha), 0 .8cqh 2cqh rgba(0,0,0,.4); font: 500 2.3cqh/1.2 'Barlow Semi Condensed', sans-serif; }
+.db-status { position: absolute; left: 2cqh; top: max(44px, 8.4cqh); z-index: 7; display: flex; flex-direction: column; align-items: flex-start; gap: .5cqh; max-width: 40cqw; pointer-events: none; }
+.db-status__vez { padding: .8cqh 1.8cqh; border-radius: 1.4cqh; background: rgba(17,32,59,.92); box-shadow: 0 0 0 1px var(--linha), 0 .8cqh 2cqh rgba(0,0,0,.4); font: 500 max(13px, 2.3cqh)/1.2 'Barlow Semi Condensed', sans-serif; }
 .db-status__vez b { font-weight: 700; color: var(--lata); }
 .db-status.minha .db-status__vez { background: var(--lata); color: #2a1b06; box-shadow: inset 0 -.3cqh 0 var(--lata-escura), 0 .8cqh 2cqh rgba(0,0,0,.4); }
 .db-status.minha .db-status__vez b { color: #2a1b06; }
-.db-status__ult { padding-left: 1cqh; font-size: 1.8cqh; color: var(--apagado); text-shadow: 0 .2cqh .6cqh rgba(0,0,0,.6); }
+.db-status__detalhe { padding: .25cqh 1cqh; border-radius: .5cqh; background: rgba(17,32,59,.78); font-size: max(11px, 1.8cqh); color: var(--tinta); }
 .db-status__repor { padding: .6cqh 1.6cqh; border-radius: 1.2cqh; background: rgba(217,72,64,.92); color: #fff; font: 500 2cqh/1.2 'Barlow Semi Condensed', sans-serif; box-shadow: 0 .6cqh 1.6cqh rgba(0,0,0,.4); animation: db-repor-pulsa 1s ease-in-out infinite alternate; }
 .db-status__repor b { font-weight: 700; }
 @keyframes db-repor-pulsa { to { filter: brightness(1.15); } }
@@ -292,22 +291,25 @@
 @keyframes db-alvo { 50% { outline-offset: 1.6cqh; outline-color: rgba(42,27,6,.25); } }
 
 /* ===== cola: o que cada carta faz ===== */
-.db-cola { position: absolute; right: 1.8cqh; top: 8.4cqh; z-index: 8; display: flex; flex-direction: column; align-items: flex-end; gap: .8cqh; }
+.db-cola { position: absolute; right: 1.8cqh; top: max(44px, 8.4cqh); z-index: 8; display: flex; flex-direction: column; align-items: flex-end; gap: .8cqh; }
 .db-cola__aba { display: flex; align-items: center; gap: 1cqh; padding: .6cqh 1.4cqh .6cqh 1cqh; border: 0; border-radius: .6cqh; background: var(--papel); color: #3a2a1c; cursor: pointer; rotate: 2deg; box-shadow: inset 0 .35cqh 0 var(--vermelho), 0 .6cqh 1.4cqh rgba(0,0,0,.4); transition: rotate .2s, transform .15s; }
 .db-cola__aba:hover { rotate: 0deg; transform: translateY(-.2cqh); }
-.db-cola__aba b { font: 2.6cqh/1 var(--mao-livre); }
+.db-cola__aba b { font: max(14px, 2.6cqh)/1 var(--mao-livre); }
 .db-cola__leque { position: relative; width: 6cqh; height: 4.4cqh; }
 .db-cola__leque .db-micro { position: absolute; top: 0; left: 1.6cqh; }
 .db-cola__leque .db-micro:nth-child(1) { rotate: -16deg; translate: -1.4cqh .3cqh; }
 .db-cola__leque .db-micro:nth-child(3) { rotate: 16deg; translate: 1.4cqh .3cqh; }
 .db-micro { --w: 3cqh; }
 .db-micro .db-canto, .db-micro .db-sub { display: none !important; }
-.db-cola__lista { display: none; margin: 0; padding: 1.4cqh 1.6cqh; list-style: none; width: 34cqh; border-radius: .4cqh; background: var(--papel); color: #3a2a1c; box-shadow: inset 0 .35cqh 0 var(--vermelho), 0 1.2cqh 3cqh rgba(0,0,0,.5); rotate: -1deg; }
-.db-cola.aberta .db-cola__lista { display: flex; flex-direction: column; gap: 1cqh; animation: db-entra .3s cubic-bezier(.2,.9,.3,1.2) both; }
+.db-cola__painel { display: none; width: max(200px, 32cqh); max-width: 52cqw; border-radius: .7cqh; background: var(--papel); color: #3a2a1c; box-shadow: inset 0 .35cqh 0 var(--vermelho), 0 1.2cqh 3cqh rgba(0,0,0,.5); }
+.db-cola.aberta .db-cola__painel { display: block; animation: db-entra .3s cubic-bezier(.2,.9,.3,1.2) both; }
+.db-cola__lista { display: flex; margin: 0; padding: 1.8cqh; list-style: none; min-height: max(64px, 10cqh); }
+.db-cola__nav { display: flex; align-items: center; justify-content: space-between; padding: .3cqh 1.2cqh 1cqh; font-size: max(11px, 1.8cqh); }
+.db-cola__nav button { min-width: 30px; min-height: 30px; border: 1px solid #3a2a1c33; border-radius: 50%; background: transparent; color: var(--anil); font-size: max(16px, 2.5cqh); cursor: pointer; }
 .db-cola__it { display: flex; align-items: center; gap: 1.2cqh; }
 .db-cola__it > span:last-child { display: flex; flex-direction: column; gap: .1cqh; }
-.db-cola__it b { font: 400 1.9cqh/1.1 var(--letreiro); color: var(--anil); }
-.db-cola__it small { font-size: 1.75cqh; line-height: 1.2; opacity: .8; }
+.db-cola__it b { font: 400 max(12px, 1.9cqh)/1.2 var(--letreiro); color: var(--anil); }
+.db-cola__it small { font-size: max(12px, 1.75cqh); line-height: 1.35; }
 .db-cola__it.fora { opacity: .45; }
 .db-cola__it > .db-carta, .db-cola__it > .db-guarda { flex: none; width: 3.4cqh; --w: 3.4cqh; }
 .db-cola__it > .db-guarda { cursor: default; }
@@ -443,9 +445,9 @@
 @media (prefers-reduced-motion: reduce) { .db-eu.chegou-vez .db-mao { animation: none; } }
 
 /* comanda como bolo de cartas viradas: cresce e espalha com o tanto que a pessoa levou */
-.db-comanda:not(.db-comanda--eu) { position: relative; }
+.db-comanda { position: relative; }
 .db-comanda { display: grid; place-items: end center; gap: 0; padding: 0; background: none; box-shadow: none; rotate: none; min-width: 5cqh; min-height: 5.4cqh; }
-.db-bolo { position: relative; display: block; width: 4.6cqh; height: calc(6.4cqh + var(--k) * .32cqh); }
+.db-bolo { position: relative; display: block; width: 4.6cqh; height: 6.4cqh; }
 .db-bolo__c { position: absolute !important; left: 0; bottom: 0; --w: 4.6cqh; width: 4.6cqh !important; margin: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)); box-shadow: 0 .15cqh .4cqh rgba(0,0,0,.45); animation: none !important; }
 .db-bolo__c .db-costas__selo { display: none; }
 .db-comanda__n { position: absolute; right: -1.2cqh; top: -1cqh; z-index: 2; min-width: 2.6cqh; height: 2.6cqh; padding: 0 .5cqh; border-radius: 99px; display: grid; place-items: center; background: var(--papel); color: var(--vermelho); font: 2cqh/1 var(--mao-livre); box-shadow: 0 .3cqh .8cqh rgba(0,0,0,.45), inset 0 0 0 .18cqh var(--vermelho); }
@@ -457,8 +459,12 @@
 .db-cola__it > .db-comanda .db-bolo__c { --w: 2.2cqh; width: 2.2cqh !important; }
 .db-cola__it > .db-comanda .db-comanda__n { min-width: 1.8cqh; height: 1.8cqh; font-size: 1.4cqh; right: -.8cqh; top: -.6cqh; }
 /* nas poltronas o bolo fica ao lado da foto, sem empurrar a poltrona para cima */
-.db-assento > .db-comanda { position: absolute; left: calc(50% + 6.2cqh); bottom: 0; }
-.db-assento > .db-comanda.vazia { left: 50%; bottom: auto; top: 100%; translate: -50% .4cqh; }
+.db-plano > .db-comanda--mesa { position: absolute; transform: translate(-50%, -50%) translateZ(.12cqh); transform-style: preserve-3d; }
+.db-comanda--mesa .db-bolo { transform: rotate(var(--db-giro-pilha)); transform-style: preserve-3d; }
+.db-comanda--mesa .db-bolo__c { transform: translate3d(var(--x), var(--y), var(--z)) rotate(var(--r)); }
+.db-comanda--mesa .db-comanda__n { top: -.7cqh; right: -1.5cqh; transform: translateZ(.9cqh); }
+.db-anel.protegido, .db-pavio.protegido { visibility: hidden; }
+.db-status__repor.protegida { background: rgba(30,96,64,.94); animation: none; }
 
 /* admin: fila das próximas compras */
 .db-btn--admin { color: var(--lata); }
@@ -510,3 +516,50 @@
 .db[data-mesa='bar'] .db-mao .db-carta::before { opacity: .6; }
 .db[data-mesa='bar'] .db-escalada .db-carta { box-shadow: 0 0 0 1px rgba(20,30,50,.25), 0 .5cqh .8cqh rgba(40,20,0,.4); }
 .db[data-mesa='bar'] .db-escalada .db-carta.topo { box-shadow: 0 0 0 1px rgba(20,30,50,.25), 0 1cqh 1.6cqh rgba(40,20,0,.5); }
+
+/* O lugar inteiro responde junto: foto, mão e pilha da mesma pessoa. */
+.db-assento.db-lugar-foco .db-placa { box-shadow: 0 0 0 2px var(--louca); }
+.db-leque-mesa.db-lugar-foco .db-carta { outline: 1px solid var(--louca); }
+.db-mao.db-lugar-foco .db-carta { outline: 1px solid var(--louca); }
+.db-comanda--mesa.db-lugar-foco .db-bolo { filter: drop-shadow(0 0 .5cqh var(--louca)); }
+.db-comanda--mesa.db-recebe-mesa { outline: 2px dashed var(--louca); outline-offset: 1cqh; border-radius: .8cqh; }
+.db-comanda__entrada, .db-comanda__chegaram { position: absolute; left: 50%; top: -4cqh; translate: -50% 0; transform: translateZ(1cqh); border-radius: 99px; padding: .5cqh 1cqh; color: #183927; background: #eefcf3; font: 700 max(13px, 2.4cqh)/1.1 'Barlow Semi Condensed', sans-serif; pointer-events: none; }
+.db-comanda__entrada { display: none; }
+.db-recebe-mesa .db-comanda__entrada { display: block; }
+.db-comanda__chegaram { animation: db-pilha-soma 1.4s ease-out both; }
+@keyframes db-pilha-soma { 70% { opacity: 1; translate: -50% -2cqh; } to { opacity: 0; translate: -50% -4cqh; } }
+.db-guarda--eu { touch-action: none; cursor: grab; min-width: 28px; }
+.db-guarda--eu:focus-visible, .db-assento[role='button']:focus-visible { outline: 2px solid var(--louca); outline-offset: 5px; }
+.db-guarda--arrastando { position: absolute; z-index: 45; width: max(30px, 6cqh); translate: -50% -50%; rotate: -8deg; pointer-events: none; box-shadow: 0 1.5cqh 3cqh #0008; }
+.db-arrastando, .db-arrastando * { cursor: grabbing !important; user-select: none; }
+.db-arrastando .db-guarda--eu { opacity: .3; animation: none; }
+.db-leque-mesa.db-destino-guarda .db-carta, .db-comanda--mesa.db-destino-guarda .db-bolo { filter: drop-shadow(0 0 .5cqh var(--vermelho)); }
+.db-assento.db-sobre-guarda .db-retrato { box-shadow: 0 0 0 3px #fff, 0 0 0 7px var(--vermelho); }
+.db-leque-mesa.db-sobre-guarda .db-carta, .db-comanda--mesa.db-sobre-guarda .db-bolo { filter: drop-shadow(0 0 1cqh #fff); }
+.db-status__repor, .db-status__mira { font-size: max(12px, 2cqh); }
+.db-qtd, .db-comanda__n { font-size: max(11px, 2cqh); min-width: max(18px, 2.6cqh); min-height: 18px; }
+@container (max-height: 520px) {
+  .db-retrato { width: 9.4cqh; height: 9.4cqh; }
+  .db-assento.vez .db-retrato { width: 11cqh; height: 11cqh; }
+  .db-controles { gap: 5px; }
+  .db-cola__painel { max-height: 55cqh; overflow-y: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .db-comanda__chegaram { animation: none; } }
+
+/* admin: fila das próximas compras (abre com três cliques no logo) */
+.db-fila { max-height: 84cqh; overflow: auto; scrollbar-width: thin; }
+.db-fila header b { font: 700 max(12px, 1.9cqh) 'Barlow Semi Condensed', sans-serif; }
+.db-fila__k { margin-top: .4cqh; color: var(--apagado); font: 700 max(9px, 1.25cqh)/1.2 'Barlow Semi Condensed', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.db-fila__ops { display: flex; flex-wrap: wrap; gap: .6cqh; }
+.db-fila__c { --w: 4.6cqh !important; width: 4.6cqh !important; }
+.db-fila__lista { display: flex; flex-wrap: wrap; gap: .5cqh; }
+.db-fila__item { position: relative; padding: 0 !important; border: 0; border-radius: .6cqh; background: none !important; cursor: pointer; }
+.db-fila__item b { position: absolute; left: -.5cqh; top: -.6cqh; z-index: 5; min-width: 2cqh; padding: .1cqh .4cqh; border-radius: 99px; background: var(--tinta); color: var(--anil-fundo); font: 800 max(9px, 1.2cqh)/1.2 'Barlow Semi Condensed', sans-serif; text-align: center; }
+.db-fila__item.falta .db-fila__c { filter: grayscale(1) brightness(.55); outline: .2cqh dashed #ff8a80; }
+.db-fila__item:hover .db-fila__c { filter: brightness(.6); outline: .25cqh solid #ff6b5b; }
+/* prévia da mesa desenhada no painel de mesa: a própria .db-lata em miniatura */
+.db-prev-lata { position: relative; display: block; width: 80%; max-width: 12cqh; aspect-ratio: 1.5; transform: perspective(16cqh) rotateX(38deg); }
+.db-prev-lata .db-lata { inset: 0; }
+.db.b3d-ok .db-prev-lata .db-lata { opacity: 1; }
+/* boneco "você" com as poses de carta (cadeira de bar) */
+.db-eu .db-boneco--cartas { height: 50cqh; bottom: -8cqh; margin-left: 2cqw; filter: drop-shadow(0 1cqh 1.4cqh rgba(0,0,0,.55)); }

@@ -14,11 +14,12 @@ export default {
 
   // Pessoas fixas. "boneco" é a arte que aparece na fileira; sem ele, aparece a foto.
   // "poses" (opcional): pasta com base, palmas1, palmas2, celular, colo, dormindo e pipoca (.webp, mesmo tamanho).
+  // "cartas" (opcional): poses na cadeira de bar para os jogos de carta (poucas, muitas, uma, dormindo, pensando, joga).
   pessoas: [
     { id: 'otavio', nome: 'Otávio', foto: 'assets/pfp1.png', boneco: 'assets/avatar1.png', cor: '#86aef0', poses: 'assets/poses/otavio/' },
     { id: 'milenny', nome: 'Milenny', foto: 'assets/pfp2.png', boneco: 'assets/avatar2.png', cor: '#e58ad6', poses: 'assets/poses/milenny/' },
-    { id: 'kellyson', nome: 'Kellyson', foto: 'assets/pfp3.png', boneco: 'assets/avatar3.png', cor: '#f3a064', poses: 'assets/poses/kellyson/' },
-    { id: 'jeyce', nome: 'Jeyce', foto: 'assets/pfp-jeyce.png', boneco: 'assets/avatar-jeyce.png', cor: '#d79be6', poses: 'assets/poses/jeyce/' },
+    { id: 'kellyson', nome: 'Kellyson', foto: 'assets/pfp3.png', boneco: 'assets/avatar3.png', cor: '#f3a064', poses: 'assets/poses/kellyson/', cartas: 'assets/poses/kellyson/cartas/' },
+    { id: 'jeyce', nome: 'Jeyce', foto: 'assets/pfp-jeyce.png', boneco: 'assets/avatar-jeyce.png', cor: '#d79be6', poses: 'assets/poses/jeyce/', cartas: 'assets/poses/jeyce/cartas/' },
     { id: 'kauan', nome: 'Kauan', foto: 'assets/pfp-kauan.png', boneco: 'assets/avatar-kauan.png', cor: '#e3ad4a', poses: 'assets/poses/kauan/' },
     { id: 'luiz', nome: 'Luiz', foto: 'assets/pfp-luiz.png', boneco: 'assets/avatar-luiz.png', cor: '#7cc7e8', poses: 'assets/poses/luiz/' },
     { id: 'pedro', nome: 'Pedro', foto: 'assets/pfp-pedro.png', boneco: 'assets/avatar-pedro.png', cor: '#6fdcb0', poses: 'assets/poses/pedro/' },

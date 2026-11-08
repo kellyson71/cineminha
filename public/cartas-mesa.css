@@ -14,7 +14,7 @@
 .b3d { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
 /* fundo da mesa de bar: a calçada do Marcílio Bar vista de cima (imagem fixa, a mesma para todos) */
 .b3d-fundo { background: #0b0a09 url(jogos/boteco/fundo-bar.webp) center top / cover no-repeat; }
-.b3d-fundo { background-image: radial-gradient(120% 90% at 50% 35%, transparent 55%, rgba(0,0,0,.45)), url(jogos/boteco/fundo-bar.webp); }
+.b3d-fundo { background-image: radial-gradient(120% 90% at 50% 35%, transparent 55%, rgba(0,0,0,.45)), var(--fundo-bar, url(jogos/boteco/fundo-bar.webp)); }
 /* mesa de bar no modo leve (2D): o tampo é a textura recortada, deitado no plano das cartas; a aba é a sombra */
 .b2d-tampo { position: absolute; border-radius: 3.5% / 4.5%; pointer-events: none;
   background: var(--tampo) 0% 100% / var(--tampo-uv) var(--tampo-uv) no-repeat, var(--tampo-cor);
@@ -27,3 +27,30 @@
   --cm-luz: linear-gradient(calc(180deg - var(--giro, var(--rz, 0deg))), rgba(255,224,160,.55) 0%, rgba(255,224,160,0) 42%, rgba(30,16,4,0) 58%, rgba(30,16,4,.42) 100%);
   --cm-brilho: linear-gradient(118deg, transparent 38%, rgba(255,255,255,.32) 47%, transparent 56%);
 }
+
+/* painel de mesas (seção compartilhada Uno/Dobro): prévia com a textura real do tampo, em perspectiva */
+.cm-mesa { display: flex; flex-direction: column; gap: 1.1cqh; }
+.cm-mesa-sub { display: block; color: rgba(244,242,238,.6); font: 700 max(9px, 1.3cqh)/1 Inter, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.cm-mesa-grade { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2cqh; }
+.cm-mesa-grade--fundo { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 60%; }
+.cm-mesa-op { display: flex; flex-direction: column; align-items: center; gap: .9cqh; padding: 1.2cqh .6cqh 1cqh; border: 1px solid rgba(255,255,255,.1); border-radius: 1.6cqh; background: rgba(255,255,255,.03); color: rgba(244,242,238,.6); cursor: pointer; font: inherit; transition: border-color .2s, transform .2s cubic-bezier(.2,.9,.3,1.3); }
+.cm-mesa-op:hover { transform: translateY(-.4cqh); border-color: rgba(255,255,255,.3); }
+.cm-mesa-op.atual { border-color: #f4f2ee; color: #f4f2ee; background: rgba(255,255,255,.07); }
+.cm-mesa-op b { font: 600 max(10px, 1.5cqh)/1.1 Inter, sans-serif; text-align: center; }
+.cm-prev-bar { position: relative; display: block; width: 72%; max-width: 11cqh; aspect-ratio: 1.2; perspective: 16cqh; }
+.cm-prev-bar::before { content: ""; position: absolute; left: 4%; right: 4%; top: 0; height: 74%; border-radius: 6%; transform: rotateX(48deg); transform-origin: 50% 100%;
+  background: var(--tampo) 0% 100% / var(--tampo-uv) var(--tampo-uv) no-repeat, var(--tampo-cor);
+  box-shadow: inset 0 0 0 .3cqh color-mix(in srgb, var(--tampo-cor) 82%, #fff), 0 .6cqh 0 color-mix(in srgb, var(--tampo-cor) 62%, #000), 0 1.2cqh 1.4cqh rgba(0,0,0,.5); }
+.cm-prev-bar i { position: absolute; left: 16%; right: 16%; top: 62%; bottom: 0; border-left: .45cqh solid color-mix(in srgb, var(--tampo-cor) 70%, #000); border-right: .45cqh solid color-mix(in srgb, var(--tampo-cor) 70%, #000); }
+.cm-prev-fundo { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 9; border-radius: 1cqh; background: #1b1c21 center / cover; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
+.cm-prev-fundo i { font: 300 max(18px, 4cqh)/1 Inter, sans-serif; font-style: normal; color: rgba(244,242,238,.6); }
+.cm-mesa-qual { display: flex; align-items: center; gap: .6cqh; }
+.cm-mesa-qual small { margin-right: .6cqh; color: rgba(244,242,238,.6); font: 700 max(9px, 1.3cqh)/1 Inter, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.cm-mesa-qop { height: 3.6cqh; min-height: 24px; padding: 0 1.4cqh; border: 1px solid rgba(255,255,255,.14); border-radius: 99px; background: transparent; color: rgba(244,242,238,.6); font: 600 max(11px, 1.6cqh) Inter, sans-serif; cursor: pointer; }
+.cm-mesa-qop.on { background: #f4f2ee; color: #16171b; border-color: transparent; }
+/* diálogo do painel de mesa (Dobro) */
+.cm-dialogo { position: absolute; inset: 0; z-index: 60; display: grid; place-items: center; padding: 2cqh; background: rgba(5,6,9,.72); backdrop-filter: blur(4px); }
+.cm-dialogo__painel { width: min(78cqh, 94cqw); max-height: 92cqh; overflow-y: auto; display: flex; flex-direction: column; gap: 1.4cqh; padding: 2.4cqh; border: 1px solid rgba(255,255,255,.16); border-radius: 2.4cqh; background: radial-gradient(90% 65% at 50% 20%, #2b2b31, #16171c); box-shadow: 0 3cqh 8cqh #0009; color: #f4f2ee; animation: cm-entra .2s ease-out both; }
+.cm-dialogo__topo { display: flex; align-items: center; justify-content: space-between; }
+.cm-dialogo__topo b { font: 800 max(16px, 3.2cqh)/1 Inter, sans-serif; letter-spacing: -.02em; }
+@keyframes cm-entra { from { opacity: 0; transform: scale(.96); } }
