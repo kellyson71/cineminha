@@ -2936,9 +2936,6 @@ async function admLogin(pw, quiet) {
 function admRestore() { const t = store.get('adm'); if (t) admLogin(t, true) }
 $('#admGo').addEventListener('click', () => admLogin($('#admPw').value))
 $('#admDiag').addEventListener('click', () => { closePops(); abrirDiag() })
-// modo admin do Uno: as compras puxam muito mais +2/+4 (o host do Uno é avisado por descarte.js)
-try { $('#admSorte').checked = JSON.parse(localStorage.getItem('dc.sorte')) === true } catch {}
-$('#admSorte').addEventListener('change', e => { try { localStorage.setItem('dc.sorte', JSON.stringify(e.target.checked)) } catch {}; descarte?.sorte?.(); toast(e.target.checked ? 'Sorte no Uno ligada' : 'Sorte no Uno desligada', 1500) })
 $('#admPw').addEventListener('keydown', e => { if (e.key === 'Enter') admLogin($('#admPw').value) })
 const idsOf = key => [...peers].filter(([, p]) => p.key === key).map(([id]) => id)
 function admSend(op, extra = {}, target) {

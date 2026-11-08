@@ -468,3 +468,24 @@
 /* nas poltronas o bolo fica ao lado da foto, sem empurrar a poltrona para cima */
 .db-assento > .db-comanda { position: absolute; left: calc(50% + 6.2cqh); bottom: 0; }
 .db-assento > .db-comanda.vazia { left: 50%; bottom: auto; top: 100%; translate: -50% .4cqh; }
+
+/* admin: fila das próximas compras */
+.db-btn--admin { color: var(--lata); }
+.db-fila { position: absolute; right: 2cqh; top: 9cqh; z-index: 30; width: min(46cqh, 40cqw); display: flex; flex-direction: column; gap: 1.2cqh; padding: 1.6cqh; border-radius: 1.4cqh; background: rgba(17,32,59,.97); box-shadow: 0 0 0 1px rgba(232,168,23,.45), 0 1.6cqh 4cqh rgba(0,0,0,.6); color: var(--tinta); font: 500 1.9cqh/1.2 'Barlow Semi Condensed', sans-serif; animation: db-entra .2s both; }
+.db-fila header { display: flex; align-items: center; justify-content: space-between; }
+.db-fila header b { display: inline-flex; align-items: center; gap: .8cqh; color: var(--lata); font-weight: 700; }
+.db-fila header svg, .db-fila__x svg { width: 2.2cqh; height: 2.2cqh; }
+.db-fila__x { border: 0; background: none; color: var(--apagado); cursor: pointer; padding: .4cqh; display: grid; }
+.db-fila__ops { display: flex; flex-wrap: wrap; gap: 1cqh; }
+.db-fila__op { padding: 0; border: 0; background: none; cursor: pointer; transition: transform .12s; }
+.db-fila__op:hover { transform: translateY(-.6cqh) scale(1.06); }
+.db-fila__c { --w: 6.4cqh; width: 6.4cqh !important; position: relative !important; inset: auto !important; transform: none !important; rotate: none !important; animation: none !important; pointer-events: none; }
+.db-fila__nums { display: flex; gap: .5cqh; }
+.db-fila__nums button { flex: 1; padding: .6cqh 0; border: 1px solid var(--linha); border-radius: .8cqh; background: rgba(255,255,255,.04); color: var(--apagado); font: 600 1.7cqh/1 'Barlow Semi Condensed', sans-serif; cursor: pointer; }
+.db-fila__nums button:hover { background: rgba(255,255,255,.12); color: #fff; }
+.db-fila__lista { display: flex; flex-wrap: wrap; gap: .6cqh; min-height: 3cqh; align-items: center; }
+.db-fila__lista small { color: var(--apagado); }
+.db-fila__item { display: inline-flex; align-items: center; gap: .5cqh; padding: .4cqh .9cqh; border: 0; border-radius: 99px; background: var(--lata); color: #2a1b06; font: 700 1.7cqh/1 'Barlow Semi Condensed', sans-serif; cursor: pointer; }
+.db-fila__item b { font-size: 1.3cqh; opacity: .6; }
+.db-fila__item:hover { background: var(--vermelho); color: #fff; }
+.db-fila__limpa { align-self: flex-end; border: 0; background: none; color: var(--apagado); font: 500 1.7cqh/1 'Barlow Semi Condensed', sans-serif; cursor: pointer; text-decoration: underline; }

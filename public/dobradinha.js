@@ -16,6 +16,8 @@ const SAIU_MS = 12000, HOST_MS = 10000, MIN_JOG = 2, MAX_JOG = 6
 const REPOR_MS = 9000 // depois de jogar: tempo para repor a mão (a vez já seguiu para o próximo)
 const RODADAS = [[1, '1 rodada'], [3, '3 rodadas'], ['n', '1 por pessoa']]
 // 50 cartas numeradas (valor: quantidade) + 3 curingas, 2 "passa" e 2 "inverte"
+const ADMIN = 'kellyson' // modo admin (logado no painel Admin): escolhe as próximas cartas que vai comprar
+const FILA_OK = new Set(['cur', 'passa', 'inv', ...Array.from({ length: 11 }, (_, i) => String(i + 2))])
 const QTD = { 2: 5, 3: 6, 4: 6, 5: 6, 6: 6, 7: 5, 8: 4, 9: 3, 10: 3, 11: 3, 12: 3 }
 const NOME_ACAO = { cur: 'Curinga', passa: 'Passa', inv: 'Inverte' }
 
@@ -109,7 +111,7 @@ export function criaDobradinha(ctx) {
     G.rodada++
     G.monte = baralho(G.js.length)
     G.fora = G.js.length === 2 ? G.monte.splice(0, 10) : [] // com 2 pessoas, 10 cartas ficam de fora a cada rodada
-    for (const j of G.js) { j.mao = G.monte.splice(-maoMax()); j.conta = 0 }
+    for (const j of G.js) { j.mao = puxa(j.key, maoMax()); j.conta = 0 }
     G.mesa = []; G.valor = 0; G.esq = null; G.etapa = 'joga'; G.resumo = null; G.prazo = 0; G.repor = {}
     if (!primeira) {
       // começa quem tem menos pontos; empate: o primeiro no sentido do jogo depois de quem fechou a rodada
@@ -138,6 +140,16 @@ export function criaDobradinha(ctx) {
     for (const k of vencidos) esqueceu(k)
     difunde()
   }, 250)
+  // tira n cartas do monte; as primeiras seguem a fila que o admin escolheu (se a carta ainda estiver no monte)
+  function puxa(key, n) {
+    const out = [], fila = G.fila?.[key]
+    while (out.length < n && G.monte.length) {
+      let c = null
+      while (!c && fila?.length) { const v = fila.shift(); const ok = G.monte.flatMap((x, i) => String(x.v) === v ? [i] : []); if (ok.length) c = G.monte.splice(ok[rnd(ok.length)], 1)[0] }
+      out.push(c || G.monte.pop())
+    }
+    return out
+  }
   function esqueceu(key) {
     delete G.repor[key]
     const j = jog(key)
@@ -146,7 +158,7 @@ export function criaDobradinha(ctx) {
     ev({ t: 'esqueceu', key })
     log(`${j.nome} não repôs a mão a tempo e ficou com o guarda-chuva.`)
     // mão vazia não dá para jogar: compra o que falta mesmo assim
-    if (!j.mao.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...G.monte.splice(-n)); ev({ t: 'compra', key, qtd: n }) }
+    if (!j.mao.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...puxa(key, n)); ev({ t: 'compra', key, qtd: n }) }
   }
   function avanca() {
     clearTimeout(timer)
@@ -189,7 +201,7 @@ export function criaDobradinha(ctx) {
     if (G.fase !== 'jogo' || !j || !G.repor?.[key]) return
     delete G.repor[key]
     const n = Math.min(maoMax() - j.mao.length, G.monte.length)
-    if (n > 0) { j.mao.push(...G.monte.splice(-n)); ev({ t: 'compra', key, qtd: n }) }
+    if (n > 0) { j.mao.push(...puxa(key, n)); ev({ t: 'compra', key, qtd: n }) }
     difunde()
   }
   function passar(key) {
@@ -205,7 +217,7 @@ export function criaDobradinha(ctx) {
     G.esq = alvo
     ev({ t: 'arremesso', de: key, para: alvo })
     log(`${jog(key)?.nome || 'Alguém'} jogou o guarda-chuva em ${j.nome}, que esqueceu de repor a mão.`)
-    if (!j.mao.length && G.monte.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...G.monte.splice(-n)); ev({ t: 'compra', key: alvo, qtd: n }) }
+    if (!j.mao.length && G.monte.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...puxa(alvo, n)); ev({ t: 'compra', key: alvo, qtd: n }) }
     difunde()
   }
   function fimRodada(key) {
@@ -247,6 +259,7 @@ export function criaDobradinha(ctx) {
       case 'compra': comprar(key); break
       case 'passa': passar(key); break
       case 'guarda': arremessa(key, d.alvo); break
+      case 'fila': if (key === ADMIN && Array.isArray(d.fila)) { (G.fila ||= {})[key] = d.fila.map(String).filter(v => FILA_OK.has(v)).slice(0, 20); difunde() } break
     }
   }
   function vista(k) {
@@ -256,6 +269,7 @@ export function criaDobradinha(ctx) {
       mao: jog(k)?.mao || null, mesa: G.mesa.slice(-6), nMesa: nMesa(), valor: G.valor, monte: G.monte.length, max: G.js.length ? maoMax() : 6,
       vez: G.js[G.vez]?.key || null, etapa: G.etapa, esq: G.esq, dir: G.dir, rodada: G.rodada, nRodadas: G.nRodadas,
       resumo: G.resumo, vencedores: G.vencedores, log: G.log.slice(-40), ev: G.ev, prazo: 0,
+      fila: k === ADMIN ? G.fila?.[k] || [] : null,
       repor: Object.fromEntries(Object.entries(G.repor || {}).map(([k, t]) => [k, Math.max(0, t - Date.now())])), // quem ainda pode repor (ms que faltam)
     }
   }
@@ -493,11 +507,12 @@ export function criaDobradinha(ctx) {
       el('img', { className: 'db-logo', src: MARCA, alt: 'Dobradinha', draggable: false }),
       !conv && V.rodada ? el('span', { className: 'db-rodada', textContent: `rodada ${V.rodada} de ${V.nRodadas}` }) : '',
       el('span', { className: 'db-grow' }),
+      souAdmin() && V.fase !== 'fim' ? botao(icon('zap'), () => { filaAberta = !filaAberta; render() }, 'db-btn--ic db-btn--admin' + (filaAberta ? ' on' : ''), 'Admin: escolher as próximas cartas que você compra') : '',
       conv ? '' : botao(icon('lightbulb'), () => { aulaAberta = !aulaAberta; if (aulaAberta) pegaAula().reinicia(); else aula?.para(); render() }, 'db-btn--ic' + (aulaAberta ? ' on' : ''), 'Como jogar'),
       botao(icon('list-music'), () => tela.querySelector('.db-log')?.classList.toggle('aberto'), 'db-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'db-btn--ic', 'Fechar a mesa para todos')
         : botao(icon('x'), () => { dispensado = V.id; aplica(null) }, 'db-btn--ic', 'Sair da mesa (só para você)'))
-    const kids = [el('div', { className: 'db-azulejos' }), el('div', { className: 'db-palco' }, plano), topoBar, status(), cola(), minhaArea(antes), controles(), meio(), bilhete(),
+    const kids = [el('div', { className: 'db-azulejos' }), el('div', { className: 'db-palco' }, plano), topoBar, status(), cola(), minhaArea(antes), controles(), meio(), filaUI(), bilhete(),
       el('div', { className: 'db-log' }, el('ol', {}, ...V.log.slice(-40).map(t => el('li', { textContent: t }))))]
     const am = aulaModal()
     if (am) kids.push(am)
@@ -621,6 +636,24 @@ export function criaDobradinha(ctx) {
     if (c.v === 'passa' || c.v === 'inv') return true
     if (possivel([c], V.valor)) return true
     return V.mao.some(x => x.id !== c.id && (num(x) || x.v === 'cur') && possivel([c, x], V.valor))
+  }
+  // admin: painelzinho com as cartas de ação em destaque; clicar põe na fila das próximas compras
+  let filaAberta = false
+  const souAdmin = () => me.key === ADMIN && me.admin && V?.fila
+  function filaUI() {
+    if (!filaAberta || !souAdmin()) return ''
+    const fila = V.fila || []
+    const muda = f => manda({ op: 'fila', fila: f })
+    const nome = v => ({ cur: 'Curinga', passa: 'Passa', inv: 'Inverte' })[v] || v
+    const ops = el('div', { className: 'db-fila__ops' }, ...['cur', 'passa', 'inv', '12', '11'].map(v => {
+      const b = el('button', { type: 'button', className: 'db-fila__op', title: `Pôr ${nome(v)} na fila` }, carta({ id: -1, v: /^\d+$/.test(v) ? +v : v }, 'db-fila__c'))
+      b.addEventListener('click', () => muda([...fila, v])); return b
+    }))
+    const nums = el('div', { className: 'db-fila__nums' }, ...Array.from({ length: 9 }, (_, i) => String(i + 2)).map(v => { const b = el('button', { type: 'button', textContent: v, title: `Pôr um ${v} na fila` }); b.addEventListener('click', () => muda([...fila, v])); return b }))
+    const lista = el('div', { className: 'db-fila__lista' }, fila.length ? fila.map((v, i) => { const b = el('button', { type: 'button', className: 'db-fila__item', title: 'Tirar da fila' }, el('b', { textContent: `${i + 1}º` }), nome(v)); b.addEventListener('click', () => muda(fila.filter((_, k) => k !== i))); return b }) : el('small', { textContent: 'vazia: as compras vêm normais' }))
+    const limpar = el('button', { type: 'button', className: 'db-fila__limpa', textContent: 'Limpar' }); limpar.addEventListener('click', () => muda([]))
+    const fechar = el('button', { type: 'button', className: 'db-fila__x', title: 'Fechar' }, icon('x')); fechar.addEventListener('click', () => { filaAberta = false; render() })
+    return el('div', { className: 'db-fila' }, el('header', {}, el('b', {}, icon('zap'), 'Próximas compras'), fechar), ops, nums, lista, fila.length ? limpar : '')
   }
   function minhaArea(antes) {
     const j = eu(), conv = V.fase === 'convite'

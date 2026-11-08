@@ -35,8 +35,11 @@ const ehCompra = v => v in VALOR
 const COMPRA_COR = v => v === '+4' || v === '+6' || v === '+10' || v === 'inv4'
 const ehNumero = v => /^\d$/.test(v)
 const emJogo = f => f === 'jogo' || f === 'troca7' || f === 'gira0' // fases com a partida rolando
-const ADMIN = 'kellyson' // modo admin (painel Admin nas configurações): compras puxam muito mais +2/+4
-const SORTE = .6 // chance de cada carta comprada pelo admin ser uma de compra (se houver no monte)
+const ADMIN = 'kellyson' // modo admin (logado no painel Admin): escolhe as próximas cartas que vai comprar
+// cartas que o admin pode pôr na fila (as do Sem Piedade só aparecem com ele ligado)
+const FILA_BASE = ['+4', '+2', 'cor', 'pula', 'inverte']
+const FILA_SP = ['+10', '+6', 'inv4', 'roleta', 'pulaT', 'desc']
+const FILA_OK = new Set([...FILA_BASE, ...FILA_SP, ...'0123456789'])
 const NOMES = { pula: 'Pular', inverte: 'Inverter', pulaT: 'Pula Todos', desc: 'Descarta a Cor', inv4: 'Inverte +4', roleta: 'Roleta', cor: 'Coringa' }
 
 const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n }
@@ -147,11 +150,12 @@ export function criaDescarte(ctx) {
     G.monte = embaralha(G.descarte.map(({ esc, ...c }) => c)); G.descarte = [t]
     if (G.monte.length) ev({ t: 'embaralha' })
   }
-  // tira uma carta do monte; no modo admin, muitas vezes vem um +2/+4 escondido no meio do monte
+  // tira uma carta do monte; o admin pode ter escolhido as próximas (vem a primeira da fila que ainda estiver no monte)
   function tira(key) {
-    if (G.sorte?.[key] && Math.random() < SORTE) {
-      const alvo = G.op.semPiedade ? c => ehCompra(c.v) : c => c.v === '+2' || c.v === '+4'
-      const ok = G.monte.flatMap((c, i) => alvo(c) ? [i] : [])
+    const fila = G.fila?.[key]
+    while (fila?.length) {
+      const v = fila.shift()
+      const ok = G.monte.flatMap((c, i) => c.v === v ? [i] : [])
       if (ok.length) return G.monte.splice(ok[rnd(ok.length)], 1)[0]
     }
     return G.monte.pop()
@@ -401,7 +405,7 @@ export function criaDescarte(ctx) {
       case 'pega': pegar(key, d.alvo); break
       case 'troca': decide(key, d); break
       case 'bate': bateu(key, d); break
-      case 'sorte': if (key === ADMIN) { (G.sorte ||= {})[key] = !!d.on; ls.set('dc.G', G) } break
+      case 'fila': if (key === ADMIN && Array.isArray(d.fila)) { (G.fila ||= {})[key] = d.fila.map(String).filter(v => FILA_OK.has(v)).slice(0, 20); difunde() } break
     }
   }
   function vista(k) {
@@ -413,7 +417,7 @@ export function criaDescarte(ctx) {
       bate: G.bate ? { k: G.bate.k, resta: Math.max(0, G.bate.ate - Date.now()), bateram: Object.keys(G.bate.rt) } : null,
       pend: G.pend, pendTipo: G.pendTipo, compradas: G.js[G.vez]?.key === k ? G.compradas || 0 : 0, lim: limite(),
       sil: G.sil ? { resta: Math.max(0, GRACA_7 - (Date.now() - G.sil.desde)), falaram: G.sil.falaram } : null,
-      sorte: !!G.sorte?.[k], vencedor: G.vencedor || null, log: G.log.slice(-40), ev: G.ev, prazo: G.prazo ? Math.max(0, G.prazo - Date.now()) : 0,
+      fila: k === ADMIN ? G.fila?.[k] || [] : null, vencedor: G.vencedor || null, log: G.log.slice(-40), ev: G.ev, prazo: G.prazo ? Math.max(0, G.prazo - Date.now()) : 0,
     }
   }
   function difunde() {
@@ -534,16 +538,6 @@ export function criaDescarte(ctx) {
       aplica(d.v)
     }
   }
-  // modo admin: avisa o host quando a chave do painel não bate com o que ele sabe
-  let sorteMandada = ''
-  function confereSorte() {
-    if (!V || me.key !== ADMIN) return
-    const quer = !!(me.admin && ls.get('dc.sorte'))
-    const marca = `${V.id}:${quer}`
-    if (quer === !!V.sorte) { sorteMandada = ''; return }
-    if (sorteMandada === marca) return
-    sorteMandada = marca; manda({ op: 'sorte', on: quer })
-  }
   function aplica(v) {
     const antes = V
     if (v && (!antes || antes.id !== v.id)) {
@@ -555,7 +549,6 @@ export function criaDescarte(ctx) {
     // a mão do 9 apareceu: cada um mede o PRÓPRIO tempo de reação a partir de agora
     if (v?.bate && v.bate.k !== bateK) { bateK = v.bate.k; bateT0 = performance.now(); bateFeito = v.bate.bateram.includes(me.key); bateMs = 0 }
     V = v
-    if (v) setTimeout(confereSorte)
     if (v) v.recebido = Date.now()
     if (antes?.vez !== v?.vez || antes?.descarte?.at(-1)?.id !== v?.descarte?.at(-1)?.id) { escolheCor = false; sel = [] }
     if (v?.mao) sel = sel.filter(id => v.mao.some(c => c.id === id))
@@ -638,9 +631,10 @@ export function criaDescarte(ctx) {
       botao(icon('list-music'), () => tela.querySelector('.dc-log')?.classList.toggle('aberto'), 'dc-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'dc-btn--ic', 'Fechar a mesa para todos')
         : botao(icon('x'), () => { dispensado = V.id; aplica(null) }, 'dc-btn--ic', 'Sair da mesa (só para você)'))
+    if (souAdmin() && V.fase !== 'fim') topoBar.insertBefore(botao(icon('zap'), () => { filaAberta = !filaAberta; render() }, 'dc-btn--ic dc-btn--admin' + (filaAberta ? ' on' : ''), 'Admin: escolher as próximas cartas que você compra'), topoBar.querySelector('.dc-grow').nextSibling)
     if (V.op.semPiedade) topoBar.insertBefore(botao(icon('book-open'), () => { guiaAberto = !guiaAberto; guiaAnima = guiaAberto; render() }, 'dc-btn--ic' + (guiaAberto ? ' on' : ''), 'Cartas do Sem Piedade'), topoBar.querySelector('.dc-grow').nextSibling)
     plano.classList.toggle('jogando', emJogo(V.fase))
-    const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, vezFaixa(antes), minhaArea(antes), controles(), meio(), silencio(), bilhete(), quadro(), ...bateUI(), guia(),
+    const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, vezFaixa(antes), minhaArea(antes), controles(), meio(), silencio(), bilhete(), quadro(), ...bateUI(), guia(), filaUI(),
       el('div', { className: 'dc-log' }, el('ol', {}, ...V.log.slice(-40).map(t => el('li', { textContent: t }))))]
     if (!conv && V.fase !== 'fim' && !ctx.presentes().includes(V.host)) kids.push(el('div', { className: 'dc-pausa' }, el('b', { textContent: 'Partida pausada' }), el('span', { textContent: `${V.hostNome} abriu a mesa e caiu. Continua de onde parou quando voltar.` })))
     tela.replaceChildren(...kids)
@@ -770,6 +764,27 @@ export function criaDescarte(ctx) {
       ...Array.from({ length: n }, (_, i) => { const c = carta(null); c.style.setProperty('--i', i); return c }),
       el('b', { className: 'dc-qtd', textContent: x.n }))
     return [leque, s]
+  }
+  // admin: painelzinho com as cartas fortes em destaque; clicar põe na fila das próximas compras
+  let filaAberta = false
+  const souAdmin = () => me.key === ADMIN && me.admin && V?.fila
+  function filaUI() {
+    if (!filaAberta || !souAdmin()) return ''
+    const fila = V.fila || []
+    const muda = f => manda({ op: 'fila', fila: f })
+    const opcao = v => {
+      const c = carta(FILA_SP.includes(v) || ['+4', 'cor'].includes(v) ? { id: -1, c: null, v } : { id: -1, c: 'r', v }, 'dc-fila__c')
+      const b = el('button', { type: 'button', className: 'dc-fila__op', title: `Pôr ${NOMES[v] || v} na fila` }, c)
+      b.addEventListener('click', () => muda([...fila, v])); return b
+    }
+    const nums = el('div', { className: 'dc-fila__nums' }, ...'0123456789'.split('').map(v => { const b = el('button', { type: 'button', textContent: v, title: `Pôr um ${v} na fila` }); b.addEventListener('click', () => muda([...fila, v])); return b }))
+    const lista = el('div', { className: 'dc-fila__lista' }, fila.length ? fila.map((v, i) => { const b = el('button', { type: 'button', className: 'dc-fila__item', title: 'Tirar da fila' }, el('b', { textContent: `${i + 1}º` }), NOMES[v] || (v === 'cor' ? 'Coringa' : v)); b.addEventListener('click', () => muda(fila.filter((_, k) => k !== i))); return b }) : el('small', { textContent: 'vazia: as compras vêm normais' }))
+    const limpar = el('button', { type: 'button', className: 'dc-fila__limpa', textContent: 'Limpar' }); limpar.addEventListener('click', () => muda([]))
+    const fechar = el('button', { type: 'button', className: 'dc-fila__x', title: 'Fechar' }, icon('x')); fechar.addEventListener('click', () => { filaAberta = false; render() })
+    return el('div', { className: 'dc-fila' },
+      el('header', {}, el('b', {}, icon('zap'), 'Próximas compras'), fechar),
+      el('div', { className: 'dc-fila__ops' }, ...[...(V.op.semPiedade ? FILA_SP : []), ...FILA_BASE].map(opcao)),
+      nums, lista, fila.length ? limpar : '')
   }
   function minhaArea(antes) {
     const j = eu(), conv = V.fase === 'convite'
@@ -1178,7 +1193,6 @@ export function criaDescarte(ctx) {
   window.__descarte = () => ({ G, V, render, difunde })
   return {
     got: (d, k) => { carregaSons(); got(d, k) }, iniciar, ativo: () => !!V,
-    sorte: () => { sorteMandada = ''; confereSorte() },
     // para o app: troca de jogo e mesas paralelas
     lider: () => !!V && souHost(),
     encerra: () => { if (G && G.host === me.key) encerrar() },
