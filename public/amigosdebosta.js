@@ -1,13 +1,14 @@
 // Amigos de Merda: a cada turno alguém compra uma pergunta e lê em voz alta. Todos votam ao mesmo tempo
 // apontando para alguém (não vale em si mesmo). O mais votado fica com a carta; quem juntar a meta de cartas
 // é coroado o Amigo de Bosta. Empate: quem não votou nos empatados pode trocar o voto; se persistir, vale o voto de quem leu.
+// Se quem leu também está no empate (o voto dele não teria escolha de verdade), o desempate vai para a roleta: sorteio entre os empatados.
 // Mesma estrutura dos outros jogos: o host guarda tudo e manda para cada um só o que pode ver ({ ab: ... }).
 import { CARTAS, CARTAS_18 } from './jogos/amigosdebosta/cartas.js'
 
 const SOM = n => `jogos/coup/sons/${n}.mp3`
 const SONS = ['embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'leque', 'carimbo', 'papel', 'vez', 'clique', 'tique']
 const VOL = { embaralhar: .5, carimbo: .6, papel: .45, vez: .5, clique: .3, tique: .4 }
-const SAIU_MS = 12000, HOST_MS = 10000, EMPATE_MS = 25000
+const SAIU_MS = 12000, HOST_MS = 10000, EMPATE_MS = 25000, ROLETA_MS = 4600
 const ABRE_MS = 1700 // o host só aceita votos depois da contagem 3-2-1
 const CORES = ['#ff3d81', '#2f7bf5', '#26a65b', '#ff9f1a', '#8b5cf6', '#0aa5c0', '#e5484d', '#7cb518', '#d63fc4', '#0b84d6', '#d98a00', '#13a393']
 
@@ -140,9 +141,18 @@ export function criaAmigosDeBosta(ctx) {
     // continua empatado: vale o voto de quem leu a carta
     const v = G.votos[leitor()]
     if (tied.includes(v)) { log('O voto de quem leu desempatou.'); return ganhou(v) }
+    // quem leu está no empate: escolher "o outro" não é desempate de verdade, então vai no sorteio
+    if (tied.includes(leitor())) return sorteia(tied)
     G.emp = { tied, elig: [], resp: {}, fim: Date.now() + EMPATE_MS }
     G.fase = 'minerva'
     ev({ t: 'minerva' })
+    difunde()
+  }
+  function sorteia(tied) {
+    G.emp = null
+    G.roleta = { tied, vence: tied[rnd(tied.length)], fim: Date.now() + ROLETA_MS }
+    G.fase = 'roleta'
+    ev({ t: 'roleta' }); log(`Continua empatado: sorteio entre ${tied.map(k => jog(k).nome).join(' e ')}.`)
     difunde()
   }
   function minerva(key, alvo) {
@@ -153,7 +163,7 @@ export function criaAmigosDeBosta(ctx) {
   function ganhou(k) {
     const j = jog(k), { c } = conta()
     j.cartas.push(G.carta)
-    G.vencRodada = k; G.emp = null
+    G.vencRodada = k; G.emp = null; G.roleta = null
     G.unanime = G.js.length > 2 && c[k] === G.js.length - 1
     G.fase = 'resultado'
     G.coroar = j.cartas.length >= G.op.meta
@@ -209,7 +219,8 @@ export function criaAmigosDeBosta(ctx) {
     if (eraLeitor) { if (G.carta) G.desc.push(G.carta); return compraCarta() }
     if (G.fase === 'votando') {
       if (G.js.every(x => G.votos[x.key])) return fechaVotacao()
-    } else if (G.fase === 'empate' || G.fase === 'minerva') {
+    } else if (G.fase === 'empate' || G.fase === 'minerva' || G.fase === 'roleta') {
+      G.roleta = null
       const { tied } = conta()
       if (!tied.length) return fechaVotacao()
       return avalia(tied)
@@ -237,6 +248,7 @@ export function criaAmigosDeBosta(ctx) {
       carta: G.carta ? G.carta.t : null, cartaP: !!G.carta?.p, cartaNumero: G.carta?.n ?? null, monte: G.deck.length,
       // votos secretos até todos votarem
       votos: revelados ? G.votos : null, votou: f === 'votando' ? Object.keys(G.votos) : null, meuVoto: G.votos[k] || null,
+      roleta: G.roleta && { tied: G.roleta.tied, vence: G.roleta.vence, restaMs: Math.max(0, G.roleta.fim - agora) },
       emp: G.emp && { tied: G.emp.tied, elig: G.emp.elig, resp: Object.keys(G.emp.resp), restaMs: Math.max(0, G.emp.fim - agora) },
       abreMs: f === 'votando' ? Math.max(0, G.abre - agora) : 0, restaMs: f === 'votando' && G.fimVoto ? Math.max(0, G.fimVoto - agora) : 0,
       vencRodada: G.vencRodada, unanime: G.unanime, coroar: G.coroar, vencedor: G.vencedor, log: G.log.slice(-30), ev: G.ev,
@@ -288,6 +300,7 @@ export function criaAmigosDeBosta(ctx) {
     // tempos esgotados
     if (G.fase === 'votando' && G.fimVoto && agora > G.fimVoto) fechaVotacao()
     else if (G.fase === 'empate' && agora > G.emp.fim) resolveEmpate()
+    else if (G.fase === 'roleta' && agora > G.roleta.fim) { const v = G.roleta.vence; if (jog(v)) ganhou(v); else { G.roleta = null; avalia(conta().tied) } }
     else if (G.fase === 'minerva' && agora > G.emp.fim) { const op = G.emp.tied.filter(k => k !== leitor()); minerva(leitor(), op[rnd(op.length)]) }
   }, 1000)
 
@@ -322,6 +335,7 @@ export function criaAmigosDeBosta(ctx) {
     const antes = V
     if (v && (!antes || antes.id !== v.id)) ultEv = Math.max(0, ...v.ev.map(e => e.n), 0)
     V = v
+    if (v) v.recebido = Date.now()
     if (v && v.fase === 'votando' && liberaId !== `${v.id}:${v.rodada}`) { liberaId = `${v.id}:${v.rodada}`; libera = Date.now() + v.abreMs + 350 }
     const evs = v ? v.ev.filter(e => e.n > ultEv) : []
     if (v) ultEv = Math.max(ultEv, ...v.ev.map(e => e.n), 0)
@@ -470,6 +484,12 @@ export function criaAmigosDeBosta(ctx) {
         el('p', {}, el('b', { className: 'ab-grito', textContent: 'Empate!' }), ' ', elig ? (resp ? 'Aguardando os outros…' : 'Você não votou nos empatados: pode trocar o voto para um deles ou manter.') : 'Quem não votou nos empatados pode trocar o voto.'),
         escolhas)
     }
+    if (f === 'roleta') {
+      const r = V.roleta
+      return nota(
+        el('p', {}, el('b', { className: 'ab-grito', textContent: 'Continua empatado!' }), ' Quem leu está no empate, então vai na roleta:'),
+        el('div', { className: 'ab-roleta', 'data-fim': String(V.recebido + r.restaMs), 'data-vence': r.vence }, ...r.tied.map(k => el('span', { className: 'ab-roleta__p', 'data-key': k }, retrato(k, N(k)), el('b', { textContent: N(k) })))))
+    }
     if (f === 'minerva') {
       const e = V.emp
       return nota(
@@ -606,6 +626,22 @@ export function criaAmigosDeBosta(ctx) {
     tela.querySelectorAll('.ab-monte').forEach(m => { m.classList.remove('embaralhando'); void m.offsetWidth; m.classList.add('embaralhando') })
     som('embaralhar')
   }
+  // roleta do desempate: o destaque passa de foto em foto, desacelera e para em quem foi sorteado (calculado pelo relógio,
+  // então todo mundo vê a mesma coisa e um render no meio não reinicia nada)
+  const TIQUES = (() => { const t = []; let soma = 0, i = 0; while (soma < ROLETA_MS - 650) { soma += 55 + 7 * i + .55 * i * i; t.push(soma); i++ } return t })()
+  let roletaUlt = ''
+  setInterval(() => {
+    const r = tela.querySelector('.ab-roleta'); if (!r) return
+    const ps = [...r.querySelectorAll('.ab-roleta__p')], n = ps.length; if (!n) return
+    const fim = +r.dataset.fim, vi = Math.max(0, ps.findIndex(p => p.dataset.key === r.dataset.vence))
+    const passou = Date.now() - (fim - ROLETA_MS)
+    const j = TIQUES.filter(x => x <= passou).length, parou = j >= TIQUES.length
+    const i = ((vi - (TIQUES.length - j)) % n + n) % n
+    ps.forEach((p, k) => p.classList.toggle('on', k === i))
+    r.classList.toggle('parou', parou)
+    const marca = `${fim}:${j}`
+    if (marca !== roletaUlt) { if (roletaUlt.split(':')[0] === String(fim)) som(parou ? 'carimbo' : 'tique', 0, parou ? .7 : .35); roletaUlt = marca }
+  }, 30)
   function anima(evs, antes) {
     let t = 0
     if (evs.some(e => e.t === 'inicio')) { embaralha2(); t = 1100 }
@@ -613,6 +649,7 @@ export function criaAmigosDeBosta(ctx) {
       if (e.t === 'carta') { som('leque', t + 100); som('desliza', t + 250, .6); if (e.quem === me.key) som('vez', t + 600) }
       else if (e.t === 'valendo') { som('tique', 0); som('tique', 600); som('tique', 1200) }
       else if (e.t === 'empate' || e.t === 'minerva') som('vez', 900)
+      else if (e.t === 'roleta') som('embaralhar', 300, .5)
       else if (e.t === 'ganhou') som('leque', (V.votos ? Object.keys(V.votos).length : 0) * 320 + 1400)
       else if (e.t === 'coroa') som('leque', 200)
       else if (e.t === 'saiu') toast(`${e.nome} saiu da mesa`, 3200)

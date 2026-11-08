@@ -254,3 +254,13 @@
 .ab-nota { rotate: 0deg; background: #fff; border-width: .25cqh; box-shadow: .6cqh .6cqh 0 #000; }
 .ab-carta.picante ~ .ab-nota { border-color: #ff0099; }
 .ab-monte:hover .ab-costas:last-of-type { background-image: url('jogos/amigosdebosta/verso-rosa.png'); }
+
+/* roleta do desempate */
+.ab-roleta { display: flex; flex-wrap: wrap; gap: 1.2cqh; }
+.ab-roleta__p { display: flex; flex-direction: column; align-items: center; gap: .4cqh; padding: .8cqh; border: .3cqh solid transparent; border-radius: 1.2cqh; transition: transform .08s, background .08s; font: 700 2.2cqh/1 var(--mao); }
+.ab-roleta__p .ab-foto { width: 7cqh; height: 7cqh; filter: grayscale(.7) brightness(.8); transition: filter .08s; }
+.ab-roleta__p.on { background: var(--rosa); border-color: var(--tinta); transform: translateY(-.6cqh) scale(1.08); color: #fff; }
+.ab-roleta__p.on .ab-foto { filter: none; }
+.ab-roleta.parou .ab-roleta__p.on { animation: ab-roleta-ganha .5s cubic-bezier(.2,.9,.3,1.4) 3 alternate; box-shadow: .5cqh .5cqh 0 var(--tinta); }
+.ab-roleta.parou .ab-roleta__p:not(.on) { opacity: .45; }
+@keyframes ab-roleta-ganha { to { transform: translateY(-1cqh) scale(1.18) rotate(-3deg); } }
