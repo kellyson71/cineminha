@@ -35,6 +35,8 @@ const ehCompra = v => v in VALOR
 const COMPRA_COR = v => v === '+4' || v === '+6' || v === '+10' || v === 'inv4'
 const ehNumero = v => /^\d$/.test(v)
 const emJogo = f => f === 'jogo' || f === 'troca7' || f === 'gira0' // fases com a partida rolando
+const ADMIN = 'kellyson' // modo admin (painel Admin nas configurações): compras puxam muito mais +2/+4
+const SORTE = .6 // chance de cada carta comprada pelo admin ser uma de compra (se houver no monte)
 const NOMES = { pula: 'Pular', inverte: 'Inverter', pulaT: 'Pula Todos', desc: 'Descarta a Cor', inv4: 'Inverte +4', roleta: 'Roleta', cor: 'Coringa' }
 
 const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n }
@@ -125,7 +127,7 @@ export function criaDescarte(ctx) {
     ls.set('dc.op', G.op)
     embaralha(ks)
     G.monte = baralho(G.op.semPiedade)
-    G.js = ks.map(k => ({ key: k, nome: ctx.nomeDe(k), mao: G.monte.splice(-7), avisou: false, pegavel: false }))
+    G.js = ks.map(k => ({ key: k, nome: ctx.nomeDe(k), mao: Array.from({ length: 7 }, () => tira(k)), avisou: false, pegavel: false }))
     // primeira carta: um número (coringas e ações voltam para o meio do monte)
     let i = G.monte.findLastIndex(c => /^\d$/.test(c.v))
     G.descarte = [G.monte.splice(i, 1)[0]]
@@ -145,9 +147,18 @@ export function criaDescarte(ctx) {
     G.monte = embaralha(G.descarte.map(({ esc, ...c }) => c)); G.descarte = [t]
     if (G.monte.length) ev({ t: 'embaralha' })
   }
+  // tira uma carta do monte; no modo admin, muitas vezes vem um +2/+4 escondido no meio do monte
+  function tira(key) {
+    if (G.sorte?.[key] && Math.random() < SORTE) {
+      const alvo = G.op.semPiedade ? c => ehCompra(c.v) : c => c.v === '+2' || c.v === '+4'
+      const ok = G.monte.flatMap((c, i) => alvo(c) ? [i] : [])
+      if (ok.length) return G.monte.splice(ok[rnd(ok.length)], 1)[0]
+    }
+    return G.monte.pop()
+  }
   function compra(j, n, semAviso) {
     const novas = []
-    for (let k = 0; k < n; k++) { repoe(); const c = G.monte.pop(); if (!c) break; j.mao.push(c); novas.push(c) }
+    for (let k = 0; k < n; k++) { repoe(); const c = tira(j.key); if (!c) break; j.mao.push(c); novas.push(c) }
     j.avisou = false; j.pegavel = false
     if (novas.length && !semAviso) ev({ t: 'compra', key: j.key, qtd: novas.length })
     return novas
@@ -390,6 +401,7 @@ export function criaDescarte(ctx) {
       case 'pega': pegar(key, d.alvo); break
       case 'troca': decide(key, d); break
       case 'bate': bateu(key, d); break
+      case 'sorte': if (key === ADMIN) { (G.sorte ||= {})[key] = !!d.on; ls.set('dc.G', G) } break
     }
   }
   function vista(k) {
@@ -401,7 +413,7 @@ export function criaDescarte(ctx) {
       bate: G.bate ? { k: G.bate.k, resta: Math.max(0, G.bate.ate - Date.now()), bateram: Object.keys(G.bate.rt) } : null,
       pend: G.pend, pendTipo: G.pendTipo, compradas: G.js[G.vez]?.key === k ? G.compradas || 0 : 0, lim: limite(),
       sil: G.sil ? { resta: Math.max(0, GRACA_7 - (Date.now() - G.sil.desde)), falaram: G.sil.falaram } : null,
-      vencedor: G.vencedor || null, log: G.log.slice(-40), ev: G.ev, prazo: G.prazo ? Math.max(0, G.prazo - Date.now()) : 0,
+      sorte: !!G.sorte?.[k], vencedor: G.vencedor || null, log: G.log.slice(-40), ev: G.ev, prazo: G.prazo ? Math.max(0, G.prazo - Date.now()) : 0,
     }
   }
   function difunde() {
@@ -522,6 +534,16 @@ export function criaDescarte(ctx) {
       aplica(d.v)
     }
   }
+  // modo admin: avisa o host quando a chave do painel não bate com o que ele sabe
+  let sorteMandada = ''
+  function confereSorte() {
+    if (!V || me.key !== ADMIN) return
+    const quer = !!(me.admin && ls.get('dc.sorte'))
+    const marca = `${V.id}:${quer}`
+    if (quer === !!V.sorte) { sorteMandada = ''; return }
+    if (sorteMandada === marca) return
+    sorteMandada = marca; manda({ op: 'sorte', on: quer })
+  }
   function aplica(v) {
     const antes = V
     if (v && (!antes || antes.id !== v.id)) {
@@ -533,6 +555,7 @@ export function criaDescarte(ctx) {
     // a mão do 9 apareceu: cada um mede o PRÓPRIO tempo de reação a partir de agora
     if (v?.bate && v.bate.k !== bateK) { bateK = v.bate.k; bateT0 = performance.now(); bateFeito = v.bate.bateram.includes(me.key); bateMs = 0 }
     V = v
+    if (v) setTimeout(confereSorte)
     if (v) v.recebido = Date.now()
     if (antes?.vez !== v?.vez || antes?.descarte?.at(-1)?.id !== v?.descarte?.at(-1)?.id) { escolheCor = false; sel = [] }
     if (v?.mao) sel = sel.filter(id => v.mao.some(c => c.id === id))
@@ -1154,6 +1177,7 @@ export function criaDescarte(ctx) {
   window.__descarte = () => ({ G, V, render, difunde })
   return {
     got: (d, k) => { carregaSons(); got(d, k) }, iniciar, ativo: () => !!V,
+    sorte: () => { sorteMandada = ''; confereSorte() },
     // para o app: troca de jogo e mesas paralelas
     lider: () => !!V && souHost(),
     encerra: () => { if (G && G.host === me.key) encerrar() },
