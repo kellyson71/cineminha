@@ -2877,3 +2877,26 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 .perfil-menu__input { width: 100%; box-sizing: border-box; margin: 2px 0 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; background: #0e0e12; color: inherit; font: inherit; outline: none; }
 .escolhe__emoji { font-size: 1.5rem; line-height: 1; }
 .rail-emoji { font-size: 1.35rem; line-height: 1; }
+
+/* ===== Jogo em tela cheia/palco: nada por cima da mesa. O chat vira coluna à direita e as barras (voz e botões)
+   ficam embaixo dele, sempre visíveis; a mesa encolhe para caber (os jogos usam medidas do contêiner).
+   Sem chat: as barras ganham uma faixa própria embaixo da mesa. ===== */
+@media (min-width: 901px) and (min-height: 501px) {
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on) { --col-jogo: min(340px, 27vw); }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat) { grid-template-columns: minmax(0, 1fr) var(--col-jogo); grid-template-rows: 100%; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat) .chat,
+  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat).idle .chat {
+    position: relative; inset: auto; z-index: 1; width: auto; height: calc(100% - 124px); align-self: start; border: 0; border-left: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); border-radius: 0; background: #0c0c10; backdrop-filter: none; opacity: 1; pointer-events: auto; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat)::after { content: ""; position: absolute; right: 0; bottom: 0; width: var(--col-jogo); height: 124px; background: #0c0c10; border-left: 1px solid rgba(255,255,255,.08); pointer-events: none; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat) .toolbar {
+    left: auto; right: calc(var(--col-jogo) * -1 + 8px); bottom: 10px; transform: none; max-width: calc(var(--col-jogo) - 16px); flex-wrap: wrap; justify-content: center; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat) .toolbar--voz { left: auto !important; right: calc(var(--col-jogo) / 2); translate: 50% 0; bottom: 70px; max-width: calc(var(--col-jogo) - 16px); }
+  /* sem chat: faixa embaixo da mesa para as barras */
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).no-chat .stage { padding-bottom: 66px; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).no-chat .toolbar { left: auto; right: 16px; bottom: 8px; transform: none; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).no-chat .toolbar--voz { left: 16px !important; right: auto; bottom: 8px; }
+  /* as barras não somem quando o mouse para: elas não cobrem nada */
+  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).idle :is(.toolbar, .toolbar--voz) { opacity: 1; pointer-events: auto; }
+  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).idle { cursor: auto; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on) .chat__modo { display: none; }
+}

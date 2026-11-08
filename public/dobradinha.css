@@ -432,3 +432,39 @@
 @keyframes db-pancada { 0% { transform: none; filter: brightness(2); } 15% { transform: translate(-1cqh, .6cqh) rotate(-6deg); } 35% { transform: translate(.9cqh, -.3cqh) rotate(5deg); } 55% { transform: translate(-.5cqh, 0) rotate(-3deg); filter: brightness(1.2); } 100% { transform: none; filter: none; } }
 .db-guarda.chegou-guarda { animation: db-cai .35s cubic-bezier(.2,.9,.3,1.4) both; }
 @media (prefers-reduced-motion: reduce) { .db-mira, .db-mira .db-svg, .db-guarda--eu.pronto, .db-assento.alvo-guarda .db-retrato { animation: none; } }
+
+/* setinha de quem tem a vez, pulando em cima da cabeça (camada própria, por cima das faixas) */
+.db-seta-vez { position: absolute; left: -99px; top: -99px; translate: -50% 0; z-index: 9; display: flex; flex-direction: column; align-items: center; pointer-events: none; animation: db-seta-pula .7s ease-in-out infinite alternate; filter: drop-shadow(0 .4cqh .6cqh rgba(0,0,0,.55)); }
+.db-seta-vez > b { padding: .25cqh 1cqh .35cqh; border-radius: .8cqh; background: var(--lata); color: #2a1b06; font: 700 1.7cqh/1 'Barlow Semi Condensed', sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+.db-seta-vez::after { content: ""; width: 0; height: 0; margin-top: -.1cqh; border: 1.5cqh solid transparent; border-bottom: 0; border-top: 2cqh solid var(--lata); }
+.db-seta-vez--eu > b { font-size: 2.1cqh; }
+.db-seta-vez--eu::after { border-width: 2cqh 1.9cqh 0; }
+@keyframes db-seta-pula { from { transform: translateY(0); } to { transform: translateY(-1.2cqh); } }
+@media (prefers-reduced-motion: reduce) { .db-seta-vez { animation: none; } }
+
+/* mão: fora da vez fica um pouco mais baixa e apagada (ainda dá para ver); na sua vez sobe e brilha */
+.db-eu.em-jogo .db-mao { transition: translate .35s cubic-bezier(.2,.8,.3,1), filter .35s; }
+.db-eu.em-jogo:not(.vez) .db-mao { translate: 0 5.5cqh; filter: brightness(.8) saturate(.85); }
+.db-eu.em-jogo:not(.vez) .db-mao:hover { translate: 0 3cqh; filter: none; }
+.db-eu.vez .db-mao { filter: drop-shadow(0 0 1.6cqh rgba(232,168,23,.55)); }
+.db-eu.chegou-vez .db-mao { animation: db-mao-sobe .5s cubic-bezier(.2,.9,.3,1.25); }
+@keyframes db-mao-sobe { from { translate: 0 5.5cqh; filter: brightness(.8); } }
+@media (prefers-reduced-motion: reduce) { .db-eu.chegou-vez .db-mao { animation: none; } }
+
+/* comanda como bolo de cartas viradas: cresce e espalha com o tanto que a pessoa levou */
+.db-comanda:not(.db-comanda--eu) { position: relative; }
+.db-comanda { display: grid; place-items: end center; gap: 0; padding: 0; background: none; box-shadow: none; rotate: none; min-width: 5cqh; min-height: 5.4cqh; }
+.db-bolo { position: relative; display: block; width: 4.6cqh; height: calc(6.4cqh + var(--k) * .32cqh); }
+.db-bolo__c { position: absolute !important; left: 0; bottom: 0; --w: 4.6cqh; width: 4.6cqh !important; margin: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)); box-shadow: 0 .15cqh .4cqh rgba(0,0,0,.45); animation: none !important; }
+.db-bolo__c .db-costas__selo { display: none; }
+.db-comanda__n { position: absolute; right: -1.2cqh; top: -1cqh; z-index: 2; min-width: 2.6cqh; height: 2.6cqh; padding: 0 .5cqh; border-radius: 99px; display: grid; place-items: center; background: var(--papel); color: var(--vermelho); font: 2cqh/1 var(--mao-livre); box-shadow: 0 .3cqh .8cqh rgba(0,0,0,.45), inset 0 0 0 .18cqh var(--vermelho); }
+.db-comanda.vazia { min-height: 0; }
+.db-comanda.vazia .db-bolo { display: none; }
+.db-comanda.vazia .db-comanda__zero { padding: .3cqh .9cqh; border: .2cqh dashed rgba(42,27,6,.35); border-radius: .5cqh; font: 1.7cqh/1 var(--mao-livre); color: rgba(42,27,6,.6); opacity: 1; background: rgba(251,247,236,.35); }
+.db-cola__it > .db-comanda { padding: 0; rotate: none; min-width: 3.4cqh; min-height: 3.4cqh; }
+.db-cola__it > .db-comanda .db-bolo { width: 2.2cqh; height: calc(3.2cqh + var(--k) * .26cqh); }
+.db-cola__it > .db-comanda .db-bolo__c { --w: 2.2cqh; width: 2.2cqh !important; }
+.db-cola__it > .db-comanda .db-comanda__n { min-width: 1.8cqh; height: 1.8cqh; font-size: 1.4cqh; right: -.8cqh; top: -.6cqh; }
+/* nas poltronas o bolo fica ao lado da foto, sem empurrar a poltrona para cima */
+.db-assento > .db-comanda { position: absolute; left: calc(50% + 6.2cqh); bottom: 0; }
+.db-assento > .db-comanda.vazia { left: 50%; bottom: auto; top: 100%; translate: -50% .4cqh; }

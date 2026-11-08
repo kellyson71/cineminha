@@ -439,13 +439,16 @@ export function criaDobradinha(ctx) {
   const guarda = (cls = '') => el('div', { className: `db-guarda ${cls}`, 'data-info': 'Guarda-chuva esquecido\nQuem não repõe a mão a tempo fica com ele: −1 ponto no fim da rodada' }, svg('guarda'))
   const retrato = (k, nm, cls = '') => el('span', { className: `db-retrato ${cls}` }, ctx.pfp(k, 64, nm))
   // comanda: os risquinhos de giz contam as cartas levadas (grupos de 5)
+  // comanda: as cartas levadas viram um bolo de cartas viradas na frente da pessoa; quanto mais cartas, maior e mais bagunçado
   function comanda(n, key, cls = '') {
-    const grupos = Math.floor(n / 5), resto = n % 5
-    const riscos = el('span', { className: 'db-riscos' },
-      ...Array.from({ length: Math.min(grupos, 4) }, () => el('i', { className: 'db-cinco' })),
-      ...Array.from({ length: grupos > 4 ? 0 : resto }, () => el('i', { className: 'db-um' })))
-    return el('div', { className: `db-comanda ${cls}`, 'data-conta': key, 'data-info': `Comanda: ${n} carta${n === 1 ? '' : 's'} levada${n === 1 ? '' : 's'}\nMais cartas, menos pontos no fim da rodada` },
-      el('b', { className: 'db-comanda__n', textContent: String(n) }), n ? riscos : el('span', { className: 'db-comanda__zero', textContent: 'limpa' }))
+    const k = Math.min(n, 16), abre = .12 + k * .035
+    const bolo = el('span', { className: 'db-bolo', style: `--k:${k}` }, ...Array.from({ length: k }, (_, i) => {
+      const c = carta(null, 'db-bolo__c')
+      c.style.cssText = `--x:${(((i * 29) % 13) - 3) * abre}cqh;--y:${-i * .32 + (((i * 17) % 5) - 2) * .14}cqh;--r:${((i * 47) % 37) - 18}deg`
+      return c
+    }))
+    return el('div', { className: `db-comanda ${n ? '' : 'vazia'} ${cls}`, 'data-conta': key, 'data-info': `Comanda: ${n} carta${n === 1 ? '' : 's'} levada${n === 1 ? '' : 's'}\nMais cartas, menos pontos no fim da rodada` },
+      bolo, n ? el('b', { className: 'db-comanda__n', textContent: String(n) }) : el('span', { className: 'db-comanda__zero', textContent: 'limpa' }))
   }
   const giro = id => ((id * 37) % 13) - 6
 
@@ -502,6 +505,7 @@ export function criaDobradinha(ctx) {
     tela.replaceChildren(...kids)
     tela.classList.toggle('acabou', V.fase === 'fim' || V.fase === 'placar')
     ctx.hydrate(tela)
+    poeSetaVez()
     if (entregando) tela.querySelectorAll('.db-mao .db-carta, .db-leque-mesa .db-carta').forEach(n => n.classList.add('oculta'))
     tela.querySelector('.db-log ol')?.scrollTo(0, 1e6)
     if (aula?.raiz.isConnected) aula.acorda(); else aula?.para()
@@ -570,6 +574,25 @@ export function criaDobradinha(ctx) {
     if (pronta) { lo.classList.add('alvo'); lo.addEventListener('click', () => enviar()) }
     return el('div', { className: 'db-centro' + (pronta ? ' pronta' : '') }, el('div', { className: `db-sentido ${V.dir > 0 ? 'hora' : 'anti'}` }, svg('seta')), el('div', { className: 'db-monte-col' }, monte, esqLivre), esc, lo)
   }
+  // setinha amarela pulando em cima da cabeça de quem tem a vez
+  const setaVez = (cls = '') => el('i', { className: `db-seta-vez ${cls}`, 'aria-hidden': 'true' }, el('b', { textContent: 'vez' }))
+  // a seta fica numa camada por cima da mesa e das faixas, presa na cabeça (foto ou boneco) de quem joga
+  function poeSetaVez() {
+    tela.querySelector('.db-seta-vez')?.remove()
+    if (V?.fase !== 'jogo' || !V.vez) return
+    const eu = V.vez === me.key
+    const alvo = eu ? tela.querySelector('.db-eu .db-mao') : tela.querySelector(`.db-assento[data-key="${CSS.escape(V.vez)}"] .db-retrato`)
+    if (!alvo) return
+    const seta = setaVez(eu ? 'db-seta-vez--eu' : ''); if (eu) seta.firstChild.textContent = 'sua vez'; tela.append(seta)
+    const poe = () => {
+      if (!seta.isConnected) return
+      const r = alvo.getBoundingClientRect(), t = tela.getBoundingClientRect()
+      if (!r.width) return
+      seta.style.left = (r.left - t.left + r.width / 2) + 'px'; seta.style.top = (r.top - t.top - seta.offsetHeight - (eu ? r.height * .32 : 4)) + 'px'
+    }
+    poe(); requestAnimationFrame(poe)
+    if (alvo.tagName === 'IMG' && !alvo.complete) alvo.addEventListener('load', poe, { once: true })
+  }
   function assento(x, ang) {
     const P = pos(ang, 45, 41), C = pos(ang, 29, 25.5)
     const vez = V.fase === 'jogo' && V.vez === x.key
@@ -603,7 +626,8 @@ export function criaDobradinha(ctx) {
     const j = eu(), conv = V.fase === 'convite'
     const bon = ctx.boneco?.(me.key)
     const minha = minhaVez()
-    const area = el('div', { className: 'db-eu' + (minha ? ' vez' : '') + (V.vencedores?.includes(me.key) ? ' vencedor' : ''), 'data-key': me.key },
+    const chegouVez = minha && antes && antes.id === V.id && antes.vez !== me.key
+    const area = el('div', { className: 'db-eu' + (minha ? ' vez' : '') + (chegouVez ? ' chegou-vez' : '') + (V.fase === 'jogo' ? ' em-jogo' : '') + (V.vencedores?.includes(me.key) ? ' vencedor' : ''), 'data-key': me.key },
       bon ? el('img', { className: 'db-boneco', src: bon, alt: '', draggable: false }) : el('div', { className: 'db-boneco db-boneco--pfp' }, retrato(me.key, me.name)))
     if (conv) { if (V.conv[me.key]) area.append(el('small', { className: `db-conv db-conv--${V.conv[me.key]}`, textContent: V.conv[me.key] === 'sim' ? 'você vai jogar' : 'você só assiste' })); return area }
     if (!j || !V.mao) { area.append(el('small', { className: 'db-dica', textContent: 'assistindo' })); return area }

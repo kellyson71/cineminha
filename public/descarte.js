@@ -775,7 +775,8 @@ export function criaDescarte(ctx) {
     const j = eu(), conv = V.fase === 'convite'
     const bon = ctx.boneco?.(me.key)
     const minha = V.fase === 'jogo' && V.vez === me.key
-    const area = el('div', { className: 'dc-eu' + (emJogo(V.fase) && V.vez === me.key ? ' vez' : '') + (V.vencedor === me.key ? ' vencedor' : '') + (V.fase === 'jogo' && V.mao?.length === 1 ? ' um' : ''), 'data-key': me.key },
+    const chegouVez = emJogo(V.fase) && V.vez === me.key && antes && antes.id === V.id && antes.vez !== me.key
+    const area = el('div', { className: 'dc-eu' + (emJogo(V.fase) && V.vez === me.key ? ' vez' : '') + (chegouVez ? ' chegou-vez' : '') + (emJogo(V.fase) ? ' em-jogo' : '') + (V.vencedor === me.key ? ' vencedor' : '') + (V.fase === 'jogo' && V.mao?.length === 1 ? ' um' : ''), 'data-key': me.key },
       bon ? el('img', { className: 'dc-boneco', src: bon, alt: '', draggable: false }) : el('div', { className: 'dc-boneco dc-boneco--pfp' }, retrato(me.key, me.name)))
     if (conv) { if (V.conv[me.key]) area.append(el('small', { className: `dc-conv dc-conv--${V.conv[me.key]}`, textContent: V.conv[me.key] === 'sim' ? 'você vai jogar' : 'você só assiste' })); return area }
     if (!j || !V.mao) { area.append(el('small', { className: 'dc-dica', textContent: 'assistindo' })); return area }

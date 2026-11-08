@@ -442,3 +442,12 @@
 .dc-guia li small { font-size: 1.75cqh; line-height: 1.35; color: var(--apagado); }
 .dc-guia__pe { margin: 1.6cqh 0 0; font-size: 1.7cqh; color: var(--apagado); text-align: center; }
 @media (prefers-reduced-motion: reduce) { .dc-vezfaixa, .dc-assento.vez .dc-retrato, .dc-seta-vez, .dc-contador, .dc-assento.apanha .dc-medalha, .dc-eu.apanha .dc-boneco { animation: none !important; } }
+
+/* mão: fora da vez fica um pouco mais baixa e apagada (ainda dá para ver); na sua vez sobe e brilha */
+.dc-eu.em-jogo .dc-mao { transition: translate .35s cubic-bezier(.2,.8,.3,1), filter .35s; }
+.dc-eu.em-jogo:not(.vez) .dc-mao { translate: 0 5.5cqh; filter: brightness(.78) saturate(.85); }
+.dc-eu.em-jogo:not(.vez) .dc-mao:hover { translate: 0 3cqh; filter: none; }
+.dc-eu.vez .dc-mao { filter: drop-shadow(0 0 1.6cqh rgba(255,204,0,.45)); }
+.dc-eu.chegou-vez .dc-mao { animation: dc-mao-sobe .5s cubic-bezier(.2,.9,.3,1.25); }
+@keyframes dc-mao-sobe { from { translate: 0 5.5cqh; filter: brightness(.78); } }
+@media (prefers-reduced-motion: reduce) { .dc-eu.chegou-vez .dc-mao { animation: none; } }
