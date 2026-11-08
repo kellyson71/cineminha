@@ -1,7 +1,8 @@
 // Dobradinha: jogo de escalada numa mesa de boteco. Cada um joga uma carta (ou duas iguais) de valor igual ou maior que o
 // da lousa; empatar o valor dobra. Quem não pode (ou não quer) subir leva as cartas da mesa para a comanda, e cartas na
-// comanda são ruins: no fim da rodada, quem tem mais cartas faz menos pontos. Depois de jogar, a pessoa repõe a mão
-// clicando no monte; quem passa a vez sem repor fica com o guarda-chuva esquecido (-1 ponto na rodada).
+// comanda são ruins: no fim da rodada, quem tem mais cartas faz menos pontos. Depois de jogar, a vez já passa e a pessoa
+// tem REPOR_MS para repor a mão clicando no monte (o jogo não espera); quem não repõe a tempo fica com o guarda-chuva
+// esquecido (-1 ponto na rodada).
 // Mesma arquitetura dos outros jogos: o host guarda tudo e manda para cada um só o que pode ver ({ db: ... }).
 
 import { criaAula } from './aula.js'
@@ -12,7 +13,7 @@ const CAPA = 'jogos/dobradinha/capa.webp', MARCA = 'jogos/dobradinha/marca.webp'
 const SONS = ['embaralhar', 'desliza1', 'desliza2', 'desliza3', 'poe1', 'poe2', 'leque', 'carimbo', 'papel', 'vez', 'clique', 'tique', 'pular', 'inverter', 'moedas', 'golpe']
 const VOL = { embaralhar: .5, carimbo: .6, papel: .45, vez: .5, clique: .3, tique: .28, pular: .6, inverter: .6, moedas: .5, golpe: .45, leque: .7 }
 const SAIU_MS = 12000, HOST_MS = 10000, MIN_JOG = 2, MAX_JOG = 6
-const REPOR_MS = 9000 // depois de jogar: tempo para repor a mão antes de a vez passar sozinha
+const REPOR_MS = 9000 // depois de jogar: tempo para repor a mão (a vez já seguiu para o próximo)
 const RODADAS = [[1, '1 rodada'], [3, '3 rodadas'], ['n', '1 por pessoa']]
 // 50 cartas numeradas (valor: quantidade) + 3 curingas, 2 "passa" e 2 "inverte"
 const QTD = { 2: 5, 3: 6, 4: 6, 5: 6, 6: 6, 7: 5, 8: 4, 9: 3, 10: 3, 11: 3, 12: 3 }
@@ -87,7 +88,7 @@ export function criaDobradinha(ctx) {
       op: { rodadas: RODADAS.some(([v]) => v === op.rodadas) ? op.rodadas : 3 },
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
       js: [], monte: [], fora: [], mesa: [], valor: 0, dir: 1, vez: 0, etapa: 'joga', esq: null, rodada: 0, nRodadas: 3,
-      resumo: null, vencedores: [], ultFim: null, prazo: 0, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
+      resumo: null, vencedores: [], ultFim: null, prazo: 0, repor: {}, log: [], ev: [], evN: 0, seq: 0, t: Date.now() }
     sysMsg(`${me.name} abriu uma mesa de Dobradinha`)
     difunde()
   }
@@ -109,7 +110,7 @@ export function criaDobradinha(ctx) {
     G.monte = baralho(G.js.length)
     G.fora = G.js.length === 2 ? G.monte.splice(0, 10) : [] // com 2 pessoas, 10 cartas ficam de fora a cada rodada
     for (const j of G.js) { j.mao = G.monte.splice(-maoMax()); j.conta = 0 }
-    G.mesa = []; G.valor = 0; G.esq = null; G.etapa = 'joga'; G.resumo = null; G.prazo = 0
+    G.mesa = []; G.valor = 0; G.esq = null; G.etapa = 'joga'; G.resumo = null; G.prazo = 0; G.repor = {}
     if (!primeira) {
       // começa quem tem menos pontos; empate: o primeiro no sentido do jogo depois de quem fechou a rodada
       const i0 = Math.max(0, idx(G.ultFim))
@@ -122,12 +123,30 @@ export function criaDobradinha(ctx) {
     ev({ t: 'inicio', rodada: G.rodada })
     difunde()
   }
+  // partidas salvas no formato antigo (vez parada esperando repor): solta a vez
   function armaTempo() {
     clearTimeout(timer)
-    G.prazo = G.etapa === 'repor' && G.fase === 'jogo' ? Date.now() + REPOR_MS : 0
-    if (!G.prazo) return
-    const turno = `${G.id}:${G.evN}`
-    timer = setTimeout(() => { if (G && `${G.id}:${G.evN}` === turno && G.etapa === 'repor') { ev({ t: 'tempo', key: G.js[G.vez].key }); passar(G.js[G.vez].key) } }, REPOR_MS + 60)
+    G.repor ||= {}
+    if (G.etapa === 'repor' && G.fase === 'jogo') { G.repor[G.js[G.vez].key] = Date.now() + REPOR_MS; G.etapa = 'joga'; G.vez = depois(G.vez, 1) }
+    G.prazo = 0
+  }
+  // quem jogou e ainda não repôs: o jogo segue; acabou o tempo, fica com o guarda-chuva
+  setInterval(() => {
+    if (!G || G.host !== me.key || G.fase !== 'jogo' || !G.repor) return
+    const agora = Date.now(), vencidos = Object.keys(G.repor).filter(k => agora >= G.repor[k])
+    if (!vencidos.length) return
+    for (const k of vencidos) esqueceu(k)
+    difunde()
+  }, 250)
+  function esqueceu(key) {
+    delete G.repor[key]
+    const j = jog(key)
+    if (!j || j.mao.length >= maoMax() || !G.monte.length) return
+    G.esq = key
+    ev({ t: 'esqueceu', key })
+    log(`${j.nome} não repôs a mão a tempo e ficou com o guarda-chuva.`)
+    // mão vazia não dá para jogar: compra o que falta mesmo assim
+    if (!j.mao.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...G.monte.splice(-n)); ev({ t: 'compra', key, qtd: n }) }
   }
   function avanca() {
     clearTimeout(timer)
@@ -152,8 +171,9 @@ export function criaDobradinha(ctx) {
     else if (r.acao === 'passa') log(`${j.nome} passou adiante (a lousa fica em ${G.valor}).`)
     else log(`${j.nome} jogou ${cs.map(nomeCarta).join(' + ')}${r.dobrou ? ` e dobrou: ${r.val}` : `: ${r.val}`}.`)
     if (!j.mao.length && !G.monte.length) return fimRodada(key)
-    if (!G.monte.length || j.mao.length >= maoMax()) return avanca()
-    G.etapa = 'repor'; armaTempo(); difunde()
+    // a vez segue na hora; quem jogou repõe a mão quando quiser, dentro do tempo
+    if (G.monte.length && j.mao.length < maoMax()) (G.repor ||= {})[key] = Date.now() + REPOR_MS
+    avanca()
   }
   function pegar(key) {
     const i = idx(key), j = G.js[i]
@@ -165,27 +185,21 @@ export function criaDobradinha(ctx) {
     difunde() // a vez continua com quem levou: abre a escalada nova
   }
   function comprar(key) {
-    const i = idx(key), j = G.js[i]
-    if (G.fase !== 'jogo' || i !== G.vez || G.etapa !== 'repor') return
+    const j = jog(key)
+    if (G.fase !== 'jogo' || !j || !G.repor?.[key]) return
+    delete G.repor[key]
     const n = Math.min(maoMax() - j.mao.length, G.monte.length)
     if (n > 0) { j.mao.push(...G.monte.splice(-n)); ev({ t: 'compra', key, qtd: n }) }
-    avanca()
+    difunde()
   }
   function passar(key) {
-    const i = idx(key), j = G.js[i]
-    if (G.fase !== 'jogo' || i !== G.vez || G.etapa !== 'repor') return
-    if (j.mao.length < maoMax() && G.monte.length) {
-      G.esq = key
-      ev({ t: 'esqueceu', key })
-      log(`${j.nome} passou a vez sem repor a mão e ficou com o guarda-chuva.`)
-      // mão vazia não dá para jogar: compra o que falta mesmo assim
-      if (!j.mao.length) { const n = Math.min(maoMax(), G.monte.length); j.mao.push(...G.monte.splice(-n)); ev({ t: 'compra', key, qtd: n }) }
-    }
-    avanca()
+    if (G.fase !== 'jogo' || !G.repor?.[key]) return
+    esqueceu(key)
+    difunde()
   }
   function fimRodada(key) {
     clearTimeout(timer)
-    G.ultFim = key; G.prazo = 0; G.etapa = 'joga'
+    G.ultFim = key; G.prazo = 0; G.etapa = 'joga'; G.repor = {}
     // quem tem mais cartas fica em 1º e faz 1 ponto; empate divide a posição e pula as seguintes
     G.resumo = G.js.map(j => {
       const pos = 1 + G.js.filter(o => o.conta > j.conta).length
@@ -229,7 +243,8 @@ export function criaDobradinha(ctx) {
       js: G.js.map(j => ({ key: j.key, nome: j.nome, n: j.mao.length, conta: j.conta, tot: j.tot, pts: j.pts })),
       mao: jog(k)?.mao || null, mesa: G.mesa.slice(-6), nMesa: nMesa(), valor: G.valor, monte: G.monte.length, max: G.js.length ? maoMax() : 6,
       vez: G.js[G.vez]?.key || null, etapa: G.etapa, esq: G.esq, dir: G.dir, rodada: G.rodada, nRodadas: G.nRodadas,
-      resumo: G.resumo, vencedores: G.vencedores, log: G.log.slice(-40), ev: G.ev, prazo: G.prazo ? Math.max(0, G.prazo - Date.now()) : 0,
+      resumo: G.resumo, vencedores: G.vencedores, log: G.log.slice(-40), ev: G.ev, prazo: 0,
+      repor: Object.fromEntries(Object.entries(G.repor || {}).map(([k, t]) => [k, Math.max(0, t - Date.now())])), // quem ainda pode repor (ms que faltam)
     }
   }
   function difunde() {
@@ -252,6 +267,7 @@ export function criaDobradinha(ctx) {
     const j = G.js[i], nome = j.nome
     G.monte.push(...j.mao); embaralha(G.monte)
     if (G.esq === key) G.esq = null
+    if (G.repor) delete G.repor[key]
     const eraVez = i === G.vez
     G.js.splice(i, 1)
     ausDesde.delete(key)
@@ -316,6 +332,7 @@ export function criaDobradinha(ctx) {
   const eu = () => V?.js.find(j => j.key === me.key)
   const N = k => k === me.key ? 'Você' : (V?.js.find(j => j.key === k)?.nome || ctx.nomeDe(k))
   const minhaVez = () => V?.fase === 'jogo' && V.vez === me.key
+  const podeRepor = () => V?.fase === 'jogo' && V.repor?.[me.key] > 0 && V.mao && V.mao.length < V.max && V.monte > 0
   function manda(d) {
     if (!V) return
     const m = { id: V.id, ...d }
@@ -400,7 +417,7 @@ export function criaDobradinha(ctx) {
       el('span', { className: 'db-meio' }, simbolo(c), c.v === 'cur' ? el('small', { className: 'db-sub', textContent: esc ? `valeu ${esc}` : '2 a 12' }) : c.v === 'passa' ? el('small', { className: 'db-sub', textContent: 'passa' }) : c.v === 'inv' ? el('small', { className: 'db-sub', textContent: 'inverte' }) : ''),
       el('span', { className: 'db-canto db-canto--b' }, simbolo(c, true)))
   }
-  const guarda = (cls = '') => el('div', { className: `db-guarda ${cls}`, 'data-info': 'Guarda-chuva esquecido\nQuem passa a vez sem repor a mão fica com ele: −1 ponto no fim da rodada' }, svg('guarda'))
+  const guarda = (cls = '') => el('div', { className: `db-guarda ${cls}`, 'data-info': 'Guarda-chuva esquecido\nQuem não repõe a mão a tempo fica com ele: −1 ponto no fim da rodada' }, svg('guarda'))
   const retrato = (k, nm, cls = '') => el('span', { className: `db-retrato ${cls}` }, ctx.pfp(k, 64, nm))
   // comanda: os risquinhos de giz contam as cartas levadas (grupos de 5)
   function comanda(n, key, cls = '') {
@@ -474,11 +491,11 @@ export function criaDobradinha(ctx) {
     if (V.fase !== 'jogo') return ''
     const minha = V.vez === me.key, quem = N(V.vez)
     let txt
-    if (V.etapa === 'repor') txt = minha ? ['Reponha a mão: ', el('b', { textContent: 'clique no monte' }), ' (ou fica com o guarda-chuva)'] : [el('b', { textContent: quem }), ' está repondo a mão']
-    else if (!V.nMesa) txt = minha ? [el('b', { textContent: 'Sua vez' }), ': abra a escalada com qualquer carta ou par'] : [el('b', { textContent: quem }), ' abre a escalada']
+    if (!V.nMesa) txt = minha ? [el('b', { textContent: 'Sua vez' }), ': abra a escalada com qualquer carta ou par'] : [el('b', { textContent: quem }), ' abre a escalada']
     else txt = minha ? [el('b', { textContent: 'Sua vez' }), ': jogue ', el('b', { textContent: `${V.valor} ou mais` }), ` (${V.valor} cravado dobra) ou leve a mesa`] : [el('b', { textContent: quem }), ' precisa de ', el('b', { textContent: `${V.valor} ou mais` })]
     const ult = V.log[V.log.length - 1]
-    return el('div', { className: 'db-status' + (minha ? ' minha' : '') }, el('span', { className: 'db-status__vez' }, ...txt), ult ? el('small', { className: 'db-status__ult', textContent: ult }) : '')
+    const repor = podeRepor() ? el('span', { className: 'db-status__repor' }, 'Reponha a mão: ', el('b', { textContent: 'clique no monte' }), ' antes do tempo acabar') : ''
+    return el('div', { className: 'db-status' + (minha ? ' minha' : '') }, el('span', { className: 'db-status__vez' }, ...txt), repor, ult ? el('small', { className: 'db-status__ult', textContent: ult }) : '')
   }
   let colaAberta = ls.get('db.cola') !== false
   function cola() {
@@ -495,7 +512,7 @@ export function criaDobradinha(ctx) {
         item(carta({ id: 904, v: 'cur' }, 'db-micro'), 'Curinga', 'vale o que você escolher, de 2 a 12; faz par com qualquer número'),
         item(carta({ id: 905, v: 'passa' }, 'db-micro'), 'Passa', 'a lousa fica como está e a vez segue'),
         item(carta({ id: 906, v: 'inv' }, 'db-micro'), 'Inverte', dois ? 'fora do baralho com 2 pessoas' : 'como o Passa, e o sentido da mesa vira', dois ? 'fora' : ''),
-        item(guarda('db-micro-guarda'), 'Guarda-chuva', 'passou a vez sem repor a mão? fica com ele: −1'),
+        item(guarda('db-micro-guarda'), 'Guarda-chuva', 'não repôs a mão a tempo? fica com ele: −1'),
         item(comanda(3, '', 'db-micro-comanda'), 'Comanda', 'cartas levadas; quem tem mais faz menos pontos')))
     box.querySelector('.db-cola__aba').addEventListener('click', () => { colaAberta = !colaAberta; ls.set('db.cola', colaAberta); som('papel', 0, .5); render() })
     return box
@@ -515,7 +532,7 @@ export function criaDobradinha(ctx) {
   }
   function centro() {
     const minha = minhaVez()
-    const repor = minha && V.etapa === 'repor' && V.mao && V.mao.length < V.max && V.monte > 0
+    const repor = podeRepor()
     const monte = el('div', { className: 'db-monte' + (repor ? ' pode' : ''), 'data-info': `Monte: ${V.monte} carta${V.monte === 1 ? '' : 's'}${repor ? `\nClique para repor a mão (+${Math.min(V.max - V.mao.length, V.monte)})` : ''}` },
       ...Array.from({ length: V.monte ? Math.min(6, Math.max(1, Math.ceil(V.monte / 9))) : 0 }, (_, i) => { const n = carta(null); n.style.setProperty('--i', i); return n }),
       V.monte ? '' : el('span', { className: 'db-monte__vazio', textContent: 'acabou' }))
@@ -541,7 +558,7 @@ export function criaDobradinha(ctx) {
       el('span', { className: 'db-placa' }, x.nome, x.pts?.length ? el('i', { textContent: ` · ${x.tot} pt${x.tot === 1 ? '' : 's'}` }) : ''),
       x.conv ? el('small', { className: `db-conv db-conv--${x.conv}`, textContent: x.conv === 'sim' ? 'vai jogar' : x.conv === 'nao' ? 'só assiste' : 'decidindo…' }) : '',
       x.n != null ? comanda(x.conta, x.key) : '')
-    if (vez && V.etapa === 'repor' && V.prazo) s.querySelector('.db-medalha').append(el('i', { className: 'db-anel', 'data-fim': String(V.recebido + V.prazo), 'data-tot': String(REPOR_MS) }))
+    if (V.repor?.[x.key]) s.querySelector('.db-medalha').append(el('i', { className: 'db-anel', 'data-fim': String(V.recebido + V.repor[x.key]), 'data-tot': String(REPOR_MS), title: 'ainda pode repor a mão' }))
     if (x.n == null) return [s]
     const n = Math.min(x.n, 8)
     const leque = el('div', { className: 'db-leque-mesa', style: `left:${C.x}%;top:${C.y}%;--rot:${ang - 90}deg;--n:${n}`, 'data-mao': x.key, 'data-info': `${x.nome}: ${x.n} carta${x.n === 1 ? '' : 's'} na mão` },
@@ -581,7 +598,7 @@ export function criaDobradinha(ctx) {
     if (joga && sel.length) area.append(el('small', { className: 'db-dica-sel', textContent: possivel(selCartas(), V.valor) ? 'clique de novo, na mesa ou em Jogar · botão direito tira' : sel.length === 1 ? 'escolha a outra do par' : 'esse par não chega' }))
     area.append(mao, comanda(j.conta, me.key, 'db-comanda--eu'))
     if (V.esq === me.key) area.append(guarda('db-guarda--eu'))
-    if (minha && V.etapa === 'repor' && V.prazo) area.append(el('i', { className: 'db-pavio', 'data-fim': String(V.recebido + V.prazo), 'data-tot': String(REPOR_MS) }))
+    if (V.repor?.[me.key]) area.append(el('i', { className: 'db-pavio', 'data-fim': String(V.recebido + V.repor[me.key]), 'data-tot': String(REPOR_MS) }))
     return area
   }
   function clicaCarta(c) {
@@ -617,13 +634,14 @@ export function criaDobradinha(ctx) {
   // botões do momento (canto direito)
   function controles() {
     const j = eu()
-    if (!j || V.fase !== 'jogo' || !minhaVez()) return ''
+    if (!j || V.fase !== 'jogo') return ''
     const bts = []
-    if (V.etapa === 'repor') {
+    // repor a mão não depende da vez: o jogo já seguiu
+    if (podeRepor()) {
       const falta = Math.min(V.max - V.mao.length, V.monte)
-      bts.push(botao(`Comprar ${falta}`, () => { som('desliza'); manda({ op: 'compra' }) }, 'db-btn--forte db-btn--grande', 'Repõe a mão e passa a vez'))
-      bts.push(botao('Passar a vez', () => manda({ op: 'passa' }), 'db-btn--leve'))
-    } else {
+      bts.push(botao(`Comprar ${falta}`, () => { som('desliza'); manda({ op: 'compra' }) }, 'db-btn--forte db-btn--grande db-btn--repor', 'Repõe a mão antes do tempo acabar (senão fica com o guarda-chuva)'))
+    }
+    if (minhaVez()) {
       const cs = selCartas()
       if (cs.length) {
         const r = soCuringa(cs) ? null : calcula(cs, V.valor)
