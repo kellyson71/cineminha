@@ -154,7 +154,7 @@ export function criaFaixa(ctx) {
     if (!d) return
     if (d.estado) {
       const e = d.estado
-      if (e.fim) { if (!S || e.id === S.id) { S = null; parar(); render() } return }
+      if (e.fim) { if (ls.get('faixa.S')?.id === e.id) ls.set('faixa.S', null); if (!S || e.id === S.id) { S = null; parar(); render() } return }
       if (S && e.id === S.id && e.seq <= S.seq) return
       if (e.host !== me.key && ls.get('faixa.S')?.id === e.id) ls.set('faixa.S', null) // alguém segue a partida: não volto a ela como host
       fechaVer() // a partida começou: o menu de quem escolhia sai da frente
@@ -659,7 +659,9 @@ export function criaFaixa(ctx) {
       el('div', { className: 'fx-topo__info' },
         S.fase === 'fim' ? el('small', { textContent: 'Placar final' }) : el('small', {}, el('b', { textContent: `${S.i + 1}/${S.musicas.length}` }), ` · ${S.rotulo || nomeDia(at.d)}`),
         (() => { const b = el('button', { type: 'button', className: 'fx-modo', title: !ehHost() ? MODOS[S.modo].dica : trocavel ? 'Trocar o modo' : `${MODOS[S.modo].dica} (o modo só muda ao começar um jogo)`, disabled: !trocavel }, icon(MODOS[S.modo].ic), MODOS[S.modo].nome, trocavel ? icon('chevron-down') : ''); b.addEventListener('click', e => escolheModo(S.modo, mudarModo, e.currentTarget, ANTIGOS)); return b })()),
-      ehHost() ? botao('x', '', encerrar, 'fx-btn--x', 'Encerrar o jogo') : el('small', { className: 'fx-host', textContent: `host: ${S.hostNome}` }))
+      ehHost() ? '' : el('small', { className: 'fx-host', textContent: `host: ${S.hostNome}` }),
+      // qualquer um na call pode encerrar (se o host sair, o jogo não fica preso na tela de todo mundo)
+      botao('x', '', encerrar, 'fx-btn--x', ehHost() ? 'Encerrar o jogo' : 'Encerrar o jogo para todos'))
     const corpo = S.fase === 'fim' ? placarFinal() : S.fase === 'revela' ? revela(m) : rodada(m)
     tela.replaceChildren(topo, el('div', { className: 'fx-corpo' }, corpo, lado()))
     ctx.hydrate(tela)
@@ -874,7 +876,7 @@ export function criaFaixa(ctx) {
       c ? el('div', { className: 'fx-equipe fx-equipe--final' }, el('b', { textContent: pontosEquipe().toLocaleString('pt-BR') }), el('small', { textContent: `pontos juntos · ${S.musicas.length} música${S.musicas.length > 1 ? 's' : ''}` })) : '',
       c ? el('small', { className: 'fx-kicker', textContent: 'Quem mais acertou para a equipe' }) : '',
       el('ol', { className: 'fx-podio' }, ...rank.map(([k, nome, p], i) => el('li', { className: i === 0 ? 'top' : '' }, el('span', { className: 'fx-podio__pos', textContent: `${i + 1}º` }), ctx.pfp(k, 32), el('b', { textContent: nome }), el('em', { textContent: c ? (p ? `★ ${p}` : '—') : `${p}` })))),
-      ehHost() ? el('div', { className: 'fx-final__ctl' }, botao('rotate-ccw', 'Jogar mais', () => abrirLobby()), botao('x', 'Fechar', encerrar)) : '')
+      el('div', { className: 'fx-final__ctl' }, ehHost() ? botao('rotate-ccw', 'Jogar mais', () => abrirLobby()) : '', botao('x', 'Fechar', encerrar)))
   }
   function lado() {
     const cegas = S.modo === 'cegas' && S.fase === 'tocando'
@@ -1087,7 +1089,7 @@ export function criaFaixa(ctx) {
     if (ver && menuPendente) eu.nav(menuPendente); else inicio()
   }
   function iniciar() {
-    if (S && !ehHost()) return toast(`Já tem um jogo rolando (host: ${S.hostNome})`)
+    if (S && !ehHost() && ctx.presentes().includes(S.host)) return toast(`Já tem um jogo rolando (host: ${S.hostNome})`)
     abrirLobby()
   }
 

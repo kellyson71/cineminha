@@ -264,17 +264,32 @@
 .dc-assento.caiu { opacity: .4; filter: grayscale(1); }
 .dc-assento.caiu .dc-placa::after { content: " · caiu"; color: var(--r); }
 
-/* UNO: logo original, borda branca e elipse central do baralho clássico. */
+/* cartas: face colorida com janela central e listras leves; coringas com moldura nas quatro cores; verso próprio */
 .dc-logo--oficial { display: block; width: 9cqh; height: 6cqh; object-fit: contain; padding: 0; }
-.dc-carta:not(.costas) { border: max(1px, .35cqh) solid #fff; background-image: none; }
-.dc-carta:not(.costas)::before { inset: 15% 8%; border: 0; background: #fff; border-radius: 50%; transform: rotate(28deg); }
-.dc-carta:not(.costas) .dc-meio { color: var(--k); }
-.dc-r .dc-meio { color: var(--r) !important; }
-.dc-y .dc-meio { color: #dca900 !important; }
-.dc-g .dc-meio { color: var(--g) !important; }
-.dc-b .dc-meio { color: var(--b) !important; }
-.dc-carta.costas { background: #111 url('jogos/uno/logo.svg') center / 88% auto no-repeat; border: max(1px, .3cqh) solid #fff; }
-.dc-carta.costas::before, .dc-carta.costas::after, .dc-carta.costas .dc-marca, .dc-carta.costas .dc-faixas { display: none; }
+.dc-carta:not(.costas) { border: max(1px, .3cqh) solid #fbf8f1;
+  background-image: radial-gradient(120% 70% at 15% 0%, rgba(255,255,255,.32), transparent 55%), radial-gradient(90% 60% at 100% 100%, rgba(0,0,0,.3), transparent 65%), repeating-linear-gradient(135deg, rgba(255,255,255,.07) 0 5%, transparent 5% 10%);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.35), 0 .35cqh .9cqh rgba(0,0,0,.45); }
+.dc-carta:not(.costas)::before { inset: 15% 17%; border: 0; border-radius: 26% / 18%; transform: none;
+  background: linear-gradient(160deg, rgba(0,0,0,.08), rgba(0,0,0,.26)); box-shadow: inset 0 0 0 max(1px, .14cqh) rgba(255,255,255,.55), inset 0 .5cqh 1.2cqh rgba(0,0,0,.25); }
+.dc-carta:not(.costas):not(.dc-corcarta)::after { content: ""; position: absolute; inset: -20% auto -20% 12%; width: 40%; rotate: 20deg; background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent); pointer-events: none; }
+.dc-carta:not(.costas) .dc-meio, .dc-carta:not(.costas) .dc-canto { color: #fff; }
+.dc-carta.dc-y:not(.costas) .dc-meio, .dc-carta.dc-y:not(.costas) .dc-canto { color: #2b2105; }
+.dc-carta:not(.costas) .dc-meio .dc-num { text-shadow: 0 calc(var(--w, 6cqh) * .035) 0 rgba(0,0,0,.35), 0 0 calc(var(--w, 6cqh) * .1) rgba(0,0,0,.25); }
+.dc-carta.dc-y:not(.costas) .dc-meio .dc-num { text-shadow: 0 calc(var(--w, 6cqh) * .03) 0 rgba(255,255,255,.45); }
+.dc-carta:not(.costas) .dc-meio .dc-svg { filter: drop-shadow(0 calc(var(--w, 6cqh) * .03) 0 rgba(0,0,0,.3)); }
+.dc-canto { z-index: 1; }
+.dc-carta.dc-k:not(.costas) { background-color: #121317; }
+.dc-carta.dc-k:not(.costas)::before { background: linear-gradient(#17181d, #0d0e11) padding-box, conic-gradient(from 45deg, var(--r) 0 25%, var(--y) 0 50%, var(--g) 0 75%, var(--b) 0) border-box; border: max(2px, .45cqh) solid transparent; box-shadow: none; }
+.dc-carta.dc-k[data-v='cor'] .dc-meio .dc-svg, .dc-carta[data-v='roleta'] .dc-meio .dc-svg { width: 60%; opacity: 1; }
+.dc-aro { position: absolute; width: 74%; opacity: .9; }
+.dc-fundo { position: absolute; width: 64%; opacity: .32; }
+.dc-meio > .dc-num { position: relative; }
+/* verso: grafite com uma faixa nas quatro cores atravessando */
+.dc-carta.costas { border: max(1px, .3cqh) solid #fbf8f1;
+  background: linear-gradient(118deg, transparent 36%, var(--r) 36% 43%, var(--y) 43% 50%, var(--g) 50% 57%, var(--b) 57% 64%, transparent 64%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0 3%, transparent 3% 6%), radial-gradient(90% 70% at 30% 20%, #2a2c33, #111216); }
+.dc-carta.costas::before { display: block; inset: 9%; border: max(1px, .14cqh) solid rgba(255,255,255,.22); border-radius: 10% / 7%; background: none; }
+.dc-carta.costas::after, .dc-carta.costas .dc-marca, .dc-carta.costas .dc-faixas { display: none; }
 
 /* +6 e +10: o número cabe dentro da elipse */
 .dc-num--dez { font-size: calc(var(--w, 6cqh) * .33); }
@@ -337,3 +352,93 @@
 @keyframes dc-bate-cai { from { opacity: 0; scale: 1.9; } 70% { opacity: 1; scale: .92; } }
 @keyframes dc-bate-carimbo { from { opacity: 0; scale: 2; } }
 @media (prefers-reduced-motion: reduce) { .dc-bate__onda, .dc-bate__selo, .dc-bate__foto.cai { animation: none !important; } }
+
+/* ---------- de quem é a vez ---------- */
+.dc-vezfaixa { position: absolute; left: 50%; top: 1.4cqh; translate: -50% 0; z-index: 8; display: flex; align-items: center; gap: 1.2cqh; padding: .7cqh 1.2cqh .7cqh .7cqh; border-radius: 99px; background: rgba(14,15,18,.88); box-shadow: 0 0 0 1px var(--linha), 0 1cqh 2.4cqh rgba(0,0,0,.45); pointer-events: none; }
+.dc-vezfaixa > .dc-retrato { width: 5.2cqh; height: 5.2cqh; box-shadow: 0 0 0 .3cqh var(--y); }
+.dc-vezfaixa__txt { display: flex; flex-direction: column; gap: .3cqh; }
+.dc-vezfaixa__txt b { font: 800 2.6cqh/1 var(--num); letter-spacing: -.01em; white-space: nowrap; }
+.dc-vezfaixa__txt small { font-size: 1.6cqh; color: var(--apagado); white-space: nowrap; }
+.dc-vezfaixa__prox { display: flex; align-items: center; gap: .6cqh; margin-left: .6cqh; padding-left: 1.2cqh; border-left: 1px solid var(--linha); color: var(--apagado); }
+.dc-vezfaixa__prox small { font-size: 1.3cqh; text-transform: uppercase; letter-spacing: .06em; }
+.dc-vezfaixa__prox .dc-retrato { width: 3cqh; height: 3cqh; padding: .15cqh; }
+.dc-vezfaixa__prox em { font: 600 1.6cqh/1 Inter, sans-serif; font-style: normal; white-space: nowrap; }
+.dc-vezfaixa.minha { background: var(--y); color: #16171b; box-shadow: 0 0 0 .3cqh rgba(255,204,0,.35), 0 0 4cqh rgba(255,204,0,.45), 0 1cqh 2.4cqh rgba(0,0,0,.45); animation: dc-vez-brilha 1.6s ease-in-out infinite; }
+.dc-vezfaixa.minha > .dc-retrato { box-shadow: 0 0 0 .3cqh #16171b; }
+.dc-vezfaixa.minha small, .dc-vezfaixa.minha .dc-vezfaixa__prox { color: rgba(22,23,27,.7); }
+.dc-vezfaixa.minha .dc-vezfaixa__prox { border-color: rgba(22,23,27,.2); }
+.dc-vezfaixa.perigo:not(.minha) > .dc-retrato { box-shadow: 0 0 0 .3cqh var(--r); }
+.dc-vezfaixa.entra { animation: dc-vez-entra .45s cubic-bezier(.2,.9,.3,1.3) both; }
+.dc-vezfaixa.minha.entra { animation: dc-vez-entra .45s cubic-bezier(.2,.9,.3,1.3) both, dc-vez-brilha 1.6s .45s ease-in-out infinite; }
+@keyframes dc-vez-entra { from { opacity: 0; translate: -50% -2cqh; scale: .85; } }
+@keyframes dc-vez-brilha { 50% { box-shadow: 0 0 0 .5cqh rgba(255,204,0,.25), 0 0 6cqh rgba(255,204,0,.6), 0 1cqh 2.4cqh rgba(0,0,0,.45); } }
+/* na mesa: quem joga acende em amarelo com uma seta; os outros ficam um pouco apagados */
+.dc-plano.jogando .dc-assento:not(.vez):not(.um) .dc-medalha { opacity: .72; transition: opacity .3s; }
+.dc-assento.vez .dc-retrato { box-shadow: 0 0 0 .38cqh var(--y), 0 0 3cqh rgba(255,204,0,.55); animation: dc-vez-anel 1.4s ease-in-out infinite; }
+.dc-assento.vez .dc-placa { background: var(--y); color: #16171b; font-weight: 700; }
+.dc-assento.vez .dc-placa i { color: #6b5200; }
+@keyframes dc-vez-anel { 50% { box-shadow: 0 0 0 .55cqh var(--y), 0 0 4.4cqh rgba(255,204,0,.75); } }
+.dc-seta-vez { position: absolute; left: 50%; bottom: calc(100% + .6cqh); translate: -50% 0; width: 0; height: 0; border: 1.2cqh solid transparent; border-bottom: 0; border-top: 1.6cqh solid var(--y); filter: drop-shadow(0 .3cqh .6cqh rgba(0,0,0,.5)); animation: dc-seta-pula .8s ease-in-out infinite alternate; }
+@keyframes dc-seta-pula { to { translate: -50% -.8cqh; } }
+.dc-conv--escolhe { background: var(--y); color: #16171b; font-weight: 600; }
+.dc-eu.vez::after { content: ""; position: absolute; inset: auto 0 0 0; height: 26cqh; pointer-events: none; z-index: -1; background: radial-gradient(55% 100% at 50% 100%, rgba(255,204,0,.22), transparent 70%); animation: dc-tensao-mao 1.8s ease-in-out infinite; }
+.dc-eu.vez .dc-boneco { filter: drop-shadow(0 0 1.8cqh rgba(255,204,0,.55)); }
+.dc-dica--vez { color: var(--y); font-size: 3.4cqh; }
+
+/* ---------- escolha do 7 e do 0 ---------- */
+.dc-escolha { position: absolute; left: 50%; top: 47%; translate: -50% -50%; z-index: 9; display: flex; flex-direction: column; align-items: center; gap: 1.8cqh; width: min(92cqw, 74cqh); padding: 2.4cqh 2.6cqh; border-radius: 2.4cqh; background: rgba(14,15,18,.95); box-shadow: 0 2cqh 6cqh rgba(0,0,0,.65), 0 0 0 1px var(--linha); }
+.dc-escolha.entra { animation: dc-entra .35s cubic-bezier(.2,.9,.3,1.25) both; }
+.dc-escolha__topo { display: flex; align-items: center; gap: 1.6cqh; align-self: stretch; }
+.dc-escolha__topo > span:last-child { display: flex; flex-direction: column; gap: .5cqh; }
+.dc-escolha__topo b { font: 800 3cqh/1 var(--num); }
+.dc-escolha__topo small { font-size: 1.8cqh; color: var(--apagado); }
+.dc-escolha__sete { display: grid; place-items: center; width: 6cqh; height: 8cqh; flex: none; border-radius: 1cqh; border: .3cqh solid #fbf8f1; background: var(--cor-ult, #3a8ee6); font: 800 4.4cqh/1 var(--num); color: #fff; rotate: -8deg; box-shadow: 0 .6cqh 1.4cqh rgba(0,0,0,.5); }
+.dc-escolha__lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(20cqh, 24cqh)); justify-content: center; gap: 1.2cqh; align-self: stretch; max-height: 46cqh; overflow: auto; padding: .4cqh; }
+.dc-escolha__pessoa { position: relative; display: flex; flex-direction: column; align-items: center; gap: .8cqh; padding: 1.6cqh 1cqh 1.2cqh; border-radius: 1.6cqh; border: 1px solid var(--linha); background: rgba(255,255,255,.03); color: var(--tinta); font: inherit; cursor: pointer; transition: transform .15s, border-color .15s, background .15s; }
+.dc-escolha__pessoa:hover { transform: translateY(-.6cqh); border-color: var(--y); background: rgba(255,204,0,.08); }
+.dc-escolha__pessoa .dc-retrato { width: 7cqh; height: 7cqh; }
+.dc-escolha__pessoa b { font: 700 2cqh/1.1 Inter, sans-serif; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dc-escolha__pessoa em { font-style: normal; font-size: 1.6cqh; color: var(--apagado); }
+.dc-escolha__pessoa.menor em { color: var(--y); font-weight: 700; }
+.dc-escolha__tag { position: absolute; top: -1cqh; right: -.6cqh; padding: .3cqh .8cqh; border-radius: 99px; background: var(--y); color: #16171b; font: 700 1.3cqh/1.2 Inter, sans-serif; font-style: normal; rotate: 6deg; }
+.dc-escolha__mini { position: relative; height: 4.6cqh; width: calc(3.2cqh + (var(--n) - 1) * 1.1cqh); }
+.dc-escolha__mini .dc-carta { position: absolute; left: calc(var(--i) * 1.1cqh); top: 0; width: 3.2cqh; --w: 3.2cqh; rotate: calc((var(--i) - var(--n) / 2) * 4deg); transform-origin: 50% 120%; }
+.dc-escolha__gira { display: flex; align-items: center; justify-content: center; gap: 2.4cqh; }
+.dc-escolha__lado { display: flex; flex-direction: column; align-items: center; gap: .4cqh; min-width: 14cqh; }
+.dc-escolha__lado small { font-size: 1.4cqh; text-transform: uppercase; letter-spacing: .06em; color: var(--apagado); }
+.dc-escolha__lado b { font: 800 5cqh/1 var(--num); }
+.dc-escolha__lado em { font-style: normal; font-size: 1.7cqh; color: var(--apagado); }
+.dc-escolha__seta { width: 6cqh; color: var(--y); animation: dc-gira 3s linear infinite; }
+.dc-escolha__seta.anti { animation-direction: reverse; scale: -1 1; }
+
+/* ---------- compra grande: contador e quem apanha ---------- */
+.dc-contador { position: absolute; z-index: 31; translate: -50% -100%; padding: .6cqh 1.6cqh; border-radius: 99px; background: var(--r); color: #fff; font: 800 4cqh/1 var(--num); letter-spacing: -.02em; box-shadow: 0 .8cqh 2cqh rgba(0,0,0,.55), 0 0 0 .3cqh rgba(255,255,255,.85); pointer-events: none; }
+.dc-contador.enorme { font-size: 5.4cqh; }
+.dc-contador.bate { animation: dc-conta .22s cubic-bezier(.3,1.6,.5,1); }
+.dc-contador.fim { animation: dc-conta-fim .5s cubic-bezier(.3,1.6,.5,1) both; }
+.dc-contador.sai { opacity: 0; translate: -50% -140%; transition: opacity .35s, translate .35s; }
+@keyframes dc-conta { from { scale: 1.35; } }
+@keyframes dc-conta-fim { 0% { scale: 1; } 40% { scale: 1.6; rotate: -6deg; } 100% { scale: 1.2; rotate: -3deg; } }
+.dc-assento.apanha .dc-medalha { animation: dc-apanha .5s ease-in-out 3; }
+.dc-assento.apanha .dc-retrato { box-shadow: 0 0 0 .4cqh var(--r), 0 0 4cqh rgba(229,72,77,.8) !important; }
+.dc-eu.apanha .dc-boneco { animation: dc-apanha .5s ease-in-out 3; filter: drop-shadow(0 0 2cqh rgba(229,72,77,.9)); }
+.dc-eu.apanha::before { content: ""; position: absolute; inset: auto 0 0 0; height: 40cqh; pointer-events: none; background: radial-gradient(60% 100% at 50% 100%, rgba(229,72,77,.45), transparent 70%); animation: dc-tensao-mao .5s ease-in-out 3; }
+@keyframes dc-apanha { 20% { translate: -.6cqh 0; rotate: -4deg; } 40% { translate: .6cqh 0; rotate: 4deg; } 60% { translate: -.4cqh 0; rotate: -2deg; } 80% { translate: .3cqh 0; rotate: 1deg; } }
+
+/* ---------- guia das cartas ---------- */
+.dc-guia-btn { height: 4.6cqh; }
+.dc-btn--ic.on { background: var(--tinta); color: #16171b; }
+.dc-guia { position: absolute; inset: 0; z-index: 40; display: grid; place-items: center; background: rgba(8,9,11,.6); backdrop-filter: blur(3px); }
+.dc-guia__caixa { width: min(92cqw, 82cqh); max-height: 86cqh; overflow: auto; padding: 2.2cqh 2.6cqh; border-radius: 2.4cqh; background: #141519; box-shadow: 0 2cqh 6cqh rgba(0,0,0,.7), 0 0 0 1px var(--linha); }
+.dc-guia.entra .dc-guia__caixa { animation: dc-entra .3s cubic-bezier(.2,.9,.3,1.2) both; }
+.dc-guia__topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.6cqh; }
+.dc-guia__topo b { font: 800 3cqh/1 var(--num); }
+.dc-guia ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(34cqh, 1fr)); gap: 1.4cqh; }
+.dc-guia li { display: flex; align-items: center; gap: 1.6cqh; padding: 1.2cqh; border-radius: 1.6cqh; background: rgba(255,255,255,.03); box-shadow: 0 0 0 1px var(--linha); }
+.dc-guia.entra li { animation: dc-entra .35s calc(var(--k) * 50ms + 80ms) both; }
+.dc-guia li .dc-carta { width: 9cqh; --w: 9cqh; rotate: -4deg; }
+.dc-guia li > span { display: flex; flex-direction: column; gap: .5cqh; }
+.dc-guia li b { font: 700 2.2cqh/1.1 Inter, sans-serif; }
+.dc-guia li small { font-size: 1.75cqh; line-height: 1.35; color: var(--apagado); }
+.dc-guia__pe { margin: 1.6cqh 0 0; font-size: 1.7cqh; color: var(--apagado); text-align: center; }
+@media (prefers-reduced-motion: reduce) { .dc-vezfaixa, .dc-assento.vez .dc-retrato, .dc-seta-vez, .dc-contador, .dc-assento.apanha .dc-medalha, .dc-eu.apanha .dc-boneco { animation: none !important; } }
