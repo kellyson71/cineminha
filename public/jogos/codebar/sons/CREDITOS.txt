@@ -1,0 +1,13 @@
+Sons originais do Codenames Online, obtidos a pedido do usuário.
+Titular: Czech Games Edition / Codenames Online. Este registro não altera a licença dos arquivos.
+Site: https://codenames.game/
+Arquivo público: https://cdn2.codenames.game/cno/main-0fa1483b59a9/effects.mp3
+Obtido em: 2026-11-08
+
+O MP3 foi preservado sem conversão. Seus 15 efeitos são reproduzidos pelos mesmos offsets e durações
+do mapa de sprites do site. O identificador original "assasin" foi mantido para corresponder ao mapa.
+Origem do mapa: https://cdn2.codenames.game/cno/67e962e2867609b7a47e70cd071a32ef18f67392/_next/static/chunks/2qajb7t8lk2nj.js
+SHA-256 e intervalos também registrados em origem.json.
+Os gatilhos de uso foram conferidos nas telas de sala/partida. Os URLs estão em fontesUso, no origem.json.
+A chave error existe no sprite, mas não foi encontrado um gatilho confirmado nas telas inspecionadas.
+Codebar é o nome local deste pacote; a origem e a titularidade do áudio permanecem as descritas acima.

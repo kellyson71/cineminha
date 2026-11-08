@@ -12,6 +12,7 @@ Tudo o que um jogo novo precisa seguir. Os oito jogos atuais são a referência 
 | Dobro | `public/dobradinha.js`, `dobradinha.css`, `jogos/dobro/` | `db` | escalada de valores (igual dobra), pilhas recolhidas no tampo, atlas AVIF/WebP; 3 s de proteção antes dos 9 s de contagem do Esquecido, arrastável; cola recolhida e paginada, cartas centrais maiores e destaque do destino ao levar a mesa |
 | Dou-lhe Uma | `public/doulheuma.js`, `doulheuma.css`, `jogos/doulheuma/` | `du` | leilão de listas (quem cita mais), sem relógio; tarja de TV de leilão rural |
 | Na Testa | `public/natesta.js`, `natesta.css`, `jogos/natesta/` | `nt` | quem sou eu? (post-it na testa, perguntas de sim/não); mural de cortiça |
+| Agentes de Boteco | `public/agentes.js`, `agentes.css`, `jogos/agentes/` | `ag` | dicas em dois times (mecânica de associação de palavras), lista própria de palavras, mesa de bar; admin: um clique no logo mostra o mapa |
 
 Comece copiando a estrutura do **Red Flags** (o mais simples e completo) ou do modelo em
 `.agents/skills/cineminha-jogos/modelo.js`.
@@ -134,7 +135,7 @@ depois de cada render e `desliga()` ao fechar. Créditos em `public/jogos/boteco
 
 ## Admin nos jogos de carta (Uno e Dobro)
 
-Sem botão: **três cliques rápidos no logo do jogo** abrem "Próximas compras" (só para `kellyson` logado como admin;
+Sem botão: **um clique no logo do jogo** abre "Próximas compras" (só para `kellyson` logado como admin;
 para os outros o logo não faz nada). Sem fila, a compra é aleatória. A fila só vai na vista do admin, não é salva no
 `localStorage` nem na cópia do sucessor, e não aparece no histórico da mesa nem no chat; o uso vai só para o diário
 interno da sala (`ctx.logInterno`, visível no Diagnóstico do admin). Uno: itens `cor:valor` ('r:+2', 'g:pulaT') ou

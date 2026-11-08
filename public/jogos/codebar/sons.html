@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sons do Codebar · Cineminha</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #101114; color: #f4f2ee; font: 16px/1.5 system-ui,sans-serif; }
+  main { width: min(1020px,100%); margin: 0 auto; padding: 48px 24px; }
+  h1 { margin: 0 0 8px; font-size: clamp(28px,5vw,42px); letter-spacing: -.04em; }
+  p { color: #b5b9c3; margin: 0 0 24px; }
+  a { color: #a9c7ff; }
+  .barra { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-bottom: 28px; }
+  label { display: flex; gap: 12px; align-items: center; }
+  input { accent-color: #ff5a62; }
+  button { font: inherit; cursor: pointer; }
+  #parar { border: 1px solid #454954; border-radius: 9px; background: transparent; color: #fff; padding: 7px 16px; }
+  #sons { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 12px; }
+  .som { position: relative; display: flex; align-items: center; gap: 14px; min-height: 92px; padding: 18px; text-align: left; border: 1px solid #343740; border-radius: 14px; color: #f4f2ee; background: #1c1e24; }
+  .som:hover { background: #262932; }
+  .som:focus-visible, #parar:focus-visible { outline: 2px solid #a9c7ff; outline-offset: 3px; }
+  .som[aria-pressed=true] { border-color: #ff5a62; background: #38232a; }
+  .som svg { flex: none; width: 22px; height: 22px; fill: currentColor; }
+  .som span { display: grid; gap: 5px; }
+  .som em { font-size: 12px; font-style: normal; color: #e0e3ea; }
+  .som .uso { font-size: 12px; line-height: 1.4; color: #b5b9c3; }
+  .som small { color: #b5b9c3; font-size: 12px; }
+  #status { margin-top: 22px; min-height: 24px; }
+  footer { border-top: 1px solid #343740; padding-top: 24px; margin-top: 28px; font-size: 13px; color: #b5b9c3; }
+</style>
+<main>
+  <h1>Sons do Codebar</h1>
+  <p>15 efeitos originais do <a href="https://codenames.game/" target="_blank" rel="noreferrer">Codenames Online</a>, com suas chaves exatas e os momentos de uso. Clique para ouvir.</p>
+  <div class="barra"><label>Volume <input id="volume" aria-label="Volume dos efeitos" type="range" min="0" max="1" step=".05" value="1"></label><button id="parar" type="button">Parar</button></div>
+  <div id="sons"></div>
+  <p id="status" role="status" aria-live="polite">Escolha um som para ouvir.</p>
+  <footer>Áudio: Czech Games Edition / Codenames Online. Arquivo original preservado; recortes com os tempos usados pelo site. O volume inicial corresponde ao padrão de efeitos do site.</footer>
+</main>
+<script type="module">
+  import { EFEITOS, criaSonsCodebar } from './audio.js'
+  let ac, atual = 0
+  const contexto = () => ac ||= new AudioContext()
+  const sons = criaSonsCodebar({ audioCtx: contexto, saida: () => contexto().destination })
+  const status = document.querySelector('#status'), lista = document.querySelector('#sons')
+  const limpa = () => lista.querySelectorAll('[aria-pressed=true]').forEach(b => b.setAttribute('aria-pressed','false'))
+  for (const [id, efeito] of Object.entries(EFEITOS)) {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'som'; b.dataset.som = id
+    b.setAttribute('aria-label', `Ouvir ${efeito.nome}`); b.setAttribute('aria-pressed','false')
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>'
+    const nome = document.createElement('span'), titulo = document.createElement('b'), duracao = document.createElement('small'), onde = document.createElement('em'), quando = document.createElement('span')
+    titulo.textContent = efeito.nome; duracao.textContent = `${efeito.duracao.toLocaleString('pt-BR')} s · ${id}`
+    onde.textContent = efeito.onde; quando.className = 'uso'; quando.textContent = efeito.quando
+    b.title = efeito.gatilho ? `Gatilho original: ${efeito.gatilho}` : 'Gatilho original não confirmado'
+    nome.append(titulo,duracao,onde,quando); b.append(nome)
+    b.onclick = async () => {
+      const vez = ++atual; sons.parar(); limpa(); b.setAttribute('aria-pressed','true'); status.textContent = `Carregando: ${efeito.nome}…`
+      try {
+        const som = await sons.tocar(id,{volume:+document.querySelector('#volume').value})
+        if (vez !== atual) { som?.stop(); return }
+        status.textContent = `Tocando: ${efeito.nome}`
+        som?.addEventListener('ended', () => { if (vez === atual) { limpa(); status.textContent = 'Escolha outro som para ouvir.' } }, {once:true})
+      } catch { if (vez === atual) { limpa(); status.textContent = 'Não foi possível carregar o áudio. Clique para tentar novamente.' } }
+    }
+    lista.append(b)
+  }
+  document.querySelector('#parar').onclick = () => { atual++; sons.parar(); limpa(); status.textContent = 'Reprodução interrompida.' }
+  window.addEventListener('pagehide', e => { atual++; sons.parar(); limpa(); status.textContent = 'Escolha um som para ouvir.'; if (!e.persisted) sons.destruir() })
+</script>
+</html>

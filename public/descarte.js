@@ -791,8 +791,8 @@ export function criaDescarte(ctx) {
       botao(icon('list-music'), () => tela.querySelector('.dc-log')?.classList.toggle('aberto'), 'dc-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'dc-btn--ic', 'Fechar a mesa para todos')
         : botao(icon('x'), () => { dispensado = V.id; aplica(null) }, 'dc-btn--ic', 'Sair da mesa (só para você)'))
-    // admin: sem botão; três cliques rápidos no logo abrem a fila (para os outros, o logo não faz nada)
-    topoBar.querySelector('.dc-logo')?.addEventListener('pointerdown', cliqueLogo)
+    // admin: sem botão; um clique no logo abre a fila
+    topoBar.querySelector('.dc-logo')?.addEventListener('click', cliqueLogo)
     if (V.op.semPiedade) topoBar.insertBefore(botao(icon('book-open'), () => { guiaAberto = !guiaAberto; guiaAnima = guiaAberto; render() }, 'dc-btn--ic' + (guiaAberto ? ' on' : ''), 'Cartas do Sem Piedade'), topoBar.querySelector('.dc-grow').nextSibling)
     plano.classList.toggle('jogando', emJogo(V.fase))
     const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, minhaArea(antes), controles(), meio(), silencio(), bilhete(), quadro(), ...bateUI(), guia(), filaUI(), caixasTema(),
@@ -947,12 +947,8 @@ export function criaDescarte(ctx) {
   }
   // admin: painelzinho com as cartas fortes em destaque; clicar põe na fila das próximas compras
   let filaAberta = false
-  let cliquesLogo = []
-  function cliqueLogo() {
-    const agora = Date.now(); cliquesLogo = [...cliquesLogo.filter(t => agora - t < 1200), agora]
-    if (cliquesLogo.length < 3 || !souAdmin() || V.fase === 'fim') return
-    cliquesLogo = []; filaAberta = !filaAberta; render()
-  }
+  // admin: um clique no logo abre/fecha a fila (para os outros, o logo não faz nada)
+  function cliqueLogo() { if (!souAdmin() || V.fase === 'fim') return; filaAberta = !filaAberta; render() }
   const souAdmin = () => me.key === ADMIN && me.admin && V?.fila
   let filaCor = 'r'
   function filaUI() {

@@ -596,8 +596,8 @@ export function criaDobradinha(ctx) {
       botao(icon('list-music'), () => tela.querySelector('.db-log')?.classList.toggle('aberto'), 'db-btn--ic', 'O que aconteceu'),
       souHost() ? botao(icon('x'), e => confirma(e.currentTarget, 'Fechar a mesa?', encerrar), 'db-btn--ic', 'Fechar a mesa para todos')
         : botao(icon('x'), () => { dispensado = V.id; aplica(null) }, 'db-btn--ic', 'Sair da mesa (só para você)'))
-    // admin: sem botão; três cliques rápidos no logo abrem a fila (para os outros, o logo não faz nada)
-    topoBar.querySelector('.db-logo')?.addEventListener('pointerdown', cliqueLogo)
+    // admin: sem botão; um clique no logo abre a fila
+    topoBar.querySelector('.db-logo')?.addEventListener('click', cliqueLogo)
     const kids = [el('div', { className: 'db-azulejos' }), el('div', { className: 'db-palco' }, plano), topoBar, mesaPainel(), status(), cola(), minhaArea(antes), controles(), meio(), filaUI(), bilhete(),
       el('div', { className: 'db-log' }, el('ol', {}, ...V.log.slice(-40).map(t => el('li', { textContent: t }))))]
     const am = aulaModal()
@@ -742,12 +742,8 @@ export function criaDobradinha(ctx) {
   }
   // admin: painelzinho com as cartas de ação em destaque; clicar põe na fila das próximas compras
   let filaAberta = false
-  let cliquesLogo = []
-  function cliqueLogo() {
-    const agora = Date.now(); cliquesLogo = [...cliquesLogo.filter(t => agora - t < 1200), agora]
-    if (cliquesLogo.length < 3 || !souAdmin() || V.fase === 'fim') return
-    cliquesLogo = []; filaAberta = !filaAberta; render()
-  }
+  // admin: um clique no logo abre/fecha a fila (para os outros, o logo não faz nada)
+  function cliqueLogo() { if (!souAdmin() || V.fase === 'fim') return; filaAberta = !filaAberta; render() }
   const souAdmin = () => me.key === ADMIN && me.admin && V?.fila
   function filaUI() {
     if (!filaAberta || !souAdmin()) return ''

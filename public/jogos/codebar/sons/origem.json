@@ -1,0 +1,73 @@
+{
+  "fonte": "https://cdn2.codenames.game/cno/main-0fa1483b59a9/effects.mp3",
+  "sha256": "ddff40f579b1fdd75f43b6e024d6268dc4c3a5855770adbe6b741b2fdedff74a",
+  "efeitos": {
+    "deal": [
+      0.0,
+      2.365
+    ],
+    "click": [
+      3.0,
+      0.2
+    ],
+    "notification": [
+      4.0,
+      2.0
+    ],
+    "click2": [
+      6.0,
+      0.11
+    ],
+    "select": [
+      6.5,
+      0.2
+    ],
+    "dealCard": [
+      7.0,
+      0.25
+    ],
+    "nextRound": [
+      8.0,
+      1.5
+    ],
+    "sendClue": [
+      11.0,
+      2.889
+    ],
+    "revealCard": [
+      14.0,
+      1.4
+    ],
+    "wrongGuess": [
+      18.0,
+      3.447
+    ],
+    "assasin": [
+      22.0,
+      3.841
+    ],
+    "win": [
+      26.0,
+      4.477
+    ],
+    "goodGuess": [
+      30.5,
+      1.2
+    ],
+    "error": [
+      32.0,
+      2.0
+    ],
+    "loss": [
+      34.5,
+      4.144
+    ]
+  },
+  "fontesUso": {
+    "3nu2xv95baajx.js": "https://cdn2.codenames.game/cno/67e962e2867609b7a47e70cd071a32ef18f67392/_next/static/chunks/3nu2xv95baajx.js",
+    "0fzntdlg1n-_3.js": "https://cdn2.codenames.game/cno/67e962e2867609b7a47e70cd071a32ef18f67392/_next/static/chunks/0fzntdlg1n-_3.js",
+    "3gdk-x9u9hbrz.js": "https://cdn2.codenames.game/cno/67e962e2867609b7a47e70cd071a32ef18f67392/_next/static/chunks/3gdk-x9u9hbrz.js",
+    "33stua8p_fkzc.js": "https://cdn2.codenames.game/cno/67e962e2867609b7a47e70cd071a32ef18f67392/_next/static/chunks/33stua8p_fkzc.js"
+  },
+  "observacaoUso": "Chaves originais preservadas. 14 efeitos com gatilhos confirmados nas telas inspecionadas. error existe no sprite, mas seu gatilho não foi confirmado. Ver audio.js e docs/jogos/codebar-sons.md."
+}

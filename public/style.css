@@ -1947,7 +1947,7 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 .jogosmenu__it small { font-size: .74rem; color: var(--fg-soft, rgba(236,236,241,.62)); }
 .jogosmenu__ic { width: 42px; height: 42px; border-radius: 10px; flex: none; display: grid; place-items: center; }
 .jogosmenu__ic--faixa { background: linear-gradient(135deg, #ff4081, #4aa3ff); }
-.jogosmenu__ic--faixa svg, .jogosmenu__ic--pp svg, .jogosmenu__ic--ab svg, .jogosmenu__ic--db svg, .jogosmenu__ic--du svg, .jogosmenu__ic--nt svg, .jogosmenu__ic--qq svg { width: 26px; height: 26px; display: block; }
+.jogosmenu__ic--faixa svg, .jogosmenu__ic--pp svg, .jogosmenu__ic--ab svg, .jogosmenu__ic--db svg, .jogosmenu__ic--du svg, .jogosmenu__ic--nt svg, .jogosmenu__ic--qq svg, .jogosmenu__ic--ag svg { width: 26px; height: 26px; display: block; }
 .jogosmenu__ic--du { background: #ffc62b; box-shadow: inset 0 0 0 2px #0f3527; }
 .jogosmenu__ic--nt { background: #b8844f; box-shadow: inset 0 0 0 3px #4b2e18; }
 .jogosmenu__ic--nt svg { width: 30px; height: 30px; }
@@ -1974,10 +1974,10 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 .jogo-carregando i:nth-child(2) { animation-delay: .15s; } .jogo-carregando i:nth-child(3) { animation-delay: .3s; }
 
 /* durante qualquer jogo, a fileira de poltronas some de verdade (não rouba cliques no canto da tela) */
-.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on) .row { visibility: hidden; }
-.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on) .row * { pointer-events: none !important; }
+.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on) .row { visibility: hidden; }
+.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on) .row * { pointer-events: none !important; }
 /* com jogo aberto a cortina fechada não serve; e o Chrome às vezes a desenha por cima das mesas 3D (fora do plano inclinado) */
-.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on) .curtain { visibility: hidden; }
+.theater:is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on) .curtain { visibility: hidden; }
 
 /* categorias do Faixa a Faixa: progresso de ouvidas e o resto recolhido */
 .fx-catnota { margin: 0; display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 12px; background: rgba(255,255,255,.05); font-size: .78rem; color: var(--fg-soft); }
@@ -2900,23 +2900,23 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
    ficam embaixo dele, sempre visíveis; a mesa encolhe para caber (os jogos usam medidas do contêiner).
    Sem chat: as barras ganham uma faixa própria embaixo da mesa. ===== */
 @media (min-width: 901px) and (min-height: 501px) {
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on) { --col-jogo: min(340px, 27vw); }
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat) { grid-template-columns: minmax(0, 1fr) var(--col-jogo); grid-template-rows: 100%; }
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat) .chat,
-  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat).idle .chat {
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on) { --col-jogo: min(340px, 27vw); }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on):not(.no-chat) { grid-template-columns: minmax(0, 1fr) var(--col-jogo); grid-template-rows: 100%; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on):not(.no-chat) .chat,
+  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on):not(.no-chat).idle .chat {
     position: relative; inset: auto; z-index: 1; width: auto; height: calc(100% - 124px); align-self: start; border: 0; border-left: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); border-radius: 0; background: #0c0c10; backdrop-filter: none; opacity: 1; pointer-events: auto; }
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat)::after { content: ""; position: absolute; right: 0; bottom: 0; width: var(--col-jogo); height: 124px; background: #0c0c10; border-left: 1px solid rgba(255,255,255,.08); pointer-events: none; }
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat) .toolbar {
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on):not(.no-chat)::after { content: ""; position: absolute; right: 0; bottom: 0; width: var(--col-jogo); height: 124px; background: #0c0c10; border-left: 1px solid rgba(255,255,255,.08); pointer-events: none; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on):not(.no-chat) .toolbar {
     left: auto; right: calc(var(--col-jogo) * -1 + 8px); bottom: 10px; transform: none; max-width: calc(var(--col-jogo) - 16px); flex-wrap: wrap; justify-content: center; }
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on):not(.no-chat) .toolbar--voz { left: auto !important; right: calc(var(--col-jogo) / 2); translate: 50% 0; bottom: 70px; max-width: calc(var(--col-jogo) - 16px); }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on):not(.no-chat) .toolbar--voz { left: auto !important; right: calc(var(--col-jogo) / 2); translate: 50% 0; bottom: 70px; max-width: calc(var(--col-jogo) - 16px); }
   /* sem chat: faixa embaixo da mesa para as barras */
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).no-chat .stage { padding-bottom: 66px; }
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).no-chat .toolbar { left: auto; right: 16px; bottom: 8px; transform: none; }
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).no-chat .toolbar--voz { left: 16px !important; right: auto; bottom: 8px; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on).no-chat .stage { padding-bottom: 66px; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on).no-chat .toolbar { left: auto; right: 16px; bottom: 8px; transform: none; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on).no-chat .toolbar--voz { left: 16px !important; right: auto; bottom: 8px; }
   /* as barras não somem quando o mouse para: elas não cobrem nada */
-  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).idle :is(.toolbar, .toolbar--voz) { opacity: 1; pointer-events: auto; }
-  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on).idle { cursor: auto; }
-  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .jogo-on) .chat__modo { display: none; }
+  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on).idle :is(.toolbar, .toolbar--voz) { opacity: 1; pointer-events: auto; }
+  body .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on).idle { cursor: auto; }
+  .theater:is(:fullscreen, .palco):is(.coup-on, .dc-on, .pp-on, .ab-on, .db-on, .du-on, .nt-on, .qq-on, .ag-on, .jogo-on) .chat__modo { display: none; }
 }
 /* Faixa a Faixa (versus): último chute de cada um, visível para quem já terminou a música */
 .fx-jogs__chute { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .72rem; color: rgba(255,255,255,.6); }
@@ -2980,3 +2980,6 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 }
 /* telas mais estreitas: com o player na linha, o tempo da sessão fica só na lateral (sobra barra de progresso) */
 @media (min-width: 1000px) and (max-width: 1400px) { .theater.player-fora:not(:fullscreen, .palco) .toolbar__tempo { display: none; } }
+
+.jogosmenu__ic--ag { background: #2a1d14; box-shadow: inset 0 0 0 2px #e9c912; }
+.jogosmenu__ic--ag svg { width: 32px; height: 32px; }
