@@ -264,3 +264,4 @@
 .ab-roleta.parou .ab-roleta__p.on { animation: ab-roleta-ganha .5s cubic-bezier(.2,.9,.3,1.4) 3 alternate; box-shadow: .5cqh .5cqh 0 var(--tinta); }
 .ab-roleta.parou .ab-roleta__p:not(.on) { opacity: .45; }
 @keyframes ab-roleta-ganha { to { transform: translateY(-1cqh) scale(1.18) rotate(-3deg); } }
+.ab-regra__ic.vale::after { display: none; }

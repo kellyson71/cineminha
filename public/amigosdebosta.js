@@ -1,5 +1,5 @@
 // Amigos de Merda: a cada turno alguém compra uma pergunta e lê em voz alta. Todos votam ao mesmo tempo
-// apontando para alguém (não vale em si mesmo). O mais votado fica com a carta; quem juntar a meta de cartas
+// apontando para alguém (com a opção "vale em si", também em si mesmo). O mais votado fica com a carta; quem juntar a meta de cartas
 // é coroado o Amigo de Bosta. Empate: quem não votou nos empatados pode trocar o voto; se persistir, vale o voto de quem leu.
 // Se quem leu também está no empate (o voto dele não teria escolha de verdade), o desempate vai para a roleta: sorteio entre os empatados.
 // Mesma estrutura dos outros jogos: o host guarda tudo e manda para cada um só o que pode ver ({ ab: ... }).
@@ -23,6 +23,7 @@ const ls = { get: k => { try { return JSON.parse(localStorage.getItem(k)) } catc
 const NS = 'http://www.w3.org/2000/svg'
 const META = [[4, 'rápida · 4'], [5, 'normal · 5'], [7, 'longa · 7']]
 const TEMPO = [[0, 'sem limite'], [30, '30 s'], [60, '60 s']]
+const SI = [[true, 'vale votar em si'], [false, 'não vale em si']]
 const PICANTE = [[false, 'só cartas pretas'], [true, 'pretas + rosas 18+']]
 
 export function criaAmigosDeBosta(ctx) {
@@ -50,7 +51,7 @@ export function criaAmigosDeBosta(ctx) {
     const op = ls.get('ab.op') || {}
     const pl = ls.get('ab.placar')
     G = { id: novoId(), host: me.key, hostNome: me.name, fase: 'convite',
-      op: { meta: [4, 5, 7].includes(op.meta) ? op.meta : 5, tempo: [0, 30, 60].includes(op.tempo) ? op.tempo : 0, picante: !!op.picante },
+      op: { meta: [4, 5, 7].includes(op.meta) ? op.meta : 5, tempo: [0, 30, 60].includes(op.tempo) ? op.tempo : 0, picante: !!op.picante, si: op.si !== false },
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes(k) ? 'sim' : '?'])),
       js: [], vez: 0, rodada: 0, carta: null, deck: [], desc: [], votos: {}, emp: null, abre: 0, fimVoto: 0,
       vencRodada: null, unanime: false, coroar: false, vencedor: null,
@@ -91,7 +92,7 @@ export function criaAmigosDeBosta(ctx) {
     difunde()
   }
   function vota(key, alvo) {
-    if (G.fase !== 'votando' || Date.now() < G.abre || !jog(key) || !jog(alvo) || alvo === key) return
+    if (G.fase !== 'votando' || Date.now() < G.abre || !jog(key) || !jog(alvo) || (alvo === key && !G.op.si)) return
     G.votos[key] = alvo
     ev({ t: 'votou', key })
     if (G.js.every(j => G.votos[j.key])) return fechaVotacao()
@@ -128,7 +129,7 @@ export function criaAmigosDeBosta(ctx) {
   function respEmpate(key, alvo) {
     const e = G.emp
     if (G.fase !== 'empate' || !e.elig.includes(key) || key in e.resp) return
-    if (alvo != null && (!e.tied.includes(alvo) || alvo === key)) return
+    if (alvo != null && (!e.tied.includes(alvo) || (alvo === key && !G.op.si))) return
     e.resp[key] = alvo ?? false
     if (e.elig.every(k => k in e.resp)) return resolveEmpate()
     difunde()
@@ -156,7 +157,7 @@ export function criaAmigosDeBosta(ctx) {
     difunde()
   }
   function minerva(key, alvo) {
-    if (G.fase !== 'minerva' || key !== leitor() || !G.emp.tied.includes(alvo) || alvo === key) return
+    if (G.fase !== 'minerva' || key !== leitor() || !G.emp.tied.includes(alvo) || (alvo === key && !G.op.si)) return
     G.votos[key] = alvo; ev({ t: 'troca', key, alvo })
     ganhou(alvo)
   }
@@ -164,7 +165,7 @@ export function criaAmigosDeBosta(ctx) {
     const j = jog(k), { c } = conta()
     j.cartas.push(G.carta)
     G.vencRodada = k; G.emp = null; G.roleta = null
-    G.unanime = G.js.length > 2 && c[k] === G.js.length - 1
+    G.unanime = G.js.length > 2 && c[k] >= G.js.length - (G.op.si ? 0 : 1)
     G.fase = 'resultado'
     G.coroar = j.cartas.length >= G.op.meta
     ev({ t: 'ganhou', key: k, unanime: G.unanime })
@@ -301,7 +302,7 @@ export function criaAmigosDeBosta(ctx) {
     if (G.fase === 'votando' && G.fimVoto && agora > G.fimVoto) fechaVotacao()
     else if (G.fase === 'empate' && agora > G.emp.fim) resolveEmpate()
     else if (G.fase === 'roleta' && agora > G.roleta.fim) { const v = G.roleta.vence; if (jog(v)) ganhou(v); else { G.roleta = null; avalia(conta().tied) } }
-    else if (G.fase === 'minerva' && agora > G.emp.fim) { const op = G.emp.tied.filter(k => k !== leitor()); minerva(leitor(), op[rnd(op.length)]) }
+    else if (G.fase === 'minerva' && agora > G.emp.fim) { const op = G.emp.tied.filter(k => G.op.si || k !== leitor()); minerva(leitor(), op[rnd(op.length)]) }
   }, 1000)
 
   /* =================================================================== cliente */
@@ -427,9 +428,9 @@ export function criaAmigosDeBosta(ctx) {
     const ir = host ? botao(n >= 3 ? `Começar · ${n}` : `Precisa de 3 · ${n}`, comecar, 'ab-btn--forte ab-btn--grande') : el('small', { className: 'ab-espera', textContent: `${V.hostNome} vai começar` })
     if (host && n < 3) ir.disabled = true
     return el('div', { className: 'ab-inicio' }, tutorial,
-      el('p', { className: 'ab-regra' }, ico('dedo', 'ab-regra__ic'), 'não vale votar em você mesmo'),
+      el('p', { className: 'ab-regra' }, ico('dedo', 'ab-regra__ic' + (V.op.si ? ' vale' : '')), V.op.si ? 'vale votar em você mesmo' : 'não vale votar em você mesmo'),
       pessoas,
-      el('div', { className: 'ab-linha' }, seg(META, V.op.meta, 'meta'), seg(TEMPO, V.op.tempo, 'tempo'), seg(PICANTE, !!V.op.picante, 'picante'), host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'ab-btn--leve') : '', ir),
+      el('div', { className: 'ab-linha' }, seg(META, V.op.meta, 'meta'), seg(TEMPO, V.op.tempo, 'tempo'), seg(PICANTE, !!V.op.picante, 'picante'), seg(SI, V.op.si !== false, 'si'), host ? botao(V.conv[me.key] === 'sim' ? 'Eu jogo' : 'Eu só assisto', () => { G.conv[me.key] = G.conv[me.key] === 'sim' ? 'nao' : 'sim'; difunde() }, 'ab-btn--leve') : '', ir),
       el('span', { className: 'ab-selo', textContent: '86 cartas pretas · 22 rosas opcionais' }))
   }
   function bilhete() {
@@ -474,12 +475,12 @@ export function criaAmigosDeBosta(ctx) {
       const faltam = V.js.length - V.votou.length
       const alvo = V.meuVoto
       return nota(
-        el('p', {}, !jogando ? 'Só assistindo a votação.' : alvo ? ['Você apontou ', el('b', { textContent: N(alvo) }), '. Pode mudar até o último votar.'] : 'Clique na foto de quem merece. Não vale em você!'),
+        el('p', {}, !jogando ? 'Só assistindo a votação.' : alvo ? ['Você apontou ', el('b', { textContent: alvo === me.key ? 'você mesmo' : N(alvo) }), '. Pode mudar até o último votar.'] : V.op.si ? 'Clique na foto de quem merece. Vale em você também!' : 'Clique na foto de quem merece. Não vale em você!'),
         el('small', { className: 'ab-nota__st', textContent: faltam > 0 ? `faltam ${faltam} votar` : 'todos votaram' }))
     }
     if (f === 'empate') {
       const e = V.emp, elig = e.elig.includes(me.key), resp = e.resp.includes(me.key)
-      const escolhas = elig && !resp ? el('div', { className: 'ab-escolhas' }, ...e.tied.filter(k => k !== me.key).map(k => botaoPessoa(k, () => manda({ op: 'troca', alvo: k }))), botao('Manter meu voto', () => manda({ op: 'troca', alvo: '' }), 'ab-btn--leve')) : ''
+      const escolhas = elig && !resp ? el('div', { className: 'ab-escolhas' }, ...e.tied.filter(k => V.op.si || k !== me.key).map(k => botaoPessoa(k, () => manda({ op: 'troca', alvo: k }))), botao('Manter meu voto', () => manda({ op: 'troca', alvo: '' }), 'ab-btn--leve')) : ''
       return nota(
         el('p', {}, el('b', { className: 'ab-grito', textContent: 'Empate!' }), ' ', elig ? (resp ? 'Aguardando os outros…' : 'Você não votou nos empatados: pode trocar o voto para um deles ou manter.') : 'Quem não votou nos empatados pode trocar o voto.'),
         escolhas)
@@ -494,7 +495,7 @@ export function criaAmigosDeBosta(ctx) {
       const e = V.emp
       return nota(
         el('p', {}, el('b', { className: 'ab-grito', textContent: 'Continua empatado!' }), ' ', souLeitor ? 'Vale o seu voto: desempate.' : [quem(V.vez), ' desempata com o voto dele.']),
-        souLeitor ? el('div', { className: 'ab-escolhas' }, ...e.tied.filter(k => k !== me.key).map(k => botaoPessoa(k, () => manda({ op: 'minerva', alvo: k })))) : '')
+        souLeitor ? el('div', { className: 'ab-escolhas' }, ...e.tied.filter(k => V.op.si || k !== me.key).map(k => botaoPessoa(k, () => manda({ op: 'minerva', alvo: k })))) : '')
     }
     if (f === 'resultado') {
       const vk = V.vencRodada
@@ -522,7 +523,8 @@ export function criaAmigosDeBosta(ctx) {
       const venc = V.vencRodada === k
       const cls = ['ab-jog']
       if (souEu) cls.push('meu')
-      if (vota && !souEu) cls.push('vota'); if (pode && !souEu) cls.push('pode')
+      const podeEm = !souEu || V.op.si
+      if (vota && podeEm) cls.push('vota'); if (pode && podeEm) cls.push('pode')
       if (V.meuVoto === k && f === 'votando') cls.push('escolhido')
       if (V.vez === k) cls.push('leitor')
       if (tied.includes(k)) cls.push('empatado')
@@ -552,7 +554,7 @@ export function criaAmigosDeBosta(ctx) {
         pilha,
         el('div', { className: 'ab-votos' }, ...votos))
       t.addEventListener('click', () => {
-        if (!vota || souEu || Date.now() < libera) return
+        if (!vota || !podeEm || Date.now() < libera) return
         som('poe', 0, .6); manda({ op: 'vota', alvo: k })
       })
       return t
