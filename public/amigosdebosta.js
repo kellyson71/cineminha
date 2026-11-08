@@ -23,6 +23,10 @@ const ls = { get: k => { try { return JSON.parse(localStorage.getItem(k)) } catc
 const NS = 'http://www.w3.org/2000/svg'
 const META = [[4, 'rápida · 4'], [5, 'normal · 5'], [7, 'longa · 7']]
 const TEMPO = [[0, 'sem limite'], [30, '30 s'], [60, '60 s']]
+// cartas já vistas: cada um guarda as suas (por um resumo do texto, que não muda se a lista for reordenada)
+const VISTAS_MAX = 1500
+const marcaCarta = t => { let h = 5381; for (let i = 0; i < t.length; i++) h = (h * 33 ^ t.charCodeAt(i)) >>> 0; return h.toString(36) }
+const minhasVistas = () => { const v = ls.get('ab.vistas'); return Array.isArray(v) ? v.filter(x => typeof x === 'string') : [] }
 const SI = [[true, 'vale votar em si'], [false, 'não vale em si']]
 const PICANTE = [[false, 'só cartas pretas'], [true, 'pretas + rosas 18+']]
 
@@ -66,11 +70,18 @@ export function criaAmigosDeBosta(ctx) {
     if (ks.length < 3) return toast('Precisa de pelo menos 3 pessoas.')
     ls.set('ab.op', G.op)
     embaralha(ks)
-    G.deck = embaralha([...CARTAS.map((t, i) => ({ id: `c${i}`, t, n: i })), ...(G.op.picante ? CARTAS_18.map((t, i) => ({ id: `p${i}`, t, n: i, p: 1 })) : [])]); G.desc = []
+    // não repete: as cartas que ninguém do grupo viu saem primeiro; acabando, vêm as menos vistas (o monte sai pelo fim)
+    const listas = ks.map(k => new Set(k === me.key ? minhasVistas() : G.vistas?.[k] || []))
+    const quantos = c => listas.filter(l => l.has(marcaCarta(c.t))).length
+    const todas = embaralha([...CARTAS.map((t, i) => ({ id: `c${i}`, t, n: i })), ...(G.op.picante ? CARTAS_18.map((t, i) => ({ id: `p${i}`, t, n: i, p: 1 })) : [])])
+    G.deck = todas.map(c => [quantos(c), c]).sort((a, b) => b[0] - a[0]).map(([, c]) => c); G.desc = []
+    const ineditas = todas.filter(c => !quantos(c)).length
+    G.vistas = null
     G.js = ks.map(k => ({ key: k, nome: ctx.nomeDe(k), cartas: [] }))
     G.vez = rnd(ks.length); G.rodada = 1; G.log = []
     ev({ t: 'inicio' })
     sysMsg(`Amigos de Merda começou: ${G.js.map(j => j.nome).join(', ')}`)
+    log(`${ineditas} carta${ineditas === 1 ? '' : 's'} que ninguém daqui viu ainda vão primeiro.`)
     compraCarta()
   }
   // o jogador da vez compra a carta do monte
@@ -236,6 +247,7 @@ export function criaAmigosDeBosta(ctx) {
       case 'valendo': valendo(key); break
       case 'vota': vota(key, d.alvo); break
       case 'troca': respEmpate(key, d.alvo || null); break
+      case 'vistas': if (G.fase === 'convite' && Array.isArray(d.l)) { (G.vistas ||= {})[key] = d.l.filter(x => typeof x === 'string').slice(-VISTAS_MAX) } break
       case 'minerva': minerva(key, d.alvo); break
       case 'proxima': proxima(key); break
     }
@@ -306,6 +318,7 @@ export function criaAmigosDeBosta(ctx) {
   }, 1000)
 
   /* =================================================================== cliente */
+  let mandouVistas = ''
   let V = null, ultEv = 0, dispensado = '', libera = 0, liberaId = ''
   const vistos = new Set()
   const novo = id => { if (vistos.has(id)) return false; vistos.add(id); return true }
@@ -337,6 +350,9 @@ export function criaAmigosDeBosta(ctx) {
     if (v && (!antes || antes.id !== v.id)) ultEv = Math.max(0, ...v.ev.map(e => e.n), 0)
     V = v
     if (v) v.recebido = Date.now()
+    // guarda a carta que apareceu e, no convite, manda a lista de vistas para quem abriu a mesa
+    if (v?.carta) { const m = marcaCarta(v.carta), l = minhasVistas(); if (!l.includes(m)) ls.set('ab.vistas', [...l, m].slice(-VISTAS_MAX)) }
+    if (v?.fase === 'convite' && v.host !== me.key && mandouVistas !== v.id) { mandouVistas = v.id; setTimeout(() => manda({ op: 'vistas', l: minhasVistas() }), 50) }
     if (v && v.fase === 'votando' && liberaId !== `${v.id}:${v.rodada}`) { liberaId = `${v.id}:${v.rodada}`; libera = Date.now() + v.abreMs + 350 }
     const evs = v ? v.ev.filter(e => e.n > ultEv) : []
     if (v) ultEv = Math.max(ultEv, ...v.ev.map(e => e.n), 0)
