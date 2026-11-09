@@ -148,7 +148,7 @@ try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(se
 <div id="kicked" class="gate" hidden>
   <div class="paper gate__card mic-card" role="dialog">
     <svg data-icon="door-open" class="mic-card__icon"></svg>
-    <h2>Você saiu da sala</h2>
+    <h2 id="kickedTit">Você saiu da sala</h2>
     <p id="kickedMsg">O admin te tirou da sala.</p>
     <button class="btn btn--primary btn--block" type="button" onclick="location.reload()">Entrar de novo</button>
   </div>
@@ -312,6 +312,7 @@ try { var nv = performance.getEntriesByType('navigation')[0], vt = JSON.parse(se
       <button class="btn btn--icon" id="btnTeatro" title="Modo teatro (T): tela mais larga, chat embaixo" aria-pressed="false"><svg data-icon="rectangle-horizontal"></svg></button>
       <button class="btn btn--icon" id="btnPalco" title="Palco (G): a tela ocupa a página inteira. Duplo clique no fundo do jogo também" aria-pressed="false"><svg data-icon="maximize-2"></svg></button>
       <button class="btn btn--icon" id="btnFs" title="Tela cheia (F)"><svg data-icon="maximize"></svg></button>
+      <button class="btn btn--sair" id="btnSairCall" type="button" title="Sair da call"><svg data-icon="phone-off"></svg><span>Sair da call</span></button>
     </div>
 
     <div class="row"><div class="row__seats" id="seats"></div></div>

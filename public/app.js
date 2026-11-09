@@ -3529,6 +3529,7 @@ function renderLateral() {
     bolinha(icon(myShare ? 'monitor-off' : 'projector'), 'rail-proj' + (myShare ? ' ativo' : ''), myShare ? 'Parar de projetar' : 'Projetar (tela, arquivo ou YouTube)', myShare ? () => stopShare() : null, !!myShare),
     el('span', { className: 'rail-grow' }),
     mic, som,
+    bolinha(icon('phone-off'), 'rail-sair', 'Sair da call', sairDaCall, true),
     bolinha(pfpImg(me.key, 36, me.name), 'rail-eu' + (me.speaking ? ' fala' : ''), `${me.name} · conta, configurações e sair`, e => menuPerfil(e.currentTarget), true)])
   if (!document.body.classList.contains('lateral-aberta')) { painel._sig = null; if (!projSlot.isConnected) painel.append(projSlot); return } // o menu de projetar precisa continuar na página
   // ---------- painel ----------
@@ -3981,6 +3982,13 @@ async function onAdmin(d, peerId) {
   else if (d.op === 'aviso') { banner = d.text ? d : null; showBanner(String(d.text || '').slice(0, 140)) }
   else if (d.op === 'reset' && (d.key === me.key || d.key === '*')) reconectarPorAdmin(who)
 }
+// Sair da call por vontade própria: mesma saída do "te tirou", com outro título
+function sairDaCall() {
+  if (myShare && !confirm('Você está projetando. Sair da call encerra a projeção. Sair mesmo?')) return
+  $('#kickedTit').textContent = 'Você saiu da call'
+  leave('Ninguém mais te ouve. Quando quiser, é só voltar.')
+}
+$('#btnSairCall').addEventListener('click', sairDaCall)
 function leave(msg) {
   clearInterval(presTimer); clearInterval(pollTimer); pollTimer = 0
   if (roomId && me.key) api('sala', { method: 'POST', body: { op: 'saiu', r: roomId, key: me.key } })
