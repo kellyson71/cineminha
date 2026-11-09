@@ -14,7 +14,7 @@ let descarte = null // Uno (cartas de cor e número), ver descarte.js
 let dobradinha = null // Dobro (escalada de cartas no boteco), ver dobradinha.js
 let douLheUma = null // Dou-lhe Uma (leilão de listas), ver doulheuma.js
 let naTesta = null // Na Testa (quem sou eu?), ver natesta.js
-let agentes = null // Agentes de Boteco (dicas em dois times), ver agentes.js
+let agentes = null // Codnames (dicas em dois times), ver agentes.js
 let quadro = null // Quadro a Quadro (adivinhe o filme pelo frame), ver quadro.js
 let parPerfeito = null // Red Flags (monte um pretendente), ver parperfeito.js
 let amigosDeBosta = null // Amigos de Merda (votação entre amigos), ver amigosdebosta.js
@@ -1665,7 +1665,7 @@ for (const [id, k] of [['faixa', 'faixa.S'], ['coup', 'coup.G'], ['dc', 'dc.G'],
 /* ---------- Botão de jogos: escolher o jogo ---------- */
 // ícones do menu: desenhados no centro de um quadrado de 24, para ficarem alinhados
 const ICONES_JOGO = {
-  ag: '<svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="12" height="8" rx="1.3" fill="#f1e6cf" transform="rotate(-8 8.5 10)"/><path d="M5 10.4h7" stroke="#1c140e" stroke-width="1.4" stroke-linecap="round" transform="rotate(-8 8.5 10)"/><circle cx="16.5" cy="15" r="5" fill="#d8352c"/><circle cx="16.5" cy="15" r="3" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width=".9"/><circle cx="11.5" cy="18.2" r="3.2" fill="#1f6fc4"/></svg>',
+  ag: '<svg viewBox="0 0 24 24"><rect x="2" y="4" width="13" height="9" rx="1.5" fill="#d85b49"/><rect x="9" y="11" width="13" height="9" rx="1.5" fill="#3289b0"/><circle cx="14" cy="15" r="1.8" fill="none" stroke="#fff" stroke-width="1.2"/><path d="m15.3 16.2 3 2m-1.5-1 1-1" fill="none" stroke="#fff" stroke-width="1.2"/></svg>',
   qq: '<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="1.6" fill="#050404"/><g fill="#f4ecdf" opacity=".55"><rect x="3.5" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="7.5" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="11.5" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="15.5" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="19" y="6.2" width="1.6" height="1.1" rx=".3"/><rect x="3.5" y="16.7" width="1.6" height="1.1" rx=".3"/><rect x="7.5" y="16.7" width="1.6" height="1.1" rx=".3"/><rect x="11.5" y="16.7" width="1.6" height="1.1" rx=".3"/><rect x="15.5" y="16.7" width="1.6" height="1.1" rx=".3"/><rect x="19" y="16.7" width="1.6" height="1.1" rx=".3"/></g><rect x="3.6" y="8.4" width="7.6" height="7.2" rx=".6" fill="#f5b841"/><rect x="12.8" y="8.4" width="7.6" height="7.2" rx=".6" fill="#f5b841" opacity=".35"/></svg>',
   faixa: '<svg viewBox="0 0 24 24" fill="#fff"><rect x="4" y="9" width="3" height="6" rx="1.5"/><rect x="8.5" y="5" width="3" height="14" rx="1.5"/><rect x="13" y="7.5" width="3" height="9" rx="1.5"/><rect x="17.5" y="10" width="3" height="4" rx="1.5"/></svg>',
   du: '<svg viewBox="0 0 24 24" fill="none" stroke="#14231b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 12.5-8 8a2.12 2.12 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></svg>',
@@ -1682,7 +1682,7 @@ const LISTA_JOGOS = [
   ['db', 'Dobro', '2 a 6', () => el('img', { className: 'jogosmenu__ic jogosmenu__ic--db jogosmenu__arte', src: 'jogos/dobro/miniatura.webp', alt: '' })],
   ['du', 'Dou-lhe Uma', '2 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--du', innerHTML: ICONES_JOGO.du })],
   ['nt', 'Na Testa', '2 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--nt', innerHTML: ICONES_JOGO.nt })],
-  ['ag', 'Agentes de Boteco', '4 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--ag', innerHTML: ICONES_JOGO.ag })],
+  ['ag', 'Codnames', '4 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--ag', innerHTML: ICONES_JOGO.ag })],
   ['qq', 'Quadro a Quadro', '1 ou mais', () => el('span', { className: 'jogosmenu__ic jogosmenu__ic--qq', innerHTML: ICONES_JOGO.qq })],
 ]
 const DESC_JOGO = { ag: 'Dicas em dois times: ache seus agentes', faixa: 'Adivinhe a música do dia', coup: 'Blefe e intriga na corte', dc: 'Combine cor ou número', pp: 'Monte o pretendente ideal', ab: 'Votem em quem merece', db: 'Suba o valor; empatou, dobra', du: 'Leilão de listas: quem cita mais?', nt: 'Descubra quem está na sua testa', qq: 'Adivinhe o filme pelo frame' }

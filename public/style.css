@@ -2981,5 +2981,5 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 /* telas mais estreitas: com o player na linha, o tempo da sessão fica só na lateral (sobra barra de progresso) */
 @media (min-width: 1000px) and (max-width: 1400px) { .theater.player-fora:not(:fullscreen, .palco) .toolbar__tempo { display: none; } }
 
-.jogosmenu__ic--ag { background: #2a1d14; box-shadow: inset 0 0 0 2px #e9c912; }
+.jogosmenu__ic--ag { background: #273c48; box-shadow: inset 0 0 0 1px #b4a990; }
 .jogosmenu__ic--ag svg { width: 32px; height: 32px; }

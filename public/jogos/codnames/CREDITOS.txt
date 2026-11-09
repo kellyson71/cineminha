@@ -1,0 +1,8 @@
+Codnames: interface, desenhos (agente, cliente, X9, caixas dos baralhos) e listas de palavras
+criados para o Cineminha. Mecânica de associação de palavras em dois times.
+
+Baralho "Da Casa": public/jogos/agentes/palavras.js (lista própria).
+Expansões: public/jogos/codnames/pacotes.js (grupos próprios).
+Sons originais: Codenames Online / Czech Games Edition, reaplicados a pedido do usuário.
+Arquivo, origem, hash e créditos: sons/origem.json e sons/CREDITOS.txt.
+Fundo da skin Bar e tampo: jogos/boteco/ (ver CREDITOS.txt de lá).

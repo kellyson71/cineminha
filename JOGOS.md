@@ -12,7 +12,7 @@ Tudo o que um jogo novo precisa seguir. Os oito jogos atuais são a referência 
 | Dobro | `public/dobradinha.js`, `dobradinha.css`, `jogos/dobro/` | `db` | escalada de valores (igual dobra), pilhas recolhidas no tampo, atlas AVIF/WebP; 3 s de proteção antes dos 9 s de contagem do Esquecido, arrastável; cola recolhida e paginada, cartas centrais maiores e destaque do destino ao levar a mesa |
 | Dou-lhe Uma | `public/doulheuma.js`, `doulheuma.css`, `jogos/doulheuma/` | `du` | leilão de listas (quem cita mais), sem relógio; tarja de TV de leilão rural |
 | Na Testa | `public/natesta.js`, `natesta.css`, `jogos/natesta/` | `nt` | quem sou eu? (post-it na testa, perguntas de sim/não); mural de cortiça |
-| Agentes de Boteco | `public/agentes.js`, `agentes.css`, `jogos/agentes/` | `ag` | dicas em dois times (mecânica de associação de palavras), lista própria de palavras, mesa de bar; admin: um clique no logo mostra o mapa |
+| Codnames | `public/agentes.js`, `agentes.css`, `jogos/codnames/` (+ `jogos/agentes/palavras.js`) | `ag` | dicas em dois times; cartas em comandas que viram (agente, cliente, X9), dica com seletor de número, clique para sugerir e duplo para abrir; baralho próprio Da Casa e 5 pacotes em caixas 3D; skins Escritório (padrão) e Bar, só para quem escolhe; admin: um clique no logo mostra o mapa; efeitos originais restaurados em `jogos/codnames/sons/`, pelo mixer |
 
 Comece copiando a estrutura do **Red Flags** (o mais simples e completo) ou do modelo em
 `.agents/skills/cineminha-jogos/modelo.js`.

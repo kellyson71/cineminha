@@ -10,4 +10,4 @@ Origem do mapa: https://cdn2.codenames.game/cno/67e962e2867609b7a47e70cd071a32ef
 SHA-256 e intervalos também registrados em origem.json.
 Os gatilhos de uso foram conferidos nas telas de sala/partida. Os URLs estão em fontesUso, no origem.json.
 A chave error existe no sprite, mas não foi encontrado um gatilho confirmado nas telas inspecionadas.
-Codebar é o nome local deste pacote; a origem e a titularidade do áudio permanecem as descritas acima.
+Codnames é o nome local deste pacote; a origem e a titularidade do áudio permanecem as descritas acima.

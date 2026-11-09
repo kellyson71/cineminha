@@ -36,11 +36,11 @@ export const EFEITOS = {
 const ARQUIVO = new URL('./sons/efeitos.mp3', import.meta.url)
 
 // Usa o AudioContext e a saída do mixer dos jogos do Cineminha; não cria outro canal de áudio.
-export function criaSonsCodebar(ctx) {
-  let carregando = null, fechado = false
+export function criaSonsCodnames(ctx) {
+  let carregando = null, fechado = false, geracao = 0
   const ativos = new Set(), cancelamento = new AbortController()
   const carrega = ac => carregando ||= fetch(ARQUIVO, { signal: cancelamento.signal })
-    .then(r => { if (!r.ok) throw new Error(`Áudio do Codebar: HTTP ${r.status}`); return r.arrayBuffer() })
+    .then(r => { if (!r.ok) throw new Error(`Áudio do Codnames: HTTP ${r.status}`); return r.arrayBuffer() })
     .then(b => ac.decodeAudioData(b))
     .catch(e => { carregando = null; throw e })
 
@@ -48,11 +48,12 @@ export function criaSonsCodebar(ctx) {
     const efeito = EFEITOS[nome]
     if (!efeito) throw new RangeError(`Efeito desconhecido: ${nome}`)
     if (fechado) return null
-    const ac = ctx.audioCtx(), quando = ac.currentTime + Math.max(0, atraso) / 1000
+    const pedido = geracao, ac = ctx.audioCtx(), quando = ac.currentTime + Math.max(0, atraso) / 1000
     if (ac.state === 'suspended') await ac.resume()
+    if (fechado || pedido !== geracao) return null
     let buffer
     try { buffer = await carrega(ac) } catch (e) { if (fechado) return null; throw e }
-    if (fechado) return null
+    if (fechado || pedido !== geracao) return null
     const som = ac.createBufferSource(), ganho = ac.createGain()
     som.buffer = buffer
     ganho.gain.value = .3 * Math.max(0, Math.min(1, Number.isFinite(volume) ? volume : 1))
@@ -62,6 +63,6 @@ export function criaSonsCodebar(ctx) {
     som.start(Math.max(ac.currentTime, quando), efeito.inicio, efeito.duracao)
     return som
   }
-  function parar() { for (const som of ativos) { try { som.stop() } catch {} } }
+  function parar() { geracao++; for (const som of ativos) { try { som.stop() } catch {} } }
   return { tocar, parar, destruir() { fechado = true; cancelamento.abort(); parar() } }
 }

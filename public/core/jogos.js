@@ -10,7 +10,7 @@ export const JOGOS = {
   db: { nome: 'Dobro', mod: './dobradinha.js', cria: 'criaDobradinha', tela: 'db', on: 'db-on', css: ['aula.css', 'cartas-mesa.css', 'dobradinha.css'], fontes: 'family=Alfa+Slab+One&family=Caveat+Brush&family=Barlow+Semi+Condensed:wght@500;600;700' },
   du: { nome: 'Dou-lhe Uma', mod: './doulheuma.js', cria: 'criaDouLheUma', tela: 'du', on: 'du-on', css: ['doulheuma.css'], fontes: 'family=Bowlby+One+SC&family=Archivo+Narrow:wght@500;600;700' },
   qq: { nome: 'Quadro a Quadro', mod: './quadro.js', cria: 'criaQuadro', tela: 'qq', on: 'qq-on', css: ['quadro.css'], fontes: 'family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700' },
-  ag: { nome: 'Agentes de Boteco', mod: './agentes.js', cria: 'criaAgentes', tela: 'ag', on: 'ag-on', css: ['agentes.css'], fontes: 'family=Alfa+Slab+One&family=Barlow+Condensed:wght@500;600;700;800' },
+  ag: { nome: 'Codnames', mod: './agentes.js', cria: 'criaAgentes', tela: 'ag', on: 'ag-on', css: ['agentes.css'], fontes: 'family=Alfa+Slab+One&family=Barlow+Condensed:wght@500;600;700;800' },
   nt: { nome: 'Na Testa', mod: './natesta.js', cria: 'criaNaTesta', tela: 'nt', on: 'nt-on', css: ['natesta.css'], fontes: 'family=Gochi+Hand&family=Outfit:wght@400;600;700' },
 }
 

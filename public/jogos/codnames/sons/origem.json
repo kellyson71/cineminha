@@ -69,5 +69,5 @@
     "3gdk-x9u9hbrz.js": "https://cdn2.codenames.game/cno/67e962e2867609b7a47e70cd071a32ef18f67392/_next/static/chunks/3gdk-x9u9hbrz.js",
     "33stua8p_fkzc.js": "https://cdn2.codenames.game/cno/67e962e2867609b7a47e70cd071a32ef18f67392/_next/static/chunks/33stua8p_fkzc.js"
   },
-  "observacaoUso": "Chaves originais preservadas. 14 efeitos com gatilhos confirmados nas telas inspecionadas. error existe no sprite, mas seu gatilho não foi confirmado. Ver audio.js e docs/jogos/codebar-sons.md."
+  "observacaoUso": "Chaves originais preservadas. 14 efeitos com gatilhos confirmados nas telas inspecionadas. error existe no sprite, mas seu gatilho não foi confirmado. Ver audio.js e docs/jogos/codnames-sons.md."
 }

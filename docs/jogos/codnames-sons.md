@@ -1,12 +1,12 @@
-# Sons do Codebar
+# Sons do Codnames
 
-Pacote preparado a pedido do usuário, sem adicionar um jogo novo ou alterar os efeitos dos jogos existentes.
+Pacote preparado a pedido do usuário e integrado ao Codnames, preservando os efeitos dos outros jogos.
 
-- Prévia local: `/jogos/codebar/sons.html`.
-- Arquivo original: `public/jogos/codebar/sons/efeitos.mp3` (562.584 bytes).
-- Reprodução: `public/jogos/codebar/audio.js`.
-- Origem, hash SHA-256 e tempos: `public/jogos/codebar/sons/origem.json`.
-- Créditos: `public/jogos/codebar/sons/CREDITOS.txt`.
+- Prévia local: `/jogos/codnames/sons.html`.
+- Arquivo original: `public/jogos/codnames/sons/efeitos.mp3` (562.584 bytes).
+- Reprodução: `public/jogos/codnames/audio.js`.
+- Origem, hash SHA-256 e tempos: `public/jogos/codnames/sons/origem.json`.
+- Créditos: `public/jogos/codnames/sons/CREDITOS.txt`.
 
 O site oficial usa um sprite: os 15 efeitos estão em um único MP3. O arquivo foi preservado sem conversão;
 o módulo usa os mesmos offsets e durações do mapa público do site. A grafia original `assasin` foi mantida.
@@ -39,14 +39,14 @@ Os campos `onde`, `quando`, `gatilho` e `confirmado` também estão disponíveis
 `audio.js`, e aparecem na galeria. Os URLs dos arquivos usados para conferir os gatilhos estão em
 `sons/origem.json`, sob `fontesUso`. A única entrada com `confirmado: false` é `error`.
 
-## Integrar futuramente
+## Reprodução e integração
 
 No módulo do jogo, crie uma instância usando o `ctx` do Cineminha:
 
 ```js
-import { criaSonsCodebar } from './jogos/codebar/audio.js'
+import { criaSonsCodnames } from './jogos/codnames/audio.js'
 
-const sons = criaSonsCodebar(ctx)
+const sons = criaSonsCodnames(ctx)
 // Dentro de uma interação ou de um evento novo recebido na partida:
 sons.tocar('sendClue').catch(() => {})
 sons.tocar('goodGuess', { atraso: 250, volume: .8 }).catch(() => {})

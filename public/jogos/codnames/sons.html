@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sons do Codebar · Cineminha</title>
+<title>Sons do Codnames · Cineminha</title>
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; background: #101114; color: #f4f2ee; font: 16px/1.5 system-ui,sans-serif; }
@@ -29,7 +29,7 @@
   footer { border-top: 1px solid #343740; padding-top: 24px; margin-top: 28px; font-size: 13px; color: #b5b9c3; }
 </style>
 <main>
-  <h1>Sons do Codebar</h1>
+  <h1>Sons do Codnames</h1>
   <p>15 efeitos originais do <a href="https://codenames.game/" target="_blank" rel="noreferrer">Codenames Online</a>, com suas chaves exatas e os momentos de uso. Clique para ouvir.</p>
   <div class="barra"><label>Volume <input id="volume" aria-label="Volume dos efeitos" type="range" min="0" max="1" step=".05" value="1"></label><button id="parar" type="button">Parar</button></div>
   <div id="sons"></div>
@@ -37,10 +37,10 @@
   <footer>Áudio: Czech Games Edition / Codenames Online. Arquivo original preservado; recortes com os tempos usados pelo site. O volume inicial corresponde ao padrão de efeitos do site.</footer>
 </main>
 <script type="module">
-  import { EFEITOS, criaSonsCodebar } from './audio.js'
+  import { EFEITOS, criaSonsCodnames } from './audio.js'
   let ac, atual = 0
   const contexto = () => ac ||= new AudioContext()
-  const sons = criaSonsCodebar({ audioCtx: contexto, saida: () => contexto().destination })
+  const sons = criaSonsCodnames({ audioCtx: contexto, saida: () => contexto().destination })
   const status = document.querySelector('#status'), lista = document.querySelector('#sons')
   const limpa = () => lista.querySelectorAll('[aria-pressed=true]').forEach(b => b.setAttribute('aria-pressed','false'))
   for (const [id, efeito] of Object.entries(EFEITOS)) {
