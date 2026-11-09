@@ -2,7 +2,7 @@ import { memo, useEffect, useRef } from 'react'
 
 // Uma tela projetada. Remota: <video> com o stream e som no volume da pessoa.
 // Minha tela: prévia muda. Meu arquivo: o próprio <video> que toca (e é capturado) entra aqui.
-const Tile = memo(function Tile({ t, focus, thumb, index, volume, onFocus, onFs, onRemoteToggle }) {
+const Tile = memo(function Tile({ t, focus, thumb, index, volume, onFocus, onRemoteToggle }) {
   const box = useRef(null)
   const own = useRef(null)
   useEffect(() => {
@@ -21,7 +21,7 @@ const Tile = memo(function Tile({ t, focus, thumb, index, volume, onFocus, onFs,
     else onFocus(t.id)
   }
   return (
-    <div className={cls} tabIndex={0} ref={box} style={{ '--i': thumb ? index : 0 }} onClick={click} onDoubleClick={onFs}>
+    <div className={cls} tabIndex={0} ref={box} style={{ '--i': thumb ? index : 0 }} onClick={click}>
       {!t.video && <video ref={own} playsInline autoPlay disablePictureInPicture controls={false} />}
       <div className="tile__sub">{t.sub}</div>
       <div className="tile__paused"><span>Pausado</span></div>
@@ -30,7 +30,7 @@ const Tile = memo(function Tile({ t, focus, thumb, index, volume, onFocus, onFs,
   )
 })
 
-export default function Stage({ tiles, focusId, setFocusId, toast, onFs, busy, onRemoteToggle, vols, mix, deaf }) {
+export default function Stage({ tiles, focusId, setFocusId, toast, busy, onRemoteToggle, vols, mix, deaf }) {
   const n = tiles.length
   // volume do filme de cada um (no <video>, máximo 100%)
   const volume = key => { const v = vols[key] || {}; return deaf || v.movieMute ? 0 : Math.min(1, (mix.master ?? 1) * (mix.movie ?? 1) * (v.movie ?? 1)) }
@@ -42,7 +42,7 @@ export default function Stage({ tiles, focusId, setFocusId, toast, onFs, busy, o
           {tiles.map(t => {
             const thumb = n > 1 && !!focusId && t.id !== focusId
             return <Tile key={t.id} t={t} focus={n > 1 && t.id === focusId} thumb={thumb} index={thumb ? i++ : 0} volume={t.mine ? 0 : volume(t.key)}
-              onFocus={id => setFocusId(f => (f === id ? null : id))} onFs={onFs} onRemoteToggle={onRemoteToggle} />
+              onFocus={id => setFocusId(f => (f === id ? null : id))} onRemoteToggle={onRemoteToggle} />
           })}
         </div>
         <div id="empty" className="empty" hidden={n > 0}>

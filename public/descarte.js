@@ -53,6 +53,11 @@ const VOL = { golpe: .5, pular: .7, inverter: .7, desliza1: .9, desliza2: .9, de
 const GRACA_7 = 1400 // depois do 7, um respiro antes de valer o silêncio
 const SAIU_MS = 12000 // jogador sem conexão por esse tempo sai do jogo
 const HOST_MS = 10000 // quem abriu a mesa caiu: o sucessor assume depois disso
+const REPOE_MS = 2200 // recolher o descarte, virar, embaralhar e devolver ao monte
+const ritmoCompra = n => {
+  const muitas = n >= 4, voos = Math.min(n, 18), passo = muitas ? Math.max(45, Math.min(95, 1300 / voos)) : 110, dur = muitas ? 600 : 520
+  return { muitas, voos, passo, dur, total: voos * passo + (muitas ? dur : dur * .4) }
+}
 const BATE_MS = 4000 // a batida do 9 fica aberta por esse tempo
 const BATE_LIM = 3000 // quem demora mais que isso (ou não bate) compra
 const BATE_PEN_MS = 9000 // bater sem 9: no máximo uma penalidade por pessoa nesse intervalo
@@ -172,18 +177,21 @@ export function criaDescarte(ctx) {
     G.cor = topo().c; G.dir = 1; G.pend = 0; G.pendTipo = null; G.compradas = 0; G.roleta = null; G.sil = null; G.bate = null
     const ult = ls.get('dc.vencedor')
     G.vez = ks.includes(ult) ? ks.indexOf(ult) : rnd(ks.length)
-    G.fase = 'jogo'; G.log = []; G.vencedor = null; G.turno = 0; G.estourou = []
+    G.fase = 'jogo'; G.log = []; G.vencedor = null; G.turno = 0; G.estourou = []; G.repondoAte = 0
     log(`Partida começou. ${G.js[G.vez].nome} começa.`)
     ev({ t: 'inicio' })
     sysMsg(`Uno começou: ${G.js.map(j => j.nome).join(', ')}`)
     armaTempo(3000)
     difunde()
   }
-  function repoe() {
-    if (G.monte.length) return
-    const t = G.descarte.pop()
-    G.monte = embaralha(G.descarte.map(({ esc, ...c }) => c)); G.descarte = [t]
-    if (G.monte.length) ev({ t: 'embaralha' })
+  function repoe(espera = 0) {
+    if (G.monte.length || G.descarte.length < 2) return
+    const t = topo(), cartas = G.descarte.slice(0, -1)
+    G.monte = embaralha(cartas.map(({ esc, ...c }) => c)); G.descarte = [t]
+    G.repondoAte = Date.now() + espera + REPOE_MS
+    if (G.prazo) { G.prazo += espera + REPOE_MS; programaTempo() }
+    // Só as faces públicas do descarte; a ordem do monte embaralhado continua secreta.
+    ev({ t: 'embaralha', cartas: cartas.slice(-13), topo: t, qtd: G.monte.length })
   }
   // tira uma carta do monte; o admin pode ter escolhido as próximas (vem a primeira da fila que ainda estiver no monte)
   // Sem fila, a compra é aleatória (o topo do monte embaralhado). Com fila (admin), vem exatamente a próxima da fila:
@@ -205,9 +213,16 @@ export function criaDescarte(ctx) {
   }
   function compra(j, n, semAviso) {
     const novas = []
-    for (let k = 0; k < n; k++) { repoe(); const c = tira(j.key); if (!c) break; j.mao.push(c); novas.push(c) }
+    let trecho = 0
+    const avisa = () => { if (trecho && !semAviso) ev({ t: 'compra', key: j.key, qtd: trecho }); trecho = 0 }
+    for (let k = 0; k < n; k++) {
+      if (!G.monte.length) { avisa(); repoe(novas.length ? ritmoCompra(novas.length).total : 0) }
+      const c = tira(j.key); if (!c) break
+      j.mao.push(c); novas.push(c); trecho++
+    }
     j.avisou = false; j.pegavel = false
-    if (novas.length && !semAviso) ev({ t: 'compra', key: j.key, qtd: novas.length })
+    avisa()
+    if (novas.length && !semAviso) repoe(ritmoCompra(novas.length).total)
     return novas
   }
   const serve = (c, j) => {
@@ -231,7 +246,11 @@ export function criaDescarte(ctx) {
       timer = setTimeout(() => { if (G?.fase === 'roleta' && G.roleta === r) terminaRoleta() }, Math.max(0, r.liberaEm - Date.now()))
       return
     }
-    G.prazo = G.op.tempo && G.fase !== 'fim' ? Date.now() + G.op.tempo * 1000 + extra : 0
+    G.prazo = G.op.tempo && G.fase !== 'fim' ? Date.now() + G.op.tempo * 1000 + extra + Math.max(0, (G.repondoAte || 0) - Date.now()) : 0
+    programaTempo()
+  }
+  function programaTempo() {
+    clearTimeout(timer)
     if (!G.prazo) return
     const t = G.turno
     timer = setTimeout(() => { if (G && G.turno === t && G.fase !== 'fim') tempoAcabou() }, G.prazo - Date.now() + 60)
@@ -269,7 +288,6 @@ export function criaDescarte(ctx) {
     if (!resta.length && G.op.semAcao && !ehNumero(ult.v)) return // não bate com carta de ação
     j.mao = resta
     G.descarte.push(...extras, ...cs.map(c => c.c ? c : { ...c, esc: ult.c || cor }))
-    if (G.descarte.length > 60) G.monte.unshift(...G.descarte.splice(0, G.descarte.length - 60))
     G.cor = ult.c || cor
     for (const o of G.js) if (o !== j) o.pegavel = false
     if (j.mao.length === 1) { j.pegavel = G.op.penalidade && !j.avisou; j.avisou = j.avisou || !G.op.penalidade }
@@ -339,10 +357,11 @@ export function criaDescarte(ctx) {
     const r = G.roleta, j = jog(key)
     if (G.fase !== 'roleta' || !r || r.concluida || r.key !== key || !j || passo !== r.passo || Date.now() < r.liberaEm) return
     const [c] = compra(j, 1, true)
-    r.passo++; r.liberaEm = Date.now() + ROLETA_REVELA_MS
+    r.passo++; r.liberaEm = Math.max(Date.now(), G.repondoAte || 0) + ROLETA_REVELA_MS
     if (c) { r.qtd++; r.ultima = c; r.achou = c.c === r.cor }
     r.concluida = !c || r.achou
     ev({ t: 'roletaCarta', key, carta: c || null, cor: r.cor, qtd: r.qtd, achou: r.achou, passo: r.passo })
+    if (c && !G.monte.length) { repoe(ROLETA_REVELA_MS); r.liberaEm = Math.max(r.liberaEm, G.repondoAte || 0) }
     if (automatico) log(`O tempo acabou; ${j.nome} virou uma carta da Roleta.`)
     armaTempo(ROLETA_REVELA_MS); difunde()
   }
@@ -458,6 +477,7 @@ export function criaDescarte(ctx) {
   }
   function hostRecebe(d, key) {
     if (!G || !key || d.id !== G.id) return
+    if (Date.now() < (G.repondoAte || 0) && ['joga', 'compra', 'roleta', 'passa', 'troca', 'bate'].includes(d.op)) return
     switch (d.op) {
       case 'resp': if (G.fase === 'convite') { G.conv[key] = d.sim ? 'sim' : 'nao'; difunde() } break
       case 'sai': if (key !== G.host) remove(key); break // saiu para outra mesa
@@ -477,6 +497,7 @@ export function criaDescarte(ctx) {
       id: G.id, seq: G.seq, host: G.host, hostNome: G.hostNome, fase: G.fase, op: G.op, conv: G.conv, placar: G.placar,
       js: G.js.map(j => ({ key: j.key, nome: j.nome, n: j.mao.length, avisou: j.avisou, pegavel: j.pegavel })),
       mao: jog(k)?.mao.slice() || null, descarte: G.descarte.slice(-14), cor: G.cor, dir: G.dir, vez: G.js[G.vez]?.key || null, monte: G.monte.length,
+      repondo: Math.max(0, (G.repondoAte || 0) - Date.now()),
       bate: G.bate ? { k: G.bate.k, resta: Math.max(0, G.bate.ate - Date.now()), bateram: Object.keys(G.bate.rt) } : null,
       pend: G.pend, pendTipo: G.pendTipo, compradas: G.js[G.vez]?.key === k ? G.compradas || 0 : 0, lim: limite(),
       roleta: G.fase === 'roleta' && G.roleta ? { ...G.roleta, libera: Math.max(0, G.roleta.liberaEm - Date.now()), liberaEm: undefined } : null,
@@ -586,6 +607,18 @@ export function criaDescarte(ctx) {
   let tema = ls.get('dc.tema') === 'classico' ? 'classico' : 'minimalista'
   let temaAberto = false
   let bateK = 0, bateT0 = 0, bateFeito = false, bateMs = 0, bateRes = null, semNove = 0
+  let monteVisual = null, descarteVisual = null, pilhasAte = 0
+  const pilhasVoando = new Set(), timersPilha = new Set()
+  function depoisPilha(fn, atraso) {
+    const id = V?.id, timer = setTimeout(() => { timersPilha.delete(timer); if (V?.id === id) fn() }, atraso)
+    timersPilha.add(timer)
+  }
+  function limpaPilhas() {
+    for (const t of timersPilha) clearTimeout(t)
+    timersPilha.clear()
+    for (const n of pilhasVoando) n.remove()
+    pilhasVoando.clear(); pousando.clear(); monteVisual = descarteVisual = null; pilhasAte = 0; entregando = false
+  }
   const novo = id => { if (vistos.has(id)) return false; vistos.add(id); return true }
   const souHost = () => V && V.host === me.key
   const eu = () => V?.js.find(j => j.key === me.key)
@@ -594,6 +627,7 @@ export function criaDescarte(ctx) {
   function viraRoleta() { if (podeVirarRoleta()) manda({ op: 'roleta', passo: V.roleta.passo }) }
   function manda(d) {
     if (!V) return
+    if (Date.now() < V.recebido + (V.repondo || 0) && ['joga', 'compra', 'roleta', 'passa', 'troca', 'bate'].includes(d.op)) return
     const m = { id: V.id, ...d }
     if (souHost()) hostRecebe(m, me.key)
     else ctx.sendTo(V.host, { dc: { op: m } })
@@ -614,6 +648,7 @@ export function criaDescarte(ctx) {
   }
   function aplica(v) {
     const antes = V
+    if (!v || antes?.id !== v.id) limpaPilhas()
     if (v && (!antes || antes.id !== v.id)) {
       ultEv = Math.max(0, ...v.ev.map(e => e.n))
       const ini = v.ev.find(e => e.t === 'inicio')
@@ -631,6 +666,9 @@ export function criaDescarte(ctx) {
     const evs = v ? v.ev.filter(e => e.n > ultEv) : []
     if (v) ultEv = Math.max(ultEv, ...v.ev.map(e => e.n))
     if (evs.some(e => e.t === 'inicio')) entregando = true
+    if (evs.some(e => ['compra', 'roletaCarta', 'embaralha'].includes(e.t)) && monteVisual == null) monteVisual = antes?.monte ?? v.monte
+    const reposicao = evs.find(e => e.t === 'embaralha')
+    if (reposicao && !descarteVisual) descarteVisual = reposicao.cartas ? [...reposicao.cartas, reposicao.topo] : antes?.descarte
     render(antes)
     if (v) anima(evs, antes)
   }
@@ -798,7 +836,7 @@ export function criaDescarte(ctx) {
     const kids = [el('div', { className: 'dc-palco' }, plano), topoBar, minhaArea(antes), controles(), meio(), silencio(), bilhete(), quadro(), ...bateUI(), guia(), filaUI(), caixasTema(),
       el('div', { className: 'dc-log' }, el('ol', {}, ...V.log.slice(-40).map(t => el('li', { textContent: t }))))]
     if (!conv && V.fase !== 'fim' && !ctx.presentes().includes(V.host)) kids.push(el('div', { className: 'dc-pausa' }, el('b', { textContent: 'Partida pausada' }), el('span', { textContent: `${V.hostNome} abriu a mesa e caiu. Continua de onde parou quando voltar.` })))
-    tela.replaceChildren(...kids)
+    tela.replaceChildren(...kids, ...pilhasVoando)
     tela.classList.toggle('acabou', V.fase === 'fim')
     ctx.hydrate(tela)
     if (focoTema) tela.querySelector(`.dc-baralho[data-tema-opcao="${focoTema}"]`)?.focus({ preventScroll: true })
@@ -899,23 +937,44 @@ export function criaDescarte(ctx) {
     const tip = el('span', { className: 'dc-tip', textContent: `${txt} Clique de novo.` }); btn.append(tip)
     setTimeout(() => { delete btn.dataset.conf; btn.classList.remove('confirma'); tip.remove() }, 2600)
   }
+  // Até oito amostras da pilha; a altura diminui a cada carta, inclusive no fim do monte.
+  function cartasMonte(qtd) {
+    const camadas = Math.min(8, qtd), altura = Math.min(3.5, Math.max(0, qtd - 1) * 3.5 / (V?.op.semPiedade ? 133 : 107))
+    return [el('i', { className: 'dc-monte__sombra' }), ...Array.from({ length: camadas }, (_, i) => {
+      const n = carta(null, 'dc-camada')
+      n.style.cssText += `--i:${i};--dc-altura:${camadas > 1 ? altura * i / (camadas - 1) : 0}cqh`
+      return n
+    })]
+  }
+  function cartasDescarte(cartas) {
+    return cartas.map((c, i) => {
+      const n = carta(c, 'dc-no-monte'), [dx, dy] = desvio(c.id)
+      n.style.cssText += `--giro:${giro(c.id)}deg;--dx:${dx.toFixed(2)}cqh;--dy:${dy.toFixed(2)}cqh;--i:${i}`
+      if (pousando.has(c.id)) n.classList.add('oculta')
+      return n
+    })
+  }
+  function atualizaPilhas() {
+    const monte = tela.querySelector('.dc-centro > .dc-monte'), qtd = monteVisual ?? V.monte
+    if (monte) {
+      monte.replaceChildren(...cartasMonte(qtd)); monte.classList.toggle('vazio', !qtd)
+      monte.dataset.qtd = String(qtd); monte.dataset.info = `Monte: ${qtd} cartas`
+    }
+    const desc = tela.querySelector('.dc-descarte')
+    if (desc) {
+      desc.querySelectorAll('.dc-no-monte').forEach(n => n.remove())
+      desc.prepend(...cartasDescarte(descarteVisual ?? V.descarte))
+    }
+  }
   function centro() {
     const minha = V.fase === 'jogo' && V.vez === me.key
-    const podeComprar = minha && (V.pend > 0 || V.compradas < V.lim)
-    // monte com volume: camadas empilhadas de verdade no eixo Z (mais cartas, mais alto)
-    const camadas = V.monte ? Math.min(8, Math.max(2, Math.ceil(V.monte / 12))) : 0
-    const monte = el('div', { className: 'dc-monte' + (podeComprar ? ' pode' : '') + (V.monte ? '' : ' vazio'), style: `--camadas:${camadas}`, 'data-info': `Monte: ${V.monte} cartas${podeComprar ? (V.pend ? `\nClique para comprar ${V.pend}` : '\nClique para comprar') : ''}` },
-      el('i', { className: 'dc-monte__sombra' }),
-      ...Array.from({ length: camadas }, (_, i) => { const n = carta(null, 'dc-camada'); n.style.setProperty('--i', i); return n }))
+    const podeComprar = minha && Date.now() >= V.recebido + (V.repondo || 0) && (V.pend > 0 || V.compradas < V.lim)
+    const qtd = monteVisual ?? V.monte
+    const monte = el('div', { className: 'dc-monte' + (podeComprar ? ' pode' : '') + (qtd ? '' : ' vazio'), 'data-qtd': String(qtd), 'data-info': `Monte: ${qtd} cartas${podeComprar ? (V.pend ? `\nClique para comprar ${V.pend}` : '\nClique para comprar') : ''}` }, ...cartasMonte(qtd))
     if (V.fase === 'roleta' && V.roleta?.key === me.key) { monte.dataset.roletaMonte = '1'; monte.classList.toggle('pode', podeVirarRoleta()); monte.addEventListener('click', viraRoleta) }
     else if (podeComprar) monte.addEventListener('click', () => { som('desliza'); manda({ op: 'compra' }) })
     const desc = el('div', { className: `dc-descarte dc-cor-${V.cor}`, 'data-info': `Mesa: ${CORES[V.cor]}${V.pend ? `\nAcumulado: +${V.pend}` : ''}` },
-      ...V.descarte.map((c, i) => {
-        const n = carta(c, 'dc-no-monte'), [dx, dy] = desvio(c.id)
-        n.style.cssText += `--giro:${giro(c.id)}deg;--dx:${dx.toFixed(2)}cqh;--dy:${dy.toFixed(2)}cqh;--i:${i}`
-        if (pousando.has(c.id)) n.classList.add('oculta')
-        return n
-      }),
+      ...cartasDescarte(descarteVisual ?? V.descarte),
       V.pend ? el('b', { className: 'dc-pend', textContent: `+${V.pend}` }) : '')
     if (minha) desc.addEventListener('click', () => enviar())
     // anel de setas na cor da mesa (gira no sentido do jogo) e o facho de luz para quem tem a vez
@@ -1271,7 +1330,7 @@ export function criaDescarte(ctx) {
   const largMesa = () => 4.6 * cqh() // carta do leque de quem está na mesa
   const corCss = c => (c && getComputedStyle(tela).getPropertyValue('--' + c).trim()) || '#f4f2ee'
   const fotoMao = () => M.fotos('.dc-mao'), flip = f => M.flip(f, '.dc-mao')
-  const voo = M.voo, tremeMesa = M.treme
+  const voo = (c, A, B, o = {}) => depoisPilha(() => M.voo(c, A, B, { ...o, atraso: 0 }), o.atraso || 0), tremeMesa = M.treme
   const pousa = (id, sel) => { M.pousa(id, sel); if (sel === '.dc-descarte') boteco.balanca(.3) } // a mesa sente a carta pousar
   const impacto = (p, cor, forte) => { M.impacto(p, corCss(cor), forte, cor ? null : ['r', 'y', 'g', 'b'].map(corCss)); if (forte) boteco.balanca(1) }
   // seletor de cor em volta da pilha
@@ -1317,14 +1376,14 @@ export function criaDescarte(ctx) {
     const desc = tela.querySelector('.dc-descarte'), monte = tela.querySelector('.dc-monte')
     // cartas que chegaram na minha mão (para voarem do monte até o lugar certo, virando no ar)
     const minhasNovas = antes && antes.id === V.id && V.mao && antes.mao ? V.mao.map(c => c.id).filter(id => !antes.mao.some(c => c.id === id)) : []
-    let t = 0
+    let t = Math.max(0, pilhasAte - Date.now())
     for (const e of evs) {
       const at = t
       if (e.t === 'inicio') { distribui(); t += 1800 }
       else if (e.t === 'joga') { if (e.key === me.key) poseJogaAte = Date.now() + 1000; t += animaJogada(e, at, desc) }
       else if (e.t === 'compra') t += animaCompra(e, at, monte, e.key === me.key ? minhasNovas.splice(0, e.qtd || 1) : [])
       else if (e.t === 'roletaInicio') { som('inverter', at, .6); balao(e.key, `Roleta: vire até sair ${CORES[e.cor]}`, 'forte', at); if (e.key === me.key) toast(`Roleta: vire uma carta por vez até sair ${CORES[e.cor]}. Você fica com todas e perde a vez.`, 5000) }
-      else if (e.t === 'roletaCarta') animaRoletaCarta(e, at)
+      else if (e.t === 'roletaCarta') { animaRoletaCarta(e, at); if (e.carta) t += 1200 }
       else if (e.t === 'roletaFim') { som('carimbo', at, .7); balao(e.key, `Roleta: +${e.qtd} · perdeu a vez`, 'forte', at) }
       else if (e.t === 'roleta') balao(e.key, `Roleta: +${e.qtd}`, 'forte', at) // eventos de partidas antigas
       else if (e.t === 'descCor') { animaDescartaCor(e, at); som('leque', at, .9); balao(e.key, `Descartou mais ${e.qtd} ${CORES[e.cor]}!`, 'leve', at + 200) }
@@ -1350,9 +1409,61 @@ export function criaDescarte(ctx) {
       else if (e.t === 'ultima') { som('carimbo', at, .8); balao(e.key, 'Uno!', 'ultima', at) }
       else if (e.t === 'pegou') { som('carimbo', at); balao(e.por, `Pegou ${N(e.key)}!`, 'forte', at); balao(e.key, '+2', 'forte', at + 300) }
       else if (e.t === 'falou') { som('carimbo', at); balao(e.key, 'Falou no 7! +2', 'forte', at); setTimeout(() => { const r = e.key === me.key ? tela.querySelector('.dc-eu') : tela.querySelector(`.dc-assento[data-key="${CSS.escape(e.key)}"] .dc-medalha`); if (!r) return; const x = el('span', { className: 'dc-shh' }, svg('shh')); r.append(x); setTimeout(() => x.remove(), 2200) }, at) }
-      else if (e.t === 'embaralha') som('embaralhar', at, .6)
+      else if (e.t === 'embaralha') t += animaReposicao(e, at, antes)
       else if (e.t === 'vence') som('leque', at + 200)
     }
+    if (evs.some(e => ['compra', 'roletaCarta', 'embaralha'].includes(e.t))) {
+      const fim = pilhasAte = Date.now() + t
+      depoisPilha(() => { if (pilhasAte !== fim) return; monteVisual = descarteVisual = null; pilhasAte = 0; atualizaPilhas() }, t + 30)
+    }
+  }
+  function animaReposicao(e, at, antes) {
+    const cartas = e.cartas || antes?.descarte.slice(0, -1) || []
+    const topo = e.topo || V.descarte.at(-1), qtd = e.qtd ?? V.monte
+    const desc = tela.querySelector('.dc-descarte'), monte = tela.querySelector('.dc-centro > .dc-monte')
+    if (!desc || !monte || !topo) return 0
+    if (calmo()) {
+      depoisPilha(() => { descarteVisual = [topo]; monteVisual = qtd; atualizaPilhas(); som('embaralhar', 0, .6) }, at)
+      return 0
+    }
+    const A = ponto(desc), B = ponto(monte), h = cqh()
+    const camada = el('div', { className: 'dc-recicla', role: 'img', 'aria-label': 'Reembaralhando o descarte para repor o monte', style: `left:${A.x}px;top:${A.y}px;width:${A.w}px;--w:${A.w}px;visibility:hidden` })
+    pilhasVoando.add(camada); tela.append(camada)
+    depoisPilha(() => {
+      monteVisual = 0; descarteVisual = [topo]; atualizaPilhas()
+      camada.style.visibility = ''; camada.dataset.etapa = 'recolhendo'
+      cartas.forEach((c, i) => {
+        const [dx, dy] = desvio(c.id), face = carta(c, 'dc-recicla__frente'), verso = carta(null, 'dc-recicla__verso')
+        const virada = el('div', { className: 'dc-recicla__virada' }, face, verso)
+        const n = el('div', { className: 'dc-recicla__carta' }, virada)
+        camada.append(n)
+        n.animate([{ transform: `translate(${dx * h}px,${dy * h}px) translateZ(${i * .14 * h}px) rotate(${giro(c.id)}deg)` },
+          { transform: `translate(0,${-i * .04 * h}px) translateZ(${i * .08 * h}px) rotate(0deg)` }],
+          { duration: 450, easing: 'cubic-bezier(.2,.75,.25,1)', fill: 'both' })
+      })
+      som('desliza', 0, .7)
+    }, at)
+    depoisPilha(() => {
+      camada.dataset.etapa = 'virando'
+      camada.querySelectorAll('.dc-recicla__virada').forEach(n => n.animate([{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(180deg)' }], { duration: 300, easing: 'ease-in-out', fill: 'both' }))
+    }, at + 450)
+    depoisPilha(() => {
+      camada.dataset.etapa = 'embaralhando'
+      const baralho = el('div', { className: 'dc-monte dc-recicla__baralho' }, ...cartasMonte(qtd))
+      camada.replaceChildren(baralho)
+      embaralhaVisual(baralho)
+    }, at + 750)
+    depoisPilha(() => {
+      camada.dataset.etapa = 'voltando'
+      camada.animate([{ transform: 'translate(-50%,-50%) perspective(1000px) rotateX(38deg)' },
+        { transform: `translate(${B.x - A.x}px,${B.y - A.y}px) translate(-50%,-50%) perspective(1000px) rotateX(38deg) rotate(-14deg) scale(${B.w / A.w})` }],
+        { duration: 450, easing: 'cubic-bezier(.3,.65,.25,1)', fill: 'both' })
+    }, at + 1750)
+    depoisPilha(() => {
+      camada.remove(); pilhasVoando.delete(camada)
+      monteVisual = qtd; atualizaPilhas(); som('poe', 0, .7)
+    }, at + REPOE_MS)
+    return REPOE_MS
   }
   // jogada: a carta sai de quem jogou (a minha, do lugar exato na mão; a dos outros, do leque, virando no ar)
   // e pousa na pilha no giro dela. Ação, compra e várias de uma vez sobem alto e batem na mesa.
@@ -1393,6 +1504,7 @@ export function criaDescarte(ctx) {
     const C = ponto(mao, minha ? 12 * h : largMesa())
     revelada.classList.add('oculta')
     if (minha) { pousando.add(c.id); mao?.classList.add('oculta'); mao?.classList.remove('chegou') }
+    depoisPilha(() => { monteVisual = Math.max(0, (monteVisual ?? V.monte + 1) - 1); atualizaPilhas() }, at)
     som('desliza', at, .7)
     let revelou = false
     const revela = () => { if (revelou) return; revelou = true; revelada.classList.remove('oculta'); if (e.achou) som('carimbo', 0, .8); else som('poe', 0, .6) }
@@ -1430,10 +1542,7 @@ export function criaDescarte(ctx) {
   function animaCompra(e, at, monte, ids = []) {
     const n = e.qtd || 1, eu_ = e.key === me.key, alvoGeral = lugarDe(e.key)
     if (!monte || !alvoGeral) { ids.forEach(id => pousa(id, '.dc-mao')); return 0 }
-    const h = cqh(), muitas = n >= 4
-    const voos = eu_ ? Math.max(ids.length, Math.min(n, 18)) : Math.min(n, muitas ? 18 : n)
-    const passo = muitas ? Math.max(45, Math.min(95, 1300 / voos)) : 110
-    const dur = muitas ? 600 : 520
+    const h = cqh(), { muitas, voos, passo, dur, total } = ritmoCompra(n)
     const topo = monte.querySelector('.dc-camada:last-of-type') || monte
     const A = ponto(topo, topo.getBoundingClientRect().width)
     // as minhas ficam escondidas até a carta voando chegar
@@ -1445,16 +1554,20 @@ export function criaDescarte(ctx) {
       const B = slot ? ponto(slot, slot.offsetWidth) : ponto(alvoGeral, eu_ ? 12 * h : largMesa())
       if (B && !slot && muitas) B.x += (i % 5 - 2) * 1.6 * h
       const c = id != null ? V.mao?.find(x => x.id === id) : null
+      const consumidas = k - Math.round(i * n / voos)
+      depoisPilha(() => { monteVisual = Math.max(0, (monteVisual ?? V.monte + n) - consumidas); atualizaPilhas() }, at + i * passo)
       // o topo do monte dá um saltinho antes de soltar a carta
       if (i === 0 && !calmo()) setTimeout(() => topo.animate?.([{ translate: '0 0' }, { translate: '0 -1.2cqh' }, { translate: '0 0' }], { duration: 220, easing: 'ease-out' }), at)
       voo(c || null, A, B, { atraso: at + i * passo, dur, alto: muitas ? 9 + (i % 4) * 2.5 : 5, lado: muitas ? (i % 3 - 1) * 3 : 0, giro0: rnd(20) - 10, giro1: slot ? parseFloat(slot.parentElement?.style.getPropertyValue('--rz')) || 0 : rnd(24) - 12, vira: !!c,
         fim: () => { if (id != null) pousa(id, '.dc-mao'); if (muitas) { contador(e.key, k, n, i === voos - 1); boteco.balanca(.22) } } })
+      // Um render ou uma aba em segundo plano pode cancelar o onfinish do voo.
+      if (id != null) depoisPilha(() => { if (pousando.has(id)) pousa(id, '.dc-mao') }, at + i * passo + dur + 80)
       if (!eu_ || i > 0) som('desliza', at + i * passo, (eu_ ? .9 : .7) * (muitas ? .8 : 1))
     }
     // ids que sobraram (mais cartas que voos): aparecem junto com o último
-    if (ids.length > voos) setTimeout(() => ids.slice(voos).forEach(id => pousa(id, '.dc-mao')), at + voos * passo + dur)
+    if (ids.length > voos) depoisPilha(() => ids.slice(voos).forEach(id => pousa(id, '.dc-mao')), at + voos * passo + dur)
     if (!muitas && n > 1) balao(e.key, `+${n}`, 'leve', at + voos * passo)
-    return voos * passo + (muitas ? dur : dur * .4)
+    return total
   }
   // contador "+N" em cima de quem está comprando: sobe a cada carta que chega
   function contador(k, qtd, total, ultimo) {
@@ -1478,12 +1591,16 @@ export function criaDescarte(ctx) {
     if (alvo) { alvo.classList.remove('apanha'); void alvo.offsetWidth; alvo.classList.add('apanha'); setTimeout(() => alvo.classList.remove('apanha'), 1600) }
     if (n >= 8) { const pl = tela.querySelector('.dc-palco'); if (pl) { pl.classList.remove('treme-mesa'); void pl.offsetWidth; pl.classList.add('treme-mesa'); setTimeout(() => pl.classList.remove('treme-mesa'), 700) } }
   }
+  function embaralhaVisual(monte) {
+    som('embaralhar', 0, .6)
+    monte.classList.add('embaralhando')
+    depoisPilha(() => monte.classList.remove('embaralhando'), 1000)
+  }
   function distribui() {
     const monte = tela.querySelector('.dc-monte')
     if (!monte) { entregando = false; return }
-    som('embaralhar')
-    monte.classList.add('embaralhando')
-    setTimeout(() => {
+    embaralhaVisual(monte)
+    depoisPilha(() => {
       monte.classList.remove('embaralhando')
       const topo = monte.querySelector('.dc-camada:last-of-type') || monte, A = ponto(topo, topo.getBoundingClientRect().width)
       // uma volta na mesa por vez, como quem dá as cartas
@@ -1495,7 +1612,7 @@ export function criaDescarte(ctx) {
         voo(c, A, ponto(n, minha ? n.offsetWidth : largMesa()), { atraso: k * 38, dur: 460, alto: 4, giro0: rnd(30) - 15, vira: !!c,
           fim: () => { n.classList.remove('oculta'); if (k % 3 === 0) som('desliza', 0, .5) } })
       })
-      setTimeout(() => { entregando = false; tela.querySelectorAll('.dc-carta.oculta').forEach(n => { if (!pousando.has(+n.dataset.id)) n.classList.remove('oculta') }) }, ordem.length * 38 + 700)
+      depoisPilha(() => { entregando = false; tela.querySelectorAll('.dc-carta.oculta').forEach(n => { if (!pousando.has(+n.dataset.id)) n.classList.remove('oculta') }) }, ordem.length * 38 + 700)
     }, 1100)
   }
   // poses de carta do boneco "você" (quem tem a pasta 'cartas' no config): mudam sem render, no laço
@@ -1524,6 +1641,11 @@ export function criaDescarte(ctx) {
   ;(function loop() {
     atualizaPose('dc')
     if (V) {
+      const repondo = Date.now() < V.recebido + (V.repondo || 0)
+      const controles = tela.querySelector('.dc-controles')
+      if (controles) controles.inert = repondo
+      const monte = tela.querySelector('.dc-centro > .dc-monte')
+      if (monte && V.fase === 'jogo') monte.classList.toggle('pode', !repondo && V.vez === me.key && (V.pend > 0 || V.compradas < V.lim))
       tela.querySelectorAll('[data-roleta-compra]').forEach(n => { n.disabled = !podeVirarRoleta() })
       tela.querySelectorAll('[data-roleta-monte]').forEach(n => n.classList.toggle('pode', podeVirarRoleta()))
       const pres = new Set(ctx.presentes())

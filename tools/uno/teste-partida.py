@@ -64,6 +64,7 @@ with sync_playwright() as p:
     # Partida inteira com o baralho real e todas as ações novas habilitadas.
     host.evaluate("()=>{const {G,difunde}=__descarte(),{seq,evN}=G;Object.assign(G,structuredClone(base),{seq,evN,ev:[]});difunde()}")
     for turn in range(700):
+        host.wait_for_function('Date.now()>=(__descarte().G.repondoAte||0)')
         g = host.evaluate('__descarte().G')
         if g['fase'] == 'fim':
             break

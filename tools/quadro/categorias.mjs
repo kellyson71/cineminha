@@ -2,6 +2,7 @@
 //   node tools/quadro/categorias.mjs      (a coleta já chama no fim)
 import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
+import { aplicaCuradoria } from './curadoria.mjs'
 
 const ARQ = path.join(new URL('../../', import.meta.url).pathname, 'public/jogos/quadro/filmes.json')
 const UA = 'CineminhaColeta/1.0 (jogo entre amigos; kellyson71/cineminha)'
@@ -37,6 +38,7 @@ export async function categorias(arq = ARQ) {
     }
   }
   for (const f of filmes) f.c ||= []
+  aplicaCuradoria(filmes)
   writeFileSync(arq, JSON.stringify(filmes))
   const conta = {}
   for (const f of filmes) for (const k of f.c) conta[k] = (conta[k] || 0) + 1

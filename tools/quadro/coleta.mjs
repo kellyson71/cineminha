@@ -11,6 +11,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
 import path from 'node:path'
 import { categorias } from './categorias.mjs'
+import { catalogoCurado } from './curadoria.mjs'
 
 const RAIZ = new URL('../../', import.meta.url).pathname
 const SAIDA = path.join(RAIZ, 'public/jogos/quadro')
@@ -111,9 +112,11 @@ async function indiceFilmGrab() {
 async function framesDe(url) {
   const html = await cacheTxt('p-' + hash(url) + '.html', url)
   if (!html) return null
-  const ano = +(html.match(/Year: <a[^>]*>(\d{4})</)?.[1] || 0)
+  // O site usa espaço inseparável depois de "Year:"; sem isso um remake pode
+  // receber os frames do desenho original com o mesmo nome.
+  const ano = +(html.match(/Year:(?:\s|&nbsp;)*<a\b[^>]*>\s*(\d{4})\s*</i)?.[1] || 0)
   // nomes com espaço e parênteses ("01 (829).jpg") nos posts antigos: aceita e codifica a URL
-  let imgs = [...html.matchAll(/https:\/\/film-grab\.com\/wp-content\/uploads\/photo-gallery\/[^"'<>\n]+?\.(?:jpg|jpeg|png)/gi)].map(m => encodeURI(m[0]))
+  let imgs = [...html.matchAll(/https:\/\/film-grab\.com\/wp-content\/uploads\/photo-gallery\/[^"'<>\n]+?\.(?:jpg|jpeg|png)/gi)].map(m => encodeURI(m[0].replace(/&#0*39;|&#x0*27;/gi, "'").replace(/&amp;|&#0*38;/gi, '&')))
   imgs = [...new Set(imgs.filter(u => !/thumb|-\d+x\d+\./i.test(u)))]
   return { ano, imgs }
 }
@@ -146,7 +149,7 @@ const todos = [...porImdb.values()].filter(f => f.ano && f.ano >= 1930).sort((a,
 console.log(`${todos.length} filmes famosos no Wikidata`)
 
 // catálogo do autocomplete: todos os famosos (bem mais que os do jogo, para a lista não entregar nada)
-writeFileSync(path.join(SAIDA, 'catalogo.json'), JSON.stringify(todos.map(f => [f.t, f.o, f.ano])))
+writeFileSync(path.join(SAIDA, 'catalogo.json'), JSON.stringify(catalogoCurado(todos.map(f => [f.t, f.o, f.ano]))))
 
 const fg = await indiceFilmGrab()
 const antigo = existsSync(path.join(SAIDA, 'filmes.json')) ? JSON.parse(readFileSync(path.join(SAIDA, 'filmes.json'), 'utf8')) : []

@@ -2004,7 +2004,7 @@ button.fx-modo svg:last-child { width: 11px; height: 11px; }
 .jogosmenu__it .jogosmenu__ic--ab.jogosmenu__arte { background: #000; }
 
 /* Palco: a página inteira vira a tela (sem a tela cheia do navegador). Usa o mesmo layout da tela cheia:
-   os seletores acima são .theater:is(:fullscreen, .palco). Duplo clique no jogo entra; duplo clique fora, Esc ou G sai. */
+   os seletores acima são .theater:is(:fullscreen, .palco). O botão ou G alterna; Esc sai. */
 .theater.palco { position: fixed; inset: 0; z-index: 30; width: 100vw; height: 100vh; height: 100dvh; }
 body.palco-on { overflow: hidden; }
 .theater.palco .screen__inner { transition: none; }

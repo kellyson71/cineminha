@@ -50,16 +50,23 @@
 /* monte de compra: bloco com espessura (camadas no eixo Z), à esquerda e acima do anel */
 .dc-monte { position: absolute; left: -3cqh; top: 1cqh; width: 8.4cqh; aspect-ratio: var(--dc-proporcao, 5/7.2); --w: 8.4cqh; transform: rotate(-14deg); transform-style: preserve-3d; }
 .dc-monte__sombra { position: absolute; inset: 4% -6% -8% 6%; border-radius: 12%; background: rgba(0,0,0,.55); filter: blur(1.2cqh); transform: translateZ(0); }
-.dc-monte .dc-camada { position: absolute; inset: 0; width: 100%; transform: translateZ(calc(var(--i) * .5cqh + .1cqh)); box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 .15cqh 0 rgba(255,255,255,.12); }
+.dc-monte .dc-camada { position: absolute; inset: 0; width: 100%; transform: translateZ(calc(var(--dc-altura, 0cqh) + .1cqh)); box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 .15cqh 0 rgba(255,255,255,.12); }
+.dc-monte.vazio .dc-monte__sombra { opacity: 0; }
 .dc-monte .dc-camada:not(:last-of-type) { filter: brightness(calc(.55 + var(--i) * .05)); }
 .dc-monte.pode { cursor: pointer; }
 .dc-monte.pode .dc-camada:last-of-type { transition: transform .25s cubic-bezier(.2,.9,.3,1.3), box-shadow .25s; box-shadow: 0 0 0 .25cqh rgba(244,242,238,.85), 0 0 2.4cqh rgba(244,242,238,.45); animation: dc-chama 1.6s ease-in-out infinite; }
-.dc-monte.pode:hover .dc-camada:last-of-type { transform: translateZ(calc(var(--i) * .5cqh + 2.2cqh)) rotate(3deg); }
+.dc-monte.pode:hover .dc-camada:last-of-type { transform: translateZ(calc(var(--dc-altura, 0cqh) + 2.2cqh)) rotate(3deg); }
 @keyframes dc-chama { 50% { box-shadow: 0 0 0 .25cqh rgba(244,242,238,.4), 0 0 1cqh rgba(244,242,238,.15); } }
 .dc-monte.embaralhando .dc-camada:nth-of-type(odd) { animation: dc-riffle-a 1s ease-in-out; }
 .dc-monte.embaralhando .dc-camada:nth-of-type(even) { animation: dc-riffle-b 1s ease-in-out; }
-@keyframes dc-riffle-a { 35% { transform: translate(-4cqh, -1cqh) translateZ(calc(var(--i) * .42cqh + 1cqh)) rotate(-14deg); } 70% { transform: translate(0, -.6cqh) translateZ(calc(var(--i) * .42cqh)); } }
-@keyframes dc-riffle-b { 35% { transform: translate(4cqh, -1cqh) translateZ(calc(var(--i) * .42cqh + 1cqh)) rotate(14deg); } 70% { transform: translate(0, -.3cqh) translateZ(calc(var(--i) * .42cqh)); } }
+@keyframes dc-riffle-a { 35% { transform: translate(-4cqh, -1cqh) translateZ(calc(var(--dc-altura, 0cqh) + 1cqh)) rotate(-14deg); } 70% { transform: translate(0, -.6cqh) translateZ(var(--dc-altura, 0cqh)); } }
+@keyframes dc-riffle-b { 35% { transform: translate(4cqh, -1cqh) translateZ(calc(var(--dc-altura, 0cqh) + 1cqh)) rotate(14deg); } 70% { transform: translate(0, -.3cqh) translateZ(var(--dc-altura, 0cqh)); } }
+/* A pilha pública é recolhida em uma camada que sobrevive aos renders da mesa. */
+.dc-recicla { position: absolute; z-index: 34; aspect-ratio: var(--dc-proporcao, 5/7.2); pointer-events: none; transform: translate(-50%,-50%) perspective(1000px) rotateX(38deg); transform-style: preserve-3d; }
+.dc-recicla__carta, .dc-recicla__virada { position: absolute; inset: 0; transform-style: preserve-3d; }
+.dc-recicla__virada > .dc-carta { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; }
+.dc-recicla__verso { transform: rotateY(180deg); }
+.dc-monte.dc-recicla__baralho { left: 0; top: 0; width: 100%; height: 100%; aspect-ratio: auto; transform: none; }
 /* pilha de descarte: cartas soltas, cada uma com giro e desvio próprios, as de baixo continuam aparecendo */
 .dc-descarte { position: absolute; left: 50%; top: 50%; width: 10.4cqh; aspect-ratio: var(--dc-proporcao, 5/7.2); --w: 10.4cqh; transform: translate(-50%, -50%); transform-style: preserve-3d; }
 .dc-descarte .dc-carta { position: absolute; inset: 0; width: 100%; transform: translate(var(--dx, 0), var(--dy, 0)) translateZ(calc(var(--i) * .14cqh + .2cqh)) rotate(var(--giro)); box-shadow: 0 0 0 1px rgba(0,0,0,.35), 0 .3cqh .6cqh rgba(0,0,0,.35); }

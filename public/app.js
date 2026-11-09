@@ -1124,7 +1124,6 @@ function addTile(id, stream, localVideo) {
     focusId = focusId === id ? null : id
     layout()
   })
-  node.addEventListener('dblclick', e => { if (!e.target.closest('button, input, select, .player-controls')) toggleFs() })
   const t = { id, el: node, video, stream, label, sub, preview, src: null, gain: null, cropOn: bordasAuto() }
   // Encaixe: a parte com imagem (sem as bordas pretas que já vêm na transmissão) preenche o quadro
   const fit = () => {
@@ -4448,20 +4447,12 @@ function setPalco(on) {
   tiles.forEach(t => t.fit?.())
   if (on) {
     theater.querySelector('.palco-aviso')?.remove()
-    theater.append(el('div', { className: 'palco-aviso', innerHTML: 'Palco · <b>duplo clique no fundo</b>, <b>Esc</b> ou <b>G</b> para voltar' }))
+    theater.append(el('div', { className: 'palco-aviso', innerHTML: 'Palco · <b>Esc</b> ou <b>G</b> para voltar' }))
     setTimeout(() => theater.querySelector('.palco-aviso')?.remove(), 3300)
     poke()
   } else theater.classList.remove('idle')
 }
 $('#btnPalco').addEventListener('click', () => setPalco(!theater.classList.contains('palco')))
-// duplo clique no jogo (no fundo, não em carta ou botão) entra no palco; duplo clique fora do jogo sai
-const INTERATIVO = 'button, a, input, textarea, select, label, [role=button], [class*="carta"], .clicavel, .cp-tocavel, .cp-roda, .mesas, .tile__tools, .player-controls, .chat, .toolbar, .row, .seat'
-theater.addEventListener('dblclick', e => {
-  if (e.target.closest(INTERATIVO)) return
-  const noJogo = !!e.target.closest('#screenInner') && Object.values(JOGOS).some(J => theater.classList.contains(J.on))
-  if (theater.classList.contains('palco')) setPalco(false)
-  else if (noJogo) { getSelection()?.removeAllRanges(); setPalco(true) }
-})
 function toggleFs() {
   if (document.fullscreenElement) return document.exitFullscreen()
   theater.requestFullscreen?.().catch(() => {})

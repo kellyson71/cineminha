@@ -20,7 +20,7 @@ export const MODOS = {
   leilao: { nome: 'Leilão', txt: '“Acerto com 2 frames!” Quem apostar menos tenta sozinho.', min: 2 },
 }
 export const CATS = {
-  todos: 'Todos', nossos: 'Nossas sessões', classicos: 'Clássicos (até 1979)', anos8090: 'Anos 80 e 90', novos: 'Anos 2000+', oscar: 'Ganhou o Oscar',
+  famosos: 'Famosos', todos: 'Todos', nossos: 'Nossas sessões', classicos: 'Clássicos (até 1979)', anos8090: 'Anos 80 e 90', novos: 'Anos 2000+', oscar: 'Ganhou o Oscar',
   brasil: 'Brasileiros', animacao: 'Animação', acao: 'Ação e aventura', comedia: 'Comédia', terror: 'Terror', ficcao: 'Ficção e fantasia', suspense: 'Suspense e crime', romance: 'Romance',
 }
 const daCat = (f, c) => c === 'todos' ? true : c === 'classicos' ? f.ano < 1980 : c === 'anos8090' ? f.ano >= 1980 && f.ano < 2000 : c === 'novos' ? f.ano >= 2000 : (f.c || []).includes(c)
@@ -86,11 +86,14 @@ export function criaQuadro(ctx) {
   const pegaFilmes = () => filmes ||= Promise.all([fetch(DADOS + 'filmes.json', { cache: 'no-cache' }).then(r => r.json()), pegaVistos()]).then(([l, vistos]) => {
     for (const f of l) if (vistos.has(f.imdb)) f.c = [...(f.c || []), 'nossos']
     contaCats = Object.fromEntries(Object.keys(CATS).map(c => [c, l.filter(f => daCat(f, c)).length]))
-    capasCat = Object.fromEntries(Object.keys(CATS).map(c => { const f = l.filter(x => daCat(x, c))[3] || l.find(x => daCat(x, c)); return [c, f ? frame(f.p, Math.min(2, f.n - 1)) : ''] }))
+    capasCat = Object.fromEntries(Object.keys(CATS).map(c => { const f = l.filter(x => daCat(x, c))[3] || l.find(x => daCat(x, c)); return [c, f ? frameFilme(f, Math.min(2, f.n - 1)) : ''] }))
     if (V) render(); return l
   }).catch(() => { filmes = null; return [] })
-  const pegaCatalogo = () => catalogo ||= fetch(DADOS + 'catalogo.json').then(r => r.json()).then(l => l.map(([t, o, ano]) => ({ t, o, ano, k: norm(t), ko: norm(o) }))).catch(() => { catalogo = null; return [] })
+  const pegaCatalogo = async () => catalogo ||= fetch(DADOS + 'catalogo.json').then(r => r.json()).then(l => l.map(([t, o, ano]) => ({ t, o, ano, k: norm(t), ko: norm(o) }))).catch(() => { catalogo = null; return [] })
   const frame = (p, i) => `${DADOS}f/${p}/${i}.webp`
+  // A curadoria vai do detalhe/cenário ao personagem ou à cena mais reconhecível.
+  // A ordem fica no filme e acompanha o backup do host; nunca é embaralhada.
+  const frameFilme = (f, i) => frame(f.p, f.ordem?.[i] ?? i)
 
   /* ================================================================ host: estado completo */
   let G = null, restaurou = false
@@ -101,7 +104,7 @@ export function criaQuadro(ctx) {
   const presentesJog = () => G.js.filter(j => ctx.presentes().includes(j.key))
 
   function abrir(chamados) {
-    const op = { filmes: 8, seg: 0, chutes: 2, modo: 'corrida', cat: 'todos', ...ls.get(`${XX}.op`) }
+    const op = { filmes: 8, seg: 0, chutes: 2, modo: 'corrida', cat: 'famosos', ...ls.get(`${XX}.op`) }
     G = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, fase: 'convite', op,
       conv: Object.fromEntries(ctx.presentes().map(k => [k, k === me.key || chamados?.includes?.(k) ? 'sim' : '?'])),
       js: [], lista: [], i: 0, time: 0, vencedor: null, ev: [], evN: 0, seq: 0, t: Date.now() }
@@ -120,7 +123,7 @@ export function criaQuadro(ctx) {
     const listas = ks.map(k => new Set(k === me.key ? meusVistos() : G.vistos?.[k] || []))
     const quantos = f => listas.filter(l => l.has(f.p)).length
     G.lista = embaralha([...todos]).map(f => [quantos(f), f]).sort((a, b) => a[0] - b[0]).slice(0, G.op.filmes).map(([, f]) => f)
-      .map(f => ({ imdb: f.imdb, t: f.t, o: f.o, ano: f.ano, nomes: f.nomes, p: f.p, n: f.n }))
+      .map(f => ({ imdb: f.imdb, t: f.t, o: f.o, ano: f.ano, nomes: f.nomes, p: f.p, n: f.n, ordem: f.ordem?.slice() }))
     const repetidos = G.lista.filter(f => quantos(f) > 0).length
     if (repetidos) toast(`Acabaram os inéditos para o grupo nessa categoria: ${repetidos} ${repetidos === 1 ? 'filme é repetido' : 'filmes são repetidos'} (os menos vistos).`, 4500)
     ls.set(`${XX}.op`, G.op)
@@ -284,16 +287,16 @@ export function criaQuadro(ctx) {
       Object.assign(v, {
         est: G.est, passo: G.passo, n: f.n, resta: G.prazo ? Math.max(0, G.prazo - Date.now()) : 0,
         dur: G.est === 'lance' ? LANCE_MS : G.est === 'desafio' ? DESAFIO_MS : G.est === 'roubo' ? ROUBO_MS : seg(),
-        frames: Array.from({ length: G.passo + 1 }, (_, i) => frame(f.p, i)),
+        frames: Array.from({ length: G.passo + 1 }, (_, i) => frameFilme(f, i)),
         acertos: G.acertos, erros: G.erros, passou: G.passou, trava: Math.max(0, (G.trava[k] || 0) - Date.now()),
         chutei: G.chutes?.[k] || 0, limite: G.op.chutes || 2,
         lances: G.est === 'lance' ? Object.fromEntries(Object.keys(G.lances).map(x => [x, x === k ? G.lances[x].n : true])) : Object.fromEntries(Object.entries(G.lances).map(([x, l]) => [x, l.n])),
         venc: G.venc, tent: G.tent,
         filme: revelado ? { t: f.t, o: f.o, ano: f.ano, p: f.p } : null,
-        prox: G.i + 1 < G.lista.length ? frame(G.lista[G.i + 1].p, 0) : '',
+        prox: G.i + 1 < G.lista.length ? frameFilme(G.lista[G.i + 1], 0) : '',
       })
     }
-    if (G.fase === 'fim') v.filmes = G.lista.map(f => ({ t: f.t, ano: f.ano, capa: frame(f.p, 0) }))
+    if (G.fase === 'fim') v.filmes = G.lista.map(f => ({ t: f.t, ano: f.ano, capa: frameFilme(f, 0) }))
     return v
   }
   function difunde() {
@@ -492,9 +495,9 @@ export function criaQuadro(ctx) {
     leilao: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 12.5-8 8a2.12 2.12 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></svg>',
   }
   const REGRAS = {
-    corrida: ['Todo mundo chuta ao mesmo tempo', 'Acertou no 1º frame: 6 pontos; no último: 1', 'Quem acerta primeiro ganha +1'],
-    coop: ['A turma é um time só', 'Qualquer acerto vale para todos', 'Bata o recorde de pontos do grupo'],
-    leilao: ['Vendo o 1º frame, aposte em segredo', 'Quem apostar menos tenta sozinho (2 chances)', 'Errou? Os outros roubam com tudo aberto'],
+    corrida: ['Frames do menos óbvio ao mais fácil', 'Acertou no 1º frame: 6 pontos; no último: 1', 'Quem acerta primeiro ganha +1'],
+    coop: ['Frames do menos óbvio ao mais fácil', 'Qualquer acerto vale para todos', 'Bata o recorde de pontos do grupo'],
+    leilao: ['O 1º frame é o menos óbvio; aposte em segredo', 'Quem apostar menos tenta sozinho (2 chances)', 'Errou? Os outros roubam com tudo aberto'],
   }
   function convite() {
     if (!contaCats) pegaFilmes()
@@ -512,7 +515,7 @@ export function criaQuadro(ctx) {
     const cats = Object.keys(CATS).filter(c => c === 'nossos' || !contaCats || contaCats[c] >= 3)
     const gradeCats = el('div', { className: `${XX}-cats` }, ...cats.map(c => {
       const poucos = contaCats && contaCats[c] < 3, card = el('div', { className: `${XX}-cat ${c === V.op.cat ? 'on' : ''} ${c === 'nossos' ? `${XX}-cat--nossos` : ''} ${poucos ? 'off' : ''}`, style: capasCat?.[c] ? `--capa:url("${capasCat[c]}")` : '' },
-        el('b', { textContent: CATS[c] }), contaCats ? el('small', { textContent: poucos ? `${contaCats[c]} de 3 · vejam mais filmes` : `${contaCats[c]} filmes` }) : '')
+        el('b', { textContent: CATS[c], title: c === 'famosos' ? 'Uma seleção de filmes bem conhecidos para jogar sem precisar ser cinéfilo.' : '' }), contaCats ? el('small', { textContent: poucos ? `${contaCats[c]} de 3 · vejam mais filmes` : `${contaCats[c]} filmes` }) : '')
       return poucos ? card : clicavel(card, () => muda({ cat: c }))
     }))
     const seg = (rot, itens, atual, chave, fmt) => el('div', { className: `${XX}-seg` }, el('small', { textContent: rot }),

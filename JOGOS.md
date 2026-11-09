@@ -5,8 +5,9 @@ Tudo o que um jogo novo precisa seguir. Os oito jogos atuais são a referência 
 | Jogo | Arquivos | Chave da mensagem | Tipo |
 |---|---|---|---|
 | Faixa a Faixa | `public/faixa.js`, `faixa.css`, `jogos/faixa/` | (sem chave, legado) | adivinhar a música, áudio por camadas |
+| Quadro a Quadro | `public/quadro.js`, `quadro.css`, `jogos/quadro/` | `qq` | adivinhar filmes por frames; Corrida, Cooperativo e Leilão; categoria Famosos (padrão) com 45 títulos conhecidos e 19 animações no acervo; pistas dessas seleções revisadas do menos óbvio ao mais fácil |
 | Coup | `public/coup.js`, `coup.css`, `jogos/coup/` | `coup` | blefe, mesa 3D em perspectiva |
-| Uno | `public/descarte.js`, `descarte.css`, `jogos/uno/` | `dc` | cartas de cor e número; mesa inclinada (46°) com temas de mesa locais (`dc.mesa`), anel de setas e facho para quem tem a vez, pilha bagunçada (14 cartas, giro/desvio por id), voos em arco com virada 3D e batida nas cartas de ação, mão em leque com FLIP; temas Minimalista (padrão) e Clássico em SVG; seletor com caixas originais em CSS 3D e preferência local em `dc.tema`; Sem Piedade com Roleta pública de uma carta por clique e efeitos próprios das ações novas |
+| Uno | `public/descarte.js`, `descarte.css`, `jogos/uno/` | `dc` | cartas de cor e número; mesa inclinada (46°) com temas de mesa locais (`dc.mesa`), anel de setas e facho para quem tem a vez, pilha bagunçada (14 cartas, giro/desvio por id), voos em arco com virada 3D e batida nas cartas de ação, mão em leque com FLIP; temas Minimalista (padrão) e Clássico em SVG; seletor com caixas originais em CSS 3D e preferência local em `dc.tema`; Sem Piedade com Roleta pública de uma carta por clique e efeitos próprios das ações novas; monte diminui por compra, recolhe o descarte deixando o topo, reutiliza o riffle e volta ao lugar sem distribuir |
 | Red Flags | `public/parperfeito.js`, `parperfeito.css`, `jogos/parperfeito/` | `pp` | festa, rodadas com juiz, cartas de texto |
 | Amigos de Merda | `public/amigosdebosta.js`, `amigosdebosta.css`, `jogos/amigosdebosta/` | `ab` | votação simultânea; baralho do mod (86 pretas + 22 rosas), frentes em HTML/CSS |
 | Dobro | `public/dobradinha.js`, `dobradinha.css`, `jogos/dobro/` | `db` | escalada de valores (igual dobra), pilhas recolhidas no tampo, atlas AVIF/WebP; 3 s de proteção antes dos 9 s de contagem do Esquecido, arrastável; cola recolhida e paginada, cartas centrais maiores e destaque do destino ao levar a mesa |
@@ -186,8 +187,27 @@ identidade visual própria. Sons: Kenney (CC0) em `public/jogos/coup/sons/`; Twe
 
 ## Artes dos jogos existentes
 
+Quadro a Quadro: frames do FILMGRAB, títulos do Wikidata; fontes e seis pistas das 16 animações novas em `tools/quadro/curadoria.json`. `node tools/quadro/animacoes.mjs` baixa/converte as imagens e atualiza filmes e autocomplete. A curadoria também corrige Aladdin (1992) e O Rei Leão (1994), remove Avatar e Christopher Robin da categoria Animação e registra a ordem dos frames de Famosos. `categorias.mjs` reaplica essas escolhas depois de consultar o Wikidata; o jogo preserva `ordem` na partida e no backup do host.
+
 A pedido do usuário, Uno usa o logo da Mattel, Red Flags e Amigos de Merda usam os versos dos downloads da Oficina da Steam. Imagens locais em `public/jogos/uno/`, `public/jogos/parperfeito/` e `public/jogos/amigosdebosta/`; as fontes constam em `CREDITOS.txt` nessas pastas. O menu carrega apenas as miniaturas; os versos de cada mesa carregam com o CSS do jogo.
 
 ## Dobro: assets e desempenho
 
 O nome visível é **Dobro**. `db`, `db.G`, `criaDobradinha` e os nomes dos módulos foram mantidos para preservar a restauração e o protocolo existentes. As 18 artes únicas do mod usam um único atlas de 6 × 3: `cartas.avif` (54,9 KiB) ou `cartas.webp` (76,7 KiB), escolhido por `image-set`. A carta Esquecido e as duas faces da carta de sentido também vêm do pacote original. O menu baixa apenas a miniatura; o atlas entra com o jogo. Fontes, scripts de geração e a comparação com SVG constam em [dobro-assets.md](docs/jogos/dobro-assets.md).
+
+## Uno: reposição do monte
+
+`repoe()` recicla assim que a última carta é comprada (ou ao receber um monte já vazio). Mantém o topo e a cor escolhida, remove `esc` das
+cartas recicladas e emite `embaralha` com a quantidade e até 13 faces já públicas (não com a ordem do
+monte novo). Não devolver cartas antecipadamente por tamanho do descarte. Compras que atravessam
+a reposição emitem um evento `compra` antes e outro depois dela.
+
+No cliente, a altura do monte cai a cada compra. A reposição dura 2,2 s: recolhe (450 ms), vira
+(300 ms), usa o mesmo `embaralhaVisual`/`dc-riffle-*` da distribuição inicial (1 s) e retorna
+ao monte (450 ms). As mãos recebem apenas a compra solicitada. A camada sobrevive a renders;
+fechar/trocar a partida cancela seus timers e voos pendentes. Movimento reduzido repõe sem os voos.
+O host guarda `repondoAte`, recusa novas jogadas/compras durante a reposição e dá esse tempo extra
+à vez/Roleta. A vista envia apenas o tempo restante (`repondo`).
+
+Verificação local: `python3 tools/uno/teste-monte.py`, `teste-roleta.py` e `teste-partida.py` na mesma
+pasta, com o servidor na porta 8790 e API interceptada. Capturas da reposição em `/tmp/cineminha-uno-monte/`.

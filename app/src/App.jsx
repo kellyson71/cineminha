@@ -252,10 +252,10 @@ export default function App() {
         canal={canal} canalNome={canalNome} canais={canais} setCanal={irCanal} meKey={me.key}
         addCanal={async n => { const r = await sala.criarCanal(n); if (r?.canal?.id) irCanal(r.canal.id); else sala.carregarCanais().then(setCanais) }} />
       {banner?.text && <div className="banner"><span>{String(banner.text).slice(0, 140)}</span></div>}
-      <main id="theater" className={theaterCls} ref={theaterRef} onDoubleClick={e => { if (palco && e.target === e.currentTarget) setPalco(false) }}>
+      <main id="theater" className={theaterCls} ref={theaterRef}>
         <section className="stage">
           <div className="live" hidden={!tiles.length}>{tiles.length ? `projetando · ${tiles.map(t => (t.mine ? 'você' : t.who)).join(', ')}` : ''}</div>
-          <Stage tiles={tiles} focusId={focusId} setFocusId={setFocusId} toast={toast} onFs={toggleFs} busy={busy} vols={vols} mix={mix} deaf={me.deaf}
+          <Stage tiles={tiles} focusId={focusId} setFocusId={setFocusId} toast={toast} busy={busy} vols={vols} mix={mix} deaf={me.deaf}
             onRemoteToggle={id => sala.controlar(id, 'toggle')} />
           <Toolbar pop={pop} togglePop={togglePop} sharing={sharing} onShareScreen={() => doShare('tela')} onShareFile={f => doShare(f)} onStopShare={() => sala.pararProjecao()}
             onTrocar={sharing && sala.minhaProjecao()?.kind === 'tela' ? () => trocarTela({ audio: desktop.audioFonte }).catch(e => showToast(e.message)) : null}
@@ -280,7 +280,7 @@ export default function App() {
         <Chat messages={messages} myKey={me.key} msgReacts={msgReacts} onReact={sala.reagirMsg} onTyping={v => sala.setMe({ typing: v })}
           onSend={(t, re) => { if (!interceptaChat(t)) sala.enviarChat(t, re) }}
           fixo={prefs.chatFixo} onFixo={() => setPref('chatFixo', !prefs.chatFixo)} />
-        {palco && <div className="palco-aviso">Palco · <b>duplo clique no fundo</b>, <b>Esc</b> ou <b>G</b> para voltar</div>}
+        {palco && <div className="palco-aviso">Palco · <b>Esc</b> ou <b>G</b> para voltar</div>}
       </main>
     </>
   )
