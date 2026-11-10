@@ -5,7 +5,16 @@ Execute: python tools/quadro/teste-curadoria.py
 """
 from pathlib import Path
 from time import time
+import json
 from playwright.sync_api import sync_playwright
+
+FILMES = json.loads((Path(__file__).resolve().parents[2] / 'public/jogos/quadro/filmes.json').read_text())
+FAMOSOS = sum('famosos' in f['c'] for f in FILMES)
+ANIMACOES = sum('animacao' in f['c'] for f in FILMES)
+BRASILEIROS = {'tt0317248', 'tt0053146', 'tt2762506', 'tt0271383', 'tt0861739', 'tt1555149',
+               'tt0140888', 'tt2464018', 'tt0448927', 'tt0367975'}
+assert ANIMACOES >= 50
+assert {f['imdb'] for f in FILMES if 'brasil' in f['c']} == BRASILEIROS
 
 OUT = Path('/tmp/cineminha-quadro-curadoria')
 OUT.mkdir(exist_ok=True)
@@ -80,24 +89,27 @@ with sync_playwright() as p:
     def start(mode, cat):
         host.evaluate("jogo.iniciar(['g','b'])")
         pump()
-        host.wait_for_function("[...document.querySelectorAll('.qq-cat')].some(c=>c.textContent.includes('Famosos') && c.textContent.includes('45 filmes'))")
-        assert host.locator('.qq-cat').filter(has_text='Animação').inner_text() == 'Animação\n19 filmes'
+        host.wait_for_function("n=>[...document.querySelectorAll('.qq-cat')].some(c=>c.textContent.includes('Famosos') && c.textContent.includes(`${n} filmes`))", arg=FAMOSOS)
+        assert host.locator('.qq-cat').filter(has_text='Animação').inner_text() == f'Animação\n{ANIMACOES} filmes'
+        assert host.locator('.qq-cat').filter(has_text='Brasileiros').inner_text() == f'Brasileiros\n{len(BRASILEIROS)} filmes'
         act('h', {'op': 'opcao', 'modo': mode, 'cat': cat, 'filmes': 5})
         host.get_by_role('button', name='Começar', exact=True).click()
         host.wait_for_function("__qq().G.fase==='jogo'")
         pump()
         check_frames()
+        if cat == 'brasil':
+            assert set(host.evaluate('__qq().G.lista.map(f=>f.imdb)')) <= BRASILEIROS
 
     # A primeira mesa já sugere a seleção conhecida.
     host.evaluate("jogo.iniciar(['g','b'])")
     pump()
-    host.wait_for_function("document.querySelector('.qq-cat.on small')?.textContent==='45 filmes'")
+    host.wait_for_function("n=>document.querySelector('.qq-cat.on small')?.textContent===`${n} filmes`", arg=FAMOSOS)
     assert host.evaluate('__qq().G.op.cat') == 'famosos'
     host.screenshot(path=str(OUT/'menu.png'))
     host.evaluate('jogo.encerra()')
     pump()
 
-    for mode, cat in [('corrida', 'famosos'), ('coop', 'animacao'), ('leilao', 'animacao')]:
+    for mode, cat in [('corrida', 'famosos'), ('coop', 'animacao'), ('leilao', 'animacao'), ('corrida', 'brasil')]:
         start(mode, cat)
         for round_index in range(5):
             assert host.evaluate('__qq().G.i') == round_index
@@ -121,7 +133,8 @@ with sync_playwright() as p:
             assert host.evaluate('__qq().G.est') == 'revela'
             check_frames()
             if round_index == 0:
-                host.screenshot(path=str(OUT/f'{mode}-revelado.png'))
+                host.wait_for_timeout(550)
+                host.screenshot(path=str(OUT/f'{mode}-{cat}-revelado.png'))
             # Avança somente a espera entre filmes, mantendo os timers reais do módulo.
             host.evaluate('offset += 7000')
             host.wait_for_function("__qq().G.est!=='revela' || __qq().G.fase==='fim'")
@@ -154,6 +167,6 @@ with sync_playwright() as p:
     assert host.evaluate('__qq().G.js.length') == 1
     assert host.evaluate('__qq().V.frames') == host_before
     assert not errors, errors
-    print('OK: categorias, 15 filmes nos três modos, imagens, ordem nas vistas/backup, troca de host e saída; sem pageerror.')
+    print('OK: categorias, 20 filmes nos três modos incluindo Brasileiros, imagens, ordem nas vistas/backup, troca de host e saída; sem pageerror.')
     print(f'Capturas: {OUT}')
     browser.close()

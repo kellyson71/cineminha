@@ -1,2 +1,5 @@
-Frames: FILMGRAB (film-grab.com). Títulos: Wikidata (CC0).
+Frames: FILMGRAB (film-grab.com) e Animation Screencaps (animationscreencaps.com).
+Frames de trailers públicos no YouTube: canais, vídeos e instantes documentados em tools/quadro/curadoria.json.
+Imagens e personagens pertencem aos respectivos estúdios e produtores.
+Metadados: Wikidata (CC0) e Cinemeta. Títulos brasileiros e seleção de categorias revisados manualmente.
 Uso não comercial, num jogo entre amigos.

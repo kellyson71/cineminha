@@ -484,7 +484,7 @@ export function criaQuadro(ctx) {
     const corpo = V.fase === 'convite' ? convite() : V.fase === 'fim' ? fim() : mesa()
     const bilhete = V.fase === 'convite' && !souHost() && V.conv[me.key] === '?' ? el('div', { className: `${XX}-bilhete` },
       el('span', { textContent: `${V.hostNome} chamou você para ${NOME}` }), botao('Jogar', () => manda({ op: 'resp', sim: true }), `${XX}-btn--ok`), botao('Só assistir', () => manda({ op: 'resp', sim: false }))) : ''
-    tela.replaceChildren(topo, corpo, bilhete, el('small', { className: `${XX}-cred`, textContent: 'frames: FILMGRAB · títulos: Wikidata' }))
+    tela.replaceChildren(topo, corpo, bilhete, el('small', { className: `${XX}-cred`, textContent: 'frames: FILMGRAB · Animation Screencaps · trailers' }))
     ctx.hydrate(tela)
     if (tinhaFoco && campo.isConnected && !campo.disabled) campo.focus()
   }

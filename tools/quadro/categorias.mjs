@@ -24,7 +24,9 @@ export async function categorias(arq = ARQ) {
       VALUES ?imdb { ${lote.map(f => `"${f.imdb}"`).join(' ')} }
       ?item wdt:P345 ?imdb.
       OPTIONAL { ?item wdt:P136 ?gen. ?gen rdfs:label ?g FILTER(lang(?g)="en") }
-      OPTIONAL { ?item wdt:P495 wd:Q155. BIND(1 AS ?br) }
+      # Participação brasileira em um filme estrangeiro não basta para a seleção
+      # nacional do jogo. Coproduções em português continuam entrando.
+      OPTIONAL { ?item wdt:P495 wd:Q155; wdt:P364 wd:Q5146. BIND(1 AS ?br) }
       OPTIONAL { ?item wdt:P166 wd:Q102427. BIND(1 AS ?osc) }
     } GROUP BY ?imdb`
     const r = await fetch('https://query.wikidata.org/sparql?query=' + encodeURIComponent(q), { headers: { 'user-agent': UA, accept: 'application/sparql-results+json' } }).then(r => r.json()).catch(() => null)
@@ -32,8 +34,8 @@ export async function categorias(arq = ARQ) {
       const f = filmes.find(x => x.imdb === b.imdb.value)
       const gs = (b.gs?.value || '').toLowerCase()
       const c = GENEROS.filter(([, re]) => re.test(gs)).map(([k]) => k)
-      if (b.brasil) c.push('brasil')
-      if (b.oscar) c.push('oscar')
+      if (b.brasil?.value === '1') c.push('brasil')
+      if (b.oscar?.value === '1') c.push('oscar')
       f.c = c
     }
   }

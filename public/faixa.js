@@ -25,8 +25,19 @@ const GEN = (m, ...gs) => [...(m.generos || []), ...(m.tg?.generos || [])].some(
 const VIBE = (m, ...vs) => (m.tg?.vibes || []).some(v => vs.includes(v))
 const BR = m => m.pais === 'BR' || m.tg?.pais === 'BR' || GEN(m, 'mpb', 'sertanejo', 'pagode', 'samba', 'funk-br', 'forro', 'forró', 'axé', 'rock-nacional')
 const ANO = m => m.ano || m.tg?.decada || 0
+const DISNEY = m => m.categoria === 'disney' || m.origem === 'disney' || VIBE(m, 'disney') || GEN(m, 'disney') || (m.tg?.generos || []).some(g => g.toLowerCase().includes('disney'))
+const DESENHOS = m => m.categoria === 'desenhos' || m.categoria === 'desenho' || m.origem === 'desenhos' || m.origem === 'desenho' || GEN(m, 'desenho', 'desenhos', 'anime', 'animes', 'animation', 'cartoon', 'cartoons') || VIBE(m, 'desenho', 'desenhos', 'anime') || (m.tg?.generos || []).some(g => ['desenho', 'desenhos', 'anime', 'animes', 'cartoon'].includes(g.toLowerCase()))
+const JOGOS = m => m.categoria === 'jogos' || GEN(m, 'jogos')
+const FILMES = m => m.categoria === 'filmes' || GEN(m, 'filmes e séries')
+// "De onde é?": músicas com obra (filme, desenho, série ou jogo). Nessa categoria o palpite é a obra, não a música
+const ORIGEM = m => !!m.obra
 const CATEGORIAS = [
+  { id: 'origem', nome: 'De onde é?', ic: '🧩', f: ORIGEM, origem: true },
+  { id: 'jogos', nome: 'Jogos', ic: '🎮', f: JOGOS },
+  { id: 'filmes', nome: 'Filmes e séries', ic: '🎬', f: FILMES },
   { id: 'estudio', nome: 'Faixas de estúdio', ic: '🎚️', f: m => m.fonte === 'estudio' },
+  { id: 'disney', nome: 'Disney', ic: '🏰', f: DISNEY },
+  { id: 'desenhos', nome: 'Desenhos e animes', ic: '📺', f: DESENHOS },
   { id: 'nacionais', nome: 'Nacionais', ic: '🇧🇷', f: BR },
   { id: 'gringas', nome: 'Gringas', ic: '🌎', f: m => !BR(m) && !!(m.pais || m.tg?.pais) },
   { id: 'hinos', nome: 'Pra cantar junto', ic: '🎙️', f: m => VIBE(m, 'hino') || (m.tg?.fama >= 5) },
@@ -81,6 +92,10 @@ const mesmoArtista = (a, b) => {
   const wx = x.split(' ').filter(w => w.length > 2), wy = new Set(y.split(' ').filter(w => w.length > 2))
   return wx.length > 0 && wx.filter(w => wy.has(w)).length >= Math.ceil(Math.min(wx.length, wy.size) / 2)
 }
+// a obra (desenho, filme, jogo) também vale como "artista", com os outros nomes dela
+const obrasDe = m => [m?.obra, ...(m?.obra_alt || [])].filter(Boolean)
+const ehObra = (x, m) => !!x && obrasDe(m).some(o => mesmoArtista(x, o) || confere(x, o))
+const titulosDe = m => [m.t, ...(m.alt || [])].filter(Boolean)
 const hojeStr = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` }
 function nomeDia(iso, curto) {
   const [y, m, d] = iso.split('-').map(Number), dt = new Date(y, m - 1, d)
@@ -201,7 +216,7 @@ export function criaFaixa(ctx) {
     if (Object.values(S.jog).every(x => x.ok || x.fora)) return revelar()
     manda()
   }
-  function comecar({ lista, rotulo, modo }) {
+  function comecar({ lista, rotulo, modo, origem }) {
     if (modo === 'ano') {
       // só entram músicas com ano de lançamento de verdade (não só a década)
       const total0 = lista.length
@@ -210,7 +225,7 @@ export function criaFaixa(ctx) {
       if (lista.length < total0) toast(`Só ${lista.length} de ${total0} músicas têm o ano certo${lista.length < 3 ? ' — a rodada vai ser curta' : ''}.`, 3600)
     }
     if (!lista.length) return toast('Nenhuma música para jogar aqui (vocês já ouviram todas?).', 3200)
-    S = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, rotulo, modo, musicas: lista, i: 0, fase: 'tocando', camada: 1, jog: {}, placar: {}, seq: 0, ordem: [], lei: null }
+    S = { id: Math.random().toString(36).slice(2, 9), host: me.key, hostNome: me.name, rotulo, modo, origem: !!origem, musicas: lista, i: 0, fase: 'tocando', camada: 1, jog: {}, placar: {}, seq: 0, ordem: [], lei: null }
     for (const k of ctx.presentes()) S.jog[k] = novoJog(ctx.nomeDe(k))
     iniciaRodada()
     sysMsg(`${me.name} começou o Faixa a Faixa: ${rotulo} (${MODOS[modo].nome})`)
@@ -367,7 +382,7 @@ export function criaFaixa(ctx) {
       const x = a?.i === b.i ? a?.jog?.[k] : null
       if (k === me.key || !x) continue
       if (j.ok && !x.ok) toast(`${j.nome} acertou a música!`, 2200)
-      else if (j.art && !x.art) toast(`${j.nome} acertou o artista`, 1800)
+      else if (j.art && !x.art) toast(`${j.nome} acertou ${b.origem ? 'a música' : 'o artista'}`, 1800)
     }
     // cooperativo: o chute de cada um aparece no balão em cima do boneco dele
     if ((b.modo === 'coletivo' || (VERSUS.includes(b.modo) && b.fase === 'tocando' && prontoEm(b))) && a?.id === b.id && a?.i === b.i) for (const [k, j] of Object.entries(b.jog || {})) {
@@ -393,7 +408,7 @@ export function criaFaixa(ctx) {
   let travaAte = 0
   function trava() {
     travaAte = Date.now() + TRAVA_MS
-    const i = chute.input, antes = 'Qual é a música? (ou o artista)'
+    const i = chute.input, antes = i.placeholder
     i.disabled = true; i.placeholder = 'Errou! Segura 2 s…'
     setTimeout(() => { i.disabled = false; i.placeholder = antes; if (S?.fase === 'tocando' && tela.contains(i) && !ctx.digitando()) i.focus({ preventScroll: true }) }, TRAVA_MS)
   }
@@ -403,15 +418,24 @@ export function criaFaixa(ctx) {
     if (S.modo === 'leilao' && !(S.lei?.fase === 'ouve' && S.lei.ouvinte === me.key)) return
     if (S.modo === 'corrida' && Date.now() < travaAte) return toast('Calma! Espere o tempo da trava.', 1200)
     let tipo, txt = ''
+    const mesmaMusica = g.tipo === 'musica' && ((m.dz && g.id === m.dz.t) || titulosDe(m).some(t => (g.t && norm(g.t) === norm(t)) || (confere(g.t, t) && (!g.a || mesmoArtista(g.a, m.a) || ehObra(g.a, m)))))
     if (g.tipo === 'pular') tipo = 'pulou'
-    else if (g.tipo === 'artista') {
-      const certo = (m.dz && g.id === m.dz.a) || mesmoArtista(g.nome, m.a)
+    else if (S.origem) {
+      // De onde é?: vale a obra (digitada, escolhida como "artista" ou numa música dela); acertar só a música vale metade
+      const nome = g.tipo === 'artista' ? g.nome : g.t
+      const certo = ehObra(nome, m) || (g.tipo === 'musica' && ehObra(g.a, m))
+      const meio = !certo && (mesmaMusica || (g.tipo === 'artista' && mesmoArtista(g.nome, m.a)))
+      if (meio && j.art) return toast('Essa parte você já acertou. Agora: de onde é?', 1800)
+      tipo = certo ? 'certo' : meio ? 'artista' : 'errou'; txt = g.tipo === 'artista' ? g.nome : g.a && !ehObra(g.a, m) ? `${g.t} — ${g.a}` : g.t
+      if (meio) toast(`Isso é da música, vale metade (+${Math.floor(valeAgora(j) / 2)}). Agora diga de onde é!`, 2600)
+    } else if (g.tipo === 'artista') {
+      const certo = (m.dz && g.id === m.dz.a) || mesmoArtista(g.nome, m.a) || ehObra(g.nome, m)
       if (certo && j.art) return toast('O artista você já acertou. Agora a música!', 1800)
       tipo = certo ? 'artista' : 'errou'; txt = g.nome
       if (certo) toast(S.modo === 'leilao' ? 'Artista certo! Vale metade.' : `Artista certo! +${Math.floor(valeAgora(j) / 2)} — agora a música vale o total.`, 2600)
     } else {
       // o nome igual (tirando "ao vivo", "remaster"…) já vale, mesmo que a versão escolhida seja de outro artista
-      const certo = (m.dz && g.id === m.dz.t) || (g.t && norm(g.t) === norm(m.t)) || (confere(g.t, m.t) && (!g.a || mesmoArtista(g.a, m.a)))
+      const certo = mesmaMusica
       tipo = certo ? 'certo' : 'errou'; txt = g.a ? `${g.t} — ${g.a}` : g.t
     }
     if (tipo === 'errou') { erroVisual(); if (S.modo === 'corrida') trava() }
@@ -535,6 +559,21 @@ export function criaFaixa(ctx) {
   let pedindoCatalogo = null
   const pedeCatalogo = () => pedindoCatalogo ||= fetch(BASE + 'catalogo.json').then(r => r.json()).then(c => { catalogo = c.map(([t, a]) => ({ t, a, nt: norm(t), na: norm(a) })) }).catch(() => { catalogo = [] })
   const cache = new Map()
+  // De onde é?: as sugestões são as obras (desenhos, filmes, séries, jogos) que existem no jogo
+  const TIPO_OBRA = { jogos: 'Jogo', filmes: 'Filme ou série', disney: 'Disney', desenhos: 'Desenho, anime ou animação' }
+  let obrasCache = null, obrasDe0 = null
+  function obrasLista() {
+    if (obrasCache && obrasDe0 === dias) return obrasCache
+    const mp = new Map()
+    for (const m of Object.values(dias || {}).flat()) if (m.obra && !mp.has(norm(m.obra))) mp.set(norm(m.obra), { nome: m.obra, sub: TIPO_OBRA[m.categoria] || 'Obra', chaves: obrasDe(m).map(norm) })
+    obrasDe0 = dias; return (obrasCache = [...mp.values()])
+  }
+  function locaisObra(q) {
+    const nq = norm(q), ws = nq.split(' ').filter(Boolean)
+    if (!ws.length) return []
+    const pont = o => Math.max(...o.chaves.map(k => k.startsWith(nq) ? 3 : ws.every(w => k.includes(w)) ? 2 : k.split(' ').some(w => w.startsWith(ws[0])) && ws.length === 1 ? 1 : 0))
+    return obrasLista().map(o => [pont(o), o]).filter(([p]) => p).sort((a, b) => b[0] - a[0]).slice(0, 7).map(([, o]) => ({ tipo: 'artista', obra: true, nome: o.nome, titulo: o.nome, sub: o.sub }))
+  }
   function locais(q) {
     const nq = norm(q), ws = nq.split(' ').filter(Boolean)
     if (!catalogo || !ws.length) return { musicas: [], artistas: [] }
@@ -568,7 +607,7 @@ export function criaFaixa(ctx) {
         const li = el('li', { className: 'fx-busca__it' + (i === sel ? ' ativo' : '') + (x.tipo === 'artista' ? ' art' : '') },
           x.img ? el('img', { src: x.img, alt: '', referrerPolicy: 'no-referrer' }) : el('i', { className: 'fx-busca__ini', textContent: (x.titulo || '?')[0].toUpperCase() }),
           el('span', {}, el('b', { textContent: x.titulo }), el('small', { textContent: x.sub })),
-          el('em', { textContent: x.tipo === 'artista' ? 'Artista · ½' : 'Música' }))
+          el('em', { textContent: x.obra ? 'De onde é' : x.tipo === 'artista' ? 'Artista · ½' : S?.origem ? 'Música · ½' : 'Música' }))
         li.addEventListener('pointerdown', e => e.preventDefault()) // não tira o foco do campo
         li.addEventListener('click', () => { if (!lista.hidden) escolhe(x) })
         return li
@@ -581,6 +620,11 @@ export function criaFaixa(ctx) {
     function busca(q) {
       texto = q
       if (!q) { itens = []; carregando = false; return desenha() }
+      if (S?.origem) {
+        itens = locaisObra(q); carregando = false
+        sel = itens.length && norm(itens[0].titulo).startsWith(norm(q)) ? 0 : -1
+        return desenha()
+      }
       const c = cache.get(norm(q))
       itens = junta(locais(q), c)
       sel = itens.length && norm(itens.find(x => x.tipo === 'musica')?.titulo || '').startsWith(norm(q)) ? itens.findIndex(x => x.tipo === 'musica') : -1
@@ -694,6 +738,7 @@ export function criaFaixa(ctx) {
     if (S.modo === 'ano') return rodadaAno(m)
     const corrida = S.modo === 'corrida'
     const ps = passos(), j = euJog() || novoJog('')
+    if (Date.now() >= travaAte) chute.input.placeholder = S.origem ? 'De onde é? (desenho, filme, série, jogo…)' : 'Qual é a música? (ou o artista)'
     const passo = j.ok || j.fora ? ps.length : passoDe(j)
     const porPasso = {}
     const tents = coop() ? Object.entries(S.jog).flatMap(([k, x]) => x.tent.map(t => ({ ...t, quem: k === me.key ? '' : x.nome }))).sort((a, b) => (a.ts || 0) - (b.ts || 0)) : j.tent
@@ -702,9 +747,9 @@ export function criaFaixa(ctx) {
       const k = i + 1, aberta = k <= passo, atual = k === passo && !j.ok && !j.fora
       const res = (porPasso[k] || []).map(t => el('span', { className: `fx-tent fx-tent--${t.tipo}`, title: t.quem ? `${t.quem}: ${t.txt || 'pulou'}` : t.txt || '' },
         t.quem ? el('b', { textContent: t.tipo === 'pulou' ? `${t.quem} pulou` : `${t.quem}: ` }) : '',
-        t.tipo === 'pulou' ? (t.quem ? '' : 'pulou') : t.tipo === 'artista' ? `artista ✓ ${t.txt}` : t.tipo === 'certo' ? `✓ ${t.txt}` : `✗ ${t.txt}`))
+        t.tipo === 'pulou' ? (t.quem ? '' : 'pulou') : t.tipo === 'artista' ? `${S.origem ? 'música' : 'artista'} ✓ ${t.txt}` : t.tipo === 'certo' ? `✓ ${t.txt}` : `✗ ${t.txt}`))
       let nome = aberta ? p.nome : ''
-      if (p.dica && aberta) nome = [m.ano ? `Lançada em ${m.ano}` : '', `artista: ${iniciais(m.a)}`].filter(Boolean).join(' · ')
+      if (p.dica && aberta) nome = S.origem ? `de: ${iniciais(m.obra || m.a)}` : [m.ano ? `Lançada em ${m.ano}` : '', `artista: ${iniciais(m.a)}`].filter(Boolean).join(' · ')
       return el('li', { className: 'fx-linha' + (aberta ? ' on' : '') + (atual ? ' atual' : '') + (j.ok === k ? ' certo' : '') + (p.dica ? ' fx-linha--dica' : '') },
         el('span', { className: 'fx-linha__n', textContent: k }),
         aberta ? iconeDe(p.tipo, atual) : el('span', { className: 'fx-ic fx-ic--fechado' }, icon(p.dica ? 'lightbulb' : 'lock')),
@@ -716,7 +761,7 @@ export function criaFaixa(ctx) {
     const player = playerEl()
     let topo
     if (j.ok) topo = el('div', { className: 'fx-status fx-status--ok' }, icon('check'), el('span', { textContent: corrida ? `Acertou em ${S.ordem.indexOf(me.key) + 1}º lugar! +${j.pts}` : `Acertou com ${j.ok} dica${j.ok > 1 ? 's' : ''}! +${j.pts}` }))
-    else if (j.fora) topo = el('div', { className: 'fx-status', textContent: j.art ? `Acabaram as dicas — ficou com o artista (+${j.pts}).` : 'Acabaram as dicas. Espere a revelação.' })
+    else if (j.fora) topo = el('div', { className: 'fx-status', textContent: j.art ? `Acabaram as dicas — ficou com ${S.origem ? 'a música' : 'o artista'} (+${j.pts}).` : 'Acabaram as dicas. Espere a revelação.' })
     else {
       const ultimo = passo >= ps.length
       topo = el('div', { className: 'fx-chute' },
@@ -742,7 +787,7 @@ export function criaFaixa(ctx) {
     return el('ol', { className: 'fx-filme' }, ...ps.map((p, i) => {
       const k = i + 1, aberta = k <= passo, atual = aberta && k === passo
       let nome = aberta ? p.nome : ''
-      if (p.dica && aberta) nome = `artista: ${iniciais(m.a)}`
+      if (p.dica && aberta) nome = S.origem ? `de: ${iniciais(m.obra || m.a)}` : `artista: ${iniciais(m.a)}`
       return el('li', { className: 'fx-linha' + (aberta ? ' on' : '') + (atual ? ' atual' : '') + (p.dica ? ' fx-linha--dica' : '') },
         el('span', { className: 'fx-linha__n', textContent: k }),
         aberta ? iconeDe(p.tipo, atual) : el('span', { className: 'fx-ic fx-ic--fechado' }, icon(p.dica ? 'lightbulb' : 'lock')),
@@ -858,14 +903,14 @@ export function criaFaixa(ctx) {
       }
       if (S.modo === 'ano') return j.trav ? `chutou ${j.ano}` : 'não chutou'
       if (S.modo === 'corrida') return j.ok ? `${S.ordem.indexOf(k) + 1}º a acertar` : j.art ? 'só o artista' : 'não acertou'
-      return j.ok ? `música com ${j.ok} dica${j.ok > 1 ? 's' : ''}` : j.art ? 'só o artista' : 'não acertou'
+      return j.ok ? `${S.origem ? 'acertou' : 'música'} com ${j.ok} dica${j.ok > 1 ? 's' : ''}` : j.art ? (S.origem ? 'só a música' : 'só o artista') : 'não acertou'
     }
     return el('section', { className: 'fx-revela' },
       el('div', { className: 'fx-ingresso' },
         m.capa ? el('img', { className: 'fx-ingresso__capa', src: pasta() + m.capa, alt: '' }) : el('div', { className: 'fx-ingresso__capa' }, icon('music')),
         el('div', { className: 'fx-ingresso__main' },
-          el('small', { className: 'fx-kicker', textContent: S.acertou ? `${S.acertou.key === me.key ? 'Você' : S.acertou.nome} acertou para todo mundo · era` : 'Era' }), el('b', { className: 'fx-ingresso__t', textContent: m.t }),
-          el('span', { className: 'fx-ingresso__a', textContent: [m.a, m.album, m.ano].filter(Boolean).join(' · ') }),
+          el('small', { className: 'fx-kicker', textContent: S.acertou ? `${S.acertou.key === me.key ? 'Você' : S.acertou.nome} acertou para todo mundo · era` : 'Era' }), el('b', { className: 'fx-ingresso__t', textContent: S.origem && m.obra ? m.obra : m.t }),
+          el('span', { className: 'fx-ingresso__a', textContent: (S.origem && m.obra ? [m.t, m.a !== m.obra ? m.a : '', m.ano] : [m.a, m.obra || m.album, m.ano]).filter(Boolean).join(' · ') }),
           el('ul', { className: 'fx-ingresso__quem' }, ...quem.map(([k, j]) => el('li', {}, ctx.pfp(k, 20), el('b', { textContent: j.nome }),
             el('span', { textContent: txtDe(k, j) }), el('em', { textContent: j.pts ? `+${j.pts}` : '' })))),
           ehHost() ? botao('skip-forward', S.i + 1 >= S.musicas.length ? 'Ver o placar' : 'Próxima música', proxima, 'fx-btn--ok') : el('small', { className: 'fx-esperando', textContent: `Esperando ${S.hostNome} seguir…` })),
@@ -896,7 +941,7 @@ export function criaFaixa(ctx) {
         const st = MODOS[S.modo].novo && S.fase !== 'tocando' ? '' : S.modo === 'leilao' && L ? (L.ouvinte === k ? `tenta com ${L.n}` : L.lance?.key === k ? `lance ${L.lance.n}` : !L.ordem.includes(k) ? 'entra na próxima' : !L.ativos.includes(k) ? 'passou' : L.vez === k ? 'dando o lance' : '')
           : S.modo === 'ano' ? (j.trav ? 'travou' : 'pensando…')
           : S.modo === 'corrida' && S.ordem.includes(k) ? `✓ ${S.ordem.indexOf(k) + 1}º`
-          : esconde ? (j.ok || j.fora ? 'pronto' : 'pensando…') : j.ok ? '✓ música' : j.art ? '½ artista' : j.fora ? 'sem dicas' : ''
+          : esconde ? (j.ok || j.fora ? 'pronto' : 'pensando…') : j.ok ? (S.origem ? '✓ acertou' : '✓ música') : j.art ? (S.origem ? '½ música' : '½ artista') : j.fora ? 'sem dicas' : ''
         const bolas = !esconde && S.fase === 'tocando' && individual() ? Array.from({ length: total() }, (_, i) => el('i', { className: i < j.n ? (j.ok === i + 1 ? 'ok' : 'on') : '' })) : []
         return el('li', { className: !esconde && j.ok ? 'ok' : '' }, ctx.pfp(k, 26),
           el('span', { className: 'fx-jogs__nome' }, el('b', { textContent: j.nome }), el('span', { className: 'fx-jogs__passos' }, ...bolas, st ? el('small', { textContent: st }) : ''),
@@ -974,7 +1019,7 @@ export function criaFaixa(ctx) {
     const listaDias = (ds, pular) => ds.slice().sort().flatMap(d => (dias[d] || []).filter(m => !pular || !feitas.has(`${d}#${m.n}`)).map(m => ({ d, n: m.n })))
     eu.abrindo = false
     if (!fundo.isConnected) return
-    const jogar = (lista, rotulo) => { if (ver) return; fechar(true); menuAtual = null; comecar({ lista, rotulo, modo: modoEscolhido }) }
+    const jogar = (lista, rotulo, origem) => { if (ver) return; fechar(true); menuAtual = null; comecar({ lista, rotulo, modo: modoEscolhido, origem }) }
     // quem está escolhendo manda a tela em que está; quem olha segue junto
     const conta = t => { if (!ver) difundeMenu({ tela: t, modo: modoEscolhido, sel: [...sel], mais: maisCats, qtd: qtdCat }) }
     const faixaVer = () => ver ? el('div', { className: 'fx-lobby__ver' }, ctx.pfp(ver, 22), el('span', {}, el('b', { textContent: olhar.nome }), ' está escolhendo o jogo…'), botao('x', '', () => fechar(), 'fx-btn--x', 'Fechar (só para você)')) : ''
@@ -1007,7 +1052,7 @@ export function criaFaixa(ctx) {
         el('div', { className: 'fx-atalhos' },
           atalho('dias', 'Outros dias', pendentes ? `${pendentes} com músicas novas${grupo ? ' para a call' : ''}` : `${datas.length} dias`, outrosDias),
           atalho('combo', 'Combo', 'vários dias seguidos', combo),
-          atalho('cats', 'Categorias', 'nacionais, rock, anos 80…', categorias)),
+          atalho('cats', 'Categorias', 'De onde é?, jogos, Disney, desenhos…', categorias)),
         st.jogadas ? el('div', { className: 'fx-stats' },
           el('span', {}, el('b', { textContent: st.jogadas }), ' jogadas'), el('span', { className: 'ok' }, el('b', { textContent: st.ok }), ' acertos'),
           el('span', { className: 'art' }, el('b', { textContent: st.art }), ' só artista'), el('span', { className: 'fora' }, el('b', { textContent: st.fora }), ' derrotas'),
@@ -1046,13 +1091,13 @@ export function criaFaixa(ctx) {
     }
     // categorias: as principais em destaque, o resto em "mais categorias". Cada uma sorteia 5 que você ainda
     // não ouviu; quando acaba, deixa repetir. A barrinha mostra quantas já foram ouvidas e quantas faltam.
-    const PRINCIPAIS = ['nacionais', 'gringas', 'hinos', 'rock', 'pop', 'recentes']
+    const PRINCIPAIS = ['origem', 'disney', 'desenhos', 'jogos', 'filmes', 'nacionais', 'gringas', 'hinos', 'rock', 'pop', 'recentes']
     let maisCats = false
     // quantas músicas cada categoria sorteia (fica lembrado neste navegador)
     const QTDS = [5, 10, 15, 20]
     let qtdCat = (() => { try { const n = +localStorage.getItem('faixa.qtdCat'); return QTDS.includes(n) ? n : 5 } catch { return 5 } })()
     function categorias() {
-      const cats = CATEGORIAS.map(c => ({ ...c, ms: todas.filter(c.f) })).filter(c => c.ms.length >= 3)
+      const cats = CATEGORIAS.map(c => ({ ...c, ms: todas.filter(c.f) })).filter(c => c.ms.length >= (['disney', 'desenhos', 'jogos', 'filmes', 'origem'].includes(c.id) ? 1 : 3))
       const cartao = (c, mini) => {
         const novas = c.ms.filter(m => !feitas.has(`${m.d}#${m.n}`)), ouvidas = c.ms.length - novas.length
         const fim = !novas.length
@@ -1065,7 +1110,7 @@ export function criaFaixa(ctx) {
           const mistura = a => a.slice().sort(() => Math.random() - .5)
           const novasIds = new Set(novas.map(m => `${m.d}#${m.n}`))
           const base = [...mistura(novas), ...mistura(c.ms.filter(m => !novasIds.has(`${m.d}#${m.n}`)))].slice(0, qtdCat)
-          jogar(base.map(m => ({ d: m.d, n: m.n })), `${c.nome} · ${base.length}`)
+          jogar(base.map(m => ({ d: m.d, n: m.n })), `${c.nome} · ${base.length}`, c.origem)
         })
         return b
       }
@@ -1101,7 +1146,7 @@ export function criaFaixa(ctx) {
 
   // só para o admin (painel Admin nas configurações): a música que está tocando agora
   const resposta = () => { const m = musica(); return S && m && S.fase !== 'fim' ? { t: m.t, a: m.a, ano: m.ano || '', i: S.i + 1, n: S.musicas.length } : null }
-  window.__faixa = () => ({ S, resp: musica()?.t, artista: musica()?.a }) // diagnóstico/testes
+  window.__faixa = () => ({ S, resp: musica()?.t, artista: musica()?.a, obra: musica()?.obra, alt: musica()?.alt }) // diagnóstico/testes
   return {
     got, iniciar, interceptaChat: () => false, ativo: () => !!S, volumes, resposta,
     onPeerJoin: id => { if (ehHost()) { carimbaPrazo(); ctx.send({ estado: S }, id) } if (menuAtual) ctx.send({ menu: menuAtual }, id) },

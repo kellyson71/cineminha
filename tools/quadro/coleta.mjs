@@ -11,7 +11,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
 import path from 'node:path'
 import { categorias } from './categorias.mjs'
-import { catalogoCurado } from './curadoria.mjs'
+import { catalogoCurado, CREDITOS } from './curadoria.mjs'
 
 const RAIZ = new URL('../../', import.meta.url).pathname
 const SAIDA = path.join(RAIZ, 'public/jogos/quadro')
@@ -180,5 +180,5 @@ for (const f of todos) {
 }
 writeFileSync(path.join(SAIDA, 'filmes.json'), JSON.stringify([...jogo.values()]))
 console.log('categorias:', await categorias(path.join(SAIDA, 'filmes.json')))
-writeFileSync(path.join(SAIDA, 'CREDITOS.txt'), 'Frames: FILMGRAB (film-grab.com). Títulos: Wikidata (CC0).\nUso não comercial, num jogo entre amigos.\n')
+writeFileSync(path.join(SAIDA, 'CREDITOS.txt'), CREDITOS)
 console.log(`pronto: ${jogo.size} filmes no jogo, ${todos.length} no autocomplete`)

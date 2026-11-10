@@ -1,0 +1,708 @@
+{
+  "criterio": "100 mais reconhecíveis na curadoria para público brasileiro; preservar todas as já geradas",
+  "limite": 100,
+  "aprovadas": [
+    "disney-o-rei-leao-hakuna-matata",
+    "disney-frozen-livre-estou",
+    "disney-toy-story-amigo-estou-aqui",
+    "disney-aladdin-um-mundo-ideal",
+    "disney-o-rei-leao-o-ciclo-sem-fim",
+    "playlist-desenhos-3504033041",
+    "anime-dragon-ball-z-cha-la-head-cha-la",
+    "anime-os-cavaleiros-do-zodiaco-pegasus-fantasy",
+    "playlist-desenhos-2958441",
+    "desenho-scooby-doo-what-s-new-scooby-doo",
+    "desenho-phineas-e-ferb-phineas-e-ferb-abertura",
+    "desenho-a-pantera-cor-de-rosa-the-pink-panther-theme",
+    "desenho-jovens-titas-teen-titans-theme",
+    "playlist-desenhos-1574887642",
+    "disney-encanto-nao-falamos-do-bruno",
+    "disney-moana-saber-quem-sou",
+    "disney-a-pequena-sereia-aqui-no-mar",
+    "disney-a-bela-e-a-fera-sentimentos-sao",
+    "disney-o-rei-leao-o-que-eu-quero-mais-e-ser-rei",
+    "playlist-disney-709782082",
+    "disney-a-pequena-sereia-parte-do-seu-mundo",
+    "disney-tarzan-no-meu-coracao-voce-vai-estar",
+    "playlist-disney-123405388",
+    "playlist-desenhos-2608999752",
+    "playlist-desenhos-1564993",
+    "playlist-desenhos-630829962",
+    "playlist-disney-586860862",
+    "playlist-disney-128948754",
+    "playlist-disney-143877142",
+    "disney-mulan-homem-ser",
+    "disney-enrolados-vejo-enfim-a-luz-brilhar",
+    "disney-moana-de-nada",
+    "playlist-desenhos-60723425",
+    "playlist-desenhos-855956772",
+    "playlist-desenhos-951106322",
+    "anime-naruto-shippuden-silhouette",
+    "anime-one-piece-we-are",
+    "anime-tokyo-ghoul-unravel",
+    "anime-demon-slayer-gurenge",
+    "anime-naruto-haruka-kanata",
+    "playlist-disney-4242714",
+    "playlist-disney-4242713",
+    "playlist-disney-5323465",
+    "playlist-disney-2287208757",
+    "disney-a-princesa-e-o-sapo-quase-la",
+    "disney-aladdin-principe-ali",
+    "disney-o-rei-leao-se-preparem",
+    "disney-tarzan-filho-de-homem",
+    "disney-viva-a-vida-e-uma-festa-lembre-de-mim",
+    "playlist-disney-424600042",
+    "playlist-disney-122038918",
+    "playlist-disney-411051482",
+    "playlist-desenhos-566424852",
+    "playlist-desenhos-563655032",
+    "playlist-desenhos-1449158222",
+    "playlist-desenhos-1127264222",
+    "playlist-desenhos-1610603042",
+    "playlist-desenhos-3664519",
+    "playlist-desenhos-965373822",
+    "playlist-desenhos-60723422",
+    "playlist-desenhos-60723426",
+    "playlist-desenhos-6615049",
+    "playlist-desenhos-145425722",
+    "playlist-desenhos-1565012",
+    "playlist-disney-634443252",
+    "playlist-disney-677778492",
+    "playlist-disney-3274237351",
+    "playlist-disney-1904520877",
+    "playlist-disney-137805175",
+    "playlist-disney-1550819642",
+    "playlist-disney-1550819662",
+    "playlist-disney-1550795132",
+    "playlist-disney-1762460127",
+    "playlist-desenhos-1143838252",
+    "playlist-desenhos-951106302",
+    "playlist-desenhos-742721612",
+    "playlist-desenhos-951106512",
+    "playlist-desenhos-951106432",
+    "playlist-desenhos-965375672",
+    "playlist-disney-2381495915",
+    "playlist-disney-531228911",
+    "disney-hercules-vencer-o-mal",
+    "playlist-disney-531228901",
+    "playlist-disney-137805165",
+    "playlist-disney-123405392",
+    "playlist-disney-123405390",
+    "playlist-disney-803999652",
+    "playlist-disney-803999672",
+    "playlist-desenhos-648242932",
+    "playlist-desenhos-975952742",
+    "playlist-desenhos-1006888182",
+    "playlist-disney-3058868",
+    "playlist-disney-3058861",
+    "playlist-disney-68426078",
+    "playlist-disney-720598982",
+    "playlist-disney-1675161847",
+    "playlist-disney-2325898835",
+    "playlist-disney-604853302",
+    "playlist-desenhos-60723424",
+    "playlist-disney-121635094"
+  ],
+  "ranking": [
+    {
+      "posicao": 1,
+      "id": "disney-o-rei-leao-hakuna-matata",
+      "titulo": "Hakuna Matata",
+      "obra": "O Rei Leão"
+    },
+    {
+      "posicao": 2,
+      "id": "disney-frozen-livre-estou",
+      "titulo": "Livre Estou",
+      "obra": "Frozen"
+    },
+    {
+      "posicao": 3,
+      "id": "disney-toy-story-amigo-estou-aqui",
+      "titulo": "Amigo Estou Aqui",
+      "obra": "Toy Story"
+    },
+    {
+      "posicao": 4,
+      "id": "disney-aladdin-um-mundo-ideal",
+      "titulo": "Um Mundo Ideal",
+      "obra": "Aladdin"
+    },
+    {
+      "posicao": 5,
+      "id": "disney-o-rei-leao-o-ciclo-sem-fim",
+      "titulo": "O Ciclo Sem Fim",
+      "obra": "O Rei Leão"
+    },
+    {
+      "posicao": 6,
+      "id": "playlist-desenhos-3504033041",
+      "titulo": "Pokémon Theme",
+      "obra": "Pokémon"
+    },
+    {
+      "posicao": 7,
+      "id": "anime-dragon-ball-z-cha-la-head-cha-la",
+      "titulo": "Cha-La Head-Cha-La",
+      "obra": "Dragon Ball Z"
+    },
+    {
+      "posicao": 8,
+      "id": "anime-os-cavaleiros-do-zodiaco-pegasus-fantasy",
+      "titulo": "Pegasus Fantasy",
+      "obra": "Os Cavaleiros do Zodíaco"
+    },
+    {
+      "posicao": 9,
+      "id": "playlist-desenhos-2958441",
+      "titulo": "SpongeBob SquarePants Theme Song",
+      "obra": "Bob Esponja Calça Quadrada"
+    },
+    {
+      "posicao": 10,
+      "id": "desenho-scooby-doo-what-s-new-scooby-doo",
+      "titulo": "What's New, Scooby-Doo?",
+      "obra": "Scooby-Doo"
+    },
+    {
+      "posicao": 11,
+      "id": "desenho-phineas-e-ferb-phineas-e-ferb-abertura",
+      "titulo": "Phineas e Ferb (Abertura)",
+      "obra": "Phineas e Ferb"
+    },
+    {
+      "posicao": 12,
+      "id": "desenho-a-pantera-cor-de-rosa-the-pink-panther-theme",
+      "titulo": "The Pink Panther Theme",
+      "obra": "A Pantera Cor-de-Rosa"
+    },
+    {
+      "posicao": 13,
+      "id": "desenho-jovens-titas-teen-titans-theme",
+      "titulo": "Teen Titans Theme",
+      "obra": "Jovens Titãs"
+    },
+    {
+      "posicao": 14,
+      "id": "playlist-desenhos-1574887642",
+      "titulo": "The Simpsons Main Title Theme (Extended Version)",
+      "obra": "Os Simpsons"
+    },
+    {
+      "posicao": 15,
+      "id": "disney-encanto-nao-falamos-do-bruno",
+      "titulo": "Não Falamos do Bruno",
+      "obra": "Encanto"
+    },
+    {
+      "posicao": 16,
+      "id": "disney-moana-saber-quem-sou",
+      "titulo": "Saber Quem Sou",
+      "obra": "Moana"
+    },
+    {
+      "posicao": 17,
+      "id": "disney-a-pequena-sereia-aqui-no-mar",
+      "titulo": "Aqui no Mar",
+      "obra": "A Pequena Sereia"
+    },
+    {
+      "posicao": 18,
+      "id": "disney-a-bela-e-a-fera-sentimentos-sao",
+      "titulo": "Sentimentos São",
+      "obra": "A Bela e a Fera"
+    },
+    {
+      "posicao": 19,
+      "id": "disney-o-rei-leao-o-que-eu-quero-mais-e-ser-rei",
+      "titulo": "O que Eu Quero Mais É Ser Rei",
+      "obra": "O Rei Leão"
+    },
+    {
+      "posicao": 20,
+      "id": "playlist-disney-709782082",
+      "titulo": "Nesta Noite o Amor Chegou",
+      "obra": "O Rei Leão"
+    },
+    {
+      "posicao": 21,
+      "id": "disney-a-pequena-sereia-parte-do-seu-mundo",
+      "titulo": "Parte do Seu Mundo",
+      "obra": "A Pequena Sereia"
+    },
+    {
+      "posicao": 22,
+      "id": "disney-tarzan-no-meu-coracao-voce-vai-estar",
+      "titulo": "No Meu Coração Você Vai Estar",
+      "obra": "Tarzan"
+    },
+    {
+      "posicao": 23,
+      "id": "playlist-disney-123405388",
+      "titulo": "Quer Brincar Na Neve?",
+      "obra": "Frozen: Uma Aventura Congelante"
+    },
+    {
+      "posicao": 24,
+      "id": "playlist-desenhos-2608999752",
+      "titulo": "Gravity Falls Main Title Theme",
+      "obra": "Gravity Falls: Um Verão de Mistérios"
+    },
+    {
+      "posicao": 25,
+      "id": "playlist-desenhos-1564993",
+      "titulo": "I'm A Believer",
+      "obra": "Shrek"
+    },
+    {
+      "posicao": 26,
+      "id": "playlist-desenhos-630829962",
+      "titulo": "I Like To Move It",
+      "obra": "Madagascar 2"
+    },
+    {
+      "posicao": 27,
+      "id": "playlist-disney-586860862",
+      "titulo": "Try Everything",
+      "obra": "Zootopia"
+    },
+    {
+      "posicao": 28,
+      "id": "playlist-disney-128948754",
+      "titulo": "Life is a Highway",
+      "obra": "Carros"
+    },
+    {
+      "posicao": 29,
+      "id": "playlist-disney-143877142",
+      "titulo": "Seja A Nossa Convidada",
+      "obra": "A Bela e a Fera"
+    },
+    {
+      "posicao": 30,
+      "id": "disney-mulan-homem-ser",
+      "titulo": "Homem Ser",
+      "obra": "Mulan"
+    },
+    {
+      "posicao": 31,
+      "id": "disney-enrolados-vejo-enfim-a-luz-brilhar",
+      "titulo": "Vejo Enfim a Luz Brilhar",
+      "obra": "Enrolados"
+    },
+    {
+      "posicao": 32,
+      "id": "disney-moana-de-nada",
+      "titulo": "De Nada",
+      "obra": "Moana"
+    },
+    {
+      "posicao": 33,
+      "id": "playlist-desenhos-60723425",
+      "titulo": "Perry the Platypus Theme",
+      "obra": "Phineas e Ferb"
+    },
+    {
+      "posicao": 34,
+      "id": "playlist-desenhos-855956772",
+      "titulo": "Call Me, Beep Me! (The Kim Possible Song)",
+      "obra": "Kim Possible"
+    },
+    {
+      "posicao": 35,
+      "id": "playlist-desenhos-951106322",
+      "titulo": "We Are The Crystal Gems (feat. Zach Callison, Estelle, Deedee Magno Hall, Michaela Dietz & Tom Scharpling) (Full Theme Song)",
+      "obra": "Steven Universe"
+    },
+    {
+      "posicao": 36,
+      "id": "anime-naruto-shippuden-silhouette",
+      "titulo": "Silhouette",
+      "obra": "Naruto Shippuden"
+    },
+    {
+      "posicao": 37,
+      "id": "anime-one-piece-we-are",
+      "titulo": "We Are!",
+      "obra": "One Piece"
+    },
+    {
+      "posicao": 38,
+      "id": "anime-tokyo-ghoul-unravel",
+      "titulo": "Unravel",
+      "obra": "Tokyo Ghoul"
+    },
+    {
+      "posicao": 39,
+      "id": "anime-demon-slayer-gurenge",
+      "titulo": "Gurenge",
+      "obra": "Demon Slayer"
+    },
+    {
+      "posicao": 40,
+      "id": "anime-naruto-haruka-kanata",
+      "titulo": "Haruka Kanata",
+      "obra": "Naruto"
+    },
+    {
+      "posicao": 41,
+      "id": "playlist-disney-4242714",
+      "titulo": "We're All In This Together",
+      "obra": "High School Musical"
+    },
+    {
+      "posicao": 42,
+      "id": "playlist-disney-4242713",
+      "titulo": "Breaking Free",
+      "obra": "High School Musical"
+    },
+    {
+      "posicao": 43,
+      "id": "playlist-disney-5323465",
+      "titulo": "This Is Me (From \"Camp Rock\")",
+      "obra": "Camp Rock"
+    },
+    {
+      "posicao": 44,
+      "id": "playlist-disney-2287208757",
+      "titulo": "Beije A Moça",
+      "obra": "A Pequena Sereia"
+    },
+    {
+      "posicao": 45,
+      "id": "disney-a-princesa-e-o-sapo-quase-la",
+      "titulo": "Quase Lá",
+      "obra": "A Princesa e o Sapo"
+    },
+    {
+      "posicao": 46,
+      "id": "disney-aladdin-principe-ali",
+      "titulo": "Príncipe Ali",
+      "obra": "Aladdin"
+    },
+    {
+      "posicao": 47,
+      "id": "disney-o-rei-leao-se-preparem",
+      "titulo": "Se Preparem",
+      "obra": "O Rei Leão"
+    },
+    {
+      "posicao": 48,
+      "id": "disney-tarzan-filho-de-homem",
+      "titulo": "Filho de Homem",
+      "obra": "Tarzan"
+    },
+    {
+      "posicao": 49,
+      "id": "disney-viva-a-vida-e-uma-festa-lembre-de-mim",
+      "titulo": "Lembre de Mim",
+      "obra": "Viva - A Vida É uma Festa"
+    },
+    {
+      "posicao": 50,
+      "id": "playlist-disney-424600042",
+      "titulo": "Un Poco Loco",
+      "obra": "Viva - A Vida É uma Festa"
+    },
+    {
+      "posicao": 51,
+      "id": "playlist-disney-122038918",
+      "titulo": "Quando a Minha Vida Vai Começar?",
+      "obra": "Enrolados"
+    },
+    {
+      "posicao": 52,
+      "id": "playlist-disney-411051482",
+      "titulo": "Imagem",
+      "obra": "Mulan"
+    },
+    {
+      "posicao": 53,
+      "id": "playlist-desenhos-566424852",
+      "titulo": "He-Man",
+      "obra": "He-Man e os Mestres do Universo"
+    },
+    {
+      "posicao": 54,
+      "id": "playlist-desenhos-563655032",
+      "titulo": "Thundercats",
+      "obra": "ThunderCats"
+    },
+    {
+      "posicao": 55,
+      "id": "playlist-desenhos-1449158222",
+      "titulo": "Pinky & The Brain",
+      "obra": "Pinky e o Cérebro"
+    },
+    {
+      "posicao": 56,
+      "id": "playlist-desenhos-1127264222",
+      "titulo": "Animaniacs (Opening Title)",
+      "obra": "Animaniacs"
+    },
+    {
+      "posicao": 57,
+      "id": "playlist-desenhos-1610603042",
+      "titulo": "Inspector Gadget",
+      "obra": "Inspetor Bugiganga"
+    },
+    {
+      "posicao": 58,
+      "id": "playlist-desenhos-3664519",
+      "titulo": "Mucha lucha",
+      "obra": "¡Mucha Lucha!"
+    },
+    {
+      "posicao": 59,
+      "id": "playlist-desenhos-965373822",
+      "titulo": "Bacon Pancakes (feat. John DiMaggio)",
+      "obra": "Hora de Aventura"
+    },
+    {
+      "posicao": 60,
+      "id": "playlist-desenhos-60723422",
+      "titulo": "Gitchee Gitchee Goo",
+      "obra": "Phineas e Ferb"
+    },
+    {
+      "posicao": 61,
+      "id": "playlist-desenhos-60723426",
+      "titulo": "S.I.M.P. (Squirrels in My Pants)",
+      "obra": "Phineas e Ferb"
+    },
+    {
+      "posicao": 62,
+      "id": "playlist-desenhos-6615049",
+      "titulo": "Ocean Man",
+      "obra": "Bob Esponja: O Filme"
+    },
+    {
+      "posicao": 63,
+      "id": "playlist-desenhos-145425722",
+      "titulo": "Accidentally In Love (From \"Shrek 2\" Soundtrack)",
+      "obra": "Shrek 2"
+    },
+    {
+      "posicao": 64,
+      "id": "playlist-desenhos-1565012",
+      "titulo": "Hallelujah",
+      "obra": "Shrek"
+    },
+    {
+      "posicao": 65,
+      "id": "playlist-disney-634443252",
+      "titulo": "Where Did I Put That Thing / Bibbidi-Bobbidi-Boo (The Magic Song)",
+      "obra": "Cinderela"
+    },
+    {
+      "posicao": 66,
+      "id": "playlist-disney-677778492",
+      "titulo": "A Dream Is a Wish Your Heart Makes (From \"Cinderella\")",
+      "obra": "Cinderela"
+    },
+    {
+      "posicao": 67,
+      "id": "playlist-disney-3274237351",
+      "titulo": "Heigh-Ho",
+      "obra": "Branca de Neve e os Sete Anões"
+    },
+    {
+      "posicao": 68,
+      "id": "playlist-disney-1904520877",
+      "titulo": "Peça À Estrela",
+      "obra": "Pinóquio"
+    },
+    {
+      "posicao": 69,
+      "id": "playlist-disney-137805175",
+      "titulo": "Brilhe",
+      "obra": "Moana: Um Mar de Aventuras"
+    },
+    {
+      "posicao": 70,
+      "id": "playlist-disney-1550819642",
+      "titulo": "Família Madrigal",
+      "obra": "Encanto"
+    },
+    {
+      "posicao": 71,
+      "id": "playlist-disney-1550819662",
+      "titulo": "Estou Nervosa",
+      "obra": "Encanto"
+    },
+    {
+      "posicao": 72,
+      "id": "playlist-disney-1550795132",
+      "titulo": "Dos Oruguitas",
+      "obra": "Encanto"
+    },
+    {
+      "posicao": 73,
+      "id": "playlist-disney-1762460127",
+      "titulo": "This Is Halloween",
+      "obra": "O Estranho Mundo de Jack"
+    },
+    {
+      "posicao": 74,
+      "id": "playlist-desenhos-1143838252",
+      "titulo": "The Cruel Angel's Thesis",
+      "obra": "Neon Genesis Evangelion"
+    },
+    {
+      "posicao": 75,
+      "id": "playlist-desenhos-951106302",
+      "titulo": "Stronger Than You (feat. Estelle)",
+      "obra": "Steven Universe"
+    },
+    {
+      "posicao": 76,
+      "id": "playlist-desenhos-742721612",
+      "titulo": "Other Friends (feat. Sarah Stiles, Zach Callison, Deedee Magno Hall, Estelle & Michaela Dietz)",
+      "obra": "Steven Universe"
+    },
+    {
+      "posicao": 77,
+      "id": "playlist-desenhos-951106512",
+      "titulo": "Love Like You (feat. Rebecca Sugar) (End Credits)",
+      "obra": "Steven Universe"
+    },
+    {
+      "posicao": 78,
+      "id": "playlist-desenhos-951106432",
+      "titulo": "It's Over Isn't It (feat. Deedee Magno Hall)",
+      "obra": "Steven Universe"
+    },
+    {
+      "posicao": 79,
+      "id": "playlist-desenhos-965375672",
+      "titulo": "Island Song (Come Along with Me) [feat. Ashley Eriksson]",
+      "obra": "Hora de Aventura"
+    },
+    {
+      "posicao": 80,
+      "id": "playlist-disney-2381495915",
+      "titulo": "Gaston",
+      "obra": "A Bela e a Fera"
+    },
+    {
+      "posicao": 81,
+      "id": "playlist-disney-531228911",
+      "titulo": "I Won't Say (I'm In Love)",
+      "obra": "Hércules"
+    },
+    {
+      "posicao": 82,
+      "id": "disney-hercules-vencer-o-mal",
+      "titulo": "Vencer o Mal",
+      "obra": "Hércules"
+    },
+    {
+      "posicao": 83,
+      "id": "playlist-disney-531228901",
+      "titulo": "Zero To Hero",
+      "obra": "Hércules"
+    },
+    {
+      "posicao": 84,
+      "id": "playlist-disney-137805165",
+      "titulo": "Seu Lugar",
+      "obra": "Moana: Um Mar de Aventuras"
+    },
+    {
+      "posicao": 85,
+      "id": "playlist-disney-123405392",
+      "titulo": "Vejo Uma Porta Abrir",
+      "obra": "Frozen: Uma Aventura Congelante"
+    },
+    {
+      "posicao": 86,
+      "id": "playlist-disney-123405390",
+      "titulo": "Uma Vez Na Eternidade",
+      "obra": "Frozen: Uma Aventura Congelante"
+    },
+    {
+      "posicao": 87,
+      "id": "playlist-disney-803999652",
+      "titulo": "Se Encontrar",
+      "obra": "Frozen 2"
+    },
+    {
+      "posicao": 88,
+      "id": "playlist-disney-803999672",
+      "titulo": "Minha Intuição",
+      "obra": "Frozen 2"
+    },
+    {
+      "posicao": 89,
+      "id": "playlist-desenhos-648242932",
+      "titulo": "The Night Begins To Shine",
+      "obra": "Jovens Titãs em Ação!"
+    },
+    {
+      "posicao": 90,
+      "id": "playlist-desenhos-975952742",
+      "titulo": "Again",
+      "obra": "Fullmetal Alchemist: Brotherhood"
+    },
+    {
+      "posicao": 91,
+      "id": "playlist-desenhos-1006888182",
+      "titulo": "Tank!",
+      "obra": "Cowboy Bebop"
+    },
+    {
+      "posicao": 92,
+      "id": "playlist-disney-3058868",
+      "titulo": "Bet On It",
+      "obra": "High School Musical 2"
+    },
+    {
+      "posicao": 93,
+      "id": "playlist-disney-3058861",
+      "titulo": "What Time Is It",
+      "obra": "High School Musical 2"
+    },
+    {
+      "posicao": 94,
+      "id": "playlist-disney-68426078",
+      "titulo": "Cruisin' for a Bruisin' (From \"Teen Beach Movie\"/Soundtrack Version)",
+      "obra": "Teen Beach Movie"
+    },
+    {
+      "posicao": 95,
+      "id": "playlist-disney-720598982",
+      "titulo": "Queen of Mean",
+      "obra": "Descendentes 3"
+    },
+    {
+      "posicao": 96,
+      "id": "playlist-disney-1675161847",
+      "titulo": "Nobody Like U",
+      "obra": "Red: Crescer É uma Fera"
+    },
+    {
+      "posicao": 97,
+      "id": "playlist-disney-2325898835",
+      "titulo": "Steal The Show",
+      "obra": "Elementos"
+    },
+    {
+      "posicao": 98,
+      "id": "playlist-disney-604853302",
+      "titulo": "O Céu Eu Vou Tocar",
+      "obra": "Valente"
+    },
+    {
+      "posicao": 99,
+      "id": "playlist-desenhos-60723424",
+      "titulo": "Busted",
+      "obra": "Phineas e Ferb"
+    },
+    {
+      "posicao": 100,
+      "id": "playlist-disney-121635094",
+      "titulo": "Amigos do Outro Lado",
+      "obra": "A Princesa e o Sapo"
+    }
+  ]
+}

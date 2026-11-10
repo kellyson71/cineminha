@@ -1,0 +1,458 @@
+[
+  {
+    "id": 7549092142,
+    "categoria": "disney",
+    "tipo": "editorial",
+    "recurso": "playlist"
+  },
+  {
+    "id": 11842843521,
+    "categoria": "disney",
+    "tipo": "editorial",
+    "recurso": "playlist"
+  },
+  {
+    "id": 11842839421,
+    "categoria": "disney",
+    "tipo": "editorial",
+    "recurso": "playlist"
+  },
+  {
+    "id": 7523895322,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 15845550241,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 6490856624,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 4808901304,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 11101547744,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 14516929363,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 6655338764,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 8156315502,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 11842845501,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 1962379246,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 10272679762,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 9069356302,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 6368669224,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 6384777904,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 4752727944,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 6212055364,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 12037255631,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 11820731761,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 14178324161,
+    "categoria": "disney",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 12556394683,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 8495564762,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 15672786343,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 7332660064,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 11742796744,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 4476861588,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 4873003764,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 10669784542,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 11225265584,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 7490833544,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 11973328241,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 15439194921,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 6488217224,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 12517383923,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 7971888922,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 14035667681,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 7491800984,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 7025851864,
+    "categoria": "desenhos",
+    "tipo": "descoberta",
+    "recurso": "playlist"
+  },
+  {
+    "id": 1109827062,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 168871642,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 531274602,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 127510462,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 144486332,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 183194572,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 248051622,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 224169,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 201014902,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 153584142,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 109308982,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 116131442,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 277270432,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 15801622,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 87722462,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 85608242,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 189251962,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 803245181,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 90276012,
+    "categoria": "desenhos",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 517297672,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 272207632,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 53943812,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 208832082,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 300349637,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 236703832,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 100449602,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 320973867,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 74437962,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 68849201,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 97535542,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 394978,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 643074,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 105319892,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 44670871,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 301038,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  },
+  {
+    "id": 491145235,
+    "categoria": "disney",
+    "tipo": "trilha",
+    "recurso": "album"
+  }
+]

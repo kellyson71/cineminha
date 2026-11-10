@@ -3,6 +3,11 @@
 import { readFileSync } from 'node:fs'
 
 export const CURADORIA = JSON.parse(readFileSync(new URL('./curadoria.json', import.meta.url), 'utf8'))
+export const CREDITOS = 'Frames: FILMGRAB (film-grab.com) e Animation Screencaps (animationscreencaps.com).\n' +
+  'Frames de trailers públicos no YouTube: canais, vídeos e instantes documentados em tools/quadro/curadoria.json.\n' +
+  'Imagens e personagens pertencem aos respectivos estúdios e produtores.\n' +
+  'Metadados: Wikidata (CC0) e Cinemeta. Títulos brasileiros e seleção de categorias revisados manualmente.\n' +
+  'Uso não comercial, num jogo entre amigos.\n'
 
 export function aplicaCuradoria(filmes) {
   for (const entrada of CURADORIA) {
@@ -13,6 +18,8 @@ export function aplicaCuradoria(filmes) {
     if (entrada.famoso) cats.add('famosos')
     if (entrada.animacao === true) cats.add('animacao')
     if (entrada.animacao === false) cats.delete('animacao')
+    if (entrada.brasil === true) cats.add('brasil')
+    if (entrada.brasil === false) cats.delete('brasil')
     f.c = [...cats]
     if (entrada.ordem) {
       const ordem = entrada.ordem
@@ -28,7 +35,7 @@ export function aplicaCuradoria(filmes) {
 export function catalogoCurado(catalogo) {
   const porTitulo = new Map(catalogo.map(f => [JSON.stringify(f), f]))
   for (const entrada of CURADORIA) {
-    const f = entrada.corrige || (entrada.frames ? entrada : null)
+    const f = entrada.corrige || (entrada.frames || entrada.video ? entrada : null)
     if (!f?.ano) continue
     const item = [f.t, f.o, f.ano]
     porTitulo.set(JSON.stringify(item), item)

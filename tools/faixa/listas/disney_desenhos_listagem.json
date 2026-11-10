@@ -1,0 +1,677 @@
+{
+  "criterio": "Estimativa editorial de familiaridade no Brasil; sem ranking estatístico",
+  "geradas": [
+    {
+      "titulo": "Hakuna Matata",
+      "obra": "O Rei Leão",
+      "id": "disney-o-rei-leao-hakuna-matata"
+    },
+    {
+      "titulo": "Let It Go (From \"Frozen\"/Soundtrack Version)",
+      "obra": "Frozen",
+      "id": "disney-frozen-livre-estou"
+    },
+    {
+      "titulo": "Amigo Estou Aqui",
+      "obra": "Toy Story",
+      "id": "disney-toy-story-amigo-estou-aqui"
+    },
+    {
+      "titulo": "Um Mundo Ideal",
+      "obra": "Aladdin",
+      "id": "disney-aladdin-um-mundo-ideal"
+    },
+    {
+      "titulo": "Circle of Life",
+      "obra": "O Rei Leão",
+      "id": "disney-o-rei-leao-o-ciclo-sem-fim"
+    },
+    {
+      "titulo": "CHA-LA HEAD-CHA-LA (ドラゴンボールZ) <LIVE>",
+      "obra": "Dragon Ball Z",
+      "id": "anime-dragon-ball-z-cha-la-head-cha-la"
+    },
+    {
+      "titulo": "Pegasus Fantasy",
+      "obra": "Os Cavaleiros do Zodíaco",
+      "id": "anime-os-cavaleiros-do-zodiaco-pegasus-fantasy"
+    },
+    {
+      "titulo": "What's New Scooby-Doo?",
+      "obra": "Scooby-Doo",
+      "id": "desenho-scooby-doo-what-s-new-scooby-doo"
+    },
+    {
+      "titulo": "Today is Gonna be a Great Day (Theme Song to Phineas and Ferb)",
+      "obra": "Phineas e Ferb",
+      "id": "desenho-phineas-e-ferb-phineas-e-ferb-abertura"
+    },
+    {
+      "titulo": "The Pink Panther Theme (From \"The Pink Panther\")",
+      "obra": "A Pantera Cor-de-Rosa",
+      "id": "desenho-a-pantera-cor-de-rosa-the-pink-panther-theme"
+    },
+    {
+      "titulo": "Teen Titans Theme",
+      "obra": "Jovens Titãs",
+      "id": "desenho-jovens-titas-teen-titans-theme"
+    },
+    {
+      "titulo": "We Don't Talk About Bruno",
+      "obra": "Encanto",
+      "id": "disney-encanto-nao-falamos-do-bruno"
+    },
+    {
+      "titulo": "Saber Quem Sou",
+      "obra": "Moana",
+      "id": "disney-moana-saber-quem-sou"
+    },
+    {
+      "titulo": "Aqui no mar",
+      "obra": "A Pequena Sereia",
+      "id": "disney-a-pequena-sereia-aqui-no-mar"
+    },
+    {
+      "titulo": "Beauty and the Beast (from the Soundtrack \"Beauty and the Beast\")",
+      "obra": "A Bela e a Fera",
+      "id": "disney-a-bela-e-a-fera-sentimentos-sao"
+    },
+    {
+      "titulo": "O Que Eu Quero Mais É Ser Rei",
+      "obra": "O Rei Leão",
+      "id": "disney-o-rei-leao-o-que-eu-quero-mais-e-ser-rei"
+    },
+    {
+      "titulo": "Nesta Noite o Amor Chegou",
+      "obra": "O Rei Leão",
+      "id": "playlist-disney-709782082"
+    },
+    {
+      "titulo": "Part of Your World",
+      "obra": "A Pequena Sereia",
+      "id": "disney-a-pequena-sereia-parte-do-seu-mundo"
+    },
+    {
+      "titulo": "You'll Be In My Heart",
+      "obra": "Tarzan",
+      "id": "disney-tarzan-no-meu-coracao-voce-vai-estar"
+    },
+    {
+      "titulo": "Quer Brincar Na Neve?",
+      "obra": "Frozen: Uma Aventura Congelante",
+      "id": "playlist-disney-123405388"
+    },
+    {
+      "titulo": "Seja A Nossa Convidada",
+      "obra": "A Bela e a Fera",
+      "id": "playlist-disney-143877142"
+    },
+    {
+      "titulo": "I'll Make a Man Out of You",
+      "obra": "Mulan",
+      "id": "disney-mulan-homem-ser"
+    },
+    {
+      "titulo": "Vejo Enfim a Luz Brilhar",
+      "obra": "Enrolados",
+      "id": "disney-enrolados-vejo-enfim-a-luz-brilhar"
+    },
+    {
+      "titulo": "De nada",
+      "obra": "Moana",
+      "id": "disney-moana-de-nada"
+    },
+    {
+      "titulo": "We Are The Crystal Gems (feat. Zach Callison, Estelle, Deedee Magno Hall, Michaela Dietz & Tom Scharpling) (Full Theme Song)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106322"
+    },
+    {
+      "titulo": "Silhouette",
+      "obra": "Naruto Shippuden",
+      "id": "anime-naruto-shippuden-silhouette"
+    },
+    {
+      "titulo": "We Are!",
+      "obra": "One Piece",
+      "id": "anime-one-piece-we-are"
+    },
+    {
+      "titulo": "Unravel",
+      "obra": "Tokyo Ghoul",
+      "id": "anime-tokyo-ghoul-unravel"
+    },
+    {
+      "titulo": "Gurenge",
+      "obra": "Demon Slayer",
+      "id": "anime-demon-slayer-gurenge"
+    },
+    {
+      "titulo": "Haruka Kanata",
+      "obra": "Naruto",
+      "id": "anime-naruto-haruka-kanata"
+    },
+    {
+      "titulo": "Beije A Moça",
+      "obra": "A Pequena Sereia",
+      "id": "playlist-disney-2287208757"
+    },
+    {
+      "titulo": "Quase Lá (Almost There)",
+      "obra": "A Princesa e o Sapo",
+      "id": "disney-a-princesa-e-o-sapo-quase-la"
+    },
+    {
+      "titulo": "Nunca Teve Um Amigo Assim",
+      "obra": "Aladdin",
+      "id": "playlist-disney-682627742"
+    },
+    {
+      "titulo": "Prince Ali",
+      "obra": "Aladdin",
+      "id": "disney-aladdin-principe-ali"
+    },
+    {
+      "titulo": "Be Prepared",
+      "obra": "O Rei Leão",
+      "id": "disney-o-rei-leao-se-preparem"
+    },
+    {
+      "titulo": "Son of Man",
+      "obra": "Tarzan",
+      "id": "disney-tarzan-filho-de-homem"
+    },
+    {
+      "titulo": "Lembre de Mim (Versão Rogério Flausino)",
+      "obra": "Viva - A Vida É uma Festa",
+      "id": "disney-viva-a-vida-e-uma-festa-lembre-de-mim"
+    },
+    {
+      "titulo": "Un Poco Loco",
+      "obra": "Viva - A Vida É uma Festa",
+      "id": "playlist-disney-424600042"
+    },
+    {
+      "titulo": "Quando a Minha Vida Vai Começar?",
+      "obra": "Enrolados",
+      "id": "playlist-disney-122038918"
+    },
+    {
+      "titulo": "Inspector Gadget",
+      "obra": "Inspetor Bugiganga",
+      "id": "playlist-desenhos-1610603042"
+    },
+    {
+      "titulo": "Mucha lucha",
+      "obra": "¡Mucha Lucha!",
+      "id": "playlist-desenhos-3664519"
+    },
+    {
+      "titulo": "Bacon Pancakes (feat. John DiMaggio)",
+      "obra": "Hora de Aventura",
+      "id": "playlist-desenhos-965373822"
+    },
+    {
+      "titulo": "Gitchee Gitchee Goo",
+      "obra": "Phineas e Ferb",
+      "id": "playlist-desenhos-60723422"
+    },
+    {
+      "titulo": "Brilhe",
+      "obra": "Moana: Um Mar de Aventuras",
+      "id": "playlist-disney-137805175"
+    },
+    {
+      "titulo": "Família Madrigal",
+      "obra": "Encanto",
+      "id": "playlist-disney-1550819642"
+    },
+    {
+      "titulo": "Estou Nervosa",
+      "obra": "Encanto",
+      "id": "playlist-disney-1550819662"
+    },
+    {
+      "titulo": "Dos Oruguitas",
+      "obra": "Encanto",
+      "id": "playlist-disney-1550795132"
+    },
+    {
+      "titulo": "Stronger Than You (feat. Estelle)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106302"
+    },
+    {
+      "titulo": "Other Friends (feat. Sarah Stiles, Zach Callison, Deedee Magno Hall, Estelle & Michaela Dietz)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-742721612"
+    },
+    {
+      "titulo": "Love Like You (feat. Rebecca Sugar) (End Credits)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106512"
+    },
+    {
+      "titulo": "It's Over Isn't It (feat. Deedee Magno Hall)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106432"
+    },
+    {
+      "titulo": "Island Song (Come Along with Me) [feat. Ashley Eriksson]",
+      "obra": "Hora de Aventura",
+      "id": "playlist-desenhos-965375672"
+    },
+    {
+      "titulo": "Gaston",
+      "obra": "A Bela e a Fera",
+      "id": "playlist-disney-2381495915"
+    },
+    {
+      "titulo": "I Won't Say (I'm In Love)",
+      "obra": "Hércules",
+      "id": "playlist-disney-531228911"
+    },
+    {
+      "titulo": "Belle",
+      "obra": "A Bela e a Fera",
+      "id": "playlist-disney-144130206"
+    },
+    {
+      "titulo": "Go the Distance",
+      "obra": "Hércules",
+      "id": "disney-hercules-vencer-o-mal"
+    },
+    {
+      "titulo": "Zero To Hero",
+      "obra": "Hércules",
+      "id": "playlist-disney-531228901"
+    },
+    {
+      "titulo": "Seu Lugar",
+      "obra": "Moana: Um Mar de Aventuras",
+      "id": "playlist-disney-137805165"
+    },
+    {
+      "titulo": "Vejo Uma Porta Abrir",
+      "obra": "Frozen: Uma Aventura Congelante",
+      "id": "playlist-disney-123405392"
+    },
+    {
+      "titulo": "Uma Vez Na Eternidade",
+      "obra": "Frozen: Uma Aventura Congelante",
+      "id": "playlist-disney-123405390"
+    },
+    {
+      "titulo": "Se Encontrar",
+      "obra": "Frozen 2",
+      "id": "playlist-disney-803999652"
+    },
+    {
+      "titulo": "Minha Intuição",
+      "obra": "Frozen 2",
+      "id": "playlist-disney-803999672"
+    },
+    {
+      "titulo": "Limit Break vs Survivor (From \"Dragon Ball Super\")",
+      "obra": "Dragon Ball Super",
+      "id": "playlist-desenhos-918613512"
+    },
+    {
+      "titulo": "Nobody Like U",
+      "obra": "Red: Crescer É uma Fera",
+      "id": "playlist-disney-1675161847"
+    },
+    {
+      "titulo": "Steal The Show",
+      "obra": "Elementos",
+      "id": "playlist-disney-2325898835"
+    },
+    {
+      "titulo": "O Céu Eu Vou Tocar",
+      "obra": "Valente",
+      "id": "playlist-disney-604853302"
+    },
+    {
+      "titulo": "Busted",
+      "obra": "Phineas e Ferb",
+      "id": "playlist-desenhos-60723424"
+    },
+    {
+      "titulo": "Here Comes a Thought (feat. Estelle & AJ Michalka)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106472"
+    },
+    {
+      "titulo": "Everything Stays (feat. Olivia Olson)",
+      "obra": "Hora de Aventura",
+      "id": "playlist-desenhos-965375282"
+    },
+    {
+      "titulo": "Pra Ir Além",
+      "obra": "Moana: Um Mar de Aventuras",
+      "id": "playlist-disney-137805169"
+    },
+    {
+      "titulo": "Um Sonho Eu Tenho",
+      "obra": "Enrolados",
+      "id": "playlist-disney-122038924"
+    },
+    {
+      "titulo": "Backyard Beach",
+      "obra": "Phineas e Ferb",
+      "id": "playlist-desenhos-60723423"
+    },
+    {
+      "titulo": "No Verão",
+      "obra": "Frozen: Uma Aventura Congelante",
+      "id": "playlist-disney-123405398"
+    },
+    {
+      "titulo": "Honor To Us All",
+      "obra": "Mulan",
+      "id": "playlist-disney-1377537492"
+    },
+    {
+      "titulo": "Poor Unfortunate Souls",
+      "obra": "A Pequena Sereia",
+      "id": "playlist-disney-145187396"
+    },
+    {
+      "titulo": "Just Around the Riverbend",
+      "obra": "Pocahontas",
+      "id": "playlist-disney-122832110"
+    },
+    {
+      "titulo": "The Mob Song",
+      "obra": "A Bela e a Fera",
+      "id": "playlist-disney-2381495995"
+    },
+    {
+      "titulo": "Ev'rybody Wants to Be a Cat (Original Soundtrack Version)",
+      "obra": "Aristogatas",
+      "id": "playlist-disney-105413988"
+    },
+    {
+      "titulo": "Que Mais Vou Fazer?",
+      "obra": "Encanto",
+      "id": "playlist-disney-1550819682"
+    },
+    {
+      "titulo": "I'm Just Your Problem (feat. Olivia Olson)",
+      "obra": "Hora de Aventura",
+      "id": "playlist-desenhos-965399662"
+    },
+    {
+      "titulo": "Good Little Girl (feat. Donald Glover, Madeleine Martin & Roz Ryan)",
+      "obra": "Hora de Aventura",
+      "id": "playlist-desenhos-965373782"
+    },
+    {
+      "titulo": "Time Adventure (feat. Olivia Olson, Niki Yang & Hynden Walch)",
+      "obra": "Hora de Aventura",
+      "id": "playlist-desenhos-965375542"
+    },
+    {
+      "titulo": "Evermore",
+      "obra": "A Bela e a Fera",
+      "id": "playlist-disney-144130224"
+    },
+    {
+      "titulo": "My Best Friends in the World (feat. Jeremy Shada, Olivia Olson & Hynden Walch)",
+      "obra": "Hora de Aventura",
+      "id": "playlist-desenhos-965399832"
+    },
+    {
+      "titulo": "Giant Woman (feat. Zach Callison)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106182"
+    },
+    {
+      "titulo": "Do It For Her (feat. Zach Callison & Grace Rolek)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106342"
+    },
+    {
+      "titulo": "Into the Unknown (feat. Jack Jones)",
+      "obra": "O Segredo Além do Jardim",
+      "id": "playlist-desenhos-1213876762"
+    },
+    {
+      "titulo": "Strong in the Real Way (feat. Zach Callison & Deedee Magno Hall)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106192"
+    },
+    {
+      "titulo": "Peace and Love on the Planet Earth (feat. Zach Callison, Estelle, Deedee Magno Hall, Michaela Dietz & Shelby Rabara)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-951106392"
+    },
+    {
+      "titulo": "Desobediente (feat. Evie Said & Mariana Féo)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-782948732"
+    },
+    {
+      "titulo": "Felizes Para Sempre (feat. João Victor Granja, Sylvia Sallustti, Mariana Féo & Márcia Coutinho)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-782948672"
+    },
+    {
+      "titulo": "Mudança (feat. João Victor Granja)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-782948782"
+    },
+    {
+      "titulo": "Seja Como For (feat. João Victor Granja & Mariana Féo)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-782948722"
+    },
+    {
+      "titulo": "Independentes Unidos (feat. Raphael Rossatto, Sylvia Sallustti & Mariana Féo)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-782948742"
+    },
+    {
+      "titulo": "Longe Daqui (feat. Vic Brow)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-782948752"
+    },
+    {
+      "titulo": "Verdadeiro Amor (feat. Márcia Coutinho, João Victor Granja & Analu Pimenta)",
+      "obra": "Steven Universe",
+      "id": "playlist-desenhos-782948772"
+    },
+    {
+      "titulo": "Potatoes and Molasses (feat. Colin Dean)",
+      "obra": "O Segredo Além do Jardim",
+      "id": "playlist-desenhos-1213876832"
+    },
+    {
+      "titulo": "Fries (feat. Olivia Olson)",
+      "obra": "Hora de Aventura",
+      "id": "playlist-desenhos-965399432"
+    }
+  ],
+  "a_gerar": [
+    {
+      "titulo": "Pokémon Theme",
+      "obra": "Pokémon",
+      "id": "playlist-desenhos-3504033041"
+    },
+    {
+      "titulo": "SpongeBob SquarePants Theme Song",
+      "obra": "Bob Esponja Calça Quadrada",
+      "id": "playlist-desenhos-2958441"
+    },
+    {
+      "titulo": "The Simpsons Main Title Theme (Extended Version)",
+      "obra": "Os Simpsons",
+      "id": "playlist-desenhos-1574887642"
+    },
+    {
+      "titulo": "Gravity Falls Main Title Theme",
+      "obra": "Gravity Falls: Um Verão de Mistérios",
+      "id": "playlist-desenhos-2608999752"
+    },
+    {
+      "titulo": "I'm A Believer",
+      "obra": "Shrek",
+      "id": "playlist-desenhos-1564993"
+    },
+    {
+      "titulo": "I Like To Move It",
+      "obra": "Madagascar 2",
+      "id": "playlist-desenhos-630829962"
+    },
+    {
+      "titulo": "Try Everything",
+      "obra": "Zootopia",
+      "id": "playlist-disney-586860862"
+    },
+    {
+      "titulo": "Life is a Highway",
+      "obra": "Carros",
+      "id": "playlist-disney-128948754"
+    },
+    {
+      "titulo": "Perry the Platypus Theme",
+      "obra": "Phineas e Ferb",
+      "id": "playlist-desenhos-60723425"
+    },
+    {
+      "titulo": "Call Me, Beep Me! (The Kim Possible Song)",
+      "obra": "Kim Possible",
+      "id": "playlist-desenhos-855956772"
+    },
+    {
+      "titulo": "We're All In This Together",
+      "obra": "High School Musical",
+      "id": "playlist-disney-4242714"
+    },
+    {
+      "titulo": "Breaking Free",
+      "obra": "High School Musical",
+      "id": "playlist-disney-4242713"
+    },
+    {
+      "titulo": "This Is Me (From \"Camp Rock\")",
+      "obra": "Camp Rock",
+      "id": "playlist-disney-5323465"
+    },
+    {
+      "titulo": "Imagem",
+      "obra": "Mulan",
+      "id": "playlist-disney-411051482"
+    },
+    {
+      "titulo": "He-Man",
+      "obra": "He-Man e os Mestres do Universo",
+      "id": "playlist-desenhos-566424852"
+    },
+    {
+      "titulo": "Thundercats",
+      "obra": "ThunderCats",
+      "id": "playlist-desenhos-563655032"
+    },
+    {
+      "titulo": "Pinky & The Brain",
+      "obra": "Pinky e o Cérebro",
+      "id": "playlist-desenhos-1449158222"
+    },
+    {
+      "titulo": "Animaniacs (Opening Title)",
+      "obra": "Animaniacs",
+      "id": "playlist-desenhos-1127264222"
+    },
+    {
+      "titulo": "S.I.M.P. (Squirrels in My Pants)",
+      "obra": "Phineas e Ferb",
+      "id": "playlist-desenhos-60723426"
+    },
+    {
+      "titulo": "Ocean Man",
+      "obra": "Bob Esponja: O Filme",
+      "id": "playlist-desenhos-6615049"
+    },
+    {
+      "titulo": "Accidentally In Love (From \"Shrek 2\" Soundtrack)",
+      "obra": "Shrek 2",
+      "id": "playlist-desenhos-145425722"
+    },
+    {
+      "titulo": "Hallelujah",
+      "obra": "Shrek",
+      "id": "playlist-desenhos-1565012"
+    },
+    {
+      "titulo": "Where Did I Put That Thing / Bibbidi-Bobbidi-Boo (The Magic Song)",
+      "obra": "Cinderela",
+      "id": "playlist-disney-634443252"
+    },
+    {
+      "titulo": "A Dream Is a Wish Your Heart Makes (From \"Cinderella\")",
+      "obra": "Cinderela",
+      "id": "playlist-disney-677778492"
+    },
+    {
+      "titulo": "Heigh-Ho",
+      "obra": "Branca de Neve e os Sete Anões",
+      "id": "playlist-disney-3274237351"
+    },
+    {
+      "titulo": "Peça À Estrela",
+      "obra": "Pinóquio",
+      "id": "playlist-disney-1904520877"
+    },
+    {
+      "titulo": "This Is Halloween",
+      "obra": "O Estranho Mundo de Jack",
+      "id": "playlist-disney-1762460127"
+    },
+    {
+      "titulo": "The Cruel Angel's Thesis",
+      "obra": "Neon Genesis Evangelion",
+      "id": "playlist-desenhos-1143838252"
+    },
+    {
+      "titulo": "The Night Begins To Shine",
+      "obra": "Jovens Titãs em Ação!",
+      "id": "playlist-desenhos-648242932"
+    },
+    {
+      "titulo": "Again",
+      "obra": "Fullmetal Alchemist: Brotherhood",
+      "id": "playlist-desenhos-975952742"
+    },
+    {
+      "titulo": "Tank!",
+      "obra": "Cowboy Bebop",
+      "id": "playlist-desenhos-1006888182"
+    },
+    {
+      "titulo": "Bet On It",
+      "obra": "High School Musical 2",
+      "id": "playlist-disney-3058868"
+    },
+    {
+      "titulo": "What Time Is It",
+      "obra": "High School Musical 2",
+      "id": "playlist-disney-3058861"
+    },
+    {
+      "titulo": "Cruisin' for a Bruisin' (From \"Teen Beach Movie\"/Soundtrack Version)",
+      "obra": "Teen Beach Movie",
+      "id": "playlist-disney-68426078"
+    },
+    {
+      "titulo": "Queen of Mean",
+      "obra": "Descendentes 3",
+      "id": "playlist-disney-720598982"
+    },
+    {
+      "titulo": "Amigos do Outro Lado",
+      "obra": "A Princesa e o Sapo",
+      "id": "playlist-disney-121635094"
+    }
+  ]
+}

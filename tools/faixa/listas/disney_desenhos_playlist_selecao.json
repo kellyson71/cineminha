@@ -1,0 +1,727 @@
+[
+  {
+    "id": 123405390,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Frozen: Uma Aventura Congelante",
+    "motivo": "Frozen / Taryn Szpilman / Frozen: Uma Aventura Congelante (Trilha Sonora Original) / Walt Disney Records"
+  },
+  {
+    "id": 137805165,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Moana: Um Mar de Aventuras",
+    "motivo": "Moana / Saulo Javan / Moana: um mar de aventuras (Trilha sonora original em português) / Walt Disney Records"
+  },
+  {
+    "id": 123405392,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Frozen: Uma Aventura Congelante",
+    "motivo": "Frozen / Olavo Cavalheiro / Frozen: Uma Aventura Congelante (Trilha Sonora Original) / Walt Disney Records"
+  },
+  {
+    "id": 122038918,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Enrolados",
+    "motivo": "Enrolados / Sylvia Salustti / Enrolados (Trilha Sonora Original) / Walt Disney Records"
+  },
+  {
+    "id": 709782082,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "O Rei Leão",
+    "motivo": "O Rei Leão / IZA / O Rei Leão (Trilha Sonora Original em Português) / Walt Disney Records"
+  },
+  {
+    "id": 803999672,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Frozen 2",
+    "motivo": "Frozen 2 / Taryn / Frozen 2 (Trilha Sonora Original em Português/Edição Deluxe) / Walt Disney Records"
+  },
+  {
+    "id": 424600042,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Viva - A Vida É uma Festa",
+    "motivo": "Viva - A Vida É uma Festa / Anthony Gonzalez / Coco (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 1550819642,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Encanto",
+    "motivo": "Encanto / Mari Evangelista / Encanto (Trilha Sonora Original em Português) / Walt Disney Records"
+  },
+  {
+    "id": 2325898835,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Elementos",
+    "motivo": "Elementos / Lauv / Elemental (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 1550819662,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Encanto",
+    "motivo": "Encanto / Lara Suleiman / Encanto (Trilha Sonora Original em Português) / Walt Disney Records"
+  },
+  {
+    "id": 803999652,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Frozen 2",
+    "motivo": "Frozen 2 / Myra Ruiz / Frozen 2 (Trilha Sonora Original em Português/Edição Deluxe) / Walt Disney Records"
+  },
+  {
+    "id": 1550819682,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Encanto",
+    "motivo": "Encanto / Larissa Cardoso / Encanto (Trilha Sonora Original em Português) / Walt Disney Records"
+  },
+  {
+    "id": 137805169,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Moana: Um Mar de Aventuras",
+    "motivo": "Moana / Opetaia Foa'i / Moana: um mar de aventuras (Trilha sonora original em português) / Walt Disney Records"
+  },
+  {
+    "id": 1550795132,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Encanto",
+    "motivo": "Encanto / Sebastian Yatra / Encanto: La fantastique famille Madrigal / Walt Disney Records"
+  },
+  {
+    "id": 123405388,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Frozen: Uma Aventura Congelante",
+    "motivo": "Frozen / Hannah Zeitoune / Frozen: Uma Aventura Congelante (Trilha Sonora Original) / Walt Disney Records"
+  },
+  {
+    "id": 682627742,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Aladdin",
+    "motivo": "Aladdin / Márcio Simões / Aladdin (Trilha Sonora Original em Português) / Walt Disney Records"
+  },
+  {
+    "id": 123405398,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Frozen: Uma Aventura Congelante",
+    "motivo": "Frozen / Gustavo Pereira / Frozen: Uma Aventura Congelante (Trilha Sonora Original) / Walt Disney Records"
+  },
+  {
+    "id": 604853302,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Valente",
+    "motivo": "Valente / Manu Gavassi / Valente (Trilha sonora original) / Walt Disney Records"
+  },
+  {
+    "id": 137805175,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Moana: Um Mar de Aventuras",
+    "motivo": "Moana / Roberto Garcia / Moana: um mar de aventuras (Trilha sonora original em português) / Walt Disney Records"
+  },
+  {
+    "id": 709782002,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "O Rei Leão",
+    "motivo": "O Rei Leão / Carol Roberto / O Rei Leão (Trilha Sonora Original em Português) / Walt Disney Records"
+  },
+  {
+    "id": 122038924,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Enrolados",
+    "motivo": "Enrolados / Mauro Ramos / Enrolados (Trilha Sonora Original) / Walt Disney Records"
+  },
+  {
+    "id": 2287208757,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "A Pequena Sereia",
+    "motivo": "A Pequena Sereia / Yuri Chesman / A Pequena Sereia (Trilha Sonora Original em Português) / Walt Disney Records"
+  },
+  {
+    "id": 1675161847,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Red: Crescer É uma Fera",
+    "motivo": "Red: Crescer É uma Fera / 4*TOWN / Turning Red (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 122832110,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Pocahontas",
+    "motivo": "Pocahontas / Judy Kuhn / Pocahontas / Walt Disney Records"
+  },
+  {
+    "id": 1377537492,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Mulan",
+    "motivo": "Mulan / Lea Salonga / Mulan (Original Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 105413988,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Aristogatas",
+    "motivo": "Aristogatas / Scatman Crothers / The Legacy Collection: The Aristocats / Walt Disney Records"
+  },
+  {
+    "id": 531228901,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Hércules",
+    "motivo": "Hércules / Chorus - Hercules / Hercules (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 2381495915,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "A Bela e a Fera",
+    "motivo": "A Bela e a Fera / Richard White / Beauty and the Beast (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 145187396,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "A Pequena Sereia",
+    "motivo": "A Pequena Sereia / Pat Carroll / The Little Mermaid Special Edition / Walt Disney Records"
+  },
+  {
+    "id": 531228911,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Hércules",
+    "motivo": "Hércules / Susan Egan / Hercules (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 951106182,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Giant Woman; Steven Universe, Vol. 1 (Original Soundtrack); Cartoon Network / WaterTower Music. Substitui a edição de tributo de TMNT identificada na revisão."
+  },
+  {
+    "id": 3664519,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "¡Mucha Lucha!",
+    "motivo": "¡Mucha Lucha! / Chicos De Barrio / 12 Grandes exitos Vol. 1 / Tema original Cartoon Network"
+  },
+  {
+    "id": 1610603042,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Inspetor Bugiganga",
+    "motivo": "Inspetor Bugiganga / Haim Saban / Inspector Gadget / Black Beard Records"
+  },
+  {
+    "id": 782948752,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Vic Brow / Steven Universe The Movie (Portuguese Version) / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 782948772,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Márcia Coutinho, João Victor Granja & Analu Pimenta / Steven Universe The Movie (Portuguese Version) / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 782948722,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / João Victor Granja & Mariana Féo / Steven Universe The Movie (Portuguese Version) / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 782948672,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / João Victor Granja, Sylvia Sallustti, Mariana Féo & Márcia Coutinho / Steven Universe The Movie (Portuguese Version) / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 782948742,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Raphael Rossatto, Sylvia Sallustti & Mariana Féo / Steven Universe The Movie (Portuguese Version) / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 782948732,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Evie Said & Mariana Féo / Steven Universe The Movie (Portuguese Version) / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 782948782,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / João Victor Granja / Steven Universe The Movie (Portuguese Version) / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 951106322,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Zach Callison, Estelle, Deedee Magno Hall & Michaela Dietz / Steven Universe, Vol. 1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 951106302,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Estelle / Steven Universe, Vol. 1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 951106432,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Deedee Magno Hall / Steven Universe, Vol. 1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 951106512,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Rebecca Sugar / Steven Universe, Vol. 1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 951106472,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Estelle & AJ Michalka / Steven Universe, Vol. 1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 742721612,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Sarah Stiles, Zach Callison & Estelle / Steven Universe The Movie / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 951106192,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Zach Callison & Deedee Magno Hall / Steven Universe, Vol. 1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 951106342,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Zach Callison & Grace Rolek / Steven Universe, Vol. 1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 951106392,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Steven Universe",
+    "motivo": "Steven Universe / Zach Callison, Estelle & Shelby Rabara / Steven Universe, Vol. 1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 965375672,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Hora de Aventura",
+    "motivo": "Hora de Aventura / Ashley Eriksson / Adventure Time, Vol.3 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 965399662,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Hora de Aventura",
+    "motivo": "Hora de Aventura / Olivia Olson / Adventure Time, Vol.1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 965375282,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Hora de Aventura",
+    "motivo": "Hora de Aventura / Olivia Olson / Adventure Time, Vol.3 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 965373822,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Hora de Aventura",
+    "motivo": "Hora de Aventura / John DiMaggio / Adventure Time, Vol. 2 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 965373782,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Hora de Aventura",
+    "motivo": "Hora de Aventura / Donald Glover & Madeleine Martin / Adventure Time, Vol. 2 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 965375542,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Hora de Aventura",
+    "motivo": "Hora de Aventura / Olivia Olson, Niki Yang & Hynden Walch / Adventure Time, Vol.3 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 965399832,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Hora de Aventura",
+    "motivo": "Hora de Aventura / Jeremy Shada, Olivia Olson & Hynden Walch / Adventure Time, Vol.1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 965399432,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Hora de Aventura",
+    "motivo": "Hora de Aventura / Olivia Olson / Adventure Time, Vol.1 / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 1213876762,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "O Segredo Além do Jardim",
+    "motivo": "O Segredo Além do Jardim / Jack Jones / Over the Garden Wall / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 1213876832,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "O Segredo Além do Jardim",
+    "motivo": "O Segredo Além do Jardim / Colin Dean / Over the Garden Wall / Cartoon Network / WaterTower Music"
+  },
+  {
+    "id": 918613512,
+    "categoria": "desenhos",
+    "tipo": "anime",
+    "obra": "Dragon Ball Super",
+    "motivo": "Dragon Ball Super / Rod Rossi / Anno: X / Abertura oficial brasileira Cartoon Network",
+    "verificacao": [
+      "https://www.youtube.com/watch?v=lz6Md_oO6FE",
+      "https://artentretenimento.com/news/49/"
+    ]
+  },
+  {
+    "id": 143877142,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "A Bela e a Fera",
+    "motivo": "Ivan Parente / A Bela e A Fera (Trilha Sonora Original em Português) / Walt Disney Records"
+  },
+  {
+    "id": 2381495995,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "A Bela e a Fera",
+    "motivo": "Chorus - Beauty And the Beast / Beauty and the Beast (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 144130206,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "A Bela e a Fera",
+    "motivo": "Emma Watson / Beauty and the Beast (Original Motion Picture Soundtrack/Deluxe Edition) / Walt Disney Records"
+  },
+  {
+    "id": 144130224,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "A Bela e a Fera",
+    "motivo": "Dan Stevens / Beauty and the Beast (Original Motion Picture Soundtrack/Deluxe Edition) / Walt Disney Records"
+  },
+  {
+    "id": 121635094,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "A Princesa e o Sapo",
+    "motivo": "Sergio Fortuna / Disney Vilões / Walt Disney Records"
+  },
+  {
+    "id": 677778492,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Cinderela",
+    "motivo": "Ilene Woods / Disney Classics / Walt Disney Records"
+  },
+  {
+    "id": 634443252,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Cinderela",
+    "motivo": "Verna Felton / Cinderella Special Edition (Original Motion Picture Soundtrack/Japanese Version) / Walt Disney Records"
+  },
+  {
+    "id": 3274237351,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Branca de Neve e os Sete Anões",
+    "motivo": "Jeremy Swift / Disney's Snow White (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 1904520877,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Pinóquio",
+    "motivo": "Luci Salutes / Pinóquio (Trilha Sonora Original) / Walt Disney Records"
+  },
+  {
+    "id": 411051482,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Mulan",
+    "motivo": "Kacau Gomes / Princesas Disney 2 / Walt Disney Records"
+  },
+  {
+    "id": 1762460127,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "O Estranho Mundo de Jack",
+    "motivo": "The Citizens of Halloween / Nightmare Before Christmas Special Edition / Walt Disney Records"
+  },
+  {
+    "id": 128948754,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Carros",
+    "motivo": "Rascal Flatts / Cars (Original Motion Picture Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 586860862,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Zootopia",
+    "motivo": "Shakira / Zootopia (Original Motion Picture Soundtrack / Japanese version) / Walt Disney Records"
+  },
+  {
+    "id": 4242713,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "High School Musical",
+    "motivo": "Troy / High School Musical / Walt Disney Records"
+  },
+  {
+    "id": 4242714,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "High School Musical",
+    "motivo": "High School Musical Cast / High School Musical / Walt Disney Records"
+  },
+  {
+    "id": 3058861,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "High School Musical 2",
+    "motivo": "Zac Efron / High School Musical 2 (Original Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 3058868,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "High School Musical 2",
+    "motivo": "Troy / High School Musical 2 (Original Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 5323465,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Camp Rock",
+    "motivo": "Demi Lovato / Disney Channel Playlist / Walt Disney Records"
+  },
+  {
+    "id": 720598982,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Descendentes 3",
+    "motivo": "Sarah Jeffery / Descendants 3 (Original TV Movie Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 68426078,
+    "categoria": "disney",
+    "tipo": "disney",
+    "obra": "Teen Beach Movie",
+    "motivo": "Brady / Teen Beach Movie / Walt Disney Records"
+  },
+  {
+    "id": 60723422,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Phineas e Ferb",
+    "motivo": "Phineas And The Ferbtones / Phineas and Ferb / Walt Disney Records"
+  },
+  {
+    "id": 60723423,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Phineas e Ferb",
+    "motivo": "Ferb / Phineas and Ferb / Walt Disney Records"
+  },
+  {
+    "id": 60723424,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Phineas e Ferb",
+    "motivo": "Candace / Phineas and Ferb / Walt Disney Records"
+  },
+  {
+    "id": 60723425,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Phineas e Ferb",
+    "motivo": "Randy Crenshaw / Phineas and Ferb / Walt Disney Records"
+  },
+  {
+    "id": 60723426,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Phineas e Ferb",
+    "motivo": "2 Guys N The Parque / Phineas and Ferb / Walt Disney Records"
+  },
+  {
+    "id": 2608999752,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Gravity Falls: Um Verão de Mistérios",
+    "motivo": "Brad Breeck / Gravity Falls (Original Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 855956772,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Kim Possible",
+    "motivo": "Christina Milian / Songs from Kim Possible (Original Soundtrack) / Walt Disney Records"
+  },
+  {
+    "id": 2958441,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Bob Esponja Calça Quadrada",
+    "motivo": "SpongeBob SquarePants / Spongebob Squarepants - The Yellow Album / NITRON media"
+  },
+  {
+    "id": 6615049,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Bob Esponja: O Filme",
+    "motivo": "Ween / The Mollusk / Elektra Records"
+  },
+  {
+    "id": 566424852,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "He-Man e os Mestres do Universo",
+    "motivo": "Trem Da Alegria / Trem da Alegria / Sony Music Entertainment; canção brasileira associada ao personagem, sem afirmar que seja o áudio da abertura"
+  },
+  {
+    "id": 563655032,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "ThunderCats",
+    "motivo": "Trem Da Alegria / Trem da Alegria / Sony Music Entertainment; canção brasileira associada ao personagem, sem afirmar que seja o áudio da abertura"
+  },
+  {
+    "id": 1574887642,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Os Simpsons",
+    "motivo": "The Simpsons / Songs in the Key of Springfield (Original Music from the Television Series) / Hollywood Records"
+  },
+  {
+    "id": 1127264222,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Animaniacs",
+    "motivo": "Animaniacs / Steven Spielberg Presents Animaniacs (Soundtrack from the Original Series) / gravadora não informada na API"
+  },
+  {
+    "id": 1449158222,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Pinky e o Cérebro",
+    "motivo": "Animaniacs / Animaniacs: Season 1 (Soundtrack from the Animated Series) / Watertower Music"
+  },
+  {
+    "id": 1564993,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Shrek",
+    "motivo": "Smash Mouth / Shrek (Music From The Original Motion Picture) / Geffen"
+  },
+  {
+    "id": 1565012,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Shrek",
+    "motivo": "Rufus Wainwright / Shrek (Music From The Original Motion Picture) / Geffen"
+  },
+  {
+    "id": 145425722,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Shrek 2",
+    "motivo": "Counting Crows / Shrek 2 (Original Motion Picture Soundtrack) / gravadora não informada na API"
+  },
+  {
+    "id": 630829962,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Madagascar 2",
+    "motivo": "will.i.am / Madagascar: Escape 2 Africa (Music From The Motion Picture) / Interscope"
+  },
+  {
+    "id": 3504033041,
+    "categoria": "desenhos",
+    "tipo": "anime",
+    "obra": "Pokémon",
+    "motivo": "Pokémon / Pokémon: 2.B.A. Master (Music from the TV Series) / Laced Records"
+  },
+  {
+    "id": 1006888182,
+    "categoria": "desenhos",
+    "tipo": "anime",
+    "obra": "Cowboy Bebop",
+    "motivo": "Seatbelts / COWBOY BEBOP (Original Motion Picture Soundtrack) / SUNRISE Music Label"
+  },
+  {
+    "id": 1143838252,
+    "categoria": "desenhos",
+    "tipo": "anime",
+    "obra": "Neon Genesis Evangelion",
+    "motivo": "Yoko Takahashi / Evangelion Finally / Masterworks"
+  },
+  {
+    "id": 975952742,
+    "categoria": "desenhos",
+    "tipo": "anime",
+    "obra": "Fullmetal Alchemist: Brotherhood",
+    "motivo": "YUI / again / Sony Music Labels Inc."
+  },
+  {
+    "id": 648242932,
+    "categoria": "desenhos",
+    "tipo": "desenho",
+    "obra": "Jovens Titãs em Ação!",
+    "motivo": "CeeLo Green / Teen Titans Go! (Songs From The Night Begins To Shine Special) / gravadora não informada na API"
+  }
+]
