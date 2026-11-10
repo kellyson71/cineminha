@@ -2,7 +2,7 @@
    Só protocolo: nada de DOM aqui. Mudou o protocolo, muda nos dois de uma vez. */
 
 // Ações P2P (Trystero). A ordem não importa, o nome sim: é o que os outros escutam.
-export const ACOES = ['hello', 'share', 'chat', 'hist', 'spk', 'need', 'react', 'pausa', 'leg', 'adm', 'ctl', 'mre', 'mid', 'rad', 'jogo']
+export const ACOES = ['hello', 'share', 'chat', 'hist', 'spk', 'need', 'react', 'pausa', 'leg', 'adm', 'ctl', 'mre', 'mid', 'rad', 'jogo', 'sus']
 
 export const sha = async s => crypto.subtle
   ? [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map(b => b.toString(16).padStart(2, '0')).join('')

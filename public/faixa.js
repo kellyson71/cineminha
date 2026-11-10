@@ -31,8 +31,11 @@ const JOGOS = m => m.categoria === 'jogos' || GEN(m, 'jogos')
 const FILMES = m => m.categoria === 'filmes' || GEN(m, 'filmes e séries')
 // "De onde é?": músicas com obra (filme, desenho, série ou jogo). Nessa categoria o palpite é a obra, não a música
 const ORIGEM = m => !!m.obra
+// Aberturas: abertura ou tema de desenho, anime ou série (tools/faixa/aberturas.py marca `ab`). Também vale o palpite da obra
+const ABERTURA = m => !!m.obra && (m.ab || (m.categoria !== 'jogos' && /\babertura\b|opening|theme song/i.test(m.t || '')))
 const CATEGORIAS = [
   { id: 'origem', nome: 'De onde é?', ic: '🧩', f: ORIGEM, origem: true },
+  { id: 'aberturas', nome: 'Aberturas', ic: '📡', f: ABERTURA, origem: true },
   { id: 'jogos', nome: 'Jogos', ic: '🎮', f: JOGOS },
   { id: 'filmes', nome: 'Filmes e séries', ic: '🎬', f: FILMES },
   { id: 'estudio', nome: 'Faixas de estúdio', ic: '🎚️', f: m => m.fonte === 'estudio' },
@@ -1052,7 +1055,7 @@ export function criaFaixa(ctx) {
         el('div', { className: 'fx-atalhos' },
           atalho('dias', 'Outros dias', pendentes ? `${pendentes} com músicas novas${grupo ? ' para a call' : ''}` : `${datas.length} dias`, outrosDias),
           atalho('combo', 'Combo', 'vários dias seguidos', combo),
-          atalho('cats', 'Categorias', 'De onde é?, jogos, Disney, desenhos…', categorias)),
+          atalho('cats', 'Categorias', 'De onde é?, aberturas, jogos, Disney…', categorias)),
         st.jogadas ? el('div', { className: 'fx-stats' },
           el('span', {}, el('b', { textContent: st.jogadas }), ' jogadas'), el('span', { className: 'ok' }, el('b', { textContent: st.ok }), ' acertos'),
           el('span', { className: 'art' }, el('b', { textContent: st.art }), ' só artista'), el('span', { className: 'fora' }, el('b', { textContent: st.fora }), ' derrotas'),
@@ -1091,13 +1094,13 @@ export function criaFaixa(ctx) {
     }
     // categorias: as principais em destaque, o resto em "mais categorias". Cada uma sorteia 5 que você ainda
     // não ouviu; quando acaba, deixa repetir. A barrinha mostra quantas já foram ouvidas e quantas faltam.
-    const PRINCIPAIS = ['origem', 'disney', 'desenhos', 'jogos', 'filmes', 'nacionais', 'gringas', 'hinos', 'rock', 'pop', 'recentes']
+    const PRINCIPAIS = ['origem', 'aberturas', 'disney', 'desenhos', 'jogos', 'filmes', 'nacionais', 'gringas', 'hinos', 'rock', 'pop', 'recentes']
     let maisCats = false
     // quantas músicas cada categoria sorteia (fica lembrado neste navegador)
     const QTDS = [5, 10, 15, 20]
     let qtdCat = (() => { try { const n = +localStorage.getItem('faixa.qtdCat'); return QTDS.includes(n) ? n : 5 } catch { return 5 } })()
     function categorias() {
-      const cats = CATEGORIAS.map(c => ({ ...c, ms: todas.filter(c.f) })).filter(c => c.ms.length >= (['disney', 'desenhos', 'jogos', 'filmes', 'origem'].includes(c.id) ? 1 : 3))
+      const cats = CATEGORIAS.map(c => ({ ...c, ms: todas.filter(c.f) })).filter(c => c.ms.length >= (['disney', 'desenhos', 'jogos', 'filmes', 'origem', 'aberturas'].includes(c.id) ? 1 : 3))
       const cartao = (c, mini) => {
         const novas = c.ms.filter(m => !feitas.has(`${m.d}#${m.n}`)), ouvidas = c.ms.length - novas.length
         const fim = !novas.length

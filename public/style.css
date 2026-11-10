@@ -2992,3 +2992,58 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 .toolbar .btn--sair { height: 44px; border-radius: 13px; margin-left: 4px; }
 .rail-b.rail-sair { color: #fff; background: #d93a3f; }
 .rail-b.rail-sair:hover { background: #ef4a4f; border-radius: 16px; }
+
+/* ---------- Sussurro: aviso no canto + mão em concha (quem fala) e orelha (quem ouve) ---------- */
+:root { --sus: #b794f6; --sus-glow: rgba(183,148,246,.55); }
+.pvol .pvol__sus { width: 100%; height: 34px; font-size: .8rem; justify-content: flex-start; gap: 8px; margin-bottom: 12px; color: #e9ddff; border-color: color-mix(in srgb, var(--sus) 40%, transparent); }
+.pvol .pvol__sus:hover { background: color-mix(in srgb, var(--sus) 18%, transparent); }
+.pvol .pvol__sus svg { color: var(--sus); }
+.seat.online:not(.mine):not(.ghost) .seat__avatar { touch-action: none; -webkit-touch-callout: none; user-select: none; }
+
+.sus-aviso { position: fixed; top: 14px; left: 84px; z-index: 60; display: flex; gap: 10px; align-items: flex-start; max-width: min(380px, calc(100vw - 32px)); padding: 10px 12px 10px 10px; border-radius: 14px; background: rgba(20,16,30,.94); color: #f1f1f4; border: 1px solid color-mix(in srgb, var(--sus) 45%, transparent); box-shadow: 0 10px 30px rgba(0,0,0,.5), 0 0 0 4px color-mix(in srgb, var(--sus) 10%, transparent); backdrop-filter: blur(8px); }
+.sus-aviso[hidden] { display: none; }
+.sus-aviso.entra { animation: susEntra .38s cubic-bezier(.3,1.4,.5,1); }
+.sus-aviso__ic { font-size: 1.5rem; line-height: 1; animation: susShh 2.4s ease-in-out infinite; }
+.sus-aviso__txt { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.sus-aviso__txt p { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.sus-aviso__txt b { font-size: .88rem; }
+.sus-aviso__txt small { font-size: .74rem; color: rgba(241,241,244,.62); line-height: 1.3; }
+.sus-aviso__btn { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid color-mix(in srgb, var(--sus) 50%, transparent); background: color-mix(in srgb, var(--sus) 16%, transparent); color: #f1eaff; font: inherit; font-size: .76rem; font-weight: 600; cursor: pointer; }
+.sus-aviso__btn:hover { background: color-mix(in srgb, var(--sus) 30%, transparent); }
+.sus-aviso__btn svg { width: 14px; height: 14px; }
+.sus-aviso__btn.off { pointer-events: none; opacity: .7; }
+@keyframes susEntra { from { opacity: 0; transform: translateY(-10px) scale(.96); } }
+@keyframes susShh { 0%, 70%, 100% { transform: none; } 80% { transform: rotate(-8deg) scale(1.08); } 90% { transform: rotate(6deg); } }
+@media (max-width: 700px) { .sus-aviso { left: 16px; right: 16px; max-width: none; } }
+
+/* quem sussurra: inclina para o lado de quem ouve, com a mão em concha e "psst" voando até lá */
+.seat.sus-fala .seat__avatar { transition: filter .35s ease, opacity .35s ease, transform .45s cubic-bezier(.3,1.4,.5,1); transform-origin: 50% 100%; transform: rotate(var(--sus-r, 0deg)) translateX(var(--sus-x, 0px)); }
+.seat.sus-fala[data-sus-lado="d"] { --sus-r: 7deg; --sus-x: 5px; }
+.seat.sus-fala[data-sus-lado="e"] { --sus-r: -7deg; --sus-x: -5px; }
+.seat__concha { position: absolute; top: 14%; z-index: 3; pointer-events: none; animation: susPop .35s cubic-bezier(.3,1.6,.5,1); }
+.seat[data-sus-lado="d"] .seat__concha { right: 2%; }
+.seat[data-sus-lado="e"] .seat__concha { left: 2%; }
+.seat__mao { display: block; font-size: clamp(1rem, 1.6vw, 1.35rem); filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)); transform-origin: 50% 90%; animation: susMao 1.8s ease-in-out infinite; }
+.seat[data-sus-lado="e"] .seat__mao { scale: -1 1; }
+.seat__concha i { position: absolute; top: 2px; font-style: italic; font-weight: 700; font-size: .62rem; letter-spacing: .04em; color: var(--sus); text-shadow: 0 1px 3px rgba(0,0,0,.8); white-space: nowrap; opacity: 0; animation: susVoa 1.8s ease-out infinite; }
+.seat__concha i + i { animation-delay: .9s; }
+.seat[data-sus-lado="d"] .seat__concha i { left: 100%; --sus-dx: 26px; }
+.seat[data-sus-lado="e"] .seat__concha i { right: 100%; --sus-dx: -26px; }
+.seat.sus-falando .seat__mao { animation-duration: .5s; }
+.seat.sus-falando .seat__concha i { animation-duration: .9s; }
+.seat.sus-falando .seat__concha i + i { animation-delay: .45s; }
+@keyframes susPop { from { opacity: 0; transform: scale(.3); } }
+@keyframes susMao { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-10deg) translateY(-1px); } }
+@keyframes susVoa { 0% { opacity: 0; transform: translate(0, 0) scale(.7); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--sus-dx), -6px) scale(1); } }
+
+/* quem ouve: uma orelha do lado de onde vem o sussurro, que pulsa quando chega voz */
+.seat__orelha { position: absolute; top: 18%; z-index: 3; pointer-events: none; font-size: clamp(.95rem, 1.4vw, 1.2rem); filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)); animation: susPop .35s cubic-bezier(.3,1.6,.5,1); }
+.seat[data-sus-ouvido="e"] .seat__orelha { left: 4%; scale: -1 1; }
+.seat[data-sus-ouvido="d"] .seat__orelha { right: 4%; }
+.seat.sus-ouve .seat__avatar { filter: none; opacity: 1; }
+.seat.sus-voz .seat__orelha { animation: susOuve .45s ease-in-out infinite alternate; }
+.seat.sus-longe .seat__orelha { animation: susOuve 1.6s ease-in-out infinite alternate; }
+.seat.sus-voz .seat__avatar img { filter: drop-shadow(0 0 7px var(--sus-glow)) drop-shadow(0 6px 8px rgba(0,0,0,.7)); }
+.seat--pfp.sus-voz .seat__avatar .pfp { box-shadow: 0 0 0 3px var(--sus), 0 0 14px var(--sus-glow); }
+@keyframes susOuve { from { transform: scale(1); filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)); } to { transform: scale(1.28); filter: drop-shadow(0 0 8px var(--sus-glow)); } }
+@media (prefers-reduced-motion: reduce) { .seat__mao, .seat__concha i, .seat__orelha, .sus-aviso__ic { animation: none !important; } .seat__concha i { opacity: .9; } }

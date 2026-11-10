@@ -50,7 +50,8 @@
    "obra": "Cocoricó",
    "fontes": {
     "youtube": "https://www.youtube.com/watch?v=P1TgpmBNL2U"
-   }
+   },
+   "ab": true
   },
   {
    "id": "peter-gabriel-down-to-earth",
@@ -411,7 +412,8 @@
    },
    "obra_alt": [
     "JoJo"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "neon-genesis-evangelion-fly-me-to-the-moon-evangelion",
@@ -549,7 +551,8 @@
     "deezer": "https://www.deezer.com/track/1576033012",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "shingeki-no-kyojin-shinzou-wo-sasageyo",
@@ -616,7 +619,8 @@
    "obra_alt": [
     "Attack on Titan",
     "Ataque dos Titãs"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-04-23": [
@@ -788,7 +792,8 @@
    },
    "obra_alt": [
     "Victorious"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "keiichi-okabe-weight-of-the-world-kowaretasekainouta-marina-",
@@ -984,7 +989,8 @@
    },
    "alt": [
     "Transformers Theme"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "lisa-crossing-field",
@@ -1049,7 +1055,8 @@
     "deezer": "https://www.deezer.com/track/976378422",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "hilary-duff-what-dreams-are-made-of",
@@ -1532,7 +1539,8 @@
    },
    "alt": [
     "South Park Theme"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-04-26": [
@@ -1599,7 +1607,8 @@
    },
    "obra_alt": [
     "Neon Genesis Evangelion"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "ceelo-green-the-night-begins-to-shine",
@@ -1733,7 +1742,8 @@
    },
    "obra_alt": [
     "Fullmetal Alchemist"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "seatbelts-tank",
@@ -1795,7 +1805,8 @@
     "deezer": "https://www.deezer.com/track/1006888182",
     "playlist": "https://www.deezer.com/playlist/7490833544",
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "troy-bet-on-it",
@@ -2230,7 +2241,8 @@
     "deezer": "https://www.deezer.com/track/1127264222",
     "playlist": "https://www.deezer.com/album/183194572",
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "2-guys-n-the-parque-s-i-m-p-squirrels-in-my-pants",
@@ -2706,7 +2718,8 @@
     "deezer": "https://www.deezer.com/track/563655032",
     "playlist": "https://www.deezer.com/playlist/15439194921",
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "animaniacs-pinky-the-brain",
@@ -2770,7 +2783,8 @@
    },
    "obra_alt": [
     "Pinky and the Brain"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-04-30": [
@@ -3027,7 +3041,8 @@
     "deezer": "https://www.deezer.com/track/13161512",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "cyberpunk-2077-never-fade-away",
@@ -3137,7 +3152,8 @@
    },
    "alt": [
     "Let It Rip"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "jack-black-steve-s-lava-chicken",
@@ -3629,7 +3645,8 @@
    ],
    "obra_alt": [
     "Popeye"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "they-might-be-giants-for-kids-hot-dog",
@@ -3817,7 +3834,8 @@
     "deezer": "https://www.deezer.com/track/1065541812",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "rick-and-morty-rick-and-morty-abertura",
@@ -3880,7 +3898,8 @@
    ],
    "obra_alt": [
     "Rick e Morty"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "chiquititas-chiquititas-abertura",
@@ -3932,7 +3951,8 @@
    "obra": "Chiquititas",
    "fontes": {
     "youtube": "https://www.youtube.com/watch?v=9fzwtdogZ7s"
-   }
+   },
+   "ab": true
   },
   {
    "id": "futurama-futurama-abertura",
@@ -3992,7 +4012,8 @@
    },
    "alt": [
     "Futurama Theme"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-04": [
@@ -4300,7 +4321,8 @@
    "obra": "Doctor Who",
    "fontes": {
     "youtube": "https://www.youtube.com/watch?v=75V4ClJZME4"
-   }
+   },
+   "ab": true
   },
   {
    "id": "metroid-brinstar",
@@ -4628,7 +4650,8 @@
     "deezer": "https://www.deezer.com/track/923204312",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "two-and-a-half-men-two-and-a-half-men-tema",
@@ -4680,7 +4703,8 @@
    "obra": "Two and a Half Men",
    "fontes": {
     "youtube": "https://www.youtube.com/watch?v=zJV_STpyiTE"
-   }
+   },
+   "ab": true
   },
   {
    "id": "toby-fox-bonetrousle",
@@ -5251,7 +5275,8 @@
    "obra": "Hamtaro",
    "fontes": {
     "youtube": "https://www.youtube.com/watch?v=1CBzd8KrKLo"
-   }
+   },
+   "ab": true
   },
   {
    "id": "pharrell-williams-despicable-me",
@@ -5424,7 +5449,8 @@
    },
    "alt": [
     "Doug Theme"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-09": [
@@ -5498,7 +5524,8 @@
     "deezer": "https://www.deezer.com/track/734488002",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "donkey-kong-country-aquatic-ambience",
@@ -5803,7 +5830,8 @@
    ],
    "obra_alt": [
     "Justice League"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "l-arc-en-ciel-ready-steady-go",
@@ -5870,7 +5898,8 @@
     "deezer": "https://www.deezer.com/track/976828652",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "sarah-mclachlan-when-she-loved-me",
@@ -6163,7 +6192,8 @@
    ],
    "obra_alt": [
     "Masha and the Bear"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "remy-zero-save-me",
@@ -6224,7 +6254,8 @@
     "deezer": "https://www.deezer.com/track/3664135",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "sonic-2-chemical-plant-zone",
@@ -6337,7 +6368,8 @@
    ],
    "obra_alt": [
     "Cow and Chicken"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-12": [
@@ -6471,7 +6503,8 @@
    ],
    "obra_alt": [
     "Dinosaurs"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "arquivo-x-the-x-files-theme",
@@ -6531,7 +6564,8 @@
    },
    "obra_alt": [
     "The X-Files"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "nick-cave-the-bad-seeds-red-right-hand-remastered-2011",
@@ -6600,7 +6634,8 @@
     "deezer": "https://www.deezer.com/track/3782900242",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "super-mario-bros-underground-theme",
@@ -7041,7 +7076,8 @@
    ],
    "obra_alt": [
     "Paw Patrol"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "inuyasha-change-the-world",
@@ -7094,7 +7130,8 @@
    "obra": "Inuyasha",
    "fontes": {
     "youtube": "https://www.youtube.com/watch?v=tkNfLYr-MyM"
-   }
+   },
+   "ab": true
   },
   {
    "id": "batman-a-serie-animada-batman-a-serie-animada-abertura",
@@ -7157,7 +7194,8 @@
    ],
    "obra_alt": [
     "Batman"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "sim-the-rumbling",
@@ -7223,7 +7261,8 @@
     "deezer": "https://www.deezer.com/track/1631576052",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "sakura-card-captors-catch-you-catch-me",
@@ -7289,7 +7328,8 @@
    },
    "obra_alt": [
     "Cardcaptor Sakura"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-15": [
@@ -7401,7 +7441,8 @@
     "deezer": "https://www.deezer.com/track/1124776602",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "john-williams-main-title-theme-from-jaws-from-jaws",
@@ -7585,7 +7626,8 @@
     "deezer": "https://www.deezer.com/track/573659482",
     "playlist": null,
     "stems": "https://www.enchor.us/?search=Tuyo%20%28Narcos%20Theme%29%20%28A%20Netflix%20Original%20Series%20Soundtrack%29"
-   }
+   },
+   "ab": true
   }
  ],
  "2026-05-16": [
@@ -7991,7 +8033,8 @@
    ],
    "obra_alt": [
     "Tom and Jerry"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "tres-espias-demais-tres-espias-demais-abertura",
@@ -8054,7 +8097,8 @@
    ],
    "obra_alt": [
     "Totally Spies"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "naomi-scott-speechless-full",
@@ -8250,7 +8294,8 @@
    },
    "alt": [
     "Dengeki Sentai Changeman"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "dragon-ball-super-ultimate-battle",
@@ -8442,7 +8487,8 @@
     "deezer": "https://www.deezer.com/track/13805986",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "ducktales-the-moon",
@@ -8571,7 +8617,8 @@
     "deezer": "https://www.deezer.com/track/134403694",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "the-righteous-brothers-unchained-melody",
@@ -8833,7 +8880,8 @@
    ],
    "obra_alt": [
     "Chapolin Colorado"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-20": [
@@ -8902,7 +8950,8 @@
     "deezer": "https://www.deezer.com/track/831350",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "todo-mundo-odeia-o-chris-todo-mundo-odeia-o-chris-abertura",
@@ -8965,7 +9014,8 @@
    ],
    "obra_alt": [
     "Everybody Hates Chris"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "top-gear-las-vegas-top-gear",
@@ -9149,7 +9199,8 @@
    ],
    "obra_alt": [
     "Backyardigans"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-21": [
@@ -9215,7 +9266,8 @@
    ],
    "obra_alt": [
     "Captain Tsubasa"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "jaspion-jaspion-abertura",
@@ -9275,7 +9327,8 @@
    },
    "alt": [
     "Kyojuu Tokusou Juspion"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "jessica-darrow-surface-pressure",
@@ -9592,7 +9645,8 @@
    },
    "alt": [
     "Peppa Pig Theme"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "mark-keali-i-ho-omalu-he-mele-no-lilo-from-lilo-stitch-sound",
@@ -9792,7 +9846,8 @@
    "obra_alt": [
     "The Simpsons",
     "Simpsons"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-23": [
@@ -9856,7 +9911,8 @@
     "deezer": "https://www.deezer.com/track/2588892792",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "roger-miller-oo-de-lally",
@@ -10349,7 +10405,8 @@
    "obra_alt": [
     "Saint Seiya",
     "Cavaleiros do Zodíaco"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "frieren-yuusha",
@@ -10411,7 +10468,8 @@
    "alt": [
     "勇者",
     "The Brave"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-25": [
@@ -10478,7 +10536,8 @@
     "deezer": "https://www.deezer.com/track/1136190992",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "orange-range-asterisk",
@@ -10540,7 +10599,8 @@
     "deezer": "https://www.deezer.com/track/975900332",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "akira-yamaoka-promise-reprise",
@@ -11671,7 +11731,8 @@
     "deezer": "https://www.deezer.com/track/3024903811",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "one-piece-overtaken",
@@ -12200,7 +12261,8 @@
    ],
    "obra_alt": [
     "Regular Show"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-05-31": [
@@ -12524,7 +12586,8 @@
     "deezer": "https://www.deezer.com/track/69838319",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   }
  ],
  "2026-06-01": [
@@ -12644,7 +12707,8 @@
    },
    "alt": [
     "Jimmy Neutron Theme"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "o-incrivel-mundo-de-gumball-o-incrivel-mundo-de-gumball-aber",
@@ -12707,7 +12771,8 @@
    ],
    "obra_alt": [
     "Gumball"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "your-name-sparkle",
@@ -12897,7 +12962,8 @@
    },
    "alt": [
     "Hey Arnold Theme"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "hannah-montana-nobody-s-perfect",
@@ -13023,7 +13089,8 @@
     "deezer": "https://www.deezer.com/track/1355416752",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "yumi-kimura-always-with-me",
@@ -13906,7 +13973,8 @@
     "deezer": "https://www.deezer.com/track/2383118285",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "gerard-marino-rage-of-sparta-from-god-of-war-iii-soundtrack",
@@ -14393,7 +14461,8 @@
    ],
    "obra_alt": [
     "Ed, Edd n Eddy"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "rugrats-rugrats-abertura",
@@ -14456,7 +14525,8 @@
    ],
    "obra_alt": [
     "Os Anjinhos"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "selena-gomez-everything-is-not-what-it-seems-theme-song-to-w",
@@ -14528,7 +14598,8 @@
     "deezer": "https://www.deezer.com/track/5323464",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "official-hige-dandism-mixed-nuts",
@@ -14595,7 +14666,8 @@
     "deezer": "https://www.deezer.com/track/1701852587",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "porno-graffitti-the-day",
@@ -14660,7 +14732,8 @@
     "deezer": "https://www.deezer.com/track/543429922",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   }
  ],
  "2026-06-08": [
@@ -15661,7 +15734,8 @@
    },
    "alt": [
     "Johnny Bravo Theme"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "kim-possible-kim-possible-abertura-em-portugues",
@@ -15711,7 +15785,8 @@
    },
    "alt": [
     "Call Me, Beep Me!"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "rio-real-in-rio",
@@ -16792,7 +16867,8 @@
    ],
    "obra_alt": [
     "Steven Universe"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "avatar-a-lenda-de-aang-avatar-a-lenda-de-aang-abertura",
@@ -16845,7 +16921,8 @@
    ],
    "obra_alt": [
     "Avatar The Last Airbender"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "masatoshi-ono-departure",
@@ -16907,7 +16984,8 @@
     "deezer": "https://www.deezer.com/track/2665357712",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "saja-boys-your-idol",
@@ -17268,7 +17346,8 @@
    ],
    "obra_alt": [
     "The Jetsons"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "o-laboratorio-de-dexter-o-laboratorio-de-dexter-abertura",
@@ -17336,7 +17415,8 @@
    ],
    "obra_alt": [
     "Dexter's Laboratory"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-06-17": [
@@ -17469,7 +17549,8 @@
    ],
    "obra_alt": [
     "Courage the Cowardly Dog"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "michael-giacchino-married-life",
@@ -18925,7 +19006,8 @@
    },
    "alt": [
     "Moonlight Densetsu"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "homem-aranha-spider-man-theme-1967",
@@ -18983,7 +19065,8 @@
    ],
    "obra_alt": [
     "Spider-Man"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "gravity-falls-gravity-falls-abertura",
@@ -19046,7 +19129,8 @@
    ],
    "obra_alt": [
     "Gravity Falls: Um Verão de Mistérios"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "nightmare-the-world-tv-size",
@@ -19111,7 +19195,8 @@
     "deezer": "https://www.deezer.com/track/2665292502",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "kenshi-yonezu-kick-back",
@@ -19173,7 +19258,8 @@
     "deezer": "https://www.deezer.com/track/1946911957",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   }
  ],
  "2026-06-23": [
@@ -19346,7 +19432,8 @@
    },
    "alt": [
     "アイドル"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "bob-esponja-campfire-song-song",
@@ -19463,7 +19550,8 @@
    },
    "alt": [
     "Makafushigi Adventure"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-06-24": [
@@ -19527,7 +19615,8 @@
     "deezer": "https://www.deezer.com/track/1143848452",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "carl-douglas-kung-fu-fighting",
@@ -20038,7 +20127,8 @@
    "obra": "Castelo Rá-Tim-Bum",
    "fontes": {
     "youtube": "https://www.youtube.com/watch?v=Vrf4mdnOi10"
-   }
+   },
+   "ab": true
   },
   {
    "id": "gilberto-gil-sitio-do-picapau-amarelo",
@@ -20104,7 +20194,8 @@
     "deezer": "https://www.deezer.com/track/3264944861",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   }
  ],
  "2026-06-26": [
@@ -20168,7 +20259,8 @@
     "deezer": "https://www.deezer.com/track/876476",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "kenny-loggins-danger-zone-from-top-gun-original-soundtrack",
@@ -20483,7 +20575,8 @@
    "obra_alt": [
     "Saint Seiya",
     "Cavaleiros do Zodíaco"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "hora-de-aventura-eu-sou-so-o-seu-problema",
@@ -20589,7 +20682,8 @@
    ],
    "obra_alt": [
     "The Flintstones"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "x-men-a-serie-animada-x-men-abertura",
@@ -20652,7 +20746,8 @@
    ],
    "obra_alt": [
     "X-Men"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "hannah-montana-the-best-of-both-worlds",
@@ -20716,7 +20811,8 @@
     "deezer": "https://www.deezer.com/track/13275871",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   }
  ],
  "2026-06-28": [
@@ -21082,7 +21178,8 @@
    ],
    "obra_alt": [
     "Powerpuff Girls"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "caverna-do-dragao-caverna-do-dragao-abertura",
@@ -21130,7 +21227,8 @@
    ],
    "obra_alt": [
     "Dungeons & Dragons"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "linked-horizon-guren-no-yumiya",
@@ -21199,7 +21297,8 @@
     "deezer": "https://www.deezer.com/track/472698952",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "bill-medley-i-ve-had-the-time-of-my-life-from-dirty-dancing-",
@@ -21329,7 +21428,8 @@
     "deezer": "https://www.deezer.com/track/130871168",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   }
  ],
  "2026-06-30": [
@@ -21680,7 +21780,8 @@
     "deezer": "https://www.deezer.com/track/117729426",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "sonic-the-hedgehog-green-hill-zone",
@@ -21989,7 +22090,8 @@
    ],
    "obra_alt": [
     "Woody Woodpecker"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "ikimonogakari-blue-bird",
@@ -22061,7 +22163,8 @@
     "deezer": "https://www.deezer.com/track/121134202",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "justin-timberlake-can-t-stop-the-feeling-from-dreamworks-ani",
@@ -22337,7 +22440,8 @@
    "obra_alt": [
     "DBZ",
     "Dragon Ball"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "dragon-ball-gt-sorriso-resplandecente",
@@ -22405,7 +22509,8 @@
    },
    "alt": [
     "Dan Dan Kokoro Hikareteku"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "digimon-digimon-abertura-em-portugues",
@@ -22469,7 +22574,8 @@
    "alt": [
     "Butter-Fly",
     "Digimon Digitais"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "scooby-doo-scooby-doo-cade-voce",
@@ -22524,7 +22630,8 @@
    ],
    "obra_alt": [
     "Scooby Doo"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "os-padrinhos-magicos-os-padrinhos-magicos-abertura",
@@ -22584,7 +22691,8 @@
    ],
    "obra_alt": [
     "Fairly OddParents"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-07-04": [
@@ -23240,7 +23348,8 @@
    ],
    "obra_alt": [
     "Pokemon"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "yu-yu-hakusho-sorriso-contagiante",
@@ -23303,7 +23412,8 @@
    },
    "alt": [
     "Hohoemi no Bakudan"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "ben-10-ben-10-abertura",
@@ -23365,7 +23475,8 @@
    },
    "alt": [
     "Ben 10 Theme"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "chaves-chaves-abertura",
@@ -23431,7 +23542,8 @@
    ],
    "obra_alt": [
     "El Chavo"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "bill-murray-the-bare-necessities",
@@ -23623,7 +23735,8 @@
    },
    "obra_alt": [
     "He-Man e os Mestres do Universo"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "phineas-e-ferb-eu-nao-tenho-ritmo",
@@ -23744,7 +23857,8 @@
    ],
    "obra_alt": [
     "Phineas and Ferb"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "bob-esponja-bob-esponja-abertura-em-portugues",
@@ -23807,7 +23921,8 @@
     "SpongeBob",
     "Bob Esponja Calça Quadrada",
     "SpongeBob SquarePants"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-07-08": [
@@ -23939,7 +24054,8 @@
     "deezer": "https://www.deezer.com/track/855956772",
     "playlist": "https://www.deezer.com/playlist/15672786343",
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "high-school-musical-cast-we-re-all-in-this-together",
@@ -24188,7 +24304,8 @@
    },
    "obra_alt": [
     "Gravity Falls: Um Verão de Mistérios"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "smash-mouth-i-m-a-believer",
@@ -24628,7 +24745,8 @@
     "deezer": "https://www.deezer.com/track/3504033041",
     "playlist": "https://www.deezer.com/album/803245181",
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "spongebob-squarepants-spongebob-squarepants-theme-song",
@@ -24699,7 +24817,8 @@
     "SpongeBob",
     "SpongeBob SquarePants",
     "Bob Esponja Calça Quadrada"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "the-simpsons-the-simpsons-main-title-theme-extended-version",
@@ -24769,7 +24888,8 @@
    "obra_alt": [
     "The Simpsons",
     "Simpsons"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-07-11": [
@@ -27346,7 +27466,8 @@
     "stems": null
    },
    "obra_alt": [
-    "Frozen II"
+    "Frozen II",
+    "Frozen"
    ]
   },
   {
@@ -27416,7 +27537,8 @@
    },
    "obra_alt": [
     "Steven Universe"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "larissa-cardoso-que-mais-vou-fazer",
@@ -27995,7 +28117,8 @@
     "stems": null
    },
    "obra_alt": [
-    "Frozen II"
+    "Frozen II",
+    "Frozen"
    ]
   },
   {
@@ -28326,7 +28449,8 @@
    },
    "obra_alt": [
     "Inspector Gadget"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "sylvia-salustti-quando-a-minha-vida-vai-comecar",
@@ -28840,7 +28964,8 @@
     "deezer": "https://www.deezer.com/track/3664519",
     "playlist": "https://www.deezer.com/playlist/7523895322",
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "olavo-cavalheiro-vejo-uma-porta-abrir",
@@ -29110,7 +29235,8 @@
    ],
    "alt": [
     "The Pink Panther Theme"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "robin-williams-prince-ali",
@@ -29379,7 +29505,8 @@
    },
    "obra_alt": [
     "Kimetsu no Yaiba"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "tk-from-ling-tosite-sigure-unravel",
@@ -29448,7 +29575,8 @@
     "deezer": "https://www.deezer.com/track/975968052",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "kacau-gomes-quase-la-almost-there",
@@ -29589,7 +29717,8 @@
    },
    "obra_alt": [
     "Teen Titans"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-07-26": [
@@ -29650,7 +29779,8 @@
     "deezer": "https://www.deezer.com/track/1100592452",
     "playlist": null,
     "stems": "https://www.enchor.us/?search=Haruka%20Kanata"
-   }
+   },
+   "ab": true
   },
   {
    "id": "andre-filho-aqui-no-mar",
@@ -29916,7 +30046,8 @@
     "deezer": "https://www.deezer.com/track/3033808841",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   }
  ],
  "2026-07-27": [
@@ -30048,7 +30179,8 @@
     "deezer": "https://www.deezer.com/track/2986008551",
     "playlist": null,
     "stems": null
-   }
+   },
+   "ab": true
   },
   {
    "id": "saulo-vasconcellos-de-nada",
@@ -30190,7 +30322,8 @@
    "alt": [
     "Phineas e Ferb (Abertura)",
     "Today Is Gonna Be a Great Day"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "donny-osmond-i-ll-make-a-man-out-of-you",
@@ -30331,7 +30464,8 @@
    "obra_alt": [
     "Saint Seiya",
     "Cavaleiros do Zodíaco"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "daniel-garcia-um-mundo-ideal",
@@ -30844,7 +30978,8 @@
    ],
    "alt": [
     "Cha-La Head-Cha-La"
-   ]
+   ],
+   "ab": true
   },
   {
    "id": "idina-menzel-let-it-go-from-frozen-soundtrack-version",
@@ -41803,7 +41938,8 @@
     "generos": [
      "desenhos"
     ]
-   }
+   },
+   "ab": true
   }
  ],
  "2026-09-10": [
@@ -46286,7 +46422,8 @@
     "generos": [
      "filmes"
     ]
-   }
+   },
+   "ab": true
   },
   {
    "id": "matue-a-morte-do-autotune",
@@ -46898,7 +47035,8 @@
    "obra": "Naruto Shippuden",
    "obra_alt": [
     "Naruto"
-   ]
+   ],
+   "ab": true
   }
  ],
  "2026-09-30": [
@@ -50834,7 +50972,8 @@
    "decada": 2020,
    "tags_ok": true,
    "categoria": "desenhos",
-   "obra": "Jujutsu Kaisen"
+   "obra": "Jujutsu Kaisen",
+   "ab": true
   }
  ],
  "2026-10-14": [

@@ -108,7 +108,7 @@ function toast(msg, ms = 2800) {
 }
 
 /* ---------- Preferências (salvas no navegador e no servidor, por pessoa) ---------- */
-const DEFAULT_PREFS = { vol: 1, vvol: 1, pvol: {}, tvol: {}, tmute: {}, nudges: true, spatial: false, spatialVersion: 3, board: .85, master: 1, mvol: .45, sonsRec: [], sfx: .6, vmode: 'open', pttKey: 'KeyV', pttLabel: 'V', mic: '', extra: '', chat: true, subs: true, t: 0, entryMuted: false, duck: false, pmute: {}, boardpvol: {}, boardmute: {}, fxpvol: {}, fxpmute: {}, jogoVol: 1, jogoMudo: false }
+const DEFAULT_PREFS = { vol: 1, vvol: 1, pvol: {}, tvol: {}, tmute: {}, nudges: true, spatial: false, spatialVersion: 3, board: .85, master: 1, mvol: .45, sonsRec: [], sfx: .6, vmode: 'open', pttKey: 'KeyV', pttLabel: 'V', mic: '', extra: '', chat: true, subs: true, t: 0, entryMuted: false, duck: false, pmute: {}, boardpvol: {}, boardmute: {}, fxpvol: {}, fxpmute: {}, jogoVol: 1, jogoMudo: false, susVer: true }
 const prefs = Object.assign({}, DEFAULT_PREFS, normalizeAudioPrefs(store.get('prefs')))
 let prefsTimer
 function savePrefs() {
@@ -126,6 +126,9 @@ async function loadPrefs() {
 
 /* ---------- Mixer de áudio ----------
    Transmissões, vozes e avisos passam pelo Web Audio: até 200% e volume por pessoa. */
+// sussurro (ver "Sussurrar" mais abaixo): o meu e os que chegam (peerId de quem sussurra -> key de quem ouve)
+let sus = null
+const sussurros = new Map()
 const mix = { ac: null, movie: null, voice: null, sfx: null, peer: new Map(), userSounds: new Set() }
 let needGesture = false
 function audioCtx() {
@@ -163,7 +166,8 @@ document.addEventListener('pointerdown', () => {
   if (needGesture) { needGesture = false; document.querySelectorAll('video, audio').forEach(v => v.play().catch(() => {})) }
 })
 function applyPeerVols() {
-  mix.peer.forEach(({ g }, id) => { g.gain.value = personGain(peers.get(id)?.key, 'voice') })
+  const chega = susChegando()
+  mix.peer.forEach(({ g }, id) => { g.gain.value = personGain(peers.get(id)?.key, 'voice') * (sussurraPraMim(id) ? 1.4 : chega ? .45 : 1) })
   mix.userSounds.forEach(({ g, key, kind }) => { g.gain.value = personGain(key, kind) })
 }
 
@@ -184,7 +188,7 @@ function connectUserSound(src, destination, key, kind) {
   src.onended = () => { mix.userSounds.delete(item); src.disconnect(); g.disconnect() }
 }
 let ducking = false
-const movieLevel = () => me.deaf ? 0 : prefs.vol * (ducking ? .3 : 1)
+const movieLevel = () => me.deaf ? 0 : prefs.vol * (ducking ? .3 : 1) * (susChegando() ? .35 : 1)
 function somJogo() { return me.deaf || prefs.jogoMudo ? 0 : prefs.jogoVol ?? 1 }
 function applyAudioLevels() {
   try { setMidiaVol() } catch {}
@@ -615,6 +619,7 @@ async function start(pw) {
     radio?.onPeerJoin(id)
     faixa?.onPeerJoin(id)
     if (mic) room.addStream(mic.stream, { target: id, metadata: { voice: 1 } })
+    if (sus) { setTimeout(cortaOutros, 300); if (prefs.susVer !== false) actions.sus.send({ on: true, para: sus.key }, { target: id }) }
     if (myShare) {
       room.addStream(myShare.stream, { target: id, metadata: { screen: 1 } })
       actions.share.send(shareMsg(), { target: id })
@@ -631,6 +636,8 @@ async function start(pw) {
     if (p?.name) someDaSala(p)
     if (shareInfo.has(id)) { shareInfo.delete(id); removeTile(id) }
     dropVoice(id)
+    if (sussurros.delete(id)) { atualizaOuvir(); renderSussurro() }
+    if (sus && !peersDaKey(sus.key).length) setTimeout(() => { if (sus && !peersDaKey(sus.key).length) { toast(`${sus.nome} saiu da call: o sussurro acabou`); paraSussurro() } }, QUEDA_MS)
     renderAll()
   }
 
@@ -646,6 +653,7 @@ async function start(pw) {
     Object.assign(p, { key: h.key, name, speaking: h.speaking, muted: h.muted, deaf: h.deaf, away: h.away, seat: h.seat, typing: h.typing, hidden: h.hidden, mesa: h.mesa })
     peers.set(peerId, p)
     if (d.key === me.key) dropVoice(peerId)
+    if (sus) { cortaOutros(); if (h.key === sus.key) actions.sus.send({ on: true, para: sus.key }, { target: peerId }) }
     const voltou = sumindo.has(d.key)
     if (voltou) { clearTimeout(sumindo.get(d.key).timer); sumindo.delete(d.key); avisouVolta.delete(d.key) }
     if (isNew) voltaFim()
@@ -689,7 +697,8 @@ async function start(pw) {
   }
   actions.chat.onMessage = (m, { peerId }) => chatChegou({ ...m, from: peerId })
   actions.hist.onMessage = list => Array.isArray(list) && list.forEach(m => !m.sys && addMsg(m, true))
-  actions.spk.onMessage = (d, { peerId }) => { const p = peers.get(peerId); if (p) { p.speaking = !!d; renderSeats() } }
+  actions.spk.onMessage = (d, { peerId }) => { const p = peers.get(peerId); if (p) { p.speaking = !!d; if (sussurros.has(peerId)) atualizaOuvir(); renderSeats() } }
+  actions.sus.onMessage = (d, { peerId }) => gotSussurro(d, peerId)
   actions.pausa.onMessage = (_, { peerId }) => gotPause(peers.get(peerId)?.name || 'Alguém')
   actions.leg.onMessage = (d, { peerId }) => showSub(peerId, typeof d?.t === 'string' ? d.t.slice(0, 400) : '')
   actions.adm.onMessage = (d, { peerId }) => onAdmin(d, peerId)
@@ -2602,7 +2611,9 @@ function seatNode(key) {
   const moveBox = el('div', { className: 'pvol__move' }, el('span', { className: 'pvol__name', textContent: 'Trocar de lugar' }), el('div', { className: 'pvol__row' }, left, el('small', { textContent: 'ou clique numa poltrona vazia' }), right))
   const account = el('button', { type: 'button', className: 'btn btn--ghost pvol__account' }, icon('users'), el('span', { textContent: 'Minha conta' }))
   account.addEventListener('click', () => { closePops(); openAccount() })
-  const pop = el('div', { className: 'pvol', hidden: true }, account, volBox, moveBox, adm)
+  const susBtn = el('button', { type: 'button', className: 'btn btn--ghost pvol__sus' }, icon('ear'), el('span'))
+  susBtn.addEventListener('click', () => { closePops(); sus?.key === key ? paraSussurro() : sussurrar(key, 'fixo') })
+  const pop = el('div', { className: 'pvol', hidden: true }, account, susBtn, volBox, moveBox, adm)
   node.append(pop)
   node.querySelector('.seat__avatar').addEventListener('click', () => {
     if (!node.classList.contains('online')) return
@@ -2611,6 +2622,9 @@ function seatNode(key) {
     closePops()
     if (!open) return
     account.hidden = !mine; volBox.hidden = mine; moveBox.hidden = !mine
+    susBtn.hidden = mine || node.classList.contains('ghost')
+    susBtn.lastChild.textContent = sus?.key === key ? 'Parar de sussurrar' : 'Sussurrar'
+    susBtn.title = sus?.key === key ? '' : 'Só essa pessoa ouve o que você falar (dica: segure na poltrona para sussurrar só enquanto segura)'
     if (!mine) { renderPersonAudio(key, volBox); renderAdmButtons(key, adm) }
     pop.style.marginLeft = '0px'; pop.style.top = ''; pop.style.bottom = ''
     pop.hidden = false
@@ -2619,7 +2633,8 @@ function seatNode(key) {
     if (rect.left < 8) pop.style.marginLeft = (8 - rect.left) + 'px'
     else if (rect.right > innerWidth - 8) pop.style.marginLeft = (innerWidth - 8 - rect.right) + 'px'
   })
-  node.addEventListener('contextmenu', e => { if (e.target.closest('.pvol')) return; e.preventDefault(); node.querySelector('.seat__avatar').click() })
+  node.addEventListener('contextmenu', e => { if (e.target.closest('.pvol')) return; e.preventDefault(); if (node._segurou) return; node.querySelector('.seat__avatar').click() })
+  seguraParaSussurrar(node, key)
   seatNodes.set(key, node)
   return node
 }
@@ -2739,6 +2754,7 @@ function renderSeats() {
   })
   if (!sameKids(seatsEl, lineNodes)) seatsEl.replaceChildren(...lineNodes)
   updatePans()
+  pintaSussurros()
 }
 
 /* ---------- Poses dos bonecos (assets em assets/poses/<pessoa>/) ----------
@@ -2774,8 +2790,9 @@ function updatePans() {
     const { pan, direct, spatial } = spatialGraph
     const pos = spatialPosition(mine, plan.placed.get(peers.get(id)?.key), salaLayout.porFileira)
     const now = mix.ac.currentTime
-    direct.gain.setTargetAtTime(prefs.spatial ? .3 : 1, now, .1)
-    spatial.gain.setTargetAtTime(prefs.spatial ? .7 : 0, now, .1)
+    const ouvido = sussurraPraMim(id)
+    direct.gain.setTargetAtTime(prefs.spatial && !ouvido ? .3 : 1, now, .1)
+    spatial.gain.setTargetAtTime(prefs.spatial && !ouvido ? .7 : 0, now, .1)
     pan.positionX.setTargetAtTime(pos.x, now, .15)
     pan.positionY.setTargetAtTime(0, now, .15)
     pan.positionZ.setTargetAtTime(pos.z, now, .15)
@@ -4391,6 +4408,7 @@ function renderSetPrefs() {
   setToggle('Entrar com o microfone mutado', '', () => prefs.entryMuted, v => { prefs.entryMuted = v; const c = $('#prefMuted'); if (c) c.checked = v }),
   setToggle('Baixar o filme quando alguém fala', 'Volta ao normal quando a conversa para', () => prefs.duck, v => { prefs.duck = v; $('#duckOpt').checked = v; updateDucking() }),
   setToggle('Áudio espacial', 'Cada voz vem do lado da poltrona (melhor com fone)', () => prefs.spatial, v => { prefs.spatial = v; prefs.spatialVersion = 3; $('#spatialOpt').checked = v; if ($('#audioSpatial')) $('#audioSpatial').checked = v; updatePans() }),
+  setToggle('Mostrar quando eu sussurro', 'A sala vê a animação do cochicho, mas só quem você escolheu ouve', () => prefs.susVer !== false, v => { prefs.susVer = v; if (sus) avisaSala() }),
   setToggle('Sons de aviso', 'Entrou, saiu, mensagem nova', () => prefs.sfx > 0, v => { if (!v && prefs.sfx > 0) prefs.sfxAntes = prefs.sfx; prefs.sfx = v ? (prefs.sfxAntes || .6) : 0; applyPrefs() })
     ]],
     ['Tela', () => [
@@ -5436,7 +5454,7 @@ async function micOn(fromEntry, preserveMute = false) {
     const db = 20 * Math.log10(Math.sqrt(sum / buf.length) + 1e-9)
     const now = performance.now()
     const ptt = prefs.vmode === 'ptt'
-    const live = !me.muted && (!ptt || pttDown)
+    const live = !me.muted && (!ptt || pttDown || !!sus) // sussurrando, o aperte-para-falar não precisa da tecla
     if (db > settings.threshold) previewLastLoud = now
     const previewOpen = gateIsOpen({ live: true, pushToTalk: false, enabled: settings.gate, db, threshold: settings.threshold, now, lastLoud: previewLastLoud, hold: settings.hold })
     previewGate.gain.setTargetAtTime(previewOpen ? 1 : 0, ac.currentTime, previewOpen ? .005 : .12)
@@ -5451,13 +5469,14 @@ async function micOn(fromEntry, preserveMute = false) {
       gate.gain.setTargetAtTime(open ? 1 : 0, ac.currentTime, open ? 0.005 : 0.12)
     }
     const speaking = live && now - lastVoice < 450
-    if (speaking !== me.speaking) { me.speaking = speaking; actions?.spk.send(speaking); renderSeats(); if (speaking) { lastActive = Date.now(); if (me.away) checkAway() } }
+    if (speaking !== me.speaking) { me.speaking = speaking; enviaFala(speaking); renderSeats(); if (speaking) { lastActive = Date.now(); if (me.away) checkAway() } }
   }, 20)
   const [out] = dest.stream.getAudioTracks()
   if ('contentHint' in out) out.contentHint = 'speech'
   out.enabled = !(preserveMute || (fromEntry && !!prefs.entryMuted))
   mic = { stream: dest.stream, raw, ctx: ac, timer, settings, effectiveEngine, analyser: an, gate, processor, testStream: previewDest.stream }
   room?.addStream(mic.stream, { metadata: { voice: 1 } })
+  cortaOutros() // sussurrando: o microfone novo também só vai para quem ouve
   setTimeout(tuneSenders, 1500)
   $('#micModal').hidden = true
   setMuted(preserveMute || (fromEntry && !!prefs.entryMuted), true)
@@ -5468,6 +5487,7 @@ function micOff() {
   micGeneration++
   if (!mic) return
   clearInterval(mic.timer)
+  devolveEnvio(sus?.cortados) // o Trystero só acha (e tira) as faixas que estão no lugar
   try { room?.removeStream(mic.stream) } catch {}
   mic.raw.getTracks().forEach(t => t.stop())
   mic.testStream?.getTracks().forEach(t => t.stop())
@@ -5494,6 +5514,183 @@ function renderMic() {
   b.classList.toggle('btn--ptt', on && ptt && !pttDown)
   b.title = !on ? 'Microfone mudo (M para ligar)' : ptt ? `Segure ${prefs.pttLabel} para falar · M muta` : 'Microfone ligado (M para mutar)'
 }
+/* ---------- Sussurrar: a voz vai só para uma pessoa ----------
+   Quem sussurra tira o microfone (replaceTrack(null)) das conexões com todo mundo menos quem ouve, e o "falando" (spk)
+   vai só para quem ouve. A sala vê a animação (mão em concha e orelha), a menos que a pessoa desligue nos ajustes.
+   Botão direito na poltrona > Sussurrar: fica ligado até parar (Esc ou o aviso). Segurar na poltrona: só enquanto segura. */
+function peersDaKey(key) { return [...peers].filter(([, p]) => p.key === key).map(([id]) => id) }
+function nomeDe(key) { return [...peers.values()].find(p => p.key === key)?.name || person(key)?.nome || 'Alguém' }
+function micTrack() { return mic?.stream.getAudioTracks()[0] || null }
+function manda(acao, d, ids) { for (const id of ids) try { actions?.[acao].send(d, { target: id }) } catch {} }
+// tira o microfone de quem não é o alvo; devolve para o alvo se ele reconectou e foi cortado antes do hello chegar
+function cortaOutros() {
+  if (!sus) return
+  const t = micTrack()
+  if (!t) return
+  const ok = new Set(peersDaKey(sus.key))
+  for (const [id, pc] of pcsOf()) for (const s of pc.getSenders()) {
+    if (ok.has(id)) { if (sus.cortados.has(s) && !s.track) { s.replaceTrack(t).catch(() => {}); sus.cortados.delete(s) } continue }
+    if (s.track === t) { s.replaceTrack(null).catch(() => {}); sus.cortados.set(s, id) }
+  }
+}
+function devolveEnvio(cortados) {
+  const t = micTrack()
+  if (!cortados) return
+  for (const s of cortados.keys()) if (t && !s.track) s.replaceTrack(t).catch(() => {})
+  cortados.clear()
+}
+// "falando": sussurrando, só quem ouve fica sabendo
+function enviaFala(v) {
+  if (!actions) return
+  if (!sus) return actions.spk.send(v)
+  manda('spk', v, peersDaKey(sus.key))
+}
+function avisaSala() {
+  if (!sus || !actions) return
+  const alvo = peersDaKey(sus.key), d = { on: true, para: sus.key }
+  if (prefs.susVer !== false) return actions.sus.send(d)
+  manda('sus', d, alvo)
+  manda('sus', { on: false }, [...peers.keys()].filter(id => !alvo.includes(id)))
+}
+async function sussurrar(key, modo = 'fixo') {
+  if (!key || key === me.key) return
+  if (sus?.key === key) { if (modo === 'fixo') sus.modo = 'fixo'; return renderSussurro() }
+  if (!peersDaKey(key).length) return toast(`${nomeDe(key)} não está conectado agora`)
+  if (sus) paraSussurro(true)
+  if (me.deaf) setDeaf(false, true)
+  sus = { key, nome: nomeDe(key), modo, cortados: new Map(), mutado: me.muted || !mic, timer: setInterval(cortaOutros, 1000) }
+  // quem já me via falando para de ver; quem ouve passa a ver
+  if (me.speaking) { actions?.spk.send(false); enviaFala(true) }
+  cortaOutros()
+  if (!mic) { await micOn(); if (!sus) return; cortaOutros() }
+  if (me.muted) setMuted(false, true)
+  avisaSala()
+  renderSussurro(); renderSeats()
+}
+function paraSussurro(trocando) {
+  if (!sus) return
+  const s = sus
+  clearInterval(s.timer)
+  if (me.speaking) enviaFala(false)
+  sus = null
+  if (s.mutado && !trocando) setMuted(true, true)
+  // espera o portão fechar (~250 ms) antes de devolver a voz para a sala: o fim do sussurro não vaza
+  setTimeout(() => { devolveEnvio(s.cortados); if (sus) cortaOutros(); else if (me.speaking) actions?.spk.send(true) }, s.mutado || trocando ? 0 : 250)
+  if (!trocando) actions?.sus.send({ on: false })
+  renderSussurro(); renderSeats()
+}
+
+// quem ouve
+function sussurraPraMim(id) { return sussurros.get(id) === me.key }
+function susChegando() { try { return [...sussurros].some(([id, k]) => k === me.key && peers.get(id)?.speaking) } catch { return false } } // o mixer pode chamar antes de peers existir
+function gotSussurro(d, peerId) {
+  const antes = sussurros.get(peerId)
+  if (d?.on && typeof d.para === 'string') sussurros.set(peerId, d.para.slice(0, 60))
+  else sussurros.delete(peerId)
+  const agora = sussurros.get(peerId)
+  if (agora === me.key && antes !== me.key) psst(peers.get(peerId)?.key)
+  atualizaOuvir(); renderSussurro(); renderSeats()
+}
+function atualizaOuvir() { applyPeerVols(); applyAudioLevels(); updatePans() }
+// "psssst" sintetizado: chiado agudo que cresce e some
+function psst(key) {
+  const ac = mix.ac
+  if (!ac || prefs.sfx <= 0 || me.deaf) return
+  const t0 = ac.currentTime + .02, dur = .6
+  const buf = ac.createBuffer(1, Math.ceil(ac.sampleRate * dur), ac.sampleRate), x = buf.getChannelData(0)
+  for (let i = 0; i < x.length; i++) x[i] = Math.random() * 2 - 1
+  const src = ac.createBufferSource(); src.buffer = buf
+  const bp = new BiquadFilterNode(ac, { type: 'bandpass', frequency: 5600, Q: 1.4 })
+  const env = ac.createGain(), g = ac.createGain()
+  env.gain.setValueAtTime(0, t0)
+  env.gain.linearRampToValueAtTime(.55, t0 + .006); env.gain.exponentialRampToValueAtTime(.04, t0 + .05) // "p"
+  env.gain.linearRampToValueAtTime(.4, t0 + .2); env.gain.setValueAtTime(.4, t0 + .4); env.gain.exponentialRampToValueAtTime(.001, t0 + dur) // "sssst"
+  g.gain.value = 1.6 * personGain(key, 'effects')
+  src.connect(bp).connect(env).connect(g).connect(mix.sfx)
+  src.onended = () => g.disconnect()
+  src.start(t0)
+}
+
+// aviso no canto
+const susAviso = el('div', { className: 'sus-aviso', hidden: true, role: 'status', ariaLive: 'polite' })
+document.body.append(susAviso)
+function renderSussurro() {
+  const pramim = [...sussurros].filter(([, k]) => k === me.key).map(([id]) => peers.get(id)?.key).filter(Boolean)
+  const de = [...new Set(pramim)]
+  if (!sus && !de.length) { susAviso.hidden = true; susAviso.replaceChildren(); return }
+  const b = (txt, ic, fn, cls = '') => { const x = el('button', { type: 'button', className: 'sus-aviso__btn ' + cls }, icon(ic), el('span', { textContent: txt })); x.addEventListener('click', fn); return x }
+  const linhas = []
+  if (sus && de.includes(sus.key)) {
+    linhas.push(el('p', {}, el('b', { textContent: `Cochichando com ${sus.nome}` }), el('small', { textContent: 'Só vocês dois se ouvem. A sala não escuta nada.' })),
+      b(sus.modo === 'segura' ? 'Solte para voltar' : 'Parar (Esc)', 'x', () => paraSussurro(), sus.modo === 'segura' ? 'off' : ''))
+  } else {
+    if (sus) linhas.push(el('p', {}, el('b', { textContent: `Sussurrando para ${sus.nome}` }), el('small', { textContent: sus.modo === 'segura' ? `Só ${sus.nome} ouve você enquanto você segura` : `Todo mundo continua aqui, mas só ${sus.nome} ouve você` })),
+      b(sus.modo === 'segura' ? 'Solte para voltar' : 'Parar (Esc)', 'x', () => paraSussurro(), sus.modo === 'segura' ? 'off' : ''))
+    for (const k of de) linhas.push(el('p', {}, el('b', { textContent: `${nomeDe(k)} está falando só com você` }), el('small', { textContent: 'Tá todo mundo na call, mas só você ouve o que chega no seu ouvido' })),
+      b('Responder no ouvido', 'ear', () => sussurrar(k, 'fixo')))
+  }
+  susAviso.replaceChildren(el('span', { className: 'sus-aviso__ic', textContent: '🤫' }), el('div', { className: 'sus-aviso__txt' }, ...linhas))
+  susAviso.classList.toggle('eu', !!sus)
+  if (susAviso.hidden) { susAviso.hidden = false; susAviso.classList.remove('entra'); void susAviso.offsetWidth; susAviso.classList.add('entra') }
+}
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || !sus || sus.modo !== 'fixo' || e.target.closest?.('input, textarea, [contenteditable]')) return
+  paraSussurro()
+})
+
+// animação nas poltronas: quem sussurra se inclina com a mão em concha; quem ouve ganha uma orelha que pulsa com a voz
+function pintaSussurros() {
+  const pares = [...sussurros].map(([id, para]) => ({ de: peers.get(id)?.key, para, fala: !!peers.get(id)?.speaking })).filter(x => x.de && x.para)
+  if (sus) pares.push({ de: me.key, para: sus.key, fala: me.speaking })
+  const de = new Map(), para = new Map()
+  for (const x of pares) { de.set(x.de, x); para.set(x.para, x) }
+  seatNodes.forEach((node, key) => {
+    const a = de.get(key), o = para.get(key)
+    node.classList.toggle('sus-fala', !!a)
+    node.classList.toggle('sus-ouve', !!o)
+    // com voz chegando, a orelha e a mão pulsam; quem está de fora não sabe quando há voz: a orelha pulsa devagar
+    node.classList.toggle('sus-voz', !!o && o.fala)
+    node.classList.toggle('sus-falando', !!a && a.fala)
+    node.classList.toggle('sus-longe', !!o && o.de !== me.key && o.para !== me.key)
+    let concha = node.querySelector('.seat__concha'), orelha = node.querySelector('.seat__orelha')
+    if (a) {
+      const alvo = seatNodes.get(a.para)
+      const lado = alvo && alvo.getBoundingClientRect().left < node.getBoundingClientRect().left ? 'e' : 'd'
+      node.dataset.susLado = lado
+      if (!concha) node.append(concha = el('span', { className: 'seat__concha', ariaHidden: 'true' }, el('span', { className: 'seat__mao', textContent: '✋' }), el('i', { textContent: 'psst' }), el('i', { textContent: 'psst' })))
+    } else { delete node.dataset.susLado; concha?.remove() }
+    if (o) {
+      const quem = seatNodes.get(o.de)
+      node.dataset.susOuvido = quem && quem.getBoundingClientRect().left < node.getBoundingClientRect().left ? 'e' : 'd'
+      if (!orelha) node.append(orelha = el('span', { className: 'seat__orelha', ariaHidden: 'true', textContent: '👂' }))
+    } else { delete node.dataset.susOuvido; orelha?.remove() }
+  })
+}
+// segurar na poltrona de alguém: sussurra enquanto segura (o clique que vem depois não abre o menu)
+function seguraParaSussurrar(node, key) {
+  const av = node.querySelector('.seat__avatar')
+  av.querySelectorAll('img').forEach(i => { i.draggable = false })
+  let t = null
+  av.addEventListener('pointerdown', e => {
+    if (e.button !== 0 || node.classList.contains('mine') || !node.classList.contains('online') || node.classList.contains('ghost')) return
+    node._segurou = false
+    clearTimeout(t)
+    t = setTimeout(() => {
+      node._segurou = true
+      closePops()
+      try { av.setPointerCapture(e.pointerId) } catch {}
+      if (sus?.key !== key) sussurrar(key, 'segura')
+    }, 450)
+  })
+  const solta = () => {
+    clearTimeout(t)
+    if (node._segurou && sus?.key === key && sus.modo === 'segura') paraSussurro()
+    setTimeout(() => { node._segurou = false }, 0)
+  }
+  for (const ev of ['pointerup', 'pointercancel', 'lostpointercapture']) av.addEventListener(ev, solta)
+  av.addEventListener('click', e => { if (node._segurou) e.stopImmediatePropagation() }, true)
+}
+
 const toggleMute = () => { if (micTest) stopMicTest(false); if (me.deaf) setDeaf(false); return mic ? setMuted(!me.muted) : micOn() }
 
 /* ---------- Cortar o som (como no Discord: some as vozes e muta o mic) ---------- */

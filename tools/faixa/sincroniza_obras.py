@@ -10,6 +10,7 @@ AQUI = Path(__file__).resolve().parent
 sys.path.insert(0, str(AQUI))
 import disney_desenhos as W
 from origens_lista import LISTA
+from aberturas import e_abertura
 
 # nome usado no jogo -> outros nomes que também valem (inglês, nome antigo da fila, apelidos)
 CANON = {
@@ -70,6 +71,8 @@ def sincroniza(log=print):
                 vibes.remove('hino')
             velho = m['obra']
             m['obra'] = canon(velho)
+            if e_abertura(m): m['ab'] = True
+            else: m.pop('ab', None)
             oa = [o for o in dict.fromkeys([*(m.get('obra_alt') or []), *ALT.get(m['obra'], []), velho]) if o and W.F.slug(o) != W.F.slug(m['obra'])]
             if oa: m['obra_alt'] = oa
             alt = [*(m.get('alt') or [])]
