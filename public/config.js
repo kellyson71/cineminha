@@ -27,6 +27,7 @@ export default {
     { id: 'meris', nome: 'Meris', foto: 'assets/pfp-meris.png', boneco: 'assets/avatar-meris.png', cor: '#f0a8df', poses: 'assets/poses/meris/' },
     { id: 'rodrigues', nome: 'Rodrigues', foto: 'assets/pfp-rodrigues.png', boneco: 'assets/avatar-rodrigues.png', cor: '#8fb4e0', poses: 'assets/poses/rodrigues/' },
     { id: 'matheus', nome: 'Matheus', foto: 'assets/pfp-matheus.png', boneco: 'assets/avatar-matheus.png', cor: '#9fd98a', poses: 'assets/poses/matheus/' },
+    { id: 'vitoria', nome: 'Vitória', foto: 'assets/pfp-vitoria.png', boneco: 'assets/avatar-vitoria.png', cor: '#5cc9c9', poses: 'assets/poses/vitoria/' },
   ],
   // Arte de quem entra como convidado (sem perfil) e da poltrona vazia
   convidado: { foto: 'assets/pfp-convidado.png', boneco: 'assets/avatar-convidado.png', poses: 'assets/poses/convidado/' },
