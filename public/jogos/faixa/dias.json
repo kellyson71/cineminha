@@ -1,4 +1,395 @@
 {
+ "2026-03-23": [
+  {
+   "id": "the-beatles-and-i-love-her-remastered-2009",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "And I Love Her (Remastered 2009)",
+   "a": "The Beatles",
+   "album": "A Hard Day's Night (Remastered 2009)",
+   "ano": 1964,
+   "dz": {
+    "t": 116348434,
+    "a": 1
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 736595,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1960,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "ozzy-osbourne-no-more-tears",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "No More Tears",
+   "a": "Ozzy Osbourne",
+   "album": "No More Tears (Expanded Edition)",
+   "ano": 1991,
+   "dz": {
+    "t": 624314,
+    "a": 823
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 736237,
+   "generos": [
+    "Rock",
+    "Hard Rock",
+    "Metal"
+   ],
+   "pais": "GB",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
+ "2026-03-24": [
+  {
+   "id": "derek-the-dominos-layla",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Layla",
+   "a": "Derek & The Dominos",
+   "album": "The Cream Of Clapton",
+   "ano": 1970,
+   "dz": {
+    "t": 1175612,
+    "a": 149013
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 744219,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "IE",
+   "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "paramore-decode",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Decode (Twilight Soundtrack Version)",
+   "a": "Paramore",
+   "album": "Decode",
+   "ano": 2009,
+   "dz": {
+    "t": 2723257,
+    "a": 10977
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 742917,
+   "generos": [
+    "Filmes/Games",
+    "Trilhas de filmes"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "yot-club-ykwim",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "YKWIM?",
+   "a": "Yot Club",
+   "album": "Bipolar",
+   "ano": 2019,
+   "dz": {
+    "t": 1356409412,
+    "a": 53943152
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "indie",
+     "pop"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "viral",
+     "chill",
+     "triste"
+    ],
+    "fama": 3
+   },
+   "rank": 742809,
+   "generos": [
+    "Alternativo",
+    "Indie Rock"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "the-smiths-heaven-knows-i-m-miserable-now-live",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Heaven Knows I'm Miserable Now (2008 Remaster)",
+   "a": "The Smiths",
+   "album": "The Sound of the Smiths (Deluxe; 2008 Remaster)",
+   "ano": 1984,
+   "dz": {
+    "t": 5093607,
+    "a": 1297
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 738974,
+   "generos": [
+    "Alternativo",
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "metallica-wherever-i-may-roam",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Wherever I May Roam (Remastered 2021)",
+   "a": "Metallica",
+   "album": "Metallica (Remastered 2021)",
+   "ano": 1992,
+   "dz": {
+    "t": 1483825252,
+    "a": 119
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 737964,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
  "2026-03-25": [
   {
    "id": "system-of-a-down-sugar",
@@ -88,6 +479,166 @@
    "rank": 748900,
    "generos": [
     "Pop"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "lykke-li-possibility",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Possibility",
+   "a": "Lykke Li",
+   "album": "Possibility",
+   "ano": 2022,
+   "dz": {
+    "t": 2034158497,
+    "a": 72503
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 748091,
+   "generos": [
+    "Alternativo",
+    "Indie Rock"
+   ],
+   "pais": "SE",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "foo-fighters-best-of-you",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Best of You",
+   "a": "Foo Fighters",
+   "album": "Greatest Hits",
+   "ano": 2005,
+   "dz": {
+    "t": 4311595,
+    "a": 566
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 746636,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "metallica-sad-but-true",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Sad But True (Remastered 2021)",
+   "a": "Metallica",
+   "album": "Metallica (Remastered 2021)",
+   "ano": 1992,
+   "dz": {
+    "t": 1483825222,
+    "a": 119
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 746347,
+   "generos": [
+    "Rock"
    ],
    "pais": "US",
    "decada": 1990,
