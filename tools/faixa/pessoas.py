@@ -10,7 +10,7 @@ Uso:
   pessoas.py marcar             marca `de` nas músicas que já existem (refaz do zero; idempotente)
   pessoas.py status             quantas de cada pessoa já estão no jogo, na fila, prontas e com erro
   pessoas.py fila [--rank N]    consulta a Deezer, escolhe as mais conhecidas que faltam e monta a fila
-  pessoas.py leva [N] [--publicar K]   processa a fila (N músicas, padrão: todas) no banco de dias anteriores;
+  pessoas.py leva [N] [--publicar K] [--primeiro otavio]   processa a fila (N músicas, padrão: todas) no banco de dias anteriores;
                                        com --publicar, publica só os dados (deploy.sh --dados) a cada K e no fim
 Sem --publicar nada é publicado.
 """
@@ -153,7 +153,7 @@ def _sinal(*_):
     print('\n  vou parar depois desta música (Ctrl+C de novo sai na hora)', flush=True)
 
 
-def leva(meta=None, cada=0):
+def leva(meta=None, cada=0, primeiro=None):
     signal.signal(signal.SIGINT, _sinal); signal.signal(signal.SIGTERM, _sinal)
     TG = D.etiquetas_catalogo()
     feitas = 0
@@ -163,7 +163,8 @@ def leva(meta=None, cada=0):
         if not pend: break
         # alterna as pessoas: a mais conhecida de quem tem menos prontas
         prontas = {p: sum(1 for x in fl if x['estado'] == 'pronta' and p in x['de']) for p in PESSOAS}
-        vez = min((p for p in PESSOAS if any(p in x['de'] for x in pend)), key=lambda p: prontas[p])
+        com = [p for p in PESSOAS if any(p in x['de'] for x in pend)]
+        vez = primeiro if primeiro in com else min(com, key=lambda p: prontas[p])  # --primeiro: todas dessa pessoa antes
         it = next(x for x in pend if vez in x['de'])
         while outra_rodando():
             print('  esperando outra geração terminar…', flush=True); time.sleep(60)
@@ -203,5 +204,6 @@ if __name__ == '__main__':
     elif cmd == 'fila': fila(int(a[a.index('--rank') + 1]) if '--rank' in a else RANK_MIN)
     elif cmd == 'leva':
         cada = int(a[a.index('--publicar') + 1]) if '--publicar' in a else 0
-        leva(next((int(x) for i, x in enumerate(a[1:], 1) if x.isdigit() and a[i - 1] != '--publicar'), None), cada)
+        primeiro = a[a.index('--primeiro') + 1] if '--primeiro' in a else None
+        leva(next((int(x) for i, x in enumerate(a[1:], 1) if x.isdigit() and a[i - 1] != '--publicar'), None), cada, primeiro)
     else: status()
