@@ -299,3 +299,24 @@
 .faixa .fx-qtds__rot { margin-right: 4px; font: 400 .95rem/1 var(--fx-marcador); color: var(--fx-amarelo); rotate: -2deg; }
 .faixa .fx-qtds .fx-chip { min-width: 46px; }
 .faixa .fx-chip.on { background: var(--fx-amarelo); color: var(--fx-preto); border-color: var(--fx-preto); box-shadow: 3px 3px 0 var(--fx-rosa); }
+
+/* categorias: playlists da galera, caixinha das trilhas e mistura */
+.faixa .fx-pessoas { display: flex; flex-direction: column; gap: 8px; padding: 10px 10px 12px; border-radius: 5px; border: 2px dashed #3a3644; }
+.faixa .fx-pessoas__topo { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.faixa .fx-cat__ic--pfp { display: inline-flex; }
+.faixa .fx-cat__ic--pfp .pfp { border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--fx-preto), 0 0 0 4px var(--fx-ciano); }
+.faixa .fx-cat--pessoa b { color: var(--fx-ciano); }
+.faixa .fx-trilhas { display: inline-flex; align-items: center; gap: 7px; font-size: .78rem; color: rgba(244,239,228,.7); cursor: pointer; user-select: none; }
+.faixa .fx-trilhas input { width: 16px; height: 16px; margin: 0; accent-color: var(--fx-rosa); cursor: pointer; }
+.faixa .fx-trilhas:hover { color: var(--fx-papel); }
+.faixa .fx-cat { position: relative; }
+.faixa .fx-cat__marca { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 4px; border: 2px solid #4a4555; background: var(--fx-preto); }
+.faixa .fx-cat__marca svg { width: 14px; height: 14px; }
+.faixa .fx-cat.sel { border-color: var(--fx-amarelo); background: color-mix(in srgb, var(--fx-amarelo) 10%, var(--fx-carvao)); box-shadow: 4px 4px 0 var(--fx-amarelo); }
+.faixa .fx-cat.sel .fx-cat__marca { border-color: var(--fx-preto); background: var(--fx-amarelo); color: var(--fx-preto); }
+.faixa .fx-mistura { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 10px 12px; border-radius: 5px; border: 2px solid var(--fx-amarelo); background: var(--fx-carvao); box-shadow: 4px 4px 0 var(--fx-rosa); }
+.faixa .fx-mistura__txt { display: flex; flex-direction: column; gap: 3px; flex: 1 1 180px; min-width: 0; }
+.faixa .fx-mistura__txt b { font: 400 1.2rem/1.05 var(--fx-display); letter-spacing: .03em; text-transform: uppercase; overflow-wrap: anywhere; }
+.faixa .fx-mistura__txt span { font-size: .75rem; color: rgba(244,239,228,.6); }
+.faixa .fx-mistura .fx-chips { flex: none; }
+.faixa .fx-lobby .fx-mistura__ir:disabled { opacity: .4; cursor: not-allowed; }

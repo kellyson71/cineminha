@@ -1743,7 +1743,10 @@
    "obra_alt": [
     "Fullmetal Alchemist"
    ],
-   "ab": true
+   "ab": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "seatbelts-tank",
@@ -3392,7 +3395,10 @@
     "deezer": "https://www.deezer.com/track/716219",
     "playlist": null,
     "stems": "https://www.enchor.us/?search=Roundabout"
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-05-02": [
@@ -8743,7 +8749,10 @@
     "deezer": "https://www.deezer.com/track/624823",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "john-williams-raiders-march",
@@ -16764,7 +16773,10 @@
     "deezer": "https://www.deezer.com/track/2173954687",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "the-witcher-toss-a-coin-to-your-witcher",
@@ -17491,7 +17503,10 @@
     "deezer": "https://www.deezer.com/track/965373932",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "coragem-o-cao-covarde-coragem-o-cao-covarde-abertura",
@@ -17853,7 +17868,10 @@
     "deezer": "https://www.deezer.com/track/2213095667",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "saja-boys-soda-pop",
@@ -20070,6 +20088,9 @@
    },
    "obra_alt": [
     "LoL"
+   ],
+   "de": [
+    "gabi"
    ]
   },
   {
@@ -26258,6 +26279,9 @@
    },
    "obra_alt": [
     "Adventure Time"
+   ],
+   "de": [
+    "gabi"
    ]
   },
   {
@@ -26381,6 +26405,9 @@
    },
    "obra_alt": [
     "Adventure Time"
+   ],
+   "de": [
+    "gabi"
    ]
   },
   {
@@ -26451,6 +26478,9 @@
    "obra_alt": [
     "Turning Red",
     "Red"
+   ],
+   "de": [
+    "gabi"
    ]
   }
  ],
@@ -30465,7 +30495,10 @@
     "Saint Seiya",
     "Cavaleiros do Zodíaco"
    ],
-   "ab": true
+   "ab": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "daniel-garcia-um-mundo-ideal",
@@ -31166,7 +31199,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "marilia-mendonca-leao",
@@ -34287,7 +34323,10 @@
    ],
    "pais": "IE",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "lmfao-sexy-and-i-know-it",
@@ -34641,7 +34680,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "the-kid-laroi-stay",
@@ -35529,7 +35571,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2026-08-16": [
@@ -35636,7 +35681,10 @@
    ],
    "pais": "DE",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "rihanna-you-da-one",
@@ -35681,7 +35729,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "jojo-too-little-too-late",
@@ -36033,7 +36084,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2026-08-18": [
@@ -36613,7 +36667,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "katy-perry-e-t",
@@ -36668,7 +36725,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "the-weeknd-heartless",
@@ -38253,7 +38313,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "one-direction-you-i",
@@ -38729,7 +38792,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "the-chainsmokers-paris",
@@ -39197,7 +39263,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "justin-bieber-one-time",
@@ -39556,7 +39625,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "matue-777-666",
@@ -40002,7 +40074,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "demi-lovato-give-your-heart-a-break",
@@ -40581,7 +40656,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "bruno-mars-when-i-was-your-man",
@@ -41939,7 +42017,10 @@
      "desenhos"
     ]
    },
-   "ab": true
+   "ab": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2026-09-10": [
@@ -43148,7 +43229,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "earth-wind-fire-the-emotions-boogie-wonderland-with-the-emot",
@@ -43707,7 +43791,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2026-09-17": [
@@ -43764,7 +43851,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "calvin-harris-dua-lipa-one-kiss-with-dua-lipa",
@@ -43975,7 +44065,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-09-18": [
@@ -44171,7 +44264,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "nicki-minaj-super-bass",
@@ -44977,7 +45073,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2026-09-22": [
@@ -45080,7 +45179,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "cobra-starship-sabi-you-make-me-feel-feat-sabi",
@@ -45412,7 +45514,10 @@
    ],
    "pais": "DE",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "fifth-harmony-ty-dolla-ign-work-from-home-feat-ty-dolla-ign",
@@ -45707,7 +45812,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2026-09-25": [
@@ -45859,7 +45967,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "murilo-huff-marilia-mendonca-dois-enganados",
@@ -47720,7 +47831,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "netinho-milla",
@@ -47822,7 +47936,10 @@
    ],
    "pais": "GB",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "cpm-22-um-minuto-para-o-fim-do-mundo",
@@ -47867,7 +47984,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "mc-joao-baile-de-favela",
@@ -48243,7 +48363,11 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi",
+    "otavio"
+   ]
   },
   {
    "id": "the-black-eyed-peas-i-gotta-feeling",
@@ -49483,7 +49607,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "aerosmith-dream-on",
@@ -49544,7 +49671,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-10-09": [
@@ -49669,7 +49799,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "system-of-a-down-aerials",
@@ -49732,7 +49865,10 @@
    ],
    "pais": "US",
    "tags_ok": true,
-   "ano": 2001
+   "ano": 2001,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "blondie-heart-of-glass",
@@ -49920,7 +50056,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "a-flock-of-seagulls-i-ran",
@@ -50092,7 +50231,10 @@
    ],
    "pais": "US",
    "tags_ok": true,
-   "ano": 2001
+   "ano": 2001,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "the-clash-should-i-stay-or-should-i-go",
@@ -50587,7 +50729,10 @@
    "generos": [],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "grouplove-tongue-tied",
@@ -50701,7 +50846,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-10-13": [
@@ -51883,7 +52031,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-10-17": [
@@ -51953,7 +52104,10 @@
    ],
    "pais": "CA",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "chico-buarque-joao-e-maria",
@@ -53019,7 +53173,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "michel-telo-ai-se-eu-te-pego",
@@ -53566,7 +53723,10 @@
    ],
    "pais": "CA",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "rouge-ragatanga",
@@ -53732,7 +53892,10 @@
      "hino"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "nirvana-come-as-you-are-live-from-mtv-unplugged",
@@ -53839,7 +54002,10 @@
      "energia"
     ],
     "fama": 3
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "ac-dc-thunderstruck-live",
@@ -54011,7 +54177,10 @@
    ],
    "pais": "AU",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "chitaozinho-xororo-evidencias",
@@ -54391,7 +54560,10 @@
      "nostalgia"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "a-ha-take-on-me",
@@ -54938,7 +55110,10 @@
      "energia"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "radiohead-creep",
@@ -55002,7 +55177,10 @@
      "emo"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "elton-john-i-m-still-standing",
@@ -55460,7 +55638,10 @@
      "hino"
     ],
     "fama": 4
-   }
+   },
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "kiss-i-was-made-for-lovin-you",
@@ -55529,7 +55710,10 @@
      "energia"
     ],
     "fama": 4
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-10-29": [
@@ -55586,7 +55770,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "spandau-ballet-gold",
@@ -57438,7 +57625,10 @@
    ],
    "pais": null,
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "portugal-the-man-feel-it-still",
@@ -58156,7 +58346,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "the-weeknd-stargirl-interlude",
@@ -58273,7 +58466,10 @@
    ],
    "pais": "GB",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-11-07": [
@@ -58338,7 +58534,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "michael-jackson-smooth-criminal",
@@ -61051,7 +61250,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "the-beatles-eleanor-rigby",
@@ -61105,7 +61307,10 @@
    ],
    "pais": "GB",
    "decada": 1960,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "abba-gimme-gimme-gimme-a-man-after-midnight",
@@ -61677,7 +61882,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "miguel-sure-thing",
@@ -62114,7 +62322,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2026-11-19": [
@@ -63842,7 +64053,10 @@
    ],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "seu-jorge-burguesinha",
@@ -64533,7 +64747,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "inner-circle-bad-boys",
@@ -64891,7 +65108,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "bruno-mars-runaway-baby",
@@ -65924,7 +66144,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-12-01": [
@@ -66502,7 +66725,10 @@
    ],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "kanye-west-i-wonder",
@@ -67248,7 +67474,10 @@
    ],
    "pais": "AU",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "legiao-urbana-tempo-perdido",
@@ -67433,7 +67662,10 @@
    ],
    "pais": null,
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "grupo-revelacao-deixa-alagar-ao-vivo",
@@ -67630,7 +67862,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "evanescence-afterlife-from-the-netflix-series-devil-may-cry",
@@ -67880,7 +68115,10 @@
    ],
    "pais": "GB",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "belchior-sujeito-de-sorte",
@@ -68265,7 +68503,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "pink-floyd-the-great-gig-in-the-sky",
@@ -68397,7 +68638,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "mgmt-little-dark-age",
@@ -70618,7 +70862,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "sade-smooth-operator",
@@ -71068,7 +71315,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "glass-animals-heat-waves",
@@ -71456,7 +71706,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "gorillaz-feel-good-inc",
@@ -71520,7 +71773,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "frank-sinatra-that-s-life",
@@ -71915,7 +72171,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "gala-freed-from-desire",
@@ -72693,7 +72952,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "smash-mouth-all-star",
@@ -72750,7 +73012,10 @@
     "generos": [
      "desenhos"
     ]
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "bee-gees-stayin-alive",
@@ -73158,7 +73423,10 @@
    ],
    "pais": "GB",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "jungle-back-on-74",
@@ -73544,7 +73812,10 @@
    ],
    "pais": "GB",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "mc-kevin-o-chris-evoluiu",
@@ -73748,7 +74019,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2026-12-26": [
@@ -75682,7 +75956,10 @@
    ],
    "pais": "PH",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2027-01-01": [
@@ -76450,7 +76727,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2027-01-04": [
@@ -76698,7 +76978,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2027-01-05": [
@@ -77075,7 +77358,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "skank-garota-nacional",
@@ -77235,7 +77521,10 @@
    ],
    "pais": "GB",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2027-01-07": [
@@ -77487,7 +77776,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2027-01-08": [
@@ -77652,7 +77944,10 @@
    ],
    "pais": "GB",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "madcon-ray-dalton-don-t-worry-with-ray-dalton-radio-edit",
@@ -78020,7 +78315,10 @@
    ],
    "pais": "GB",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2027-01-10": [
@@ -78314,7 +78612,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "beyonce-love-on-top",
@@ -78566,7 +78867,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "chitaozinho-xororo-ze-ramalho-sinonimos",
@@ -78968,7 +79272,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "rihanna-ne-yo-hate-that-i-love-you",
@@ -80824,7 +81131,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "taylor-swift-22",
@@ -81064,7 +81374,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "turma-do-pagode-grupo-menos-e-mais-bebe-e-vem-me-procurar-qu",
@@ -81322,7 +81635,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "rihanna-te-amo",
@@ -81377,7 +81693,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "1kilo-duro-igual-concreto",
@@ -81591,7 +81910,10 @@
     "generos": [
      "filmes"
     ]
-   }
+   },
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "luan-santana-te-esperando",
@@ -81828,7 +82150,10 @@
    ],
    "pais": "CA",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "david-guetta-bebe-rexha-i-m-good-blue",
@@ -81878,7 +82203,10 @@
    ],
    "pais": "FR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "calvin-harris-disciples-how-deep-is-your-love",
@@ -83154,7 +83482,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "cristiano-araujo-maus-bocados",
@@ -83296,7 +83627,10 @@
    ],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   }
  ],
  "2027-01-31": [
@@ -83577,7 +83911,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "leandro-leonardo-continental-pense-em-mim",
@@ -85407,7 +85744,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "the-weeknd-gesaffelstein-i-was-never-there",
@@ -85664,7 +86004,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "black-eyed-peas-don-t-lie",
@@ -86157,7 +86500,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "michael-jackson-human-nature",
@@ -86347,7 +86693,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "gian-giovani-o-grande-amor-da-minha-vida-convite-de-casament",
@@ -86798,7 +87147,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2027-02-14": [
@@ -87354,7 +87706,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
   },
   {
    "id": "labrinth-zendaya-all-for-us",
@@ -87405,7 +87760,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "shakira-she-wolf",
@@ -88118,7 +88476,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "the-weeknd-save-your-tears",
@@ -88168,7 +88529,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "milionario-jose-rico-continental-estrada-da-vida",
@@ -92176,7 +92540,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   }
  ],
  "2027-03-07": [
@@ -92585,7 +92952,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
   },
   {
    "id": "taylor-swift-the-fate-of-ophelia",
