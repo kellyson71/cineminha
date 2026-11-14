@@ -1,4 +1,368 @@
 {
+ "2026-04-10": [
+  {
+   "id": "the-cranberries-linger",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Linger",
+   "a": "The Cranberries",
+   "album": "Love Rocks! Pre-Cleared Compilation Digital (International Version)",
+   "ano": 1993,
+   "dz": {
+    "t": 910534,
+    "a": 196
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 879650,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "IE",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "muse-hysteria",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Hysteria",
+   "a": "Muse",
+   "album": "Absolution XX Anniversary",
+   "ano": 2002,
+   "dz": {
+    "t": 2538019231,
+    "a": 705
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 877037,
+   "generos": [
+    "Alternativo",
+    "Rock",
+    "Indie rock/Rock pop"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris",
+    "kellyson"
+   ]
+  }
+ ],
+ "2026-04-11": [
+  {
+   "id": "pink-floyd-another-brick-in-the-wall-pt-2",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Another Brick in the Wall, Pt. 2",
+   "a": "Pink Floyd",
+   "album": "The Wall",
+   "ano": 1979,
+   "dz": {
+    "t": 116914094,
+    "a": 860
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 887839,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "meris",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "linkin-park-given-up",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Given Up",
+   "a": "Linkin Park",
+   "album": "Minutes to Midnight",
+   "ano": 2007,
+   "dz": {
+    "t": 676836,
+    "a": 92
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 884407,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "the-rolling-stones-paint-it-black",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Paint It, Black",
+   "a": "The Rolling Stones",
+   "album": "Big Hits (High Tide and Green Grass)",
+   "ano": 1966,
+   "dz": {
+    "t": 7818900,
+    "a": 11
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 884065,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1960,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "meris"
+   ]
+  },
+  {
+   "id": "green-day-basket-case",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Basket Case",
+   "a": "Green Day",
+   "album": "Dookie",
+   "ano": 1994,
+   "dz": {
+    "t": 678044,
+    "a": 52
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 883330,
+   "generos": [
+    "Alternativo",
+    "Rock",
+    "Indie rock/Rock pop"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "meris"
+   ]
+  },
+  {
+   "id": "linkin-park-one-step-closer",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "One Step Closer",
+   "a": "Linkin Park",
+   "album": "Hybrid Theory (Bonus Edition)",
+   "ano": 2000,
+   "dz": {
+    "t": 676162,
+    "a": 92
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 882838,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
  "2026-04-12": [
   {
    "id": "cigarettes-after-sex-k",
@@ -91,6 +455,170 @@
    ],
    "pais": null,
    "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "linkin-park-crawling",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Crawling",
+   "a": "Linkin Park",
+   "album": "Hybrid Theory (Bonus Edition)",
+   "ano": 2000,
+   "dz": {
+    "t": 676171,
+    "a": 92
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 890623,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "kings-of-leon-sex-on-fire",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Sex on Fire",
+   "a": "Kings of Leon",
+   "album": "Only By The Night",
+   "ano": 2008,
+   "dz": {
+    "t": 15531170,
+    "a": 385
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 888375,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "evanescence-going-under",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Going Under",
+   "a": "Evanescence",
+   "album": "Fallen",
+   "ano": 2003,
+   "dz": {
+    "t": 80274510,
+    "a": 98
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 888227,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
    "tags_ok": true,
    "de": [
     "meris"
@@ -1828,7 +2356,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -4627,6 +5156,9 @@
    "obra_alt": [
     "Bob Esponja",
     "SpongeBob"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -5726,7 +6258,10 @@
     "deezer": "https://www.deezer.com/track/4381042931",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-zoo",
@@ -6029,7 +6564,10 @@
     "deezer": "https://www.deezer.com/track/2208355417",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rbd-rebelde",
@@ -9275,7 +9813,10 @@
     "deezer": "https://www.deezer.com/track/111780476",
     "playlist": null,
     "stems": "https://www.enchor.us/?search=Love%20Me%20Like%20You%20Do%20%28From%20%22Fifty%20Shades%20Of%20Grey%22%29"
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-05-14": [
@@ -9523,7 +10064,8 @@
    },
    "ab": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -14650,7 +15192,10 @@
     "deezer": "https://www.deezer.com/track/682049822",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "randy-newman-you-ve-got-a-friend-in-me",
@@ -15636,7 +16181,10 @@
     "deezer": "https://www.deezer.com/track/1737249947",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "among-us-among-us-tema",
@@ -17864,7 +18412,10 @@
     "deezer": "https://www.deezer.com/track/3402413",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "michael-hunter-soviet-connection-theme-from-gta-iv",
@@ -18551,7 +19102,10 @@
     "deezer": "https://www.deezer.com/track/3375977741",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lyn-inaizumi-life-will-change",
@@ -18612,7 +19166,10 @@
     "deezer": "https://www.deezer.com/track/1248334232",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "metal-gear-rising-rules-of-nature",
@@ -18731,7 +19288,10 @@
     "deezer": "https://www.deezer.com/track/688442482",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "laura-shigihara-zombies-on-your-lawn",
@@ -18920,7 +19480,10 @@
     "deezer": "https://www.deezer.com/track/2373296535",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cynthia-erivo-defying-gravity",
@@ -19254,7 +19817,10 @@
     "playlist": null,
     "stems": null
    },
-   "ab": true
+   "ab": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "saja-boys-your-idol",
@@ -19313,7 +19879,10 @@
     "deezer": "https://www.deezer.com/track/3412534611",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "minions-banana-song",
@@ -20011,7 +20580,10 @@
     "deezer": "https://www.deezer.com/track/1248334362",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-06-18": [
@@ -20187,7 +20759,10 @@
     "deezer": "https://www.deezer.com/track/3412534561",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "portal-still-alive",
@@ -20360,7 +20935,10 @@
     "deezer": "https://www.deezer.com/track/2705779592",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "casey-edwards-bury-the-light",
@@ -20421,7 +20999,10 @@
     "deezer": "https://www.deezer.com/track/2705769722",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "daniel-lanois-that-s-the-way-it-is",
@@ -21076,7 +21657,10 @@
    "obra": "Ratatouille",
    "fontes": {
     "youtube": "https://www.youtube.com/watch?v=p_hdmt4vpBo"
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "high-school-musical-start-of-something-new",
@@ -21471,7 +22055,10 @@
     "playlist": null,
     "stems": null
    },
-   "ab": true
+   "ab": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kenshi-yonezu-kick-back",
@@ -21534,7 +22121,10 @@
     "playlist": null,
     "stems": null
    },
-   "ab": true
+   "ab": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-06-23": [
@@ -21646,7 +22236,10 @@
     "deezer": "https://www.deezer.com/track/621152662",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "oshi-no-ko-idol",
@@ -23329,7 +23922,10 @@
     "deezer": "https://www.deezer.com/track/67770820",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jeremy-soule-dragonborn",
@@ -23386,7 +23982,10 @@
     "deezer": "https://www.deezer.com/track/3627500332",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-06-29": [
@@ -24582,7 +25181,10 @@
     "deezer": "https://www.deezer.com/track/602456552",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ray-parker-jr-ghostbusters-from-the-ghostbusters-original-mo",
@@ -25194,7 +25796,10 @@
     "deezer": "https://www.deezer.com/track/3541756661",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "john-williams-star-wars-main-title-from-star-wars",
@@ -27302,6 +27907,9 @@
    },
    "obra_alt": [
     "Phineas and Ferb"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -29430,6 +30038,9 @@
    },
    "obra_alt": [
     "Steven Universe"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -29555,6 +30166,9 @@
    },
    "obra_alt": [
     "Steven Universe"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -32539,6 +33153,9 @@
    ],
    "alt": [
     "You're Welcome"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -34563,7 +35180,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "matheus-fernandes-balanco-da-rede",
@@ -34664,7 +35284,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-caverinha-cartao-black",
@@ -35029,7 +35652,10 @@
     "generos": [
      "filmes"
     ]
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ana-castela-pipoco",
@@ -35170,7 +35796,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-molhando-o-volante",
@@ -35906,7 +36535,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ze-felipe-toma-toma-vapo-vapo",
@@ -36335,7 +36967,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "sixpence-none-the-richer-kiss-me",
@@ -36381,7 +37016,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "alphaville-forever-young",
@@ -36630,7 +37268,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-puth-we-don-t-talk-anymore",
@@ -36735,7 +37376,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "exaltasamba-gamei",
@@ -36790,7 +37434,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-12": [
@@ -36843,7 +37490,10 @@
    ],
    "pais": "JM",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "flo-rida-david-guetta-club-can-t-handle-me-feat-david-guetta",
@@ -36893,7 +37543,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-wanted-glad-you-came",
@@ -36940,7 +37593,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -37008,7 +37662,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mike-posner-gigamesh-cooler-than-me-single-mix",
@@ -37058,7 +37715,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-13": [
@@ -37110,7 +37770,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-i-m-a-slave-4-u",
@@ -37162,7 +37825,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "50-cent-justin-timberlake-timbaland-ayo-technology",
@@ -37207,7 +37873,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jay-sean-sean-paul-lil-jon-do-you-remember",
@@ -37252,7 +37921,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-often",
@@ -37297,7 +37969,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-14": [
@@ -37354,7 +38029,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "wiz-khalifa-charlie-puth-see-you-again-feat-charlie-puth",
@@ -37422,7 +38100,10 @@
     "generos": [
      "filmes"
     ]
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-marry-you",
@@ -37477,7 +38158,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "nagalli-kayblack-veigh-supernova-ent-confissoes-pt2",
@@ -37527,7 +38211,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-du-black-dj-2f-gaiola-e-o-troco",
@@ -37582,7 +38269,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-15": [
@@ -37629,7 +38319,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "miley-cyrus-party-in-the-u-s-a",
@@ -37679,7 +38372,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "o-rappa-me-deixa",
@@ -37734,7 +38430,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "grupo-menos-e-mais-di-proposito-vou-zuar-vai-me-dando-corda-",
@@ -37779,7 +38478,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "will-i-am-britney-spears-scream-shout",
@@ -37831,7 +38533,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -37889,7 +38592,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rammstein-sonne",
@@ -37942,7 +38648,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -37990,7 +38697,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -38041,7 +38749,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-daft-punk-starboy",
@@ -38091,7 +38802,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-17": [
@@ -38143,7 +38857,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "amy-winehouse-back-to-black",
@@ -38198,7 +38915,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-24k-magic",
@@ -38248,7 +38968,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "usher-pitbull-dj-got-us-fallin-in-love-feat-pitbull",
@@ -38298,7 +39021,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-womanizer",
@@ -38345,7 +39071,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -38403,7 +39130,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-chainsmokers-rozes-roses",
@@ -38460,7 +39190,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "g-eazy-halsey-him-i-with-halsey",
@@ -38510,7 +39243,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "one-direction-what-makes-you-beautiful",
@@ -38560,7 +39296,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ramones-blitzkrieg-bop-2016-remaster",
@@ -38612,7 +39351,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-19": [
@@ -38664,7 +39406,10 @@
    ],
    "pais": "SE",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jason-derulo-ridin-solo",
@@ -38709,7 +39454,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-bitch-better-have-my-money",
@@ -38764,7 +39512,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "raul-seixas-cowboy-fora-da-lei",
@@ -38814,7 +39565,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "twenty-one-pilots-stressed-out",
@@ -38869,7 +39623,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-20": [
@@ -38928,7 +39685,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -38986,7 +39744,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -39042,7 +39801,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-chainsmokers-coldplay-something-just-like-this",
@@ -39105,7 +39867,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "joao-gomes-tarcisio-do-acordeon-aquelas-coisas",
@@ -39156,7 +39921,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-21": [
@@ -39208,7 +39976,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kendrick-lamar-swimming-pools-drank",
@@ -39258,7 +40029,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "taylor-swift-shake-it-off",
@@ -39303,7 +40077,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-sem-sal-ao-vivo",
@@ -39358,7 +40135,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-sos",
@@ -39408,7 +40188,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-22": [
@@ -39455,7 +40238,10 @@
    ],
    "pais": "FR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "michael-jackson-smooth-criminal-2012-remaster",
@@ -39510,7 +40296,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "girl-in-red-we-fell-in-love-in-october",
@@ -39562,7 +40351,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-ela-vai-voltar-todos-os-defeitos-de-uma-mul",
@@ -39605,7 +40397,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "o-zone-dragostea-din-tei",
@@ -39655,7 +40450,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-23": [
@@ -39707,7 +40505,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-sweet-dreams",
@@ -39752,7 +40553,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "flo-rida-sia-wild-ones-feat-sia",
@@ -39807,7 +40611,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "el-alfa-el-cherry-scom-cj-la-mama-de-la-mama",
@@ -39848,7 +40655,10 @@
    ],
    "pais": "DO",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "major-lazer-justin-bieber-m-cold-water-feat-justin-bieber-m",
@@ -39903,7 +40713,10 @@
    ],
    "pais": "JM",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-24": [
@@ -39960,7 +40773,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-bem-pior-que-eu-ao-vivo",
@@ -40015,7 +40831,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "one-direction-kiss-you",
@@ -40062,7 +40881,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kesha-blow",
@@ -40112,7 +40934,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "martin-garrix-bebe-rexha-in-the-name-of-love",
@@ -40165,7 +40990,10 @@
    ],
    "pais": "NL",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-25": [
@@ -40219,7 +41047,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "selena-gomez-same-old-love",
@@ -40274,7 +41105,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "os-paralamas-do-sucesso-aonde-quer-que-eu-va",
@@ -40327,7 +41161,10 @@
    "generos": [],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "taylor-swift-you-belong-with-me",
@@ -40377,7 +41214,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-if-i-were-a-boy",
@@ -40427,7 +41267,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-26": [
@@ -40474,7 +41317,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "matue-maquina-do-tempo",
@@ -40527,7 +41373,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-rude-boy",
@@ -40574,7 +41423,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -40630,7 +41480,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-just-the-way-you-are",
@@ -40685,7 +41538,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-27": [
@@ -40737,7 +41593,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-seu-astral-ao-vivo",
@@ -40792,7 +41651,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "sia-sean-paul-cheap-thrills-feat-sean-paul",
@@ -40842,7 +41704,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-me-enamore",
@@ -40898,7 +41763,10 @@
    ],
    "pais": "CO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "travis-scott-playboi-carti-fe-n-feat-playboi-carti",
@@ -40943,7 +41811,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-28": [
@@ -41001,7 +41872,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "paramore-still-into-you",
@@ -41053,7 +41927,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -41107,7 +41982,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "katy-perry-teenage-dream",
@@ -41157,7 +42035,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tory-lanez-the-color-violet",
@@ -41203,7 +42084,10 @@
    ],
    "pais": "CA",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-29": [
@@ -41260,7 +42144,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kendrick-lamar-jay-rock-money-trees",
@@ -41310,7 +42197,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tribalistas-velha-infancia-2004-digital-remaster",
@@ -41365,7 +42255,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "nirvana-about-a-girl",
@@ -41412,7 +42305,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -41468,7 +42362,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-30": [
@@ -41527,7 +42424,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -41578,7 +42476,10 @@
    ],
    "pais": "CA",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "flo-rida-t-pain-low-feat-t-pain",
@@ -41628,7 +42529,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gotye-kimbra-somebody-that-i-used-to-know",
@@ -41683,7 +42587,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "galantis-no-money",
@@ -41738,7 +42645,10 @@
    ],
    "pais": "SE",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-08-31": [
@@ -41785,7 +42695,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "katy-perry-roar",
@@ -41830,7 +42743,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-7-11",
@@ -41889,7 +42805,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -41933,7 +42850,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kayblack-wall-hein-preferida",
@@ -41976,7 +42896,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-01": [
@@ -42033,7 +42956,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "luan-santana-eu-voce-o-mar-e-ela",
@@ -42088,7 +43014,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ariana-grande-dangerous-woman",
@@ -42138,7 +43067,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pabllo-vittar-mateus-carrilho-corpo-sensual-feat-mateus-carr",
@@ -42193,7 +43125,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-rihanna-can-t-remember-to-forget-you-feat-rihanna",
@@ -42244,7 +43179,10 @@
    ],
    "pais": "CO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-02": [
@@ -42291,7 +43229,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "red-hot-chili-peppers-can-t-stop",
@@ -42339,7 +43280,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -42390,7 +43332,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "katy-perry-the-one-that-got-away",
@@ -42445,7 +43390,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "leo-foguete-acertei-ultima-noite-solo",
@@ -42501,7 +43449,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-03": [
@@ -42554,7 +43505,10 @@
    ],
    "pais": "CO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "nattan-leo-foguete-ultima-noite",
@@ -42602,7 +43556,10 @@
    "generos": [],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "luan-santana-tanto-faz-ao-vivo",
@@ -42657,7 +43614,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "o-rappa-a-feira",
@@ -42707,7 +43667,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "travis-scott-sicko-mode",
@@ -42762,7 +43725,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-04": [
@@ -42814,7 +43780,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-love-on-the-brain",
@@ -42864,7 +43833,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "queen-killer-queen-remastered-2011",
@@ -42921,7 +43893,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -42957,7 +43930,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "selena-gomez-slow-down",
@@ -43007,7 +43983,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-05": [
@@ -43059,7 +44038,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-nocaute",
@@ -43109,7 +44091,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "o-rappa-anjos-pra-quem-tem-fe",
@@ -43159,7 +44144,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-dont-stop-the-party",
@@ -43209,7 +44197,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-me-encontra",
@@ -43252,7 +44243,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-06": [
@@ -43311,7 +44305,10 @@
    ],
    "pais": "FR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "green-day-when-i-come-around",
@@ -43358,7 +44355,10 @@
    ],
    "pais": null,
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-underneath-your-clothes",
@@ -43411,7 +44411,10 @@
    "generos": [],
    "pais": "CO",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fall-out-boy-uma-thurman",
@@ -43466,7 +44469,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "luan-santana-incondicional",
@@ -43516,7 +44522,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-07": [
@@ -43568,7 +44577,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "o-rappa-minha-alma-a-paz-que-eu-nao-quero",
@@ -43623,7 +44635,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ellie-goulding-love-me-like-you-do-from-fifty-shades-of-grey",
@@ -43674,7 +44689,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pitbull-ne-yo-time-of-our-lives",
@@ -43724,7 +44742,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "justin-bieber-bloodpop-friends-with-bloodpop",
@@ -43774,7 +44795,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-08": [
@@ -43826,7 +44850,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-my-humps",
@@ -43871,7 +44898,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-objection-tango",
@@ -43924,7 +44954,10 @@
    "generos": [],
    "pais": "CO",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maiara-maraisa-sorte-que-ce-beija-bem-ao-vivo",
@@ -43974,7 +45007,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "selena-gomez-a-ap-rocky-good-for-you",
@@ -44024,7 +45060,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-09": [
@@ -44076,7 +45115,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-after-hours",
@@ -44121,7 +45163,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-diamonds",
@@ -44166,7 +45211,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-disturbia",
@@ -44216,7 +45264,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "imagine-dragons-jid-arcane-league-of-legends-enemy-with-jid-",
@@ -44282,7 +45333,8 @@
    },
    "ab": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -44328,7 +45380,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "clean-bandit-demi-lovato-solo-feat-demi-lovato",
@@ -44379,7 +45434,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "zedd-foxes-clarity",
@@ -44434,7 +45492,10 @@
    ],
    "pais": "DE",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-stronger",
@@ -44479,7 +45540,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "panic-at-the-disco-high-hopes",
@@ -44529,7 +45593,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-11": [
@@ -44586,7 +45653,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lady-gaga-alejandro",
@@ -44631,7 +45701,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pixote-inseguranca-ao-vivo",
@@ -44686,7 +45759,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "doja-cat-streets",
@@ -44741,7 +45817,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "calvin-harris-john-newman-blame-feat-john-newman",
@@ -44796,7 +45875,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-12": [
@@ -44853,7 +45935,10 @@
    ],
    "pais": "SE",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pitbull-hotel-room-service",
@@ -44908,7 +45993,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ariana-grande-one-last-time",
@@ -44958,7 +46046,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "estelle-kanye-west-american-boy",
@@ -45008,7 +46099,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-run-the-world-girls",
@@ -45053,7 +46147,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-13": [
@@ -45100,7 +46197,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bon-jovi-livin-on-a-prayer",
@@ -45150,7 +46250,10 @@
    ],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "nicki-minaj-anaconda",
@@ -45200,7 +46303,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "justin-timberlake-timbaland-sexyback-feat-timbaland",
@@ -45250,7 +46356,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-grenade",
@@ -45300,7 +46409,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-14": [
@@ -45347,7 +46459,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "will-i-am-justin-bieber-thatpower",
@@ -45397,7 +46512,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "arctic-monkeys-505",
@@ -45447,7 +46565,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "green-day-american-idiot",
@@ -45495,7 +46616,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -45546,7 +46668,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-15": [
@@ -45600,7 +46725,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-jay-z-umbrella",
@@ -45655,7 +46783,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "demi-lovato-neon-lights",
@@ -45705,7 +46836,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "natiruts-quero-ser-feliz-tambem",
@@ -45761,7 +46895,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "selena-gomez-bad-liar",
@@ -45801,7 +46938,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-16": [
@@ -45853,7 +46993,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-como-tudo-deve-ser",
@@ -45901,7 +47044,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "timmy-trumpet-savage-freaks",
@@ -45951,7 +47097,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-l-da-vinte-mc-gury-dj-swat-parado-no-bailao",
@@ -46001,7 +47150,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-halo",
@@ -46057,7 +47209,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -46117,7 +47270,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -46174,7 +47328,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fergie-ludacris-glamorous",
@@ -46229,7 +47386,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ginuwine-pony",
@@ -46274,7 +47434,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "avenged-sevenfold-so-far-away",
@@ -46332,7 +47495,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -46381,7 +47545,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-ph-borges-wiu-pedro-lotto-wey-tenho-que-me-decidir",
@@ -46429,7 +47596,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "miley-cyrus-can-t-be-tamed",
@@ -46479,7 +47649,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kesha-take-it-off",
@@ -46531,7 +47704,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -46582,7 +47756,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-19": [
@@ -46629,7 +47806,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-seu-astral-live-in-sao-paulo-2010",
@@ -46684,7 +47864,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-flor-ao-vivo",
@@ -46739,7 +47922,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-jennie-lily-rose-depp-one-of-the-girls-with-jenni",
@@ -46790,7 +47976,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "henrique-diego-simone-simaria-raspao-feat-simone-simaria-ao-",
@@ -46840,7 +48029,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-20": [
@@ -46888,7 +48080,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "frank-sinatra-my-way",
@@ -46938,7 +48133,10 @@
    ],
    "pais": "US",
    "decada": 1960,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "felipe-amorim-mc-bruna-alves-novinha-do-tkt",
@@ -46988,7 +48186,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "sean-paul-get-busy",
@@ -47038,7 +48239,10 @@
    ],
    "pais": "JM",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ze-neto-cristiano-patio-do-posto-ao-vivo",
@@ -47088,7 +48292,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-21": [
@@ -47145,7 +48352,10 @@
    ],
    "pais": "IT",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-pretty-hurts",
@@ -47192,7 +48402,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tate-mcrae-greedy",
@@ -47243,7 +48456,10 @@
    ],
    "pais": "CA",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-boom-boom-pow",
@@ -47288,7 +48504,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bring-me-the-horizon-can-you-feel-my-heart",
@@ -47340,7 +48559,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -47398,7 +48618,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "5-seconds-of-summer-teeth",
@@ -47446,7 +48669,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -47502,7 +48726,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-where-is-the-love",
@@ -47557,7 +48784,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-work-bitch",
@@ -47602,7 +48832,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-23": [
@@ -47649,7 +48882,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "green-day-jesus-of-suburbia",
@@ -47694,7 +48930,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-talking-to-the-moon",
@@ -47734,7 +48973,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "scorpions-rock-you-like-a-hurricane-2011",
@@ -47781,7 +49023,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -47827,7 +49070,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-24": [
@@ -47879,7 +49125,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gwen-stefani-akon-the-sweet-escape",
@@ -47929,7 +49178,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maroon-5-christina-aguilera-moves-like-jagger-studio-recordi",
@@ -47984,7 +49236,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "videoclub-adele-castillon-mattyeux-amour-plastique",
@@ -48027,7 +49282,10 @@
    "generos": [],
    "pais": "FR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "demi-lovato-heart-attack",
@@ -48079,7 +49337,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -48132,7 +49391,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "one-direction-one-thing",
@@ -48182,7 +49444,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lady-gaga-lovegame",
@@ -48234,7 +49499,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -48280,7 +49546,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tim-maia-primavera-vai-chuva",
@@ -48330,7 +49599,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-26": [
@@ -48385,7 +49657,10 @@
    "generos": [],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-kevin-o-chris-sodre-evoluiu",
@@ -48440,7 +49715,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "grover-washington-jr-bill-withers-just-the-two-of-us",
@@ -48490,7 +49768,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kayblack-cvstro-wall-hein-amusik-licor-43",
@@ -48540,7 +49821,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-marrone-dormi-na-praca-ao-vivo",
@@ -48585,7 +49869,10 @@
    ],
    "pais": "IT",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-27": [
@@ -48692,7 +49979,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lmfao-party-rock-anthem",
@@ -48844,7 +50134,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-28": [
@@ -49085,7 +50378,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-chainsmokers-halsey-closer",
@@ -49141,7 +50437,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-09-29": [
@@ -49243,7 +50542,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "grupo-revelacao-ta-escrito",
@@ -49560,7 +50862,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lucenzo-danza-kuduro",
@@ -49605,7 +50910,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "exaltasamba-me-apaixonei-pela-pessoa-errada",
@@ -49750,7 +51058,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "racionais-mc-s-vida-loka-pt-2",
@@ -50013,7 +51324,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-proibida-pra-mim",
@@ -50255,7 +51569,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -50356,7 +51671,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pitty-mascara",
@@ -50473,7 +51791,10 @@
    ],
    "pais": "IT",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "alcione-voce-me-vira-a-cabeca-me-tira-do-serio",
@@ -50537,7 +51858,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-killers-mr-brightside",
@@ -50684,7 +52008,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-05": [
@@ -50750,7 +52077,10 @@
    ],
    "pais": "PR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "nenhum-de-nos-o-astronauta-de-marmore-starman",
@@ -50816,7 +52146,10 @@
    "generos": [],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "timbaland-give-it-to-me",
@@ -50885,7 +52218,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "djavan-flor-de-lis",
@@ -50938,7 +52274,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tom-odell-another-love",
@@ -50995,7 +52334,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-06": [
@@ -51062,7 +52404,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -51126,7 +52469,10 @@
    ],
    "pais": "GB",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-notorious-b-i-g-big-poppa-2007-remaster",
@@ -51183,7 +52529,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mother-mother-verbatim",
@@ -51243,7 +52592,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -51306,7 +52656,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-07": [
@@ -51376,7 +52729,10 @@
    ],
    "pais": "AU",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tv-girl-lovers-rock",
@@ -51441,7 +52797,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -51509,7 +52866,10 @@
    ],
    "pais": "AU",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "henrique-diego-raspao-feat-simone-simaria-ao-vivo",
@@ -51571,7 +52931,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-levin-ela-me-falou-que-quer-rave",
@@ -51638,7 +53001,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-08": [
@@ -51704,7 +53070,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -51769,7 +53136,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -51832,7 +53200,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "coldplay-viva-la-vida",
@@ -51896,7 +53267,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -51961,7 +53333,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -52028,7 +53401,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -52092,7 +53466,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -52159,7 +53534,8 @@
    "ano": 2001,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -52222,7 +53598,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cutting-crew-i-just-died-in-your-arms",
@@ -52284,7 +53663,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-10": [
@@ -52351,7 +53733,8 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -52409,7 +53792,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pierce-the-veil-hell-above",
@@ -52466,7 +53852,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "system-of-a-down-toxicity",
@@ -52527,7 +53916,8 @@
    "ano": 2001,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -52588,7 +53978,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-11": [
@@ -52650,7 +54043,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -52703,7 +54097,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "franz-ferdinand-take-me-out",
@@ -52757,7 +54154,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -52810,7 +54208,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "iron-maiden-the-trooper-2015-remaster",
@@ -52865,7 +54266,10 @@
    ],
    "pais": "GB",
    "tags_ok": true,
-   "ano": 2015
+   "ano": 2015,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-12": [
@@ -52926,7 +54330,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -52986,7 +54391,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -53037,7 +54443,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -53095,7 +54502,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gorillaz-clint-eastwood",
@@ -53155,7 +54565,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -53210,7 +54621,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "blondie-call-me",
@@ -53267,7 +54681,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fitz-and-the-tantrums-out-of-my-league",
@@ -53319,7 +54736,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "surf-curse-freaks",
@@ -53371,7 +54791,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "king-gnu-specialz",
@@ -53428,7 +54851,10 @@
    "tags_ok": true,
    "categoria": "desenhos",
    "obra": "Jujutsu Kaisen",
-   "ab": true
+   "ab": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-14": [
@@ -53483,7 +54909,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fall-out-boy-i-don-t-care",
@@ -53539,7 +54968,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "hotel-ugly-shut-up-my-moms-calling",
@@ -53591,7 +55023,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tom-petty-runnin-down-a-dream",
@@ -53647,7 +55082,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-white-stripes-fell-in-love-with-a-girl",
@@ -53694,7 +55132,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-15": [
@@ -53743,7 +55184,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-i-was-never-there",
@@ -53812,7 +55256,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ray-charles-hit-the-road-jack",
@@ -53881,7 +55328,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "flo-rida-right-round",
@@ -53939,7 +55389,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tame-impala-the-less-i-know-the-better",
@@ -54008,7 +55461,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-16": [
@@ -54078,7 +55534,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "corinne-bailey-rae-put-your-records-on",
@@ -54141,7 +55600,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tenacious-d-baby-one-more-time-from-kung-fu-panda-4",
@@ -54205,7 +55667,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "teddy-swims-lose-control",
@@ -54274,7 +55739,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "system-of-a-down-lonely-day",
@@ -54341,7 +55809,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -54414,7 +55883,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -54483,7 +55953,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tom-odell-black-friday",
@@ -54541,7 +56014,10 @@
    ],
    "pais": "GB",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maroon-5-moves-like-jagger-studio-recording-from-the-voice-p",
@@ -54609,7 +56085,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jain-makeba",
@@ -54675,7 +56154,10 @@
    ],
    "pais": "FR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-18": [
@@ -54736,7 +56218,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jamiroquai-canned-heat",
@@ -54799,7 +56284,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ace-of-base-all-that-she-wants",
@@ -54862,7 +56350,10 @@
    ],
    "pais": "SE",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pharrell-williams-happy-from-despicable-me-2",
@@ -54935,6 +56426,9 @@
    ],
    "obra_alt": [
     "Despicable Me"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -55005,7 +56499,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-19": [
@@ -55071,7 +56568,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "victor-leo-borboletas",
@@ -55134,7 +56634,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "doja-cat-paint-the-town-red",
@@ -55198,7 +56701,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-smiths-there-is-a-light-that-never-goes-out-2011-remaste",
@@ -55264,7 +56770,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -55337,6 +56844,9 @@
    ],
    "obra_alt": [
     "Avengers"
+   ],
+   "de": [
+    "kellyson"
    ]
   }
  ],
@@ -55611,7 +57121,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-21": [
@@ -55658,7 +57171,10 @@
    ],
    "pais": "IT",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-so-os-loucos-sabem",
@@ -55691,7 +57207,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kali-uchis-moonlight",
@@ -55754,7 +57273,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "backstreet-boys-i-want-it-that-way",
@@ -55809,7 +57331,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "banda-eva-eva",
@@ -55916,7 +57441,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "psy-gangnam-style",
@@ -56036,7 +57564,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -56206,7 +57735,8 @@
    },
    "de": [
     "gabi",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -56254,7 +57784,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -56319,7 +57850,8 @@
     "fama": 3
    },
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -56372,7 +57904,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -56443,7 +57976,8 @@
     "fama": 3
    },
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -56501,7 +58035,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -56565,7 +58100,10 @@
      "nostalgia"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tim-maia-o-descobridor-dos-sete-mares",
@@ -56629,7 +58167,10 @@
      "energia"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "skank-ainda-gosto-dela",
@@ -56692,7 +58233,10 @@
      "nostalgia"
     ],
     "fama": 4
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-ceu-azul",
@@ -56750,7 +58294,10 @@
      "chill"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-25": [
@@ -56816,7 +58363,10 @@
      "energia"
     ],
     "fama": 4
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "harry-styles-as-it-was",
@@ -56884,7 +58434,8 @@
     "fama": 5
    },
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -56949,7 +58500,10 @@
      "hino"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rose-bruno-mars-apt",
@@ -56999,7 +58553,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-blinding-lights",
@@ -57063,7 +58620,10 @@
      "energia"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-26": [
@@ -57131,7 +58691,8 @@
     "fama": 5
    },
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -57189,7 +58750,10 @@
      "hino"
     ],
     "fama": 2
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tribalistas-velha-infancia",
@@ -57258,7 +58822,10 @@
      "hino"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "philip-bailey-easy-lover",
@@ -57317,7 +58884,10 @@
      "energia"
     ],
     "fama": 3
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kiss-rock-and-roll-all-nite",
@@ -57375,7 +58945,10 @@
      "energia"
     ],
     "fama": 4
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-27": [
@@ -57437,7 +59010,8 @@
     "fama": 5
    },
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -57505,7 +59079,8 @@
    },
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -57570,7 +59145,10 @@
      "hino"
     ],
     "fama": 4
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "hungria-zorro-do-asfalto",
@@ -57632,7 +59210,10 @@
      "energia"
     ],
     "fama": 3
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ajr-world-s-smallest-violin",
@@ -57700,7 +59281,10 @@
      "festa"
     ],
     "fama": 3
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-28": [
@@ -57769,7 +59353,8 @@
     "fama": 3
    },
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -57836,7 +59421,10 @@
      "hino"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "michael-buble-feeling-good",
@@ -57904,7 +59492,10 @@
      "hino"
     ],
     "fama": 4
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "dnce-cake-by-the-ocean",
@@ -57969,7 +59560,8 @@
     "fama": 4
    },
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -58042,7 +59634,8 @@
    },
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -58102,7 +59695,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -58158,7 +59752,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chico-buarque-construcao",
@@ -58208,7 +59805,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maroon-5-misery",
@@ -58258,7 +59858,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "billie-eilish-birds-of-a-feather",
@@ -58308,7 +59911,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-30": [
@@ -58380,7 +59986,8 @@
    "ano_ok": true,
    "fonte": "ia",
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -58431,7 +60038,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "natiruts-tudo-vai-dar-certo",
@@ -58488,7 +60098,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "katy-perry-hot-n-cold",
@@ -58538,7 +60151,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chitaozinho-xororo-pagina-de-amigos",
@@ -58593,7 +60209,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-10-31": [
@@ -58659,7 +60278,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beabadoobee-the-perfect-pair",
@@ -58722,7 +60344,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "michael-jackson-beat-it",
@@ -58783,7 +60408,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "outkast-hey-ya",
@@ -58852,7 +60480,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chico-buarque-calice",
@@ -58905,7 +60536,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-01": [
@@ -58969,7 +60603,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "thousand-foot-krutch-courtesy-call",
@@ -59033,7 +60670,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cartola-preciso-me-encontrar",
@@ -59097,7 +60737,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "blur-song-2",
@@ -59159,7 +60802,10 @@
    ],
    "pais": "GB",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "eminem-venom-music-from-the-motion-picture",
@@ -59221,7 +60867,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-02": [
@@ -59287,7 +60936,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "alcione-nao-deixe-o-samba-morrer",
@@ -59349,7 +61001,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marina-sena-por-supuesto",
@@ -59413,7 +61068,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "hozier-too-sweet",
@@ -59481,7 +61139,10 @@
    ],
    "pais": "IE",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-breakin-dishes",
@@ -59539,7 +61200,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-03": [
@@ -59606,7 +61270,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -59666,7 +61331,10 @@
    ],
    "pais": "BR",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cazuza-exagerado",
@@ -59730,7 +61398,10 @@
    ],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "raul-seixas-metamorfose-ambulante",
@@ -59793,7 +61464,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "flo-rida-low-feat-t-pain",
@@ -59838,7 +61512,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-04": [
@@ -59898,7 +61575,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "david-bowie-starman",
@@ -59964,7 +61644,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -60029,7 +61710,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bonnie-tyler-holding-out-for-a-hero-single-version",
@@ -60097,7 +61781,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "alok-deep-down-feat-never-dull",
@@ -60166,7 +61853,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-05": [
@@ -60231,7 +61921,10 @@
    ],
    "pais": null,
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cassia-eller-malandragem",
@@ -60300,7 +61993,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "destiny-s-child-survivor",
@@ -60364,7 +62060,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "oliver-tree-life-goes-on",
@@ -60427,7 +62126,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-meet-me-halfway",
@@ -60490,7 +62192,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-06": [
@@ -60552,7 +62257,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -60622,7 +62328,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lady-gaga-judas",
@@ -60688,7 +62397,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -60758,7 +62468,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "radiohead-exit-music-for-a-film",
@@ -60809,7 +62522,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -60877,7 +62591,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -60949,7 +62664,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mac-demarco-heart-to-heart",
@@ -61008,7 +62726,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "joji-die-for-you",
@@ -61066,7 +62787,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maneva-deixe-me-ir-tem-cafe",
@@ -61129,7 +62853,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-08": [
@@ -61190,7 +62917,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rose-apt",
@@ -61249,7 +62979,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ricky-martin-she-bangs",
@@ -61318,7 +63051,10 @@
    ],
    "pais": "PR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lady-gaga-bad-romance",
@@ -61382,7 +63118,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-marrone-esqueci",
@@ -61444,7 +63183,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-09": [
@@ -61505,7 +63247,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "calcinha-preta-dois-amores-duas-paixoes",
@@ -61569,7 +63314,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "adele-skyfall",
@@ -61646,6 +63394,9 @@
    "obra": "007",
    "obra_alt": [
     "James Bond"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -61710,7 +63461,10 @@
    ],
    "pais": "PR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-count-on-me",
@@ -61768,7 +63522,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-10": [
@@ -61839,7 +63596,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "george-michael-careless-whisper",
@@ -61908,7 +63668,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gorillaz-dare",
@@ -61977,7 +63740,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-cardigans-lovefool",
@@ -62040,7 +63806,10 @@
    ],
    "pais": "SE",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lady-gaga-americano",
@@ -62103,7 +63872,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-11": [
@@ -62174,7 +63946,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "imagine-dragons-bones",
@@ -62237,7 +64012,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "adoniran-barbosa-trem-das-onze",
@@ -62305,7 +64083,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "steve-lacy-infrunami",
@@ -62369,7 +64150,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "os-baroes-da-pisadinha-ja-que-me-ensinou-a-beber",
@@ -62438,7 +64222,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-12": [
@@ -62509,7 +64296,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "arlindo-cruz-meu-lugar",
@@ -62572,7 +64362,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bee-gees-night-fever-from-saturday-night-fever-soundtrack",
@@ -62641,7 +64434,10 @@
    ],
    "pais": "GB",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "macklemore-can-t-hold-us-feat-ray-dalton",
@@ -62705,7 +64501,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "outkast-ms-jackson",
@@ -62763,7 +64562,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-13": [
@@ -62831,7 +64633,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -62895,7 +64698,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "luiz-lins-saudade",
@@ -62954,7 +64760,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "anavitoria-lisboa",
@@ -63017,7 +64826,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "grupo-revelacao-deixa-acontecer",
@@ -63085,7 +64897,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-14": [
@@ -63151,7 +64966,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "os-paralamas-do-sucesso-ska",
@@ -63213,7 +65031,10 @@
    "generos": [],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "reginaldo-rossi-garcon",
@@ -63275,7 +65096,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marisa-monte-depois",
@@ -63342,7 +65166,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tom-petty-love-is-a-long-road",
@@ -63407,6 +65234,9 @@
    "obra_alt": [
     "Grand Theft Auto",
     "GTA 6"
+   ],
+   "de": [
+    "kellyson"
    ]
   }
  ],
@@ -63472,7 +65302,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "stromae-ma-meilleure-ennemie-from-the-series-arcane-league-o",
@@ -63531,7 +65364,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mother-mother-hayloft-ii",
@@ -63596,7 +65432,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -63654,7 +65491,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -63714,7 +65552,10 @@
    ],
    "pais": "SE",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-16": [
@@ -63781,7 +65622,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-shut-up-and-drive",
@@ -63845,7 +65689,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "yoasobi",
@@ -63914,7 +65761,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "yoasobi",
@@ -63978,7 +65828,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tame-impala-one-more-hour",
@@ -64046,7 +65899,10 @@
    ],
    "pais": "AU",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-17": [
@@ -64111,7 +65967,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-rock-that-body",
@@ -64169,7 +66028,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-offspring-you-re-gonna-go-far-kid",
@@ -64230,7 +66092,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -64295,7 +66158,10 @@
    ],
    "pais": "ES",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gwen-stefani-the-sweet-escape",
@@ -64357,7 +66223,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-18": [
@@ -64423,7 +66292,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-treasure",
@@ -64487,7 +66359,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cartola-o-mundo-e-um-moinho",
@@ -64536,7 +66411,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "zeze-di-camargo-luciano-sonho-de-amor-ao-vivo",
@@ -64604,7 +66482,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "imagine-dragons-enemy-with-jid-from-the-series-arcane-league",
@@ -64670,7 +66551,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -64737,7 +66619,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cigarettes-after-sex-apocalypse",
@@ -64802,7 +66687,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -64867,7 +66753,10 @@
    ],
    "pais": null,
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "skank-dois-rios",
@@ -64931,7 +66820,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "coldplay-hymn-for-the-weekend",
@@ -64990,7 +66882,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-20": [
@@ -65057,7 +66952,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -65127,6 +67023,9 @@
    "obra": "Deadpool & Wolverine",
    "obra_alt": [
     "Deadpool"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -65191,7 +67090,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tim-maia-azul-da-cor-do-mar",
@@ -65260,7 +67162,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "baco-exu-do-blues-te-amo-disgraca",
@@ -65323,7 +67228,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-21": [
@@ -65389,7 +67297,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "john-newman-love-me-again",
@@ -65458,7 +67369,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "supercombo-piloto-automatico",
@@ -65522,7 +67436,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "oriente-linda-louca-e-mimada-acustico",
@@ -65575,7 +67492,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jvke-golden-hour",
@@ -65642,7 +67562,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-22": [
@@ -65702,7 +67625,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "berlin-take-my-breath-away-love-theme-from-top-gun",
@@ -65766,7 +67692,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gotye-somebody-that-i-used-to-know",
@@ -65834,7 +67763,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pharrell-williams-double-life-from-despicable-me-4",
@@ -65899,7 +67831,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "arctic-monkeys-teddy-picker",
@@ -65956,7 +67891,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-23": [
@@ -66021,7 +67959,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "earth-boogie-wonderland-with-the-emotions",
@@ -66085,7 +68026,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rockwell-somebody-s-watching-me-single-version",
@@ -66149,7 +68093,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "joji-slow-dancing-in-the-dark",
@@ -66217,7 +68164,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maneskin-beggin",
@@ -66280,7 +68230,10 @@
    ],
    "pais": "IT",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-24": [
@@ -66346,7 +68299,10 @@
    ],
    "pais": "GB",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "guns-n-roses-welcome-to-the-jungle",
@@ -66408,7 +68364,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -66478,7 +68435,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "duncan-laurence-arcade",
@@ -66546,7 +68506,10 @@
    ],
    "pais": "NL",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ariana-grande-god-is-a-woman",
@@ -66608,7 +68571,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-25": [
@@ -66675,7 +68641,10 @@
    ],
    "pais": "JP",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "oliver-tree-miss-you",
@@ -66735,7 +68704,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "eyedress-something-about-you",
@@ -66799,7 +68771,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "david-kushner-daylight",
@@ -66853,7 +68828,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "demi-lovato-confident",
@@ -66915,7 +68893,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-26": [
@@ -66980,7 +68961,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chico-buarque-apesar-de-voce",
@@ -67042,7 +69026,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-drums-money",
@@ -67103,7 +69090,8 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -67162,7 +69150,10 @@
    ],
    "pais": "JM",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lana-del-rey-shades-of-cool",
@@ -67220,7 +69211,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-27": [
@@ -67286,7 +69280,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "joao-gomes-aquelas-coisas",
@@ -67349,7 +69346,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "seu-jorge-carolina-ao-vivo",
@@ -67397,7 +69397,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rex-orange-county-best-friend",
@@ -67464,7 +69467,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -67528,7 +69532,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-28": [
@@ -67595,7 +69602,10 @@
    ],
    "pais": "AU",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maroon-5-moves-like-jagger",
@@ -67663,7 +69673,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "christina-aguilera-genie-in-a-bottle",
@@ -67731,7 +69744,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mariah-carey-all-i-want-for-christmas-is-you",
@@ -67795,7 +69811,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ashanti-only-u-no-intro",
@@ -67858,7 +69877,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-29": [
@@ -67925,7 +69947,10 @@
    "generos": [],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "djavan-um-amor-puro-ao-vivo",
@@ -67988,7 +70013,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marisa-monte-ainda-bem",
@@ -68056,7 +70084,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mac-demarco-for-the-first-time",
@@ -68120,7 +70151,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rod-stewart-da-ya-think-i-m-sexy",
@@ -68184,7 +70218,10 @@
    ],
    "pais": "GB",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-11-30": [
@@ -68250,7 +70287,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "justin-timberlake-rock-your-body",
@@ -68313,7 +70353,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "joe-hisaishi-merry-go-round-of-life-from-howl-s-moving-castl",
@@ -68378,6 +70421,9 @@
    ],
    "obra_alt": [
     "Howl's Moving Castle"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -68436,7 +70482,10 @@
    ],
    "pais": "IT",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "foo-fighters-the-pretender",
@@ -68501,7 +70550,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -68567,7 +70617,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "redbone-come-and-get-your-love-single-version",
@@ -68630,7 +70683,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cigarettes-after-sex-crush",
@@ -68695,7 +70751,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -68760,7 +70817,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fleetwood-mac-the-chain-2004-remaster",
@@ -68825,7 +70885,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -68887,7 +70948,10 @@
    ],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tears-for-fears-everybody-wants-to-rule-the-world-sped-up-ve",
@@ -68956,7 +71020,10 @@
    ],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tiesto-pump-it-louder",
@@ -69018,7 +71085,10 @@
    ],
    "pais": "NL",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "david-bowie-life-on-mars-2015-remaster",
@@ -69088,7 +71158,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -69147,7 +71218,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-03": [
@@ -69202,7 +71276,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gabriel-o-pensador-retrato-de-um-playboy-parte-ii-ao-vivo",
@@ -69262,7 +71339,10 @@
    "generos": [],
    "pais": null,
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tv-girl-taking-what-s-not-yours",
@@ -69330,7 +71410,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ace-of-base-happy-nation",
@@ -69392,7 +71475,10 @@
    ],
    "pais": "SE",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gilberto-gil-esperando-na-janela",
@@ -69456,7 +71542,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-04": [
@@ -69521,7 +71610,10 @@
    ],
    "pais": "BR",
    "decada": 1960,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mf-doom-coffin-nails",
@@ -69573,7 +71665,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "caetano-veloso-voce-nao-me-ensinou-a-te-esquecer",
@@ -69637,7 +71732,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-l-da-vinte-parado-no-bailao",
@@ -69700,7 +71798,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "arctic-monkeys-snap-out-of-it",
@@ -69768,7 +71869,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-05": [
@@ -69838,7 +71942,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -69897,7 +72002,10 @@
    ],
    "pais": "BR",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rosa-walton-i-really-want-to-stay-at-your-house",
@@ -69957,7 +72065,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pink-floyd-money",
@@ -70026,7 +72137,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -70094,7 +72206,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-06": [
@@ -70160,7 +72275,10 @@
    ],
    "pais": null,
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "labrinth-all-for-us",
@@ -70226,7 +72344,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -70290,7 +72409,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ze-felipe-malvada",
@@ -70353,7 +72475,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ricky-martin-she-bangs-english-version",
@@ -70421,7 +72546,10 @@
    ],
    "pais": "PR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-07": [
@@ -70480,7 +72608,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -70549,7 +72678,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maneskin-i-wanna-be-your-slave",
@@ -70607,7 +72739,10 @@
    ],
    "pais": "IT",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "billie-eilish-idontwannabeyouanymore",
@@ -70675,7 +72810,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "demi-lovato-i-will-survive",
@@ -70738,7 +72876,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-08": [
@@ -70803,7 +72944,10 @@
    ],
    "pais": "BR",
    "decada": 1960,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "elley-duhe-middle-of-the-night",
@@ -70868,7 +73012,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -70939,7 +73084,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -71006,7 +73152,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -71066,7 +73213,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-09": [
@@ -71132,7 +73282,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jao-me-lambe",
@@ -71195,7 +73348,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "artemas-i-like-the-way-you-kiss-me",
@@ -71259,7 +73415,10 @@
    ],
    "pais": "GB",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "aaron-smith-dancin-feat-luvli-sped-up-version",
@@ -71328,7 +73487,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "los-hermanos-anna-julia",
@@ -71387,7 +73549,10 @@
    ],
    "pais": null,
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-10": [
@@ -71457,7 +73622,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kate-bush-wuthering-heights",
@@ -71526,7 +73694,10 @@
    ],
    "pais": null,
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kenya-grace-strangers",
@@ -71584,7 +73755,10 @@
    ],
    "pais": "GB",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "glee-cast-survivor-i-will-survive-cover-of-destiny-s-child-a",
@@ -71646,7 +73820,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lana-del-rey-diet-mountain-dew",
@@ -71714,7 +73891,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-11": [
@@ -71785,7 +73965,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "suki-waterhouse-good-looking",
@@ -71848,7 +74031,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-mamas-the-papas-california-dreamin-single-version",
@@ -71908,7 +74094,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -71978,7 +74165,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "7-minutoz-rap-da-akatsuki-os-ninjas-mais-procurados-do-mundo",
@@ -72042,7 +74232,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-12": [
@@ -72107,7 +74300,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "carla-morrison-disfruto",
@@ -72167,7 +74363,10 @@
    ],
    "pais": "MX",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "videoclub-amour-plastique",
@@ -72224,7 +74423,10 @@
    "generos": [],
    "pais": "FR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-clash-should-i-stay-or-should-i-go-remastered",
@@ -72291,7 +74493,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gayle-abcdefu",
@@ -72353,7 +74558,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-13": [
@@ -72418,7 +74626,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "imagine-dragons-bones-live-in-vegas",
@@ -72481,7 +74692,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tie-a-noite",
@@ -72544,7 +74758,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "linkin-park-a-place-for-my-head",
@@ -72603,7 +74820,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "la-bouche-be-my-lover",
@@ -72662,7 +74882,10 @@
    ],
    "pais": "DE",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-14": [
@@ -72728,7 +74951,10 @@
    ],
    "pais": "BR",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-that-s-what-i-like",
@@ -72791,7 +75017,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "glass-animals-the-other-side-of-paradise",
@@ -72854,7 +75083,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kali-uchis-after-the-storm-feat-tyler-the-creator-bootsy-col",
@@ -72917,7 +75149,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tim-maia-voce",
@@ -72981,7 +75216,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-15": [
@@ -73046,7 +75284,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rag-n-bone-man-human",
@@ -73111,7 +75352,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "elis-regina-tiro-ao-alvaro",
@@ -73162,7 +75406,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "panic-at-the-disco-house-of-memories",
@@ -73233,7 +75480,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -73302,7 +75550,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-16": [
@@ -73367,7 +75618,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "indila-tourner-dans-le-vide",
@@ -73431,7 +75685,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "luiz-gonzaga-numa-sala-de-reboco",
@@ -73493,7 +75750,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "matue-e-sal",
@@ -73554,7 +75814,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ludmilla-hoje",
@@ -73618,7 +75881,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-17": [
@@ -73686,7 +75952,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -73751,7 +76018,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "alt-j-fitzpleasure",
@@ -73819,7 +76089,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "dominic-fike-babydoll",
@@ -73877,7 +76150,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gloria-groove-a-queda",
@@ -73941,7 +76217,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-18": [
@@ -74012,7 +76291,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beach-weather-sex-drugs-etc",
@@ -74077,7 +76359,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -74145,7 +76428,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -74214,7 +76498,10 @@
    ],
    "pais": "US",
    "decada": 1960,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "grupo-revelacao-so-depois",
@@ -74277,7 +76564,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-19": [
@@ -74347,7 +76637,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pericles-ate-que-durou",
@@ -74415,7 +76708,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ice-cube-it-was-a-good-day",
@@ -74477,7 +76773,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "imagine-dragons-enemy-from-the-series-arcane-league-of-legen",
@@ -74543,7 +76842,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -74612,7 +76912,10 @@
    ],
    "pais": "IT",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-20": [
@@ -74672,7 +76975,10 @@
    ],
    "pais": "GB",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-marrone-vida-vazia",
@@ -74735,7 +77041,10 @@
    ],
    "pais": "IT",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "indila-ainsi-bas-la-vida",
@@ -74798,7 +77107,10 @@
    ],
    "pais": "FR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "coldplay-adventure-of-a-lifetime",
@@ -74866,7 +77178,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jota-quest-o-sol",
@@ -74934,7 +77249,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-21": [
@@ -74974,7 +77292,10 @@
    "generos": [],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "roupa-nova-whisky-a-go-go",
@@ -75119,7 +77440,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-pointer-sisters-i-m-so-excited",
@@ -75277,7 +77601,10 @@
    ],
    "pais": "CO",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "nirvana-smells-like-teen-spirit",
@@ -75324,7 +77651,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -75521,7 +77849,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-fioti-bum-bum-tam-tam",
@@ -75566,7 +77897,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "don-omar-danza-kuduro",
@@ -75611,7 +77945,10 @@
    ],
    "pais": "PR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mamonas-assassinas-pelados-em-santos",
@@ -75727,7 +78064,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-24": [
@@ -75795,7 +78135,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -75862,7 +78203,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "hans-zimmer-cornfield-chase",
@@ -75922,6 +78266,9 @@
    "obra": "Interestelar",
    "obra_alt": [
     "Interstellar"
+   ],
+   "de": [
+    "kellyson"
    ]
   },
   {
@@ -75987,7 +78334,10 @@
    "generos": [],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chico-buarque-cotidiano",
@@ -76049,7 +78399,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-25": [
@@ -76120,7 +78473,10 @@
    ],
    "pais": "IS",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "sam-smith-unholy-feat-kim-petras",
@@ -76184,7 +78540,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -76253,7 +78610,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "linkin-park-heavy-is-the-crown",
@@ -76323,7 +78683,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -76395,7 +78756,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -76466,7 +78828,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tyler-new-magic-wand",
@@ -76528,7 +78893,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "madcon-don-t-worry-with-ray-dalton-radio-edit",
@@ -76595,7 +78963,10 @@
    ],
    "pais": "NO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "joji-gimme-love",
@@ -76658,7 +79029,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "steve-lacy-dark-red",
@@ -76722,7 +79096,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-27": [
@@ -76787,7 +79164,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-die-for-you",
@@ -76846,7 +79226,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "elton-john-goodbye-yellow-brick-road-remastered-2014",
@@ -76914,7 +79297,10 @@
    ],
    "pais": "GB",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-rare-occasions-notion",
@@ -76986,7 +79372,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -77050,7 +79437,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-28": [
@@ -77115,7 +79505,10 @@
    ],
    "pais": "CA",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kaleo-way-down-we-go",
@@ -77183,7 +79576,10 @@
    ],
    "pais": "IS",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "cage-the-elephant-ain-t-no-rest-for-the-wicked",
@@ -77246,7 +79642,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "timmy-trumpet-freaks",
@@ -77308,7 +79707,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "xama-malvadao-3",
@@ -77372,7 +79774,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-29": [
@@ -77439,7 +79844,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "djavan-oceano",
@@ -77502,7 +79910,10 @@
    ],
    "pais": "BR",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ze-vaqueiro-coladin-minha-deusa",
@@ -77560,7 +79971,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-marrone-vidro-fume-ao-vivo",
@@ -77627,7 +80041,10 @@
    ],
    "pais": "IT",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lil-nas-x-industry-baby-feat-jack-harlow",
@@ -77692,7 +80109,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-30": [
@@ -77758,7 +80178,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tv-girl-blue-hair",
@@ -77821,7 +80244,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-living-tombstone-my-ordinary-life",
@@ -77885,7 +80311,10 @@
    ],
    "pais": "IL",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "don-toliver-tore-up",
@@ -77953,7 +80382,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "alceu-valenca-flor-de-tangerina",
@@ -78021,7 +80453,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2026-12-31": [
@@ -78085,7 +80520,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ice-cube-you-know-how-we-do-it",
@@ -78146,7 +80584,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lana-del-rey-salvatore",
@@ -78204,7 +80645,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "alcione-a-loba",
@@ -78268,7 +80712,10 @@
    ],
    "pais": null,
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "eyedress-jealous",
@@ -78336,7 +80783,8 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   }
  ],
@@ -78411,7 +80859,10 @@
    "decada": 1980,
    "tags_ok": true,
    "categoria": "filmes",
-   "obra": "Mamma Mia!"
+   "obra": "Mamma Mia!",
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-infiel",
@@ -78466,7 +80917,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-locked-out-of-heaven",
@@ -78521,7 +80975,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-umbrella",
@@ -78571,7 +81028,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "molejo-cilada",
@@ -78721,7 +81181,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "eminem-without-me",
@@ -78918,7 +81381,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tim-maia-descobridor-dos-sete-mares",
@@ -78968,7 +81434,10 @@
    ],
    "pais": "BR",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pitty-me-adora",
@@ -79064,7 +81533,10 @@
    "generos": [],
    "pais": "PR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-white-stripes-seven-nation-army",
@@ -79107,7 +81579,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   }
  ],
@@ -79258,7 +81731,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "xuxa-ilarie",
@@ -79358,7 +81834,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -79466,7 +81943,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-amo-noite-e-dia",
@@ -79571,7 +82051,10 @@
    ],
    "pais": "CO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "toby-fox-megalovania",
@@ -79739,7 +82222,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -80056,7 +82540,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "avril-lavigne-complicated",
@@ -80229,7 +82716,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "grupo-menos-e-mais-di-proposito-vou-zuar-pot-pourri-melhor-e",
@@ -80279,7 +82769,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "queen-we-will-rock-you",
@@ -80382,7 +82875,10 @@
    ],
    "pais": "NO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "legiao-urbana-pais-e-filhos",
@@ -80534,7 +83030,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "eiffel-65-blue-da-ba-dee",
@@ -80589,7 +83088,10 @@
    ],
    "pais": "IT",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-sean-paul-baby-boy-feat-sean-paul",
@@ -80645,7 +83147,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "sam-smith-kim-petras-unholy-feat-kim-petras",
@@ -80697,7 +83202,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -80755,7 +83261,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "xama-bagua-records-neo-beats-matue-luxuria",
@@ -80800,7 +83309,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-pussycat-dolls-stickwitu",
@@ -80850,7 +83362,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "drake-passionfruit",
@@ -80895,7 +83410,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "psy-gentleman",
@@ -80940,7 +83458,10 @@
    ],
    "pais": "KR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-11": [
@@ -80994,7 +83515,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -81052,7 +83574,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-the-time-dirty-bit",
@@ -81107,7 +83632,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "gustavo-mioto-solteiro-nao-trai-ao-vivo",
@@ -81157,7 +83685,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-ai-ja-era-ao-vivo",
@@ -81195,7 +83726,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-12": [
@@ -81250,7 +83784,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -81301,7 +83836,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maroon-5-maps",
@@ -81351,7 +83889,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-shut-up",
@@ -81401,7 +83942,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-obrigado-por-estragar-tudo-ao-vivo",
@@ -81456,7 +84000,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-13": [
@@ -81508,7 +84055,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-pump-it",
@@ -81558,7 +84108,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-mikky-ekko-stay",
@@ -81603,7 +84156,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-diva",
@@ -81655,7 +84211,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -81706,7 +84263,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-14": [
@@ -81758,7 +84318,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-wyclef-jean-hips-don-t-lie-feat-wyclef-jean",
@@ -81803,7 +84366,10 @@
    ],
    "pais": "CO",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "johann-sebastian-bach-yo-yo-ma-cello-suite-no-1-in-g-major-b",
@@ -81843,7 +84409,10 @@
    ],
    "pais": "FR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lil-nas-x-jack-harlow-industry-baby-feat-jack-harlow",
@@ -81894,7 +84463,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-shakira-beautiful-liar",
@@ -81945,7 +84517,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-15": [
@@ -81997,7 +84572,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "selena-gomez-the-scene-love-you-like-a-love-song",
@@ -82052,7 +84630,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mitski-my-love-mine-all-mine",
@@ -82107,7 +84688,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "taylor-swift-bad-blood",
@@ -82152,7 +84736,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "flo-rida-good-feeling",
@@ -82202,7 +84789,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-16": [
@@ -82254,7 +84844,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "destiny-s-child-say-my-name",
@@ -82304,7 +84897,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-estoy-aqui",
@@ -82352,7 +84948,10 @@
    "generos": [],
    "pais": "CO",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "toquinho-vinicius-de-moraes-onde-anda-voce",
@@ -82402,7 +85001,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ariana-grande-into-you",
@@ -82447,7 +85049,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-17": [
@@ -82504,7 +85109,10 @@
    ],
    "pais": "JM",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "calvin-harris-ellie-goulding-outside-feat-ellie-goulding",
@@ -82559,7 +85167,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "flo-rida-kesha-right-round",
@@ -82604,7 +85215,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kylie-minogue-can-t-get-you-out-of-my-head",
@@ -82654,7 +85268,10 @@
    ],
    "pais": "AU",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-walters-i-love-you-so",
@@ -82699,7 +85316,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-18": [
@@ -82754,7 +85374,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "sean-kingston-beautiful-girls",
@@ -82804,7 +85427,10 @@
    ],
    "pais": "JM",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "usher-will-i-am-omg-feat-will-i-am",
@@ -82854,7 +85480,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rae-sremmurd-gucci-mane-black-beatles",
@@ -82899,7 +85528,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-maluma-chantaje-feat-maluma",
@@ -82950,7 +85582,10 @@
    ],
    "pais": "CO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-19": [
@@ -83007,7 +85642,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lil-peep-star-shopping",
@@ -83052,7 +85690,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "nick-jonas-jealous",
@@ -83102,7 +85743,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lady-gaga-applause",
@@ -83147,7 +85791,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "taio-cruz-break-your-heart",
@@ -83197,7 +85844,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-20": [
@@ -83249,7 +85899,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "maroon-5-christina-aguilera-moves-like-jagger",
@@ -83304,7 +85957,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "avenged-sevenfold-a-little-piece-of-heaven",
@@ -83360,7 +86016,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chris-brown-lil-wayne-busta-rhymes-look-at-me-now-feat-lil-w",
@@ -83410,7 +86069,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "barao-vermelho-por-voce",
@@ -83465,7 +86127,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-21": [
@@ -83514,7 +86179,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -83563,7 +86229,10 @@
    "generos": [],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jessie-j-ariana-grande-nicki-minaj-bang-bang",
@@ -83608,7 +86277,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "michael-jackson-bad-2012-remaster",
@@ -83658,7 +86330,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "madonna-4-minutes-feat-justin-timberlake-and-timbaland",
@@ -83703,7 +86378,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-22": [
@@ -83758,7 +86436,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -83810,7 +86489,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fall-out-boy-centuries",
@@ -83860,7 +86542,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "matheus-kauan-a-rosa-e-o-beija-flor-na-praia-ao-vivo",
@@ -83915,7 +86600,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "matue-anos-luz",
@@ -83965,7 +86653,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-23": [
@@ -84019,7 +86710,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -84077,7 +86769,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -84124,7 +86817,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-lucky",
@@ -84179,7 +86875,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "onerepublic-counting-stars",
@@ -84229,7 +86928,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-24": [
@@ -84295,7 +86997,8 @@
    },
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -84336,7 +87039,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-kid-laroi-justin-bieber-stay-with-justin-bieber",
@@ -84389,7 +87095,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-gimme-more",
@@ -84441,7 +87150,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-anitta-sao-paulo-feat-anitta",
@@ -84481,7 +87193,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-25": [
@@ -84535,7 +87250,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -84588,7 +87304,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -84651,7 +87368,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kelis-milkshake",
@@ -84701,7 +87421,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kanye-west-dwele-flashing-lights",
@@ -84746,7 +87469,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-26": [
@@ -84798,7 +87524,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-jay-z-crazy-in-love-feat-jay-z",
@@ -84848,7 +87577,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jason-derulo-in-my-head",
@@ -84898,7 +87630,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ne-yo-closer",
@@ -84953,7 +87688,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "matue-antes",
@@ -84996,7 +87734,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-27": [
@@ -85048,7 +87789,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chico-buarque-mpb4-quarteto-em-cy-apesar-de-voce",
@@ -85098,7 +87842,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "clean-bandit-zara-larsson-symphony-feat-zara-larsson",
@@ -85154,7 +87901,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "shakira-el-cata-loca-feat-el-cata",
@@ -85210,7 +87960,10 @@
    ],
    "pais": "CO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-needed-me",
@@ -85255,7 +88008,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-28": [
@@ -85307,7 +88063,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-chimamanda-ngozi-adichie-flawless-feat-chimamanda-ng",
@@ -85359,7 +88118,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "edward-maya-vika-jigulina-stereo-love-original",
@@ -85411,7 +88173,10 @@
    ],
    "pais": "RO",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-kendrick-lamar-pray-for-me",
@@ -85461,7 +88226,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "flo-rida-i-cry",
@@ -85516,7 +88284,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-29": [
@@ -85573,7 +88344,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "dj-khaled-justin-bieber-quavo-chance-the-rapper-lil-wayne-i-",
@@ -85618,7 +88392,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "daddy-yankee-snow-con-calma",
@@ -85663,7 +88440,10 @@
    ],
    "pais": "PR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "vulgo-fk-mc-ph-veigh-pedro-lotto-fepache-ballena",
@@ -85708,7 +88488,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "j-cole-cults-amber-coffman-she-knows-feat-amber-coffman-cult",
@@ -85758,7 +88541,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-01-30": [
@@ -85810,7 +88596,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "arctic-monkeys-i-wanna-be-yours",
@@ -85867,7 +88656,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   },
   {
@@ -85918,7 +88708,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-the-hills",
@@ -85963,7 +88756,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ac-dc-you-shook-me-all-night-long",
@@ -86012,7 +88808,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "kellyson"
    ]
   }
  ],
@@ -86060,7 +88857,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "iggy-azalea-rita-ora-black-widow",
@@ -86110,7 +88910,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "justin-bieber-big-sean-as-long-as-you-love-me",
@@ -86160,7 +88963,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chico-buarque-milton-nascimento-calice",
@@ -86200,7 +89006,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "wesley-safadao-marilia-mendonca-ninguem-e-de-ferro",
@@ -86251,7 +89060,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-01": [
@@ -86296,7 +89108,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -86347,7 +89160,10 @@
    ],
    "pais": "BR",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "elis-regina-adoniran-barbosa-tiro-ao-alvaro",
@@ -86385,7 +89201,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "linkin-park-faint",
@@ -86437,7 +89256,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -86493,7 +89313,10 @@
    ],
    "pais": "SE",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-02": [
@@ -86551,7 +89374,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-meu-novo-mundo",
@@ -86597,7 +89423,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "david-guetta-akon-sexy-bitch-feat-akon",
@@ -86647,7 +89476,10 @@
    ],
    "pais": "FR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "henrique-juliano-quase-algo-ao-vivo-em-nova-iorque-2022",
@@ -86697,7 +89529,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-overprotected-radio-edit",
@@ -86749,7 +89584,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-03": [
@@ -86806,7 +89644,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "calvin-harris-summer",
@@ -86861,7 +89702,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "alok-ella-eyre-kenny-dope-never-dull-deep-down-feat-never-du",
@@ -86917,7 +89761,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rita-lee-menino-bonito",
@@ -86972,7 +89819,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-best-thing-i-never-had",
@@ -87029,7 +89879,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-04": [
@@ -87081,7 +89934,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-take-a-bow",
@@ -87126,7 +89982,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-calvin-harris-we-found-love",
@@ -87181,7 +90040,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ariana-grande-iggy-azalea-problem",
@@ -87231,7 +90093,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-infiel-ao-vivo",
@@ -87286,7 +90151,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-05": [
@@ -87343,7 +90211,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-zoio-de-lula",
@@ -87388,7 +90259,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "james-morrison-you-give-me-something",
@@ -87438,7 +90312,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mac-demarco-my-kind-of-woman",
@@ -87483,7 +90360,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "post-malone-21-savage-rockstar-feat-21-savage",
@@ -87533,7 +90413,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-06": [
@@ -87585,7 +90468,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "xama-gustah-neo-beats-bagua-records-malvadao-3",
@@ -87635,7 +90521,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "justin-bieber-sorry",
@@ -87685,7 +90574,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "sia-move-your-body",
@@ -87735,7 +90627,10 @@
    ],
    "pais": "AU",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "beyonce-jay-z-drunk-in-love-feat-jay-z",
@@ -87782,7 +90677,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-07": [
@@ -87829,7 +90727,10 @@
    ],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-3",
@@ -87874,7 +90775,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fifth-harmony-kid-ink-worth-it-feat-kid-ink",
@@ -87928,7 +90832,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-a-hora-e-agora-ao-vivo",
@@ -87978,7 +90885,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "justin-bieber-boyfriend",
@@ -88028,7 +90938,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-08": [
@@ -88080,7 +90993,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "metallica-enter-sandman",
@@ -88133,7 +91049,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -88189,7 +91106,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ariana-grande-zedd-break-free",
@@ -88234,7 +91154,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "post-malone-ozzy-osbourne-travis-scott-take-what-you-want-fe",
@@ -88284,7 +91207,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-09": [
@@ -88341,7 +91267,10 @@
    ],
    "pais": "FR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-i-wanna-go",
@@ -88393,7 +91322,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -88444,7 +91374,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "demi-lovato-sorry-not-sorry",
@@ -88489,7 +91422,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "capital-cities-safe-and-sound",
@@ -88546,7 +91482,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-10": [
@@ -88599,7 +91538,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "charlie-brown-jr-hoje-sou-eu-que-nao-mais-te-quero",
@@ -88640,7 +91582,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "madonna-hung-up",
@@ -88690,7 +91635,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-pon-de-replay",
@@ -88735,7 +91683,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-pussycat-dolls-buttons",
@@ -88780,7 +91731,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-11": [
@@ -88837,7 +91791,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "britney-spears-oops-i-did-it-again",
@@ -88889,7 +91846,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -88940,7 +91898,10 @@
    ],
    "pais": "US",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-california-king-bed",
@@ -88985,7 +91946,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "taylor-swift-we-are-never-ever-getting-back-together",
@@ -89028,7 +91992,10 @@
    "generos": [],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-12": [
@@ -89083,7 +92050,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -89139,7 +92107,10 @@
    ],
    "pais": "PE",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-misterios-ao-vivo",
@@ -89187,7 +92158,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-ciumeira-ao-vivo",
@@ -89237,7 +92211,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "echosmith-cool-kids",
@@ -89287,7 +92264,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-13": [
@@ -89340,7 +92320,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "justin-bieber-love-yourself",
@@ -89385,7 +92368,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "vulgo-fk-mc-cebezinho-kayblack-pedro-lotto-amusik-meca-cerej",
@@ -89435,7 +92421,10 @@
    ],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fergie-clumsy",
@@ -89485,7 +92474,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "ava-max-kings-queens",
@@ -89537,7 +92529,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   }
  ],
@@ -89590,7 +92583,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "calvin-harris-rihanna-this-is-what-you-came-for",
@@ -89648,7 +92644,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "the-weeknd-call-out-my-name",
@@ -89698,7 +92697,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "one-direction-little-things",
@@ -89735,7 +92737,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "pitbull-t-pain-hey-baby-drop-it-to-the-floor-feat-t-pain",
@@ -89785,7 +92790,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-15": [
@@ -89837,7 +92845,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-mars-the-lazy-song",
@@ -89892,7 +92903,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chris-brown-forever",
@@ -89937,7 +92951,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "avicii-levels-radio-edit",
@@ -89992,7 +93009,10 @@
    ],
    "pais": "SE",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "iyaz-replay",
@@ -90042,7 +93062,10 @@
    ],
    "pais": "VG",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-16": [
@@ -90097,7 +93120,8 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -90151,7 +93175,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -90203,7 +93228,10 @@
    ],
    "pais": "CO",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "dua-lipa-houdini",
@@ -90258,7 +93286,10 @@
    ],
    "pais": null,
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kesha-we-r-who-we-r",
@@ -90308,7 +93339,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-17": [
@@ -90358,7 +93392,10 @@
    "generos": [],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "one-direction-midnight-memories",
@@ -90403,7 +93440,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "katy-perry-part-of-me",
@@ -90453,7 +93493,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "lady-gaga-bruno-mars-die-with-a-smile",
@@ -90503,7 +93546,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "tim-maia-reu-confesso",
@@ -90558,7 +93604,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-18": [
@@ -90612,7 +93661,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "one-direction-best-song-ever",
@@ -90662,7 +93714,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bruno-marrone-boate-azul-ao-vivo",
@@ -90712,7 +93767,10 @@
    ],
    "pais": "IT",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "green-day-holiday-boulevard-of-broken-dreams",
@@ -90757,7 +93815,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "chris-brown-don-t-wake-me-up",
@@ -90813,7 +93874,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-19": [
@@ -90867,7 +93931,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -90920,7 +93985,8 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "kellyson"
    ]
   },
   {
@@ -90966,7 +94032,10 @@
    ],
    "pais": "BR",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-levin-dj-nikolas-alves-exclusive-dj-kaioken-dj-gege-ela-m",
@@ -91019,7 +94088,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "timbaland-keri-hilson-d-o-e-the-way-i-are",
@@ -91069,7 +94141,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-20": [
@@ -91123,7 +94198,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris",
+    "kellyson"
    ]
   },
   {
@@ -91174,7 +94250,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "katy-perry-juicy-j-dark-horse",
@@ -91229,7 +94308,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "xxxtentacion-moonlight",
@@ -91279,7 +94361,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-serenata-ao-vivo",
@@ -91334,7 +94419,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-21": [
@@ -91386,7 +94474,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "jorge-mateus-enquanto-houver-razoes-ao-vivo",
@@ -91441,7 +94532,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-como-faz-com-ela-ao-vivo",
@@ -91496,7 +94590,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-traicao-nao-tem-perdao-ao-vivo",
@@ -91551,7 +94648,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "bk-julia-mestre-sango-gigantes-so-me-ligar",
@@ -91606,7 +94706,10 @@
    ],
    "pais": "GB",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-22": [
@@ -91663,7 +94766,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rubel-quando-bate-aquela-saudade",
@@ -91701,7 +94807,10 @@
    "generos": [],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "fifth-harmony-fetty-wap-all-in-my-head-flex-feat-fetty-wap",
@@ -91751,7 +94860,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "miley-cyrus-adore-you",
@@ -91801,7 +94913,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "hungria-um-pedido",
@@ -91856,7 +94971,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-23": [
@@ -91903,7 +95021,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "black-eyed-peas-don-t-phunk-with-my-heart",
@@ -91948,7 +95069,10 @@
    ],
    "pais": null,
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "kesha-die-young",
@@ -91993,7 +95117,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "matue-gorilla-roxo",
@@ -92036,7 +95163,10 @@
    "generos": [],
    "pais": "BR",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "marilia-mendonca-passa-mal-ao-vivo",
@@ -92091,7 +95221,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-24": [
@@ -92143,7 +95276,10 @@
    ],
    "pais": "RO",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "henrique-diego-raspao",
@@ -92210,7 +95346,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "backstreet-boys-as-long-as-you-love-me",
@@ -92265,7 +95404,10 @@
    ],
    "pais": null,
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "rihanna-we-found-love",
@@ -92320,7 +95462,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "mc-negao-original-ai-se-seu-closet-falasse-semi-nua",
@@ -92911,7 +96056,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   }
  ],
  "2027-02-27": [
@@ -95050,7 +98198,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "addison-rae-diet-pepsi",
