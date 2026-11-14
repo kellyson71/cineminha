@@ -1,4 +1,360 @@
 {
+ "2026-03-01": [
+  {
+   "id": "chris-isaak-wicked-game",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Wicked Game (Live 1995)",
+   "a": "Chris Isaak",
+   "album": "Take A Ride (Live)",
+   "ano": 1989,
+   "dz": {
+    "t": 2627481692,
+    "a": 1040
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 490524,
+   "generos": [
+    "Singer & Songwriter"
+   ],
+   "pais": "US",
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "black-sabbath-sabbath-bloody-sabbath",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sabbath Bloody Sabbath (Remastered 2009)",
+   "a": "Black Sabbath",
+   "album": "Sabbath Bloody Sabbath",
+   "ano": 2009,
+   "dz": {
+    "t": 3783100792,
+    "a": 647
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 488690,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
+ "2026-03-02": [
+  {
+   "id": "kmfdm-megalomaniac",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Megalomaniac (Single Mix)",
+   "a": "KMFDM",
+   "album": "EXTRA Volume 3",
+   "ano": 1997,
+   "dz": {
+    "t": 8093332,
+    "a": 2109
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 510715,
+   "generos": [],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "slipknot-surfacing",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Surfacing",
+   "a": "Slipknot",
+   "album": "Slipknot",
+   "ano": 2008,
+   "dz": {
+    "t": 847275,
+    "a": 117
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 506399,
+   "generos": [
+    "Metal"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "u2-sunday-bloody-sunday-remastered-2008",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sunday Bloody Sunday (Live From Paris)",
+   "a": "U2",
+   "album": "Live From Paris",
+   "ano": 1987,
+   "dz": {
+    "t": 1579106,
+    "a": 163
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 499285,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "meris"
+   ]
+  },
+  {
+   "id": "we-are-not-friends-nextime-save-the-world",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Save the World",
+   "a": "We Are Not Friends",
+   "album": "We Are Not Friends",
+   "ano": 2024,
+   "dz": {
+    "t": 2808471742,
+    "a": 266211452
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 496156,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Indie Rock"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "flyleaf-all-around-me",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "All Around Me (Acoustic)",
+   "a": "Flyleaf",
+   "album": "Flyleaf",
+   "ano": 2008,
+   "dz": {
+    "t": 882715,
+    "a": 5304
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 212729,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
  "2026-03-03": [
   {
    "id": "metallica-whiplash-remastered",
@@ -91,6 +447,169 @@
     }
    ],
    "rank": 522808,
+   "generos": [
+    "Rock",
+    "Hard Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "deftones-engine-no-9",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Engine No. 9",
+   "a": "Deftones",
+   "album": "Adrenaline",
+   "ano": 1992,
+   "dz": {
+    "t": 776875,
+    "a": 535
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 521536,
+   "generos": [
+    "Rock",
+    "Hard Rock"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "angra-bleeding-heart",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Bleeding Heart",
+   "a": "Angra",
+   "album": "Hunters and Prey",
+   "ano": 2001,
+   "dz": {
+    "t": 127624501,
+    "a": 639
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 518312,
+   "generos": [
+    "Alternativo",
+    "Indie Rock",
+    "Metal"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "deftones-please-please-please-let-me-get-what-i-want-2005-re",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Please Please Please Let Me Get What I Want (2005 Remaster)",
+   "a": "Deftones",
+   "album": "B-Sides & Rarities",
+   "ano": 2005,
+   "dz": {
+    "t": 750459,
+    "a": 535
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 511313,
    "generos": [
     "Rock",
     "Hard Rock"
