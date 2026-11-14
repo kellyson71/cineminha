@@ -1,4 +1,390 @@
 {
+ "2026-01-26": [
+  {
+   "id": "ateez-wave",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "WAVE",
+   "a": "ATEEZ",
+   "album": "TREASURE EP.3 : One To All",
+   "ano": 2019,
+   "dz": {
+    "t": 3745202412,
+    "a": 49280302
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 498211,
+   "generos": [],
+   "pais": "KR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "agust-d-suran-so-far-away",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "so far away (Feat. SURAN)",
+   "a": "Agust D",
+   "album": "Agust D",
+   "ano": 2015,
+   "dz": {
+    "t": 2217259677,
+    "a": 14728175
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 489469,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  }
+ ],
+ "2026-01-27": [
+  {
+   "id": "taemin-advice",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Advice",
+   "a": "TAEMIN",
+   "album": "Advice - The 3rd Mini Album",
+   "ano": 2021,
+   "dz": {
+    "t": 1370230952,
+    "a": 7988496
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 512765,
+   "generos": [
+    "Música asiática",
+    "K-Pop",
+    "Pop"
+   ],
+   "pais": "KR",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "paramore-careful",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Careful",
+   "a": "Paramore",
+   "album": "Brand New Eyes",
+   "ano": 2009,
+   "dz": {
+    "t": 4288421,
+    "a": 10977
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 509198,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "got7-you-calling-my-name",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "You Calling My Name",
+   "a": "GOT7",
+   "album": "Call My Name",
+   "ano": 2023,
+   "dz": {
+    "t": 2366222405,
+    "a": 6209854
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 507420,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "miley-cyrus-hoedown-throwdown",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hoedown Throwdown",
+   "a": "Miley Cyrus",
+   "album": "Hannah Montana The Movie",
+   "ano": 2009,
+   "dz": {
+    "t": 3068071,
+    "a": 12436
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "generos": [],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "o-grilo-serenata-existencialista",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Serenata Existencialista",
+   "a": "O Grilo",
+   "album": "Herói do Futuro",
+   "ano": 2017,
+   "dz": {
+    "t": 437561702,
+    "a": 13691575
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "BR",
+    "generos": [
+     "rock-nacional",
+     "indie"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "chill",
+     "nostalgia"
+    ],
+    "fama": 3
+   },
+   "rank": 500047,
+   "generos": [
+    "Alternativo",
+    "Indie Pop",
+    "Indie Rock",
+    "Rock"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi",
+    "kellyson"
+   ]
+  }
+ ],
  "2026-01-28": [
   {
    "id": "halestorm-bad-romance",
@@ -95,6 +481,167 @@
     "Alternativo"
    ],
    "pais": "US",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "avril-lavigne-hello-kitty",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hello Kitty",
+   "a": "Avril Lavigne",
+   "album": "Avril Lavigne (Expanded Edition)",
+   "ano": 2013,
+   "dz": {
+    "t": 637567902,
+    "a": 35
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 525959,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "bts-like",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Like",
+   "a": "BTS",
+   "album": "2 Cool 4 Skool",
+   "ano": 2021,
+   "dz": {
+    "t": 1560785982,
+    "a": 6982223
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 516749,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "seventeen-rock-with-you",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Rock with you",
+   "a": "SEVENTEEN",
+   "album": "Attacca",
+   "ano": 2021,
+   "dz": {
+    "t": 1528273532,
+    "a": 240582
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 514960,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
    "decada": 2020,
    "tags_ok": true,
    "de": [
