@@ -1,4 +1,367 @@
 {
+ "2026-02-01": [
+  {
+   "id": "the-vamps-just-my-type",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Just My Type",
+   "a": "The Vamps",
+   "album": "Just My Type",
+   "ano": 2018,
+   "dz": {
+    "t": 511044762,
+    "a": 5171069
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 567721,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "capital-inicial-o-mundo-ao-vivo",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "O Mundo Ao Vivo",
+   "a": "Capital Inicial",
+   "album": "Acústico Capital Inicial",
+   "ano": 2000,
+   "dz": {
+    "t": 137199452,
+    "a": 16275
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 515338,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "kellyson"
+   ]
+  }
+ ],
+ "2026-02-02": [
+  {
+   "id": "bon-jovi-thank-you-for-loving-me",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Thank You For Loving Me",
+   "a": "Bon Jovi",
+   "album": "Crush",
+   "ano": 2000,
+   "dz": {
+    "t": 89870997,
+    "a": 637
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 568337,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "bts-yet-to-come",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Yet To Come",
+   "a": "BTS",
+   "album": "Proof",
+   "ano": 2022,
+   "dz": {
+    "t": 1783253677,
+    "a": 6982223
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 572993,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "bon-jovi-hallelujah-live",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hallelujah (Live)",
+   "a": "Bon Jovi",
+   "album": "Lost Highway",
+   "ano": 2007,
+   "dz": {
+    "t": 910674,
+    "a": 637
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 560281,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "ateez-deja-vu",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Deja Vu",
+   "a": "ATEEZ",
+   "album": "ZERO : FEVER Part.3",
+   "ano": 2021,
+   "dz": {
+    "t": 1488314292,
+    "a": 49280302
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 571381,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "rainbow-the-temple-of-the-king",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Temple Of The King",
+   "a": "Rainbow",
+   "album": "Ritchie Blackmore's Rainbow",
+   "ano": 1995,
+   "dz": {
+    "t": 1582836,
+    "a": 1324
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 533723,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  }
+ ],
  "2026-02-03": [
   {
    "id": "kelly-clarkson-behind-these-hazel-eyes",
@@ -99,6 +462,171 @@
    "tags_ok": true,
    "de": [
     "otavio"
+   ]
+  },
+  {
+   "id": "halsey-nightmare",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Nightmare",
+   "a": "Halsey",
+   "album": "If I Can’t Have Love, I Want Power (Deluxe)",
+   "ano": 2019,
+   "dz": {
+    "t": 1890963147,
+    "a": 5292512
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 577136,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "mountain-mississippi-queen",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Mississippi Queen",
+   "a": "Mountain",
+   "album": "Climbing!",
+   "ano": 1970,
+   "dz": {
+    "t": 608589,
+    "a": 7361
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 570916,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "agust-d-daechwita",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Daechwita",
+   "a": "Agust D",
+   "album": "D-2",
+   "ano": 2020,
+   "dz": {
+    "t": 2217267257,
+    "a": 14728175
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 573054,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
    ]
   }
  ],
