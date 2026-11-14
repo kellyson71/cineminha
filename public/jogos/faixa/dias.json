@@ -105,6 +105,112 @@
    "de": [
     "otavio"
    ]
+  },
+  {
+   "id": "linkin-park-what-i-ve-done",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "What I've Done",
+   "a": "Linkin Park",
+   "album": "Minutes to Midnight",
+   "ano": 2007,
+   "dz": {
+    "t": 676847,
+    "a": 92
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 953773,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "red-hot-chili-peppers-under-the-bridge",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Under the Bridge",
+   "a": "Red Hot Chili Peppers",
+   "album": "Greatest Hits",
+   "ano": 1991,
+   "dz": {
+    "t": 785176,
+    "a": 182
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 951375,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   }
  ],
  "2026-04-16": [
@@ -153,7 +259,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -206,7 +313,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -259,7 +367,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -370,7 +479,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -473,7 +583,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -584,7 +695,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -637,7 +749,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -861,7 +974,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -914,7 +1028,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -969,7 +1084,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -1075,7 +1191,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -1175,7 +1292,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -1287,7 +1405,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -1385,7 +1504,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -8711,7 +8831,10 @@
     "playlist": null,
     "stems": null
    },
-   "ab": true
+   "ab": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "sakura-card-captors-catch-you-catch-me",
@@ -10194,7 +10317,8 @@
     "stems": null
    },
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -35768,7 +35892,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -37126,7 +37251,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -40594,7 +40720,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "calvin-harris-ellie-goulding-i-need-your-love-feat-ellie-gou",
@@ -41519,7 +41648,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -44674,7 +44804,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -45510,7 +45641,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -48191,7 +48323,10 @@
     "generos": [
      "filmes"
     ]
-   }
+   },
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "george-michael-careless-whisper-remastered",
@@ -49381,7 +49516,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -49761,7 +49897,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "nx-zero-razoes-e-emocoes",
@@ -50231,7 +50370,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "spice-girls-wannabe",
@@ -50409,7 +50551,10 @@
    ],
    "pais": "CA",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "skillet-feel-invincible",
@@ -50604,7 +50749,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "the-kid-laroi-stay-with-justin-bieber",
@@ -50864,7 +51012,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "maroon-5-this-love",
@@ -50926,7 +51077,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "tears-for-fears-everybody-wants-to-rule-the-world",
@@ -51116,7 +51270,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -51181,7 +51336,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "lynyrd-skynyrd-free-bird",
@@ -51310,7 +51468,8 @@
    "tags_ok": true,
    "ano": 2001,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -51501,7 +51660,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -51676,7 +51836,8 @@
    "tags_ok": true,
    "ano": 2001,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -51797,7 +51958,10 @@
    ],
    "pais": "AU",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "foreigner-i-want-to-know-what-love-is-1999-remaster",
@@ -51901,7 +52065,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "arctic-monkeys-arabella",
@@ -52067,7 +52234,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "slipknot-duality",
@@ -52124,7 +52294,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "muse-supermassive-black-hole",
@@ -52291,7 +52464,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -53476,7 +53650,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -54397,7 +54572,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "alan-silvestri-the-avengers",
@@ -55337,7 +55515,8 @@
     "fama": 5
    },
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -55383,7 +55562,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "ram-jam-black-betty",
@@ -55498,7 +55680,10 @@
    ],
    "pais": "AU",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "linkin-park-the-emptiness-machine",
@@ -55566,7 +55751,10 @@
      "emo"
     ],
     "fama": 3
-   }
+   },
+   "de": [
+    "meris"
+   ]
   }
  ],
  "2026-10-24": [
@@ -55622,7 +55810,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -56250,7 +56439,10 @@
      "hino"
     ],
     "fama": 5
-   }
+   },
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "muse-supremacy",
@@ -56622,7 +56814,8 @@
     "fama": 5
    },
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -56884,7 +57077,10 @@
      "chill"
     ],
     "fama": 3
-   }
+   },
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "michael-jackson-billie-jean",
@@ -57155,7 +57351,8 @@
     "fama": 4
    },
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -57491,7 +57688,10 @@
    },
    "ano": 2014,
    "ano_ok": true,
-   "fonte": "ia"
+   "fonte": "ia",
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "michael-jackson-bad",
@@ -58714,7 +58914,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "tim-maia-me-de-motivo",
@@ -59070,7 +59273,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -59656,7 +59860,10 @@
    ],
    "pais": "US",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "tim-maia-gostava-tanto-de-voce",
@@ -59911,7 +60118,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -61931,7 +62139,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "tim-maia-acenda-o-farol",
@@ -62752,7 +62963,8 @@
    "decada": 1960,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -63327,7 +63539,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -63897,7 +64110,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "tim-maia-nao-quero-dinheiro-so-quero-amar",
@@ -64149,7 +64365,10 @@
    ],
    "pais": "AU",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "nsync-bye-bye-bye",
@@ -65498,7 +65717,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -66192,7 +66412,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -67589,7 +67810,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -67781,7 +68003,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "billie-eilish-wildflower",
@@ -67908,7 +68133,10 @@
    ],
    "pais": null,
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   }
  ],
  "2026-12-02": [
@@ -68919,7 +69147,8 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -69560,7 +69789,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -70017,7 +70247,10 @@
    ],
    "pais": null,
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "mitski-washing-machine-heart",
@@ -70983,7 +71216,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "tribalistas-ja-sei-namorar-2004-digital-remaster",
@@ -73218,7 +73454,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -75394,7 +75631,10 @@
    ],
    "pais": "US",
    "decada": 2020,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "bon-jovi-it-s-my-life",
@@ -75464,7 +75704,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -76053,7 +76294,10 @@
    ],
    "pais": null,
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "michael-jackson-you-rock-my-world",
@@ -77401,7 +77645,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   }
  ],
@@ -78803,7 +79048,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -78966,7 +79212,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   }
  ],
@@ -80312,7 +80559,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -82819,7 +83067,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -83355,7 +83604,8 @@
     ]
    },
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -85495,7 +85745,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "swedish-house-mafia-john-martin-don-t-you-worry-child",
@@ -87189,7 +87442,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -88138,7 +88392,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -89151,7 +89406,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -90175,7 +90431,10 @@
    ],
    "pais": "GB",
    "decada": 1990,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "billie-eilish-chihiro",
@@ -92854,7 +93113,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "natiruts-sorri-sou-rei",

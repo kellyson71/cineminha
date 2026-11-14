@@ -37,9 +37,9 @@ const ABERTURA = m => !!m.obra && (m.ab || (m.categoria !== 'jogos' && /\babertu
 // escondidas por padrão (caixinha "incluir desenhos, aberturas e jogos")
 const TRILHA = m => ['desenhos', 'desenho', 'jogos'].includes(m.origem) || ABERTURA(m)
 // pessoas: a playlist de cada um vira categoria (tools/faixa/pessoas.py marca `de` nas músicas)
-const PESSOAS_CAT = [{ id: 'gabi', nome: 'Gabi' }, { id: 'otavio', nome: 'Otávio' }]
+const PESSOAS_CAT = [{ id: 'gabi', nome: 'Gabi', da: 'da' }, { id: 'otavio', nome: 'Otávio', da: 'do' }, { id: 'meris', nome: 'Meris', da: 'da' }]
 const CATEGORIAS = [
-  ...PESSOAS_CAT.map(p => ({ id: `p-${p.id}`, nome: p.nome, pessoa: p.id, f: m => (m.de || []).includes(p.id) })),
+  ...PESSOAS_CAT.map(p => ({ id: `p-${p.id}`, nome: p.nome, pessoa: p.id, da: p.da, f: m => (m.de || []).includes(p.id) })),
   { id: 'origem', nome: 'De onde é?', ic: '🧩', f: ORIGEM, origem: true },
   { id: 'aberturas', nome: 'Aberturas', ic: '📡', f: ABERTURA, origem: true },
   { id: 'jogos', nome: 'Jogos', ic: '🎮', f: JOGOS },
@@ -1141,7 +1141,7 @@ export function criaFaixa(ctx) {
         const b = el('button', { type: 'button', className: 'fx-cat' + (mini ? ' mini' : '') + (fim ? ' fim' : '') + (c.pessoa ? ' fx-cat--pessoa' : '') + (on ? ' sel' : ''),
           title: misturar ? (on ? 'Tirar da mistura' : 'Pôr na mistura') : fim ? (grupo ? 'A call já ouviu todas: o sorteio repete' : 'Você já ouviu todas: o sorteio repete') : `Sorteia ${Math.min(qtdCat, c.ms.length)} das ${novas.length} que ${ninguem} ouviu${novas.length < qtdCat && novas.length < c.ms.length ? ' (completa com repetidas)' : ''}` },
           c.pessoa ? el('span', { className: 'fx-cat__ic fx-cat__ic--pfp' }, ctx.pfp(c.pessoa, mini ? 22 : 30)) : el('span', { className: 'fx-cat__ic', textContent: c.ic }),
-          el('b', { textContent: c.pessoa ? `Playlist ${c.pessoa === 'gabi' ? 'da' : 'do'} ${c.nome}` : c.nome }),
+          el('b', { textContent: c.pessoa ? `Playlist ${c.da} ${c.nome}` : c.nome }),
           el('span', { className: 'fx-cat__barra' }, el('i', { style: `width:${Math.round(ouvidas / c.ms.length * 100)}%` })),
           el('small', { textContent: fim ? `todas as ${c.ms.length} ouvidas · repetir` : `${ouvidas} de ${c.ms.length} ouvidas · faltam ${novas.length}` }),
           misturar ? el('i', { className: 'fx-cat__marca' }, on ? icon('check') : '') : '')

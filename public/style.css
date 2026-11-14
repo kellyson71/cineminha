@@ -3047,3 +3047,82 @@ body.com-lateral:not(.locked) { background: radial-gradient(55% 45% at 45% 38%, 
 .seat--pfp.sus-voz .seat__avatar .pfp { box-shadow: 0 0 0 3px var(--sus), 0 0 14px var(--sus-glow); }
 @keyframes susOuve { from { transform: scale(1); filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)); } to { transform: scale(1.28); filter: drop-shadow(0 0 8px var(--sus-glow)); } }
 @media (prefers-reduced-motion: reduce) { .seat__mao, .seat__concha i, .seat__orelha, .sus-aviso__ic { animation: none !important; } .seat__concha i { opacity: .9; } }
+
+/* ===================================================================================================
+   Responsividade: tablet e celular. Fica por último para valer sobre as camadas antigas.
+   =================================================================================================== */
+
+/* ---- Tablet deitado e notebook pequeno (1000–1279 px): chat mais estreito, a tela ganha largura ---- */
+@media (min-width: 1000px) and (max-width: 1279px) and (orientation: landscape) {
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco):not(.no-chat) { grid-template-columns: minmax(0, 1fr) clamp(260px, 25vw, 310px); gap: 12px; padding: 10px 10px 10px 14px !important; }
+}
+
+/* ---- Tablet grande em pé (iPad Pro, 1000 px ou mais de largura): tela em cima, chat embaixo ocupando o resto ---- */
+@media (min-width: 1000px) and (orientation: portrait) {
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco):not(.no-chat) {
+    --tela: calc((100dvh * .6 - 120px) * 16 / 9 + 16px);
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 12px; padding: 12px 14px 12px 16px !important;
+  }
+  body.com-lateral:not(.locked) .theater:not(:fullscreen, .palco):not(.no-chat) .chat { max-height: none; min-height: 0; height: auto; }
+}
+
+/* ---- Abaixo de 1000 px (tablet em pé e celular): a página tem a altura da tela; o chat ocupa o que sobrar ---- */
+@media (max-width: 999px) {
+  body:not(.locked) { display: flex; flex-direction: column; min-height: 100dvh; }
+  body:not(.locked) > .top { flex: none; width: 100%; box-sizing: border-box; }
+  body:not(.locked) > .theater:not(:fullscreen, .palco) { flex: 1 0 auto; width: 100%; box-sizing: border-box; grid-template-rows: auto minmax(260px, 1fr); align-items: stretch; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  body:not(.locked) > .theater.no-chat:not(:fullscreen, .palco) { grid-template-rows: auto; }
+  .theater:not(:fullscreen, .palco) .chat { position: relative; top: 0; height: auto; min-height: 260px; max-height: none; }
+  .theater:not(:fullscreen, .palco) .stage { align-self: start; }
+  /* aviso "clique para ligar o som": uma linha, sem cobrir o título */
+  .theater:not(:fullscreen, .palco) .toast { top: 8px; width: max-content; max-width: calc(100% - 16px); box-sizing: border-box; padding: .3rem .7rem; font-size: .76rem; line-height: 1.3; }
+}
+
+/* ---- Tablet em pé (600–999 px) ---- */
+@media (min-width: 600px) and (max-width: 999px) {
+  .top { flex-wrap: nowrap; gap: 10px; }
+  .top-account { margin-left: 0; }
+  .theater:not(:fullscreen, .palco) { gap: 14px; }
+  /* a tela usa a largura toda; o limite pela altura deixa espaço para o chat embaixo */
+  .theater:not(:fullscreen, .palco):not(.no-chat) :is(.screen, .row) { max-width: min(100%, calc((100dvh * .62 - 140px) * 16 / 9 + 16px)); }
+}
+
+/* ---- Celular em pé (até 599 px) ---- */
+@media (max-width: 599px) {
+  /* topo numa linha só: menu, nome, convidar (só o ícone), foto e configurações.
+     Diário, sair e quem está na sala ficam no menu lateral e nas poltronas */
+  .top { flex-wrap: nowrap; gap: 6px; padding: 8px 10px 4px; padding-top: max(8px, env(safe-area-inset-top)); }
+  .top__brand { flex: 1 1 auto; min-width: 0; }
+  .top .brand { font-size: 1.12rem; }
+  .top__linha, #btnDiary, #topLogout, #topName, #netStatus, .top .invite-split__options, #btnInvite > span { display: none !important; }
+  .top > .invite-split { margin-left: auto; flex: none; }
+  .top #btnInvite { width: 38px; height: 38px; padding: 0; justify-content: center; border-radius: 10px; }
+  .top-account { flex: none; margin-left: 0; padding-left: 6px; gap: 2px; }
+  .top-account .btn, .top .top__menu { width: 38px; height: 38px; }
+  .theater:not(:fullscreen, .palco) { padding: 6px 10px max(10px, env(safe-area-inset-bottom)); gap: 10px; }
+  .theater:not(:fullscreen, .palco) .stage { gap: 8px; }
+  .screen { padding: 3px; }
+  /* barra de botões em duas linhas pensadas: voz, Projetar e sair em cima; o resto embaixo, dividindo a largura */
+  .stage > .toolbar { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stage > .toolbar > * { order: 5; }
+  .stage > .toolbar > .voicectl { order: 1; }
+  .stage > .toolbar > .popwrap:has(#btnShare) { order: 2; flex: 1 1 auto; }
+  .stage > .toolbar > .popwrap:has(#btnShare) #btnShare { width: 100%; justify-content: center; }
+  .stage > .toolbar > .popwrap:has(#btnShare) #btnShare span { display: inline; }
+  .stage > .toolbar > #btnSairCall { order: 3; }
+  .stage > .toolbar > .toolbar__grow { order: 4; flex: 0 0 100%; height: 0; }
+  .stage > .toolbar > .toolbar__tempo { display: none; }
+  .stage > .toolbar > :is(.popwrap, .btn--icon):not(:has(#btnShare)) { flex: 1 1 0; min-width: 0; }
+  .stage > .toolbar > :is(.popwrap, .btn--icon):not(:has(#btnShare)) > .btn--icon, .stage > .toolbar > .btn--icon { width: 100%; }
+  .stage > .toolbar > .btn--icon, .stage > .toolbar > .popwrap > .btn, .stage > .toolbar > #btnSairCall { height: 42px; }
+  /* no celular em pé o chat já fica embaixo: o botão de esconder o chat não serve para nada */
+  .stage > .toolbar > #btnChat { display: none; }
+  /* chat: cabeçalho e campo mais baixos */
+  .theater:not(:fullscreen, .palco) .chat { min-height: 220px; border-radius: 14px; }
+  body:not(.locked) > .theater:not(:fullscreen, .palco) { grid-template-rows: auto minmax(220px, 1fr); }
+  /* tela vazia: atalhos menores, título acima deles */
+  .empty__box h2 { font-size: 1rem; }
+}
+
+/* chat estreito (tablet deitado): o título do chat não quebra em duas linhas */
+.chat__head h2 { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

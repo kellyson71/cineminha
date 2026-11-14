@@ -22,7 +22,7 @@ import fabrica as F, diario as D, leva as L, pesquisa as P
 AQUI = Path(__file__).parent
 PASTA = AQUI / 'listas' / 'pessoas'
 FILA = PASTA / 'fila.json'
-PESSOAS = {'gabi': 'Gabi', 'otavio': 'Otávio'}
+PESSOAS = {'gabi': 'Gabi', 'otavio': 'Otávio', 'meris': 'Meris'}
 # fica de fora da fila: trilha de desenho, anime, série animada e jogo (o menu esconde essas por padrão)
 OBRA = re.compile(r'adventure time|league of legends|\barcane\b|ordem paranormal|ever after high|monster high|原神|attack on titan|'
                   r'life is strange|anime version|k/da|pentakill|hatsune miku|disney|pixar', re.I)
