@@ -1,4 +1,357 @@
 {
+ "2026-03-03": [
+  {
+   "id": "metallica-whiplash-remastered",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Whiplash (Remastered)",
+   "a": "Metallica",
+   "album": "Kill 'Em All (Remastered)",
+   "ano": 1993,
+   "dz": {
+    "t": 136332696,
+    "a": 119
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 524362,
+   "generos": [
+    "Metal"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "deftones-minerva",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Minerva",
+   "a": "Deftones",
+   "album": "Deftones",
+   "ano": 2003,
+   "dz": {
+    "t": 782797,
+    "a": 535
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 522808,
+   "generos": [
+    "Rock",
+    "Hard Rock"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
+ "2026-03-04": [
+  {
+   "id": "my-chemical-romance-demolition-lovers",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Demolition Lovers",
+   "a": "My Chemical Romance",
+   "album": "I Brought You My Bullets, You Brought Me Your Love",
+   "ano": 2006,
+   "dz": {
+    "t": 132715142,
+    "a": 599
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 530557,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "alice-in-chains-rooster-2022-remaster",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Rooster (2022 Remaster)",
+   "a": "Alice in Chains",
+   "album": "Dirt (2022 Remaster)",
+   "ano": 1992,
+   "dz": {
+    "t": 15178628,
+    "a": 691
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 529280,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "angra-rebirth",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Rebirth",
+   "a": "Angra",
+   "album": "Rebirth",
+   "ano": 2001,
+   "dz": {
+    "t": 127372473,
+    "a": 639
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 528245,
+   "generos": [
+    "Alternativo",
+    "Indie Rock",
+    "Metal"
+   ],
+   "pais": "BR",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "the-beatles-run-for-your-life-remastered-2009",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Run For Your Life (Remastered 2009)",
+   "a": "The Beatles",
+   "album": "Rubber Soul (Remastered 2009)",
+   "ano": 1965,
+   "dz": {
+    "t": 116348278,
+    "a": 1
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 527798,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1960,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "nirvana-endless-nameless",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Endless, Nameless",
+   "a": "Nirvana",
+   "album": "Nevermind (Remastered)",
+   "ano": 2011,
+   "dz": {
+    "t": 13791942,
+    "a": 415
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 526999,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
  "2026-03-05": [
   {
    "id": "candlebox-far-behind",
@@ -97,6 +450,150 @@
     "Metal"
    ],
    "pais": "BR",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "silverchair-tomorrow",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Tomorrow",
+   "a": "Silverchair",
+   "album": "Frogstomp (Deluxe Edition) (Remastered)",
+   "ano": 1994,
+   "dz": {
+    "t": 97311938,
+    "a": 706
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 538565,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "keane-nothing-in-my-way",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Nothing In My Way",
+   "a": "Keane",
+   "album": "The Best Of Keane (Deluxe Edition)",
+   "ano": 2006,
+   "dz": {
+    "t": 71967083,
+    "a": 106
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 537599,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "nirvana-aneurysm",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Aneurysm",
+   "a": "Nirvana",
+   "album": "Incesticide",
+   "ano": 1992,
+   "dz": {
+    "t": 549265772,
+    "a": 415
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 533202,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
    "decada": 1990,
    "tags_ok": true,
    "de": [
