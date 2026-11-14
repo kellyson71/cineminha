@@ -34,6 +34,10 @@
   ],
   "rewrites": [
     {
+      "source": "/baixar",
+      "destination": "/baixar.html"
+    },
+    {
       "source": "/:slug([a-z0-9][a-z0-9-]*)",
       "destination": "/api/ingresso?s=:slug"
     },
@@ -48,11 +52,6 @@
     }
   },
   "redirects": [
-    {
-      "source": "/baixar",
-      "destination": "https://github.com/kellyson71/cineminha/releases/latest",
-      "permanent": false
-    },
     {
       "source": "/baixar/windows",
       "destination": "https://github.com/kellyson71/cineminha/releases/latest/download/Cineminha-instalador.exe",

@@ -1997,8 +1997,7 @@ async function aplicaMidia(share, r, ocr) {
   if (r.plat === 'netflix' && !nfx.ext && !nfx.avisou && /Chrome|Edg/.test(navigator.userAgent)) {
     nfx.avisou = true
     nudge('netflix', 'Com a extensão do Cineminha, a sala pausa e pula a sua Netflix.', 'Baixar extensão', () => {
-      open('baixar/extensao', '_blank')
-      toast('Descompacte, abra chrome://extensions, ligue o “Modo do desenvolvedor” e clique em “Carregar sem compactação”', 12000)
+      open('baixar#extensao', '_blank')
     }, () => {})
   }
 }

@@ -7,6 +7,8 @@ cd "$(dirname "$0")/netflix"
 mkdir -p ../../public/extensao
 rm -f ../../public/extensao/cineminha-netflix.zip ../loja/cineminha-loja.zip
 zip -qr ../../public/extensao/cineminha-netflix.zip . -x '.*'
+# versão e tamanho para a página /baixar
+node -e 'const fs=require("fs"),v=JSON.parse(fs.readFileSync("manifest.json","utf8")).version,t=fs.statSync("../../public/extensao/cineminha-netflix.zip").size;fs.writeFileSync("../../public/extensao/versao.json",JSON.stringify({versao:v,tamanho:t})+"\n")'
 tmp=$(mktemp -d); cp -r . "$tmp/"
 node -e '
 const fs=require("fs"),p=process.argv[1]+"/manifest.json",m=JSON.parse(fs.readFileSync(p,"utf8"))

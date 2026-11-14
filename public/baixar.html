@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Baixar · Cineminha</title>
+<meta name="description" content="Baixe o app do Cineminha para Windows e Linux e a extensão que liga a sua Netflix à sala.">
+<link rel="icon" href="assets/icon.svg">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0b0e; --surface: #15151b; --line: rgba(255,255,255,.09); --fg: #ececf1; --soft: rgba(236,236,241,.64); --faint: rgba(236,236,241,.42);
+  --red: #e5484d; --red-hi: #ff6166; --cream: #fff4e6; --gold: #ffc23d; --nfx: #e50914;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { min-height: 100dvh; background: var(--bg); color: var(--fg); font: 16px/1.5 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+svg { display: block; }
+
+/* palco: a cortina abre e a luz do projetor acende */
+.palco { position: relative; isolation: isolate; padding: 28px 20px 80px; overflow: hidden; }
+.palco::before { content: ''; position: absolute; inset: 0; z-index: -2; background: radial-gradient(70% 60% at 50% 0%, rgba(229,72,77,.35), transparent 70%), radial-gradient(40% 40% at 50% 30%, rgba(255,194,61,.12), transparent 70%); }
+.palco::after { content: ''; position: absolute; inset: auto 0 0; height: 160px; z-index: -1; background: linear-gradient(transparent, var(--bg)); }
+.cortina { position: absolute; top: 0; bottom: 0; width: 52%; z-index: 5; background: url(assets/cortina.jpg) center/cover; box-shadow: inset 0 -80px 80px rgba(0,0,0,.6); pointer-events: none; animation: abre 1.6s .25s cubic-bezier(.7,0,.2,1) forwards; }
+.cortina.e { left: 0; transform-origin: left; background-position: right center; }
+.cortina.d { right: 0; transform-origin: right; background-position: left center; animation-name: abre-d; }
+@keyframes abre { to { transform: translateX(-102%) scaleX(.5); } }
+@keyframes abre-d { to { transform: translateX(102%) scaleX(.5); } }
+.franja { position: absolute; inset: 0 0 auto; height: 26px; z-index: 6; background: url(assets/cortina.jpg) center 20%/cover; filter: brightness(.7); box-shadow: 0 6px 18px rgba(0,0,0,.6); border-bottom: 2px solid #3a0c10; }
+.franja::after { content: ''; position: absolute; left: 0; right: 0; bottom: -10px; height: 10px; background: radial-gradient(circle at 10px -2px, #5a1218 9px, transparent 10px) 0 0/20px 10px repeat-x; }
+
+.topo { position: relative; max-width: 1040px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.marca { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; text-decoration: none; letter-spacing: -.01em; }
+.marca svg { width: 34px; height: 34px; }
+.topo nav { display: flex; gap: 6px; }
+.topo nav a { padding: 7px 14px; border-radius: 99px; font-size: .88rem; font-weight: 600; color: var(--soft); text-decoration: none; transition: background .2s, color .2s; }
+.topo nav a:hover { background: rgba(255,255,255,.07); color: var(--fg); }
+
+.hero { position: relative; max-width: 760px; margin: 64px auto 0; text-align: center; }
+.selo { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 6px; border-radius: 99px; background: rgba(255,255,255,.06); border: 1px solid var(--line); font-size: .8rem; font-weight: 600; color: var(--soft); opacity: 0; animation: sobe .7s 1.3s both; }
+.selo b { padding: 2px 8px; border-radius: 99px; background: var(--gold); color: #241800; font-size: .7rem; font-weight: 800; }
+h1 { margin: 18px 0 14px; font-size: clamp(2.5rem, 7vw, 4.6rem); line-height: .98; font-weight: 900; letter-spacing: -.045em; color: var(--cream); opacity: 0; animation: sobe .8s 1.4s both; }
+h1 em { font-style: normal; background: linear-gradient(100deg, var(--red-hi), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p { margin: 0 auto; max-width: 560px; font-size: 1.12rem; color: var(--soft); opacity: 0; animation: sobe .8s 1.5s both; }
+.acoes { margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; opacity: 0; animation: sobe .8s 1.6s both; }
+@keyframes sobe { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+.btn { position: relative; display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px 14px 18px; border: 0; border-radius: 16px; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; transition: transform .2s cubic-bezier(.2,1.4,.4,1), box-shadow .2s, background .2s; }
+.btn svg { width: 26px; height: 26px; flex: none; }
+.btn span { display: grid; text-align: left; line-height: 1.2; }
+.btn small { font-size: .74rem; font-weight: 500; opacity: .75; }
+.btn--pri { background: linear-gradient(180deg, var(--red-hi), var(--red)); color: #fff; box-shadow: 0 10px 30px rgba(229,72,77,.4), inset 0 1px 0 rgba(255,255,255,.25); }
+.btn--pri:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(229,72,77,.5), inset 0 1px 0 rgba(255,255,255,.25); }
+.btn--sec { background: rgba(255,255,255,.07); color: var(--fg); border: 1px solid var(--line); }
+.btn--sec:hover { transform: translateY(-2px); background: rgba(255,255,255,.11); }
+.btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+main { max-width: 1040px; margin: 0 auto; padding: 0 20px 60px; display: grid; gap: 22px; }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.card { position: relative; padding: 28px; border-radius: 24px; background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015)); border: 1px solid var(--line); overflow: hidden; scroll-margin-top: 20px; }
+.card::before { content: ''; position: absolute; inset: -1px -1px auto; height: 140px; background: radial-gradient(60% 100% at 20% 0%, var(--brilho), transparent 70%); opacity: .5; pointer-events: none; }
+.card--app { --brilho: rgba(229,72,77,.4); }
+.card--ext { --brilho: rgba(229,9,20,.35); }
+.card.destaque { border-color: rgba(255,194,61,.55); box-shadow: 0 0 0 4px rgba(255,194,61,.12); }
+.card__cab { position: relative; display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.card__ic { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: rgba(255,255,255,.07); border: 1px solid var(--line); flex: none; }
+.card__ic svg { width: 28px; height: 28px; }
+.card h2 { margin: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: -.02em; }
+.card__cab p { margin: 2px 0 0; font-size: .86rem; color: var(--faint); }
+.card > p { margin: 0 0 18px; color: var(--soft); }
+
+.lista { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 9px; }
+.lista li { display: flex; gap: 10px; align-items: flex-start; font-size: .95rem; }
+.lista li::before { content: ''; flex: none; width: 18px; height: 18px; margin-top: 2px; border-radius: 50%; background: rgba(61,220,132,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233ddc84' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/11px no-repeat; }
+
+.sistemas { display: grid; gap: 8px; }
+.so { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px solid transparent; text-decoration: none; transition: background .2s, border-color .2s, transform .2s; }
+.so:hover { background: rgba(255,255,255,.08); border-color: var(--line); transform: translateX(3px); }
+.so.seu { border-color: rgba(255,194,61,.5); background: rgba(255,194,61,.07); }
+.so__ic { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: rgba(255,255,255,.06); }
+.so__ic svg { width: 22px; height: 22px; }
+.so b { display: block; font-size: .95rem; }
+.so small { display: block; font-size: .78rem; color: var(--faint); }
+.so i { font-style: normal; font-size: .78rem; font-weight: 600; color: var(--soft); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.so i svg { width: 16px; height: 16px; }
+.so .tag { padding: 2px 8px; border-radius: 99px; background: var(--gold); color: #241800; font-size: .66rem; font-weight: 800; }
+.mais { margin-top: 4px; }
+.mais summary { cursor: pointer; padding: 8px 4px; font-size: .86rem; font-weight: 600; color: var(--soft); list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+.mais summary::-webkit-details-marker { display: none; }
+.mais summary svg { width: 16px; height: 16px; transition: transform .25s; }
+.mais[open] summary svg { transform: rotate(180deg); }
+.mais .sistemas { margin-top: 4px; }
+
+.dicas { margin-top: 18px; display: grid; gap: 10px; }
+.dicas > div { padding: 14px 16px; border-radius: 14px; background: rgba(255,255,255,.03); border: 1px dashed rgba(255,255,255,.1); }
+.dicas b { display: block; font-size: .9rem; margin-bottom: 2px; }
+.dicas span { display: block; font-size: .84rem; color: var(--soft); }
+.dicas u { text-decoration-color: rgba(255,255,255,.35); text-underline-offset: 2px; color: var(--fg); }
+.ext-baixar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 22px; }
+.ext-baixar .btn--pri { background: linear-gradient(180deg, #ff2a35, var(--nfx)); box-shadow: 0 10px 30px rgba(229,9,20,.38), inset 0 1px 0 rgba(255,255,255,.25); }
+.versao { font-size: .82rem; color: var(--faint); }
+.versao b { color: var(--fg); }
+.passos { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; counter-reset: p; }
+.passos li { position: relative; display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 10px 0; counter-increment: p; }
+.passos li::before { content: counter(p); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.08); font-weight: 800; font-size: .9rem; }
+.passos li:not(:last-child)::after { content: ''; position: absolute; left: 16.5px; top: 46px; bottom: -6px; width: 1px; background: var(--line); }
+.passos b { display: block; font-size: .96rem; }
+.passos span { display: block; font-size: .86rem; color: var(--soft); }
+.passos kbd { font: 600 .82rem ui-monospace, SFMono-Regular, Menlo, monospace; padding: 1px 6px; border-radius: 6px; background: rgba(255,255,255,.09); border: 1px solid var(--line); }
+.copia { max-width: 100%; overflow: hidden; margin-top: 6px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 8px 6px 12px; border-radius: 10px; background: #0f0f14; border: 1px solid var(--line); font: 600 .86rem ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--cream); cursor: pointer; transition: border-color .2s; }
+.copia:hover { border-color: rgba(255,255,255,.25); }
+.copia em { font: 600 .7rem Inter, system-ui, sans-serif; font-style: normal; padding: 3px 8px; border-radius: 7px; background: rgba(255,255,255,.08); color: var(--soft); }
+.copia.ok em { background: rgba(61,220,132,.2); color: #3ddc84; }
+.toggle { display: inline-block; vertical-align: -3px; width: 26px; height: 15px; border-radius: 99px; background: #1a73e8; position: relative; margin: 0 2px; }
+.toggle::after { content: ''; position: absolute; right: 2px; top: 2px; width: 11px; height: 11px; border-radius: 50%; background: #fff; }
+.aviso { margin-top: 16px; display: flex; gap: 12px; padding: 14px 16px; border-radius: 14px; background: rgba(255,194,61,.08); border: 1px solid rgba(255,194,61,.25); font-size: .88rem; color: var(--soft); }
+.aviso svg { width: 20px; height: 20px; flex: none; color: var(--gold); margin-top: 1px; }
+.aviso b { color: var(--fg); }
+
+.faixa { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.faixa div { padding: 22px; border-radius: 20px; background: rgba(255,255,255,.025); border: 1px solid var(--line); }
+.faixa svg { width: 26px; height: 26px; color: var(--gold); margin-bottom: 10px; }
+.faixa b { display: block; margin-bottom: 4px; }
+.faixa p { margin: 0; font-size: .88rem; color: var(--soft); }
+
+footer { max-width: 1040px; margin: 0 auto; padding: 26px 20px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); font-size: .84rem; color: var(--faint); }
+footer a { color: var(--soft); }
+
+.revela { opacity: 0; transform: translateY(24px); transition: opacity .7s, transform .7s cubic-bezier(.2,1,.3,1); }
+.revela.vis { opacity: 1; transform: none; }
+
+@media (max-width: 820px) {
+  .cards, .faixa { grid-template-columns: 1fr; }
+  .hero { margin-top: 44px; }
+  .topo nav a:not(:last-child) { display: none; }
+  .card { padding: 22px 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cortina, .franja { display: none; }
+  .selo, h1, .hero p, .acoes { animation: none; opacity: 1; }
+  .revela { opacity: 1; transform: none; transition: none; }
+  .btn, .so { transition: none; }
+}
+</style>
+</head>
+<body>
+<header class="palco">
+  <div class="cortina e" aria-hidden="true"></div><div class="cortina d" aria-hidden="true"></div><div class="franja" aria-hidden="true"></div>
+  <div class="topo">
+    <a class="marca" href="/"><svg viewBox="36 36 184 184" aria-hidden="true"><path fill="#fff4e6" d="M183.4 64.6A84 84 0 1 0 124 208H204a8 8 0 0 0 8-8V176a8 8 0 0 0-8-8H124A44 44 0 1 1 155.1 92.9Z"/><path fill="#ffc23d" d="M106 98 151 124 106 150Z"/></svg>Cineminha</a>
+    <nav><a href="#app">App</a><a href="#extensao">Extensão</a><a href="/">Entrar na sala</a></nav>
+  </div>
+  <div class="hero">
+    <span class="selo"><b>grátis</b> Windows · Linux · Chrome</span>
+    <h1>Leve o <em>Cineminha</em> para o seu computador</h1>
+    <p>O app abre a sala direto, com som da tela e sem aba perdida. A extensão liga a sua Netflix à sala: todo mundo pausa, pula a abertura e vê a nota de cada episódio.</p>
+    <div class="acoes">
+      <a class="btn btn--pri" id="principal" href="/baixar/windows"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span id="principalTxt">Baixar o app<small>para o seu sistema</small></span></a>
+      <a class="btn btn--sec" href="#extensao"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e50914" d="M6 2h4l4 11V2h4v20h-4l-4-11v11H6z"/></svg><span>Extensão da Netflix<small>Chrome e Edge</small></span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="cards">
+    <section class="card card--app revela" id="app">
+      <div class="card__cab">
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a8e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div><h2>App para computador</h2><p id="appVersao">a versão mais nova</p></div>
+      </div>
+      <ul class="lista">
+        <li>Projeta a tela com o som do computador (inclusive no Linux)</li>
+        <li>Fica na bandeja e avisa quando a galera entra na sala</li>
+        <li>Atualiza sozinho quando sai versão nova</li>
+      </ul>
+      <div class="sistemas" id="sistemas"></div>
+      <details class="mais">
+        <summary>Outras versões para Linux e Windows <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="sistemas" id="outros"></div>
+      </details>
+      <div class="dicas">
+        <div><b>O Windows avisou?</b><span>Na tela azul “O Windows protegeu o computador”, clique em <u>Mais informações</u> e depois em <u>Executar assim mesmo</u>. O aviso aparece porque o app não é de uma loja.</span></div>
+        <div><b>No Linux (AppImage)</b><span>Dê permissão para executar: botão direito no arquivo, Propriedades, “Permitir executar”. Ou no terminal:</span><button type="button" class="copia" data-copia="chmod +x Cineminha-linux.AppImage"><span>chmod +x Cineminha-linux.AppImage</span><em>copiar</em></button></div>
+      </div>
+    </section>
+
+    <section class="card card--ext revela" id="extensao">
+      <div class="card__cab">
+        <div class="card__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e50914" d="M6 2h4l4 11V2h4v20h-4l-4-11v11H6z"/></svg></div>
+        <div><h2>Extensão da Netflix</h2><p>para Chrome, Edge e Brave</p></div>
+      </div>
+      <ul class="lista">
+        <li>A sala dá play, pausa e pula a abertura da sua Netflix</li>
+        <li>Mostra série, episódio e a nota do IMDb do que está passando</li>
+        <li>Projeta a aba sem a faixa “Compartilhando esta guia”</li>
+      </ul>
+      <div class="ext-baixar">
+        <a class="btn btn--pri" href="/baixar/extensao" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span>Baixar extensão<small>arquivo .zip</small></span></a>
+        <span class="versao" id="extVersao"></span>
+      </div>
+      <ol class="passos">
+        <li><div><b>Descompacte o .zip</b><span>Numa pasta que você não vá apagar (ex.: Documentos/cineminha-netflix).</span></div></li>
+        <li><div><b>Abra a página de extensões</b><span>Cole na barra de endereço:</span><button type="button" class="copia" id="copia"><span id="copiaUrl">chrome://extensions</span><em>copiar</em></button></div></li>
+        <li><div><b>Ligue o “Modo do desenvolvedor”</b><span>No canto de cima, à direita: <i class="toggle" aria-hidden="true"></i></span></div></li>
+        <li><div><b>Clique em “Carregar sem compactação”</b><span>Escolha a pasta que você descompactou. Depois, recarregue a aba da Netflix.</span></div></li>
+      </ol>
+      <div class="aviso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg><span><b>Já tinha a extensão?</b> Descompacte a nova por cima da mesma pasta e clique no <kbd>↻</kbd> da extensão em <span id="copiaUrl2">chrome://extensions</span>. Assim ela pega a versão nova.</span></div>
+    </section>
+  </div>
+
+  <div class="faixa revela">
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21.1l1.4-7L2 9.3l7-.8z"/></svg><b>Notas de cada episódio</b><p>No fim do episódio, cada um dá as suas estrelas e o diário guarda o histórico da série.</p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><b>Jogos na call</b><p>Uno, Coup, Codnames e outros, com o tempo de cada jogo no diário.</p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><b>Só a turma</b><p>Sem anúncio e sem coleta de dados. <a href="privacidade.html">Privacidade</a>.</p></div>
+  </div>
+</main>
+
+<footer><span>Cineminha · feito para assistir junto</span><span><a href="https://github.com/kellyson71/cineminha/releases">Todas as versões</a> · <a href="/">Voltar para a sala</a></span></footer>
+
+<script>
+// sistema de quem abriu a página: o botão grande já baixa a versão certa
+const ua = navigator.userAgent, linux = /Linux|X11/.test(ua) && !/Android/.test(ua), win = /Windows/.test(ua), mac = /Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua)
+const edge = /Edg\//.test(ua), brave = !!navigator.brave
+const IC = {
+  win: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4cc2ff" d="M3 5.5 10.5 4.5v7H3zM11.5 4.3 21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>',
+  linux: '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="14.5" rx="6.2" ry="7" fill="#f2f2f2"/><path fill="#1c1c22" d="M12 2c-2.6 0-4.4 2.2-4.4 5.2 0 1.6.4 2.5.4 3.4C6.4 12.4 5 14.5 5 17c0 .5.1 1 .2 1.4.9-1.6 2.6-2.6 3.3-4.2.4 1.9 1.7 3.4 3.5 3.4s3.1-1.5 3.5-3.4c.7 1.6 2.4 2.6 3.3 4.2.1-.4.2-.9.2-1.4 0-2.5-1.4-4.6-3-6.4 0-.9.4-1.8.4-3.4C16.4 4.2 14.6 2 12 2z"/><circle cx="10.4" cy="7.4" r=".9" fill="#fff"/><circle cx="13.6" cy="7.4" r=".9" fill="#fff"/><path fill="#ffb02e" d="M10.2 9.2c.6.7 1.2 1 1.8 1s1.2-.3 1.8-1c-.6-.4-1.2-.5-1.8-.5s-1.2.1-1.8.5zM5.5 19.5c1.2.5 2.6 1.2 3.4 2 .6.5 1.6.3 1.6-.6 0-1.5-1.7-3.6-2.8-4.3-.9.3-1.8 1.6-2.2 2.9zM18.5 19.5c-1.2.5-2.6 1.2-3.4 2-.6.5-1.6.3-1.6-.6 0-1.5 1.7-3.6 2.8-4.3.9.3 1.8 1.6 2.2 2.9z"/></svg>',
+  pacote: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>',
+  baixa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>',
+}
+// arquivo do release → [link curto, nome, detalhe, ícone]
+const ARQ = {
+  'Cineminha-instalador.exe': ['/baixar/windows', 'Windows', 'Instalador · Windows 10 e 11', IC.win, 'win'],
+  'Cineminha-linux.AppImage': ['/baixar/linux', 'Linux', 'AppImage · qualquer distribuição', IC.linux, 'linux'],
+  'Cineminha-portatil.exe': ['https://github.com/kellyson71/cineminha/releases/latest/download/Cineminha-portatil.exe', 'Windows portátil', 'Sem instalar, roda de um pendrive', IC.win, ''],
+  'cineminha-linux.deb': ['/baixar/deb', 'Debian e Ubuntu', 'Pacote .deb', IC.pacote, ''],
+  'cineminha-linux.pacman': ['/baixar/arch', 'Arch e CachyOS', 'Pacote .pacman', IC.pacote, ''],
+  'cineminha-linux.rpm': ['/baixar/rpm', 'Fedora e openSUSE', 'Pacote .rpm', IC.pacote, ''],
+}
+const PRINCIPAIS = ['Cineminha-instalador.exe', 'Cineminha-linux.AppImage']
+const mb = b => b ? Math.round(b / 1048576) + ' MB' : ''
+const meu = linux ? 'linux' : win ? 'win' : ''
+function linha(nome, tam) {
+  const [href, t, d, ic, so] = ARQ[nome]
+  const a = document.createElement('a')
+  a.className = 'so' + (so && so === meu ? ' seu' : ''); a.href = href
+  a.innerHTML = `<span class="so__ic">${ic}</span><span><b>${t}</b><small>${d}</small></span><i>${so && so === meu ? '<span class="tag">seu sistema</span>' : ''}${mb(tam)}${IC.baixa}</i>`
+  return a
+}
+function desenha(tams = {}) {
+  const ordem = meu === 'linux' ? PRINCIPAIS.slice().reverse() : PRINCIPAIS
+  document.getElementById('sistemas').replaceChildren(...ordem.map(n => linha(n, tams[n])))
+  document.getElementById('outros').replaceChildren(...Object.keys(ARQ).filter(n => !PRINCIPAIS.includes(n)).map(n => linha(n, tams[n])))
+  const p = document.getElementById('principal'), t = document.getElementById('principalTxt')
+  if (meu === 'linux') { p.href = '/baixar/linux'; t.innerHTML = `Baixar para Linux<small>AppImage${tams['Cineminha-linux.AppImage'] ? ' · ' + mb(tams['Cineminha-linux.AppImage']) : ''}</small>` }
+  else if (meu === 'win') { p.href = '/baixar/windows'; t.innerHTML = `Baixar para Windows<small>Instalador${tams['Cineminha-instalador.exe'] ? ' · ' + mb(tams['Cineminha-instalador.exe']) : ''}</small>` }
+  else { p.href = '#app'; t.innerHTML = mac ? 'Ver as versões<small>ainda não tem para Mac</small>' : 'Ver as versões<small>Windows e Linux</small>' }
+}
+desenha()
+// tamanhos e versão do último release (se o GitHub não responder, os links continuam valendo)
+fetch('https://api.github.com/repos/kellyson71/cineminha/releases/latest').then(r => r.ok ? r.json() : null).then(r => {
+  if (!r?.assets) return
+  desenha(Object.fromEntries(r.assets.map(a => [a.name, a.size])))
+  const quando = r.published_at ? new Date(r.published_at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' }) : ''
+  document.getElementById('appVersao').textContent = `versão ${r.tag_name.replace(/^v/, '')}${quando ? ' · ' + quando : ''}`
+}).catch(() => {})
+fetch('extensao/versao.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(v => {
+  if (v?.versao) document.getElementById('extVersao').innerHTML = `versão <b>${v.versao}</b>${v.tamanho ? ' · ' + Math.max(1, Math.round(v.tamanho / 1024)) + ' KB' : ''}`
+}).catch(() => {})
+// Edge e Brave têm o próprio endereço de extensões
+const url = edge ? 'edge://extensions' : brave ? 'brave://extensions' : 'chrome://extensions'
+document.getElementById('copiaUrl').textContent = url; document.getElementById('copiaUrl2').textContent = url
+document.getElementById('copia').dataset.copia = url
+document.querySelectorAll('.copia').forEach(copia => copia.addEventListener('click', async () => {
+  const txt = copia.dataset.copia
+  try { await navigator.clipboard.writeText(txt) } catch { const t = document.createElement('textarea'); t.value = txt; document.body.append(t); t.select(); document.execCommand('copy'); t.remove() }
+  copia.classList.add('ok'); copia.querySelector('em').textContent = 'copiado!'
+  setTimeout(() => { copia.classList.remove('ok'); copia.querySelector('em').textContent = 'copiar' }, 1800)
+}))
+// vindo do aviso da sala (#extensao): destaca o cartão da extensão
+if (location.hash === '#extensao') document.getElementById('extensao').classList.add('destaque')
+// os cartões sobem ao aparecer
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target) } }), { threshold: .12 })
+document.querySelectorAll('.revela').forEach(n => io.observe(n))
+</script>
+</body>
+</html>
