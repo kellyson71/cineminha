@@ -1,4 +1,399 @@
 {
+ "2026-01-24": [
+  {
+   "id": "mindless-self-indulgence-faggot",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Faggot",
+   "a": "Mindless Self Indulgence",
+   "album": "Frankenstein Girls Will Seem Strangely Sexy",
+   "ano": 1997,
+   "dz": {
+    "t": 6469969,
+    "a": 2927
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 470530,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "fujii-kaze-matsuri",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Matsuri",
+   "a": "Fujii Kaze",
+   "album": "LOVE ALL SERVE ALL",
+   "ano": 2022,
+   "dz": {
+    "t": 1687095397,
+    "a": 78489662
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 470326,
+   "generos": [
+    "Música asiática",
+    "J-Pop"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  }
+ ],
+ "2026-01-25": [
+  {
+   "id": "bts-boyz-with-fun",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Boyz with Fun",
+   "a": "BTS",
+   "album": "The Most Beautiful Moment in Life Pt.1",
+   "ano": 2021,
+   "dz": {
+    "t": 1560787012,
+    "a": 6982223
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 482302,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "bts-hold-me-tight",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hold Me Tight",
+   "a": "BTS",
+   "album": "The Most Beautiful Moment in Life Pt.1",
+   "ano": 2021,
+   "dz": {
+    "t": 1560786982,
+    "a": 6982223
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 482175,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "jao-vsf",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "VSF",
+   "a": "Jão",
+   "album": "ANTI-HERÓI",
+   "ano": 2019,
+   "dz": {
+    "t": 769508792,
+    "a": 5297266
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 474886,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "bts-coffee",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Coffee",
+   "a": "BTS",
+   "album": "O!RUL8,2?",
+   "ano": 2013,
+   "dz": {
+    "t": 1560787952,
+    "a": 6982223
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 473183,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "pentagon-shine",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Shine",
+   "a": "PENTAGON",
+   "album": "Positive",
+   "ano": 2018,
+   "dz": {
+    "t": 1861934537,
+    "a": 62831
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 471851,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  }
+ ],
  "2026-01-26": [
   {
    "id": "ateez-wave",
@@ -100,6 +495,173 @@
    ],
    "pais": null,
    "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "agust-d-max-burn-it-feat-max",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Burn It (feat. MAX)",
+   "a": "Agust D",
+   "album": "D-2",
+   "ano": 2020,
+   "dz": {
+    "t": 2217267297,
+    "a": 14728175
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 488454,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "got7-if-you-do",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "If You Do",
+   "a": "GOT7",
+   "album": "MAD Winter Edition",
+   "ano": 2015,
+   "dz": {
+    "t": 2371923635,
+    "a": 6209854
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 487135,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "jackson-wang-100-ways",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "100 Ways",
+   "a": "Jackson Wang",
+   "album": "100 Ways",
+   "ano": 2020,
+   "dz": {
+    "t": 2613189612,
+    "a": 11140418
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 483813,
+   "generos": [
+    "Dance",
+    "Pop"
+   ],
+   "pais": "KR",
+   "decada": 2020,
    "tags_ok": true,
    "de": [
     "gabi"
