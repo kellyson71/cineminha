@@ -1,4 +1,112 @@
 {
+ "2026-04-15": [
+  {
+   "id": "creedence-clearwater-revival-fortunate-son",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Fortunate Son",
+   "a": "Creedence Clearwater Revival",
+   "album": "Creedence Clearwater Revival - Best Of",
+   "ano": 1969,
+   "dz": {
+    "t": 883648,
+    "a": 2468
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 904150,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1960,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "imagine-dragons-natural",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Natural",
+   "a": "Imagine Dragons",
+   "album": "Origins (Deluxe)",
+   "ano": 2018,
+   "dz": {
+    "t": 579892872,
+    "a": 416239
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 901721,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  }
+ ],
  "2026-04-16": [
   {
    "id": "scorpions-wind-of-change",
@@ -202,6 +310,64 @@
    ],
    "pais": "GB",
    "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "lynyrd-skynyrd-sweet-home-alabama",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Sweet Home Alabama",
+   "a": "Lynyrd Skynyrd",
+   "album": "Second Helping (Expanded Edition)",
+   "ano": 1975,
+   "dz": {
+    "t": 24949681,
+    "a": 816
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 908415,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 1970,
    "tags_ok": true,
    "de": [
     "otavio"
