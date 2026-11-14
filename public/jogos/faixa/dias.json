@@ -1,4 +1,382 @@
 {
+ "2026-02-05": [
+  {
+   "id": "pitty-deja-vu",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Déjà Vu",
+   "a": "Pitty",
+   "album": "Anacrônico",
+   "ano": 2005,
+   "dz": {
+    "t": 95987674,
+    "a": 12815
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 600049,
+   "generos": [],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "mana-labios-compartidos",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Labios Compartidos",
+   "a": "Maná",
+   "album": "Amar es Combatir (Limited Edition CD+DVD)",
+   "ano": 2006,
+   "dz": {
+    "t": 797372,
+    "a": 4115
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 628948,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "MX",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  }
+ ],
+ "2026-02-06": [
+  {
+   "id": "david-bowie-the-man-who-sold-the-world-2015-remaster",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Man Who Sold the World (2015 Remaster)",
+   "a": "David Bowie",
+   "album": "The Man Who Sold the World (2015 Remaster)",
+   "ano": 1996,
+   "dz": {
+    "t": 107470098,
+    "a": 997
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 640683,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "sub-urban-bella-poarch-inferno",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "INFERNO",
+   "a": "Sub Urban",
+   "album": "INFERNO",
+   "ano": 2021,
+   "dz": {
+    "t": 1451003612,
+    "a": 7815200
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 603581,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "the-beatles-hello-goodbye-remastered-2015",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Hello, Goodbye (Remastered 2015)",
+   "a": "The Beatles",
+   "album": "1 (Remastered 2015)",
+   "ano": 1967,
+   "dz": {
+    "t": 116348628,
+    "a": 1
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 639624,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1960,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "melanie-martinez-mad-hatter",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Mad Hatter",
+   "a": "Melanie Martinez",
+   "album": "Cry Baby (Deluxe Edition)",
+   "ano": 2015,
+   "dz": {
+    "t": 105286432,
+    "a": 5518450
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 603033,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "deep-purple-soldier-of-fortune-2009-digital-remaster",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Soldier Of Fortune (2009 Digital Remaster)",
+   "a": "Deep Purple",
+   "album": "Stormbringer (Remastered)",
+   "ano": 1974,
+   "dz": {
+    "t": 3143147,
+    "a": 864
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 630128,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  }
+ ],
  "2026-02-07": [
   {
    "id": "bts-magic-shop",
@@ -100,6 +478,165 @@
    "tags_ok": true,
    "de": [
     "otavio"
+   ]
+  },
+  {
+   "id": "my-chemical-romance-the-sharpest-lives",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Sharpest Lives",
+   "a": "My Chemical Romance",
+   "album": "The Black Parade",
+   "ano": 2006,
+   "dz": {
+    "t": 676569,
+    "a": 599
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 608573,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "the-beatles-don-t-let-me-down-remastered-2009",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Don't Let Me Down (Remastered 2009)",
+   "a": "The Beatles",
+   "album": "The Beatles 1967 - 1970 (Remastered 2009)",
+   "ano": 1988,
+   "dz": {
+    "t": 116348120,
+    "a": 1
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 648013,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "marina-how-to-be-a-heartbreaker",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "How to Be a Heartbreaker",
+   "a": "Marina",
+   "album": "Electra Heart (Deluxe)",
+   "ano": 2012,
+   "dz": {
+    "t": 65227256,
+    "a": 74357
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 604714,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
    ]
   }
  ],
