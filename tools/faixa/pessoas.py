@@ -22,7 +22,11 @@ import fabrica as F, diario as D, leva as L, pesquisa as P
 AQUI = Path(__file__).parent
 PASTA = AQUI / 'listas' / 'pessoas'
 FILA = PASTA / 'fila.json'
-PESSOAS = {'gabi': 'Gabi', 'otavio': 'Otávio', 'meris': 'Meris'}
+PESSOAS = {'gabi': 'Gabi', 'otavio': 'Otávio', 'meris': 'Meris', 'kellyson': 'Kellyson'}
+# Kellyson: as listas que abastecem o jogo desde o começo (mais ouvidas, curtidas e playlists do Spotify dele) e
+# tudo o que entrou por elas. Não vai para a fila: as músicas dele já entram pela leva e pelo diário
+ORIGENS = {'kellyson': {'top', 'sp-top', 'curtida', 'sp-playlist', 'antiga', 'estudio'}}
+SEM_FILA = {'kellyson'}
 # fica de fora da fila: trilha de desenho, anime, série animada e jogo (o menu esconde essas por padrão)
 OBRA = re.compile(r'adventure time|league of legends|\barcane\b|ordem paranormal|ever after high|monster high|原神|attack on titan|'
                   r'life is strange|anime version|k/da|pentakill|hatsune miku|disney|pixar', re.I)
@@ -44,22 +48,36 @@ def artistas(a):
 
 
 def lista(pid):
-    out = []
-    for l in (PASTA / f'{pid}.txt').read_text('utf-8').splitlines():
-        if l.startswith('##') or '|' not in l: continue
-        t, a = l.split('|', 1)
-        if t.strip() and a.strip() and (t.strip(), a.strip()) not in out: out.append((t.strip(), a.strip()))
+    if pid == 'kellyson':
+        sp = P.spotify()
+        xs = P.ler_txt('mais-ouvidas.txt') + P.ler_txt('curtidas-e-veio.txt') + [(x['t'], x['a']) for k in ('top', 'curtidas', 'playlists') for x in sp.get(k, [])]
+    else:
+        xs = []
+        for l in (PASTA / f'{pid}.txt').read_text('utf-8').splitlines():
+            if l.startswith('##') or '|' not in l: continue
+            xs.append(tuple(x.strip() for x in l.split('|', 1)))
+    out, vistos = [], set()
+    for t, a in xs:
+        if t and a and (t, a) not in vistos: vistos.add((t, a)); out.append((t, a))
     return out
 
 
-def casa(t, a, m):
-    if norm(t) != norm(m.get('t')): return False
-    am, an = artistas(a), norm(m.get('a'))
-    return bool(am & artistas(m.get('a'))) or any(x and x in an for x in am)
+def indice_lista(xs):
+    """{título normalizado: [artistas de cada entrada]}: para comparar milhares de músicas sem varrer a lista toda."""
+    ix = {}
+    for t, a in xs: ix.setdefault(norm(t), []).append(artistas(a))
+    return ix
 
 
-def donos(m, listas):
-    return [pid for pid, xs in listas.items() if any(casa(t, a, m) for t, a in xs)]
+def esta_em(t, a, ix):
+    cands = ix.get(norm(t))
+    if not cands: return False
+    am, an = artistas(a), norm(a)
+    return any(c & am or any(x and x in an for x in c) for c in cands)
+
+
+def donos(m, ixs):
+    return [pid for pid, ix in ixs.items() if esta_em(m.get('t'), m.get('a'), ix) or m.get('origem') in ORIGENS.get(pid, ())]
 
 
 def grava_indice(idx):
@@ -69,7 +87,7 @@ def grava_indice(idx):
 
 
 def marcar(quieto=False):
-    listas = {p: lista(p) for p in PESSOAS}
+    listas = {p: indice_lista(lista(p)) for p in PESSOAS}
     idx = L.indice()
     mudou = 0
     cont = {p: [0, 0] for p in PESSOAS}  # [até hoje, próximos dias]
@@ -111,9 +129,12 @@ def fila(rank_min=RANK_MIN):
     todas = [m for ms in L.indice().values() for m in ms]
     antiga = {(x['t'], x['a']): x for x in carrega_fila()}
     faltam = []
+    no_jogo = indice_lista([(m['t'], m['a']) for m in todas])
+    ixs = {p: indice_lista(xs) for p, xs in listas.items()}
     for p, xs in listas.items():
+        if p in SEM_FILA: continue
         for t, a in xs:
-            if any(casa(t, a, m) for m in todas): continue
+            if esta_em(t, a, no_jogo): continue
             if OBRA.search(t) or OBRA.search(a) or P.BARRA.search(t): continue
             if any(norm(t) == norm(y[1]) and artistas(a) & artistas(y[2]) for y in faltam):
                 continue  # repetida entre as duas listas (ou na mesma): uma entrada só
@@ -122,7 +143,7 @@ def fila(rank_min=RANK_MIN):
     with concurrent.futures.ThreadPoolExecutor(4) as ex:
         res = list(ex.map(_consulta, faltam))
     for r in res:  # quem tem a música nas duas listas
-        r['de'] = [p for p in PESSOAS if any(norm(r['t']) == norm(t) and artistas(r['a']) & artistas(a) for t, a in listas[p])]
+        r['de'] = [p for p in PESSOAS if esta_em(r['t'], r['a'], ixs[p])]
     boas = sorted([r for r in res if r['rank'] >= rank_min], key=lambda r: -r['rank'])
     nova = []
     for r in boas:

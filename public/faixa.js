@@ -37,7 +37,7 @@ const ABERTURA = m => !!m.obra && (m.ab || (m.categoria !== 'jogos' && /\babertu
 // escondidas por padrão (caixinha "incluir desenhos, aberturas e jogos")
 const TRILHA = m => ['desenhos', 'desenho', 'jogos'].includes(m.origem) || ABERTURA(m)
 // pessoas: a playlist de cada um vira categoria (tools/faixa/pessoas.py marca `de` nas músicas)
-const PESSOAS_CAT = [{ id: 'gabi', nome: 'Gabi', da: 'da' }, { id: 'otavio', nome: 'Otávio', da: 'do' }, { id: 'meris', nome: 'Meris', da: 'da' }]
+const PESSOAS_CAT = [{ id: 'gabi', nome: 'Gabi', da: 'da' }, { id: 'otavio', nome: 'Otávio', da: 'do' }, { id: 'meris', nome: 'Meris', da: 'da' }, { id: 'kellyson', nome: 'Kellyson', da: 'do' }]
 const CATEGORIAS = [
   ...PESSOAS_CAT.map(p => ({ id: `p-${p.id}`, nome: p.nome, pessoa: p.id, da: p.da, f: m => (m.de || []).includes(p.id) })),
   { id: 'origem', nome: 'De onde é?', ic: '🧩', f: ORIGEM, origem: true },
@@ -1018,10 +1018,13 @@ export function criaFaixa(ctx) {
     const datas = Object.keys(dias || {}).filter(d => d <= hoje).sort().reverse()
     const res = datas.length ? await ctx.verDias(datas) : {}
     const meu = d => res[d]?.[me.key]?.musicas || {}
-    // em grupo, "nova" é a música que ninguém da call ouviu ainda (não só você)
-    const call = ctx.presentes(), grupo = call.length > 1
-    const feitas = new Set(datas.flatMap(d => Object.entries(res[d] || {}).filter(([k]) => call.includes(k)).flatMap(([, v]) => Object.keys(v.musicas || {}).map(n => `${d}#${n}`))))
-    const ninguem = grupo ? 'ninguém da call' : 'você não'
+    // "nova" é, por padrão, a música que ninguém da call ouviu: todo mundo joga junto e o host pode trocar, então não
+    // importa quem abre o menu. Dá para trocar para "só eu" (o que eu não ouvi) ou "tanto faz" (sorteia sem olhar)
+    const call = ctx.presentes(), naCall = call.length > 1
+    const ouvidasPor = ks => new Set(datas.flatMap(d => Object.entries(res[d] || {}).filter(([k]) => ks.includes(k)).flatMap(([, v]) => Object.keys(v.musicas || {}).map(n => `${d}#${n}`))))
+    const ouvidasCall = ouvidasPor(call), ouvidasEu = ouvidasPor([me.key])
+    let novasPara = 'call', grupo = naCall, feitas = ouvidasCall, ninguem = grupo ? 'ninguém da call' : 'você não'
+    const setNovas = v => { novasPara = ['call', 'eu', 'todas'].includes(v) ? v : 'call'; grupo = naCall && novasPara !== 'eu'; feitas = novasPara === 'eu' ? ouvidasEu : ouvidasCall; ninguem = grupo ? 'ninguém da call' : 'você não' }
     const todas = datas.flatMap(d => (dias[d] || []).map(m => ({ ...m, d })))
     const tudo = datas.flatMap(d => Object.values(meu(d)))
     const st = { jogadas: tudo.length, ok: tudo.filter(x => x.r === 'ok').length, art: tudo.filter(x => x.r === 'art').length, fora: tudo.filter(x => x.r === 'fora').length, pts: tudo.reduce((s, x) => s + (x.pts || 0), 0) }
@@ -1030,7 +1033,7 @@ export function criaFaixa(ctx) {
     if (!fundo.isConnected) return
     const jogar = (lista, rotulo, origem) => { if (ver) return; fechar(true); menuAtual = null; comecar({ lista, rotulo, modo: modoEscolhido, origem }) }
     // quem está escolhendo manda a tela em que está; quem olha segue junto
-    const conta = t => { if (!ver) difundeMenu({ tela: t, modo: modoEscolhido, sel: [...sel], mais: maisCats, qtd: qtdCat, mix: misturar, cs: [...catSel], comum: emComum, tri: comTrilhas }) }
+    const conta = t => { if (!ver) difundeMenu({ tela: t, modo: modoEscolhido, sel: [...sel], mais: maisCats, qtd: qtdCat, np: novasPara, mix: misturar, cs: [...catSel], comum: emComum, tri: comTrilhas }) }
     const faixaVer = () => ver ? el('div', { className: 'fx-lobby__ver' }, ctx.pfp(ver, 22), el('span', {}, el('b', { textContent: olhar.nome }), ' está escolhendo o jogo…'), botao('x', '', () => fechar(), 'fx-btn--x', 'Fechar (só para você)')) : ''
     const bolas = d => el('span', { className: 'fx-dia__bolas' }, ...(dias[d] || []).map(m => { const x = meu(d)[m.n]; return el('i', { className: x ? x.r : '', title: x ? (x.r === 'ok' ? `acertou (+${x.pts})` : x.r === 'art' ? `só o artista (+${x.pts})` : 'errou') : 'não jogou' }) }))
     const ptsDia = d => Object.values(meu(d)).reduce((s, x) => s + (x.pts || 0), 0)
@@ -1114,7 +1117,7 @@ export function criaFaixa(ctx) {
     // primeiro as que ninguém ouviu; se não der a quantidade, completa com as já ouvidas. A mesma música em dois dias conta uma vez
     function sorteio(ms) {
       const mistura = a => a.slice().sort(() => Math.random() - .5)
-      const novas = ms.filter(m => !feitas.has(chave(m)))
+      const novas = novasPara === 'todas' ? ms : ms.filter(m => !feitas.has(chave(m)))
       const vistas = new Set(), out = []
       for (const m of [...mistura(novas), ...mistura(ms.filter(m => feitas.has(chave(m))))]) {
         const k = `${norm(m.t)}|${norm(m.a)}`
@@ -1164,6 +1167,11 @@ export function criaFaixa(ctx) {
         ...QTDS.map(n => chip(n, n === qtdCat, () => { qtdCat = n; try { localStorage.setItem('faixa.qtdCat', n) } catch {} categorias() })),
         el('span', { className: 'fx-grow' }),
         chip('Misturar', misturar, () => { misturar = !misturar; if (!misturar) catSel.clear(); categorias() }, 'Marque duas ou mais categorias e jogue tudo junto'))
+      // quem conta para "nova": ninguém da call (padrão), só eu ou tanto faz
+      const novasOp = el('div', { className: 'fx-chips fx-qtds' }, el('small', { className: 'fx-qtds__rot', textContent: 'Músicas novas para' }),
+        chip(naCall ? 'Ninguém da call' : 'Você', novasPara === 'call', () => { setNovas('call'); categorias() }, naCall ? 'Só entram as que ninguém da call ouviu, não importa quem é o host' : 'Só entram as que você não ouviu'),
+        naCall ? chip('Só eu', novasPara === 'eu', () => { setNovas('eu'); categorias() }, 'Só entram as que você não ouviu, mesmo que outros já tenham ouvido') : '',
+        chip('Tanto faz', novasPara === 'todas', () => { setNovas('todas'); categorias() }, 'Sorteia entre todas, já ouvidas ou não'))
       // barra da mistura: o que está marcado, somar ou em comum, e jogar
       let barra = ''
       if (misturar) {
@@ -1187,8 +1195,9 @@ export function criaFaixa(ctx) {
       trilhas.querySelector('input').addEventListener('change', e => { comTrilhas = e.target.checked; categorias() })
       conta('cats')
       box.replaceChildren(faixaVer(), topo(categorias, 'Categorias'),
-        cats.length ? el('p', { className: 'fx-catnota' }, icon('music'), el('span', {}, 'Cada categoria sorteia ', el('b', { textContent: grupo ? `${qtdCat} músicas que ninguém da call ouviu` : `${qtdCat} músicas que você ainda não ouviu` }), '. Se faltar, completa com as já ouvidas.')) : '',
+        cats.length ? el('p', { className: 'fx-catnota' }, icon('music'), el('span', {}, 'Cada categoria sorteia ', ...(novasPara === 'todas' ? [el('b', { textContent: `${qtdCat} músicas quaisquer` }), ', já ouvidas ou não.'] : [el('b', { textContent: grupo ? `${qtdCat} músicas que ninguém da call ouviu` : `${qtdCat} músicas que você ainda não ouviu` }), '. Se faltar, completa com as já ouvidas.']))) : '',
         cats.length ? qtds : '',
+        cats.length ? novasOp : '',
         barra,
         pess.length ? el('div', { className: 'fx-pessoas' },
           el('div', { className: 'fx-pessoas__topo' }, el('small', { className: 'fx-qtds__rot', textContent: 'Playlists da galera' }), trilhas),
@@ -1205,6 +1214,7 @@ export function criaFaixa(ctx) {
       sel.clear(); for (const d of m.sel || []) sel.add(d)
       maisCats = !!m.mais
       if (QTDS.includes(m.qtd)) qtdCat = m.qtd
+      setNovas(m.np)
       misturar = !!m.mix; emComum = !!m.comum; comTrilhas = !!m.tri
       catSel.clear(); for (const c of m.cs || []) catSel.add(c)
       ;({ outros: outrosDias, combo, cats: categorias }[m.tela] || inicio)()

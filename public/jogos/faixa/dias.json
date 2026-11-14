@@ -1,4 +1,112 @@
 {
+ "2026-04-07": [
+  {
+   "id": "massive-attack-horace-andy-angel",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Angel",
+   "a": "Massive Attack",
+   "album": "Mezzanine",
+   "ano": 1998,
+   "dz": {
+    "t": 3129746,
+    "a": 612
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 843503,
+   "generos": [
+    "Electro"
+   ],
+   "pais": "GB",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "cigarettes-after-sex-nothing-s-gonna-hurt-you-baby",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Nothing's Gonna Hurt You Baby",
+   "a": "Cigarettes After Sex",
+   "album": "I.",
+   "ano": 2012,
+   "dz": {
+    "t": 389885871,
+    "a": 9568982
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 841968,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
  "2026-04-08": [
   {
    "id": "three-days-grace-animal-i-have-become",
@@ -110,6 +218,177 @@
    "tags_ok": true,
    "de": [
     "otavio",
+    "meris"
+   ]
+  },
+  {
+   "id": "ac-dc-t-n-t",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "T.N.T.",
+   "a": "AC/DC",
+   "album": "High Voltage",
+   "ano": 1976,
+   "dz": {
+    "t": 92720006,
+    "a": 115
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 850282,
+   "generos": [
+    "Rock",
+    "Hard Rock",
+    "Metal"
+   ],
+   "pais": "AU",
+   "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "gorillaz-on-melancholy-hill",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "On Melancholy Hill",
+   "a": "Gorillaz",
+   "album": "Plastic Beach",
+   "ano": 2010,
+   "dz": {
+    "t": 5490699,
+    "a": 14
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 849357,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "limp-bizkit-rollin-air-raid-vehicle",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Rollin' (Air Raid Vehicle)",
+   "a": "Limp Bizkit",
+   "album": "Chocolate Starfish And The Hot Dog Flavored Water",
+   "ano": 2000,
+   "dz": {
+    "t": 104011168,
+    "a": 93
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 848150,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
     "meris"
    ]
   }
