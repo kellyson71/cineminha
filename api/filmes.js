@@ -1,5 +1,6 @@
 // Apenas metadados públicos de filmes. Nenhum vídeo ou fonte de reprodução.
 import { json } from './_redis.js'
+import { episodiosImdb } from './_imdb.js'
 const BASE = 'https://v3-cinemeta.strem.io'
 const https = value => typeof value === 'string' && /^https:\/\//.test(value) ? value.slice(0, 1500) : ''
 function movie(m) {
@@ -33,17 +34,30 @@ async function midia(q, s, e) {
     const m = (await getJson(`${BASE}/meta/${tipo}/${c.imdb}.json`))?.meta
     if (!m) continue
     const ep = tipo === 'series' && s ? (m.videos || []).find(v => +v.season === s && +(v.episode ?? v.number) === e) : null
-    const notaEp = tipo === 'series' && s && e ? await notaEpisodio(c.imdb, s, e) : null
-    return { tipo: tipo === 'series' ? 'serie' : 'filme', ...movie(m), ep: ep || notaEp ? { s, e, nome: String(ep?.name || notaEp?.nome || '').slice(0, 120), still: https(ep?.thumbnail), sinopse: String(ep?.overview || ep?.description || '').slice(0, 400), data: String(ep?.released || '').slice(0, 10), nota: notaEp?.nota ?? null, votos: notaEp?.votos || 0, imdb: notaEp?.imdb || '' } : null }
+    const todos = tipo === 'series' && s ? await episodiosImdb(c.imdb) : []
+    const notaEp = e ? todos.find(x => x.s === s && x.e === e) : null
+    return { tipo: tipo === 'series' ? 'serie' : 'filme', ...movie(m), ...(todos.length ? resumoSerie(todos, s) : {}), ep: ep || notaEp ? { s, e, nome: String(ep?.name || notaEp?.nome || '').slice(0, 120), still: https(ep?.thumbnail), sinopse: String(ep?.overview || ep?.description || '').slice(0, 400), data: String(ep?.released || '').slice(0, 10), nota: notaEp?.nota ?? null, votos: notaEp?.votos || 0, imdb: notaEp?.imdb || '' } : null }
   }
   return null
 }
-// Nota do episódio no IMDb: a API GraphQL do próprio site (sem chave), só a temporada pedida
-async function notaEpisodio(id, s, e) {
-  const query = `query { title(id: "${id}") { episodes { episodes(first: 250, filter: { includeSeasons: ["${s}"] }) { edges { node { id titleText { text } ratingsSummary { aggregateRating voteCount } series { displayableEpisodeNumber { episodeNumber { text } } } } } } } } }`
-  const r = await fetch('https://caching.graphql.imdb.com/', { method: 'POST', headers: { 'content-type': 'application/json', 'x-imdb-client-name': 'imdb-web-next' }, body: JSON.stringify({ query }), signal: AbortSignal.timeout(7000) }).then(r => r.ok ? r.json() : null).catch(() => null)
-  const n = (r?.data?.title?.episodes?.episodes?.edges || []).map(x => x.node).find(x => +x.series?.displayableEpisodeNumber?.episodeNumber?.text === e)
-  return n ? { imdb: n.id, nome: n.titleText?.text || '', nota: n.ratingsSummary?.aggregateRating ?? null, votos: n.ratingsSummary?.voteCount || 0 } : null
+// melhor episódio de uma lista: maior nota, desempate pelos votos (episódio com poucos votos não conta)
+function melhorEp(eps) {
+  const comNota = eps.filter(x => x.nota != null)
+  const corte = Math.max(20, Math.max(0, ...comNota.map(x => x.votos)) * .15)
+  const ok = comNota.filter(x => x.votos >= corte)
+  return (ok.length ? ok : comNota).reduce((m, x) => !m || x.nota > m.nota || (x.nota === m.nota && x.votos > m.votos) ? x : m, null)
+}
+const media = l => { const v = l.filter(x => x.nota != null); return v.length ? Math.round(v.reduce((a, x) => a + x.nota, 0) / v.length * 10) / 10 : null }
+// resumo para a ilha: a temporada que está passando (nota de cada episódio e o melhor) e a série (média de cada temporada e o melhor)
+function resumoSerie(eps, s) {
+  if (!eps.length) return null
+  const temp = eps.filter(x => x.s === s).sort((a, b) => a.e - b.e)
+  const ts = [...new Set(eps.map(x => x.s))].sort((a, b) => a - b)
+  const curto = x => x && { s: x.s, e: x.e, nome: x.nome, nota: x.nota }
+  return {
+    temporada: temp.length ? { s, eps: temp.map(x => ({ e: x.e, nome: x.nome, nota: x.nota })), media: media(temp), melhor: curto(melhorEp(temp)) } : null,
+    serie: { temporadas: ts.map(t => ({ s: t, media: media(eps.filter(x => x.s === t)), n: eps.filter(x => x.s === t).length })), melhor: curto(melhorEp(eps)), total: eps.length },
+  }
 }
 export default async function handler(req, res) {
   if (req.method !== 'GET') return json(res, 405, { error: 'método' })

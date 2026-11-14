@@ -778,7 +778,9 @@ async function heartbeat() {
   const ev = evBuf.splice(0)
   const md = myShare?.midia
   const proj = myShare ? { t: myShare.titulo || '', k: myShare.kind, ...(md ? { m: { ti: md.titulo, pl: md.plat, s: md.s, e: md.e, ep: md.epNome, n: md.nota, en: md.epNota, p: md.poster, i: md.imdb, tp: md.tipo, a: md.ano } } : {}) } : null
-  const r = await api('sala', { method: 'POST', body: { op: 'aqui', r: roomId, pw: roomPw, key: me.key, name: me.name, slug, filme: invite?.filme || CFG.subtitulo || '', est, ev, proj, registra: !/^teste/i.test(canal || '') } })
+  // em que mesa estou jogando (para o diário saber quanto tempo a call ficou em cada jogo); jogo sem lista de jogadores vale pela mesa em foco
+  const jogando = ativos().filter(id => jogos[id]?.jogadores ? joga(id) : id === foco)
+  const r = await api('sala', { method: 'POST', body: { op: 'aqui', r: roomId, pw: roomPw, key: me.key, name: me.name, slug, filme: invite?.filme || CFG.subtitulo || '', est, ev, proj, jogos: jogando, registra: !/^teste/i.test(canal || '') } })
   if (!Array.isArray(r?.pres)) { evBuf.unshift(...ev.slice(-20)); return }
   if (!r.pres.some(x => x.key !== me.key)) voltaFim() // ninguém mais na sala: não há o que esperar
   if (r.callIni) callIni = r.callIni
@@ -920,11 +922,46 @@ function updatePlayer(id) {
   if (info?.preview && tile.preview.getAttribute('src') !== info.preview) tile.preview.src = info.preview
   tile.preview.hidden = id === selfId || !arq || !pausado || !info?.preview
 }
+// Estrelas (1 a 5) com legenda: passa o mouse para ver o que cada uma quer dizer, toca para dar a nota
+const ROTULO_NOTA = ['', 'Ruim', 'Fraco', 'Bom', 'Muito bom', 'Obra-prima']
+const ESTRELA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.7 5.8 6.3.7-4.7 4.3 1.3 6.3L12 16.7l-5.6 3.2 1.3-6.3L3 9.3l6.3-.7z"/></svg>'
+function linhaEstrelas(atual, aoDar, rotulo, peq) {
+  const box = el('div', { className: 'estrelas' + (peq ? ' estrelas--peq' : ''), role: 'radiogroup', ariaLabel: 'Sua nota' })
+  const pinta = n => [...box.children].forEach((b, i) => b.classList.toggle('on', i < n))
+  for (let i = 1; i <= 5; i++) {
+    const b = el('button', { type: 'button', innerHTML: ESTRELA, title: ROTULO_NOTA[i], ariaLabel: `${i} estrela${i > 1 ? 's' : ''}: ${ROTULO_NOTA[i]}`, style: `--i:${i}` })
+    b.addEventListener('mouseenter', () => { pinta(i); if (rotulo) rotulo.textContent = ROTULO_NOTA[i] })
+    b.addEventListener('click', e => { e.stopPropagation(); const n = i === atual && peq ? 0 : i; atual = n; pinta(n); b.classList.remove('pulo'); void b.offsetWidth; b.classList.add('pulo'); if (rotulo) rotulo.textContent = ROTULO_NOTA[n] || 'Sem nota'; aoDar(n) })
+    box.append(b)
+  }
+  box.addEventListener('mouseleave', () => { pinta(atual); if (rotulo) rotulo.textContent = ROTULO_NOTA[atual] || (peq ? '' : 'Toque para dar a sua') })
+  pinta(atual)
+  return box
+}
+// a nota que cada um deu aparece em cima do bonequinho enquanto a votação do fim do episódio está aberta
+const notaBoneco = new Map() // id do tile -> { chave: nota }
+function notasNosBonecos(tileId, v) {
+  const antes = notaBoneco.get(tileId) || {}, agora = v?.nk || {}
+  if (JSON.stringify(antes) === JSON.stringify(agora)) return
+  if (Object.keys(agora).length) notaBoneco.set(tileId, agora); else notaBoneco.delete(tileId)
+  const todas = Object.assign({}, ...notaBoneco.values())
+  seatNodes.forEach((node, key) => {
+    const n = todas[key]
+    let selo = node.querySelector('.seat__nota')
+    if (!n) { if (selo) { selo.classList.add('sai'); setTimeout(() => selo.remove(), 300) } return }
+    if (!selo || selo.classList.contains('sai')) { selo?.remove(); selo = el('span', { className: 'seat__nota', ariaLabel: `deu ${n} estrela${n > 1 ? 's' : ''}` }); node.append(selo) }
+    if (selo.dataset.n === String(n)) return
+    selo.dataset.n = n
+    selo.replaceChildren(...[1, 2, 3, 4, 5].map(i => el('i', { className: i <= n ? 'on' : '', innerHTML: ESTRELA, style: `--i:${i}` })))
+    selo.classList.remove('salta'); void selo.offsetWidth; selo.classList.add('salta')
+  })
+}
 // Por cima do vídeo da Netflix: "Pular abertura" e a votação do próximo episódio
 function nfxAcoes(id, tile, n, pode) {
   let box = tile.nfxBox
   if (!box) { box = tile.nfxBox = el('div', { className: 'nfx-acoes' }); box.addEventListener('click', e => e.stopPropagation()); tile.el.append(box) }
-  const k = JSON.stringify([n?.pular, n?.voto?.id, n?.voto?.s, n?.voto?.n, n?.voto?.fim, n?.voto?.nq, pode, tile.meuVoto?.[n?.voto?.id], tile.minhaNota?.[n?.voto?.id]])
+  notasNosBonecos(id, n?.voto)
+  const k = JSON.stringify([n?.pular, n?.voto?.id, n?.voto?.s, n?.voto?.n, n?.voto?.fim, n?.voto?.nq, n?.voto?.nk, pode, tile.meuVoto?.[n?.voto?.id], tile.minhaNota?.[n?.voto?.id]])
   if (box.dataset.k === k) return
   box.dataset.k = k
   const itens = []
@@ -941,16 +978,21 @@ function nfxAcoes(id, tile, n, pode) {
     const res = v.fim === 'sim' ? 'Mais um, então!' : v.fim === 'nao' ? 'Paramos por aqui' : v.fim ? 'A Netflix seguiu' : ''
     // fim do episódio: capa, o que vocês viram e a nota da sala (1 a 5 estrelas, cada um dá a sua)
     const md = playerInfo(id)?.midia, minha = (tile.minhaNota ||= {})[v.id] || 0
-    const estrelas = el('div', { className: 'nfx-estrelas', role: 'radiogroup', ariaLabel: 'Nota da sala' }, ...[1, 2, 3, 4, 5].map(i => {
-      const b = el('button', { type: 'button', className: i <= minha ? 'on' : '', textContent: '★', title: `${i} estrela${i > 1 ? 's' : ''}` })
-      b.addEventListener('click', () => { tile.minhaNota[v.id] = i; playerCommand(id, 'estrela', { id: v.id, v: i }); box.dataset.k = ''; updatePlayer(id) })
-      return b
-    }), v.nq ? el('small', { textContent: `sala: ★ ${v.nm.toFixed(1).replace('.', ',')} (${v.nq})` }) : el('small', { textContent: 'dê sua nota' }))
+    const rotulo = el('span', { className: 'nota-rotulo', textContent: minha ? ROTULO_NOTA[minha] : 'Toque para dar a sua' })
+    const estrelas = linhaEstrelas(minha, n => { tile.minhaNota[v.id] = n; playerCommand(id, 'estrela', { id: v.id, v: n }); box.dataset.k = ''; updatePlayer(id) }, rotulo)
+    const quem = Object.entries(v.nk || {})
     const visto = md ? el('div', { className: 'nfx-visto' },
       md.poster ? el('img', { src: md.poster.replace('/poster/small/', '/poster/medium/'), alt: '' }) : '',
-      el('div', {}, el('small', { textContent: 'Vocês viram' }), el('b', { textContent: md.titulo }), md.s ? el('span', { textContent: `T${md.s} · E${md.e}${md.epNome ? ' · ' + md.epNome : ''}${md.epNota ? ` · IMDb ★ ${(+md.epNota).toFixed(1)}` : ''}` }) : '')) : ''
+      el('div', {}, el('small', { textContent: 'Vocês viram' }), el('b', { textContent: md.titulo }), md.s || md.e ? el('span', { textContent: `${md.s ? `T${md.s} · ` : ''}E${md.e}${md.epNome ? ' · ' + md.epNome : ''}` }) : ''),
+      md.epNota ? el('span', { className: 'nfx-visto__imdb', innerHTML: `<em>IMDb</em>${(+md.epNota).toFixed(1)}` }) : '') : ''
+    const sala = el('div', { className: 'nfx-nota' },
+      el('div', { className: 'nfx-nota__eu' }, el('small', { textContent: 'Sua nota' }), estrelas, rotulo),
+      el('div', { className: 'nfx-nota__sala' + (quem.length ? '' : ' vazio') },
+        el('ul', { className: 'nfx-nota__quem' }, ...quem.map(([k, n], i) => el('li', { style: `--i:${i}`, title: `${person(k).nome}: ${n} estrela${n > 1 ? 's' : ''}` }, pfpImg(k, 26), el('b', { textContent: n })))),
+        el('div', { className: 'nfx-nota__media' }, el('small', { textContent: 'Sala' }), el('b', { textContent: v.nq ? v.nm.toFixed(1).replace('.', ',') : '–' }), el('i', { textContent: '★' }))),
+      md?.titulo && md.tipo === 'serie' ? (() => { const b = el('button', { type: 'button', className: 'nfx-nota__hist' }, icon('book-open'), el('span', { textContent: 'Notas da série' })); b.addEventListener('click', () => abreSerie(md.titulo)); return b })() : '')
     const card = el('div', { className: 'nfx-voto' + (v.fim ? ' fim' : '') },
-      visto, estrelas,
+      visto, sala,
       el('div', { className: 'nfx-voto__t' }, el('b', { textContent: res || 'Mais um episódio?' }), el('small', { textContent: v.fim ? `${v.s} × ${v.n}` : `${v.s + v.n} de ${v.tot} votaram` })),
       el('div', { className: 'nfx-voto__bs' }, bt(1, '👍', 'Mais um', 'sim'), bt(-1, '👎', 'Parar', 'nao')),
       v.fim ? '' : el('i', { className: 'nfx-voto__tempo', style: `animation-duration:${Math.max(0, v.ate)}ms` }))
@@ -1200,7 +1242,7 @@ function removeTile(id, quiet) {
 const ICONE_PLAT = { netflix: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#e50914" d="M6 2h4l4 11V2h4v20h-4l-4-11v11H6z"/></svg>' }
 const NOME_PLAT = { netflix: 'Netflix' }
 function cartaoMidia(m, fixo) {
-  const ep = m.s ? `T${m.s} · E${m.e}${m.epNome ? ' · ' + m.epNome : ''}` : m.ano
+  const ep = m.s || m.e ? `${m.s ? `T${m.s} · ` : ''}E${m.e}${m.epNome ? ' · ' + m.epNome : ''}` : m.ano
   const c = el('div', { className: 'midia-card aberto' + (fixo ? ' midia-card--fixo' : '') },
     m.fundo ? el('div', { className: 'midia-card__fundo', style: `background-image:url("${encodeURI(m.fundo)}")` }) : '',
     m.poster ? el('img', { className: 'midia-card__poster', src: m.poster.replace('/poster/small/', '/poster/medium/'), alt: '' }) : '',
@@ -1212,10 +1254,45 @@ function cartaoMidia(m, fixo) {
         m.epNota ? el('span', { title: 'Nota deste episódio no IMDb', innerHTML: `<i>★</i>${(+m.epNota).toFixed(1)}<small>episódio</small>` }) : '',
         m.nota ? el('span', { title: 'Nota da série/filme no IMDb', innerHTML: `<i>★</i>${(+m.nota).toFixed(1)}<small>${m.epNota ? 'série' : ''}</small>` }) : '',
         el('em', { textContent: 'IMDb' })) : ''))
-  c.addEventListener('mouseenter', () => c.classList.add('aberto'))
-  c.addEventListener('mouseleave', () => { if (!fixo) c.classList.remove('aberto') })
-  c.addEventListener('click', e => e.stopPropagation())
+  // a ilha: passando o mouse (ou tocando) o cartão cresce e mostra as notas da temporada e da série
+  const ilha = ilhaSerie(m)
+  let preso = false, timer = 0
+  if (ilha) { c.append(el('div', { className: 'midia-card__topo' }, ...[...c.children].filter(x => !x.classList.contains('midia-card__fundo'))), ilha); c.classList.add('tem-ilha') }
+  c.addEventListener('mouseenter', () => { c.classList.add('aberto'); clearTimeout(timer); if (ilha) timer = setTimeout(() => c.classList.add('ilha'), 180) })
+  c.addEventListener('mouseleave', () => { clearTimeout(timer); if (!preso) c.classList.remove('ilha'); if (!fixo && !preso) c.classList.remove('aberto') })
+  c.addEventListener('click', e => { e.stopPropagation(); if (ilha) { preso = !c.classList.contains('ilha') || !preso; c.classList.toggle('ilha', preso); c.classList.toggle('aberto', fixo || preso || c.matches(':hover')) } })
   return c
+}
+function ilhaSerie(m) {
+  const t = m.temporada, sr = m.serie
+  if (m.tipo !== 'serie' || (!t?.eps?.length && !sr?.melhor)) return null
+  const n1 = v => (+v).toFixed(1)
+  const notas = (t?.eps || []).filter(x => x.nota != null).map(x => x.nota)
+  const lo = Math.max(0, Math.min(10, ...notas) - .5)
+  const altura = v => v == null ? 8 : Math.round(16 + (v - lo) / Math.max(.1, 10 - lo) * 84)
+  // linha de leitura: mostra o episódio atual e troca para o que estiver sob o dedo/mouse
+  const leitura = el('div', { className: 'midia-ilha__ler' })
+  const ler = x => leitura.replaceChildren(el('b', { textContent: `E${x.e}` }), el('span', { textContent: x.nome || 'Episódio ' + x.e }), x.nota != null ? el('em', { innerHTML: `<i>★</i>${n1(x.nota)}` }) : el('em', { textContent: 'sem nota' }))
+  const atual = t?.eps?.find(x => x.e === m.e) || t?.eps?.[0]
+  if (atual) ler(atual)
+  const barras = t?.eps?.length ? el('div', { className: 'midia-ilha__barras' + (t.eps.length > 16 ? ' muitas' : '') }, ...t.eps.map((x, i) => {
+    const b = el('i', { className: (x.e === m.e && t.s === m.s ? 'atual' : '') + (t.melhor?.e === x.e ? ' melhor' : '') + (x.nota == null ? ' sem' : ''), style: `--h:${altura(x.nota)}%;--i:${i}` }, el('span', { textContent: x.e }))
+    b.addEventListener('mouseenter', () => ler(x))
+    b.addEventListener('mouseleave', () => atual && ler(atual))
+    return b
+  })) : ''
+  const melhor = (rot, x, serie) => x ? el('div', { className: 'midia-ilha__melhor' + (serie ? ' serie' : '') },
+    el('small', { textContent: rot }), el('b', { textContent: `${serie ? `T${x.s}·` : ''}E${x.e}` }), el('span', { textContent: x.nome || '' }), x.nota != null ? el('em', { innerHTML: `<i>★</i>${n1(x.nota)}` }) : '') : ''
+  const ts = sr?.temporadas?.filter(x => x.media != null) || []
+  const tMax = Math.max(...ts.map(x => x.media), 0), tMin = Math.min(...ts.map(x => x.media), 10)
+  return el('div', { className: 'midia-ilha' }, el('div', { className: 'midia-ilha__in' },
+    t?.eps?.length ? el('div', { className: 'midia-ilha__cab' }, el('b', { textContent: `Temporada ${t.s}` }), t.media != null ? el('span', { innerHTML: `média <i>★</i>${n1(t.media)}` }) : '') : '',
+    barras, t?.eps?.length ? leitura : '',
+    el('div', { className: 'midia-ilha__melhores' }, melhor('Melhor da temporada', t?.melhor), melhor('Melhor da série', sr?.melhor, true)),
+    (() => { const b = el('button', { type: 'button', className: 'midia-ilha__hist' }, el('span', { innerHTML: ESTRELA }), el('b', { textContent: 'Notas da sala' }), el('small', { textContent: 'cada episódio, de cada um' }), icon('chevron-right')); b.addEventListener('click', e => { e.stopPropagation(); abreSerie(m.titulo) }); return b })(),
+    ts.length > 1 ? el('div', { className: 'midia-ilha__temps', title: 'Média de cada temporada no IMDb' }, ...ts.map((x, i) => el('span', {
+      className: (x.s === m.s ? 'atual' : '') + (x.media === tMax ? ' topo' : ''), style: `--f:${tMax > tMin ? ((x.media - tMin) / (tMax - tMin)).toFixed(2) : 1};--i:${i}`,
+    }, el('small', { textContent: 'T' + x.s }), n1(x.media)))) : ''))
 }
 // faixa "passando agora" acima das telas (fora da tela cheia)
 const agoraEl = el('div', { className: 'agora', hidden: true })
@@ -1240,7 +1317,7 @@ function renderTile(id) {
   t.label.title = t.q || kind
   if (t.player) t.player.quality.title = t.q || 'Limite da qualidade recebida'
   t.el.classList.toggle('paused', !!info?.paused)
-  const md = info?.midia, mk = md ? `${md.titulo}|${md.s}|${md.e}|${md.nota}` : ''
+  const md = info?.midia, mk = md ? `${md.titulo}|${md.s}|${md.e}|${md.nota}|${md.temporada?.eps?.length || 0}` : ''
   if (mk !== t.midiaKey) {
     t.midiaKey = mk; t.midiaCard?.remove(); t.midiaCard = null
     if (md) {
@@ -1806,7 +1883,7 @@ navigator.mediaDevices?.addEventListener?.('devicechange', () => listDevices())
 function shareMsg() {
   const n = nfxDe(myShare)
   const t = myShare.kind === 'arquivo' && myShare.video ? myShare.video.currentTime : n ? n.t : undefined
-  if (n) return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: false, paused: n.paused, subs: false, t, duration: n.d, rate: 1, preview: '', quality: myShare.quality || 'auto', nfx: { ctl: prefs.nfxTodos === false ? 'eu' : 'todos', pular: n.pular, fim: n.fim, voto: myShare.voto ? { id: myShare.voto.id, s: myShare.voto.sim.size, n: myShare.voto.nao.size, ate: myShare.voto.ate - Date.now(), fim: myShare.voto.fim, tot: peers.size + 1, nq: myShare.voto.notas.size, nm: myShare.voto.notas.size ? [...myShare.voto.notas.values()].reduce((a, v) => a + v, 0) / myShare.voto.notas.size : 0 } : null } }
+  if (n) return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: false, paused: n.paused, subs: false, t, duration: n.d, rate: 1, preview: '', quality: myShare.quality || 'auto', nfx: { ctl: prefs.nfxTodos === false ? 'eu' : 'todos', pular: n.pular, fim: n.fim, voto: myShare.voto ? { id: myShare.voto.id, s: myShare.voto.sim.size, n: myShare.voto.nao.size, ate: myShare.voto.ate - Date.now(), fim: myShare.voto.fim, tot: peers.size + 1, nq: myShare.voto.notas.size, nm: myShare.voto.notas.size ? [...myShare.voto.notas.values()].reduce((a, v) => a + v, 0) / myShare.voto.notas.size : 0, nk: notasPorPessoa(myShare.voto) } : null } }
   return { on: true, kind: myShare.kind, midia: myShare.midia || null, game: myShare.game, paused: !!myShare.paused, subs: !!myShare.subs, t, duration: myShare.video?.duration || 0, rate: myShare.video?.playbackRate || 1, preview: myShare.preview || '', quality: myShare.quality || 'auto' }
 }
 // quem transmite arquivo avisa o tempo do filme de vez em quando (para marcar mensagens)
@@ -1913,6 +1990,7 @@ async function aplicaMidia(share, r, ocr) {
   share.midia = {
       plat: r.plat, titulo: r.titulo, s: r.s, e: r.e, epNome: r.epNome || m?.ep?.nome || '', tipo: m?.tipo || (r.s ? 'serie' : 'filme'),
       original: m?.filme || '', ano: m?.ano || '', nota: m?.nota ?? null, epNota: m?.ep?.nota ?? null, epImdb: m?.ep?.imdb || '', poster: m?.poster || '', fundo: m?.ep?.still || m?.background || '', imdb: m?.id || '',
+      temporada: m?.temporada || null, serie: m?.serie || null,
     }
   share.titulo = r.titulo + (r.s ? ` · T${r.s}E${r.e}` : '')
   actions?.share.send(shareMsg()); renderTile(selfId)
@@ -1990,7 +2068,13 @@ function nfxEstado(d) {
   // fim do episódio (a Netflix mostra "Próximo episódio"): a sala vota se vê mais um
   if (sh.nfx.fim && !ant?.fim && !sh.voto) iniciaVoto(sh)
   if (!sh.nfx.fim && sh.voto && !sh.voto.fim) encerraVoto(sh, 'seguiu')
-  if (d.midia?.titulo) aplicaMidia(sh, { plat: 'netflix', titulo: String(d.midia.titulo).slice(0, 100), s: +d.midia.s || 0, e: +d.midia.e || 0, epNome: String(d.midia.epNome || '').slice(0, 100) })
+  if (d.midia?.titulo) {
+    // extensão antiga: às vezes vem sem os números e com o nome "Episódio 10" (ou "T5:E10"); tira de lá
+    let s = +d.midia.s || 0, e = +d.midia.e || 0, epNome = String(d.midia.epNome || '').slice(0, 100)
+    const nm = !e && epNome.match(/^(?:[TS]\s*(\d{1,2})\s*[:.]?\s*)?(?:E|Ep\.?|Epis[óo]dio|Episode)\s*(\d{1,3})$/i)
+    if (nm) { s = +nm[1] || s; e = +nm[2]; epNome = '' }
+    aplicaMidia(sh, { plat: 'netflix', titulo: String(d.midia.titulo).slice(0, 100), s, e, epNome })
+  }
   const previsto = ant ? ant.t + (ant.paused ? 0 : (agora - ant.at) / 1000) : 0
   if (!ant || ant.paused !== sh.nfx.paused || ant.pular !== sh.nfx.pular || ant.fim !== sh.nfx.fim || Math.abs(previsto - sh.nfx.t) > 3 || agora - (sh.nfxEnviado || 0) > 5000) {
     sh.nfxEnviado = agora; actions?.share.send(shareMsg()); renderTile(selfId)
@@ -2019,11 +2103,12 @@ function deuNota(sh, quem, v, id) {
   vt.notas.set(quem, Math.round(v))
   actions?.share.send(shareMsg()); renderTile(selfId)
 }
+const notasPorPessoa = vt => Object.fromEntries([...vt.notas].map(([quem, v]) => [quem === selfId ? me.key : peers.get(quem)?.key || quem, v]))
 // guarda a nota da sala no diário (só a de quem projetou manda, uma vez por episódio)
 function salvaNotas(vt) {
   if (!vt?.notas.size || !vt.md?.titulo || vt.salvo) return
   vt.salvo = true
-  const notas = Object.fromEntries([...vt.notas].map(([quem, v]) => [quem === selfId ? me.key : peers.get(quem)?.key || quem, v]))
+  const notas = notasPorPessoa(vt)
   api('sala', { method: 'POST', body: { op: 'nota', r: roomId, pw: roomPw, registra: !/^teste/i.test(canal || ''), ti: vt.md.titulo, s: vt.md.s, e: vt.md.e, notas } })
 }
 function encerraVoto(sh, motivo) {
@@ -3216,9 +3301,29 @@ function porMes(itens) {
   }
   return out
 }
-// média das estrelas que a sala deu nos episódios/filme daquela call
-function notaSala(c, ti) {
-  const ns = (c.notas || []).filter(n => n.ti?.toLowerCase() === String(ti).toLowerCase())
+// No que a call foi gasta: assistindo, cada jogo e o resto (conversa), numa barra com a legenda
+function tempoDaCall(c, jg, msVendo, m) {
+  const dur = Math.max(0, c.fim - c.ini)
+  if (!jg.length || dur < 60e3) return ''
+  const partes = [
+    msVendo >= 60e3 ? { k: 'ver', nome: m?.ti ? 'Assistindo' : 'Na tela', ms: msVendo, ic: icon('clapperboard') } : null,
+    ...jg.map(x => ({ k: x.j, nome: JOGOS[x.j].nome, ms: x.ms, ic: iconeMesa(x.j) ? el('img', { className: 'diary__tempo-ic', src: iconeMesa(x.j), alt: '' }) : el('span', { className: 'diary__tempo-ic', innerHTML: ICONES_JOGO[x.j] || '' }), quem: x.quem })),
+  ].filter(Boolean)
+  const conversa = dur - partes.reduce((a, x) => a + x.ms, 0)
+  if (conversa >= 5 * 60e3) partes.push({ k: 'papo', nome: 'Conversa', ms: conversa, ic: icon('message-square') })
+  const total = partes.reduce((a, x) => a + x.ms, 0) || 1
+  return el('div', { className: 'diary__tempo' },
+    el('div', { className: 'diary__tempo-barra', role: 'img', ariaLabel: partes.map(x => `${x.nome} ${durTxt(x.ms)}`).join(', ') },
+      ...partes.map((x, i) => el('i', { className: `diary__tempo-seg diary__tempo-seg--${x.k}`, style: `--w:${(x.ms / total * 100).toFixed(2)}%;--i:${i}`, title: `${x.nome} · ${durTxt(x.ms)}` }))),
+    el('ul', { className: 'diary__tempo-leg' }, ...partes.map(x => el('li', { className: `diary__tempo-it diary__tempo-it--${x.k}`, title: x.quem?.length ? `Jogaram: ${x.quem.join(', ')}` : '' }, x.ic, el('b', { textContent: x.nome }), el('span', { textContent: durTxt(x.ms) })))))
+}
+function capaJogo(id) {
+  const img = iconeMesa(id)
+  return el('div', { className: `diary__poster diary__poster--jogo diary__poster--${id}` }, img ? el('img', { src: img, alt: '', loading: 'lazy' }) : el('span', { innerHTML: ICONES_JOGO[id] || '' }))
+}
+// estrelas que a sala deu naquela call: do episódio pedido (ep = { s, e }) ou do filme
+function notaSala(c, ti, ep) {
+  const ns = (c.notas || []).filter(n => n.ti?.toLowerCase() === String(ti).toLowerCase() && (!ep || (+n.s === +ep.s && +n.e === +ep.e)))
   if (!ns.length) return ''
   const m = ns.reduce((a, n) => a + n.media, 0) / ns.length
   return el('span', { className: 'diary__nota diary__nota--sala', textContent: `★ ${m.toFixed(1).replace('.', ',')} da sala` })
@@ -3231,10 +3336,108 @@ const retroBtn = el('button', { type: 'button', className: 'diary-card__retro', 
 $('#diaryX').before(retroBtn)
 retroBtn.addEventListener('click', () => mostraRetro(retroEl.hidden))
 function mostraRetro(on, ano) {
-  retroEl.hidden = !on; $('#diaryList').hidden = on
-  retroBtn.setAttribute('aria-pressed', String(on))
-  $('#diaryTitle').textContent = on ? 'Retrospectiva' : 'Diário de sessões'
+  vistaDiario(on ? 'retro' : 'lista')
   if (on) carregaRetro(ano || new Date().getFullYear())
+}
+/* ---------- Séries: o histórico de notas da turma, episódio por episódio ---------- */
+const seriesEl = el('div', { className: 'series', hidden: true })
+retroEl.after(seriesEl)
+const seriesBtn = el('button', { type: 'button', className: 'diary-card__retro', title: 'As notas que vocês deram em cada episódio' }, icon('book-open'), el('span', { textContent: 'Séries' }))
+retroBtn.before(seriesBtn)
+seriesBtn.addEventListener('click', () => mostraSeries(seriesEl.hidden))
+function vistaDiario(v) {
+  retroEl.hidden = v !== 'retro'; seriesEl.hidden = v !== 'series'; $('#diaryList').hidden = v !== 'lista'
+  retroBtn.setAttribute('aria-pressed', String(v === 'retro')); seriesBtn.setAttribute('aria-pressed', String(v === 'series'))
+  $('#diaryTitle').textContent = v === 'retro' ? 'Retrospectiva' : v === 'series' ? 'Séries' : 'Diário de sessões'
+}
+function mostraSeries(on, titulo) {
+  vistaDiario(on ? 'series' : 'lista')
+  if (on) titulo ? carregaSerie(titulo) : carregaSeries()
+}
+async function abreSerie(titulo) {
+  if ($('#diaryModal').hidden) openDiary()
+  mostraSeries(true, titulo)
+}
+const nota1 = v => v == null ? '–' : (+v).toFixed(1).replace('.', ',')
+const diaCurto = t => new Date(t).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' }).replace('.', '')
+async function carregaSeries() {
+  seriesEl.replaceChildren(...esqueleto(3, 'div'))
+  const r = await api('sessoes?series=1')
+  if (!r?.series) return seriesEl.replaceChildren(el('p', { className: 'diary__empty', textContent: 'Não deu para carregar agora.' }))
+  if (!r.series.length) return seriesEl.replaceChildren(el('p', { className: 'diary__empty', textContent: 'Nenhuma série ainda. Quando vocês virem uma série pela Netflix, os episódios e as notas aparecem aqui.' }))
+  seriesEl.replaceChildren(el('ul', { className: 'series__lista' }, ...r.series.map((x, i) => {
+    const b = el('button', { type: 'button', className: 'series__item', style: `--i:${i}` },
+      x.poster ? el('img', { src: x.poster.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('span', { className: 'series__semcapa' }, icon('film')),
+      el('div', {}, el('b', { textContent: x.titulo }),
+        el('small', { textContent: [x.eps ? `${x.eps} episódio${x.eps > 1 ? 's' : ''}` : '', x.notas ? `${x.notas} com nota` : 'sem notas ainda', x.ult ? 'visto ' + diaCurto(x.ult) : ''].filter(Boolean).join(' · ') })),
+      x.media != null ? el('span', { className: 'series__media' }, el('i', { innerHTML: ESTRELA }), nota1(x.media)) : '')
+    b.addEventListener('click', () => carregaSerie(x.titulo))
+    return el('li', {}, b)
+  })))
+}
+let serieAtual = null
+async function carregaSerie(titulo, temp) {
+  if (!temp) seriesEl.replaceChildren(el('div', { className: 'esq esq--hero' }), ...esqueleto(4, 'div'))
+  const r = temp ? serieAtual : await api('sessoes?serie=' + encodeURIComponent(titulo))
+  if (!r?.eps) return seriesEl.replaceChildren(el('p', { className: 'diary__empty', textContent: 'Não deu para carregar agora.' }))
+  serieAtual = r
+  const nome = k => person(k, r.nomes?.[k]).nome
+  const comNota = r.eps.filter(x => x.media != null)
+  // a média de cada pessoa na série
+  const gente = Object.keys(r.nomes || {}).map(k => { const vs = r.eps.map(x => x.notas[k]).filter(Boolean); return { k, n: vs.length, m: vs.length ? vs.reduce((a, v) => a + v, 0) / vs.length : null } }).filter(x => x.n).sort((a, b) => b.n - a.n)
+  const fav = comNota.slice().sort((a, b) => b.media - a.media || (b.imdb || 0) - (a.imdb || 0))[0]
+  const temps = [...new Set(r.eps.map(x => x.s))].sort((a, b) => (a || 999) - (b || 999))
+  // abre na temporada vista por último (a "sem temporada" só se não houver outra)
+  const ultimaVista = [...r.eps].filter(x => x.s && x.vistos.length).sort((a, b) => Math.max(...a.vistos) - Math.max(...b.vistos)).pop()?.s ?? r.eps.filter(x => x.s && x.media != null).pop()?.s
+  const t = temp ?? (temps.includes(ultimaVista) ? ultimaVista : temps[0])
+  const eps = r.eps.filter(x => x.s === t)
+  const voltar = el('button', { type: 'button', className: 'series__voltar' }, icon('chevron-left'), el('span', { textContent: 'Séries' }))
+  voltar.addEventListener('click', carregaSeries)
+  const hero = el('div', { className: 'serie__hero' },
+    r.poster ? el('div', { className: 'serie__fundo', style: `background-image:url("${encodeURI(r.poster.replace('/poster/small/', '/poster/large/'))}")` }) : '',
+    r.poster ? el('img', { className: 'serie__capa', src: r.poster.replace('/poster/small/', '/poster/medium/'), alt: '' }) : '',
+    el('div', { className: 'serie__info' },
+      el('h3', { textContent: r.titulo }),
+      el('div', { className: 'serie__nums' },
+        el('p', { className: 'serie__nossa' }, el('i', { innerHTML: ESTRELA }), el('b', { textContent: nota1(r.media) }), el('small', { textContent: 'nossa média' })),
+        r.nota ? el('p', {}, el('b', { textContent: (+r.nota).toFixed(1) }), el('small', { textContent: 'IMDb' })) : '',
+        el('p', {}, el('b', { textContent: r.vistos }), el('small', { textContent: r.vistos === 1 ? 'episódio visto' : 'episódios vistos' }))),
+      fav ? el('p', { className: 'serie__fav' }, el('small', { textContent: 'O favorito de vocês' }), el('b', { textContent: `${fav.s ? `T${fav.s} · ` : ''}${fav.e ? 'E' + fav.e : 'episódio sem número'}` }), fav.nome ? el('span', { textContent: fav.nome }) : '', el('em', { textContent: '★ ' + nota1(fav.media) })) : ''))
+  const pessoas = gente.length ? el('ul', { className: 'serie__gente' }, ...gente.map(g => el('li', {}, pfpImg(g.k, 34, nome(g.k)), el('div', {}, el('b', { textContent: nome(g.k) }), el('small', { textContent: `${g.n} nota${g.n > 1 ? 's' : ''}` })), el('span', { className: 'serie__gmedia' }, el('i', { innerHTML: ESTRELA }), nota1(g.m))))) : ''
+  const abas = temps.length > 1 ? el('div', { className: 'serie__temps', role: 'tablist' }, ...temps.map(x => {
+    const b = el('button', { type: 'button', role: 'tab', className: x === t ? 'on' : '', ariaSelected: String(x === t), textContent: x ? `Temporada ${x}` : 'Sem temporada' })
+    b.addEventListener('click', () => carregaSerie(r.titulo, x))
+    return b
+  })) : ''
+  // a curva da temporada: IMDb (de 0 a 10, convertido para 5) atrás e a nota da sala na frente
+  const curva = eps.length > 1 ? el('div', { className: 'serie__curva', title: 'Amarelo: a nota de vocês · cinza: IMDb' }, ...eps.map((x, i) => el('div', { style: `--i:${i}`, title: `E${x.e}${x.nome ? ' · ' + x.nome : ''}${x.media != null ? ' · vocês ★ ' + nota1(x.media) : ''}${x.imdb ? ' · IMDb ' + x.imdb.toFixed(1) : ''}` },
+    el('i', { className: 'imdb', style: `--h:${x.imdb ? Math.round(x.imdb * 10) : 0}%` }), el('i', { className: 'sala', style: `--h:${x.media != null ? Math.round(x.media * 20) : 0}%` }), el('span', { textContent: x.e || '?' })))) : ''
+  const podeDar = !!roomId && !!me.key
+  const linha = x => {
+    const minha = x.notas[me.key] || 0, quem = Object.entries(x.notas)
+    const li = el('li', { className: 'serie__ep' + (x.vistos.length || x.media != null ? ' visto' : '') + (fav === x ? ' fav' : '') })
+    const rot = el('span', { className: 'nota-rotulo' })
+    const dar = podeDar ? linhaEstrelas(minha, async n => {
+      if (n) x.notas[me.key] = n; else delete x.notas[me.key]
+      const vs = Object.values(x.notas); x.media = vs.length ? vs.reduce((a, v) => a + v, 0) / vs.length : null
+      if (n && !r.nomes[me.key]) r.nomes[me.key] = me.name
+      const res = await api('sala', { method: 'POST', body: { op: 'nota1', r: roomId, pw: roomPw, ti: r.titulo, s: x.s, e: x.e, key: me.key, v: n } })
+      if (!res?.ok) toast('Não deu para salvar a nota agora', 3000)
+      const com = r.eps.filter(y => y.media != null); r.media = com.length ? com.reduce((a, y) => a + y.media, 0) / com.length : null
+      carregaSerie(r.titulo, t)
+    }, rot, true) : ''
+    li.append(
+      el('div', { className: 'serie__ep-n' }, el('b', { textContent: x.e ? 'E' + x.e : '?' })),
+      el('div', { className: 'serie__ep-txt' },
+        el('b', { textContent: x.nome || (x.e ? `Episódio ${x.e}` : 'Episódio não identificado') }),
+        el('small', { textContent: [x.vistos.length ? 'visto ' + x.vistos.map(diaCurto).join(', ') : x.media != null ? '' : 'não visto na call', x.imdb ? `IMDb ${x.imdb.toFixed(1)}` : ''].filter(Boolean).join(' · ') }),
+        quem.length ? el('ul', { className: 'serie__ep-quem' }, ...quem.sort((a, b) => b[1] - a[1]).map(([k, n]) => el('li', { title: `${nome(k)}: ${ROTULO_NOTA[n]}` }, pfpImg(k, 20, nome(k)), el('span', { className: 'mini-estrelas', innerHTML: ESTRELA.repeat(n) })))) : ''),
+      el('div', { className: 'serie__ep-nota' },
+        x.media != null ? el('p', { className: 'serie__ep-media' }, el('i', { innerHTML: ESTRELA }), el('b', { textContent: nota1(x.media) })) : el('p', { className: 'serie__ep-media vazio', textContent: 'sem nota' }),
+        dar ? el('div', { className: 'serie__ep-dar', title: 'Sua nota (toque de novo para tirar)' }, dar) : ''))
+    return li
+  }
+  seriesEl.replaceChildren(voltar, hero, pessoas, abas, curva, el('ol', { className: 'serie__eps' }, ...eps.map(linha)))
 }
 const horasTxt = ms => { const h = ms / 3.6e6; return h >= 10 ? `${Math.round(h)} h` : h >= 1 ? `${h.toFixed(1).replace('.', ',')} h` : `${Math.round(ms / 60000)} min` }
 async function carregaRetro(ano) {
@@ -3257,11 +3460,15 @@ async function carregaRetro(ano) {
       el('div', { className: 'retro__nums' },
         el('p', {}, el('b', { textContent: r.sessoes }), ' sessões'),
         el('p', {}, el('b', { textContent: horasTxt(r.msProj) }), ' de tela'),
-        el('p', {}, el('b', { textContent: r.titulos.length }), ' títulos'))),
+        el('p', {}, el('b', { textContent: r.titulos.length }), ' títulos'),
+        r.msJogo ? el('p', {}, el('b', { textContent: horasTxt(r.msJogo) }), ' jogando') : '')),
     r.titulos.length ? sec('O que mais passou', el('ol', { className: 'retro__tops' }, ...r.titulos.map((t, i) => el('li', {},
       t.poster ? el('img', { src: t.poster.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('span', { className: 'retro__semcapa' }, icon('film')),
       el('i', { textContent: i + 1 }),
       el('div', {}, el('b', { textContent: t.titulo }), el('small', { textContent: [horasTxt(t.ms), t.notaSala ? `★ ${String(t.notaSala).replace('.', ',')} da sala` : '', t.eps ? `${t.eps} episódio${t.eps > 1 ? 's' : ''}` : '', t.sessoes > 1 ? `${t.sessoes} sessões` : ''].filter(Boolean).join(' · ') })))))) : '',
+    r.jogos?.length ? sec('Mais jogados', el('ol', { className: 'retro__jogos' }, ...r.jogos.filter(g => JOGOS[g.j]).map((g, i, l) => el('li', { style: `--w:${Math.round(g.ms / l[0].ms * 100)}%;--i:${i}` },
+      el('span', { className: 'retro__jogo-ic' }, iconeMesa(g.j) ? el('img', { src: iconeMesa(g.j), alt: '' }) : el('span', { innerHTML: ICONES_JOGO[g.j] || '' })),
+      el('div', {}, el('b', { textContent: JOGOS[g.j].nome }), el('small', { textContent: [horasTxt(g.ms), `${g.calls} ${g.calls > 1 ? 'sessões' : 'sessão'}`, g.fa ? `quem mais jogou: ${g.fa}` : ''].filter(Boolean).join(' · ') }), el('i', { className: `retro__jogo-barra diary__tempo-it--${g.j}` })))))) : '',
     sec('Quem mais apareceu', el('div', { className: 'retro__gente' }, ...r.pessoas.map((p, i) => el('div', { className: i === 0 ? 'top' : '' }, pfpImg(p.key, i === 0 ? 64 : 44, p.nome), el('b', { textContent: p.nome }), el('small', { textContent: `${p.n} ${p.n > 1 ? 'sessões' : 'sessão'}` }))))),
     el('div', { className: 'retro__dupla' },
       r.maior ? sec('Maratona do ano', el('p', { className: 'retro__grande', textContent: horasTxt(r.maior.ms) }), el('small', { textContent: [new Date(r.maior.ini).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long' }), r.maior.titulo, `${r.maior.presentes} pessoas`].filter(Boolean).join(' · ') })) : '',
@@ -3363,16 +3570,24 @@ async function openDiary() {
     const agora = Date.now() - c.fim < 15 * 60e3
     // reconhecido na projeção (Netflix…): capa, série, episódios e nota; o mais assistido da call manda
     const m = [...c.proj].filter(x => x.m).sort((x, y) => y.ms - x.ms)[0]?.m
-    const titulo = m?.ti || c.proj[0]?.t || 'Só conversa'
+    const jg = (c.jogos || []).filter(x => x.ms >= 60e3 && JOGOS[x.j])
+    const msVendo = c.proj.reduce((a, x) => a + x.ms, 0), msJogo = jg.reduce((a, x) => a + x.ms, 0)
+    // o que mais tomou tempo dá o título: o que passou na tela ou o jogo ("Jogando Uno e Coup")
+    const jogoManda = jg.length && msJogo > msVendo
+    const titulo = jogoManda ? 'Jogando ' + jg.slice(0, 3).map(x => JOGOS[x.j].nome).join(jg.length > 2 ? ', ' : ' e ').replace(/, ([^,]+)$/, ' e $1') : m?.ti || c.proj[0]?.t || (jg.length ? 'Jogando ' + JOGOS[jg[0].j].nome : 'Só conversa')
     const eps = m?.tp === 'serie' ? [...new Map(c.proj.filter(x => x.m?.ti === m.ti && x.m.e).map(x => [`${x.m.s}:${x.m.e}`, x.m])).values()].sort((x, y) => x.s - y.s || x.e - y.e) : []
-    const epTxt = eps.length ? [...new Set(eps.map(x => x.s))].map(t => `T${t} · ${eps.filter(x => x.s === t).map(x => 'E' + x.e).join(', ')}`).join(' · ') + (eps.length === 1 && eps[0].ep ? ` · ${eps[0].ep}` : '') : m?.a || ''
+    const epTxt = eps.length > 1 ? '' : eps.length ? [...new Set(eps.map(x => x.s))].map(t => `${t ? `T${t} · ` : ''}${eps.filter(x => x.s === t).map(x => 'E' + x.e).join(', ')}`).join(' · ') + (eps.length === 1 && eps[0].ep ? ` · ${eps[0].ep}` : '') : m?.a || ''
     const info = el('div', { className: 'diary__info' },
       el('span', { className: 'diary__when' }, agora ? el('em', { className: 'diary__agora', textContent: 'agora' }) : '', `${dia(c.ini)} · ${hm(c.ini)}–${hm(c.fim)}`),
       el('h3', { textContent: titulo }),
-      m ? el('p', { className: 'diary__meta diary__midia' }, m.pl ? el('span', { className: 'diary__plat', innerHTML: (ICONE_PLAT[m.pl] || '') + (NOME_PLAT[m.pl] || '') }) : '', epTxt ? el('span', { textContent: epTxt }) : '', eps.length === 1 && eps[0].en ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+eps[0].en).toFixed(1)} episódio` }) : '', m.n ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+m.n).toFixed(1)} IMDb` }) : '', notaSala(c, m.ti)) : '',
+      m ? el('p', { className: 'diary__meta diary__midia' }, m.pl ? el('span', { className: 'diary__plat', innerHTML: (ICONE_PLAT[m.pl] || '') + (NOME_PLAT[m.pl] || '') }) : '', epTxt ? el('span', { textContent: epTxt }) : '', eps.length === 1 && eps[0].en ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+eps[0].en).toFixed(1)} episódio` }) : '', m.n ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+m.n).toFixed(1)} ${m.tp === 'serie' ? 'série' : 'IMDb'}` }) : '', eps.length > 1 ? '' : notaSala(c, m.ti, eps[0])) : '',
+      // vários episódios na mesma call: cada um com a sua nota (IMDb do episódio e estrelas da sala)
+      eps.length > 1 ? el('ul', { className: 'diary__eps' }, ...eps.map(x => el('li', {}, el('b', { textContent: `${x.s ? 'T' + x.s : ''}E${x.e}` }), x.ep ? el('span', { className: 'diary__epnome', textContent: x.ep }) : '', x.en ? el('span', { className: 'diary__nota', innerHTML: `<i>★</i> ${(+x.en).toFixed(1)} IMDb` }) : '', notaSala(c, m.ti, x)))) : '',
+      m?.tp === 'serie' ? (() => { const b = el('button', { type: 'button', className: 'diary__serie' }, el('span', { innerHTML: ESTRELA }), el('span', { textContent: 'Notas da série' }), icon('chevron-right')); b.addEventListener('click', () => mostraSeries(true, m.ti)); return b })() : '',
+      tempoDaCall(c, jg, msVendo, m),
       cast(c.presentes, durTxt(c.fim - c.ini)),
       c.proj.length > 1 || (c.proj[0] && c.proj[0].ms >= 60e3) ? projs(c) : '')
-    const capa = m?.p ? el('img', { className: 'diary__poster', src: m.p.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('div', { className: 'diary__poster diary__poster--none' }, icon(c.proj[0]?.k === 'arquivo' ? 'film' : c.proj.length ? 'monitor' : 'users'))
+    const capa = jogoManda || (!m?.p && jg.length) ? capaJogo(jg[0].j) : m?.p ? el('img', { className: 'diary__poster', src: m.p.replace('/poster/small/', '/poster/medium/'), alt: '', loading: 'lazy' }) : el('div', { className: 'diary__poster diary__poster--none' }, icon(c.proj[0]?.k === 'arquivo' ? 'film' : c.proj.length ? 'monitor' : 'users'))
     return { t: c.ini, node: el('li', { className: 'diary__item diary__item--auto' }, capa, info) }
   })
   const proximas = planned.filter(x => x.proxima), vistas = [...planned.filter(x => !x.proxima), ...auto].sort((a, b) => b.t - a.t)

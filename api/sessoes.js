@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
 import { redis, json, readBody } from './_redis.js'
 import cfg from '../public/config.js'
+import { episodiosImdb } from './_imdb.js'
 
 // Diário de sessões: filme, data, quem foi, resumo e legenda.
 //   GET                    → lista (mais recentes primeiro)
@@ -25,6 +26,8 @@ export default async function handler(req, res) {
       }
       if (u.has('retro')) return json(res, 200, await retrospectiva(+u.get('retro') || new Date().getFullYear()))
       if (u.has('vistos')) return json(res, 200, await vistos())
+      if (u.has('series')) return json(res, 200, await listaSeries())
+      if (u.has('serie')) return json(res, 200, await historicoSerie(String(u.get('serie') || '').trim().slice(0, 100)))
       const flat = (await redis('HGETALL', 'sessoes')) || []
       const list = []
       for (let i = 0; i < flat.length; i += 2) { try { list.push(JSON.parse(flat[i + 1])) } catch {} }
@@ -41,7 +44,7 @@ export default async function handler(req, res) {
         await redis('HSET', 'sessoes', s.id, JSON.stringify(s))
         await redis('HSET', `cham:${c.id}`, 'sessao', s.id)
       }
-      return json(res, 200, { list: list.slice(0, 100), chamadas: chamadas.filter(c => c.fim - c.ini >= 5 * 60e3 || c.proj.length) })
+      return json(res, 200, { list: list.slice(0, 100), chamadas: chamadas.filter(c => c.fim - c.ini >= 5 * 60e3 || c.proj.length || c.jogos.length) })
     }
     const b = await readBody(req)
     if (!isAdmin(b.tok)) return json(res, 403, { error: 'admin' })
@@ -109,7 +112,8 @@ async function lerChamadas(ids) {
     const presentes = Object.keys(h).filter(k => k.startsWith('p:')).map(k => ({ key: k.slice(2), nome: h[k] }))
     const notas = Object.keys(h).filter(k => k.startsWith('n:')).map(k => { try { return JSON.parse(h[k]) } catch { return null } }).filter(Boolean)
     const proj = Object.keys(h).filter(k => k.startsWith('x:')).map(k => { try { return JSON.parse(h[k]) } catch { return null } }).filter(Boolean).sort((a, b) => b.ms - a.ms)
-    out.push({ id, ini: +h.ini || 0, fim: +h.fim || 0, sessao: h.sessao || null, titulo: h.titulo || null, presentes, proj, notas })
+    const jogos = Object.keys(h).filter(k => k.startsWith('j:')).map(k => { try { const x = JSON.parse(h[k]); return { j: x.j, ms: x.ms || 0, ini: x.ini, fim: x.fim, quem: Object.values(x.quem || {}) } } catch { return null } }).filter(Boolean).sort((a, b) => b.ms - a.ms)
+    out.push({ id, ini: +h.ini || 0, fim: +h.fim || 0, sessao: h.sessao || null, titulo: h.titulo || null, presentes, proj, notas, jogos })
   }
   return out
 }
@@ -119,10 +123,11 @@ const HORA_BR = ms => new Date(ms - 3 * 3600e3) // horário de Brasília (sem ho
 async function retrospectiva(ano) {
   const ini = Date.UTC(ano, 0, 1) + 3 * 3600e3, fim = Date.UTC(ano + 1, 0, 1) + 3 * 3600e3
   const ids = (await redis('ZRANGEBYSCORE', 'chamadas', String(ini), String(fim - 1))) || []
-  const calls = (await lerChamadas(ids)).filter(c => c.fim - c.ini >= 10 * 60e3 || c.proj.length)
+  const calls = (await lerChamadas(ids)).filter(c => c.fim - c.ini >= 10 * 60e3 || c.proj.length || c.jogos.length)
   const anos = [...new Set(((await redis('ZRANGE', 'chamadas', 0, -1, 'WITHSCORES')) || []).filter((_, i) => i % 2).map(t => HORA_BR(+t).getUTCFullYear()))].sort()
   const titulos = new Map(), pessoas = new Map(), proj = new Map(), meses = Array(12).fill(0), semana = Array(7).fill(0), horas = Array(24).fill(0)
-  let total = 0, totalProj = 0, maior = null
+  const jogos = new Map()
+  let total = 0, totalProj = 0, totalJogo = 0, maior = null
   for (const c of calls) {
     const dur = Math.max(0, c.fim - c.ini), d = HORA_BR(c.ini)
     total += dur; meses[d.getUTCMonth()] += dur; semana[d.getUTCDay()]++; horas[d.getUTCHours()]++
@@ -136,6 +141,13 @@ async function retrospectiva(ano) {
       titulos.set(k, t)
       proj.set(x.por, (proj.get(x.por) || 0) + x.ms)
     }
+    for (const x of c.jogos || []) {
+      if (x.ms < 60e3) continue
+      const g = jogos.get(x.j) || { j: x.j, ms: 0, calls: 0, quem: new Map() }
+      g.ms += x.ms; g.calls++; totalJogo += x.ms
+      for (const n of x.quem) g.quem.set(n, (g.quem.get(n) || 0) + 1)
+      jogos.set(x.j, g)
+    }
     for (const n of c.notas || []) { const t = titulos.get(n.ti.toLowerCase()); if (t) { t.somaNotas = (t.somaNotas || 0) + n.media; t.qNotas = (t.qNotas || 0) + 1 } }
     const principal = [...c.proj].sort((a, b) => b.ms - a.ms)[0]
     if (!maior || dur > maior.ms) maior = { ms: dur, ini: c.ini, titulo: principal && !/^tela de /i.test(principal.t) ? principal.m?.ti || principal.t : '', presentes: c.presentes.length }
@@ -144,7 +156,8 @@ async function retrospectiva(ano) {
   const top = [...titulos.values()].filter(t => t.ms >= 5 * 60e3 && !generico(t)).sort((a, b) => b.ms - a.ms).slice(0, 10)
     .map(t => ({ titulo: t.titulo, ms: t.ms, poster: t.poster, plat: t.plat, tipo: t.tipo, nota: t.nota, eps: t.eps.size, sessoes: t.sessoes.size, notaSala: t.qNotas ? Math.round(t.somaNotas / t.qNotas * 10) / 10 : null }))
   return {
-    ano, anos, sessoes: calls.length, ms: total, msProj: totalProj, maior,
+    ano, anos, sessoes: calls.length, ms: total, msProj: totalProj, msJogo: totalJogo, maior,
+    jogos: [...jogos.values()].sort((a, b) => b.ms - a.ms).slice(0, 8).map(g => ({ j: g.j, ms: g.ms, calls: g.calls, fa: [...g.quem.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || '' })),
     titulos: top, pessoas: [...pessoas.values()].sort((a, b) => b.n - a.n).slice(0, 12),
     projetou: [...proj.entries()].map(([nome, ms]) => ({ nome, ms })).sort((a, b) => b.ms - a.ms).slice(0, 5),
     meses, semana, horas,
@@ -159,4 +172,74 @@ async function vistos() {
   const ids = (await redis('ZRANGE', 'chamadas', 0, -1)) || []
   for (const c of await lerChamadas(ids)) for (const x of c.proj) if (x.m?.i) out.add(x.m.i)
   return { imdb: [...out] }
+}
+
+// Séries: o que passou nas calls (episódios, quando) + as notas guardadas em serie:<título> (e as antigas, só na call)
+async function seriesDasCalls() {
+  const calls = await lerChamadas((await redis('ZRANGE', 'chamadas', 0, -1)) || [])
+  const m = new Map(), nomes = {}
+  const pega = (ti) => { const k = ti.toLowerCase(); if (!m.has(k)) m.set(k, { titulo: ti, poster: '', imdb: '', nota: null, ult: 0, ms: 0, eps: new Map(), legado: new Map() }); return m.get(k) }
+  for (const c of calls) {
+    for (const p of c.presentes) nomes[p.key] = p.nome
+    for (const x of c.proj) {
+      if (x.m?.tp !== 'serie' || !x.m.ti) continue
+      const t = pega(x.m.ti)
+      t.poster ||= x.m.p; t.imdb ||= x.m.i; t.nota ??= x.m.n; t.ult = Math.max(t.ult, c.ini); t.ms += x.ms
+      if (!x.m.e) continue
+      const ek = `${x.m.s}|${x.m.e}`, ep = t.eps.get(ek) || { s: x.m.s, e: x.m.e, nome: '', en: null, vistos: [] }
+      ep.nome ||= x.m.ep || ''; ep.en ??= x.m.en ?? null
+      if (!ep.vistos.includes(c.ini)) ep.vistos.push(c.ini)
+      t.eps.set(ek, ep)
+    }
+    for (const n of c.notas || []) if (n.ti && n.notas) { const t = pega(n.ti); t.legado.set(`${n.s}|${n.e}`, n.notas); t.ult = Math.max(t.ult, c.ini) }
+  }
+  return { m, nomes }
+}
+async function notasGuardadas(k) {
+  const flat = (await redis('HGETALL', `serie:${k}`)) || [], out = new Map()
+  let ti = ''
+  for (let i = 0; i < flat.length; i += 2) { if (flat[i] === '_ti') ti = flat[i + 1]; else try { out.set(flat[i], JSON.parse(flat[i + 1])) } catch {} }
+  return { ti, eps: out }
+}
+const mediaDe = notas => { const v = Object.values(notas || {}); return v.length ? Math.round(v.reduce((a, x) => a + x, 0) / v.length * 10) / 10 : null }
+// episódios de uma série juntando as três fontes; a nota guardada por série vale mais que a antiga da call
+function juntaEps(t, g) {
+  const ks = new Set([...(t?.eps.keys() || []), ...g.eps.keys(), ...(t?.legado.keys() || [])])
+  return [...ks].map(k => {
+    const [s, e] = k.split('|').map(Number), visto = t?.eps.get(k)
+    const notas = g.eps.has(k) ? g.eps.get(k).notas || {} : t?.legado.get(k) || {}
+    return { s, e, nome: visto?.nome || '', en: visto?.en ?? null, vistos: (visto?.vistos || []).sort((a, b) => a - b), notas, media: mediaDe(notas) }
+  }).filter(x => x.vistos.length || x.media != null).sort((a, b) => a.s - b.s || a.e - b.e)
+}
+async function listaSeries() {
+  const { m } = await seriesDasCalls()
+  const ks = new Set([...m.keys(), ...((await redis('SMEMBERS', 'series')) || [])])
+  const out = await Promise.all([...ks].map(async k => {
+    const t = m.get(k), g = await notasGuardadas(k), eps = juntaEps(t, g), com = eps.filter(x => x.media != null)
+    return { titulo: t?.titulo || g.ti || k, poster: t?.poster || '', nota: t?.nota ?? null, ult: t?.ult || 0, ms: t?.ms || 0, eps: eps.filter(x => x.e).length, notas: com.length, media: com.length ? Math.round(com.reduce((a, x) => a + x.media, 0) / com.length * 10) / 10 : null }
+  }))
+  return { series: out.filter(x => x.eps || x.notas).sort((a, b) => b.ult - a.ult).slice(0, 60) }
+}
+async function historicoSerie(ti) {
+  if (!ti) return { erro: 'título' }
+  const k = ti.toLowerCase(), { m, nomes } = await seriesDasCalls(), t = m.get(k), g = await notasGuardadas(k)
+  const nossos = juntaEps(t, g)
+  // temporadas que a turma viu ou deu nota: todos os episódios delas (nota e nome do IMDb), os que vocês viram marcados
+  const imdb = t?.imdb ? await episodiosImdb(t.imdb).catch(() => []) : []
+  const temps = new Set(nossos.map(x => x.s).filter(Boolean))
+  const porK = new Map(nossos.map(x => [`${x.s}|${x.e}`, x]))
+  const eps = imdb.filter(x => temps.has(x.s)).map(x => {
+    const n = porK.get(`${x.s}|${x.e}`); porK.delete(`${x.s}|${x.e}`)
+    return { s: x.s, e: x.e, nome: x.nome || n?.nome || '', imdb: x.nota, vistos: n?.vistos || [], notas: n?.notas || {}, media: n?.media ?? null }
+  })
+  for (const n of porK.values()) eps.push({ s: n.s, e: n.e, nome: n.nome, imdb: n.en, vistos: n.vistos, notas: n.notas, media: n.media })
+  eps.sort((a, b) => (a.s || 999) - (b.s || 999) || a.e - b.e)
+  const pessoas = [...new Set(eps.flatMap(x => Object.keys(x.notas)))]
+  const com = eps.filter(x => x.media != null)
+  return {
+    titulo: t?.titulo || g.ti || ti, poster: t?.poster || '', imdb: t?.imdb || '', nota: t?.nota ?? null, eps,
+    nomes: Object.fromEntries(pessoas.map(p => [p, nomes[p] || ''])),
+    media: com.length ? Math.round(com.reduce((a, x) => a + x.media, 0) / com.length * 10) / 10 : null,
+    vistos: eps.filter(x => x.vistos.length).length,
+  }
 }

@@ -62,8 +62,22 @@ function lerMidia(m) {
   return {
     plat: m.plat || '', titulo: txt(m.titulo, 100), s: num(m.s, 0, 99), e: num(m.e, 0, 999), epNome: txt(m.epNome, 100), tipo: m.tipo === 'serie' ? 'serie' : 'filme',
     original: txt(m.original, 120), ano: txt(m.ano, 12), nota: m.nota == null ? null : num(m.nota, 0, 10), epNota: m.epNota == null ? null : num(m.epNota, 0, 10), poster: url(m.poster), fundo: url(m.fundo), imdb: /^tt\d+$/.test(m.imdb) ? m.imdb : '',
+    temporada: lerTemporada(m.temporada), serie: lerSerie(m.serie),
   }
 }
+// notas da série para a ilha: episódios da temporada que está passando e a média de cada temporada
+const nota = v => v == null || !Number.isFinite(+v) ? null : num(v, 0, 10)
+const lerEp = x => x && typeof x === 'object' ? { s: num(x.s, 0, 99), e: num(x.e, 0, 999), nome: txt(x.nome, 120), nota: nota(x.nota) } : null
+function lerTemporada(t) {
+  if (!t || typeof t !== 'object' || !Array.isArray(t.eps)) return null
+  return { s: num(t.s, 0, 99), media: nota(t.media), melhor: lerEp(t.melhor), eps: t.eps.slice(0, 60).map(x => ({ e: num(x?.e, 0, 999), nome: txt(x?.nome, 120), nota: nota(x?.nota) })) }
+}
+function lerSerie(t) {
+  if (!t || typeof t !== 'object' || !Array.isArray(t.temporadas)) return null
+  return { total: num(t.total, 0, 5000), melhor: lerEp(t.melhor), temporadas: t.temporadas.slice(0, 60).map(x => ({ s: num(x?.s, 0, 99), media: nota(x?.media), n: num(x?.n, 0, 999) })) }
+}
+// estrelas de cada pessoa na votação do fim do episódio: { chave da pessoa: 1..5 }
+const lerNotas = o => o && typeof o === 'object' ? Object.fromEntries(Object.entries(o).slice(0, 30).map(([k, v]) => [String(k).slice(0, 40), Math.round(num(v, 0, 5))]).filter(([, v]) => v >= 1)) : {}
 // mensagem "share" de quem projeta, já limpa
 export function lerShare(d) {
   return {
@@ -74,7 +88,7 @@ export function lerShare(d) {
     midia: lerMidia(d.midia),
     nfx: d.nfx && typeof d.nfx === 'object' ? {
       ctl: d.nfx.ctl === 'eu' ? 'eu' : 'todos', pular: ['abertura', 'resumo'].includes(d.nfx.pular) ? d.nfx.pular : '', fim: !!d.nfx.fim,
-      voto: d.nfx.voto && typeof d.nfx.voto.id === 'string' ? { id: d.nfx.voto.id.slice(0, 20), s: num(d.nfx.voto.s, 0, 99), n: num(d.nfx.voto.n, 0, 99), tot: num(d.nfx.voto.tot, 1, 99), ate: num(d.nfx.voto.ate, 0, 60000), fim: ['sim', 'nao', 'seguiu'].includes(d.nfx.voto.fim) ? d.nfx.voto.fim : '', nq: num(d.nfx.voto.nq, 0, 99), nm: num(d.nfx.voto.nm, 0, 5) } : null,
+      voto: d.nfx.voto && typeof d.nfx.voto.id === 'string' ? { id: d.nfx.voto.id.slice(0, 20), s: num(d.nfx.voto.s, 0, 99), n: num(d.nfx.voto.n, 0, 99), tot: num(d.nfx.voto.tot, 1, 99), ate: num(d.nfx.voto.ate, 0, 60000), fim: ['sim', 'nao', 'seguiu'].includes(d.nfx.voto.fim) ? d.nfx.voto.fim : '', nq: num(d.nfx.voto.nq, 0, 99), nm: num(d.nfx.voto.nm, 0, 5), nk: lerNotas(d.nfx.voto.nk) } : null,
     } : null,
   }
 }

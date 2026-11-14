@@ -23,18 +23,28 @@
       const id = p.getMovieId()
       const md = window.netflix.appContext.state.playerApp.getState().videoPlayer.videoMetadata[id]._metadata.video
       if (md.type === 'show') {
+        // o id pode vir como número ou texto, e às vezes só o currentEpisode aponta o episódio
+        const alvo = new Set([id, md.currentEpisode].filter(x => x != null).map(String))
         for (const s of md.seasons || []) for (const ep of s.episodes || []) {
-          if (ep.id === id || ep.episodeId === id) return { titulo: md.title, s: s.seq, e: ep.seq, epNome: ep.title || '', id }
+          if (alvo.has(String(ep.id)) || alvo.has(String(ep.episodeId))) return { titulo: md.title, s: s.seq, e: ep.seq, epNome: ep.title || '', id }
         }
+        const dom = doDom()
+        if (dom?.e) return { ...dom, titulo: md.title }
       }
       return { titulo: md.title, s: 0, e: 0, epNome: '', id }
     } catch {}
+    return doDom()
+  }
+  // barra do player: "T5:E10", "T5 E10", "Temporada 5 Episódio 10", "Episódio 10"…
+  const RE_T = /\b(?:T|S|Temp(?:orada)?\.?|Season)\s*(\d{1,2})\b/i, RE_E = /\b(?:E|Ep\.?|Epis[óo]dio|Episode)\s*(\d{1,3})\b/i
+  function doDom() {
     const el = document.querySelector('[data-uia="video-title"]')
     if (el) {
       const h = el.querySelector('h4')?.textContent?.trim()
       const spans = [...el.querySelectorAll('span')].map(s => s.textContent.trim())
-      const m = spans.join(' ').match(/[TS](\d+):E(\d+)/)
-      ultimoDom = { titulo: h || el.textContent.trim(), s: m ? +m[1] : 0, e: m ? +m[2] : 0, epNome: spans.filter(s => !/^[TS]\d+:E\d+$/.test(s)).pop() || '' }
+      const junto = spans.join(' '), mt = junto.match(RE_T), me = junto.match(/[TS]\s*\d+\s*[:.]?\s*E\s*(\d+)/i) || junto.match(RE_E)
+      const soNumero = x => /^(?:[TS]\s*\d+\s*[:.]?\s*)?(?:E|Ep\.?|Epis[óo]dio|Episode)?\s*\d+$/i.test(x) || /^(?:T|Temp(?:orada)?\.?|Season)\s*\d+[,:]?\s*(?:E|Ep\.?|Epis[óo]dio|Episode)\s*\d+$/i.test(x)
+      ultimoDom = { titulo: h || el.textContent.trim(), s: mt ? +mt[1] : 0, e: me ? +me[1] : 0, epNome: spans.filter(x => x && x !== h && !soNumero(x)).pop() || '' }
     }
     return ultimoDom
   }

@@ -90,6 +90,16 @@ export default async function handler(req, res) {
             const ms = (x?.ms || 0) + (x && now - x.fim < 60e3 ? now - x.fim : 0)
             await redis('HSET', h, campo, JSON.stringify({ t: pj.t, k: pj.k, por: info.name || key, ini: x?.ini || now, fim: now, ms, ...(pj.m || x?.m ? { m: pj.m || x.m } : {}) }))
           }
+          // jogos da call: cada jogador manda em que mesa está jogando; o tempo soma uma vez só (como o da projeção)
+          const jogando = Array.isArray(b.jogos) ? [...new Set(b.jogos.filter(j => typeof j === 'string' && /^[a-z]{2,8}$/.test(j)))].slice(0, 4) : []
+          for (const jg of jogando) {
+            const campo = `j:${jg}`
+            let x = null
+            try { x = JSON.parse(await redis('HGET', h, campo)) } catch {}
+            const ms = (x?.ms || 0) + (x && now - x.fim < 60e3 ? now - x.fim : 0)
+            const quem = { ...(x?.quem || {}), [key.slice(0, 40)]: String(info.name || key).slice(0, 24) }
+            await redis('HSET', h, campo, JSON.stringify({ j: jg, ini: x?.ini || now, fim: now, ms, quem }))
+          }
           await redis('ZADD', 'chamadas', 'NX', String(callIni), id)
           await redis('EXPIRE', h, 180 * 86400)
         }
@@ -117,7 +127,15 @@ export default async function handler(req, res) {
         const s = Math.max(0, Math.min(99, +b.s || 0)), e = Math.max(0, Math.min(999, +b.e || 0)), ti = b.ti.trim().slice(0, 100)
         const vals = Object.values(notas), media = Math.round(vals.reduce((a, v) => a + v, 0) / vals.length * 10) / 10
         await redis('HSET', `cham:${b.r}:${callIni}`, `n:${ti.toLowerCase()}|${s}|${e}`, JSON.stringify({ ti, s, e, notas, media }))
+        await notaSerie(ti, s, e, notas, now)
         return json(res, 200, { ok: true, media })
+      }
+      // nota de uma pessoa dada depois (no histórico da série): 1 a 5, ou 0 para tirar a sua
+      if (b.op === 'nota1') {
+        if (!okRoom(b.r) || typeof b.ti !== 'string' || !b.ti.trim() || typeof b.key !== 'string' || !b.key) return json(res, 200, { ok: false })
+        const s = Math.max(0, Math.min(99, +b.s || 0)), e = Math.max(0, Math.min(999, +b.e || 0)), v = Math.max(0, Math.min(5, Math.round(+b.v) || 0))
+        const ep = await notaSerie(b.ti.trim().slice(0, 100), s, e, { [b.key.slice(0, 40)]: v }, now)
+        return json(res, 200, { ok: true, ep })
       }
       if (b.op === 'faixa-res') {
         const data = String(b.data || ''), n = String(b.n ?? '')
@@ -226,6 +244,18 @@ export default async function handler(req, res) {
   } catch (e) { json(res, 500, { error: String(e.message || e) }) }
 }
 
+// histórico de notas por série (não expira): hash serie:<título>, campo "T|E" → { notas: {pessoa: 1..5}, ts }
+async function notaSerie(ti, s, e, novas, now) {
+  const h = `serie:${ti.toLowerCase()}`, campo = `${s}|${e}`
+  let x = null
+  try { x = JSON.parse(await redis('HGET', h, campo)) } catch {}
+  const notas = { ...(x?.notas || {}) }
+  for (const [k, v] of Object.entries(novas)) { if (v >= 1) notas[k] = v; else delete notas[k] }
+  const ep = { notas, ts: now }
+  await redis('HSET', h, campo, JSON.stringify(ep), '_ti', ti)
+  await redis('SADD', 'series', ti.toLowerCase())
+  return { s, e, ...ep }
+}
 // o que estava passando (série/filme reconhecido na projeção): só campos simples, para o diário
 function metaProj(m) {
   if (!m || typeof m !== 'object' || typeof m.ti !== 'string' || !m.ti.trim()) return null
