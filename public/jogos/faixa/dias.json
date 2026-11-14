@@ -1,4 +1,528 @@
 {
+ "2026-04-19": [
+  {
+   "id": "dire-straits-sultans-of-swing",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Sultans Of Swing",
+   "a": "Dire Straits",
+   "album": "Dire Straits",
+   "ano": 1983,
+   "dz": {
+    "t": 2263033,
+    "a": 176
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 958351,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "lady-gaga-beyonce-telephone",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Telephone",
+   "a": "Lady Gaga",
+   "album": "The Fame Monster (International Deluxe)",
+   "ano": 2009,
+   "dz": {
+    "t": 4709944,
+    "a": 75491
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 906620,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "queen-david-bowie-under-pressure-remastered-2011",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Under Pressure (feat. David Bowie)",
+   "a": "Queen",
+   "album": "Hot Space (Deluxe Edition)",
+   "ano": 1982,
+   "dz": {
+    "t": 4091932171,
+    "a": 412
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 951938,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "p-nk-so-what",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "So What (Main Version)",
+   "a": "P!nk",
+   "album": "Funhouse",
+   "ano": 2008,
+   "dz": {
+    "t": 2281107,
+    "a": 69925
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 842981,
+   "generos": [
+    "Dance",
+    "Rap/Hip Hop",
+    "Pop",
+    "Rock",
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "scorpions-still-loving-you",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Still Loving You",
+   "a": "Scorpions",
+   "album": "Comeblack",
+   "ano": 1984,
+   "dz": {
+    "t": 14299463,
+    "a": 863
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 949727,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "DE",
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  }
+ ],
+ "2026-04-20": [
+  {
+   "id": "daft-punk-pharrell-williams-nile-rodgers-get-lucky-radio-edi",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Get Lucky (Radio Edit - feat. Pharrell Williams and Nile Rodgers)",
+   "a": "Daft Punk",
+   "album": "Get Lucky (Radio Edit - feat. Pharrell Williams and Nile Rodgers)",
+   "ano": 2013,
+   "dz": {
+    "t": 66609426,
+    "a": 27
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 954234,
+   "generos": [
+    "Electro",
+    "Electro Pop/Electro Rock",
+    "Techno/House",
+    "Dance",
+    "Pop",
+    "Pop internacional",
+    "Rock",
+    "R&B",
+    "Disco",
+    "Soul & Funk"
+   ],
+   "pais": "FR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "eagles-hotel-california-2013-remaster",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Hotel California (2013 Remaster)",
+   "a": "Eagles",
+   "album": "Hotel California (40th Anniversary Expanded Edition)",
+   "ano": 1976,
+   "dz": {
+    "t": 426703682,
+    "a": 210
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 977590,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "adele-easy-on-me",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Easy On Me",
+   "a": "Adele",
+   "album": "Easy On Me",
+   "ano": 2021,
+   "dz": {
+    "t": 1522223672,
+    "a": 75798
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 920837,
+   "generos": [
+    "Pop",
+    "Pop internacional",
+    "Rock"
+   ],
+   "pais": "GB",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "r-e-m-losing-my-religion",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Losing My Religion",
+   "a": "R.E.M.",
+   "album": "Out Of Time",
+   "ano": 2016,
+   "dz": {
+    "t": 136334560,
+    "a": 129
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 973013,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "otavio"
+   ]
+  },
+  {
+   "id": "nelly-furtado-timbaland-promiscuous",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Promiscuous",
+   "a": "Nelly Furtado",
+   "album": "Loose",
+   "ano": 2006,
+   "dz": {
+    "t": 2430338,
+    "a": 133
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 909563,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  }
+ ],
  "2026-04-21": [
   {
    "id": "cocorico-cocorico-abertura",
