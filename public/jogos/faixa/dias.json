@@ -1,4 +1,369 @@
 {
+ "2026-04-08": [
+  {
+   "id": "three-days-grace-animal-i-have-become",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Animal I Have Become",
+   "a": "Three Days Grace",
+   "album": "One-X",
+   "ano": 2006,
+   "dz": {
+    "t": 10199904,
+    "a": 2978
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 855540,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "bon-jovi-you-give-love-a-bad-name",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "You Give Love A Bad Name",
+   "a": "Bon Jovi",
+   "album": "Bon Jovi Greatest Hits - The Ultimate Collection (Deluxe)",
+   "ano": 2018,
+   "dz": {
+    "t": 577487242,
+    "a": 637
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 853028,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "meris"
+   ]
+  }
+ ],
+ "2026-04-09": [
+  {
+   "id": "soundgarden-black-hole-sun",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Black Hole Sun",
+   "a": "Soundgarden",
+   "album": "Superunknown (Super Deluxe)",
+   "ano": 1994,
+   "dz": {
+    "t": 78631539,
+    "a": 1865
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 870385,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "system-of-a-down-b-y-o-b",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "B.Y.O.B.",
+   "a": "System of a Down",
+   "album": "Mezmerize",
+   "ano": 2005,
+   "dz": {
+    "t": 559789,
+    "a": 458
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 862779,
+   "generos": [
+    "Rock",
+    "Hard Rock",
+    "Metal"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "the-beatles-hey-jude-remastered-2009",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Hey Jude (Remastered 2015)",
+   "a": "The Beatles",
+   "album": "1 (Remastered 2015)",
+   "ano": 1983,
+   "dz": {
+    "t": 116348632,
+    "a": 1
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 859208,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "kansas-dust-in-the-wind",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dust in the Wind",
+   "a": "Kansas",
+   "album": "The Best Of Kansas",
+   "ano": 1978,
+   "dz": {
+    "t": 855863,
+    "a": 1385
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "1.webm"
+    }
+   ],
+   "rank": 857999,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "meris"
+   ]
+  },
+  {
+   "id": "linkin-park-bleed-it-out",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Bleed It Out",
+   "a": "Linkin Park",
+   "album": "Minutes to Midnight",
+   "ano": 2007,
+   "dz": {
+    "t": 676840,
+    "a": 92
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "resto",
+     "nome": "Resto da banda",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 857664,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
  "2026-04-10": [
   {
    "id": "the-cranberries-linger",
@@ -102,6 +467,170 @@
    "de": [
     "meris",
     "kellyson"
+   ]
+  },
+  {
+   "id": "cigarettes-after-sex-sunsetz",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Sunsetz",
+   "a": "Cigarettes After Sex",
+   "album": "Cigarettes After Sex",
+   "ano": 2017,
+   "dz": {
+    "t": 144010756,
+    "a": 9568982
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 876901,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "u2-beautiful-day",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Beautiful Day",
+   "a": "U2",
+   "album": "All That You Can't Leave Behind",
+   "ano": 2000,
+   "dz": {
+    "t": 2162742,
+    "a": 163
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 876586,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "IE",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "bryan-adams-heaven",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Heaven",
+   "a": "Bryan Adams",
+   "album": "Reckless",
+   "ano": 1985,
+   "dz": {
+    "t": 88902737,
+    "a": 170
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 871594,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris"
    ]
   }
  ],
