@@ -10,8 +10,9 @@ Uso:
   pessoas.py marcar             marca `de` nas músicas que já existem (refaz do zero; idempotente)
   pessoas.py status             quantas de cada pessoa já estão no jogo, na fila, prontas e com erro
   pessoas.py fila [--rank N]    consulta a Deezer, escolhe as mais conhecidas que faltam e monta a fila
-  pessoas.py leva [N]           processa a fila (N músicas, padrão: todas) no banco de dias anteriores
-Nada aqui publica: depois de uma leva, publique pelo fluxo normal.
+  pessoas.py leva [N] [--publicar K]   processa a fila (N músicas, padrão: todas) no banco de dias anteriores;
+                                       com --publicar, publica só os dados (deploy.sh --dados) a cada K e no fim
+Sem --publicar nada é publicado.
 """
 import concurrent.futures, datetime as dt, json, os, re, signal, subprocess, sys, time, unicodedata
 from pathlib import Path
@@ -152,7 +153,7 @@ def _sinal(*_):
     print('\n  vou parar depois desta música (Ctrl+C de novo sai na hora)', flush=True)
 
 
-def leva(meta=None):
+def leva(meta=None, cada=0):
     signal.signal(signal.SIGINT, _sinal); signal.signal(signal.SIGTERM, _sinal)
     TG = D.etiquetas_catalogo()
     feitas = 0
@@ -179,8 +180,11 @@ def leva(meta=None):
             alvo['estado'] = 'pronta'; alvo['dia'] = data; alvo.pop('erro', None)
             feitas += 1
         salva_fila(fl)
+        if m and cada and feitas % cada == 0:
+            marcar(quieto=True); L.publicar()
     marcar(quieto=True)  # a música nova pode estar na lista da outra pessoa com outro nome
-    print(f'pronto: {feitas} músicas novas. Nada foi publicado.', flush=True)
+    if cada and feitas % cada: L.publicar()
+    print(f'pronto: {feitas} músicas novas.', flush=True)
 
 
 def status():
@@ -197,5 +201,7 @@ if __name__ == '__main__':
     cmd = a[0] if a else 'status'
     if cmd == 'marcar': marcar()
     elif cmd == 'fila': fila(int(a[a.index('--rank') + 1]) if '--rank' in a else RANK_MIN)
-    elif cmd == 'leva': leva(next((int(x) for x in a[1:] if x.isdigit()), None))
+    elif cmd == 'leva':
+        cada = int(a[a.index('--publicar') + 1]) if '--publicar' in a else 0
+        leva(next((int(x) for i, x in enumerate(a[1:], 1) if x.isdigit() and a[i - 1] != '--publicar'), None), cada)
     else: status()
