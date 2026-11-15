@@ -3,6 +3,78 @@
 (() => {
   if (window.__cineNfx) return
   window.__cineNfx = true
+  /* Legenda para o acompanhante de série: as falas até o ponto em que a sala está (nunca depois).
+     A Netflix recebe as faixas de legenda no "manifest" do vídeo; pegamos os endereços quando ela faz
+     JSON.parse dele e baixamos a faixa só quando o Cineminha pedir. Sem o manifest (extensão instalada com
+     a aba já aberta), vale o que apareceu na tela com a legenda ligada. */
+  const faixas = new Map() // movieId -> [{ lang, forcada, cc, urls: { formato: url } }]
+  const baixadas = new Map() // url -> Promise<[[s, texto]]>
+  const naTela = new Map() // movieId -> [[s, texto]] (legenda que passou na tela)
+  const parse0 = JSON.parse
+  const urlsDe = d => { const o = {}; for (const [f, v] of Object.entries(d || {})) { const u = v?.downloadUrls ? Object.values(v.downloadUrls)[0] : v?.urls?.[0]?.url; if (u) o[f] = u } return o }
+  function guardaManifest(r) {
+    const m = r?.result || r
+    if (!m || !Array.isArray(m.timedtexttracks)) return
+    const id = String(m.movieId ?? m.videoId ?? '')
+    const lista = m.timedtexttracks.filter(t => !t.isNoneTrack && t.ttDownloadables).map(t => ({ lang: String(t.language || ''), forcada: !!t.isForcedNarrative, cc: t.rawTrackType === 'closedcaptions', urls: urlsDe(t.ttDownloadables) })).filter(t => Object.keys(t.urls).length)
+    if (id && lista.length) faixas.set(id, lista)
+  }
+  JSON.parse = function (texto, ...resto) {
+    const r = parse0.call(this, texto, ...resto)
+    try { if (typeof texto === 'string' && texto.length > 2000 && texto.includes('timedtexttracks')) guardaManifest(r) } catch {}
+    return r
+  }
+  const ent = s => s.replace(/&(#x?[\da-f]+|amp|lt|gt|quot|apos|nbsp);/gi, (_, c) => c[0] === '#' ? String.fromCodePoint(c[1] === 'x' || c[1] === 'X' ? parseInt(c.slice(2), 16) : +c.slice(1)) : { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' }[c.toLowerCase()])
+  // TTML/IMSC da Netflix: <p begin="123456t">…<br/>…</p> (ticks) ou "00:01:02.345"
+  function lerTtml(xml) {
+    const tick = +(xml.match(/tickRate="(\d+)"/)?.[1] || 1e7)
+    const seg = v => /t$/.test(v) ? +v.slice(0, -1) / tick : v.split(':').reduce((a, n) => a * 60 + +n, 0)
+    const out = []
+    for (const [, ini, corpo] of xml.matchAll(/<p\b[^>]*?\bbegin="([^"]+)"[^>]*>([\s\S]*?)<\/p>/g)) {
+      const t = ent(corpo.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim()
+      if (t) out.push([Math.round(seg(ini) * 10) / 10, t])
+    }
+    return out
+  }
+  function lerVtt(txt) {
+    const seg = v => v.trim().split(':').reduce((a, n) => a * 60 + parseFloat(n), 0)
+    return txt.replace(/\r/g, '').split(/\n\n+/).map(b => { const l = b.split('\n'), i = l.findIndex(x => x.includes('-->')); return i < 0 ? null : [Math.round(seg(l[i].split('-->')[0]) * 10) / 10, l.slice(i + 1).join(' ').replace(/<[^>]+>/g, '').trim()] }).filter(c => c && c[1])
+  }
+  function escolheFaixa(id, p) {
+    const lista = faixas.get(String(id)) || []
+    let atual = ''
+    try { const t = p?.getTimedTextTrack?.(); atual = String(t?.bcp47 || t?.language || '').toLowerCase() } catch {}
+    const nota = f => { const l = f.lang.toLowerCase(); return (atual && l === atual ? 8 : 0) + (l.startsWith('pt') ? 4 : 0) + (l.startsWith('en') ? 2 : 0) + (f.forcada ? -10 : 0) + (f.cc ? 0 : 1) }
+    return lista.slice().sort((a, b) => nota(b) - nota(a))[0]
+  }
+  async function falasDe(id, p) {
+    const f = escolheFaixa(id, p)
+    const fmt = f && (['imsc1.1', 'dfxp-ls-sdh', 'simplesdh', 'webvtt-lssdh-ios8'].find(k => f.urls[k]) || Object.keys(f.urls)[0])
+    if (fmt) {
+      const url = f.urls[fmt]
+      if (!baixadas.has(url)) baixadas.set(url, fetch(url).then(r => r.ok ? r.text() : Promise.reject(r.status)).then(t => /-->/.test(t.slice(0, 2000)) && !/<tt\b/.test(t.slice(0, 2000)) ? lerVtt(t) : lerTtml(t)).catch(e => { baixadas.delete(url); console.warn('[Cineminha] legenda', e); return null }))
+      const cues = await baixadas.get(url)
+      if (cues?.length) return { cues, fonte: 'netflix', lang: f.lang }
+    }
+    const tela = naTela.get(String(id))
+    return { cues: tela || [], fonte: tela?.length ? 'tela' : '', lang: '' }
+  }
+  // o que passa na tela com a legenda ligada (reserva quando não há manifest)
+  let ultimaTela = ''
+  setInterval(() => {
+    const el = document.querySelector('.player-timedtext')
+    const t = el?.innerText?.replace(/\s+/g, ' ').trim() || ''
+    if (!t || t === ultimaTela) { if (!t) ultimaTela = ''; return }
+    ultimaTela = t
+    const p = player()
+    try {
+      const id = String(p?.getMovieId?.() ?? ''), s = (p ? p.getCurrentTime() / 1000 : video()?.currentTime) || 0
+      if (!id) return
+      const l = naTela.get(id) || []
+      if (!l.some(c => c[1] === t && Math.abs(c[0] - s) < 8)) { l.push([Math.round(s * 10) / 10, t]); l.sort((a, b) => a[0] - b[0]) }
+      naTela.set(id, l.slice(-3000))
+    } catch {}
+  }, 400)
   let avisou = false, ultimoCmd = null
   const player = () => {
     try {
@@ -77,6 +149,11 @@
     ultimoCmd = id
     const p = player(), v = video()
     console.info('[Cineminha] comando', op, d ?? '')
+    if (op === 'falas') { // o Cineminha pediu as falas (para o acompanhante): manda a faixa inteira do que está passando
+      const id = (() => { try { return p?.getMovieId() } catch { return null } })()
+      if (id != null) falasDe(id, p).then(r => window.postMessage({ cineNfx: 'falas', movieId: String(id), ...r }, location.origin))
+      return
+    }
     try {
       if (op === 'pular') { (acha('resumo') || acha('abertura'))?.click(); return }
       if (op === 'proximo') { acha('proximo')?.click(); return }

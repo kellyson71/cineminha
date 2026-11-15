@@ -1,0 +1,146 @@
+/* Acompanhante de série: painel de perguntas, cartão mostrado para a sala e Raio-X (companheiro.js) */
+.cena-painel, .cena-card, .cena-rx { --cena-bg: rgba(14,14,19,.9); --cena-line: rgba(255,255,255,.1); --cena-soft: rgba(255,255,255,.62); --cena-faint: rgba(255,255,255,.42); --cena-acc: var(--accent, #e5484d); color: #fff; font: 400 .86rem/1.5 Inter, system-ui, sans-serif; cursor: default; }
+
+/* ---------- botões no canto do vídeo (aparecem com os controles) ---------- */
+.cena-acoes { position: absolute; z-index: 6; top: calc(var(--vy, 0px) + 44px); right: calc(var(--vx, 0px) + 10px); display: flex; gap: 6px; opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity .18s, transform .18s; }
+.tile:hover > .cena-acoes, .tile.player-visible > .cena-acoes, .cena-acoes:focus-within { opacity: 1; transform: none; pointer-events: auto; }
+.cena-acoes button { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 9px; border: 1px solid rgba(255,255,255,.14); border-radius: 999px; background: rgba(12,12,16,.72); backdrop-filter: blur(10px); color: #fff; font: 600 .78rem Inter, system-ui, sans-serif; cursor: pointer; transition: background .15s, border-color .15s; }
+.cena-acoes button:hover { background: rgba(30,30,38,.9); border-color: rgba(255,255,255,.3); }
+.cena-acoes svg { width: 16px; height: 16px; }
+.tile.thumb > .cena-acoes, .tile:has(.cena-rx) > .cena-acoes, .tile:has(.cena-painel) > .cena-acoes { display: none; }
+
+/* ---------- painel (lado direito da tela, acima da barra do player) ---------- */
+.cena-painel { position: absolute; z-index: 7; top: calc(var(--vy, 0px) + 12px); right: calc(var(--vx, 0px) + 12px); bottom: calc(var(--vy, 0px) + 64px); width: min(370px, calc(100% - 24px)); display: flex; flex-direction: column; border-radius: 18px; background: var(--cena-bg); border: 1px solid var(--cena-line); backdrop-filter: blur(16px) saturate(1.4); box-shadow: 0 18px 50px rgba(0,0,0,.5); overflow: hidden; animation: cena-entra .26s cubic-bezier(.2,1.2,.4,1); }
+.cena-painel.sai, .cena-card.sai, .cena-rx.sai { opacity: 0; transform: translateY(6px) scale(.98); transition: opacity .18s, transform .18s; }
+@keyframes cena-entra { from { opacity: 0; transform: translateY(8px) scale(.97); } }
+.cena-painel > header, .cena-card > header { display: flex; align-items: center; gap: 8px; padding: 11px 10px 9px 14px; border-bottom: 1px solid var(--cena-line); }
+.cena-marca { display: inline-flex; align-items: center; gap: 6px; flex: none; }
+.cena-marca svg { width: 16px; height: 16px; color: var(--cena-acc); }
+.cena-marca b { font-size: .8rem; font-weight: 800; letter-spacing: .02em; }
+.cena-marca small { margin-left: 4px; font-size: .74rem; color: var(--cena-soft); }
+.cena-painel__obra, .cena-card > header > small { flex: 1; min-width: 0; font-size: .74rem; color: var(--cena-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cena-x { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border: 0; border-radius: 50%; background: transparent; color: var(--cena-soft); cursor: pointer; transition: background .15s, color .15s; }
+.cena-x:hover { background: rgba(255,255,255,.1); color: #fff; }
+.cena-x svg { width: 16px; height: 16px; }
+
+.cena-conversa { flex: 1; min-height: 0; overflow-y: auto; padding: 12px 14px 4px; display: grid; align-content: start; gap: 16px; scrollbar-width: thin; }
+.cena-conversa:empty { display: none; }
+.cena-sugs { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px 14px 4px; margin-top: auto; }
+.cena-sugs button { padding: 6px 11px; border: 1px solid var(--cena-line); border-radius: 999px; background: rgba(255,255,255,.05); color: #fff; font: inherit; font-size: .78rem; cursor: pointer; transition: background .15s, border-color .15s; }
+.cena-sugs button:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); }
+.cena-form { display: flex; gap: 6px; margin: 10px 12px 4px; padding: 4px 4px 4px 12px; border-radius: 12px; background: rgba(255,255,255,.06); border: 1px solid var(--cena-line); transition: border-color .15s; }
+.cena-form:focus-within { border-color: rgba(255,255,255,.28); }
+.cena-form input { flex: 1; min-width: 0; border: 0; background: none; color: #fff; font: inherit; outline: none; }
+.cena-form input::placeholder { color: var(--cena-faint); }
+.cena-enviar { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 9px; background: var(--cena-acc); color: #fff; cursor: pointer; }
+.cena-enviar svg { width: 15px; height: 15px; }
+.cena-dica { margin: 0; padding: 4px 14px 10px; font-size: .68rem; color: var(--cena-faint); }
+
+.cena-perg { display: flex; align-items: baseline; justify-content: flex-end; gap: 8px; }
+.cena-perg span { padding: 7px 12px; border-radius: 14px 14px 4px 14px; background: rgba(255,255,255,.1); font-weight: 600; }
+.cena-perg small { order: -1; font-size: .68rem; color: var(--cena-faint); font-variant-numeric: tabular-nums; }
+.cena-card .cena-perg { justify-content: flex-start; padding: 10px 14px 0; }
+.cena-resp { display: grid; gap: 10px; margin-top: 8px; }
+.cena-resp.erro { color: #ffb4b6; font-size: .8rem; }
+.cena-resp p { margin: 0; }
+.cena-curta { font-size: .95rem; font-weight: 600; line-height: 1.45; }
+.cena-resumo { color: rgba(255,255,255,.86); }
+.cena-pontos { display: inline-flex; gap: 4px; padding: 6px 0; }
+.cena-pontos i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .3; animation: cena-ponto 1s infinite; }
+.cena-pontos i:nth-child(2) { animation-delay: .15s; } .cena-pontos i:nth-child(3) { animation-delay: .3s; }
+@keyframes cena-ponto { 40% { opacity: 1; transform: translateY(-2px); } }
+
+.cena-chip { display: inline-flex; align-items: center; gap: 5px; padding: 1px 8px 1px 2px; margin: 1px 0; border-radius: 999px; background: rgba(255,255,255,.1); font-weight: 600; white-space: nowrap; vertical-align: middle; line-height: 1.5; }
+.cena-av { flex: none; width: 22px; height: 22px; border-radius: 50%; object-fit: cover; object-position: center 20%; display: inline-grid; place-items: center; background: rgba(255,255,255,.14); font-style: normal; font-size: .58rem; font-weight: 800; }
+
+.cena-bloco { display: grid; gap: 8px; padding-top: 10px; border-top: 1px solid var(--cena-line); }
+.cena-sub { font-size: .64rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cena-faint); }
+.cena-pers, .cena-rel, .cena-grupo { display: flex; gap: 10px; align-items: flex-start; }
+.cena-pers .cena-av { width: 52px; height: 52px; border-radius: 12px; font-size: .9rem; }
+.cena-pers b, .cena-rel b, .cena-grupo b { display: block; font-weight: 700; }
+.cena-pers small { display: block; font-size: .72rem; color: var(--cena-soft); }
+.cena-pers p, .cena-rel p, .cena-grupo p { margin: 2px 0 0; font-size: .8rem; color: rgba(255,255,255,.8); }
+.cena-rels { display: grid; gap: 9px; }
+.cena-rel .cena-av { width: 34px; height: 34px; font-size: .7rem; }
+.cena-fazendo { color: var(--cena-soft) !important; font-style: italic; }
+.cena-grupo__img, .cena-ep__img { width: 64px; height: 64px; flex: none; border-radius: 10px; object-fit: cover; }
+.cena-ep__img { width: 96px; height: 54px; }
+.cena-membros { display: flex; flex-wrap: wrap; gap: 6px; }
+.cena-membros span { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px 2px 2px; border-radius: 999px; background: rgba(255,255,255,.07); font-size: .76rem; }
+.cena-hero { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 8; background: rgba(255,255,255,.05); }
+.cena-hero.retrato { aspect-ratio: 16 / 10; }
+.cena-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.cena-hero__txt { position: absolute; inset: auto 0 0; padding: 26px 12px 9px; background: linear-gradient(transparent, rgba(0,0,0,.85)); display: grid; }
+.cena-hero__txt b { font-size: 1rem; }
+.cena-hero__txt small { font-size: .72rem; color: var(--cena-soft); }
+.cena-fatos { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 0; }
+.cena-fatos div { padding: 7px 9px; border-radius: 10px; background: rgba(255,255,255,.05); }
+.cena-fatos dt { font-size: .64rem; color: var(--cena-faint); text-transform: uppercase; letter-spacing: .06em; }
+.cena-fatos dd { margin: 0; font-size: .8rem; }
+.cena-tl { list-style: none; margin: 0; padding: 0 0 0 12px; display: grid; gap: 8px; border-left: 2px solid rgba(255,255,255,.14); }
+.cena-tl li { position: relative; }
+.cena-tl li::before { content: ''; position: absolute; left: -17px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--cena-acc); }
+.cena-tl b { font-size: .72rem; color: var(--cena-soft); }
+.cena-tl p { margin: 0; font-size: .8rem; }
+.cena-gal { display: flex; gap: 10px; flex-wrap: wrap; }
+.cena-gal figure { margin: 0; display: grid; justify-items: center; gap: 3px; width: 64px; text-align: center; font-size: .7rem; }
+.cena-gal .cena-av { width: 52px; height: 52px; }
+.cena-lista { margin: 0; padding-left: 18px; font-size: .8rem; }
+.cena-cit { margin: 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--cena-acc); font-style: italic; }
+.cena-cit small { display: block; font-style: normal; color: var(--cena-soft); }
+.cena-img { margin: 0; } .cena-img img { width: 100%; border-radius: 10px; } .cena-img figcaption { font-size: .72rem; color: var(--cena-soft); }
+.cena-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.cena-links a { padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.08); color: #fff; font-size: .76rem; text-decoration: none; }
+.cena-aviso { padding: 8px 11px; border-radius: 10px; background: rgba(255,194,61,.12); border: 1px solid rgba(255,194,61,.3); color: #ffe2a3; font-size: .8rem; }
+
+.cena-rodape { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.cena-rodape small { font-size: .66rem; color: var(--cena-faint); }
+.cena-sala { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--cena-line); border-radius: 999px; background: rgba(255,255,255,.05); color: #fff; font: inherit; font-size: .74rem; font-weight: 600; cursor: pointer; }
+.cena-sala:hover:not(:disabled) { background: rgba(255,255,255,.1); }
+.cena-sala:disabled { opacity: .55; cursor: default; }
+.cena-sala svg { width: 13px; height: 13px; }
+
+/* ---------- cartão que alguém mostrou para a sala (canto esquerdo) ---------- */
+.cena-card { position: absolute; z-index: 7; left: calc(var(--vx, 0px) + 12px); bottom: calc(var(--vy, 0px) + 64px); width: min(360px, calc(100% - 24px)); max-height: calc(100% - 160px); display: flex; flex-direction: column; border-radius: 18px; background: var(--cena-bg); border: 1px solid var(--cena-line); backdrop-filter: blur(16px); box-shadow: 0 18px 50px rgba(0,0,0,.5); overflow: hidden; animation: cena-entra .3s cubic-bezier(.2,1.2,.4,1); }
+.cena-card .cena-resp { overflow-y: auto; padding: 0 14px 14px; scrollbar-width: thin; }
+
+/* ---------- Raio-X: o quadro congelado (só para quem pediu) com as caixas ---------- */
+.cena-rx { position: absolute; inset: 0; z-index: 8; background: #000; animation: cena-rx-entra .25s ease; }
+@keyframes cena-rx-entra { from { opacity: 0; } }
+.cena-rx__quadro { position: absolute; }
+.cena-rx__foto { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cena-rx__quadro.varrendo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,.0) 40%, rgba(255,255,255,.22) 50%, transparent 52%) 0 0 / 100% 220%; animation: cena-varre 1.4s linear infinite; mix-blend-mode: screen; pointer-events: none; }
+@keyframes cena-varre { from { background-position: 0 120%; } to { background-position: 0 -100%; } }
+.cena-rx__quadro:not(.varrendo) .cena-rx__foto { filter: brightness(.72) saturate(.9); transition: filter .4s; }
+.cena-rx__caixas { position: absolute; inset: 0; }
+.cena-rx__caixa { position: absolute; padding: 0; border: 2px solid rgba(255,255,255,.9); border-radius: 12px; background: transparent; box-shadow: 0 0 0 1px rgba(0,0,0,.35), 0 0 22px rgba(255,255,255,.18); cursor: pointer; animation: cena-caixa .4s calc(var(--i) * 90ms) both cubic-bezier(.2,1.3,.4,1); }
+@keyframes cena-caixa { from { opacity: 0; transform: scale(1.15); } }
+.cena-rx__caixa:hover, .cena-rx__caixa.aberta { border-color: var(--cena-acc); box-shadow: 0 0 0 1px rgba(0,0,0,.35), 0 0 26px rgba(229,72,77,.45); z-index: 2; }
+.cena-rx__etq { position: absolute; left: 50%; top: calc(100% + 8px); transform: translateX(-50%); display: flex; align-items: center; gap: 7px; padding: 4px 11px 4px 4px; border-radius: 999px; background: rgba(12,12,16,.88); border: 1px solid var(--cena-line); backdrop-filter: blur(10px); white-space: nowrap; text-align: left; color: #fff; font-size: .78rem; pointer-events: none; }
+.cena-rx__caixa.cima .cena-rx__etq { top: auto; bottom: calc(100% + 8px); }
+.cena-rx__etq .cena-av { width: 30px; height: 30px; }
+.cena-rx__etq > span { display: grid; line-height: 1.25; }
+.cena-rx__etq small, .cena-rx__etq em { display: none; font-size: .7rem; color: var(--cena-soft); font-style: normal; }
+.cena-rx__caixa:hover .cena-rx__etq, .cena-rx__caixa.aberta .cena-rx__etq { border-radius: 14px; padding: 6px 12px 6px 6px; white-space: normal; width: max-content; max-width: 240px; }
+.cena-rx__caixa:hover .cena-rx__etq .cena-av, .cena-rx__caixa.aberta .cena-rx__etq .cena-av { width: 44px; height: 44px; border-radius: 10px; }
+.cena-rx__caixa:hover .cena-rx__etq small, .cena-rx__caixa.aberta .cena-rx__etq small, .cena-rx__caixa:hover .cena-rx__etq em, .cena-rx__caixa.aberta .cena-rx__etq em { display: block; }
+.cena-rx__topo { position: absolute; top: 10px; left: 12px; right: 10px; display: flex; align-items: center; gap: 10px; }
+.cena-rx__topo > .cena-marca { padding: 6px 12px; border-radius: 999px; background: rgba(12,12,16,.78); border: 1px solid var(--cena-line); backdrop-filter: blur(10px); }
+.cena-rx__status { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: rgba(12,12,16,.78); border: 1px solid var(--cena-line); font-size: .78rem; color: var(--cena-soft); }
+.cena-rx__status.erro { color: #ffb4b6; }
+.cena-rx__x { margin-left: auto; background: rgba(12,12,16,.78); border: 1px solid var(--cena-line); color: #fff; width: 34px; height: 34px; }
+.cena-rx__lado { position: absolute; left: 12px; bottom: 14px; width: min(360px, calc(100% - 24px)); max-height: calc(100% - 80px); overflow-y: auto; display: grid; gap: 10px; padding: 14px; border-radius: 18px; background: var(--cena-bg); border: 1px solid var(--cena-line); backdrop-filter: blur(16px); box-shadow: 0 18px 50px rgba(0,0,0,.5); animation: cena-entra .3s cubic-bezier(.2,1.2,.4,1); scrollbar-width: thin; }
+.cena-rx__lado p { margin: 0; }
+.cena-con { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cena-con li { display: flex; gap: 10px; align-items: flex-start; font-size: .8rem; }
+.cena-con li > span { display: flex; flex: none; }
+.cena-con li > span .cena-av { width: 28px; height: 28px; border: 2px solid #15151b; }
+.cena-con li > span .cena-av + .cena-av { margin-left: -9px; }
+.cena-con b { display: block; font-size: .78rem; }
+
+/* telas pequenas (miniatura ao lado da tela em foco): sem painel */
+.tile.thumb .cena-painel, .tile.thumb .cena-card, .tile.thumb .cena-rx { display: none; }
+@media (max-width: 640px) {
+  .cena-painel { left: 8px; right: 8px; width: auto; top: auto; height: min(70%, 460px); }
+  .cena-rx__lado { max-height: 45%; }
+}

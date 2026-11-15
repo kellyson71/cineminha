@@ -3,8 +3,8 @@
 window.__cinePonteOff?.()
 {
   const daPagina = e => {
-    if (e.source !== window || e.data?.cineNfx !== 'estado') return
-    chrome.runtime.sendMessage({ ...e.data, cineNfx: undefined, de: 'netflix' }).catch(() => {})
+    if (e.source !== window || !['estado', 'falas'].includes(e.data?.cineNfx)) return
+    chrome.runtime.sendMessage({ ...e.data, cineNfx: undefined, tipoNfx: e.data.cineNfx, de: 'netflix' }).catch(() => {})
   }
   addEventListener('message', daPagina)
   window.__cinePonteOff = () => removeEventListener('message', daPagina)

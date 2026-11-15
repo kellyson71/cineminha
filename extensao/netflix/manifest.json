@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Cineminha · Netflix",
-  "version": "1.2.1",
-  "description": "Projeta a aba no Cineminha sem a faixa de compartilhamento, deixa a sala pausar e pular a Netflix e mostra para todos o que está passando.",
+  "version": "1.3.0",
+  "description": "Projeta a aba no Cineminha sem a faixa de compartilhamento, deixa a sala pausar e pular a Netflix, mostra para todos o que está passando e liga o acompanhante de série (Cena) de quem tem o servidor local.",
   "icons": {
     "48": "icone-48.png",
     "128": "icone-128.png"
@@ -13,7 +13,8 @@
   "host_permissions": [
     "https://www.netflix.com/*",
     "https://cineminha-boo.vercel.app/*",
-    "http://localhost:8790/*"
+    "http://localhost:8790/*",
+    "http://127.0.0.1:8799/*"
   ],
   "content_scripts": [
     {

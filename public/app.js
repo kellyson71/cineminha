@@ -5,6 +5,7 @@ import { ACOES, sha, roomIdDe, guestKey, api, apiStatus, turnServers, lerHello, 
 import { VOICE_PROFILES, DEFAULT_VOICE, cleanVoice, normalizeAudioPrefs, spatialPosition, gateIsOpen, createSpatialVoice, createCenteredPlayback } from './audio-settings.js'
 import BASE from './config.js'
 import { ICONS } from './icons.js'
+import { criaCompanheiro } from './companheiro.js'
 import { EMOJI, MEMES } from './reacoes/reacoes.js'
 import { loadRnnoise, RnnoiseWorkletNode, loadGtcrn, GtcrnWorkletNode } from './vendor/nsup/index.js'
 import { criaRadio, parseRadio } from './radio.js'
@@ -609,9 +610,11 @@ async function start(pw) {
   room = joinRoom({ appId: CFG.appId, password: pw, rtcPolyfill: FilmPC, turnConfig: ice }, roomId)
   const mk = n => room.makeAction(n)
   actions = Object.fromEntries(ACOES.map(n => [n, mk(n)]))
+  actions.cena.onMessage = (d, { peerId }) => companheiro.recebe(d, peerId)
 
   room.onPeerJoin = id => {
     peers.set(id, { key: '', name: '', speaking: false })
+    companheiro.onPeerJoin(id)
     actions.hello.send(helloMsg(), { target: id })
     if (messages.some(m => !m.sys)) actions.hist.send(messages.filter(m => !m.sys).slice(-80), { target: id })
     if (msgReacts.size) actions.mre.send({ all: reactsDump() }, { target: id })
@@ -633,6 +636,7 @@ async function start(pw) {
   room.onPeerLeave = id => {
     const p = peers.get(id)
     peers.delete(id)
+    companheiro.onPeerLeave(id)
     if (p?.name) someDaSala(p)
     if (shareInfo.has(id)) { shareInfo.delete(id); removeTile(id) }
     dropVoice(id)
@@ -902,6 +906,7 @@ function updatePlayer(id) {
   p.play.disabled = !pode; p.seek.disabled = !pode
   p.rateLabel.hidden = !arq; p.upload.hidden = !(arq && id === selfId)
   p.subs.hidden = !info?.subs
+  p.cenaBox.hidden = !companheiro.disponivel(id)
   p.subs.setAttribute('aria-pressed', String(!!prefs.subs))
   if (p.play.firstChild.dataset.icon !== (pausado ? 'play' : 'pause')) setIcon(p.play.firstChild, pausado ? 'play' : 'pause')
   p.play.title = !pode ? 'Só quem projeta controla a Netflix' : pausado ? 'Reproduzir para todos' : 'Pausar para todos'
@@ -1015,6 +1020,11 @@ function buildPlayer(id, tile) {
   volume.addEventListener('input', () => { const key = keyOf(id); prefs.tvol[key] = +volume.value; delete prefs.tmute[key]; applyTileVols(); savePrefs(); updatePlayer(id) })
   const mute = button('volume-2', 'Silenciar projeção', () => { const key = keyOf(id); prefs.tmute[key] = !prefs.tmute[key]; applyTileVols(); savePrefs(); updatePlayer(id) })
   const subs = button('captions', 'Ativar ou desativar legendas', () => { $('#btnSubs').click(); tiles.forEach((_, key) => updatePlayer(key)) })
+  // acompanhante de série (Cena no PC de alguém da sala): no canto do vídeo, aparece junto com os controles
+  const cenaBotao = (nome, txt, title, fn) => { const b = el('button', { type: 'button', title, ariaLabel: title }, icon(nome), el('span', { textContent: txt })); b.addEventListener('click', e => { e.stopPropagation(); fn() }); return b }
+  const cenaRx = cenaBotao('scan-face', 'Raio-X', 'Raio-X: quem está na tela (X)', () => companheiro.raiox(id))
+  const cenaPerg = cenaBotao('message-circle-question', 'Perguntar', 'Perguntar sobre a cena (Q)', () => companheiro.abre(id))
+  const cenaBox = el('div', { className: 'cena-acoes', hidden: true }, cenaRx, cenaPerg)
   const gear = button('settings', 'Opções do vídeo', () => {
     const open = settings.hidden
     document.querySelectorAll('.player-settings').forEach(node => node.hidden = true)
@@ -1042,7 +1052,7 @@ function buildPlayer(id, tile) {
   const linha = el('div', { className: 'player-linha' }, seek, time)
   const root = el('div', { className: 'player-controls' }, linha, bar, settings)
   root._tile = tile
-  tile.el.append(center, root)
+  tile.el.append(center, root, cenaBox)
   root.addEventListener('keydown', e => {
     e.stopPropagation()
     if (e.key === 'Escape') { settings.hidden = true; gear.setAttribute('aria-expanded', 'false'); gear.focus() }
@@ -1061,7 +1071,7 @@ function buildPlayer(id, tile) {
   tile.el.addEventListener('pointerleave', () => { if (settings.hidden && !root.querySelector(':focus-visible')) { clearTimeout(timer); tile.el.classList.remove('player-visible') } })
   tile.el.addEventListener('keydown', e => { if (e.target === tile.el && ['Space','Enter'].includes(e.code) && playerInfo(id)?.kind === 'arquivo') { e.preventDefault(); playerCommand(id, 'toggle'); reveal() } })
   tile.reveal = reveal
-  tile.player = { root, play, center, seek, time, volume, mute, subs, gear, quality, rate, rateLabel, upload, settings, back, fwd, title }
+  tile.player = { root, play, center, seek, time, volume, mute, subs, gear, quality, rate, rateLabel, upload, settings, back, fwd, title, cenaBox }
   tile.playerCleanup = () => clearTimeout(timer)
 }
 /* Bordas pretas dentro da transmissão (ex.: player com tarjas): mede numa miniatura, uma vez por segundo.
@@ -2056,6 +2066,12 @@ async function projetarDaExtensao(id, titulo) {
   toast('Projetando pela extensão', 2500)
 }
 postMessage({ cineExt: 'netflix', tipo: 'quem' }, location.origin)
+const companheiro = criaCompanheiro({
+  selfId, el, icon, toast, sysMsg: t => sysMsg(t),
+  acao: () => actions?.cena, peers: () => peers, info: playerInfo, tempo: playerTime,
+  tile: id => tiles.get(id), tilesIds: () => tiles.keys(), meuShare: () => myShare,
+  aoMudar: () => tiles.forEach((_, id) => updatePlayer(id)),
+})
 function nfxEstado(d) {
   const sh = myShare
   if (sh?.kind !== 'tela' || sh.game) return
@@ -2199,6 +2215,10 @@ async function shareFile(file) {
   ;['pause','play','seeked','ratechange','ended'].forEach(event => v.addEventListener(event, onState))
   publish(cap, { kind: 'arquivo', game: false, paused: true, preview, quality: 'auto', titulo: nomeDoArquivo(file.name) }, v, () => { v.pause(); clearInterval(subTimer); v.removeAttribute('src'); v.load(); URL.revokeObjectURL(url) })
   toast(`Projetando ${file.name}`)
+  // o nome do arquivo diz o que é ("Severance S01E03", "Duna (2021)"): busca capa e nota e liga o acompanhante
+  const nm = nomeDoArquivo(file.name), se = nm.match(/^(.*?)[\s._-]*S(\d{1,2})\s*E(\d{1,3})\b/i) || nm.match(/^(.*?)\s+(\d{1,2})x(\d{1,3})\b/)
+  const tituloArq = (se ? se[1] : nm.replace(/\s*[([]?\b(19|20)\d{2}\b[)\]]?\s*$/, '')).trim()
+  if (tituloArq) aplicaMidia(myShare, { plat: '', titulo: tituloArq, s: se ? +se[2] : 0, e: se ? +se[3] : 0, epNome: '' }, true)
   offerSessionSubs()
 }
 // Se a sessão de hoje tem legenda cadastrada (pelo MCP), oferece usar
@@ -2250,6 +2270,7 @@ async function loadSubs(file) {
   if (!cues.length) return toast('Não entendi essa legenda')
   const v = myShare.video
   myShare.subs = true
+  myShare.cues = cues
   actions?.share.send(shareMsg())
   layout()
   let last = null
@@ -4841,6 +4862,7 @@ document.addEventListener('keydown', e => {
   else if (k === 'm') toggleMute()
   else if (k === 'd') setDeaf(!me.deaf)
   else if (k === 'p') askPause()
+  else if ((k === 'q' || k === 'x') && companheiro.atalho(k, focusId)) e.preventDefault()
   else if (e.key === 'Escape') { if (theater.classList.contains('palco') && !document.querySelector('.pop:not([hidden]), .reactgrid:not([hidden]), #gifs:not([hidden])')) setPalco(false); else closePops() }
   else if (e.key === 'Enter' && chatVisible()) { e.preventDefault(); $('#chatInput').focus() }
 })

@@ -2,7 +2,7 @@
    Só protocolo: nada de DOM aqui. Mudou o protocolo, muda nos dois de uma vez. */
 
 // Ações P2P (Trystero). A ordem não importa, o nome sim: é o que os outros escutam.
-export const ACOES = ['hello', 'share', 'chat', 'hist', 'spk', 'need', 'react', 'pausa', 'leg', 'adm', 'ctl', 'mre', 'mid', 'rad', 'jogo', 'sus']
+export const ACOES = ['hello', 'share', 'chat', 'hist', 'spk', 'need', 'react', 'pausa', 'leg', 'adm', 'ctl', 'mre', 'mid', 'rad', 'jogo', 'sus', 'cena']
 
 export const sha = async s => crypto.subtle
   ? [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map(b => b.toString(16).padStart(2, '0')).join('')
@@ -61,7 +61,7 @@ function lerMidia(m) {
   if (!m || typeof m !== 'object' || !['netflix', ''].includes(m.plat ?? '') || !txt(m.titulo, 100)) return null
   return {
     plat: m.plat || '', titulo: txt(m.titulo, 100), s: num(m.s, 0, 99), e: num(m.e, 0, 999), epNome: txt(m.epNome, 100), tipo: m.tipo === 'serie' ? 'serie' : 'filme',
-    original: txt(m.original, 120), ano: txt(m.ano, 12), nota: m.nota == null ? null : num(m.nota, 0, 10), epNota: m.epNota == null ? null : num(m.epNota, 0, 10), poster: url(m.poster), fundo: url(m.fundo), imdb: /^tt\d+$/.test(m.imdb) ? m.imdb : '',
+    original: txt(m.original, 120), ano: txt(m.ano, 12), nota: m.nota == null ? null : num(m.nota, 0, 10), epNota: m.epNota == null ? null : num(m.epNota, 0, 10), poster: url(m.poster), fundo: url(m.fundo), imdb: /^tt\d+$/.test(m.imdb) ? m.imdb : '', epImdb: /^tt\d+$/.test(m.epImdb) ? m.epImdb : '',
     temporada: lerTemporada(m.temporada), serie: lerSerie(m.serie),
   }
 }

@@ -11,9 +11,22 @@ chrome.runtime.onInstalled.addListener(async () => {
   inj(await chrome.tabs.query({ url: SITE }), ['ponte-cineminha.js'])
 })
 
-chrome.runtime.onMessage.addListener((msg, sender) => {
+// Acompanhante de série: o Cineminha pergunta ao servidor local do Cena (só existe no PC de quem o instalou)
+const CENA = 'http://127.0.0.1:8799'
+async function cena(rota, corpo) {
+  if (!/^\/(saude|cineminha\/[a-z/]+)$/.test(rota || '')) return { erro: 'rota inválida', codigo: 400 }
+  try {
+    const r = await fetch(CENA + rota, corpo ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corpo) } : {})
+    const j = await r.json().catch(() => ({}))
+    return r.ok ? j : { erro: j.erro || `HTTP ${r.status}`, codigo: r.status }
+  } catch { return { erro: 'Servidor do Cena desligado', codigo: 0 } }
+}
+
+chrome.runtime.onMessage.addListener((msg, sender, responder) => {
+  if (msg?.de === 'cena') { cena(msg.rota, msg.corpo).then(responder); return true }
   if (msg?.de === 'netflix' && sender.tab) {
-    if (!msg.paused || netflixAtiva == null) netflixAtiva = sender.tab.id
+    if (msg.tipoNfx === 'falas') { if (netflixAtiva != null && sender.tab.id !== netflixAtiva) return }
+    else if (!msg.paused || netflixAtiva == null) netflixAtiva = sender.tab.id
     if (sender.tab.id !== netflixAtiva) return
     chrome.tabs.query({ url: SITE }).then(abas => abas.forEach(t => chrome.tabs.sendMessage(t.id, msg).catch(() => {})))
   } else if (msg?.de === 'cineminha') {
