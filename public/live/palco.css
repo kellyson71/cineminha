@@ -362,3 +362,6 @@
 .palco .meta{transform:translate(-50%,-60px)}
 .palco .lanc-mini{transform:translate(-50%,-60px)}
 .palco .meta.on,.palco .lanc-mini.on{opacity:1;visibility:visible;transform:translate(-50%,0);transition:transform .7s var(--solta),top .45s var(--suave),opacity .35s,visibility 0s}
+
+/* avatar dela escondido pelo estúdio (o aviso de "entrou na linha" continua) */
+.palco .linha.oculta,.palco .linha.on.oculta{opacity:0;transform:scale(.6);pointer-events:none}

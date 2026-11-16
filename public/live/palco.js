@@ -286,9 +286,14 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
       if (R.direita) { tc.style.right = px(1920 - R.x - R.w); tc.style.left = 'auto' } else { tc.style.left = px(R.x); tc.style.right = 'auto' }
       tc.style.width = tc.classList.contains('mini') ? '' : px(Math.max(R.w, 440))
     } else ['top', 'bottom', 'left', 'right', 'width'].forEach(k => tc.style[k] = '')
-    // avatar dela do lado de dentro da câmera; aviso perto da música
-    const ln = $('.linha'), av = $('.aviso')
-    if (st.cena !== 'camera') {
+    // avatar dela: do lado de dentro da câmera (padrão), num canto que ele escolher, ou escondido; aviso perto da música
+    const ln = $('.linha'), av = $('.aviso'), A = st.avatarPos || {}
+    ln.classList.toggle('oculta', !!A.oculto)
+    if (A.lugar && A.lugar !== 'cam') {
+      const cima = A.lugar[0] === 't', dir = A.lugar[1] === 'r'
+      ln.style.top = px(cima ? 70 : 1080 - 92 - 210); ln.style.bottom = 'auto'
+      if (dir) { ln.style.right = '64px'; ln.style.left = 'auto' } else { ln.style.left = '64px'; ln.style.right = 'auto' }
+    } else if (st.cena !== 'camera') {
       ln.style.top = px(R.embaixo ? R.y + R.h - 210 : R.y + 6); ln.style.bottom = 'auto'
       if (R.direita) { ln.style.right = px(1920 - R.x + 26); ln.style.left = 'auto' } else { ln.style.left = px(R.x + R.w + 26); ln.style.right = 'auto' }
     } else ['top', 'bottom', 'left', 'right'].forEach(k => ln.style[k] = '')
