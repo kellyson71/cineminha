@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estúdio · Kellyson ao vivo</title>
+<link rel="icon" href="assets/vi.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="palco.css">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:#120820;color:var(--creme);font-family:var(--ui);overflow:hidden;font-size:17px}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sol);outline-offset:2px}
+[hidden]{display:none!important}
+.app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 380px;grid-template-rows:auto minmax(0,1fr) auto;gap:12px;padding:12px 14px}
+header{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+header .logo{height:38px}
+header h1{font:400 28px/1 var(--gta);margin-right:6px}
+.chip{display:flex;align-items:center;gap:8px;font:700 14px var(--ui);letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:#ffffff10;color:#fffa}
+.chip i{width:9px;height:9px;border-radius:50%;background:#ffffff40}
+.chip.on{color:#fff}.chip.on i{background:#4ade80;box-shadow:0 0 8px #4ade80}
+.chip.vivo{background:var(--rosa);color:#fff}.chip.vivo i{background:#fff;animation:pl-pulsa 1.4s infinite}
+header .tempo{font:500 18px var(--mono)}
+header .dir{margin-left:auto;display:flex;gap:10px}
+.btn{border:0;border-radius:12px;padding:9px 14px;cursor:pointer;font:700 15px var(--ui);letter-spacing:.06em;text-transform:uppercase;background:#ffffff14;color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.btn:hover{background:#ffffff24}
+.btn.forte{background:var(--vi);text-shadow:0 2px 0 var(--tinta);box-shadow:0 0 0 3px var(--tinta)}
+.btn.perigo{background:#e8213f}
+.btn.liga[aria-pressed=true]{background:var(--creme);color:var(--tinta)}
+.btn.mini{padding:6px 10px;font-size:13px}
+.principal{min-height:0;display:flex;flex-direction:column;gap:10px}
+.retorno-rot{display:flex;align-items:center;justify-content:space-between;font:700 13px var(--ui);letter-spacing:.2em;text-transform:uppercase;color:#fff9}
+.ret-btns{display:flex;align-items:center;gap:8px}
+.ret-btns .btn{letter-spacing:.04em}
+.ret-btns input{width:110px}
+.tela .host.desligado{background:#1c0830}
+.tela .host.desligado .palco{visibility:hidden}
+.tela .host.desligado::after{content:'Retorno desligado: a live continua indo normalmente pra ela. Ligue em "Vídeo" para ver.';position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;font:600 18px var(--ui);color:#fffb;letter-spacing:.02em;text-transform:none}
+.tela{flex:1;min-height:0;container-type:size;display:grid;place-items:center}
+.tela .host{width:min(100cqw,calc(100cqh * 16 / 9));aspect-ratio:16/9;border-radius:14px;box-shadow:0 0 0 3px var(--tinta),0 0 0 6px var(--uva)}
+.cenas{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.cenas button{position:relative;border:0;border-radius:14px;padding:12px 10px 10px;cursor:pointer;background:#ffffff10;color:#fff;font:400 20px/1 var(--gta);text-align:left;min-width:0}
+.cenas button kbd{position:absolute;right:10px;top:9px;font:500 12px var(--mono);color:#fff8;background:#0004;padding:2px 7px;border-radius:6px}
+.cenas button small{display:block;font:600 13px var(--ui);color:#fff9;margin-top:5px;letter-spacing:.02em}
+.cenas button[aria-pressed=true]{background:var(--vi);box-shadow:0 0 0 3px var(--tinta),0 0 0 6px #fff4;text-shadow:0 2px 0 var(--tinta)}
+.cenas button[aria-pressed=true] small{color:#fff}
+.base{grid-column:1;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr) minmax(0,1fr);gap:12px}
+.painel{background:#1c0830;border-radius:16px;box-shadow:0 0 0 1px #ffffff14;padding:12px 14px;min-width:0}
+.painel h2{font:400 21px/1 var(--gta);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.painel h2 small{font:600 13px var(--ui);color:#fff8;letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.campo{display:flex;flex-direction:column;gap:5px;margin-top:9px}
+.campo>span{font:700 12px var(--ui);letter-spacing:.14em;text-transform:uppercase;color:#fff9;display:flex;justify-content:space-between}
+select,input[type=text],input[type=search]{width:100%;background:#ffffff12;border:0;border-radius:10px;padding:8px 10px;outline:none;min-width:0}
+select option{background:#1c0830}
+input[type=range]{width:100%;accent-color:var(--rosa);margin:0}
+.linha-btns{display:flex;gap:8px;flex-wrap:wrap}
+.dica{font:600 13px/1.35 var(--ui);color:#fff9;margin-top:8px}
+.dica code{font:500 12px var(--mono);background:#ffffff14;padding:1px 5px;border-radius:5px}
+
+/* mixer */
+.faixa-mix{display:grid;grid-template-columns:62px minmax(0,1fr) 38px;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #ffffff0d}
+.faixa-mix:last-of-type{border-bottom:0}
+.faixa-mix b{font:400 19px/1 var(--gta)}
+.faixa-mix b small{display:block;font:600 11px var(--mono);color:#fff8;margin-top:3px;letter-spacing:0}
+.medidor{position:relative;height:12px;border-radius:6px;background:#0006;overflow:hidden;margin-bottom:6px}
+.medidor i{position:absolute;inset:0;border-radius:6px;background:linear-gradient(90deg,#4ade80 0 60%,#facc15 80%,#ef4444 95%);clip-path:inset(0 100% 0 0);will-change:clip-path}
+.medidor u{position:absolute;inset:0;box-shadow:inset 3px 0 0 #ffffffd9;transform:translateX(0);will-change:transform}
+.medidor s{position:absolute;top:0;bottom:0;width:2px;left:calc(66% - 1px);background:#ffffff40}
+.medidor.estimado i{background:repeating-linear-gradient(90deg,var(--rosa) 0 6px,#ff4fa399 6px 9px)}
+.faixa-mix .mudo{width:38px;height:34px;padding:0;font-size:17px}
+.faixa-mix .mudo[aria-pressed=true]{background:#e8213f}
+.autos{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
+
+/* rádio */
+.agora{display:flex;gap:12px;align-items:center}
+.agora img{width:58px;height:58px;border-radius:10px;object-fit:cover;background:var(--vi);flex:none}
+.agora div{min-width:0;flex:1}
+.agora b{display:block;font:700 17px/1.2 var(--ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agora span{font:600 14px var(--ui);color:#fffa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.agora .pedido{color:var(--sol)}
+.progresso{display:flex;align-items:center;gap:8px;font:500 12px var(--mono);color:#fff9;margin-top:8px}
+.progresso div{flex:1;height:5px;border-radius:3px;background:#ffffff1a;overflow:hidden}
+.progresso div i{display:block;height:100%;width:0;background:var(--vi)}
+.transporte{display:flex;gap:6px;margin-top:9px}
+.transporte .btn{flex:1;padding:9px 0;font-size:18px}
+.transporte .btn.play{flex:1.4;background:var(--vi);box-shadow:0 0 0 2px var(--tinta)}
+
+/* lateral com abas */
+aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0;background:#1c0830;border-radius:16px;box-shadow:0 0 0 1px #ffffff14;overflow:hidden}
+.abas{display:flex;border-bottom:1px solid #ffffff14;flex:none}
+.abas button{flex:1;border:0;background:none;padding:12px 6px;cursor:pointer;font:400 20px/1 var(--gta);color:#fff8;position:relative}
+.abas button[aria-selected=true]{color:#fff;box-shadow:inset 0 -3px 0 var(--rosa)}
+.abas .badge{position:absolute;top:6px;right:14%;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--sol);color:var(--tinta);font:700 12px/18px var(--ui)}
+.aba{flex:1;min-height:0;display:flex;flex-direction:column}
+.msgs{flex:1;overflow:auto;padding:10px 14px;display:flex;flex-direction:column;gap:8px;font:500 17px/1.35 var(--ui)}
+.msgs>:first-child{margin-top:auto}
+.msgs .eu b{color:#9fd8ff}.msgs .ela b{color:#ff9ccb}.msgs .sis{color:#fff8;font-style:italic;font-size:15px}
+.msgs .pixmsg{border-radius:10px;padding:8px 10px;background:linear-gradient(90deg,#ff4fa333,#ffb04a22);box-shadow:inset 3px 0 0 var(--sol)}
+.msgs .pixmsg strong{font:400 19px var(--gta);color:var(--sol);display:block}
+.msgs .pedmsg{border-radius:10px;padding:8px 10px;background:#33e1d014;box-shadow:inset 3px 0 0 #33e1d0}
+.compor{display:flex;gap:8px;padding:10px 14px 14px;border-top:1px solid #ffffff10}
+.compor input{flex:1}
+.bloco{padding:12px 14px;border-bottom:1px solid #ffffff10}
+.bloco h3{font:700 12px var(--ui);letter-spacing:.16em;text-transform:uppercase;color:#fff9;margin-bottom:8px;display:flex;justify-content:space-between}
+.form{display:flex;gap:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chips button{border:0;border-radius:999px;padding:5px 11px;background:#ffffff12;font:600 13px var(--ui);cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chips button.atual{background:var(--creme);color:var(--tinta)}
+.lista{flex:1;min-height:0;overflow:auto;padding:6px 8px 10px}
+.item{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:10px;align-items:center;padding:6px;border-radius:10px;cursor:pointer}
+.item:hover{background:#ffffff0d}
+.item img{width:42px;height:42px;border-radius:7px;object-fit:cover;background:var(--vi)}
+.item b{display:block;font:700 15px/1.2 var(--ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item span{display:block;font:600 13px var(--ui);color:#fff9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .tag{display:inline-block;font:700 11px var(--ui);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta);background:var(--sol);border-radius:5px;padding:1px 6px;margin-right:6px}
+.item.atual{background:#ff4fa322;box-shadow:inset 3px 0 0 var(--rosa)}
+.item.passou{opacity:.45}
+.item .acoes{display:flex;gap:4px;align-items:center}
+.item .acoes small{font:500 12px var(--mono);color:#fff8;margin-right:4px}
+.item .x{width:28px;height:28px;padding:0;border-radius:8px;font-size:15px}
+.resultados{max-height:260px;overflow:auto;margin-top:8px}
+.vazio{font:600 14px var(--ui);color:#fff8;padding:10px 6px}
+.links .link{display:flex;gap:8px;align-items:center;margin-top:8px}
+.links code{flex:1;font:500 13px var(--mono);background:#ffffff10;padding:8px 10px;border-radius:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--creme);color:var(--tinta);font:700 17px var(--ui);padding:10px 18px;border-radius:12px;box-shadow:0 10px 30px #000a;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
+.toast.on{opacity:1}
+.ic{width:18px;height:18px;flex:none}
+.btn .ic{margin:-2px 0}
+.faixa-mix .mudo .ic{width:20px;height:20px}
+.transporte .btn .ic{width:22px;height:22px}
+.chip .ic{width:15px;height:15px}
+.chip.medida{color:#fff}
+.chip.medida.ok{background:#4ade8022}
+.chip.medida.atencao{background:#facc1533;color:#fde68a}
+.chip.medida.ruim{background:#ef444444;color:#fecaca}
+.atalhos{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.atalhos .rot{font:700 12px var(--ui);letter-spacing:.16em;text-transform:uppercase;color:#fff8}
+.atalhos .grupo{display:flex;gap:2px;background:#ffffff0a;border-radius:12px;padding:2px}
+.atalhos .btn.icone{width:36px;height:34px;padding:0;font:400 17px var(--gta)}
+.atalhos .btn.icone[aria-pressed=true]{background:var(--creme);color:var(--tinta)}
+.atalhos .sep{width:1px;height:24px;background:#ffffff22;margin:0 4px}
+/* enquete */
+.enq-form textarea{width:100%;background:#ffffff12;border:0;border-radius:10px;padding:8px 10px;outline:none;resize:none;font:600 16px var(--ui);color:#fff;height:58px}
+.enq-ops{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.enq-ops label{display:flex;gap:6px;align-items:center}
+.enq-ops b{width:26px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--tinta);font:400 17px var(--gta);flex:none}
+.enq-ao-vivo .op{display:grid;grid-template-columns:28px 1fr auto auto;gap:8px;align-items:center;padding:7px 8px;border-radius:10px;background:#ffffff0a;margin-top:6px;position:relative;overflow:hidden}
+.enq-ao-vivo .op i.barra{position:absolute;inset:0;width:var(--p,0%);background:#ff4fa333;transition:width .6s}
+.enq-ao-vivo .op>*{position:relative}
+.enq-ao-vivo .op b{font:400 17px var(--gta)}
+.enq-ao-vivo .op.ganhou{box-shadow:inset 0 0 0 2px var(--sol)}
+.enq-ao-vivo .op .aposta{padding:4px 8px;font-size:12px}
+.enq-ao-vivo .op .aposta[aria-pressed=true]{background:#9fd8ff;color:var(--tinta)}
+.prontas{display:flex;flex-wrap:wrap;gap:6px}
+.prontas button{border:0;border-radius:999px;padding:5px 11px;background:#ffffff12;font:600 13px var(--ui);cursor:pointer;color:#fff}
+/* checklist */
+.janela{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:#0e0618cc;backdrop-filter:blur(4px)}
+.janela[hidden]{display:none}
+.janela .caixa{width:min(620px,calc(100vw - 32px));max-height:calc(100vh - 40px);overflow:auto;background:#1c0830;border-radius:20px;padding:22px;box-shadow:0 0 0 1px #ffffff1a,0 30px 80px #000}
+.janela h2{font:400 30px/1 var(--gta);display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.janela .sub{font:600 15px var(--ui);color:#fff9;margin-bottom:14px}
+.check{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:center;padding:11px 4px;border-top:1px solid #ffffff10}
+.check .ic{width:24px;height:24px}
+.check.ok .ic{color:#4ade80}.check.aviso .ic{color:#facc15}.check.erro .ic{color:#f87171}.check.espera .ic{color:#fff6}
+.check>div>b{display:block;font:700 17px var(--ui)}
+.check>div>span{display:block;font:600 14px/1.35 var(--ui);color:#fffa}
+.check code{font:500 12px var(--mono);background:#ffffff14;padding:1px 5px;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <img class="logo" src="assets/vi.webp" alt="">
+    <h1>estúdio</h1>
+    <span class="chip" id="chipEla"><i></i><span>amor</span></span>
+    <span class="chip" id="chipCam"><i></i>celular</span>
+    <span class="chip" id="chipVivo"><i></i><span>fora do ar</span></span>
+    <span class="tempo" id="tempo"></span>
+    <div class="dir">
+      <span class="chip medida" id="chipTemp" title="Temperatura do processador (rode node scripts/https-local.mjs)"><i data-ic="thermometer"></i><span>—</span></span>
+      <span class="chip medida" id="chipQual" title="O que está chegando nela agora"><i data-ic="gauge"></i><span>sem transmissão</span></span>
+      <button class="btn liga" id="btnEco" aria-pressed="false" title="Deixa o estúdio mínimo: prévia leve, medidores devagar"><i data-ic="leaf"></i>Economia</button>
+      <button class="btn" id="btnChecar" title="Conferir tudo antes de começar"><i data-ic="clipboard-check"></i>Checar</button>
+      <button class="btn forte" id="btnVivo">Começar a live</button>
+    </div>
+  </header>
+
+  <section class="principal">
+    <div class="retorno-rot"><span class="ret-btns">Retorno
+      <button class="btn mini liga" id="btnRetVideo" aria-pressed="true" title="Desligar a prévia alivia o PC; a transmissão continua igual">Vídeo</button>
+      <button class="btn mini" id="btnPrevia"></button>
+      <button class="btn mini liga" id="btnOuvir" aria-pressed="false" title="Ouvir no fone o que ela ouve (sua voz + jogo, depois do mixer)"><i data-ic="headphones"></i>Ouvir</button>
+      <input type="range" id="retVol" min="0" max="100" value="80" aria-label="Volume do retorno" title="Volume do retorno" hidden>
+    </span><span id="infoSaida"></span></div>
+    <div class="tela"><div class="host" id="palco"></div></div>
+    <div class="cenas" id="cenas">
+      <button data-cena="comecando"><kbd>1</kbd>começando<small>contagem e fundo da orla</small></button>
+      <button data-cena="jogo"><kbd>2</kbd>jogo<small>gameplay com a câmera</small></button>
+      <button data-cena="volto"><kbd>3</kbd>volto já<small>plantão de notícias</small></button>
+      <button data-cena="fim"><kbd>4</kbd>fim<small>resumo da live</small></button>
+      <button data-cena="camera"><kbd>5</kbd>câmera<small>você em tela cheia</small></button>
+      <button data-cena="lancamento"><kbd>6</kbd>lançamento<small>contagem do GTA VI</small></button>
+    </div>
+    <div class="atalhos">
+      <span class="rot">sua câmera</span>
+      <div class="grupo" id="camCantos" role="group" aria-label="Canto da câmera">
+        <button class="btn icone" data-canto="tl" title="Em cima à esquerda"><i data-ic="arrow-up-left"></i></button>
+        <button class="btn icone" data-canto="tr" title="Em cima à direita"><i data-ic="arrow-up-right"></i></button>
+        <button class="btn icone" data-canto="bl" title="Embaixo à esquerda"><i data-ic="arrow-down-left"></i></button>
+        <button class="btn icone" data-canto="br" title="Embaixo à direita"><i data-ic="arrow-down-right"></i></button>
+      </div>
+      <div class="grupo" id="camTam" role="group" aria-label="Tamanho da câmera">
+        <button class="btn icone" data-tam="p" title="Pequena">P</button><button class="btn icone" data-tam="m" title="Média">M</button><button class="btn icone" data-tam="g" title="Grande">G</button>
+      </div>
+      <button class="btn liga" id="atEspelho" aria-pressed="false" title="Espelhar (E)"><i data-ic="flip-horizontal"></i>Espelhar</button>
+      <button class="btn liga" id="atEsconde" aria-pressed="false" title="Esconder a câmera por um instante (H)"><i data-ic="eye-off"></i>Esconder</button>
+      <span class="sep"></span>
+      <span class="rot">na tela</span>
+      <button class="btn liga" id="atChat" aria-pressed="false" title="Mostrar o chat na live"><i data-ic="message-square"></i>Chat</button>
+      <button class="btn liga" id="atLanc" aria-pressed="false" title="Contagem do lançamento em qualquer cena"><i data-ic="timer"></i>Lançamento</button>
+      <button class="btn liga" id="atMusica" aria-pressed="true" title="Mostrar a música que está tocando"><i data-ic="music"></i>Música</button>
+      <button class="btn liga" id="atMeta" aria-pressed="false" title="Mostrar a meta de pix (configure em ajustes)"><i data-ic="trophy"></i>Meta</button>
+    </div>
+  </section>
+
+  <section class="base">
+    <div class="painel">
+      <h2>fontes <small id="infoJogo">sem captura do jogo</small></h2>
+      <div class="linha-btns"><button class="btn" id="btnJogo">Capturar janela do jogo</button><button class="btn liga" id="btnCam" aria-pressed="true">Câmera</button></div>
+      <label class="campo"><span>Som do jogo</span><select id="selSom"></select></label>
+      <label class="campo"><span>Microfone</span><select id="selMic"></select></label>
+      <label class="campo"><span>Sincronia com a câmera <b id="atrasoTxt">0 ms</b></span><input type="range" id="atraso" min="0" max="800" step="10" value="0"></label>
+      <p class="dica" id="dicaSom">Som do jogo sem as vozes: rode <code>node scripts/live-som.mjs</code>.</p>
+    </div>
+
+    <div class="painel">
+      <h2>mixer <small>o que ela ouve</small></h2>
+      <div class="faixa-mix" data-canal="mic">
+        <b>voz<small data-auto></small></b>
+        <div><div class="medidor"><s></s><i></i><u></u></div><input type="range" min="0" max="150" value="100" data-vol aria-label="Volume da voz"></div>
+        <button class="btn mudo" data-mudo aria-pressed="false" title="Mutar (M)"><i data-ic="mic"></i></button>
+      </div>
+      <div class="faixa-mix" data-canal="jogo">
+        <b>jogo<small data-auto></small></b>
+        <div><div class="medidor"><s></s><i></i><u></u></div><input type="range" min="0" max="150" value="100" data-vol aria-label="Volume do jogo"></div>
+        <button class="btn mudo" data-mudo aria-pressed="false" title="Mutar o jogo"><i data-ic="gamepad-2"></i></button>
+      </div>
+      <div class="faixa-mix" data-canal="radio" title="A rádio toca no navegador dela: aqui aparece o volume que ela recebe">
+        <b>rádio<small data-auto></small></b>
+        <div><div class="medidor estimado"><s></s><i></i></div><input type="range" min="0" max="100" value="60" data-vol aria-label="Volume da rádio"></div>
+        <button class="btn mudo" data-mudo aria-pressed="false" title="Mutar a rádio"><i data-ic="radio"></i></button>
+      </div>
+      <div class="autos">
+        <button class="btn liga mini" id="autoNivela" aria-pressed="true">Nivelar sozinho</button>
+        <button class="btn liga mini" id="autoAbaixa" aria-pressed="true">Abaixar quando eu falo</button>
+      </div>
+    </div>
+
+    <div class="painel">
+      <h2>rádio <small id="rLista">carregando…</small></h2>
+      <div class="agora"><img id="rCapa" alt=""><div><b id="rTitulo">—</b><span id="rArtista"></span></div></div>
+      <div class="progresso"><span id="rPos">0:00</span><div><i id="rBarra"></i></div><span id="rDur">0:00</span></div>
+      <div class="transporte">
+        <button class="btn" id="rAnt" title="Anterior"><i data-ic="skip-back"></i></button>
+        <button class="btn play" id="rPlay" title="Tocar ou pausar (espaço)"><i data-ic="play"></i></button>
+        <button class="btn" id="rParar" title="Parar"><i data-ic="square"></i></button>
+        <button class="btn" id="rProx" title="Próxima"><i data-ic="skip-forward"></i></button>
+      </div>
+      <div class="autos">
+        <button class="btn liga mini" id="rJogo" aria-pressed="false" title="Toca mais baixa durante o jogo">Tocar no jogo</button>
+        <button class="btn liga mini" id="rTela" aria-pressed="true">Mostrar na tela</button>
+      </div>
+      <label class="campo"><span>Volume aqui pra você <b id="rMonTxt">60%</b></span><input type="range" id="rMon" min="0" max="100" value="60"></label>
+    </div>
+  </section>
+
+  <aside>
+    <div class="abas" role="tablist">
+      <button role="tab" aria-selected="true" data-aba="chat">chat<span class="badge" id="bChat" hidden></span></button>
+      <button role="tab" aria-selected="false" data-aba="radio">rádio<span class="badge" id="bRadio" hidden></span></button>
+      <button role="tab" aria-selected="false" data-aba="enquete">enquete<span class="badge" id="bEnq" hidden></span></button>
+      <button role="tab" aria-selected="false" data-aba="ajustes">ajustes</button>
+      <button role="tab" aria-selected="false" data-aba="links">links</button>
+    </div>
+
+    <div class="aba" data-aba="chat">
+      <div class="bloco" style="padding:8px 14px"><h3 style="margin:0">mensagens <span id="totalPix">R$ 0,00 em pix</span></h3></div>
+      <div class="msgs" id="msgs"></div>
+      <form class="compor" id="compor"><input type="text" id="msg" maxlength="300" placeholder="Responder no chat" autocomplete="off"><button class="btn">Enviar</button></form>
+    </div>
+
+    <div class="aba" data-aba="radio" hidden>
+      <div class="bloco">
+        <h3>playlist</h3>
+        <form class="form" id="formLista"><input type="text" id="linkLista" placeholder="Cole um link do Spotify ou do YouTube"><button class="btn">Tocar</button></form>
+        <div class="chips" id="recentes"></div>
+      </div>
+      <div class="bloco">
+        <h3>buscar música</h3>
+        <form class="form" id="formBusca"><input type="search" id="busca" placeholder="Nome da música ou do artista"><button class="btn">Buscar</button></form>
+        <div class="resultados" id="resultados"></div>
+      </div>
+      <div class="bloco" style="border:0;padding-bottom:4px"><h3>fila <span id="filaInfo"></span></h3></div>
+      <div class="lista" id="fila"></div>
+    </div>
+
+    <div class="aba" data-aba="ajustes" hidden style="overflow:auto">
+      <div class="bloco">
+        <h3>contagem do começando</h3>
+        <div class="form"><label class="campo" style="margin:0;flex:1"><span>Minutos</span><input type="text" inputmode="numeric" id="cMin"></label>
+          <label class="campo" style="margin:0;flex:1"><span>Ou começa às</span><input type="time" id="cHora" style="width:100%;background:#ffffff12;border:0;border-radius:10px;padding:7px 10px"></label></div>
+        <div class="linha-btns" style="margin-top:8px"><button class="btn mini" id="cAplica">Recomeçar contagem</button><span class="dica" id="cInfo" style="margin:0;align-self:center"></span></div>
+      </div>
+      <div class="bloco">
+        <h3>lançamento do jogo <span>cena 6</span></h3>
+        <label class="campo" style="margin:0"><span>Data e hora</span><input type="datetime-local" id="lData" style="width:100%;background:#ffffff12;border:0;border-radius:10px;padding:7px 10px;color-scheme:dark"></label>
+        <label class="campo"><span>Frase embaixo</span><input type="text" id="lTexto" maxlength="80"></label>
+      </div>
+      <div class="bloco">
+        <h3>meta de pix <span id="metaInfo"></span></h3>
+        <div class="form"><label class="campo" style="margin:0;flex:2"><span>Meta</span><input type="text" id="metaTitulo" maxlength="40"></label>
+          <label class="campo" style="margin:0;flex:1"><span>Valor (R$)</span><input type="text" inputmode="numeric" id="metaAlvo"></label></div>
+        <div class="linha-btns" style="margin-top:8px"><button class="btn mini liga" id="metaLiga" aria-pressed="false">Mostrar na live</button><button class="btn mini" id="metaZera">Recomeçar do zero</button></div>
+      </div>
+      <div class="bloco">
+        <h3>dinheiro dela <span id="cartInfo"></span></h3>
+        <label class="campo" style="margin:0"><span>De onde vem o pix</span><select id="cartModo"><option value="infinito">Dinheiro infinito</option><option value="tempo">Ganha assistindo (por minuto)</option></select></label>
+        <div class="form" id="cartTempo"><label class="campo" style="flex:1"><span>R$ por minuto assistido</span><input type="text" inputmode="decimal" id="cartTaxa"></label>
+          <label class="campo" style="flex:1"><span>Saldo inicial</span><input type="text" inputmode="numeric" id="cartInicial"></label></div>
+        <div class="linha-btns" style="margin-top:8px" id="cartBtns"><button class="btn mini" data-presente="10">Dar R$ 10</button><button class="btn mini" data-presente="50">Dar R$ 50</button><button class="btn mini" id="cartZera">Zerar saldo</button></div>
+      </div>
+      <div class="bloco">
+        <h3>câmera do celular <span id="camInfo">desconectada</span></h3>
+        <div class="linha-btns"><button class="btn mini" id="camVirar">Virar câmera do celular</button><button class="btn mini" id="camGirar">Girar 90°</button><button class="btn mini liga" id="camEspelho" aria-pressed="false">Espelhar</button></div>
+        <label class="campo"><span>Zoom <b id="camZoomTxt">1,0×</b></span><input type="range" id="camZoom" min="1" max="3" step=".05" value="1"></label>
+        <label class="campo"><span>Posição na horizontal</span><input type="range" id="camX" min="0" max="1" step=".01" value=".5"></label>
+        <label class="campo"><span>Posição na vertical</span><input type="range" id="camY" min="0" max="1" step=".01" value=".5"></label>
+        <label class="campo"><span>Em tela cheia (cena 5)</span><select id="camCheia"><option value="auto">Automático (em pé mostra inteira)</option><option value="preencher">Preencher a tela (recorta)</option><option value="inteira">Inteira, com fundo desfocado</option></select></label>
+        <div class="linha-btns" style="margin-top:8px"><button class="btn mini" id="camCentro">Centralizar</button></div>
+        <p class="dica">Câmera em pé no celular: use o zoom e as posições para escolher o pedaço que aparece na moldura.</p>
+      </div>
+      <div class="bloco" style="border:0">
+        <h3>transmissão</h3>
+        <label class="campo" style="margin:0"><span>Qualidade</span><select id="qualidade"><option value="720">720p (mais leve para o PC e o jogo)</option><option value="1080">1080p (mais bonito, pesa mais)</option></select></label>
+      </div>
+    </div>
+
+    <div class="aba" data-aba="enquete" hidden style="overflow:auto">
+      <div class="bloco" id="enqNova">
+        <h3>nova enquete</h3>
+        <form class="enq-form" id="formEnq">
+          <textarea id="enqPergunta" maxlength="90" placeholder="Pergunta (ex.: rouba o banco ou o carro-forte?)"></textarea>
+          <div class="enq-ops" id="enqOps">
+            <label><b>A</b><input type="text" maxlength="40" placeholder="Opção A"></label>
+            <label><b>B</b><input type="text" maxlength="40" placeholder="Opção B"></label>
+            <label><b>C</b><input type="text" maxlength="40" placeholder="Opção C (opcional)"></label>
+            <label><b>D</b><input type="text" maxlength="40" placeholder="Opção D (opcional)"></label>
+          </div>
+          <label class="campo"><span>Tempo para votar</span><select id="enqTempo"><option value="30">30 segundos</option><option value="60" selected>1 minuto</option><option value="120">2 minutos</option><option value="300">5 minutos</option></select></label>
+          <div class="linha-btns" style="margin-top:10px"><button class="btn forte" type="submit"><i data-ic="vote"></i>Abrir enquete</button></div>
+        </form>
+        <h3 style="margin-top:14px">prontas (toque para preencher)</h3>
+        <div class="prontas" id="enqProntas"></div>
+      </div>
+      <div class="bloco enq-ao-vivo" id="enqAoVivo" hidden>
+        <h3>no ar <span id="enqFalta"></span></h3>
+        <b id="enqTitulo" style="font:400 22px var(--gta)"></b>
+        <div id="enqRes"></div>
+        <p class="dica">Aposte no que você acha que ela vai escolher: o voto dela fica escondido até o fim e a tela mostra se você acertou.</p>
+        <div class="linha-btns" style="margin-top:8px"><button class="btn" id="enqEncerra">Encerrar agora</button><button class="btn" id="enqTira">Tirar da tela</button></div>
+      </div>
+    </div>
+
+    <div class="aba links" data-aba="links" hidden>
+      <div class="bloco">
+        <h3>link dela <span id="codigo"></span></h3>
+        <div class="link"><code id="linkEla"></code><button class="btn mini" data-copia="linkEla">Copiar</button></div>
+        <h3 style="margin-top:14px">link do celular (câmera)</h3>
+        <div class="link"><code id="linkCam"></code><button class="btn mini" data-copia="linkCam">Copiar</button></div>
+        <label class="campo" style="margin-top:14px"><span>Título da live</span><input type="text" id="titulo" maxlength="80"></label>
+      </div>
+    </div>
+  </aside>
+</div>
+<div class="janela" id="janCheck" hidden role="dialog" aria-modal="true" aria-labelledby="tCheck">
+  <div class="caixa">
+    <h2 id="tCheck">checar a live <button class="btn mini" id="fechaCheck">Fechar</button></h2>
+    <p class="sub">Tudo verde, pode começar. Os itens se atualizam sozinhos enquanto a janela está aberta.</p>
+    <div id="listaCheck"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script type="module" src="estudio.js"></script>
+</body>
+</html>

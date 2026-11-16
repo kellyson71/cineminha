@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Câmera da live</title>
+<meta name="theme-color" content="#1c0830">
+<link rel="icon" href="assets/vi.webp">
+<link rel="stylesheet" href="palco.css">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#000;color:#fff;font-family:var(--ui)}
+video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+video.espelho{transform:scaleX(-1)}
+.barra{position:fixed;left:0;right:0;bottom:0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;background:linear-gradient(transparent,#000c)}
+.estado{flex:1;font:700 18px var(--ui);display:flex;align-items:center;gap:10px}
+.estado i{width:12px;height:12px;border-radius:50%;background:#fff5}
+.estado.on i{background:#4ade80;box-shadow:0 0 10px #4ade80}
+button{font:700 17px var(--ui);letter-spacing:.06em;text-transform:uppercase;border:0;border-radius:12px;padding:12px 16px;background:#ffffff22;color:#fff}
+.inicio{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px;background:#1c0830}
+.inicio b{display:block;font:400 40px/1 var(--gta);margin-bottom:12px}
+.inicio p{font:600 18px/1.35 var(--ui);color:#fffc;margin-bottom:22px}
+.inicio button{background:var(--vi);font-size:22px;padding:16px 28px;box-shadow:0 0 0 3px #fff3}
+</style>
+</head>
+<body>
+<video id="v" autoplay playsinline muted class="espelho"></video>
+<div class="barra"><span class="estado" id="estado"><i></i><span>conectando…</span></span><button id="virar">Virar</button></div>
+<div class="inicio" id="inicio"><div>
+  <b>câmera da live</b>
+  <p>Deixe o celular parado, de pé, apontando pra você. A tela pode ficar acesa: ela não aparece na live.</p>
+  <button id="ligar">Ligar a câmera</button>
+</div></div>
+<script type="module">
+import { entraLive, codigoDaUrl } from './rede.js'
+const $ = s => document.querySelector(s)
+const codigo = codigoDaUrl()
+let frente = true, live = null, trava = null, trilha = null, mexendo = false
+const stream = new MediaStream() // o mesmo stream a live inteira; trocar de câmera só troca a trilha dentro dele
+const status = (txt, on) => { $('#estado span').textContent = txt; $('#estado').classList.toggle('on', !!on) }
+const pede = facing => navigator.mediaDevices.getUserMedia({ video: { facingMode: facing, width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 30, max: 30 } }, audio: false })
+async function abre() {
+  // muitos celulares não abrem duas câmeras ao mesmo tempo: solta a atual antes de pedir a outra
+  const velha = trilha
+  velha?.stop()
+  const lado = frente ? 'user' : 'environment'
+  let s = await pede({ exact: lado }).catch(() => null) || await pede(lado).catch(() => null)
+  if (!s) { // sem a câmera pedida: volta para a outra
+    frente = !frente
+    s = await pede(frente ? 'user' : 'environment')
+  }
+  const t = s.getVideoTracks()[0]; t.contentHint = 'motion'
+  if (velha) {
+    stream.removeTrack(velha); stream.addTrack(t)
+    live?.quem('estudio').forEach(id => live.room.replaceTrack(velha, t, { target: id }))
+  } else stream.addTrack(t)
+  trilha = t
+  $('#v').srcObject = stream; $('#v').classList.toggle('espelho', frente)
+  const { width: w, height: h } = t.getSettings()
+  live?.quem('estudio').forEach(id => live.acoes.camcmd.send({ estado: { frente, w, h } }, id))
+}
+async function virar() {
+  if (mexendo) return
+  mexendo = true; frente = !frente
+  try { await abre() } catch { frente = !frente; await abre().catch(() => {}) }
+  mexendo = false
+}
+async function acordado() { try { trava = await navigator.wakeLock?.request('screen') } catch {} }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') acordado() })
+$('#ligar').onclick = async () => {
+  if (!codigo) { $('#inicio p').textContent = 'Abra o link da câmera que aparece no estúdio.'; return }
+  // sem https o navegador nem pergunta: só esconde a câmera
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+    $('#inicio p').textContent = 'O celular só libera a câmera em link https. Abra o link https da câmera (o que começa com https://).'; return
+  }
+  try { await abre() } catch (e) {
+    $('#inicio p').textContent = e?.name === 'NotAllowedError'
+      ? 'A câmera foi bloqueada para este site. Toque no cadeado ao lado do endereço → Permissões → Câmera → Permitir, e tente de novo.'
+      : e?.name === 'NotReadableError' ? 'Outro app está usando a câmera. Feche ele e tente de novo.'
+      : 'Não deu para abrir a câmera (' + (e?.name || 'erro') + '). Tente de novo.'
+    return
+  }
+  $('#inicio').remove(); acordado()
+  live = await entraLive(codigo, 'cam')
+  const atualiza = () => { const n = live.quem('estudio').length; status(n ? 'transmitindo pro estúdio' : 'esperando o estúdio abrir', n) }
+  live.on('papel', (id, p) => {
+    // só para o estúdio: lá a câmera é colada no jogo e vai num vídeo só para ela (sempre sincronizado)
+    if (p === 'estudio') live.manda(stream, id, { cam: 1 })
+    if (p === 'estudio') { const { width: w, height: h } = trilha.getSettings(); live.acoes.camcmd.send({ estado: { frente, w, h } }, id) }
+    atualiza()
+  })
+  // o estúdio pode virar a câmera daqui
+  live.acoes.camcmd.on((c, id) => { if (live.papeis.get(id) === 'estudio' && c?.virar) virar() })
+  live.on('saiu', atualiza)
+  atualiza()
+}
+$('#virar').onclick = virar
+</script>
+</body>
+</html>

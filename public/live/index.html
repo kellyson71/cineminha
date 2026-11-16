@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kellyson ao vivo</title>
+<meta name="theme-color" content="#1c0830">
+<link rel="icon" href="assets/vi.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="palco.css">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:#160a26;color:var(--creme);font-family:var(--ui);overflow:hidden;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sol);outline-offset:2px}
+
+.pg-fundo{position:fixed;inset:0;z-index:0;overflow:hidden}
+.pg-fundo i{position:absolute;inset:-24px;background-size:cover;background-position:center;filter:blur(10px) saturate(1.15);opacity:0;animation:troca 60s linear infinite}
+.pg-fundo i:nth-child(1){animation-delay:-6s}.pg-fundo i:nth-child(2){animation-delay:-36s}
+.pg-fundo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#1c083055,transparent 20%,transparent 70%,#1c083088),radial-gradient(80% 70% at 40% 50%,transparent 40%,#1c083077)}
+@keyframes troca{0%{opacity:0}6%,47%{opacity:1}53%,100%{opacity:0}}
+
+.pg{position:relative;z-index:1;height:100%;display:flex;flex-direction:column}
+.pg-topo{display:flex;align-items:center;gap:16px;padding:12px 28px;flex:none}
+.pg-topo .assinatura{width:190px}
+.pg-topo .vi{height:46px}
+.pg-topo .vivo{margin-left:auto;display:flex;align-items:center;gap:10px;font:400 26px/1 var(--gta);background:var(--rosa);padding:6px 14px 8px;border-radius:10px;box-shadow:0 0 0 3px var(--tinta)}
+.pg-topo .vivo i{width:10px;height:10px;border-radius:50%;background:#fff;animation:pl-pulsa 1.4s infinite}
+.pg-topo .vivo.off{background:#ffffff22;box-shadow:0 0 0 3px #ffffff22}.pg-topo .vivo.off i{animation:none;opacity:.5}
+.pg-topo .tempo{font:500 18px var(--mono);color:#fff;background:#1c0830aa;padding:6px 10px;border-radius:8px}
+.pg-grade{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;padding:4px 28px 24px}
+.esq{display:flex;flex-direction:column;min-height:0}
+.tela{flex:1;min-height:0;container-type:size;display:grid;place-items:center}
+.player{position:relative;width:min(100cqw,calc(100cqh * 16 / 9));aspect-ratio:16/9;border-radius:18px;box-shadow:0 0 0 4px var(--tinta),0 0 0 7px var(--uva),0 24px 60px #000a}
+.player .palco-host{position:absolute;inset:0;border-radius:18px}
+.espera{position:absolute;inset:0;z-index:3;border-radius:18px;display:grid;place-items:center;text-align:center;background:#1c0830e6;transition:opacity .4s}
+.espera.some{opacity:0;pointer-events:none}
+.espera b{display:block;font:400 clamp(26px,3.4vw,46px)/1 var(--gta)}
+.espera span{display:block;font:600 19px var(--ui);color:#fffc;margin-top:10px}
+.sob{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap;flex:none}
+.sob h1{font:400 34px/1 var(--gta);margin-right:auto;text-shadow:0 3px 0 var(--tinta);min-width:0}
+.sob h1 small{display:block;font:600 18px var(--ui);color:#fff;margin-top:6px;letter-spacing:.02em;text-shadow:0 1px 4px #1c0830}
+.som{display:flex;align-items:center;gap:8px;background:#1c0830aa;border-radius:12px;padding:8px 12px}
+.som input{width:110px;accent-color:var(--rosa)}
+.btn{font:700 19px var(--ui);letter-spacing:.06em;text-transform:uppercase;border:0;border-radius:12px;padding:13px 20px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px}
+.btn.pixbtn{background:var(--vi);color:#fff;box-shadow:0 0 0 3px var(--tinta),0 0 0 6px #fff3;text-shadow:0 2px 0 var(--tinta)}
+.btn.ligar{background:#fff4e8;color:var(--tinta);box-shadow:0 0 0 3px var(--tinta)}
+.btn.ligar[aria-pressed=true]{background:var(--rosa);color:#fff}
+.chat{display:flex;flex-direction:column;min-height:0;border-radius:18px;background:#1c0830eb;box-shadow:0 0 0 4px var(--tinta),0 0 0 7px var(--uva),0 24px 60px #000a}
+.chat header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #ffffff12}
+.chat header b{font:400 24px/1 var(--gta)}
+.chat header .pedir{border:0;border-radius:10px;padding:7px 12px;background:#ffffff14;color:#fff;font:700 15px var(--ui);letter-spacing:.04em;cursor:pointer}
+.chat header .pedir:hover{background:#ffffff24}
+.chat header .pedir{display:inline-flex;align-items:center;gap:6px}
+.ic{width:18px;height:18px;flex:none}
+.som .ic{width:20px;height:20px}
+.caixa h2 .ic{width:32px;height:32px;color:var(--rosa)}
+.enq-card{position:relative;margin:12px 14px 0;padding:14px 14px 12px;border-radius:16px;background:#ffffff0d;box-shadow:inset 0 0 0 2px var(--uva);overflow:hidden;animation:enqEntra .5s var(--solta)}
+@keyframes enqEntra{from{opacity:0;transform:translateY(-10px)}}
+.enq-card .enq-t{position:absolute;left:0;right:0;top:0;height:5px;background:#ffffff14}
+.enq-card .enq-t i{display:block;height:100%;width:100%;background:var(--vi);transition:width .5s linear}
+.enq-card small{display:flex;align-items:center;gap:6px;font:700 13px var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--sol)}
+.enq-card small .ic{width:15px;height:15px}
+.enq-card>b{display:block;font:400 22px/1.1 var(--gta);margin:6px 0 10px}
+.enq-card .enq-ops{display:flex;flex-direction:column;gap:6px}
+.enq-card .enq-ops button{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;text-align:left;border:0;border-radius:12px;padding:8px 10px;background:#ffffff12;color:#fff;font:700 17px var(--ui);cursor:pointer;transition:transform .15s,background .2s}
+.enq-card .enq-ops button:hover:not(:disabled){background:#ffffff22}
+.enq-card .enq-ops button:active:not(:disabled){transform:scale(.98)}
+.enq-card .enq-ops button span:first-child{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--tinta);font:400 17px var(--gta)}
+.enq-card .enq-ops button[aria-pressed=true]{background:var(--vi);text-shadow:0 2px 0 var(--tinta)}
+.enq-card .enq-ops button.ganhou{box-shadow:0 0 0 2px var(--sol)}
+.enq-card .enq-ops button:disabled{cursor:default}
+.enq-card p{font:600 14px var(--ui);color:#fffb;margin-top:8px;font-style:italic}
+.msgs .pedmsg .ic{width:15px;height:15px;vertical-align:-2px;margin-right:4px;color:#33e1d0}
+.msgs .pedmsg{border-radius:12px;padding:10px 12px;background:#33e1d014;box-shadow:inset 3px 0 0 #33e1d0;font-size:17px}
+.busca{display:flex;gap:8px;margin-top:4px}
+.busca input{flex:1;min-width:0;font:600 19px var(--ui);color:var(--tinta);border:0;border-radius:14px;padding:12px 14px;background:#fff;box-shadow:inset 0 0 0 3px #1c083022;outline:none}
+.busca input:focus-visible{box-shadow:inset 0 0 0 3px var(--rosa)}
+.achados{margin-top:12px;max-height:min(46vh,360px);overflow:auto;display:flex;flex-direction:column;gap:4px}
+.achados button{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left;border:0;background:none;border-radius:12px;padding:6px;cursor:pointer;color:var(--tinta)}
+.achados button:hover,.achados button:focus-visible{background:#1c083010}
+.achados img{width:52px;height:52px;border-radius:9px;object-fit:cover;background:var(--vi)}
+.achados b{display:block;font:700 17px/1.2 var(--ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.achados span{display:block;font:600 15px var(--ui);color:#4a1670b0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.achados small{font:500 13px var(--mono);color:#4a167099}
+.achados p{font:600 16px var(--ui);color:#4a1670b0;padding:8px 4px}
+.msgs{flex:1;overflow:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px;font:500 19px/1.35 var(--ui)}
+.msgs>:first-child{margin-top:auto}
+.msgs b{font-weight:800}
+.msgs .eu b{color:#9fd8ff}.msgs .ela b{color:#ff9ccb}
+.msgs .sis{color:#fff9;font-style:italic;font-size:17px}
+.msgs .pixmsg{border-radius:12px;padding:10px 12px;background:linear-gradient(90deg,#ff4fa333,#ffb04a22);box-shadow:inset 3px 0 0 var(--sol)}
+.msgs .pixmsg strong{font:400 21px var(--gta);color:var(--sol);display:block}
+.selo{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:6px;background:var(--sol);color:var(--tinta);font:400 14px var(--gta);vertical-align:2px;margin:0 6px 0 4px}
+.compor{display:flex;gap:8px;padding:12px 14px 14px}
+.compor input{flex:1;min-width:0;font:500 18px var(--ui);color:#fff;background:#ffffff10;border:0;border-radius:12px;padding:12px 14px;outline:none}
+.compor input:focus-visible{box-shadow:0 0 0 2px var(--sol)}
+.compor .btn{padding:12px 16px;background:var(--rosa);color:#fff}
+
+.janela{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:#0e0618cc;backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s}
+.janela.aberta{opacity:1;pointer-events:auto}
+.caixa{width:min(460px,calc(100vw - 32px));border-radius:24px;background:#fff4e8;color:var(--tinta);padding:26px;box-shadow:0 0 0 6px var(--tinta),0 0 0 10px var(--uva),0 30px 80px #000;transform:translateY(20px) scale(.96);transition:transform .35s var(--solta)}
+.janela.aberta .caixa{transform:none}
+.caixa h2{font:400 40px/1 var(--gta);display:flex;align-items:center;gap:12px}
+.caixa h2 svg{width:34px;height:34px;color:var(--rosa)}
+.caixa p.sub{font:600 18px var(--ui);color:#4a1670b0;margin:6px 0 18px}
+.valores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.valores button{font:400 26px var(--gta);padding:12px 0;border-radius:14px;border:0;background:#fff;color:var(--tinta);box-shadow:inset 0 0 0 3px #1c083022;cursor:pointer;transition:transform .15s}
+.valores button[aria-pressed=true]{background:var(--vi);color:#fff;box-shadow:inset 0 0 0 3px var(--tinta);text-shadow:0 2px 0 var(--tinta);transform:scale(1.03)}
+.caixa label{display:block;font:700 16px var(--ui);letter-spacing:.14em;text-transform:uppercase;margin:18px 0 8px}
+.caixa textarea{width:100%;height:84px;resize:none;font:600 19px/1.3 var(--ui);color:var(--tinta);border:0;border-radius:14px;padding:12px 14px;background:#fff;box-shadow:inset 0 0 0 3px #1c083022;outline:none}
+.caixa textarea:focus-visible{box-shadow:inset 0 0 0 3px var(--rosa)}
+.caixa .conta{font:500 14px var(--mono);text-align:right;color:#4a167099;margin-top:4px}
+.caixa .acoes{display:flex;gap:10px;margin-top:16px}
+.caixa .acoes .btn{flex:1;justify-content:center}
+.caixa .acoes .cancela{background:none;color:var(--tinta);box-shadow:inset 0 0 0 3px #1c083033;flex:.5}
+
+.entrada{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:#160a26}
+.entrada::before{content:'';position:absolute;inset:-40px;background:url(assets/fundo-orla.webp) center/cover;filter:blur(4px) brightness(.8)}
+.entrada .cx{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;padding:24px;text-align:center}
+.entrada .assinatura{width:min(560px,80vw);filter:drop-shadow(0 10px 20px #1c083088)}
+.entrada .btn{font-size:24px;padding:16px 30px}
+.entrada p{font:600 20px var(--ui);color:#fff;text-shadow:0 2px 6px #1c0830}
+.entrada.some{opacity:0;pointer-events:none;transition:opacity .5s}
+
+/* controles por cima da live: aparecem quando o mouse mexe */
+.player .palco-host{cursor:default}
+.controles{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;align-items:center;gap:8px;padding:28px 14px 12px;border-radius:0 0 18px 18px;
+  background:linear-gradient(transparent,#0e0618d9);opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none}
+.player.mostra .controles,.player:focus-within .controles{opacity:1;transform:none;pointer-events:auto}
+.player.esconde-mouse{cursor:none}
+.controles .esp{flex:1}
+.cbtn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:40px;height:40px;padding:0 10px;border:0;border-radius:12px;background:#ffffff1a;color:#fff;cursor:pointer;
+  font:700 15px var(--ui);letter-spacing:.04em;text-transform:uppercase;transition:background .2s}
+.cbtn:hover{background:#ffffff33}
+.cbtn .ic,.cbtn svg{width:20px;height:20px}
+.cbtn.forte{background:var(--vi);text-shadow:0 2px 0 var(--tinta)}
+.cbtn .badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--rosa);font:700 12px/20px var(--ui);box-shadow:0 0 0 2px var(--tinta)}
+.controles .som{display:flex;align-items:center;gap:6px}
+.controles .som input{width:110px;accent-color:var(--rosa)}
+.acoes-cheia{display:none;gap:8px}
+.chat header .cbtn{min-width:36px;height:36px;background:#ffffff10}
+.sob .acoes{display:flex;gap:10px;flex-wrap:wrap}
+.btn.suave{background:#ffffff14;color:#fff;box-shadow:inset 0 0 0 2px #ffffff22}
+.btn.suave:hover{background:#ffffff24}
+/* saldo dela (quando ganha assistindo) */
+.saldo{position:relative;display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 10px;border-radius:12px;background:#1c0830cc;box-shadow:inset 0 0 0 2px var(--sol)}
+.saldo .ic{width:20px;height:20px;color:var(--sol)}
+.saldo b{display:block;font:400 22px/1 var(--gta);color:#fff}
+.saldo small{display:block;font:600 12px var(--ui);color:#fffb;margin-top:2px}
+.saldo em{position:absolute;right:8px;top:-6px;font:400 20px var(--gta);font-style:normal;color:var(--sol);opacity:0;pointer-events:none}
+.saldo em.sobe{animation:ganhou 1.6s var(--suave)}
+@keyframes ganhou{0%{opacity:0;transform:translateY(8px)}20%{opacity:1}100%{opacity:0;transform:translateY(-26px)}}
+.info-pix{display:flex;flex-direction:column;gap:6px;margin:-6px 0 14px;padding:10px 12px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 3px #1c083014;font:700 16px var(--ui);color:var(--tinta)}
+.info-pix .barra{height:8px;border-radius:4px;background:#1c083014;overflow:hidden}
+.info-pix .barra i{display:block;height:100%;background:var(--vi)}
+.valores button:disabled{opacity:.35;cursor:not-allowed}
+.vozes{display:flex;flex-wrap:wrap;gap:6px}
+.vozes button{border:0;border-radius:999px;padding:7px 12px;background:#fff;color:var(--tinta);font:700 15px var(--ui);box-shadow:inset 0 0 0 2px #1c083022;cursor:pointer}
+.vozes button[aria-pressed=true]{background:var(--tinta);color:#fff}
+.vozes button.ia{box-shadow:inset 0 0 0 2px var(--rosa)}
+.vozes button.ia[aria-pressed=true]{background:var(--vi);text-shadow:0 1px 0 var(--tinta)}
+.vozes .sep-vozes{width:100%;font:700 12px var(--ui);letter-spacing:.14em;text-transform:uppercase;color:#4a167099;margin-top:4px}
+/* chat escondido: a live cresce */
+body.sem-chat .pg-grade{grid-template-columns:minmax(0,1fr)}
+body.sem-chat .chat{display:none}
+/* tela cheia: só a live; o chat vira um painel translúcido por cima */
+body.cheia .pg-topo,body.cheia .sob{display:none}
+body.cheia .pg-grade{padding:0;gap:0;grid-template-columns:minmax(0,1fr)}
+body.cheia .tela{container-type:size}
+body.cheia .player{border-radius:0;box-shadow:none;width:min(100cqw,calc(100cqh * 16 / 9))}
+body.cheia .controles{border-radius:0}
+body.cheia .acoes-cheia{display:flex}
+body.cheia .chat{position:fixed;right:16px;top:16px;bottom:84px;width:min(380px,40vw);z-index:5;background:#1c0830c7;backdrop-filter:blur(10px)}
+body.cheia.sem-chat .chat{display:none}
+
+@media (max-width:980px){
+  .controles{opacity:1;transform:none;pointer-events:auto;padding-top:18px}
+  .controles .som input{width:80px}
+  .sob .acoes{width:100%}.sob .acoes .btn{flex:1;justify-content:center}
+  body{overflow:auto}
+  .pg{height:auto;min-height:100%}
+  .pg-grade{grid-template-columns:1fr;padding:6px 12px 20px}
+  .pg-topo{padding:10px 12px;flex-wrap:wrap}.pg-topo .tempo,.pg-topo .vi{display:none}.pg-topo .assinatura{width:150px}
+  .tela{container-type:normal}.player{width:100%}
+  .chat{height:70vh;min-height:420px}
+  .sob h1{font-size:26px;width:100%}
+  .sob .btn{flex:1;justify-content:center;padding:12px}
+  .som{width:100%}.som input{flex:1;width:auto}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-pix" viewBox="0 0 48 48"><path fill="currentColor" d="M35.6 34.4a5.6 5.6 0 0 1-4-1.65l-5.77-5.77a1.1 1.1 0 0 0-1.52 0l-5.79 5.79a5.6 5.6 0 0 1-4 1.65h-1.13l7.3 7.3a5.84 5.84 0 0 0 8.26 0l7.32-7.32zM14.52 13.56a5.6 5.6 0 0 1 4 1.65l5.79 5.79a1.07 1.07 0 0 0 1.52 0l5.77-5.77a5.6 5.6 0 0 1 4-1.65h.7l-7.32-7.32a5.84 5.84 0 0 0-8.26 0l-7.3 7.3zM41.74 19.87l-4.43-4.43a.85.85 0 0 1-.31.06h-2a3.97 3.97 0 0 0-2.78 1.15L26.44 22.43a2.75 2.75 0 0 1-3.9 0l-5.79-5.79a3.97 3.97 0 0 0-2.78-1.15h-2.47a.83.83 0 0 1-.3-.06l-4.45 4.45a5.84 5.84 0 0 0 0 8.26l4.45 4.45a.83.83 0 0 1 .3-.06h2.47a3.97 3.97 0 0 0 2.78-1.15l5.79-5.79a2.82 2.82 0 0 1 3.9 0l5.77 5.77a3.97 3.97 0 0 0 2.78 1.15H37a.85.85 0 0 1 .31.06l4.43-4.43a5.84 5.84 0 0 0 0-8.26z"/></symbol>
+  <symbol id="i-tel" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></symbol>
+</defs></svg>
+
+<div class="pg-fundo"><i style="background-image:url(assets/fundo-orla.webp)"></i><i style="background-image:url(assets/fundo-ocean.webp)"></i></div>
+<div class="pg">
+  <header class="pg-topo">
+    <svg class="assinatura" viewBox="0 0 760 300" data-nome></svg>
+    <img class="vi" src="assets/vi.webp" alt="GTA VI">
+    <span class="vivo off" id="vivo"><i></i><span>offline</span></span>
+    <span class="tempo" id="tempo">00:00:00</span>
+  </header>
+  <div class="pg-grade">
+    <section class="esq">
+      <div class="tela"><div class="player" id="player"><div id="palco"></div>
+        <div class="espera" id="espera"><div><b>a live ainda não começou</b><span>Fica por aqui: assim que ele ligar, aparece sozinho.</span></div></div>
+        <div class="controles" id="controles">
+          <div class="som"><button class="cbtn" id="btnMudo" title="Som (M)" aria-label="Som"><i data-ic="volume-2"></i></button><input type="range" id="volume" min="0" max="100" value="90" aria-label="Volume da live"></div>
+          <span class="esp"></span>
+          <div class="acoes-cheia">
+            <button class="cbtn txt" data-faz="btnPedir"><i data-ic="music"></i>Pedir música</button>
+            <button class="cbtn txt" data-faz="btnLigar"><i data-ic="phone"></i><span>Entrar na linha</span></button>
+            <button class="cbtn txt forte" data-faz="btnPix"><svg><use href="#i-pix"/></svg>Mandar pix</button>
+          </div>
+          <button class="cbtn" id="btnChat" title="Esconder o chat (C)" aria-label="Chat"><i data-ic="message-square"></i><span class="badge" id="bChatNovo" hidden></span></button>
+          <button class="cbtn" id="btnCheia" title="Tela cheia (F)" aria-label="Tela cheia"><i data-ic="maximize"></i></button>
+        </div>
+      </div></div>
+      <div class="sob">
+        <h1 id="titulo"><small></small></h1>
+        <div class="acoes">
+          <button class="btn suave" id="btnPedir" type="button"><i data-ic="music"></i>Pedir música</button>
+          <button class="btn ligar" id="btnLigar" aria-pressed="false"><svg><use href="#i-tel"/></svg><span>Entrar na linha</span></button>
+          <button class="btn pixbtn" id="btnPix"><svg><use href="#i-pix"/></svg>Mandar pix</button>
+          <span class="saldo" id="saldo" hidden title="Você ganha dinheiro de pix assistindo a live"><i data-ic="zap"></i><span><b id="saldoV">R$ 0</b><small id="saldoProx"></small></span><em id="saldoGanho"></em></span>
+        </div>
+      </div>
+    </section>
+    <aside class="chat">
+      <header><b>chat</b><button class="cbtn" id="btnFechaChat" type="button" title="Esconder o chat (C)" aria-label="Esconder o chat"><i data-ic="panel-right"></i></button></header>
+      <div class="enq-card" id="enqCard" hidden>
+        <div class="enq-t"><i id="enqT"></i></div>
+        <small><i data-ic="vote"></i>Enquete <span id="enqSt"></span></small>
+        <b id="enqP"></b>
+        <div class="enq-ops" id="enqOps"></div>
+        <p id="enqPe"></p>
+      </div>
+      <div class="msgs" id="msgs"></div>
+      <form class="compor" id="compor"><input id="msg" maxlength="300" placeholder="Mandar mensagem" aria-label="Mensagem" autocomplete="off"><button class="btn">Enviar</button></form>
+    </aside>
+  </div>
+</div>
+
+<div class="janela" id="janela" role="dialog" aria-modal="true" aria-labelledby="tPix">
+  <div class="caixa">
+    <h2 id="tPix"><svg><use href="#i-pix"/></svg>pix na live</h2>
+    <p class="sub">O valor e a mensagem aparecem na tela dele e são lidos em voz alta.</p>
+    <div class="info-pix" id="infoPix" hidden></div>
+    <div class="valores" id="valores"></div>
+    <label for="msgPix">Mensagem</label>
+    <textarea id="msgPix" maxlength="140" placeholder="Escreve algo pra ele ler na live"></textarea>
+    <div class="conta"><span id="contaPix">0</span>/140</div>
+    <label>Voz que vai ler</label>
+    <div class="vozes" id="vozes"></div>
+    <div class="acoes"><button class="btn cancela" id="cancelaPix">Cancelar</button><button class="btn pixbtn" id="enviaPix">Mandar</button></div>
+  </div>
+</div>
+
+<div class="janela" id="janelaPedido" role="dialog" aria-modal="true" aria-labelledby="tPedido">
+  <div class="caixa">
+    <h2 id="tPedido"><i data-ic="music"></i>pedir música</h2>
+    <p class="sub">Ela entra na fila da rádio da live e toca logo depois da que está tocando.</p>
+    <form class="busca" id="formPedido"><input type="search" id="buscaPedido" placeholder="Nome da música ou do artista" aria-label="Buscar música" autocomplete="off"><button class="btn pixbtn" style="padding:12px 16px">Buscar</button></form>
+    <div class="achados" id="achados"></div>
+    <div class="acoes"><button class="btn cancela" id="fechaPedido" style="flex:1">Fechar</button></div>
+  </div>
+</div>
+
+<div class="entrada" id="entrada"><div class="cx">
+  <svg class="assinatura" viewBox="0 0 760 300" data-nome></svg>
+  <p id="entradaTxt"></p>
+  <button class="btn pixbtn" id="btnEntrar">Entrar na live</button>
+</div></div>
+
+<script type="module" src="assistir.js"></script>
+</body>
+</html>
