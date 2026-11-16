@@ -652,7 +652,9 @@ setInterval(() => { const e = est.enquete; $('#enqFalta').textContent = e && !e.
 /* ---------- termômetro e proteção: acima de 93 °C a transmissão cai para 540p/24 fps até esfriar ---------- */
 let temp = null, quente = 0, frio = 0, protegendo = false
 async function leTemp() {
-  const r = await fetch('http://localhost:8792/sensores', { cache: 'no-store' }).then(r => r.json()).catch(() => null)
+  // publicado (https), o Chrome pede permissão de "rede local" para o site falar com o seu PC: é só permitir
+  const r = await fetch('http://localhost:8792/sensores', { cache: 'no-store', targetAddressSpace: 'loopback' }).then(r => r.json()).catch(() => null)
+  semSensor = r ? 0 : semSensor + 1
   temp = r?.temp ?? null
   const chip = $('#chipTemp')
   chip.querySelector('span').textContent = temp == null ? 'sem sensor' : `${temp} °C${protegendo ? ' · protegendo' : ''}`
@@ -668,7 +670,9 @@ async function leTemp() {
     toast('PC esfriou: qualidade normal de volta', 4000)
   }
 }
-leTemp(); setInterval(leTemp, 3000)
+// sem o script do termômetro rodando, tenta de novo só a cada 30 s (em vez de a cada 3 s)
+let semSensor = 0
+;(function laco() { leTemp().finally(() => setTimeout(laco, semSensor > 2 ? 30000 : 3000)) })()
 
 /* ---------- qualidade real que está chegando nela ---------- */
 let medida = null, antesBytes = 0, antesT = 0
