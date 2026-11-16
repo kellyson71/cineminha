@@ -181,7 +181,7 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
     <span class="chip" id="chipVivo"><i></i><span>fora do ar</span></span>
     <span class="tempo" id="tempo"></span>
     <div class="dir">
-      <span class="chip medida" id="chipTemp" title="Temperatura do processador (rode node scripts/https-local.mjs)"><i data-ic="thermometer"></i><span>—</span></span>
+      <span class="chip medida" id="chipTemp" title="Temperatura do processador (rode node scripts/live-local.mjs)"><i data-ic="thermometer"></i><span>—</span></span>
       <span class="chip medida" id="chipQual" title="O que está chegando nela agora"><i data-ic="gauge"></i><span>sem transmissão</span></span>
       <button class="btn liga" id="btnEco" aria-pressed="false" title="Deixa o estúdio mínimo: prévia leve, medidores devagar"><i data-ic="leaf"></i>Economia</button>
       <button class="btn" id="btnChecar" title="Conferir tudo antes de começar"><i data-ic="clipboard-check"></i>Checar</button>
@@ -231,10 +231,12 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
     <div class="painel">
       <h2>fontes <small id="infoJogo">sem captura do jogo</small></h2>
       <div class="linha-btns"><button class="btn" id="btnJogo">Capturar janela do jogo</button><button class="btn liga" id="btnCam" aria-pressed="true">Câmera</button></div>
-      <label class="campo"><span>Som do jogo</span><select id="selSom"></select></label>
+      <div class="campo"><span>Programa do jogo <b id="progStatus"></b></span>
+        <div class="form"><select id="selProg" aria-label="Programa que toca o som do jogo"></select><button class="btn mini" id="btnProg" type="button">Isolar</button></div></div>
+      <label class="campo"><span>Som do jogo (entrada)</span><select id="selSom"></select></label>
       <label class="campo"><span>Microfone</span><select id="selMic"></select></label>
       <label class="campo"><span>Sincronia com a câmera <b id="atrasoTxt">0 ms</b></span><input type="range" id="atraso" min="0" max="800" step="10" value="0"></label>
-      <p class="dica" id="dicaSom">Som do jogo sem as vozes: rode <code>node scripts/live-som.mjs</code>.</p>
+      <p class="dica" id="dicaSom">Para escolher o programa (só o som dele vai para ela), deixe aberto <code>node scripts/live-local.mjs</code>.</p>
     </div>
 
     <div class="painel">

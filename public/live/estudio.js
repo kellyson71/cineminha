@@ -36,7 +36,7 @@ pref.codigo = codigo; salva()
 if (codigoDaUrl() !== codigo) history.replaceState(null, '', `?c=${codigo}`)
 const base = location.origin + location.pathname.replace(/[^/]*$/, '')
 $('#linkEla').textContent = `${base}?c=${codigo}`
-// no PC de casa (localhost) o celular precisa do https da rede: node scripts/https-local.mjs
+// no PC de casa (localhost) o celular precisa do https da rede: node scripts/live-local.mjs
 $('#linkCam').textContent = /^(localhost|127\.)/.test(location.hostname) ? `https://<ip-do-pc>:8791${location.pathname.replace(/[^/]*$/, '')}cam.html?c=${codigo}` : `${base}cam.html?c=${codigo}`
 $('#codigo').textContent = 'código ' + codigo
 $$('[data-copia]').forEach(b => b.onclick = () => navigator.clipboard.writeText($('#' + b.dataset.copia).textContent).then(() => toast('Link copiado')))
@@ -204,7 +204,7 @@ async function entradas() {
   const prog = devs.find(d => /Cineminha-Programa/i.test(d.label))
   op($('#selSom'), prog?.deviceId || pref.som, 'Sem som do jogo')
   op($('#selMic'), pref.mic || devs.find(d => d.deviceId === 'default')?.deviceId, 'Sem microfone')
-  $('#dicaSom').hidden = !!prog
+  $('#dicaSom').hidden = !!prog || ajudaOn
   return { prog }
 }
 const pegaEntrada = (id, voz) => navigator.mediaDevices.getUserMedia({ audio: { deviceId: { exact: id }, echoCancellation: voz, noiseSuppression: voz, autoGainControl: false, channelCount: voz ? 1 : 2, sampleRate: 48000 } })
@@ -232,6 +232,56 @@ navigator.mediaDevices.getUserMedia({ audio: true }).then(s => s.getTracks().for
   if (prog) await usaSom(prog.deviceId)
   else if ($('#selSom').value) await usaSom($('#selSom').value)
 })
+/* ---------- som de um programa só (pelo ajudante live-local.mjs) ---------- */
+// lista os programas tocando som; "Isolar" leva o som dele para a entrada "Cineminha-Programa", que é escolhida sozinha
+const AJUDA = 'http://localhost:8792'
+let ajudaOn = false, isolado = null
+const ajuda = (rota, corpo) => fetch(AJUDA + rota, { method: corpo ? 'POST' : 'GET', cache: 'no-store', targetAddressSpace: 'loopback', headers: corpo ? { 'content-type': 'application/json' } : {}, body: corpo ? JSON.stringify(corpo) : undefined }).then(r => r.json())
+async function listaProgramas() {
+  const r = await ajuda('/som').catch(() => null)
+  ajudaOn = !!r?.pactl
+  const sel = $('#selProg'), antes = sel.value
+  if (!ajudaOn) {
+    sel.innerHTML = '<option value="">Ajudante desligado</option>'; sel.disabled = true; $('#btnProg').disabled = true
+    $('#progStatus').textContent = ''; $('#dicaSom').hidden = false
+    return
+  }
+  isolado = r.isolado
+  const lista = r.programas.slice()
+  if (isolado && !lista.some(p => p.id === isolado.id)) lista.unshift(isolado)
+  sel.innerHTML = lista.length ? lista.map(p => `<option value="${esc(p.id)}">${esc(p.nome)}</option>`).join('') : '<option value="">Nenhum programa tocando som</option>'
+  sel.disabled = !lista.length
+  const prefere = isolado?.id || antes || pref.programa || lista.find(p => /greenlight|xbox/i.test(p.id + p.nome))?.id
+  if (lista.some(p => p.id === prefere)) sel.value = prefere
+  const ehIsolado = isolado && sel.value === isolado.id
+  $('#btnProg').disabled = !lista.length
+  $('#btnProg').textContent = ehIsolado ? 'Soltar' : 'Isolar'
+  $('#progStatus').textContent = isolado ? `isolado: ${isolado.nome}` : ''
+  $('#dicaSom').hidden = true
+}
+$('#selProg').onchange = () => { pref.programa = $('#selProg').value; salva(); listaProgramas() }
+$('#btnProg').onclick = async () => {
+  const id = $('#selProg').value; if (!id) return
+  $('#btnProg').disabled = true
+  if (isolado?.id === id) {
+    await ajuda('/som/soltar', {}).catch(() => null)
+    toast('Som do programa devolvido ao normal')
+  } else {
+    const r = await ajuda('/som/isolar', { id }).catch(() => null)
+    if (!r || r.erro) { toast(r?.erro || 'Não consegui isolar o som desse programa'); $('#btnProg').disabled = false; return }
+    pref.programa = id; salva()
+    toast(`Só o som de ${r.nome} vai para ela`)
+    // a entrada nova leva um instante para aparecer: escolhe ela sozinha
+    for (let i = 0; i < 8; i++) {
+      await new Promise(ok => setTimeout(ok, 400))
+      const { prog } = await entradas()
+      if (prog) { $('#selSom').value = prog.deviceId; await usaSom(prog.deviceId); break }
+    }
+  }
+  listaProgramas()
+}
+;(function laco() { listaProgramas().finally(() => setTimeout(laco, ajudaOn ? 5000 : 20000)) })()
+
 navigator.mediaDevices.addEventListener('devicechange', async () => { const antes = $('#selSom').value; const { prog } = await entradas(); if (prog && antes !== prog.deviceId) { $('#selSom').value = prog.deviceId; usaSom(prog.deviceId); toast('Som do jogo conectado') } })
 
 /* ---------- ajustes: câmera do celular ---------- */
@@ -722,9 +772,9 @@ const ITENS = () => {
   const dbs = v => 20 * Math.log10(Math.max(v, 1e-6))
   return [
     ['Codificador de vídeo', codif == null ? ['espera', 'Testando…'] : codif.hw ? ['ok', `Placa de vídeo (${codif.impl}). O processador fica livre.`] : ['erro', `Está no processador (${codif.impl}). Feche o Chrome inteiro e abra de novo para ligar a placa; confira em chrome://gpu.`]],
-    ['Temperatura', temp == null ? ['aviso', 'Sem leitura. Rode <code>node scripts/https-local.mjs</code>.'] : temp >= 93 ? ['erro', `${temp} °C: o PC está se freando. Deixe esfriar, use uma base com ventoinha ou a economia.`] : temp >= 85 ? ['aviso', `${temp} °C: quente. Dá para seguir; a proteção baixa a qualidade se passar de 93 °C.`] : ['ok', `${temp} °C`]],
+    ['Temperatura', temp == null ? ['aviso', 'Sem leitura. Rode <code>node scripts/live-local.mjs</code>.'] : temp >= 93 ? ['erro', `${temp} °C: o PC está se freando. Deixe esfriar, use uma base com ventoinha ou a economia.`] : temp >= 85 ? ['aviso', `${temp} °C: quente. Dá para seguir; a proteção baixa a qualidade se passar de 93 °C.`] : ['ok', `${temp} °C`]],
     ['Imagem do jogo', capJogo ? ['ok', `Capturando: ${esc(capJogo.getVideoTracks()[0]?.label || 'janela')}`] : ['erro', 'Clique em <b>Capturar janela do jogo</b> e escolha o Greenlight (deixe a janela dele aberta, pode ficar atrás).']],
-    ['Som do jogo', !n.jogo.tem ? ['erro', 'Sem entrada. Rode <code>node scripts/live-som.mjs</code> com o Greenlight tocando e escolha <b>Cineminha-Programa</b>.'] : dbs(n.jogo.rms) > -55 ? ['ok', 'Chegando som do jogo.'] : ['aviso', 'Entrada certa, mas sem som agora. Faça algum barulho no jogo.']],
+    ['Som do jogo', !n.jogo.tem ? ['erro', 'Sem entrada. Deixe <code>node scripts/live-local.mjs</code> aberto, escolha o Greenlight em <b>Programa do jogo</b> e clique em <b>Isolar</b>.'] : dbs(n.jogo.rms) > -55 ? ['ok', 'Chegando som do jogo.'] : ['aviso', 'Entrada certa, mas sem som agora. Faça algum barulho no jogo.']],
     ['Seu microfone', !n.mic.tem ? ['erro', 'Escolha o microfone em <b>Fontes</b>.'] : mudos.mic ? ['aviso', 'Está mudo (tecla M).'] : dbs(n.mic.rms) > -50 ? ['ok', 'Ouvindo você.'] : ['aviso', 'Fale alguma coisa para testar.']],
     ['Câmera do celular', cel ? ['ok', $('#camInfo').textContent] : ['erro', 'Abra o link da câmera no celular (aba <b>links</b>).']],
     [`${LIVE.ela} na live`, ela ? (medida ? [medida.fps >= 24 ? 'ok' : 'aviso', `Chegando ${medida.h}p a ${medida.fps} fps${medida.rtt != null ? `, ${medida.rtt} ms` : ''}.`] : ['espera', 'Conectando…']) : ['aviso', 'Ainda não entrou. Mande o link dela (aba <b>links</b>).']],
