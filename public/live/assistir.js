@@ -84,8 +84,20 @@ addEventListener('keydown', e => {
 })
 
 /* ---------- estado do estúdio ---------- */
+// modo leve: a câmera chega separada e a tela monta; o vídeo do jogo espera o mesmo atraso do som
+let jogoStream = null
+function atrasaJogo() {
+  const vt = jogoStream?.getVideoTracks()[0], ms = est.envio?.modo === 'tela' ? +est.envio.atraso || 0 : 0
+  if (!vt || !live) return
+  const pcs = live.room.getPeers?.() || {}
+  for (const pc of (pcs instanceof Map ? pcs.values() : Object.values(pcs)))
+    for (const r of pc.getReceivers()) if (r.track === vt && 'jitterBufferTarget' in r) { try { r.jitterBufferTarget = ms } catch {} }
+}
 function aplica(e) {
+  const antes = est
   est = e
+  palco.composto(e.envio?.modo !== 'tela')
+  if (e.envio?.modo !== antes.envio?.modo || e.envio?.atraso !== antes.envio?.atraso) atrasaJogo()
   if (e.semJogo) palco.setJogo(null)
   palco.estado(e, e.relogio)
   player.segue(e.radio, e.cena !== 'jogo' || !!e.radioJogo, palco.agora)
@@ -290,7 +302,7 @@ async function conecta() {
     if (p === 'cam') palco.setCam(null)
   })
   live.on('stream', (stream, id, meta) => {
-    if (meta.live) { palco.setJogo(stream); volume() }
+    if (meta.live) { jogoStream = stream; palco.setJogo(stream); volume(); setTimeout(atrasaJogo, 500) }
     if (meta.som) { somEstudio.srcObject = stream; somEstudio.play().catch(() => {}); volume() }
     if (meta.cam) palco.setCam(stream)
     if (meta.voz && ['ela', 'amigo'].includes(live.papeis.get(id))) vozDeAlguem(stream, id)

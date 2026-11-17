@@ -132,6 +132,7 @@ const HTML = `${ICONES}
 </div>`
 
 export function criaPalco(host, { comSom = false, composto = false, leve = false } = {}) {
+  // composto: jogo e câmera chegam num vídeo só (o estúdio junta). Sem composto, a câmera chega separada e a tela monta.
   host.classList.add('palco-host')
   const palco = document.createElement('div')
   palco.className = 'palco' + (composto ? ' composto' : '') + (leve ? ' leve' : '')
@@ -185,6 +186,18 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
     $('.cam').classList.toggle('sem', composto ? !st.cam : (!temCam || st.cam === false))
     if (stream && !previaPausada) vCam.play().catch(() => {})
   }
+  function setComposto(on) {
+    composto = !!on
+    palco.classList.toggle('composto', composto)
+    $('.cam').classList.toggle('sem', composto ? !st.cam : (!temCam || st.cam === false))
+    ajustaCam()
+  }
+  // giro, espelho, zoom e recorte da câmera quando ela chega separada (no modo junto, o estúdio já desenha assim)
+  function ajustaCam() {
+    const a = st.camAj || {}, deitada = (a.rot || 0) % 180 !== 0
+    vCam.style.objectPosition = `${(a.cx ?? .5) * 100}% ${(a.cy ?? .5) * 100}%`
+    vCam.style.transform = composto ? '' : `rotate(${a.rot || 0}deg) scale(${(a.zoom || 1) * (deitada ? 1.67 : 1)}) scaleX(${a.espelho ? -1 : 1})`
+  }
   const tocar = () => { if (previaPausada) return; if (vJogo.srcObject) vJogo.play().catch(() => {}); if (vCam.srcObject) vCam.play().catch(() => {}) }
   function pausaPrevia(on) {
     previaPausada = !!on
@@ -204,6 +217,7 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
     if (st.cena !== antes.cena || !palco.querySelector('.cena.ativa')) $$('.cena').forEach(c => c.classList.toggle('ativa', c.dataset.cena === secao))
     palco.classList.toggle('so-cam', st.cena === 'camera')
     palco.dataset.cenaAtual = st.cena
+    if (st.camAj !== antes.camAj) ajustaCam()
     chamada(antes)
     $('.cam').classList.toggle('sem', composto ? !st.cam : (!temCam || st.cam === false))
     // no jogo a música fica em cima da sua câmera: aberta quando troca, depois só o disquinho girando
@@ -433,5 +447,5 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
     setTimeout(proximoPix, dur * 1000 + 400)
   }
 
-  return { el: palco, chat, leve: on => palco.classList.toggle('leve', !!on), pausaPrevia, setJogo, setCam, estado, setNivel, pix, aviso, tocar, agora, get st() { return st } }
+  return { el: palco, chat, composto: setComposto, leve: on => palco.classList.toggle('leve', !!on), pausaPrevia, setJogo, setCam, estado, setNivel, pix, aviso, tocar, agora, get st() { return st } }
 }

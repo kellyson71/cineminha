@@ -372,3 +372,7 @@
 .palco .chamada.oculta{opacity:0;pointer-events:none}
 .palco .chamada .linha{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important}
 .palco .chamada .avatar .foto{background-color:#fff4e8;background-size:cover;background-position:center;transition:transform .12s}
+
+/* câmera separada (modo leve): em tela cheia ocupa tudo, sem a posição/escala do canto */
+.palco:not(.composto).so-cam .cam{left:0;top:0;scale:1}
+.palco:not(.composto) .cam .moldura video{transform-origin:center;transition:transform .3s,object-position .3s}

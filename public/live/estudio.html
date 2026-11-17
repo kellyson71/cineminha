@@ -240,8 +240,8 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
 
   <section class="base">
     <div class="painel">
-      <h2>fontes <small id="infoJogo">sem captura do jogo</small></h2>
-      <div class="linha-btns"><button class="btn" id="btnJogo">Capturar janela do jogo</button><button class="btn liga" id="btnCam" aria-pressed="true">Câmera</button></div>
+      <h2>fontes <small id="infoJogo">sem captura</small></h2>
+      <div class="linha-btns"><button class="btn" id="btnJogo" title="Jogo, janela ou aba do Chrome. Para aba com som (YouTube), marque &quot;Compartilhar áudio da guia&quot;">Capturar jogo, janela ou aba</button><button class="btn liga" id="btnCam" aria-pressed="true">Câmera</button></div>
       <div class="campo"><span>Programa do jogo <b id="progStatus"></b></span>
         <div class="form"><select id="selProg" aria-label="Programa que toca o som do jogo"></select><button class="btn mini" id="btnProg" type="button">Isolar</button></div></div>
       <label class="campo"><span>Som do jogo (entrada)</span><select id="selSom"></select></label>
@@ -358,6 +358,9 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
       </div>
       <div class="bloco" style="border:0">
         <h3>transmissão</h3>
+        <label class="campo" style="margin:0 0 10px"><span>Como a câmera entra no vídeo</span><select id="envio">
+          <option value="pc">Juntar aqui no PC (pesa mais)</option>
+          <option value="tela">Juntar na tela dela (bem mais leve, mesma qualidade)</option></select></label>
         <label class="campo" style="margin:0"><span>Qualidade</span><select id="qualidade"><option value="720">720p (mais leve para o PC e o jogo)</option><option value="1080">1080p (mais bonito, pesa mais)</option></select></label>
       </div>
     </div>

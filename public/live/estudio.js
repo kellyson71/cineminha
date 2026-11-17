@@ -171,7 +171,9 @@ const qualidade = QUALIDADES[pref.qualidade] ? +pref.qualidade : 720
 const comp = criaCompositor({ fps: 30, qualidade })
 palco.setJogo(new MediaStream(comp.saida.getVideoTracks()))
 $('#qualidade').value = String(qualidade)
-$('#qualidade').onchange = e => { pref.qualidade = +e.target.value; salva(); comp.qualidade(+e.target.value); ajustaEnvio(); toast(`Transmissão em ${e.target.value}p`) }
+// no modo leve a qualidade é da própria captura (sem canvas no meio)
+const tamanhoCaptura = (q, fps = 30) => { const [w, h] = QUALIDADES[q] || QUALIDADES[720]; capJogo?.getVideoTracks()[0]?.applyConstraints({ width: { max: w }, height: { max: h }, frameRate: { max: fps } }).catch(() => {}) }
+$('#qualidade').onchange = e => { pref.qualidade = +e.target.value; salva(); comp.qualidade(+e.target.value); tamanhoCaptura(+e.target.value); ajustaEnvio(); toast(`Transmissão em ${e.target.value}p`) }
 // retorno de som: ouvir no fone exatamente o que vai pra ela (voz + jogo, depois do mixer e do atraso)
 const retorno = new Audio(); retorno.autoplay = true
 const retVol = $('#retVol'); retVol.value = pref.retVol ?? 80
@@ -185,20 +187,42 @@ $('#btnOuvir').onclick = () => {
   } else { retorno.pause(); retorno.srcObject = null }
 }
 let capJogo = null, somJogo = null, mic = null
+// captura o jogo, uma janela ou uma aba do Chrome. Aba (YouTube pra react, por exemplo): com "Compartilhar áudio da guia"
+// marcado, o som dela entra no mixer no lugar do som do jogo enquanto ela estiver na live; ao parar, volta o de antes.
+let somDaAba = null
+function somDaCaptura(at) {
+  somDaAba?.stop(); somDaAba = at || null
+  comp.somJogo(somDaAba || somJogo?.getAudioTracks()[0] || null)
+  $('#selSom').disabled = !!somDaAba
+  $('#selSom').title = somDaAba ? 'O som agora vem da aba que está sendo transmitida' : ''
+}
 $('#btnJogo').onclick = async () => {
   const [w, h] = QUALIDADES[pref.qualidade] || QUALIDADES[720]
   const s = await navigator.mediaDevices.getDisplayMedia({
     video: { frameRate: { ideal: 30, max: 30 }, width: { max: w }, height: { max: h } },
-    audio: false, selfBrowserSurface: 'exclude', surfaceSwitching: 'include',
+    // som só de aba (o Chrome não pega som de janela no Linux; jogo usa a entrada "Som do jogo")
+    audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+    systemAudio: 'exclude', suppressLocalAudioPlayback: false,
+    selfBrowserSurface: 'exclude', surfaceSwitching: 'include',
   }).catch(() => null)
   if (!s) return
   capJogo?.getTracks().forEach(t => t.stop())
   capJogo = s
   const vt = s.getVideoTracks()[0]; vt.contentHint = 'motion'
-  comp.jogo(vt)
-  $('#infoJogo').textContent = vt.label || 'capturando'
-  $('#btnJogo').textContent = 'Trocar janela'
-  vt.addEventListener('ended', () => { if (capJogo === s) { comp.jogo(null); capJogo = null; $('#infoJogo').textContent = 'sem captura do jogo'; $('#btnJogo').textContent = 'Capturar janela do jogo' } })
+  const aba = vt.getSettings().displaySurface === 'browser', at = s.getAudioTracks()[0]
+  if (!modoTela()) comp.jogo(vt)
+  somDaCaptura(at)
+  $('#infoJogo').textContent = (vt.label || 'capturando') + (at ? ' · com som' : '')
+  $('#btnJogo').textContent = 'Trocar o que aparece'
+  if (aba && !at) toast('Essa aba entrou sem som. Para levar o som, capture de novo e marque "Compartilhar áudio da guia".', 6000)
+  else if (at) toast('Som da aba entrando na live no lugar do som do jogo', 3500)
+  vt.addEventListener('ended', () => {
+    if (capJogo !== s) return
+    comp.jogo(null); capJogo = null; somDaCaptura(null)
+    $('#infoJogo').textContent = 'sem captura'; $('#btnJogo').textContent = 'Capturar jogo, janela ou aba'
+    if (modoTela()) reenvia()
+  })
+  if (modoTela()) reenvia()
 }
 async function entradas() {
   const devs = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'audioinput')
@@ -213,7 +237,7 @@ const pegaEntrada = (id, voz) => navigator.mediaDevices.getUserMedia({ audio: { 
 async function usaSom(id) {
   somJogo?.getTracks().forEach(t => t.stop()); somJogo = null
   if (id) somJogo = await pegaEntrada(id, false).catch(() => { toast('Não consegui abrir essa entrada de som'); return null })
-  comp.somJogo(somJogo?.getAudioTracks()[0] || null)
+  if (!somDaAba) comp.somJogo(somJogo?.getAudioTracks()[0] || null)
 }
 async function usaMic(id) {
   mic?.getTracks().forEach(t => t.stop()); mic = null
@@ -224,7 +248,7 @@ $('#selSom').onchange = e => { pref.som = e.target.value; salva(); usaSom(e.targ
 $('#selMic').onchange = e => { pref.mic = e.target.value; salva(); usaMic(e.target.value) }
 const atraso = $('#atraso')
 atraso.value = pref.atraso ?? 0
-const aplicaAtraso = () => { $('#atrasoTxt').textContent = atraso.value + ' ms'; comp.atraso(+atraso.value) }
+const aplicaAtraso = () => { $('#atrasoTxt').textContent = atraso.value + ' ms'; comp.atraso(+atraso.value); if (est.envio) muda({ envio: { ...est.envio, atraso: +atraso.value } }) }
 atraso.oninput = () => { pref.atraso = +atraso.value; salva(); aplicaAtraso() }; aplicaAtraso()
 $('#btnCam').onclick = e => { const on = e.currentTarget.getAttribute('aria-pressed') !== 'true'; e.currentTarget.setAttribute('aria-pressed', on); comp.camLigada(on); muda({ cam: on && !!camTrilha }) }
 
@@ -290,6 +314,7 @@ navigator.mediaDevices.addEventListener('devicechange', async () => { const ante
 const camAj = { rot: 0, espelho: false, zoom: 1, cx: .5, cy: .5, cheia: 'auto', ...(pref.camAjuste || {}) }
 function aplicaCam(ch = {}) {
   Object.assign(camAj, ch); pref.camAjuste = camAj; salva(); comp.ajusteCam(camAj)
+  if (typeof muda === 'function' && est.camAj !== undefined) muda({ camAj: { ...camAj } })
   $('#camZoom').value = camAj.zoom; $('#camZoomTxt').textContent = (+camAj.zoom).toFixed(1).replace('.', ',') + '×'
   $('#camX').value = camAj.cx; $('#camY').value = camAj.cy; $('#camCheia').value = camAj.cheia
   $('#camEspelho').setAttribute('aria-pressed', camAj.espelho)
@@ -570,7 +595,7 @@ async function conecta() {
   live.on('papel', (id, p) => {
     chips()
     if (p === 'ela' || p === 'amigo') {
-      live.manda(comp.saida, id, { live: 1 })
+      enviaPara(id)
       manda(id); live.acoes.mix.send({ abaixa: mix.abaixa }, id)
       live.acoes.chat.send({ hist: msgs.filter(m => !m.sis).slice(-80) }, id)
       setTimeout(ajustaEnvio, 1500)
@@ -586,12 +611,13 @@ async function conecta() {
       vozSai(id)
       if ((est.chamada || []).some(x => x.key === q.key)) { const lista = est.chamada.filter(x => x.key !== q.key); somLinha(false); muda({ chamada: lista, linha: lista.some(x => x.key === 'ela') }) }
     }
-    if (camDe.get(id)) { camDe.delete(id); if (!camDe.size) { camTrilha = null; comp.cam(null); muda({ cam: false }) } }
+    if (camDe.get(id)) { camDe.delete(id); if (!camDe.size) { camTrilha = null; comp.cam(null); muda({ cam: false }); if (modoTela()) reenvia() } }
   })
   live.on('stream', (stream, id, meta) => {
     if (meta.cam) {
       const t = stream.getVideoTracks()[0]; if (!t) return
-      camDe.set(id, t); camTrilha = t; comp.cam(t)
+      camDe.set(id, t); camTrilha = t
+      if (modoTela()) reenvia(); else comp.cam(t)
       muda({ cam: $('#btnCam').getAttribute('aria-pressed') === 'true' })
     }
     if (meta.voz && publico(id)) vozChegou(stream, id)
@@ -618,18 +644,61 @@ async function conecta() {
 
 // qualidade de envio: H.264 (circuito de vídeo), bitrate de acordo com a qualidade escolhida
 async function ajustaEnvio() {
-  const meus = comp.saida.getTracks()
+  const camT = streamCam?.getVideoTracks()[0]
+  const meus = [...comp.saida.getTracks(), ...(streamDireto?.getTracks() || []), ...(camT ? [camT] : [])]
   const pcs = live?.room.getPeers?.() || {}
   const kbps = (protegendo ? 1800 : pref.qualidade === 1080 ? 6000 : 3500) * 1000
   for (const pc of (pcs instanceof Map ? pcs.values() : Object.values(pcs))) for (const s of pc.getSenders()) {
     if (!s.track || !meus.includes(s.track)) continue
     const p = s.getParameters(); if (!p.encodings?.length) continue
-    const video = s.track.kind === 'video'
-    Object.assign(p.encodings[0], { maxBitrate: video ? kbps : 160_000, priority: 'high', networkPriority: 'high' }, video ? { maxFramerate: 30 } : {})
-    if (video) p.degradationPreference = 'maintain-framerate'
+    const video = s.track.kind === 'video', ehCam = s.track === camT
+    Object.assign(p.encodings[0], { maxBitrate: !video ? 160_000 : ehCam ? 700_000 : kbps, priority: 'high', networkPriority: 'high' }, video ? { maxFramerate: protegendo ? 24 : 30 } : {})
+    // jogo: segura a nitidez e, se faltar fôlego, solta um quadro aqui e ali; câmera: mantém o movimento
+    if (video) p.degradationPreference = ehCam ? 'maintain-framerate' : 'maintain-resolution'
     await s.setParameters(p).catch(() => {})
   }
 }
+
+/* ---------- como a câmera entra no vídeo: 'pc' (o canvas junta tudo) ou 'tela' (vai separado, a tela dela monta) ----------
+   No modo 'tela' a captura do jogo vai direto pro codificador (sem copiar cada quadro), a câmera do celular é repassada
+   pequena e saindo daqui (mesmo caminho do jogo, então chegam juntas) e a página dela segura o vídeo do jogo no mesmo
+   atraso do som. O compositor continua só no som (mixer). */
+const modoTela = () => pref.envio === 'tela'
+const somSaida = comp.saida.getAudioTracks()[0]
+let streamDireto = null, streamCam = null
+function montaStreams() {
+  const vt = capJogo?.getVideoTracks()[0]
+  streamDireto = modoTela() ? new MediaStream([...(vt ? [vt] : []), somSaida]) : null
+  streamCam = modoTela() && camTrilha ? new MediaStream([camTrilha]) : null
+}
+function enviaPara(id) {
+  if (!live) return
+  if (modoTela()) { live.manda(streamDireto, id, { live: 1 }); if (streamCam) live.manda(streamCam, id, { cam: 1 }) }
+  else live.manda(comp.saida, id, { live: 1 })
+  setTimeout(ajustaEnvio, 1500)
+}
+let antigos = []
+function reenvia() {
+  const ids = live?.publico() || []
+  for (const id of ids) for (const st of [comp.saida, ...antigos]) if (st) live.tira(st, id)
+  montaStreams(); antigos = [streamDireto, streamCam].filter(Boolean)
+  previaEnvio()
+  ids.forEach(enviaPara)
+}
+function previaEnvio() {
+  const vt = capJogo?.getVideoTracks()[0]
+  palco.composto(!modoTela())
+  palco.setJogo(modoTela() ? (vt ? new MediaStream([vt]) : null) : new MediaStream(comp.saida.getVideoTracks()))
+  palco.setCam(modoTela() && camTrilha ? new MediaStream([camTrilha]) : null)
+}
+function aplicaModoEnvio() {
+  comp.parar(modoTela())
+  if (!modoTela()) { const vt = capJogo?.getVideoTracks()[0]; if (vt) comp.jogo(vt); if (camTrilha) comp.cam(camTrilha) }
+  muda({ envio: { modo: modoTela() ? 'tela' : 'pc', atraso: +$('#atraso').value }, camAj: { ...camAj } })
+  reenvia()
+}
+$('#envio').value = modoTela() ? 'tela' : 'pc'
+$('#envio').onchange = e => { pref.envio = e.target.value; salva(); aplicaModoEnvio(); toast(modoTela() ? 'Câmera montada na tela dela: o PC só envia a imagem do jogo' : 'Câmera juntada aqui no PC') }
 
 
 /* ---------- meta de pix e dinheiro dela ---------- */
@@ -762,10 +831,10 @@ async function leTemp() {
   quente = temp >= 93 ? quente + 1 : 0
   frio = temp <= 82 ? frio + 1 : 0
   if (!protegendo && quente >= 3) {
-    protegendo = true; comp.qualidade(540); comp.fps(24); ajustaEnvio()
+    protegendo = true; comp.qualidade(540); comp.fps(24); tamanhoCaptura(540, 24); ajustaEnvio()
     toast('PC muito quente: transmissão em 540p até esfriar', 5000)
   } else if (protegendo && frio >= 20) {
-    protegendo = false; comp.qualidade(pref.qualidade || 720); comp.fps(30); ajustaEnvio()
+    protegendo = false; comp.qualidade(pref.qualidade || 720); comp.fps(30); tamanhoCaptura(pref.qualidade || 720); ajustaEnvio()
     toast('PC esfriou: qualidade normal de volta', 4000)
   }
 }
@@ -844,7 +913,9 @@ $('#fechaCheck').onclick = fechaCheck
 $('#janCheck').onclick = e => { if (e.target.id === 'janCheck') fechaCheck() }
 addEventListener('keydown', e => { if (e.key === 'Escape') fechaCheck() })
 
+est.envio = { modo: modoTela() ? 'tela' : 'pc', atraso: +$('#atraso').value }; est.camAj = { ...camAj }
 palco.estado(est, Date.now()); pinta(); pintaAtalhos()
+if (modoTela()) { comp.parar(true); montaStreams(); antigos = [streamDireto, streamCam].filter(Boolean); previaEnvio() }
 conecta().catch(e => { console.error(e); toast('Não consegui abrir a sala da live', 6000) })
 
 // testes (tests/live.py): ?debug expõe as peças

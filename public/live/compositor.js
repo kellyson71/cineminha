@@ -17,7 +17,7 @@ export function criaCompositor({ fps = 30, qualidade = 720 } = {}) {
   const gerador = new MediaStreamTrackGenerator({ kind: 'video' })
   const escritor = gerador.writable.getWriter()
 
-  let atraso = 0, camLigada = true, modo = 'jogo'
+  let atraso = 0, camLigada = true, modo = 'jogo', parado = false
   // onde a câmera fica (no palco de 1920×1080); ao mudar, desliza junto com a moldura do palco
   let camDe = camImagem(camRect()), camPara = camDe, camT0 = 0
   const DUR = 450, suave = t => 1 - Math.pow(1 - t, 3)
@@ -126,7 +126,7 @@ export function criaCompositor({ fps = 30, qualidade = 720 } = {}) {
   }
   // sem jogo (ou na câmera em tela cheia), um relógio puxa os quadros
   let relogio = 0
-  const ligaRelogio = () => { clearInterval(relogio); relogio = setInterval(() => { if (!leitorJogo || modo === 'cam') { desenha(null); solta(performance.now() * 1000) } }, 1000 / fps) }
+  const ligaRelogio = () => { clearInterval(relogio); relogio = setInterval(() => { if (!parado && (!leitorJogo || modo === 'cam')) { desenha(null); solta(performance.now() * 1000) } }, 1000 / fps) }
   ligaRelogio()
 
   /* ---------- som: mixer com voz e jogo (o mesmo atraso nos dois) ----------
@@ -196,6 +196,8 @@ export function criaCompositor({ fps = 30, qualidade = 720 } = {}) {
     niveis: () => Object.fromEntries(Object.entries(C).map(([k, c]) => { const m = c.src ? mede(c.fim, c.buf) : { rms: 0, pico: 0 }; return [k, { rms: m.rms, pico: m.pico, auto: c.autoGanho * (k === 'jogo' && falando ? .5 : 1), tem: !!c.src }] })),
     get falando() { return falando },
     camLigada: on => { camLigada = on },
+    // modo leve: o vídeo não passa por aqui (vai direto), só o som; para de desenhar
+    parar: on => { parado = !!on; if (parado) { lerJogo(null); lerCam(null) } },
     modo: m => { modo = m === 'cam' ? 'cam' : 'jogo' },
     ajusteCam: a => Object.assign(ajuste, a),
     posicaoCam: pos => { camDe = camAgora(); camPara = camImagem(camRect(pos)); camT0 = performance.now() },

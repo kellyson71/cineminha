@@ -41,6 +41,14 @@ with sync_playwright() as p:
     print('vídeo nela:', ela.evaluate("[document.querySelector('video.jogo').videoWidth, document.querySelector('video.jogo').videoHeight]"))
     time.sleep(2); ela.screenshot(path=OUT / '1-comecando.png'); est.screenshot(path=OUT / '1-estudio.png')
 
+    # modo leve: a câmera vai separada e a tela dela monta; o PC não junta nada
+    est.click('.abas [data-aba="ajustes"]'); est.select_option('#envio', 'tela'); time.sleep(4)
+    espera(ela, "!document.querySelector('.palco').classList.contains('composto')", 20, 'página dela no modo leve')
+    espera(ela, "document.querySelector('.palco .cam video').videoWidth > 0", 30, 'câmera separada chegou nela')
+    ela.screenshot(path=OUT / '1b-modo-leve.png')
+    est.select_option('#envio', 'pc'); time.sleep(4)
+    espera(ela, "document.querySelector('.palco').classList.contains('composto')", 20, 'de volta ao modo junto')
+    est.evaluate('document.activeElement.blur()')
     est.keyboard.press('2'); time.sleep(3)
     espera(ela, "document.querySelector('.palco .cena.ativa')?.dataset.cena === 'jogo'", 10, 'cena jogo nela')
     ela.screenshot(path=OUT / '2-jogo.png')
