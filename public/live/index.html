@@ -127,6 +127,11 @@ button,input,textarea{font:inherit;color:inherit}
 .entrada .btn{font-size:24px;padding:16px 30px}
 .entrada p{font:600 20px var(--ui);color:#fff;text-shadow:0 2px 6px #1c0830}
 .entrada.some{opacity:0;pointer-events:none;transition:opacity .5s}
+.quem-sou{display:flex;align-items:center;gap:12px;padding:8px 18px 8px 8px;border-radius:999px;background:#1c0830cc;box-shadow:0 0 0 3px var(--uva)}
+.quem-sou img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#fff4e8;box-shadow:0 0 0 3px #fff}
+.quem-sou span{font:400 26px var(--gta);color:#fff}
+.nome-entrada{width:min(320px,80vw);font:600 22px var(--ui);text-align:center;color:var(--tinta);border:0;border-radius:14px;padding:12px 16px;background:#fff;box-shadow:0 0 0 4px var(--tinta);outline:none}
+.nome-entrada:focus-visible{box-shadow:0 0 0 4px var(--rosa)}
 
 /* controles por cima da live: aparecem quando o mouse mexe */
 .player .palco-host{cursor:default}
@@ -278,6 +283,8 @@ body.cheia.sem-chat .chat{display:none}
 <div class="entrada" id="entrada"><div class="cx">
   <svg class="assinatura" viewBox="0 0 760 300" data-nome></svg>
   <p id="entradaTxt"></p>
+  <div class="quem-sou" id="quemSou" hidden><img id="quemFoto" alt=""><span id="quemNome"></span></div>
+  <input class="nome-entrada" id="nomeEntrada" maxlength="24" placeholder="Seu nome" aria-label="Seu nome" hidden autocomplete="nickname">
   <button class="btn pixbtn" id="btnEntrar">Entrar na live</button>
 </div></div>
 

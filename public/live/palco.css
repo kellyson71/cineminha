@@ -365,3 +365,10 @@
 
 /* avatar dela escondido pelo estúdio (o aviso de "entrou na linha" continua) */
 .palco .linha.oculta,.palco .linha.on.oculta{opacity:0;transform:scale(.6);pointer-events:none}
+
+/* ═══ ligação com várias pessoas: uma fileira de avatares ═══ */
+.palco .chamada{position:absolute;display:flex;gap:18px;align-items:flex-end;z-index:3;transition:top .45s var(--suave),left .45s var(--suave),right .45s var(--suave),opacity .4s}
+.palco .chamada.direita{flex-direction:row-reverse}
+.palco .chamada.oculta{opacity:0;pointer-events:none}
+.palco .chamada .linha{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important}
+.palco .chamada .avatar .foto{background-color:#fff4e8;background-size:cover;background-position:center;transition:transform .12s}

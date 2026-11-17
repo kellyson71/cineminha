@@ -5,12 +5,22 @@ import { entraLive, codigoDaUrl } from './rede.js'
 import { criaPlayer, buscaMusica, minutos } from './radio.js'
 import { somPix, somLinha, falaPix, fala, medidor, retomaAudio, VOZES, vozesIA, vozValida, tocaIA } from './sons.js'
 import { ic, poeIcones } from './icones.js'
+import { quemSou, fotoDe, corDe, perfisProntos } from './pessoas.js'
 
 const $ = s => document.querySelector(s)
 const codigo = codigoDaUrl()
 poeIcones()
 document.querySelectorAll('[data-nome]').forEach(s => { s.setAttribute('aria-label', LIVE.streamer); s.innerHTML = '<use href="#pl-nome"/>' })
-$('#entradaTxt').textContent = codigo ? `${LIVE.streamer} está te esperando na live de ${LIVE.jogo}` : 'Esse link está incompleto. Peça o link da live pra ele de novo.'
+const amigo = new URLSearchParams(location.search).has('amigos')
+let eu = { key: 'ela', nome: LIVE.ela, ela: true }
+$('#entradaTxt').textContent = !codigo ? 'Esse link está incompleto. Peça o link da live pra ele de novo.' : amigo ? `${LIVE.streamer} está ao vivo jogando ${LIVE.jogo}` : `${LIVE.streamer} está te esperando na live de ${LIVE.jogo}`
+const prontoEu = quemSou(amigo).then(async q => {
+  eu = q
+  if (!amigo) return
+  await perfisProntos
+  if (q.logado) { $('#quemSou').hidden = false; $('#quemFoto').src = fotoDe(q.key); $('#quemNome').textContent = q.nome; $('#btnEntrar').textContent = `Entrar como ${q.nome}` }
+  else { $('#nomeEntrada').hidden = false; $('#nomeEntrada').value = q.nome || ''; $('#btnEntrar').textContent = 'Entrar na live' }
+})
 if (!codigo) $('#btnEntrar').hidden = true
 
 const palco = criaPalco($('#palco'), { comSom: true, composto: true }) // jogo + câmera chegam juntos, num vídeo só
@@ -142,23 +152,24 @@ function poeMsg(m) {
   if (m.id && vistos.has(m.id)) return
   if (m.id) vistos.add(m.id)
   const d = document.createElement('div')
-  if (m.pix) { d.className = 'pixmsg'; d.innerHTML = `<strong>pix de ${reais(m.pix)}</strong><b style="color:#ff9ccb"></b>: `; d.querySelector('b').textContent = LIVE.ela; d.append(m.txt || '') }
+  const nomeM = m.de === 'ele' ? LIVE.streamer : m.de === 'amigo' ? (m.nome || 'Convidado') : LIVE.ela, corM = m.de === 'amigo' ? corDe(m.key) : '#ff9ccb'
+  if (m.pix) { d.className = 'pixmsg'; d.innerHTML = `<strong>pix de ${reais(m.pix)}</strong><b style="color:${corM}"></b>: `; d.querySelector('b').textContent = nomeM; d.append(m.txt || '') }
   else if (m.sis) { d.className = m.ped ? 'pedmsg' : 'sis'; if (m.ped) d.innerHTML = ic('music'); d.append(m.txt) }
   else {
     d.className = m.de === 'ele' ? 'eu' : 'ela'
-    d.innerHTML = m.de === 'ele' ? '<b></b> ' : '<b></b><span class="selo" title="Inscrita nº 1">1</span>'
-    d.querySelector('b').textContent = m.de === 'ele' ? LIVE.streamer : LIVE.ela; d.append(m.txt)
+    d.innerHTML = m.de === 'ela' ? '<b></b><span class="selo" title="Inscrita nº 1">1</span>' : '<b></b> '
+    d.querySelector('b').textContent = nomeM; if (m.de === 'amigo') d.querySelector('b').style.color = corM; d.append(m.txt)
   }
   const box = $('#msgs'), embaixo = box.scrollHeight - box.scrollTop - box.clientHeight < 60
-  box.append(d); if (embaixo || m.de === 'ela') box.scrollTop = box.scrollHeight
-  if (!m.sis && !m.hist) palco.chat({ de: m.pix ? 'ela' : m.de, txt: m.txt, pix: m.pix }) // aparece na live se ele ligou o chat na tela
+  box.append(d); if (embaixo || m.meu) box.scrollTop = box.scrollHeight
+  if (!m.sis && !m.hist) palco.chat({ de: m.de || 'ela', key: m.key, nome: m.nome, txt: m.txt, pix: m.pix }) // aparece na live se ele ligou o chat na tela
   // chat escondido: conta as mensagens novas dele no botão
   if (document.body.classList.contains('sem-chat') && !m.hist && m.de === 'ele') { novas++; $('#bChatNovo').hidden = false; $('#bChatNovo').textContent = novas }
 }
 $('#compor').onsubmit = e => {
   e.preventDefault()
   const txt = $('#msg').value.trim().slice(0, 300); if (!txt) return
-  const m = { id: crypto.randomUUID(), de: 'ela', txt }
+  const m = { id: crypto.randomUUID(), de: eu.ela ? 'ela' : 'amigo', key: eu.key, nome: eu.nome, txt, meu: true }
   poeMsg(m); live?.acoes.chat.send(m); $('#msg').value = ''
 }
 
@@ -166,7 +177,10 @@ $('#compor').onsubmit = e => {
 let valorPix = LIVE.valoresPix.includes(20) ? 20 : LIVE.valoresPix[0]
 $('#valores').innerHTML = LIVE.valoresPix.map(v => `<button type="button" data-v="${v}">R$ ${v}</button>`).join('')
 // dinheiro dela: infinito, ou o saldo ganho assistindo (o estúdio confere de novo antes de aceitar)
-const carteira = () => est.carteira || { modo: 'infinito' }
+const carteira = () => {
+  const c = est.carteira || { modo: 'infinito' }
+  return eu.ela ? c : { ...c, saldo: est.carteiras?.[eu.key]?.saldo ?? 0, falta: est.carteiras?.[eu.key]?.falta ?? 60 }
+}
 const podeGastar = v => carteira().modo !== 'tempo' || v <= (carteira().saldo || 0) + 1e-9
 const marca = () => {
   document.querySelectorAll('#valores button').forEach(b => { b.setAttribute('aria-pressed', +b.dataset.v === valorPix); b.disabled = !podeGastar(+b.dataset.v) })
@@ -238,11 +252,11 @@ async function linha(on) {
   if (on) {
     mic = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }).catch(() => null)
     if (!mic) { poeMsg({ sis: true, txt: 'Não deu para usar o microfone. Libere o microfone no navegador e tente de novo.' }); return }
-    live.quem('estudio').forEach(id => live.manda(mic, id, { voz: 1 }))
-    paraMedir = medidor(mic, v => palco.setNivel(v))
+    ouvintes().forEach(id => live.manda(mic, id, { voz: 1 }))
+    paraMedir = medidor(mic, v => palco.setNivel(v, eu.key))
   } else {
-    if (mic) { live.quem('estudio').forEach(id => live.tira(mic, id)); mic.getTracks().forEach(t => t.stop()); mic = null }
-    paraMedir?.(); paraMedir = null; palco.setNivel(0)
+    if (mic) { ouvintes().forEach(id => live.tira(mic, id)); mic.getTracks().forEach(t => t.stop()); mic = null }
+    paraMedir?.(); paraMedir = null; palco.setNivel(0, eu.key)
   }
   live.acoes.linha.send({ on })
   somLinha(on)
@@ -252,14 +266,26 @@ async function linha(on) {
 $('#btnLigar').onclick = () => { if (!estudioOn) { poeMsg({ sis: true, txt: 'Dá para entrar na linha quando a live estiver no ar.' }); return } linha(!mic) }
 
 /* ---------- rede ---------- */
+// quem ouve a sua voz na ligação: o estúdio e quem está assistindo
+const ouvintes = () => [...live.quem('estudio'), ...live.publico()]
+const vozesDe = new Map() // peerId → { audio, para, key }
+function vozDeAlguem(stream, id) {
+  vozesDe.get(id)?.para?.()
+  const key = live.papeis.get(id) === 'ela' ? 'ela' : live.perfis.get(id)?.key
+  const audio = new Audio(); audio.autoplay = true; audio.srcObject = stream; audio.play().catch(() => {})
+  vozesDe.set(id, { audio, key, para: medidor(stream, v => palco.setNivel(v, key)) })
+}
+function vozSaiu(id) { const v = vozesDe.get(id); if (!v) return; v.para?.(); v.audio.srcObject = null; palco.setNivel(0, v.key); vozesDe.delete(id) }
 async function conecta() {
-  live = await entraLive(codigo, 'ela')
+  live = await entraLive(codigo, eu.ela ? 'ela' : 'amigo', eu.ela ? null : { key: eu.key, nome: eu.nome })
   const atualiza = () => { estudioOn = live.quem('estudio').length > 0; espera() }
   live.on('papel', (id, p) => {
     atualiza()
     if (p === 'estudio' && mic) { live.manda(mic, id, { voz: 1 }); live.acoes.linha.send({ on: true }, id) }
+    if ((p === 'ela' || p === 'amigo') && mic) live.manda(mic, id, { voz: 1 })
   })
   live.on('saiu', (id, p) => {
+    vozSaiu(id)
     if (p === 'estudio') { atualiza(); palco.setJogo(null); palco.setCam(null); somEstudio.srcObject = null }
     if (p === 'cam') palco.setCam(null)
   })
@@ -267,19 +293,20 @@ async function conecta() {
     if (meta.live) { palco.setJogo(stream); volume() }
     if (meta.som) { somEstudio.srcObject = stream; somEstudio.play().catch(() => {}); volume() }
     if (meta.cam) palco.setCam(stream)
+    if (meta.voz && ['ela', 'amigo'].includes(live.papeis.get(id))) vozDeAlguem(stream, id)
   })
   live.acoes.estado.on((e, id) => { if (live.papeis.get(id) === 'estudio' || !live.papeis.size) aplica(e) })
   live.acoes.chat.on(m => {
     if (Array.isArray(m?.hist)) { m.hist.forEach(x => poeMsg({ ...x, hist: true })); return }
     if (typeof m?.txt !== 'string') return
     if (m.de === 'sis') poeMsg({ id: m.id, sis: true, ped: /^Pedido/.test(m.txt), txt: m.txt.slice(0, 200) })
-    else poeMsg({ id: m.id, de: m.de === 'ele' ? 'ele' : 'ela', txt: m.txt.slice(0, 300) })
+    else poeMsg({ id: m.id, de: ['ele', 'amigo'].includes(m.de) ? m.de : 'ela', key: m.key, nome: m.nome, txt: m.txt.slice(0, 300) })
   })
   live.acoes.mix.on((m, id) => { if (live.papeis.get(id) === 'estudio') { abaixa = !!m?.abaixa; volume() } })
   live.acoes.pixtoca.on(p => {
     if (!(p?.valor > 0)) return
-    poeMsg({ id: 'pix' + p.id, pix: p.valor, txt: String(p.msg || '').slice(0, 140) })
-    palco.pix(p); somPix(); setTimeout(() => falaPix(LIVE.ela, p.valor, p.msg, p.voz, p.abre | 0), 1100)
+    poeMsg({ id: 'pix' + p.id, pix: p.valor, txt: String(p.msg || '').slice(0, 140), de: p.de, key: p.key, nome: p.nome })
+    palco.pix(p); somPix(); setTimeout(() => falaPix(p.nome || LIVE.ela, p.valor, p.msg, p.voz, p.abre | 0), 1100)
   })
 }
 
@@ -314,7 +341,14 @@ $('#achados').onclick = e => {
   fechaPedido(); $('#buscaPedido').value = ''; $('#achados').innerHTML = ''
 }
 
-$('#btnEntrar').onclick = () => {
+$('#btnEntrar').onclick = async () => {
+  await prontoEu
+  if (amigo && !eu.logado) {
+    const nome = $('#nomeEntrada').value.trim().replace(/[<>]/g, '').slice(0, 24)
+    if (!nome) { $('#nomeEntrada').focus(); return }
+    eu = { key: 'g:' + nome.toLowerCase(), nome, logado: false }
+    try { localStorage.setItem('live.nome', nome) } catch {}
+  }
   retomaAudio(); palco.tocar(); somEstudio.play().catch(() => {})
   $('#entrada').classList.add('some')
   conecta().catch(e => { console.error(e); poeMsg({ sis: true, txt: 'Não consegui conectar na live. Recarregue a página.' }) })

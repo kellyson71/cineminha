@@ -41,12 +41,13 @@ async function turn() {
   return ice
 }
 
-export async function entraLive(codigo, papel) {
+export async function entraLive(codigo, papel, perfil = null) {
   const pw = 'live:' + codigo
   const roomId = await roomIdDe(pw, 'live')
   const ice = await Promise.race([turn(), new Promise(r => setTimeout(() => r([]), 6000))])
   const room = joinRoom({ appId: CFG.appId, password: pw, rtcPolyfill: LivePC, turnConfig: ice }, roomId)
-  const papeis = new Map() // peerId → 'estudio' | 'ela' | 'cam'
+  const papeis = new Map() // peerId → 'estudio' | 'ela' | 'amigo' | 'cam'
+  const perfis = new Map() // peerId → { key, nome } (amigos: a conta do Cineminha)
   const ouvintes = { entrou: [], saiu: [], papel: [], stream: [] }
   const emite = (ev, ...a) => ouvintes[ev].forEach(f => { try { f(...a) } catch (e) { console.error(e) } })
 
@@ -57,17 +58,21 @@ export async function entraLive(codigo, papel) {
     acoes[n] = { send: (d, alvo) => a.send(d, alvo ? { target: alvo } : undefined), on: f => fs.push(f) }
   }
   acoes.papel.on((p, id) => {
-    if (!['estudio', 'ela', 'cam'].includes(p?.papel)) return
+    if (!['estudio', 'ela', 'amigo', 'cam'].includes(p?.papel)) return
     const novo = papeis.get(id) !== p.papel
     papeis.set(id, p.papel)
+    if (p.papel === 'ela') perfis.set(id, { key: 'ela', nome: '' })
+    else if (p.papel === 'amigo' && typeof p.perfil?.key === 'string') perfis.set(id, { key: p.perfil.key.slice(0, 40), nome: String(p.perfil.nome || 'Convidado').replace(/[<>]/g, '').slice(0, 24) })
     if (novo) emite('papel', id, p.papel)
   })
-  room.onPeerJoin = id => { acoes.papel.send({ papel }, id); emite('entrou', id) }
-  room.onPeerLeave = id => { const p = papeis.get(id); papeis.delete(id); emite('saiu', id, p) }
+  room.onPeerJoin = id => { acoes.papel.send({ papel, perfil }, id); emite('entrou', id) }
+  room.onPeerLeave = id => { const p = papeis.get(id), pf = perfis.get(id); papeis.delete(id); perfis.delete(id); emite('saiu', id, p, pf) }
   room.onPeerStream = (stream, id, meta) => emite('stream', stream, id, meta || {})
 
   return {
-    room, acoes, papeis, selfId,
+    room, acoes, papeis, perfis, selfId,
+    // quem assiste: a amor e os amigos
+    publico: () => [...papeis].filter(([, x]) => x === 'ela' || x === 'amigo').map(([id]) => id),
     on: (ev, f) => ouvintes[ev].push(f),
     quem: p => [...papeis].filter(([, x]) => x === p).map(([id]) => id),
     manda: (stream, alvo, metadata) => room.addStream(stream, { target: alvo, metadata }),
