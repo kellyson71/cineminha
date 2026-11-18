@@ -47,6 +47,7 @@ with sync_playwright() as p:
     espera(ela, "document.querySelector('.palco .cam video').videoWidth > 0", 30, 'câmera separada chegou nela')
     ela.screenshot(path=OUT / '1b-modo-leve.png')
     est.select_option('#envio', 'pc'); time.sleep(4)
+    est.click('.abas [data-aba="chat"]')
     espera(ela, "document.querySelector('.palco').classList.contains('composto')", 20, 'de volta ao modo junto')
     est.evaluate('document.activeElement.blur()')
     est.keyboard.press('2'); time.sleep(3)

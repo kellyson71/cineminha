@@ -38,6 +38,8 @@ button,input,textarea{font:inherit;color:inherit}
 .player .palco-host{position:absolute;inset:0;border-radius:18px}
 .espera{position:absolute;inset:0;z-index:3;border-radius:18px;display:grid;place-items:center;text-align:center;background:#1c0830e6;transition:opacity .4s}
 .espera.some{opacity:0;pointer-events:none}
+.bloqueado{opacity:.45;filter:saturate(.4)}
+#msg:disabled{opacity:.6;cursor:not-allowed}
 .espera b{display:block;font:400 clamp(26px,3.4vw,46px)/1 var(--gta)}
 .espera span{display:block;font:600 19px var(--ui);color:#fffc;margin-top:10px}
 .sob{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap;flex:none}

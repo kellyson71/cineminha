@@ -32,7 +32,12 @@ let est = { cena: 'comecando' }, live = null, estudioOn = false, abaixa = false
 const vJogo = palco.el.querySelector('video.jogo')
 // rádio: o volume que ele escolheu no mixer × o seu volume; abaixa quando ele fala
 let mudo = false
-const volume = () => { const v = mudo ? 0 : +$('#volume').value / 100; vJogo.volume = v; somEstudio.volume = v; player.volume(v * 75 * (est.mix?.radio ?? .6) * (abaixa ? .35 : 1)) }
+const volume = () => { const v = mudo ? 0 : +$('#volume').value / 100; vJogo.volume = v; somEstudio.volume = v; player.volume(v * 75 * (est.mix?.radio ?? .6) * (abaixa ? .35 : 1)); contaVolume() }
+// conta pro estúdio o volume que está aqui (ele mostra no mixer e no teste de som)
+function contaVolume() {
+  clearTimeout(contaVolume.t)
+  contaVolume.t = setTimeout(() => live?.quem('estudio').forEach(id => live.acoes.mix.send({ vol: +$('#volume').value, mudo }, id)), 400)
+}
 try { $('#volume').value = localStorage.getItem('live.volume') ?? 90 } catch {}
 $('#volume').oninput = () => { volume(); try { localStorage.setItem('live.volume', $('#volume').value) } catch {} }
 
@@ -102,6 +107,7 @@ function aplica(e) {
   palco.estado(e, e.relogio)
   player.segue(e.radio, e.cena !== 'jogo' || !!e.radioJogo, palco.agora)
   volume()
+  if (e.regras) { regras = { pix: e.regras.pix !== false, pedidos: e.regras.pedidos !== false, linha: e.regras.linha !== false }; pintaMod() }
   $('#titulo').firstChild.textContent = e.titulo || LIVE.titulo
   $('#titulo small').textContent = `${LIVE.streamer} está jogando ${LIVE.jogo}`
   const vivo = !!e.inicio
@@ -164,6 +170,7 @@ function poeMsg(m) {
   if (m.id && vistos.has(m.id)) return
   if (m.id) vistos.add(m.id)
   const d = document.createElement('div')
+  if (m.id) d.dataset.id = m.id
   const nomeM = m.de === 'ele' ? LIVE.streamer : m.de === 'amigo' ? (m.nome || 'Convidado') : LIVE.ela, corM = m.de === 'amigo' ? corDe(m.key) : '#ff9ccb'
   if (m.pix) { d.className = 'pixmsg'; d.innerHTML = `<strong>pix de ${reais(m.pix)}</strong><b style="color:${corM}"></b>: `; d.querySelector('b').textContent = nomeM; d.append(m.txt || '') }
   else if (m.sis) { d.className = m.ped ? 'pedmsg' : 'sis'; if (m.ped) d.innerHTML = ic('music'); d.append(m.txt) }
@@ -174,13 +181,14 @@ function poeMsg(m) {
   }
   const box = $('#msgs'), embaixo = box.scrollHeight - box.scrollTop - box.clientHeight < 60
   box.append(d); if (embaixo || m.meu) box.scrollTop = box.scrollHeight
-  if (!m.sis && !m.hist) palco.chat({ de: m.de || 'ela', key: m.key, nome: m.nome, txt: m.txt, pix: m.pix }) // aparece na live se ele ligou o chat na tela
+  if (!m.sis && !m.hist) palco.chat({ id: m.id, de: m.de || 'ela', key: m.key, nome: m.nome, txt: m.txt, pix: m.pix }) // aparece na live se ele ligou o chat na tela
   // chat escondido: conta as mensagens novas dele no botão
   if (document.body.classList.contains('sem-chat') && !m.hist && m.de === 'ele') { novas++; $('#bChatNovo').hidden = false; $('#bChatNovo').textContent = novas }
 }
 $('#compor').onsubmit = e => {
   e.preventDefault()
   const txt = $('#msg').value.trim().slice(0, 300); if (!txt) return
+  if (meuMod.calado > Date.now()) { poeMsg({ sis: true, txt: 'Você está silenciado agora.' }); return }
   const m = { id: crypto.randomUUID(), de: eu.ela ? 'ela' : 'amigo', key: eu.key, nome: eu.nome, txt, meu: true }
   poeMsg(m); live?.acoes.chat.send(m); $('#msg').value = ''
 }
@@ -247,7 +255,7 @@ marca()
 const conta = () => $('#contaPix').textContent = $('#msgPix').value.length
 $('#msgPix').oninput = conta
 const fecha = () => $('#janela').classList.remove('aberta')
-$('#btnPix').onclick = () => { infoPix(); marca(); $('#janela').classList.add('aberta'); conta(); setTimeout(() => $('#msgPix').focus(), 50) }
+$('#btnPix').onclick = () => { if (bloqueio('pix')) return; infoPix(); marca(); $('#janela').classList.add('aberta'); conta(); setTimeout(() => $('#msgPix').focus(), 50) }
 $('#cancelaPix').onclick = fecha
 $('#janela').onclick = e => { if (e.target.id === 'janela') fecha() }
 addEventListener('keydown', e => { if (e.key === 'Escape') fecha() })
@@ -275,7 +283,44 @@ async function linha(on) {
   $('#btnLigar').setAttribute('aria-pressed', on)
   document.querySelectorAll('#btnLigar span, [data-faz=btnLigar] span').forEach(x => x.textContent = on ? 'Sair da linha' : 'Entrar na linha')
 }
-$('#btnLigar').onclick = () => { if (!estudioOn) { poeMsg({ sis: true, txt: 'Dá para entrar na linha quando a live estiver no ar.' }); return } linha(!mic) }
+$('#btnLigar').onclick = () => { if (!estudioOn) { poeMsg({ sis: true, txt: 'Dá para entrar na linha quando a live estiver no ar.' }); return } if (!mic && bloqueio('linha')) return; linha(!mic) }
+
+/* ---------- moderação: o que o estúdio liberou ou bloqueou pra mim ---------- */
+let meuMod = { calado: 0, semPix: false, semLinha: false, fora: false }, regras = { pix: true, pedidos: true, linha: true }
+function bloqueio(o) {
+  const calado = meuMod.calado > Date.now()
+  const txt = o === 'pix' ? (!regras.pix ? 'O pix está fechado agora.' : calado ? 'Você está silenciado: o pix volta junto com o chat.' : meuMod.semPix ? 'O pix está bloqueado pra você nesta live.' : '')
+    : o === 'linha' ? (!regras.linha ? 'A linha está fechada agora.' : meuMod.semLinha ? 'A linha está bloqueada pra você nesta live.' : '')
+    : (!regras.pedidos ? 'Os pedidos de música estão fechados agora.' : calado ? 'Você está silenciado: os pedidos voltam junto com o chat.' : '')
+  if (txt) poeMsg({ sis: true, txt })
+  return !!txt
+}
+function pintaMod() {
+  const calado = meuMod.calado > Date.now()
+  const marca = (sel, off) => document.querySelectorAll(`#${sel}, [data-faz=${sel}]`).forEach(b => b.classList.toggle('bloqueado', off))
+  marca('btnPix', !regras.pix || meuMod.semPix || calado)
+  marca('btnPedir', !regras.pedidos || calado)
+  marca('btnLigar', !mic && (!regras.linha || meuMod.semLinha))
+  const msg = $('#msg')
+  msg.disabled = calado
+  msg.placeholder = calado ? (meuMod.calado < 8e15 ? `Silenciado por ${minutos((meuMod.calado - Date.now()) / 1000)}` : 'Silenciado') : 'Mandar mensagem'
+}
+setInterval(() => { if (meuMod.calado) pintaMod() }, 1000)
+function recebeMod(m) {
+  if (m.regras) regras = { pix: m.regras.pix !== false, pedidos: m.regras.pedidos !== false, linha: m.regras.linha !== false }
+  meuMod = { calado: +m.calado || 0, semPix: !!m.semPix, semLinha: !!m.semLinha, fora: !!m.fora }
+  if ((m.tirado || meuMod.semLinha || !regras.linha || meuMod.fora) && mic) { linha(false); poeMsg({ sis: true, txt: 'Você saiu da linha.' }) }
+  if (meuMod.fora) {
+    try { live?.room.leave() } catch {}
+    live = null; estudioOn = false
+    palco.setJogo(null); palco.setCam(null); somEstudio.srcObject = null; player.segue(null, false)
+    $('#espera').classList.remove('some')
+    $('#espera b').textContent = 'você saiu da live'
+    $('#espera span').textContent = 'Quem faz a live tirou você desta transmissão.'
+    document.body.classList.add('fora-da-live')
+  }
+  pintaMod()
+}
 
 /* ---------- rede ---------- */
 // quem ouve a sua voz na ligação: o estúdio e quem está assistindo
@@ -293,6 +338,7 @@ async function conecta() {
   const atualiza = () => { estudioOn = live.quem('estudio').length > 0; espera() }
   live.on('papel', (id, p) => {
     atualiza()
+    if (p === 'estudio') contaVolume()
     if (p === 'estudio' && mic) { live.manda(mic, id, { voz: 1 }); live.acoes.linha.send({ on: true }, id) }
     if ((p === 'ela' || p === 'amigo') && mic) live.manda(mic, id, { voz: 1 })
   })
@@ -308,13 +354,15 @@ async function conecta() {
     if (meta.voz && ['ela', 'amigo'].includes(live.papeis.get(id))) vozDeAlguem(stream, id)
   })
   live.acoes.estado.on((e, id) => { if (live.papeis.get(id) === 'estudio' || !live.papeis.size) aplica(e) })
-  live.acoes.chat.on(m => {
+  live.acoes.chat.on((m, id) => {
     if (Array.isArray(m?.hist)) { m.hist.forEach(x => poeMsg({ ...x, hist: true })); return }
+    if (m?.apaga && live.papeis.get(id) === 'estudio') { document.querySelectorAll(`#msgs [data-id="${CSS.escape(String(m.apaga))}"]`).forEach(e => e.remove()); palco.apagaChat?.(m.apaga); return }
     if (typeof m?.txt !== 'string') return
     if (m.de === 'sis') poeMsg({ id: m.id, sis: true, ped: /^Pedido/.test(m.txt), txt: m.txt.slice(0, 200) })
     else poeMsg({ id: m.id, de: ['ele', 'amigo'].includes(m.de) ? m.de : 'ela', key: m.key, nome: m.nome, txt: m.txt.slice(0, 300) })
   })
-  live.acoes.mix.on((m, id) => { if (live.papeis.get(id) === 'estudio') { abaixa = !!m?.abaixa; volume() } })
+  live.acoes.mix.on((m, id) => { if (live.papeis.get(id) === 'estudio' && 'abaixa' in (m || {})) { abaixa = !!m.abaixa; volume() } })
+  live.acoes.mod.on((m, id) => { if (live.papeis.get(id) === 'estudio' && m) recebeMod(m) })
   live.acoes.pixtoca.on(p => {
     if (!(p?.valor > 0)) return
     poeMsg({ id: 'pix' + p.id, pix: p.valor, txt: String(p.msg || '').slice(0, 140), de: p.de, key: p.key, nome: p.nome })
@@ -326,6 +374,7 @@ async function conecta() {
 let achados = []
 const fechaPedido = () => $('#janelaPedido').classList.remove('aberta')
 $('#btnPedir').onclick = () => {
+  if (estudioOn && bloqueio('pedidos')) return
   if (!estudioOn) { poeMsg({ sis: true, txt: 'Dá para pedir música quando a live estiver no ar.' }); return }
   $('#janelaPedido').classList.add('aberta'); setTimeout(() => $('#buscaPedido').focus(), 50)
 }

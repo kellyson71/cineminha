@@ -322,6 +322,7 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
   function chat(m) {
     if (!m?.txt || m.sis) return
     const box = $('.chat-tela'), d = document.createElement('div')
+    if (m.id) d.dataset.id = m.id
     d.className = 'bal ' + (m.de === 'ele' ? 'ele' : m.de === 'amigo' ? 'amigo' : 'ela')
     d.innerHTML = '<b></b>'; const bn = d.querySelector('b')
     bn.textContent = m.de === 'ele' ? LIVE.streamer : m.de === 'amigo' ? (m.nome || 'Convidado') : LIVE.ela
@@ -447,5 +448,7 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
     setTimeout(proximoPix, dur * 1000 + 400)
   }
 
-  return { el: palco, chat, composto: setComposto, leve: on => palco.classList.toggle('leve', !!on), pausaPrevia, setJogo, setCam, estado, setNivel, pix, aviso, tocar, agora, get st() { return st } }
+  // mensagem apagada pelo estúdio: some da tela também
+  const apagaChat = id => palco.querySelectorAll(`.chat-tela [data-id="${CSS.escape(String(id))}"]`).forEach(e => e.remove())
+  return { el: palco, chat, apagaChat, composto: setComposto, leve: on => palco.classList.toggle('leve', !!on), pausaPrevia, setJogo, setCam, estado, setNivel, pix, aviso, tocar, agora, get st() { return st } }
 }

@@ -74,6 +74,18 @@ input[type=range]{width:100%;accent-color:var(--rosa);margin:0}
 .faixa-mix .mudo{width:38px;height:34px;padding:0;font-size:17px}
 .faixa-mix .mudo[aria-pressed=true]{background:#e8213f}
 .autos{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
+.som-real{display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid #ffffff0d}
+.som-real .dica{margin:0;font-size:12px}
+.res-som{margin-top:10px;padding:10px 12px;border-radius:10px;background:#0005}
+.res-som .linhas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.res-som .linhas span{font:600 11px var(--mono);color:#fff9;text-transform:uppercase;letter-spacing:.05em}
+.res-som .linhas b{display:block;font:400 22px/1.1 var(--gta);color:#fff;letter-spacing:0;text-transform:none}
+.res-som .veredito{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:9px 0 0;font:700 14px var(--ui)}
+.res-som .veredito .ic{width:17px;height:17px}
+.res-som .veredito small{flex-basis:100%;font:600 12px var(--ui);color:#fffa}
+.res-som .veredito.ok{color:#4ade80}.res-som .veredito.aviso{color:#facc15}.res-som .veredito.erro{color:#ff5a6e}
+.res-som .dica{margin-top:6px;font-size:12px}
+.res-som .btn{margin-top:8px}
 
 /* rádio */
 .agora{display:flex;gap:12px;align-items:center}
@@ -101,6 +113,26 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
 .msgs .eu b{color:#9fd8ff}.msgs .ela b{color:#ff9ccb}.msgs .sis{color:#fff8;font-style:italic;font-size:15px}
 .msgs .pixmsg{border-radius:10px;padding:8px 10px;background:linear-gradient(90deg,#ff4fa333,#ffb04a22);box-shadow:inset 3px 0 0 var(--sol)}
 .msgs .pixmsg strong{font:400 19px var(--gta);color:var(--sol);display:block}
+.msgs [data-key]>b{cursor:pointer;border-radius:4px}
+.msgs [data-key]>b:hover{text-decoration:underline;text-underline-offset:3px}
+.regras{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pessoas{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.pessoas .vazio{font:600 12px var(--ui);color:#fff6}
+.pessoa{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:5px 10px;background:#ffffff12;color:#fff;font:600 13px var(--ui);cursor:pointer;box-shadow:inset 3px 0 0 var(--c)}
+.pessoa:hover{background:#ffffff22}
+.pessoa.off{opacity:.55}
+.pessoa span{display:inline-flex;align-items:center;gap:3px;font:600 11px var(--mono);color:#facc15}
+.pessoa .ic{width:13px;height:13px}
+.pessoa em{font-style:normal;color:#ff5a6e;margin-left:3px;text-transform:uppercase}
+.menu-mod{position:fixed;z-index:60;min-width:230px;max-width:300px;padding:8px;border-radius:12px;background:#1c0830;border:1px solid #ffffff26;box-shadow:0 14px 40px #000a}
+.menu-mod h4{margin:2px 6px 6px;font:400 19px var(--gta)}
+.menu-mod button{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;color:#fff;font:600 14px var(--ui);padding:8px;border-radius:8px;text-align:left;cursor:pointer}
+.menu-mod button:hover{background:#ffffff14}
+.menu-mod button.perigo{color:#ff5a6e}
+.menu-mod .ic{width:16px;height:16px;flex:none}
+.menu-mod .tempo{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:6px 8px;font:600 14px var(--ui)}
+.menu-mod .tempo span{display:flex;gap:4px;flex-wrap:wrap}
+.menu-mod .tempo span button{width:auto;padding:4px 8px;background:#ffffff14;font-size:12px}
 .msgs .pedmsg{border-radius:10px;padding:8px 10px;background:#33e1d014;box-shadow:inset 3px 0 0 #33e1d0}
 .compor{display:flex;gap:8px;padding:10px 14px 14px;border-top:1px solid #ffffff10}
 .compor input{flex:1}
@@ -194,8 +226,9 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
     <div class="retorno-rot"><span class="ret-btns">Retorno
       <button class="btn mini liga" id="btnRetVideo" aria-pressed="true" title="Desligar a prévia alivia o PC; a transmissão continua igual">Vídeo</button>
       <button class="btn mini" id="btnPrevia"></button>
-      <button class="btn mini liga" id="btnOuvir" aria-pressed="false" title="Ouvir no fone o que ela ouve (sua voz + jogo, depois do mixer)"><i data-ic="headphones"></i>Ouvir</button>
-      <input type="range" id="retVol" min="0" max="100" value="80" aria-label="Volume do retorno" title="Volume do retorno" hidden>
+      <button class="btn mini liga" id="btnOuvir" aria-pressed="false" title="Ouvir no fone exatamente o que ela ouve: sua voz, o jogo e a rádio, no mesmo equilíbrio"><i data-ic="headphones"></i>Ouvir</button>
+      <input type="range" id="retVol" min="0" max="100" value="100" aria-label="Volume do retorno" title="Volume do retorno" hidden>
+      <button class="btn mini liga" id="btnSoRet" aria-pressed="false" hidden title="Tira o som do jogo do alto-falante enquanto você ouve o retorno (senão o jogo toca duas vezes). Precisa do ajudante e do som do jogo isolado.">Jogo só no fone</button>
     </span><span id="infoSaida"></span></div>
     <div class="tela"><div class="host" id="palco"></div></div>
     <div class="cenas" id="cenas">
@@ -251,7 +284,7 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
     </div>
 
     <div class="painel">
-      <h2>mixer <small>o que ela ouve</small></h2>
+      <h2>mixer <small id="volDela">o que ela ouve</small></h2>
       <div class="faixa-mix" data-canal="mic">
         <b>voz<small data-auto></small></b>
         <div><div class="medidor"><s></s><i></i><u></u></div><input type="range" min="0" max="150" value="100" data-vol aria-label="Volume da voz"></div>
@@ -271,6 +304,11 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
         <button class="btn liga mini" id="autoNivela" aria-pressed="true">Nivelar sozinho</button>
         <button class="btn liga mini" id="autoAbaixa" aria-pressed="true">Abaixar quando eu falo</button>
       </div>
+      <div class="som-real">
+        <button class="btn mini" id="btnTesteSom" title="Mede por 5 s o som real da rádio (capturando o som desta aba) e compara com a sua voz e o jogo"><i data-ic="gauge"></i>Testar o som</button>
+        <span class="dica">mede a rádio de verdade, no nível que chega nela</span>
+      </div>
+      <div class="res-som" id="resSom" hidden></div>
     </div>
 
     <div class="painel">
@@ -287,7 +325,7 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
         <button class="btn liga mini" id="rJogo" aria-pressed="false" title="Toca mais baixa durante o jogo">Tocar no jogo</button>
         <button class="btn liga mini" id="rTela" aria-pressed="true">Mostrar na tela</button>
       </div>
-      <label class="campo"><span>Volume aqui pra você <b id="rMonTxt">60%</b></span><input type="range" id="rMon" min="0" max="100" value="60"></label>
+      <label class="campo" title="Só quando o retorno (Ouvir) está desligado. Com o retorno ligado, a rádio toca no mesmo nível que chega nela."><span>Rádio aqui pra você, sem o retorno <b id="rMonTxt">igual a ela</b></span><input type="range" id="rMon" min="0" max="200" step="10" value="100"></label>
     </div>
   </section>
 
@@ -301,7 +339,14 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
     </div>
 
     <div class="aba" data-aba="chat">
-      <div class="bloco" style="padding:8px 14px"><h3 style="margin:0">mensagens <span id="totalPix">R$ 0,00 em pix</span></h3></div>
+      <div class="bloco" style="padding:8px 14px"><h3 style="margin:0">mensagens <span id="totalPix">R$ 0,00 em pix</span></h3>
+        <div class="regras" title="Abre ou fecha para todo mundo">
+          <button class="btn mini liga" id="regPix" aria-pressed="true">Pix</button>
+          <button class="btn mini liga" id="regPed" aria-pressed="true">Pedidos</button>
+          <button class="btn mini liga" id="regLinha" aria-pressed="true">Linha</button>
+        </div>
+        <div class="pessoas" id="pessoas" title="Toque no nome para silenciar, bloquear pix, tirar da linha…"></div>
+      </div>
       <div class="msgs" id="msgs"></div>
       <form class="compor" id="compor"><input type="text" id="msg" maxlength="300" placeholder="Responder no chat" autocomplete="off"><button class="btn">Enviar</button></form>
     </div>
@@ -411,6 +456,7 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
     <div id="listaCheck"></div>
   </div>
 </div>
+<div class="menu-mod" id="menuMod" hidden></div>
 <div class="toast" id="toast"></div>
 <script type="module" src="estudio.js"></script>
 </body>

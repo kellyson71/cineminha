@@ -8,6 +8,7 @@ import { criaPlayer, criaRadioEstudio, buscaMusica, minutos } from './radio.js'
 import { somPix, somLinha, falaPix, medidor, retomaAudio, ABERTURAS, vozValida } from './sons.js'
 import { ic, poeIcones } from './icones.js'
 import { corDe } from './pessoas.js'
+import { ligaSomReal, somRealLigado, potenciaReal } from './somreal.js'
 
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)]
 const LS = 'live.estudio'
@@ -67,19 +68,30 @@ const palco = criaPalco($('#palco'), { composto: true, leve: pref.previaLeve !==
 const player = criaPlayer({ volume: 0, aoAcabar: () => radio.proxima(), aoDuracao: (id, d) => radio.duracao(id, d) })
 let live = null
 const radioToca = () => !!est.radio && (est.cena !== 'jogo' || mix.radioJogo)
-// volume da rádio que ela recebe (0..1): seu nível no mixer, mais baixo no jogo
-const radioNivel = () => mix.radioMudo ? 0 : mix.radio * (est.cena === 'jogo' ? .5 : 1)
+// rádio: o YouTube dela toca em 75 × mix.radio × o volume dela (assistir.js); aqui sai o nível certo.
+// O controle (0..100) é um fader: o ganho cresce ao quadrado. 100 ≈ −7,5 dB (quase a altura da voz),
+// 60 ≈ −16 dB (fundo, uns 10 dB abaixo da voz). No jogo, −4,4 dB; enquanto você fala, −9 dB (como na página dela).
+const RADIO_MAX = .42, NO_JOGO = .6, ABAIXA = .35
+const radioGanho = () => mix.radioMudo ? 0 : RADIO_MAX * mix.radio ** 2 * (est.cena === 'jogo' ? NO_JOGO : 1)
+// volume do YouTube dela (0..100), com o controle de volume dela no máximo
+const ytDela = (comAbaixa = true) => 100 * radioGanho() * (comAbaixa && mix.abaixa ? ABAIXA : 1)
 function manda(alvo) { live?.acoes.estado.send({ ...est, relogio: Date.now() }, alvo) }
 function muda(ch) {
   Object.assign(est, ch)
-  est.mix = { radio: radioNivel() }
+  est.mix = { radio: radioGanho() / .75 }
   palco.estado(est, Date.now())
   player.segue(est.radio, radioToca())
   monitor()
   manda()
   pinta()
 }
-const monitor = () => player.volume((pref.rMon ?? 60) * radioNivel() * (mix.abaixa ? .35 : 1))
+// a rádio aqui: no retorno ("Ouvir"), no mesmo nível que chega nela; fora dele, relativo ao dela (100% = igual)
+let ouvindo = false, ytAqui = 0, testando = false
+function monitor() {
+  if (testando) return // o teste de som segura o volume
+  ytAqui = Math.min(100, ytDela() * (ouvindo ? (pref.retVol ?? 100) / 100 : (pref.rMon2 ?? 100) / 100))
+  player.volume(ytAqui)
+}
 setInterval(() => manda(), 5000)
 
 /* ---------- cenas ---------- */
@@ -174,18 +186,45 @@ $('#qualidade').value = String(qualidade)
 // no modo leve a qualidade é da própria captura (sem canvas no meio)
 const tamanhoCaptura = (q, fps = 30) => { const [w, h] = QUALIDADES[q] || QUALIDADES[720]; capJogo?.getVideoTracks()[0]?.applyConstraints({ width: { max: w }, height: { max: h }, frameRate: { max: fps } }).catch(() => {}) }
 $('#qualidade').onchange = e => { pref.qualidade = +e.target.value; salva(); comp.qualidade(+e.target.value); tamanhoCaptura(+e.target.value); ajustaEnvio(); toast(`Transmissão em ${e.target.value}p`) }
-// retorno de som: ouvir no fone exatamente o que vai pra ela (voz + jogo, depois do mixer e do atraso)
+// retorno de som: ouvir no fone exatamente o que ela ouve — voz + jogo (depois do mixer e do atraso) e a rádio no nível dela.
+// Com o retorno em 100% é igual a ela com o volume no máximo; o volume do fone você ajusta no PC.
 const retorno = new Audio(); retorno.autoplay = true
-const retVol = $('#retVol'); retVol.value = pref.retVol ?? 80
-retVol.oninput = () => { pref.retVol = +retVol.value; salva(); retorno.volume = retVol.value / 100 }
-$('#btnOuvir').onclick = () => {
-  const on = $('#btnOuvir').getAttribute('aria-pressed') !== 'true'
-  $('#btnOuvir').setAttribute('aria-pressed', on); retVol.hidden = !on
+const retVol = $('#retVol'); retVol.value = pref.retVol ?? 100
+const pintaRet = () => { retVol.title = `Volume do retorno: ${retVol.value}%${+retVol.value === 100 ? ' (igual ao dela com o volume no máximo)' : ''}` }
+retVol.oninput = () => { pref.retVol = +retVol.value; salva(); retorno.volume = retVol.value / 100; monitor(); pintaRet() }
+pintaRet()
+function ouvir(on) {
+  ouvindo = on
+  $('#btnOuvir').setAttribute('aria-pressed', on); retVol.hidden = !on; $('#btnSoRet').hidden = !on
   if (on) {
     retorno.srcObject = new MediaStream(comp.saida.getAudioTracks()); retorno.volume = retVol.value / 100; retorno.play().catch(() => {})
-    toast('Use fone: no alto-falante o microfone pega o retorno e vira eco. O jogo vai soar duas vezes (direto e no retorno).', 5000)
+    toast('Agora você ouve igual a ela: sua voz, o jogo e a rádio no mesmo equilíbrio que chega lá. Use fone (no alto-falante vira eco).', 5500)
   } else { retorno.pause(); retorno.srcObject = null }
+  jogoSoNoRetorno(on && pref.soRetorno !== false)
+  monitor()
 }
+$('#btnOuvir').onclick = () => ouvir(!ouvindo)
+// jogo só no fone: o ajudante tira o som isolado do jogo do alto-falante (senão você ouve o jogo duas vezes).
+// O estúdio confirma a cada 5 s; se a aba fechar ou travar, o ajudante devolve o som sozinho em até 15 s.
+let soRet = false, soRetT = 0
+async function jogoSoNoRetorno(on) {
+  on = on && ajudaOn && !!isolado
+  clearInterval(soRetT)
+  if (on === soRet && !on) { $('#btnSoRet').setAttribute('aria-pressed', false); return }
+  soRet = on
+  $('#btnSoRet').setAttribute('aria-pressed', on)
+  await ajuda('/som/direto', { on: !on }).catch(() => null)
+  if (on) {
+    soRetT = setInterval(() => ajuda('/som/direto', { on: false }).catch(() => {}), 5000)
+    const atr = +($('#atraso')?.value || 0)
+    toast(`O jogo agora só toca no retorno${atr ? ` (com ${atr} ms de atraso, o mesmo que vai pra ela)` : ''}. Desligue "Jogo só no fone" para ouvir direto.`, 5500)
+  }
+}
+$('#btnSoRet').onclick = () => {
+  if (!soRet && !(ajudaOn && isolado)) { toast('Primeiro isole o som do jogo em Fontes (Programa do jogo → Isolar), com o ajudante aberto'); return }
+  pref.soRetorno = !soRet; salva(); jogoSoNoRetorno(!soRet)
+}
+addEventListener('pagehide', () => { if (soRet) fetch('http://localhost:8792/som/direto', { method: 'POST', keepalive: true, headers: { 'content-type': 'application/json' }, body: '{"on":true}', targetAddressSpace: 'loopback' }).catch(() => {}) })
 let capJogo = null, somJogo = null, mic = null
 // captura o jogo, uma janela ou uma aba do Chrome. Aba (YouTube pra react, por exemplo): com "Compartilhar áudio da guia"
 // marcado, o som dela entra no mixer no lugar do som do jogo enquanto ela estiver na live; ao parar, volta o de antes.
@@ -416,6 +455,14 @@ comp.automatico({ aoAbaixar: on => { mix.abaixa = on; live?.acoes.mix.send({ aba
 aplicaAuto()
 // medidores: escala de -60 dB a 0 dB; a linha clara marca o pico, que desce devagar
 const picos = { mic: 0, jogo: 0 }
+let vozP = 0, jogoP = 0 // potência média da sua voz (quando fala) e do jogo, do jeito que chegam nela
+// rádio estimada no nível dela: música do YouTube fica perto de −14 dB no volume 100 (ele normaliza o volume);
+// depois de um teste de som, usa a correção medida para essa música
+let calib = null
+function radioDbEstimado() {
+  if (!radioToca() || est.radio?.pausado || ytDela() <= 0) return null
+  return -14 + 20 * Math.log10(ytDela() / 100) + (calib?.yt === est.radio?.yt ? calib.dif : 0)
+}
 const pct = v => Math.max(0, Math.min(100, (20 * Math.log10(Math.max(v, 1e-6)) + 60) / 60 * 100))
 const med = Object.fromEntries(['mic', 'jogo', 'radio'].map(k => { const f = $(`[data-canal=${k}]`); return [k, { barra: f.querySelector('.medidor i'), pico: f.querySelector('.medidor u'), auto: f.querySelector('[data-auto]') }] }))
 ;(function medidores() {
@@ -430,8 +477,13 @@ const med = Object.fromEntries(['mic', 'jogo', 'radio'].map(k => { const f = $(`
       const txt = !n[k].tem ? 'sem fonte' : Math.abs(g) < .5 ? '' : `auto ${g > 0 ? '+' : ''}${g.toFixed(0)} dB`
       if (f.auto.textContent !== txt) f.auto.textContent = txt
     }
-    const rv = radioToca() && !est.radio?.pausado ? radioNivel() * (mix.abaixa ? .35 : 1) : 0
-    med.radio.barra.style.clipPath = `inset(0 ${100 - rv * 100}% 0 0)`
+    // vozes que chegam nela (depois do mixer), para comparar com a rádio no teste de som
+    const dbm = 20 * Math.log10(Math.max(n.mic.rms, 1e-6)), dbj = 20 * Math.log10(Math.max(n.jogo.rms, 1e-6))
+    if (n.mic.tem && !mudos.mic && dbm > -40) vozP += (n.mic.rms ** 2 - vozP) * .02
+    if (n.jogo.tem && est.cena === 'jogo' && dbj > -60) jogoP += (n.jogo.rms ** 2 - jogoP) * .01
+    const rdb = radioDbEstimado()
+    med.radio.barra.style.clipPath = `inset(0 ${100 - (rdb == null ? 0 : pct(10 ** (rdb / 20) * 1.6))}% 0 0)`
+    med.radio.barra.parentNode.classList.toggle('estimado', calib?.yt !== est.radio?.yt)
     const txt = !est.radio ? 'parada' : mix.abaixa ? 'abaixada' : est.cena === 'jogo' ? (mix.radioJogo ? 'no jogo −50%' : 'fora do jogo') : ''
     if (med.radio.auto.textContent !== txt) med.radio.auto.textContent = txt
   }
@@ -465,9 +517,77 @@ $('#rProx').onclick = () => radio.proxima()
 $('#rAnt').onclick = () => radio.anterior()
 $('#rJogo').onclick = () => { mix.radioJogo = !mix.radioJogo; pref.radioJogo = mix.radioJogo; salva(); muda({ radioJogo: mix.radioJogo }) }
 $('#rTela').onclick = () => { pref.mostrarMusica = !est.mostrarMusica; salva(); muda({ mostrarMusica: !est.mostrarMusica }); pintaAtalhos() }
-const rMon = $('#rMon'); rMon.value = pref.rMon ?? 60
-const aplicaMon = () => { $('#rMonTxt').textContent = rMon.value + '%'; monitor() }
-rMon.oninput = () => { pref.rMon = +rMon.value; salva(); aplicaMon() }; aplicaMon()
+const rMon = $('#rMon'); rMon.value = pref.rMon2 ?? 100
+const aplicaMon = () => { const v = +rMon.value; $('#rMonTxt').textContent = v === 100 ? 'igual a ela' : v === 0 ? 'mudo' : v < 100 ? `${v}% do dela` : `${(v / 100).toFixed(1).replace('.', ',')}× o dela`; monitor() }
+rMon.oninput = () => { pref.rMon2 = +rMon.value; salva(); aplicaMon() }; aplicaMon()
+
+/* ---------- teste de som: mede a rádio de verdade, no nível que chega nela ----------
+   Captura o som desta aba por 5 s com a rádio no volume exato dela (e o retorno calado), e compara com a sua voz
+   e o jogo como saem do mixer. Tudo com o volume dela no máximo; o controle dela abaixa tudo por igual. */
+const db10 = p => 10 * Math.log10(Math.max(p, 1e-12))
+let ultimoTeste = null, pixEm = 0
+async function testaSom() {
+  const b = $('#btnTesteSom')
+  if (!radioToca() || est.radio?.pausado) { toast(est.cena === 'jogo' && !mix.radioJogo ? 'A rádio não toca na cena do jogo. Ligue "Tocar no jogo" ou troque de cena.' : 'Toque a rádio para testar'); return }
+  if (mix.radioMudo) { toast('A rádio está muda no mixer'); return }
+  if (!somRealLigado()) {
+    toast('Escolha "esta aba" e deixe "compartilhar áudio" marcado. Só o som desta aba é medido.', 6000)
+    try { await ligaSomReal() } catch (e) { toast(e.message === 'sem-som' ? 'Faltou marcar "compartilhar áudio da guia"' : 'Teste cancelado'); return }
+  }
+  b.disabled = true; testando = true
+  const volRet = retorno.volume; retorno.volume = 0
+  const yt = Math.min(100, ytDela(false)); player.volume(yt)
+  await new Promise(ok => setTimeout(ok, 900)) // o volume do player sobe em rampa
+  let soma = 0, n = 0; const t0 = Date.now(), cancela = () => Date.now() - pixEm < 15000
+  while (Date.now() - t0 < 5000 && !cancela()) {
+    soma += potenciaReal(); n++
+    b.textContent = `Medindo… ${Math.ceil((5000 - (Date.now() - t0)) / 1000)}`
+    await new Promise(ok => setTimeout(ok, 45))
+  }
+  retorno.volume = volRet; testando = false; monitor(); b.disabled = false; b.innerHTML = `${ic('gauge')}Testar o som`
+  if (cancela()) { toast('Chegou um pix no meio: teste de novo'); return }
+  const radio = db10(soma / n)
+  if (radio < -65) { toast('Não chegou som. Escolheu esta aba com "compartilhar áudio" marcado?', 5000); return }
+  calib = { yt: est.radio?.yt, dif: radio - (-14 + 20 * Math.log10(yt / 100)) }
+  ultimoTeste = { radio, cena: est.cena, voz: vozP ? db10(vozP) : null, jogo: jogoP ? db10(jogoP) : null, em: Date.now() }
+  pintaTeste()
+}
+$('#btnTesteSom').onclick = testaSom
+// o alvo: rádio uns 12 dB abaixo da sua voz fora do jogo (no jogo ela já toca 4,4 dB mais baixa)
+const RADIO_ALVO = -12
+function avaliaTeste(t = ultimoTeste) {
+  if (!t) return null
+  const voz = t.voz ?? -20, base = t.radio - (t.cena === 'jogo' ? 20 * Math.log10(NO_JOGO) : 0), dif = base - voz
+  const [cls, txt] = dif > -4 ? ['erro', 'Alta demais: a rádio briga com a sua voz'] : dif > -8 ? ['aviso', 'Um pouco alta'] : dif >= -18 ? ['ok', 'Equilibrado'] : ['aviso', 'Baixinha: quase não dá para ouvir']
+  return { cls, txt, dif, base, voz }
+}
+function pintaTeste() {
+  const t = ultimoTeste, a = avaliaTeste(), el = $('#resSom')
+  if (!t) { el.hidden = true; return }
+  const f = v => v == null ? '—' : `${Math.round(v)} dB`
+  const vols = [...volDe.values()]
+  el.hidden = false
+  el.innerHTML = `<div class="linhas">
+      <span>sua voz<b>${f(t.voz)}</b></span><span>jogo<b>${f(t.jogo)}</b></span><span>rádio<b>${f(t.radio)}</b></span>
+    </div>
+    <p class="veredito ${a.cls}">${ic(a.cls === 'ok' ? 'circle-check' : 'triangle-alert')}${a.txt} <small>rádio ${Math.abs(Math.round(a.dif))} dB ${a.dif < 0 ? 'abaixo' : 'acima'} da voz${t.cena === 'jogo' ? ' (fora do jogo)' : ''}${t.voz == null ? ' · fale um pouco para comparar com a sua voz de verdade' : ''}</small></p>
+    <p class="dica">Medido no nível que chega nela com o volume dela no máximo${vols.length ? ` · volume lá: ${vols.map(v => `${esc(v.nome)} ${v.vol}%`).join(', ')}` : ''}.</p>
+    ${a.cls === 'ok' ? '' : '<button class="btn mini forte" id="btnAjustaRadio">Ajustar a rádio pra mim</button>'}`
+  const aj = $('#btnAjustaRadio')
+  if (aj) aj.onclick = () => {
+    // ganho ∝ fader²: para mudar d dB, o fader muda 10^(d/40)
+    const d = (a.voz + RADIO_ALVO) - a.base, novo = Math.max(.05, Math.min(1, mix.radio * 10 ** (d / 40)))
+    const vol = $('[data-canal=radio] [data-vol]'); vol.value = Math.round(novo * 100); vol.oninput()
+    toast(novo >= 1 && d > 0 ? 'A rádio já está no máximo' : `Rádio ajustada para ${vol.value}. Teste de novo para conferir.`)
+    ultimoTeste = null; pintaTeste()
+  }
+}
+// volume que cada um deixou na página dela (ela manda quando muda)
+const volDe = new Map()
+function pintaVolDela() {
+  const v = [...volDe.values()]
+  $('#volDela').textContent = v.length ? 'volume lá: ' + v.map(x => `${x.nome} ${x.mudo ? 'mudo' : x.vol + '%'}`).join(' · ') : 'o que ela ouve'
+}
 
 // playlists: a do config e as que você já tocou
 const recentes = () => { const l = pref.playlists || []; return l.some(x => x.link === LIVE.playlist) ? l : [{ link: LIVE.playlist, titulo: 'Playlist padrão' }, ...l] }
@@ -510,6 +630,8 @@ const nomeDe = m => m.de === 'ele' ? LIVE.streamer : m.de === 'amigo' ? (m.nome 
 function poeMsg(m) {
   msgs.push(m); if (msgs.length > 120) msgs.shift()
   const d = document.createElement('div')
+  if (m.id) d.dataset.id = m.id
+  if (!m.sis && m.de !== 'ele') { d.dataset.key = m.de === 'amigo' ? m.key : 'ela'; d.dataset.nome = nomeDe(m) }
   const cor = m.de === 'amigo' ? corDe(m.key) : '#ff9ccb'
   if (m.pix) { d.className = 'pixmsg'; d.innerHTML = `<strong>pix de ${reais(m.pix)}</strong><b style="color:${cor}"></b>: `; d.querySelector('b').textContent = nomeDe(m); d.append(m.txt || '') }
   else if (m.ped) { d.className = 'pedmsg'; d.innerHTML = `${ic('music')} <b style="color:${cor}"></b> pediu `; d.querySelector('b').textContent = nomeDe(m); d.append(m.txt) }
@@ -518,7 +640,7 @@ function poeMsg(m) {
   const box = $('#msgs'), embaixo = box.scrollHeight - box.scrollTop - box.clientHeight < 40
   box.append(d); if (embaixo) box.scrollTop = box.scrollHeight
   if (!m.sis && m.de !== 'ele') avisaAba('chat', '#bChat')
-  if (!m.sis && !m.ped && !m.hist) palco.chat({ de: m.de || 'ela', key: m.key, nome: m.nome, txt: m.txt, pix: m.pix })
+  if (!m.sis && !m.ped && !m.hist) palco.chat({ id: m.id, de: m.de || 'ela', key: m.key, nome: m.nome, txt: m.txt, pix: m.pix })
 }
 $('#compor').onsubmit = e => {
   e.preventDefault()
@@ -530,23 +652,28 @@ $('#compor').onsubmit = e => {
 function recebePix(p, id) {
   const valor = Math.round(+p?.valor * 100) / 100
   if (!(valor > 0 && valor <= 10000)) return
-  const q = quemE(id)
+  const q = quemE(id), md = modDe(q.key)
+  if (md.fora) return expulsa(id)
+  if (!regras.pix || md.semPix || md.calado) { sisPara(id, !regras.pix ? 'O pix está fechado agora.' : md.calado ? 'Você está silenciado: o pix volta junto com o chat.' : 'O pix está bloqueado pra você nesta live.'); return }
   if (cart.modo === 'tempo' && valor > saldoDe(q.key) + 1e-9) { live?.acoes.chat.send({ id: crypto.randomUUID(), de: 'sis', txt: `Saldo insuficiente: você tem ${reais(saldoDe(q.key))}` }, id); return }
   if (cart.modo === 'tempo') gasta(q.key, valor)
   const msg = String(p.msg || '').slice(0, 140)
   const ev = { id: String(p.id || crypto.randomUUID()).slice(0, 40), valor, msg, voz: vozValida(p.voz) ? p.voz : 'normal', abre: Math.floor(Math.random() * ABERTURAS.length), nome: q.nome, key: q.key, de: q.de }
   if (est.meta.on) { est.meta = { ...est.meta, atual: Math.round(((est.meta.atual || 0) + valor) * 100) / 100 }; pref.metaAtual = est.meta.atual; salva() }
   est.stats.pix = Math.round((est.stats.pix + valor) * 100) / 100
-  poeMsg({ pix: valor, txt: msg, de: q.de, key: q.key, nome: q.nome })
+  poeMsg({ id: 'pix' + ev.id, pix: valor, txt: msg, de: q.de, key: q.key, nome: q.nome })
   live?.acoes.pixtoca.send(ev)
+  pixEm = Date.now()
   palco.pix(ev); somPix(); setTimeout(() => falaPix(q.nome, ev.valor, ev.msg, ev.voz, ev.abre), 1100)
   muda({ meta: { ...est.meta }, carteira: estCart(), carteiras: estCarteiras() }); pintaPix()
 }
 let ultimoPedido = 0
 function recebePedido(p, id) {
   if (!/^[\w-]{11}$/.test(p?.id || '') || Date.now() - ultimoPedido < 4000) return
+  const q = quemE(id), md = modDe(q.key)
+  if (md.fora) return expulsa(id)
+  if (!regras.pedidos || md.calado) { sisPara(id, md.calado ? 'Você está silenciado: os pedidos voltam junto com o chat.' : 'Os pedidos de música estão fechados agora.'); return }
   ultimoPedido = Date.now()
-  const q = quemE(id)
   const it = radio.adiciona({ k: 'yt', id: p.id, t: String(p.t || '').slice(0, 120), a: String(p.a || '').slice(0, 80), c: capaOk(p.c), d: +p.d || 0, pedido: q.nome })
   const txt = `${it.t}${it.a ? ' · ' + it.a : ''}`
   poeMsg({ ped: true, txt, de: q.de, key: q.key, nome: q.nome })
@@ -554,6 +681,122 @@ function recebePedido(p, id) {
   toast(`${q.nome} pediu ${it.t}`, 4000)
   live?.acoes.chat.send({ id: crypto.randomUUID(), de: 'sis', txt: `Pedido na fila: ${txt}` })
 }
+
+/* ---------- moderação ----------
+   Por pessoa (a chave dela ou a conta do amigo): silenciar por um tempo (chat, pix e pedidos), bloquear o pix,
+   tirar da linha, bloquear a linha, apagar mensagem e expulsar (só amigos). Tudo passa pelo estúdio, então vale
+   mesmo se a página da pessoa for antiga; a página nova mostra o aviso e trava os botões. Fica salvo entre recargas. */
+const SEMPRE = 8.64e15
+const mod = pref.mod || {} // key → { nome, ate, semPix, semLinha, fora }
+const regras = { pix: pref.pixAberto !== false, pedidos: pref.pedidosAbertos !== false, linha: pref.linhaAberta !== false }
+est.regras = { ...regras }
+const modDe = key => { const m = mod[key] || {}; return { calado: m.ate > Date.now() ? m.ate : 0, semPix: !!m.semPix, semLinha: !!m.semLinha, fora: !!m.fora } }
+const idsDe = key => live ? live.publico().filter(id => quemE(id).key === key) : []
+const sisPara = (id, txt) => live?.acoes.chat.send({ id: crypto.randomUUID(), de: 'sis', txt }, id)
+function salvaMod() {
+  for (const [k, m] of Object.entries(mod)) if (!(m.ate > Date.now()) && !m.semPix && !m.semLinha && !m.fora) delete mod[k]
+  pref.mod = mod; salva()
+}
+const avisaMod = key => idsDe(key).forEach(id => live.acoes.mod.send({ ...modDe(key), regras }, id))
+function expulsa(id) { live?.acoes.mod.send({ fora: true, regras }, id); vozSai(id) }
+function tiraDaLinha(key) {
+  idsDe(key).forEach(id => { live.acoes.mod.send({ ...modDe(key), regras, tirado: true }, id); mudaChamada(id, false) })
+  const lista = (est.chamada || []).filter(p => p.key !== key)
+  if (lista.length !== (est.chamada || []).length) { somLinha(false); muda({ chamada: lista, linha: lista.some(p => p.key === 'ela') }) }
+}
+const naLinha = key => (est.chamada || []).some(p => p.key === key)
+function apagaMsg(id) {
+  if (!id) return
+  const k = msgs.findIndex(m => m.id === id); if (k >= 0) msgs.splice(k, 1)
+  document.querySelectorAll(`#msgs [data-id="${CSS.escape(id)}"]`).forEach(e => e.remove())
+  palco.apagaChat?.(id)
+  live?.acoes.chat.send({ apaga: id })
+}
+function modera(key, nome, acao, arg) {
+  const m = mod[key] ||= {}
+  m.nome = nome
+  const fala = t => poeMsg({ sis: true, txt: t })
+  if (acao === 'calar') {
+    m.ate = arg ? Date.now() + arg * 60e3 : SEMPRE
+    fala(`${nome} silenciado${arg ? ` por ${arg} min` : ' até você liberar'}`)
+    idsDe(key).forEach(id => sisPara(id, `Você foi silenciado${arg ? ` por ${arg} min` : ''}. Chat, pix e pedidos voltam depois.`))
+  }
+  if (acao === 'soltar') { m.ate = 0; fala(`${nome} pode falar de novo`); idsDe(key).forEach(id => sisPara(id, 'Você pode falar no chat de novo.')) }
+  if (acao === 'semPix') { m.semPix = !m.semPix; fala(m.semPix ? `Pix de ${nome} bloqueado` : `Pix de ${nome} liberado`) }
+  if (acao === 'tirar') { tiraDaLinha(key); fala(`${nome} saiu da linha`) }
+  if (acao === 'semLinha') { m.semLinha = !m.semLinha; if (m.semLinha) tiraDaLinha(key); fala(m.semLinha ? `Linha bloqueada para ${nome}` : `Linha liberada para ${nome}`) }
+  if (acao === 'expulsar') {
+    m.fora = true; tiraDaLinha(key)
+    idsDe(key).forEach(expulsa)
+    fala(`${nome} foi removido da live`)
+  }
+  if (acao === 'voltar') { m.fora = false; fala(`${nome} pode voltar para a live`) }
+  salvaMod(); avisaMod(key); pintaPessoas()
+}
+// relógio dos silêncios: quando acaba, avisa a pessoa e destrava
+setInterval(() => {
+  let mudou = false
+  for (const [k, m] of Object.entries(mod)) if (m.ate && m.ate < Date.now()) { m.ate = 0; mudou = true; avisaMod(k); idsDe(k).forEach(id => sisPara(id, 'Acabou o silêncio: você pode falar no chat de novo.')) }
+  if (mudou) salvaMod()
+  if (Object.values(mod).some(m => m.ate > Date.now()) || mudou) pintaPessoas()
+}, 1000)
+// abrir e fechar pix, pedidos e linha para todo mundo
+function pintaRegras() {
+  $('#regPix').setAttribute('aria-pressed', regras.pix); $('#regPed').setAttribute('aria-pressed', regras.pedidos); $('#regLinha').setAttribute('aria-pressed', regras.linha)
+}
+;[['#regPix', 'pix', 'pixAberto', 'Pix'], ['#regPed', 'pedidos', 'pedidosAbertos', 'Pedidos de música'], ['#regLinha', 'linha', 'linhaAberta', 'Linha']].forEach(([s, k, p, nome]) => $(s).onclick = () => {
+  regras[k] = !regras[k]; pref[p] = regras[k]; salva(); pintaRegras()
+  if (k === 'linha' && !regras.linha) (est.chamada || []).forEach(x => tiraDaLinha(x.key))
+  muda({ regras: { ...regras } })
+  live?.publico().forEach(id => live.acoes.mod.send({ ...modDe(quemE(id).key), regras }, id))
+  toast(`${nome} ${regras[k] ? (k === 'pedidos' ? 'abertos' : 'aberto') : (k === 'pedidos' ? 'fechados' : 'fechado')} para todo mundo`)
+})
+pintaRegras()
+// quem está na live (e quem tem alguma restrição, mesmo fora): toque no nome para moderar
+function pintaPessoas() {
+  const box = $('#pessoas'); if (!box) return
+  const on = new Map()
+  for (const id of live?.publico() || []) { const q = quemE(id); on.set(q.key, q.nome) }
+  for (const [k, m] of Object.entries(mod)) if (!on.has(k)) on.set(k, m.nome || k)
+  box.innerHTML = [...on].map(([k, nome]) => {
+    const md = modDe(k), ligado = idsDe(k).length > 0
+    const marcas = [naLinha(k) && ic('phone'), md.calado && `${ic('timer')}${md.calado < SEMPRE ? minutos((md.calado - Date.now()) / 1000) : ''}`, md.semPix && ic('circle-x'), md.semLinha && ic('mic-off'), md.fora && '<em>fora</em>'].filter(Boolean).join('')
+    return `<button class="pessoa${ligado ? '' : ' off'}" data-key="${esc(k)}" data-nome="${esc(nome)}" style="--c:${k === 'ela' ? '#ff9ccb' : corDe(k)}"><b>${esc(nome)}</b>${marcas ? `<span>${marcas}</span>` : ''}</button>`
+  }).join('') || '<span class="vazio">ninguém na live ainda</span>'
+}
+// menu de moderação (nome no chat ou na lista de pessoas)
+const menu = $('#menuMod')
+function abreMenu(key, nome, msgId, ancora) {
+  const md = modDe(key), ehEla = key === 'ela'
+  const item = (acao, rot, icone, arg = '', perigo = false) => `<button data-acao="${acao}" data-arg="${arg}"${perigo ? ' class="perigo"' : ''}>${ic(icone)}${rot}</button>`
+  menu.innerHTML = `<h4>${esc(nome)}</h4>
+    ${md.calado ? item('soltar', `Liberar o chat${md.calado < SEMPRE ? ` (faltam ${minutos((md.calado - Date.now()) / 1000)})` : ''}`, 'circle-check')
+      : `<div class="tempo">${ic('timer')}Silenciar<span>${[1, 5, 10].map(n => `<button data-acao="calar" data-arg="${n}">${n} min</button>`).join('')}<button data-acao="calar" data-arg="0">até eu liberar</button></span></div>`}
+    ${item('semPix', md.semPix ? 'Liberar o pix' : 'Bloquear o pix', md.semPix ? 'circle-check' : 'circle-x')}
+    ${naLinha(key) ? item('tirar', 'Tirar da linha', 'phone') : ''}
+    ${item('semLinha', md.semLinha ? 'Liberar a linha' : 'Bloquear a linha', md.semLinha ? 'mic' : 'mic-off')}
+    ${msgId ? item('apagar', 'Apagar esta mensagem', 'trash-2') : ''}
+    ${ehEla ? '' : md.fora ? item('voltar', 'Deixar voltar para a live', 'circle-check') : item('expulsar', 'Remover da live', 'user-x', '', true)}`
+  menu.dataset.key = key; menu.dataset.nome = nome; menu.dataset.msg = msgId || ''
+  menu.hidden = false
+  const r = ancora.getBoundingClientRect(), mw = menu.offsetWidth, mh = menu.offsetHeight
+  menu.style.left = Math.max(8, Math.min(innerWidth - mw - 8, r.left)) + 'px'
+  menu.style.top = (r.bottom + mh + 8 > innerHeight ? Math.max(8, r.top - mh - 6) : r.bottom + 6) + 'px'
+}
+menu.onclick = e => {
+  const b = e.target.closest('[data-acao]'); if (!b) return
+  const { key, nome, msg } = menu.dataset, a = b.dataset.acao
+  if (a === 'expulsar' && b.dataset.certo !== '1') { b.dataset.certo = '1'; b.lastChild.textContent = 'Clique de novo para remover'; return }
+  if (a === 'apagar') { apagaMsg(msg); toast('Mensagem apagada para todo mundo') } else modera(key, nome, a, +b.dataset.arg || 0)
+  menu.hidden = true
+}
+addEventListener('pointerdown', e => { if (!menu.hidden && !menu.contains(e.target) && !e.target.closest('#msgs [data-key] b, .pessoa')) menu.hidden = true })
+addEventListener('keydown', e => { if (e.key === 'Escape') menu.hidden = true })
+$('#msgs').addEventListener('click', e => {
+  const b = e.target.closest('b'), d = b?.closest('[data-key]'); if (!d) return
+  abreMenu(d.dataset.key, d.dataset.nome, d.dataset.id, b)
+})
+$('#pessoas').onclick = e => { const p = e.target.closest('.pessoa'); if (p) abreMenu(p.dataset.key, p.dataset.nome, '', p) }
 
 /* ---------- quem é quem: a amor (link dela) e os amigos (conta do Cineminha) ---------- */
 function quemE(id) {
@@ -571,7 +814,9 @@ function vozChegou(stream, id) {
 }
 function vozSai(id) { const v = vozes.get(id); if (!v) return; v.para?.(); v.audio.srcObject = null; palco.setNivel(0, v.key); vozes.delete(id) }
 function mudaChamada(id, on) {
-  const q = quemE(id), lista = (est.chamada || []).filter(p => p.key !== q.key)
+  const q = quemE(id), md = modDe(q.key)
+  if (on && (md.fora || md.semLinha || !regras.linha)) { live?.acoes.mod.send({ ...md, regras, tirado: true }, id); sisPara(id, md.semLinha ? 'A linha está bloqueada pra você nesta live.' : 'A linha está fechada agora.'); on = false }
+  const lista = (est.chamada || []).filter(p => p.key !== q.key)
   if (on) lista.push({ key: q.key, nome: q.nome })
   if (!on) vozSai(id)
   if (lista.length === (est.chamada || []).length && on === (est.chamada || []).some(p => p.key === q.key)) return
@@ -594,17 +839,23 @@ async function conecta() {
   }
   live.on('papel', (id, p) => {
     chips()
+    if ((p === 'ela' || p === 'amigo') && modDe(quemE(id).key).fora) { expulsa(id); return }
     if (p === 'ela' || p === 'amigo') {
+      live.acoes.mod.send({ ...modDe(quemE(id).key), regras }, id)
       enviaPara(id)
       manda(id); live.acoes.mix.send({ abaixa: mix.abaixa }, id)
       live.acoes.chat.send({ hist: msgs.filter(m => !m.sis).slice(-80) }, id)
       setTimeout(ajustaEnvio, 1500)
-      poeMsg({ sis: true, txt: `${quemE(id).nome} entrou na live` })
+      poeMsg({ sis: true, txt: `${quemE(id).nome} entrou na live` }); pintaPessoas()
     }
     if (p === 'cam') poeMsg({ sis: true, txt: 'Câmera do celular conectada' })
   })
+  live.acoes.mix.on((m, id) => {
+    const p = live.papeis.get(id)
+    if ((p === 'ela' || p === 'amigo') && m && typeof m.vol === 'number') { volDe.set(id, { nome: quemE(id).nome, vol: Math.round(Math.max(0, Math.min(100, m.vol))), mudo: !!m.mudo }); pintaVolDela() }
+  })
   live.on('saiu', (id, p, pf) => {
-    chips()
+    chips(); if (volDe.delete(id)) pintaVolDela(); setTimeout(pintaPessoas)
     if (p === 'ela' || p === 'amigo') {
       const q = p === 'amigo' ? { key: pf?.key, nome: pf?.nome || 'Convidado' } : { key: 'ela', nome: LIVE.ela }
       poeMsg({ sis: true, txt: `${q.nome} saiu da live` })
@@ -629,7 +880,9 @@ async function conecta() {
   })
   live.acoes.chat.on((m, id) => {
     if (!publico(id) || typeof m?.txt !== 'string') return
-    const q = quemE(id)
+    const q = quemE(id), md = modDe(q.key)
+    if (md.fora) return expulsa(id)
+    if (md.calado) { sisPara(id, `Você está silenciado${md.calado < 8e15 ? ` por mais ${minutos((md.calado - Date.now()) / 1000)}` : ''}. A mensagem não foi.`); return }
     const msg = { id: String(m.id || '').slice(0, 40), de: q.de, key: q.key, nome: q.nome, txt: m.txt.slice(0, 300), ts: Date.now() }
     poeMsg(msg); est.stats.msgs++
     live.acoes.chat.send(msg)
@@ -637,8 +890,8 @@ async function conecta() {
   })
   live.acoes.pix.on((p, id) => { if (publico(id)) recebePix(p, id) })
   live.acoes.pedido.on((p, id) => { if (publico(id)) recebePedido(p, id) })
-  live.acoes.voto.on((v, id) => { if (publico(id)) recebeVoto(v, id) })
-  live.acoes.linha.on((l, id) => { if (publico(id)) mudaChamada(id, !!l?.on) })
+  live.acoes.voto.on((v, id) => { if (publico(id) && !modDe(quemE(id).key).fora) recebeVoto(v, id) })
+  live.acoes.linha.on((l, id) => { if (publico(id)) { mudaChamada(id, !!l?.on); pintaPessoas() } })
   chips()
 }
 
@@ -896,7 +1149,10 @@ const ITENS = () => {
     ['Seu microfone', !n.mic.tem ? ['erro', 'Escolha o microfone em <b>Fontes</b>.'] : mudos.mic ? ['aviso', 'Está mudo (tecla M).'] : dbs(n.mic.rms) > -50 ? ['ok', 'Ouvindo você.'] : ['aviso', 'Fale alguma coisa para testar.']],
     ['Câmera do celular', cel ? ['ok', $('#camInfo').textContent] : ['erro', 'Abra o link da câmera no celular (aba <b>links</b>).']],
     [`${LIVE.ela} na live`, ela ? (medida ? [medida.fps >= 24 ? 'ok' : 'aviso', `Chegando ${medida.h}p a ${medida.fps} fps${medida.rtt != null ? `, ${medida.rtt} ms` : ''}.`] : ['espera', 'Conectando…']) : ['aviso', 'Ainda não entrou. Mande o link dela (aba <b>links</b>).']],
-    ['Rádio', filaSnap.itens.length ? ['ok', `${esc(filaSnap.nome || 'Playlist')}: ${filaSnap.itens.length} músicas`] : ['aviso', 'Playlist ainda carregando.']],
+    ['Rádio', !filaSnap.itens.length ? ['aviso', 'Playlist ainda carregando.'] : (() => {
+      const lista = `${esc(filaSnap.nome || 'Playlist')}: ${filaSnap.itens.length} músicas`, a = avaliaTeste()
+      return a ? [a.cls, `${lista}. Volume: ${a.txt.toLowerCase()} (${Math.abs(Math.round(a.dif))} dB ${a.dif < 0 ? 'abaixo' : 'acima'} da voz).`] : ['aviso', `${lista}. Clique em <b>Testar o som</b> no mixer para conferir o volume real.`]
+    })()],
   ]
 }
 let checando = 0

@@ -12,7 +12,7 @@ import { execFile, execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs'
 import { networkInterfaces, homedir, loadavg, cpus } from 'node:os'
 import path from 'node:path'
-import { programas, separar, juntar, temPactl } from '../app/electron/somlinux.js'
+import { programas, separar, juntar, temPactl, direto } from '../app/electron/somlinux.js'
 
 const ALVO = +(process.env.ALVO || 8790), PORTA = +(process.env.PORT || 8791), AJUDA = +(process.env.SENSORES || 8792)
 
@@ -22,12 +22,23 @@ const pactl = (...a) => new Promise((ok, err) => execFile('pactl', a, { timeout:
 let isolado = null // { id, nome }
 const temSom = await temPactl()
 async function isola(id) {
+  semDireto = 0
   const r = await separar(id) // desfaz o anterior, cria a saída e move o programa
   isolado = { id, nome: amigavel(id, r.nome) }
   console.log(`Som isolado: ${isolado.nome} → entrada "${r.rotulo}"`)
   return { nome: isolado.nome, rotulo: r.rotulo }
 }
-async function solta() { await juntar().catch(() => {}); if (isolado) console.log(`Som devolvido: ${isolado.nome}`); isolado = null }
+// jogo só no retorno: o estúdio tira o som isolado do alto-falante e confirma a cada poucos segundos;
+// se o estúdio fechar ou travar, o som volta sozinho para o alto-falante
+let semDireto = 0
+async function poeDireto(on) {
+  const r = await direto(on).catch(() => true)
+  if (!on) { if (!semDireto) console.log('Jogo só no retorno do estúdio (fora do alto-falante)'); semDireto = Date.now() }
+  else if (semDireto) { semDireto = 0; console.log('Jogo de volta no alto-falante') }
+  return r
+}
+setInterval(() => { if (semDireto && Date.now() - semDireto > 15000) poeDireto(true) }, 3000)
+async function solta() { semDireto = 0; await juntar().catch(() => {}); if (isolado) console.log(`Som devolvido: ${isolado.nome}`); isolado = null }
 // se o programa abrir um som novo (ex.: o Greenlight reconectou), move de novo para a saída isolada
 setInterval(async () => {
   if (!isolado) return
@@ -62,8 +73,9 @@ http.createServer(async (req, res) => {
   const url = req.url.split('?')[0]
   try {
     if (url === '/sensores') return manda({ temp: lerTemp(), carga: Math.round(loadavg()[0] / cpus().length * 100) })
-    if (url === '/som') return manda({ pactl: temSom, isolado, programas: temSom ? (await programas()).filter(p => !/^loopback/i.test(p.id + p.nome)).map(({ id, nome }) => ({ id, nome: amigavel(id, nome) })) : [] })
+    if (url === '/som') return manda({ pactl: temSom, isolado, direto: !semDireto, programas: temSom ? (await programas()).filter(p => !/^loopback/i.test(p.id + p.nome)).map(({ id, nome }) => ({ id, nome: amigavel(id, nome) })) : [] })
     if (url === '/som/isolar' && req.method === 'POST') { const { id } = await corpo(req); return manda(await isola(String(id || ''))) }
+    if (url === '/som/direto' && req.method === 'POST') { const { on } = await corpo(req); return manda({ direto: await poeDireto(on !== false) }) }
     if (url === '/som/soltar' && req.method === 'POST') { await solta(); return manda({ ok: true }) }
   } catch (e) { return manda({ erro: e.message || 'falhou' }, 500) }
   res.writeHead(404); res.end()

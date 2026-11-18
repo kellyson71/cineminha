@@ -6,7 +6,7 @@ import CFG from '../config.js'
 
 // estado: estúdio → todos · chat: todos · pix/linha/pedido (música): ela → estúdio
 // pixtoca: estúdio → todos (a hora certa da animação) · mix: estúdio → todos (rádio abaixa quando ele fala)
-const ACOES = ['papel', 'estado', 'chat', 'pix', 'linha', 'pixtoca', 'pedido', 'mix', 'camcmd', 'voto'] // camcmd: estúdio → celular (trocar a câmera)
+const ACOES = ['papel', 'estado', 'chat', 'pix', 'linha', 'pixtoca', 'pedido', 'mix', 'camcmd', 'voto', 'mod'] // camcmd: estúdio → celular (trocar a câmera)
 
 export const codigoDaUrl = () => (new URLSearchParams(location.search).get('c') || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 16)
 export function novoCodigo() {

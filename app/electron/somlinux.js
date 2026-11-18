@@ -9,6 +9,7 @@ const SINK = 'cineminha_programa', DESC = 'Cineminha-Programa'
 // o Chromium não lista fontes "monitor": publica o monitor como uma entrada comum
 const fonte = async (monitor, nome, desc) => { modulos.push(await pactl('load-module', 'module-remap-source', `master=${monitor}`, `source_name=${nome}`, `source_properties=device.description=${desc}`)); return desc }
 let modulos = [], movidos = new Map() // sink-input -> sink original
+let repete = null, saidaPadrao = null // a repetição da saída isolada no seu alto-falante
 
 export async function temPactl() { try { await pactl('info'); return true } catch { return false } }
 
@@ -34,7 +35,8 @@ export async function separar(id) {
   if (!alvo) throw new Error('Esse programa não está tocando som agora')
   const padrao = await pactl('get-default-sink')
   modulos.push(await pactl('load-module', 'module-null-sink', `sink_name=${SINK}`, `sink_properties=device.description=${DESC}`))
-  modulos.push(await pactl('load-module', 'module-loopback', `source=${SINK}.monitor`, `sink=${padrao}`, 'latency_msec=30'))
+  saidaPadrao = padrao
+  await direto(true)
   for (const e of alvo.entradas) { movidos.set(e.index, e.sink); await pactl('move-sink-input', String(e.index), SINK).catch(() => {}) }
   return { rotulo: await fonte(`${SINK}.monitor`, `${SINK}_entrada`, DESC), nome: alvo.nome }
 }
@@ -46,7 +48,16 @@ export async function monitorPadrao() {
   return { rotulo: await fonte(`${padrao}.monitor`, 'cineminha_sistema', 'Cineminha-Sistema') }
 }
 
+// ouvir o programa isolado direto no alto-falante (padrão) ou não (ex.: a live ouve pelo retorno do estúdio)
+export async function direto(on) {
+  if (!saidaPadrao) return true
+  if (on && !repete) { repete = await pactl('load-module', 'module-loopback', `source=${SINK}.monitor`, `sink=${saidaPadrao}`, 'latency_msec=30'); modulos.push(repete) }
+  if (!on && repete) { await pactl('unload-module', repete).catch(() => {}); modulos = modulos.filter(m => m !== repete); repete = null }
+  return !!repete
+}
+
 export async function juntar() {
+  repete = null; saidaPadrao = null
   for (const [idx, sink] of movidos) await pactl('move-sink-input', String(idx), String(sink)).catch(() => {})
   movidos.clear()
   for (const m of modulos.reverse()) await pactl('unload-module', m).catch(() => {})
