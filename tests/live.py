@@ -33,7 +33,8 @@ with sync_playwright() as p:
     cam.goto(f'{BASE}/live/cam.html?c={COD}'); cam.click('#ligar')
 
     ela = ctx.new_page(); ela.on('console', lambda m: log.append(('ela', m.type, m.text)))
-    ela.goto(f'{BASE}/live/?c={COD}'); ela.click('#btnEntrar')
+    K = est.evaluate("new URL(document.querySelector('#linkEla').textContent).searchParams.get('k')")  # o link dela leva a chave
+    ela.goto(f'{BASE}/live/?c={COD}&k={K}'); ela.click('#btnEntrar')
 
     espera(est, "document.querySelector('#chipEla').classList.contains('on')", 60, 'estúdio vê ela')
     espera(est, "document.querySelector('#chipCam').classList.contains('on')", 60, 'estúdio vê a câmera')

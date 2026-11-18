@@ -28,7 +28,9 @@ if [ -n "$alvo" ]; then
   git push -q origin main || echo "aviso: o push para o GitHub falhou; publicando assim mesmo"
 fi
 
-dir=$(mktemp -d)
+# a cópia fica no disco (~/.cache), não no /tmp: o /tmp é memória (tmpfs) e o repositório passa de 2,5 GB
+mkdir -p "$HOME/.cache"
+dir=$(mktemp -d "$HOME/.cache/cineminha-deploy.XXXXXX")
 trap 'git worktree remove --force "$dir" 2>/dev/null; rm -rf "$dir"; git worktree prune' EXIT
 git worktree add -q --detach "$dir" HEAD
 mkdir -p "$dir/.vercel"

@@ -41,8 +41,10 @@ const base = location.origin + location.pathname.replace(/[^/]*$/, '')
 const SITE = 'https://cineminha-boo.vercel.app/live/'
 const local = /^(localhost|127\.|192\.168\.|10\.|\[::1\])/.test(location.hostname)
 const baseLink = local ? SITE : base
-$('#linkEla').textContent = `${baseLink}?c=${codigo}`
-$('#linkAmigos').textContent = `${baseLink}?c=${codigo}&amigos`
+// o link dela leva uma chave: sem ela, quem tirar o "&amigos" do link dos amigos não vira a amor
+if (!pref.chaveEla) { pref.chaveEla = [...crypto.getRandomValues(new Uint8Array(8))].map(b => b.toString(36).padStart(2, '0')).join('').slice(0, 12); salva() }
+$('#linkEla').textContent = `${baseLink}?c=${codigo}&k=${pref.chaveEla}`
+$('#linkAmigos').textContent = local || location.hostname === 'cineminha-boo.vercel.app' ? `https://cineminha-boo.vercel.app/l/${codigo}` : `${baseLink}?c=${codigo}&amigos` // link curto
 // no PC de casa (localhost) o celular precisa do https da rede: node scripts/live-local.mjs
 $('#linkCam').textContent = /^(localhost|127\.)/.test(location.hostname) ? `https://<ip-do-pc>:8791${location.pathname.replace(/[^/]*$/, '')}cam.html?c=${codigo}` : `${base}cam.html?c=${codigo}`
 $('#codigo').textContent = 'código ' + codigo
@@ -702,6 +704,8 @@ function salvaMod() {
   pref.mod = mod; salva()
 }
 const avisaMod = key => idsDe(key).forEach(id => live.acoes.mod.send({ ...modDe(key), regras }, id))
+const foraAp = new Set(pref.foraAps || [])
+const salvaForaAp = () => { pref.foraAps = [...foraAp].slice(-200); salva() }
 function expulsa(id) { live?.acoes.mod.send({ fora: true, regras }, id); vozSai(id) }
 function tiraDaLinha(key) {
   idsDe(key).forEach(id => { live.acoes.mod.send({ ...modDe(key), regras, tirado: true }, id); mudaChamada(id, false) })
@@ -744,10 +748,17 @@ function modera(key, nome, acao, arg) {
   if (acao === 'semLinha') { m.semLinha = !m.semLinha; if (m.semLinha) tiraDaLinha(key); fala(m.semLinha ? `Linha bloqueada para ${nome}` : `Linha liberada para ${nome}`) }
   if (acao === 'expulsar') {
     m.fora = true; tiraDaLinha(key)
+    // guarda o aparelho também: assim não adianta voltar como convidado com outro nome
+    m.aps = [...new Set([...(m.aps || []), ...idsDe(key).map(id => live.perfis.get(id)?.ap).filter(Boolean)])]
+    m.aps.forEach(a => foraAp.add(a)); salvaForaAp()
     idsDe(key).forEach(expulsa)
     fala(`${nome} foi removido da live`)
   }
-  if (acao === 'voltar') { m.fora = false; fala(`${nome} pode voltar para a live`) }
+  if (acao === 'voltar') { m.fora = false; (m.aps || []).forEach(a => foraAp.delete(a)); m.aps = []; salvaForaAp(); fala(`${nome} pode voltar para a live`) }
+  if (acao === 'apagarTudo') {
+    const ids = msgs.filter(x => !x.sis && (key === 'ela' ? x.de === 'ela' && !x.key : x.key === key)).map(x => x.id).filter(Boolean)
+    ids.forEach(apagaMsg); fala(`${ids.length} mensage${ids.length === 1 ? 'm' : 'ns'} de ${nome} apagada${ids.length === 1 ? '' : 's'}`)
+  }
   salvaMod(); avisaMod(key); pintaPessoas()
 }
 // relógio dos silêncios: quando acaba, avisa a pessoa e destrava
@@ -777,7 +788,8 @@ function pintaPessoas() {
   for (const [k, m] of Object.entries(mod)) if (!on.has(k)) on.set(k, m.nome || k)
   box.innerHTML = [...on].map(([k, nome]) => {
     const md = modDe(k), ligado = idsDe(k).length > 0
-    const marcas = [naLinha(k) && ic('phone'), md.calado && `${ic('timer')}${md.calado < SEMPRE ? minutos((md.calado - Date.now()) / 1000) : ''}`, md.semPix && ic('circle-x'), md.semLinha && ic('mic-off'), md.fora && '<em>fora</em>'].filter(Boolean).join('')
+    const semConta = k !== 'ela' && !k.startsWith('g:') && idsDe(k).some(id => !live.perfis.get(id)?.conf)
+    const marcas = [semConta && '<em class="nc" title="Escolheu este perfil sem estar logado no Cineminha">?</em>', naLinha(k) && ic('phone'), md.calado && `${ic('timer')}${md.calado < SEMPRE ? minutos((md.calado - Date.now()) / 1000) : ''}`, md.semPix && ic('circle-x'), md.semLinha && ic('mic-off'), md.fora && '<em>fora</em>'].filter(Boolean).join('')
     return `<button class="pessoa${ligado ? '' : ' off'}" data-key="${esc(k)}" data-nome="${esc(nome)}" style="--c:${k === 'ela' ? '#ff9ccb' : corDe(k)}"><b>${esc(nome)}</b>${marcas ? `<span>${marcas}</span>` : ''}</button>`
   }).join('') || '<span class="vazio">ninguém na live ainda</span>'
 }
@@ -793,6 +805,7 @@ function abreMenu(key, nome, msgId, ancora) {
     ${naLinha(key) ? item('tirar', 'Tirar da linha', 'phone') : ''}
     ${item('semLinha', md.semLinha ? 'Liberar a linha' : 'Bloquear a linha', md.semLinha ? 'mic' : 'mic-off')}
     ${msgId ? item('apagar', 'Apagar esta mensagem', 'trash-2') : ''}
+    ${item('apagarTudo', 'Apagar todas as mensagens', 'trash-2')}
     ${ehEla ? '' : md.fora ? item('voltar', 'Deixar voltar para a live', 'circle-check') : item('expulsar', 'Remover da live', 'user-x', '', true)}`
   menu.dataset.key = key; menu.dataset.nome = nome; menu.dataset.msg = msgId || ''
   menu.hidden = false
@@ -855,8 +868,14 @@ async function conecta() {
     if (!live.quem('cam').length) $('#camInfo').textContent = 'desconectada'
   }
   live.on('papel', (id, p) => {
+    if (p === 'ela' && live.perfis.get(id)?.k !== pref.chaveEla) {
+      // link sem a chave (antigo, ou alguém tirou o "&amigos"): entra como convidado
+      live.papeis.set(id, 'amigo'); live.perfis.set(id, { key: 'g:link antigo', nome: 'Link antigo', ap: live.perfis.get(id)?.ap || '' }); p = 'amigo'
+      live.acoes.mod.send({ linkAntigo: true, regras }, id)
+      poeMsg({ sis: true, txt: `Alguém entrou com um link antigo dela. Se for a ${LIVE.ela}, mande o link novo (aba links).` })
+    }
     chips()
-    if ((p === 'ela' || p === 'amigo') && modDe(quemE(id).key).fora) { expulsa(id); return }
+    if ((p === 'ela' || p === 'amigo') && (modDe(quemE(id).key).fora || foraAp.has(live.perfis.get(id)?.ap))) { expulsa(id); return }
     if (p === 'ela' || p === 'amigo') {
       live.acoes.mod.send({ ...modDe(quemE(id).key), regras }, id)
       enviaPara(id)
@@ -918,11 +937,15 @@ async function ajustaEnvio() {
   const meus = [...comp.saida.getTracks(), ...(streamDireto?.getTracks() || []), ...(camT ? [camT] : [])]
   const pcs = live?.room.getPeers?.() || {}
   const kbps = (protegendo ? 1800 : pref.qualidade === 1080 ? 6000 : 3500) * 1000
-  for (const pc of (pcs instanceof Map ? pcs.values() : Object.values(pcs))) for (const s of pc.getSenders()) {
+  // cada pessoa custa uma codificação e o envio inteiro: ela recebe a qualidade cheia; os amigos, 480p mais leve
+  const altura = protegendo ? 540 : (QUALIDADES[pref.qualidade] || QUALIDADES[720])[1]
+  for (const [pid, pc] of (pcs instanceof Map ? [...pcs] : Object.entries(pcs))) for (const s of pc.getSenders()) {
     if (!s.track || !meus.includes(s.track)) continue
     const p = s.getParameters(); if (!p.encodings?.length) continue
-    const video = s.track.kind === 'video', ehCam = s.track === camT
-    Object.assign(p.encodings[0], { maxBitrate: !video ? 160_000 : ehCam ? 700_000 : kbps, priority: 'high', networkPriority: 'high' }, video ? { maxFramerate: protegendo ? 24 : 30 } : {})
+    const video = s.track.kind === 'video', ehCam = s.track === camT, amigo = live.papeis.get(pid) === 'amigo'
+    const leve = video && !ehCam && amigo
+    Object.assign(p.encodings[0], { maxBitrate: !video ? 160_000 : ehCam ? (amigo ? 450_000 : 700_000) : leve ? Math.min(kbps, 1_200_000) : kbps, priority: amigo ? 'medium' : 'high', networkPriority: amigo ? 'medium' : 'high' },
+      video ? { maxFramerate: protegendo ? 24 : 30, scaleResolutionDownBy: leve ? Math.max(1, altura / 480) : 1 } : {})
     // jogo: segura a nitidez e, se faltar fôlego, solta um quadro aqui e ali; câmera: mantém o movimento
     if (video) p.degradationPreference = ehCam ? 'maintain-framerate' : 'maintain-resolution'
     await s.setParameters(p).catch(() => {})
@@ -1089,10 +1112,24 @@ setInterval(() => { const e = est.enquete; $('#enqFalta').textContent = e && !e.
 
 /* ---------- termômetro e proteção: acima de 93 °C a transmissão cai para 540p/24 fps até esfriar ---------- */
 let temp = null, quente = 0, frio = 0, protegendo = false
+// marcha lenta: sem ninguém assistindo, o canvas junta só 10 quadros por segundo (economiza processador e calor)
+let ritmoAtual = 30
+function ritmo() {
+  const alvo = !live?.publico().length ? 10 : protegendo ? 24 : 30
+  if (alvo !== ritmoAtual) { ritmoAtual = alvo; comp.fps(alvo) }
+}
+setInterval(ritmo, 2000)
+let teveSensor = false
 async function leTemp() {
   // publicado (https), o Chrome pede permissão de "rede local" para o site falar com o seu PC: é só permitir
   const r = await fetch('http://localhost:8792/sensores', { cache: 'no-store', targetAddressSpace: 'loopback' }).then(r => r.json()).catch(() => null)
   semSensor = r ? 0 : semSensor + 1
+  if (r) teveSensor = true
+  else if (teveSensor && semSensor === 2) {
+    teveSensor = false
+    toast('O ajudante da live parou: sem termômetro e sem o som do jogo separado. Rode node scripts/live-local.mjs', 9000)
+    poeMsg({ sis: true, txt: 'O ajudante da live parou (termômetro e som do jogo). Rode node scripts/live-local.mjs no PC.' })
+  }
   temp = r?.temp ?? null
   const chip = $('#chipTemp')
   chip.querySelector('span').textContent = temp == null ? 'sem sensor' : `${temp} °C${protegendo ? ' · protegendo' : ''}`
@@ -1101,10 +1138,10 @@ async function leTemp() {
   quente = temp >= 93 ? quente + 1 : 0
   frio = temp <= 82 ? frio + 1 : 0
   if (!protegendo && quente >= 3) {
-    protegendo = true; comp.qualidade(540); comp.fps(24); tamanhoCaptura(540, 24); ajustaEnvio()
+    protegendo = true; comp.qualidade(540); ritmo(); tamanhoCaptura(540, 24); ajustaEnvio()
     toast('PC muito quente: transmissão em 540p até esfriar', 5000)
   } else if (protegendo && frio >= 20) {
-    protegendo = false; comp.qualidade(pref.qualidade || 720); comp.fps(30); tamanhoCaptura(pref.qualidade || 720); ajustaEnvio()
+    protegendo = false; comp.qualidade(pref.qualidade || 720); ritmo(); tamanhoCaptura(pref.qualidade || 720); ajustaEnvio()
     toast('PC esfriou: qualidade normal de volta', 4000)
   }
 }
@@ -1117,7 +1154,8 @@ let medida = null, antesBytes = 0, antesT = 0
 async function leQualidade() {
   const pcs = live?.room.getPeers?.() || {}, video = comp.saida.getVideoTracks()[0]
   let out = null, rtt = null
-  for (const pc of (pcs instanceof Map ? pcs.values() : Object.values(pcs))) {
+  const lista = (pcs instanceof Map ? [...pcs] : Object.entries(pcs)).sort(([a], [b]) => (live.papeis.get(a) === 'ela') - (live.papeis.get(b) === 'ela')) // a dela por último: é a que vale
+  for (const [, pc] of lista) {
     if (!pc.getSenders().some(s => s.track === video)) continue
     const st = await pc.getStats().catch(() => null); if (!st) continue
     st.forEach(x => {
@@ -1193,3 +1231,6 @@ conecta().catch(e => { console.error(e); toast('Não consegui abrir a sala da li
 
 // testes (tests/live.py): ?debug expõe as peças
 if (new URLSearchParams(location.search).has('debug')) window.__estudio = { comp, palco, est, cena, muda, radio }
+
+// recarregar ou fechar o estúdio com gente assistindo corta a live: o navegador pergunta antes
+addEventListener('beforeunload', e => { if (live?.publico().length) { e.preventDefault(); e.returnValue = '' } })

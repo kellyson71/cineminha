@@ -58,6 +58,11 @@
       "permanent": false
     },
     {
+      "source": "/l/:c",
+      "destination": "/live/?c=:c&amigos",
+      "permanent": false
+    },
+    {
       "source": "/baixar/windows",
       "destination": "https://github.com/kellyson71/cineminha/releases/latest/download/Cineminha-instalador.exe",
       "permanent": false

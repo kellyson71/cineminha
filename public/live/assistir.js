@@ -13,6 +13,11 @@ const codigo = codigoDaUrl()
 poeIcones()
 document.querySelectorAll('[data-nome]').forEach(s => { s.setAttribute('aria-label', LIVE.streamer); s.innerHTML = '<use href="#pl-nome"/>' })
 const amigo = new URLSearchParams(location.search).has('amigos')
+const chave = new URLSearchParams(location.search).get('k') || '' // só o link dela tem
+// identificação deste aparelho (quem é removido da live não volta trocando de nome)
+let aparelho = ''
+try { aparelho = localStorage.getItem('live.aparelho') || ''; if (!aparelho) { aparelho = crypto.randomUUID(); localStorage.setItem('live.aparelho', aparelho) } } catch {}
+let contaKey = '' // a conta do Cineminha logada neste navegador (perfil confirmado)
 let eu = { key: 'ela', nome: LIVE.ela, ela: true }
 $('#entradaTxt').textContent = !codigo ? 'Esse link está incompleto. Peça o link da live pra ele de novo.' : amigo ? `${LIVE.streamer} está ao vivo jogando ${LIVE.jogo}` : `${LIVE.streamer} está te esperando na live de ${LIVE.jogo}`
 /* amigos escolhem o perfil igual no Cineminha: os cartões das pessoas (com a foto do perfil) e "Convidado", que digita o nome.
@@ -32,6 +37,7 @@ function escolhe(key, nome, entra) {
 }
 const prontoEu = quemSou(amigo).then(async q => {
   eu = q
+  if (q.logado) contaKey = q.key
   if (!amigo) return
   await perfisProntos
   let ultimo = ''
@@ -114,6 +120,11 @@ document.addEventListener('fullscreenchange', () => {
   mostraControles()
 })
 playerEl.addEventListener('dblclick', e => { if (!e.target.closest('.controles')) alternaCheia() })
+// altura real da tela no celular: no iPhone o teclado não encolhe a página sozinho, e o chat sumia atrás dele
+if (window.visualViewport) {
+  const vv = visualViewport, aj = () => { document.documentElement.style.setProperty('--alto', Math.round(vv.height) + 'px'); if (vv.height < innerHeight) scrollTo(0, 0) }
+  vv.addEventListener('resize', aj); aj()
+}
 // picture in picture: a live segue numa janelinha por cima dos outros apps (Android e Chrome pelo padrão, iPhone pelo do Safari)
 const pipPadrao = !!document.pictureInPictureEnabled && !vJogo.disablePictureInPicture
 const pipSafari = !pipPadrao && typeof vJogo.webkitSupportsPresentationMode === 'function' && vJogo.webkitSupportsPresentationMode('picture-in-picture')
@@ -364,6 +375,7 @@ function pintaMod() {
 }
 setInterval(() => { if (meuMod.calado) pintaMod() }, 1000)
 function recebeMod(m) {
+  if (m.linkAntigo) { poeMsg({ sis: true, txt: `Esse link é antigo: você entrou como convidado. Peça o link novo pro ${LIVE.streamer}.` }); return }
   if (m.regras) regras = { pix: m.regras.pix !== false, pedidos: m.regras.pedidos !== false, linha: m.regras.linha !== false }
   meuMod = { calado: +m.calado || 0, semPix: !!m.semPix, semLinha: !!m.semLinha, fora: !!m.fora }
   if ((m.tirado || meuMod.semLinha || !regras.linha || meuMod.fora) && mic) { linha(false); poeMsg({ sis: true, txt: 'Você saiu da linha.' }) }
@@ -391,7 +403,7 @@ function vozDeAlguem(stream, id) {
 }
 function vozSaiu(id) { const v = vozesDe.get(id); if (!v) return; v.para?.(); v.audio.srcObject = null; palco.setNivel(0, v.key); vozesDe.delete(id) }
 async function conecta() {
-  live = await entraLive(codigo, eu.ela ? 'ela' : 'amigo', eu.ela ? null : { key: eu.key, nome: eu.nome })
+  live = await entraLive(codigo, eu.ela ? 'ela' : 'amigo', eu.ela ? { k: chave, ap: aparelho } : { key: eu.key, nome: eu.nome, ap: aparelho, conf: !!contaKey && eu.key === contaKey })
   const atualiza = () => { estudioOn = live.quem('estudio').length > 0; espera() }
   live.on('papel', (id, p) => {
     atualiza()
