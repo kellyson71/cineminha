@@ -114,6 +114,26 @@ document.addEventListener('fullscreenchange', () => {
   mostraControles()
 })
 playerEl.addEventListener('dblclick', e => { if (!e.target.closest('.controles')) alternaCheia() })
+// picture in picture: a live segue numa janelinha por cima dos outros apps (Android e Chrome pelo padrão, iPhone pelo do Safari)
+const pipPadrao = !!document.pictureInPictureEnabled && !vJogo.disablePictureInPicture
+const pipSafari = !pipPadrao && typeof vJogo.webkitSupportsPresentationMode === 'function' && vJogo.webkitSupportsPresentationMode('picture-in-picture')
+$('#btnPip').hidden = !pipPadrao && !pipSafari
+const naJanelinha = () => document.pictureInPictureElement === vJogo || vJogo.webkitPresentationMode === 'picture-in-picture'
+async function alternaPip() {
+  try {
+    if (pipSafari) return vJogo.webkitSetPresentationMode(naJanelinha() ? 'inline' : 'picture-in-picture')
+    if (document.pictureInPictureElement) return await document.exitPictureInPicture()
+    if (!vJogo.srcObject) return
+    if (vJogo.paused) await vJogo.play().catch(() => {})
+    await vJogo.requestPictureInPicture()
+  } catch (e) { console.warn('janelinha', e) }
+}
+const pintaPip = () => { const on = naJanelinha(); $('#btnPip').classList.toggle('on', on); $('#btnPip').title = on ? 'Voltar a live para a página (P)' : 'Janelinha: a live continua enquanto você usa outro app (P)' }
+$('#btnPip').onclick = alternaPip
+vJogo.addEventListener('enterpictureinpicture', pintaPip); vJogo.addEventListener('leavepictureinpicture', pintaPip)
+vJogo.addEventListener('webkitpresentationmodechanged', pintaPip)
+// no Chrome, sair da aba com a live tocando já abre a janelinha sozinho (quando o navegador deixa)
+try { navigator.mediaSession?.setActionHandler('enterpictureinpicture', () => { if (vJogo.srcObject) vJogo.requestPictureInPicture().catch(() => {}) }) } catch {}
 // os botões de ação dentro da tela cheia apertam os de baixo
 document.querySelectorAll('[data-faz]').forEach(b => b.onclick = () => $('#' + b.dataset.faz).click())
 addEventListener('keydown', e => {
@@ -122,6 +142,7 @@ addEventListener('keydown', e => {
   if (k === 'f') alternaCheia()
   if (k === 'c') alternaChat()
   if (k === 'm') alternaMudo()
+  if (k === 'p' && !$('#btnPip').hidden) alternaPip()
 })
 
 /* ---------- estado do estúdio ---------- */
@@ -317,7 +338,7 @@ async function linha(on) {
   live.acoes.linha.send({ on })
   somLinha(on)
   $('#btnLigar').setAttribute('aria-pressed', on)
-  document.querySelectorAll('#btnLigar span, [data-faz=btnLigar] span').forEach(x => x.textContent = on ? 'Sair da linha' : 'Entrar na linha')
+  document.querySelectorAll("#btnLigar > span, [data-faz=btnLigar] > span").forEach(x => x.textContent = on ? 'Sair da linha' : 'Entrar na linha')
 }
 $('#btnLigar').onclick = () => { if (!estudioOn) { poeMsg({ sis: true, txt: 'Dá para entrar na linha quando a live estiver no ar.' }); return } if (!mic && bloqueio('linha')) return; linha(!mic) }
 
