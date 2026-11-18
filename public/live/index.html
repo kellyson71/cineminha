@@ -129,9 +129,18 @@ button,input,textarea{font:inherit;color:inherit}
 .entrada .btn{font-size:24px;padding:16px 30px}
 .entrada p{font:600 20px var(--ui);color:#fff;text-shadow:0 2px 6px #1c0830}
 .entrada.some{opacity:0;pointer-events:none;transition:opacity .5s}
-.quem-sou{display:flex;align-items:center;gap:12px;padding:8px 18px 8px 8px;border-radius:999px;background:#1c0830cc;box-shadow:0 0 0 3px var(--uva)}
-.quem-sou img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#fff4e8;box-shadow:0 0 0 3px #fff}
-.quem-sou span{font:400 26px var(--gta);color:#fff}
+.entrada [hidden]{display:none!important}
+.entrada:has(#perfis:not([hidden])) .cx{gap:16px}
+.entrada:has(#perfis:not([hidden])) .assinatura{width:min(380px,66vw)}
+.perfis{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:12px;width:min(720px,calc(100vw - 32px));max-height:min(58vh,460px);overflow:auto;margin:0;padding:8px;border:0}
+.perfis legend{float:left;width:100%;padding:0}
+.perfis legend{grid-column:1/-1;font:400 30px var(--gta);color:#fff;text-shadow:0 3px 0 var(--tinta)}
+.perfil{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 6px 10px;border:0;border-radius:18px;background:#1c0830cc;color:#fff;font:700 15px var(--ui);cursor:pointer;box-shadow:0 0 0 3px var(--uva);transition:transform .18s var(--solta),box-shadow .18s}
+.perfil img{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#fff4e8;box-shadow:0 0 0 3px var(--c,#fff)}
+.perfil small{position:absolute;top:6px;right:6px;padding:1px 7px;border-radius:999px;background:var(--c,#fff);color:var(--tinta);font:800 11px var(--ui)}
+.perfil:hover,.perfil:focus-visible{transform:translateY(-3px);outline:none;box-shadow:0 0 0 3px var(--c,#fff)}
+.perfil.on{box-shadow:0 0 0 4px var(--c,#fff),0 0 22px var(--c,#fff8);transform:translateY(-3px)}
+@media(max-width:520px){.perfis{grid-template-columns:repeat(4,1fr);gap:8px;padding:6px}.perfil{padding:10px 2px 8px;font-size:12px;gap:6px}.perfil img{width:46px;height:46px}}
 .nome-entrada{width:min(320px,80vw);font:600 22px var(--ui);text-align:center;color:var(--tinta);border:0;border-radius:14px;padding:12px 16px;background:#fff;box-shadow:0 0 0 4px var(--tinta);outline:none}
 .nome-entrada:focus-visible{box-shadow:0 0 0 4px var(--rosa)}
 
@@ -285,7 +294,7 @@ body.cheia.sem-chat .chat{display:none}
 <div class="entrada" id="entrada"><div class="cx">
   <svg class="assinatura" viewBox="0 0 760 300" data-nome></svg>
   <p id="entradaTxt"></p>
-  <div class="quem-sou" id="quemSou" hidden><img id="quemFoto" alt=""><span id="quemNome"></span></div>
+  <fieldset class="perfis" id="perfis" hidden><legend>quem é você?</legend></fieldset>
   <input class="nome-entrada" id="nomeEntrada" maxlength="24" placeholder="Seu nome" aria-label="Seu nome" hidden autocomplete="nickname">
   <button class="btn pixbtn" id="btnEntrar">Entrar na live</button>
 </div></div>

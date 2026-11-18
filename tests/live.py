@@ -118,7 +118,7 @@ with sync_playwright() as p:
     # amigo pelo link dos amigos, sem conta: digita o nome, conversa e entra na ligação junto com ela
     amg = ctx.new_page(); amg.on('console', lambda m: log.append(('amigo', m.type, m.text)))
     amg.goto(f'{BASE}/live/?c={COD}&amigos')
-    amg.wait_for_selector('#nomeEntrada:not([hidden])', timeout=15000)
+    amg.wait_for_selector('.perfil[data-key=guest]', timeout=15000); amg.click('.perfil[data-key=guest]')
     amg.fill('#nomeEntrada', 'Otávio'); amg.click('#btnEntrar')
     espera(est, "document.querySelector('#chipAmigos span').textContent.includes('1 amigo')", 60, 'estúdio vê o amigo')
     espera(amg, "document.querySelector('video.jogo').videoWidth > 0", 60, 'vídeo chegou no amigo')

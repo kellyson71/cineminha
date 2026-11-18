@@ -1,5 +1,6 @@
 /* Página dela: assiste a live (jogo + câmera já juntos), conversa no chat, manda pix e entra na linha. */
 import LIVE from './config.js'
+import CFG from '../config.js'
 import { criaPalco, reais, relogio } from './palco.js'
 import { entraLive, codigoDaUrl } from './rede.js'
 import { criaPlayer, buscaMusica, minutos } from './radio.js'
@@ -14,13 +15,48 @@ document.querySelectorAll('[data-nome]').forEach(s => { s.setAttribute('aria-lab
 const amigo = new URLSearchParams(location.search).has('amigos')
 let eu = { key: 'ela', nome: LIVE.ela, ela: true }
 $('#entradaTxt').textContent = !codigo ? 'Esse link está incompleto. Peça o link da live pra ele de novo.' : amigo ? `${LIVE.streamer} está ao vivo jogando ${LIVE.jogo}` : `${LIVE.streamer} está te esperando na live de ${LIVE.jogo}`
+/* amigos escolhem o perfil igual no Cineminha: os cartões das pessoas (com a foto do perfil) e "Convidado", que digita o nome.
+   Quem já está logado no Cineminha aparece primeiro, marcado. Clicar num perfil já entra. */
+const PESSOAS = (CFG.pessoas || []).filter(p => p.id !== 'kellyson') // o dono é o streamer
+let escolha = null
+function escolhe(key, nome, entra) {
+  escolha = key
+  document.querySelectorAll('.perfil').forEach(b => b.classList.toggle('on', b.dataset.key === key))
+  const conv = key === 'guest'
+  $('#nomeEntrada').hidden = !conv
+  $('#btnEntrar').hidden = !conv && !entra
+  if (conv) { $('#btnEntrar').textContent = 'Entrar na live'; $('#nomeEntrada').focus(); return }
+  eu = { key, nome, logado: true }
+  $('#btnEntrar').textContent = `Entrar como ${nome}`
+  if (entra === 'ja') $('#btnEntrar').click()
+}
 const prontoEu = quemSou(amigo).then(async q => {
   eu = q
   if (!amigo) return
   await perfisProntos
-  if (q.logado) { $('#quemSou').hidden = false; $('#quemFoto').src = fotoDe(q.key); $('#quemNome').textContent = q.nome; $('#btnEntrar').textContent = `Entrar como ${q.nome}` }
-  else { $('#nomeEntrada').hidden = false; $('#nomeEntrada').value = q.nome || ''; $('#btnEntrar').textContent = 'Entrar na live' }
+  let ultimo = ''
+  try { ultimo = localStorage.getItem('live.perfil') || '' } catch {}
+  const marcado = q.logado ? q.key : ultimo
+  const lista = [...PESSOAS.filter(p => p.id === marcado), ...PESSOAS.filter(p => p.id !== marcado)]
+  const cartao = (key, nome, foto, cor, nota) => {
+    const b = document.createElement('button')
+    b.type = 'button'; b.className = 'perfil'; b.dataset.key = key; b.style.setProperty('--c', cor)
+    const img = document.createElement('img'); img.src = foto; img.alt = ''
+    const n = document.createElement('span'); n.textContent = nome
+    b.append(img, n)
+    if (nota) { const s = document.createElement('small'); s.textContent = nota; b.append(s) }
+    b.onclick = () => escolhe(key, nome, key === 'guest' ? false : 'ja')
+    $('#perfis').append(b)
+  }
+  for (const p of lista) cartao(p.id, p.nome, fotoDe(p.id), corDe(p.id), q.logado && p.id === q.key ? 'você' : '')
+  if (CFG.convidados !== false) cartao('guest', 'Convidado', CFG.convidado?.foto ? '../' + CFG.convidado.foto : fotoDe('g:'), '#a9b6bf')
+  $('#perfis').hidden = false
+  $('#nomeEntrada').value = q.logado ? '' : q.nome || ''
+  if (marcado && PESSOAS.some(p => p.id === marcado)) escolhe(marcado, PESSOAS.find(p => p.id === marcado).nome, true)
+  else if (q.nome) escolhe('guest')
+  else $('#btnEntrar').hidden = true
 })
+$('#nomeEntrada').addEventListener('keydown', e => { if (e.key === 'Enter') $('#btnEntrar').click() })
 if (!codigo) $('#btnEntrar').hidden = true
 
 const palco = criaPalco($('#palco'), { comSom: true, composto: true }) // jogo + câmera chegam juntos, num vídeo só
@@ -404,12 +440,13 @@ $('#achados').onclick = e => {
 
 $('#btnEntrar').onclick = async () => {
   await prontoEu
-  if (amigo && !eu.logado) {
+  if (amigo && (escolha === 'guest' || !escolha)) {
+    if (!escolha) return
     const nome = $('#nomeEntrada').value.trim().replace(/[<>]/g, '').slice(0, 24)
     if (!nome) { $('#nomeEntrada').focus(); return }
     eu = { key: 'g:' + nome.toLowerCase(), nome, logado: false }
-    try { localStorage.setItem('live.nome', nome) } catch {}
-  }
+    try { localStorage.setItem('live.nome', nome); localStorage.removeItem('live.perfil') } catch {}
+  } else if (amigo) try { localStorage.setItem('live.perfil', eu.key) } catch {}
   retomaAudio(); palco.tocar(); somEstudio.play().catch(() => {})
   $('#entrada').classList.add('some')
   conecta().catch(e => { console.error(e); poeMsg({ sis: true, txt: 'Não consegui conectar na live. Recarregue a página.' }) })

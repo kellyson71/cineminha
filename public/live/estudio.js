@@ -37,8 +37,12 @@ const codigo = codigoDaUrl() || pref.codigo || novoCodigo()
 pref.codigo = codigo; salva()
 if (codigoDaUrl() !== codigo) history.replaceState(null, '', `?c=${codigo}`)
 const base = location.origin + location.pathname.replace(/[^/]*$/, '')
-$('#linkEla').textContent = `${base}?c=${codigo}`
-$('#linkAmigos').textContent = `${base}?c=${codigo}&amigos`
+// os links de quem assiste são sempre os do Cineminha publicado (o estúdio pode estar aberto no localhost)
+const SITE = 'https://cineminha-boo.vercel.app/live/'
+const local = /^(localhost|127\.|192\.168\.|10\.|\[::1\])/.test(location.hostname)
+const baseLink = local ? SITE : base
+$('#linkEla').textContent = `${baseLink}?c=${codigo}`
+$('#linkAmigos').textContent = `${baseLink}?c=${codigo}&amigos`
 // no PC de casa (localhost) o celular precisa do https da rede: node scripts/live-local.mjs
 $('#linkCam').textContent = /^(localhost|127\.)/.test(location.hostname) ? `https://<ip-do-pc>:8791${location.pathname.replace(/[^/]*$/, '')}cam.html?c=${codigo}` : `${base}cam.html?c=${codigo}`
 $('#codigo').textContent = 'código ' + codigo
