@@ -449,6 +449,7 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
   }
 
   // mensagem apagada pelo estúdio: some da tela também
+  const limpaChat = () => palco.querySelectorAll('.chat-tela > *').forEach(e => e.remove())
   const apagaChat = id => palco.querySelectorAll(`.chat-tela [data-id="${CSS.escape(String(id))}"]`).forEach(e => e.remove())
-  return { el: palco, chat, apagaChat, composto: setComposto, leve: on => palco.classList.toggle('leve', !!on), pausaPrevia, setJogo, setCam, estado, setNivel, pix, aviso, tocar, agora, get st() { return st } }
+  return { el: palco, chat, apagaChat, limpaChat, composto: setComposto, leve: on => palco.classList.toggle('leve', !!on), pausaPrevia, setJogo, setCam, estado, setNivel, pix, aviso, tocar, agora, get st() { return st } }
 }

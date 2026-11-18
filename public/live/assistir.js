@@ -392,6 +392,7 @@ async function conecta() {
   live.acoes.estado.on((e, id) => { if (live.papeis.get(id) === 'estudio' || !live.papeis.size) aplica(e) })
   live.acoes.chat.on((m, id) => {
     if (Array.isArray(m?.hist)) { m.hist.forEach(x => poeMsg({ ...x, hist: true })); return }
+    if (m?.limpa && live.papeis.get(id) === 'estudio') { $('#msgs').innerHTML = ''; palco.limpaChat?.(); return }
     if (m?.apaga && live.papeis.get(id) === 'estudio') { document.querySelectorAll(`#msgs [data-id="${CSS.escape(String(m.apaga))}"]`).forEach(e => e.remove()); palco.apagaChat?.(m.apaga); return }
     if (typeof m?.txt !== 'string') return
     if (m.de === 'sis') poeMsg({ id: m.id, sis: true, ped: /^Pedido/.test(m.txt), txt: m.txt.slice(0, 200) })

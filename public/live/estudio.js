@@ -716,6 +716,19 @@ function apagaMsg(id) {
   palco.apagaChat?.(id)
   live?.acoes.chat.send({ apaga: id })
 }
+// limpar o chat de todo mundo (dois toques: o primeiro pede confirmação). As páginas antigas só sabem apagar
+// uma mensagem por vez, então vai também um "apaga" para cada mensagem.
+let limpaConfirma = 0
+$('#limpaChat').onclick = () => {
+  const b = $('#limpaChat')
+  if (Date.now() - limpaConfirma > 4000) { limpaConfirma = Date.now(); b.textContent = 'Toque de novo para limpar'; setTimeout(() => { if (Date.now() - limpaConfirma >= 4000) b.textContent = 'Limpar chat' }, 4100); return }
+  limpaConfirma = 0; b.textContent = 'Limpar chat'
+  const ids = msgs.map(m => m.id).filter(Boolean)
+  msgs.length = 0; $('#msgs').innerHTML = ''; palco.limpaChat?.()
+  live?.acoes.chat.send({ limpa: 1 })
+  for (const id of ids) live?.acoes.chat.send({ apaga: id })
+  toast('Chat limpo para todo mundo')
+}
 function modera(key, nome, acao, arg) {
   const m = mod[key] ||= {}
   m.nome = nome
