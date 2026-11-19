@@ -376,3 +376,30 @@
 /* câmera separada (modo leve): em tela cheia ocupa tudo, sem a posição/escala do canto */
 .palco:not(.composto).so-cam .cam{left:0;top:0;scale:1}
 .palco:not(.composto) .cam .moldura video{transform-origin:center;transition:transform .3s,object-position .3s}
+
+/* ---------- ligação em lista, no jeito do Discord: avatar pequeno, nome do lado, anel quando fala ---------- */
+.palco .chamada.lista{flex-direction:column;align-items:flex-start;gap:10px;margin:0;padding:0;background:none;border-radius:0;letter-spacing:normal;text-transform:none}
+.palco .chamada.lista.direita{flex-direction:column;align-items:flex-end}
+.palco .chamada.lista .linha{flex-direction:row;width:auto;gap:12px;padding:6px 22px 6px 6px;border-radius:999px;background:#1c0830d9;
+  box-shadow:0 0 0 3px var(--uva),0 10px 24px #1c083077;opacity:0;transform:translateX(-60px) scale(.85);
+  transition:opacity .35s calc(var(--i,0) * 70ms),transform .6s var(--solta) calc(var(--i,0) * 70ms),box-shadow .2s,background .2s}
+.palco .chamada.lista.direita .linha{flex-direction:row-reverse;padding:6px 6px 6px 22px;transform:translateX(60px) scale(.85)}
+.palco .chamada.lista .linha.on{opacity:1;transform:none}
+.palco .chamada.lista .avatar{width:64px;height:64px;flex:none}
+.palco .chamada.lista .avatar .foto{border-width:3px;box-shadow:0 0 0 3px #fff4e8,0 0 0 5px var(--tinta)}
+.palco .chamada.lista .avatar .foto span{font-size:30px;-webkit-text-stroke:3px var(--tinta)}
+.palco .chamada.lista .avatar .onda{inset:-7px;border-width:3px;border-color:#5ee28b}
+.palco .chamada.lista .rotulo{padding:0;background:none;box-shadow:none;gap:10px}
+.palco .chamada.lista .rotulo b{font:800 30px/1 var(--ui);letter-spacing:.01em;color:#fff;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.palco .chamada.lista .eq i{background:#5ee28b}
+.palco .chamada.lista .linha.mudo .eq i{background:#ffffff44}
+.palco .chamada.lista .linha.fala{background:#1c0830f2;box-shadow:0 0 0 3px #5ee28b,0 0 26px #5ee28b66,0 10px 24px #1c083077}
+.palco .chamada.lista .linha.fala .avatar .foto{box-shadow:0 0 0 3px #5ee28b,0 0 0 5px var(--tinta)}
+.palco .chamada.lista.muitos{gap:6px}
+.palco .chamada.lista.muitos .avatar{width:50px;height:50px}
+.palco .chamada.lista.muitos .rotulo b{font-size:24px}
+.palco .chamada.lista.muitos .linha{padding:5px 18px 5px 5px}
+.palco .chamada.lista.muitos.direita .linha{padding:5px 5px 5px 18px}
+@media (prefers-reduced-motion:reduce){.palco .chamada.lista .linha{transition:opacity .3s}}
+/* a caixa da ligação não herda o estilo da faixa "pega a pipoca" (que também se chama .chamada) */
+.palco .chamada:not(.entra){margin:0;padding:0;background:none;border-radius:0;letter-spacing:normal;text-transform:none}

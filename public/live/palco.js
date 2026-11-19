@@ -304,18 +304,38 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
     // fileira da ligação: em cima da sua câmera (padrão), num canto que ele escolher, ou escondida; aviso perto da música
     const ln = $('.chamada'), av = $('.aviso')
     ln.classList.toggle('oculta', !!A.oculto)
+    const lista = A.estilo !== 'grande' // padrão: lista no jeito do Discord (avatar pequeno e o nome do lado)
+    ln.classList.toggle('lista', lista); ln.classList.toggle('muitos', gente > 5)
     let lado = R.direita
-    if (A.lugar && A.lugar !== 'cam') {
+    if (lista) {
+      // altura da lista: uma linha por pessoa; nos cantos de baixo ela cresce para cima
+      const LH = gente > 5 ? 66 : 82, h = Math.max(1, gente) * LH
+      const lugar = A.lugar || 'tl'
+      if (lugar === 'cam' && st.cena !== 'camera') { ln.style.top = px(R.embaixo || semCam ? baseCam - h : baseCam); lado = R.direita }
+      else {
+        const l = lugar === 'cam' ? 'br' : lugar, cima = l[0] === 't'; lado = l[1] === 'r'
+        ln.style.top = px(cima ? 150 : 1080 - (lado || st.cena !== 'jogo' ? 60 : 150) - h)
+      }
+      if (lado) { ln.style.right = px(lugar === 'cam' && st.cena !== 'camera' ? 1920 - R.x - R.w : 48); ln.style.left = 'auto' }
+      else { ln.style.left = px(lugar === 'cam' && st.cena !== 'camera' ? R.x : 48); ln.style.right = 'auto' }
+    } else if (A.lugar && A.lugar !== 'cam') {
       const cima = A.lugar[0] === 't'; lado = A.lugar[1] === 'r'
       ln.style.top = px(cima ? 70 : 1080 - 92 - AVH)
     } else if (st.cena === 'camera') {
       ln.style.top = px(1080 - 150 - AVH); lado = true
     } else ln.style.top = px(fileiraTopo)
-    if (lado) { ln.style.right = px(A.lugar && A.lugar !== 'cam' || st.cena === 'camera' ? 64 : 1920 - R.x - R.w); ln.style.left = 'auto' }
-    else { ln.style.left = px(A.lugar && A.lugar !== 'cam' ? 64 : R.x); ln.style.right = 'auto' }
+    if (!lista && lado) { ln.style.right = px(A.lugar && A.lugar !== 'cam' || st.cena === 'camera' ? 64 : 1920 - R.x - R.w); ln.style.left = 'auto' }
+    else if (!lista) { ln.style.left = px(A.lugar && A.lugar !== 'cam' ? 64 : R.x); ln.style.right = 'auto' }
     ln.classList.toggle('direita', lado)
-    av.style.top = px(R.embaixo ? topo - 66 : topo + CH + 16); av.style.bottom = 'auto'
-    if (R.direita) { av.style.right = px(1920 - R.x - R.w); av.style.left = 'auto' } else { av.style.left = px(R.x); av.style.right = 'auto' }
+    if (lista && gente && !A.oculto) {
+      // o aviso "entrou na linha" acompanha a lista: embaixo dela (lista em cima) ou em cima (lista embaixo)
+      const t = parseFloat(ln.style.top) || 0, h = gente * (gente > 5 ? 66 : 82), emCima = t + h / 2 < 540
+      av.style.top = px(emCima ? t + h + 14 : t - 66); av.style.bottom = 'auto'
+      if (lado) { av.style.right = ln.style.right; av.style.left = 'auto' } else { av.style.left = ln.style.left; av.style.right = 'auto' }
+    } else {
+      av.style.top = px(R.embaixo ? topo - 66 : topo + CH + 16); av.style.bottom = 'auto'
+      if (R.direita) { av.style.right = px(1920 - R.x - R.w); av.style.left = 'auto' } else { av.style.left = px(R.x); av.style.right = 'auto' }
+    }
   }
 
   /* ---------- chat na tela ---------- */
@@ -408,9 +428,11 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
       el.innerHTML = '<div class="avatar"><div class="onda"></div><div class="onda"></div><div class="foto"></div></div><div class="rotulo"><b></b><span class="eq"><i></i><i></i><i></i><i></i><i></i></span></div>'
       el.querySelector('.rotulo b').textContent = p.key === 'ela' ? LIVE.ela : p.nome
       if (p.key !== 'ela') el.querySelector('.foto').style.backgroundImage = `url("${fotoDe(p.key)}")`
-      box.append(el); requestAnimationFrame(() => el.classList.add('on'))
+      el.style.setProperty('--i', box.children.length % 8)
+      box.append(el); requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')))
       itens.set(p.key, { el, nivel: 0, alvo: 0, img: null })
     }
+    if (agora.length !== antesL.length) posiciona()
     if (antes) {
       for (const p of agora) if (!antesL.some(x => x.key === p.key)) aviso('entrou na linha', p.key === 'ela' ? LIVE.ela : p.nome)
       for (const p of antesL) if (!chaves.has(p.key)) aviso('saiu da linha', p.key === 'ela' ? LIVE.ela : p.nome)
@@ -424,7 +446,7 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
       const fala = it.nivel > .08, el = it.el
       el.querySelectorAll('.eq i').forEach((b, i) => b.style.height = 4 + (fala ? (Math.random() * .5 + .5) * it.nivel * 14 * (1 - Math.abs(i - 2) * .18) : 0) + 'px')
       el.querySelectorAll('.onda').forEach((o, i) => { o.style.transform = `scale(${1 + it.nivel * (.1 + i * .1)})`; o.style.opacity = it.nivel * (i ? .35 : .8) })
-      el.classList.toggle('mudo', !fala)
+      el.classList.toggle('mudo', !fala); el.classList.toggle('fala', fala)
       if (k === 'ela' && imgs.length) { const src = fala && LIVE.fotoFalando ? LIVE.fotoFalando : LIVE.fotoCalada || LIVE.fotoFalando; if (src !== it.img) { it.img = src; el.querySelector('.foto').style.backgroundImage = `url(${src})` } }
       else el.querySelector('.foto').style.transform = fala ? `scale(${1 + it.nivel * .06})` : ''
     }

@@ -66,7 +66,7 @@ const est = {
   cena: 'comecando', inicio: 0, ate: 0, fimEm: 0, titulo: pref.titulo || LIVE.titulo,
   linha: false, cam: false, radio: null, radioJogo: mix.radioJogo, mostrarMusica: pref.mostrarMusica !== false, stats: { pix: 0, msgs: 0 }, mix: {},
   lancamento: dataLocal(pref.lancamento || LIVE.lancamento), lancamentoTexto: pref.lancamentoTexto || LIVE.lancamentoTexto,
-  camPos: { canto: 'br', tamanho: 'm', oculta: false, ...(pref.camPos || {}) }, avatarPos: { lugar: 'cam', oculto: false, ...(pref.avatarPos || {}) }, chatNaTela: !!pref.chatNaTela, lancNaTela: !!pref.lancNaTela, enquete: null,
+  camPos: { canto: 'br', tamanho: 'm', oculta: false, ...(pref.camPos || {}) }, avatarPos: pref.avatarPos?.estilo ? { lugar: 'tl', oculto: false, ...pref.avatarPos } : { lugar: 'tl', estilo: 'lista', oculto: !!pref.avatarPos?.oculto }, chatNaTela: !!pref.chatNaTela, lancNaTela: !!pref.lancNaTela, enquete: null,
   meta: { on: !!pref.metaOn, titulo: pref.metaTitulo || LIVE.meta.titulo, alvo: pref.metaAlvo || LIVE.meta.alvo, atual: pref.metaAtual || 0 },
   carteira: null,
 }
@@ -390,6 +390,7 @@ function pintaAtalhos() {
   $('#atMusica').setAttribute('aria-pressed', est.mostrarMusica)
   $$('#avLugar [data-av]').forEach(b => b.setAttribute('aria-pressed', b.dataset.av === est.avatarPos.lugar))
   $('#avEsconde').setAttribute('aria-pressed', !!est.avatarPos.oculto)
+  $$('#avEstilo [data-est]').forEach(b => b.setAttribute('aria-pressed', b.dataset.est === (est.avatarPos.estilo || 'lista')))
 }
 function moveAvatar(ch) {
   const avatarPos = { ...est.avatarPos, ...ch }
@@ -398,6 +399,7 @@ function moveAvatar(ch) {
 }
 $$('#avLugar [data-av]').forEach(b => b.onclick = () => moveAvatar({ lugar: b.dataset.av, oculto: false }))
 $('#avEsconde').onclick = () => moveAvatar({ oculto: !est.avatarPos.oculto })
+$$('#avEstilo [data-est]').forEach(b => b.onclick = () => moveAvatar({ estilo: b.dataset.est, oculto: false }))
 function moveCam(ch) {
   const camPos = { ...est.camPos, ...ch }
   pref.camPos = camPos; salva()
