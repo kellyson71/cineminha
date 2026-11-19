@@ -377,29 +377,47 @@
 .palco:not(.composto).so-cam .cam{left:0;top:0;scale:1}
 .palco:not(.composto) .cam .moldura video{transform-origin:center;transition:transform .3s,object-position .3s}
 
-/* ---------- ligação em lista, no jeito do Discord: avatar pequeno, nome do lado, anel quando fala ---------- */
-.palco .chamada.lista{flex-direction:column;align-items:flex-start;gap:10px;margin:0;padding:0;background:none;border-radius:0;letter-spacing:normal;text-transform:none}
+/* ---------- ligação em lista, no jeito do overlay do Discord: avatar pequeno e o nome numa etiqueta; quem fala acende ---------- */
+.palco .chamada.lista{flex-direction:column;align-items:flex-start;gap:6px;margin:0;padding:0;background:none;border-radius:0;letter-spacing:normal;text-transform:none}
 .palco .chamada.lista.direita{flex-direction:column;align-items:flex-end}
-.palco .chamada.lista .linha{flex-direction:row;width:auto;gap:12px;padding:6px 22px 6px 6px;border-radius:999px;background:#1c0830d9;
-  box-shadow:0 0 0 3px var(--uva),0 10px 24px #1c083077;opacity:0;transform:translateX(-60px) scale(.85);
-  transition:opacity .35s calc(var(--i,0) * 70ms),transform .6s var(--solta) calc(var(--i,0) * 70ms),box-shadow .2s,background .2s}
-.palco .chamada.lista.direita .linha{flex-direction:row-reverse;padding:6px 6px 6px 22px;transform:translateX(60px) scale(.85)}
-.palco .chamada.lista .linha.on{opacity:1;transform:none}
-.palco .chamada.lista .avatar{width:64px;height:64px;flex:none}
-.palco .chamada.lista .avatar .foto{border-width:3px;box-shadow:0 0 0 3px #fff4e8,0 0 0 5px var(--tinta)}
-.palco .chamada.lista .avatar .foto span{font-size:30px;-webkit-text-stroke:3px var(--tinta)}
-.palco .chamada.lista .avatar .onda{inset:-7px;border-width:3px;border-color:#5ee28b}
-.palco .chamada.lista .rotulo{padding:0;background:none;box-shadow:none;gap:10px}
-.palco .chamada.lista .rotulo b{font:800 30px/1 var(--ui);letter-spacing:.01em;color:#fff;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.palco .chamada.lista .eq i{background:#5ee28b}
-.palco .chamada.lista .linha.mudo .eq i{background:#ffffff44}
-.palco .chamada.lista .linha.fala{background:#1c0830f2;box-shadow:0 0 0 3px #5ee28b,0 0 26px #5ee28b66,0 10px 24px #1c083077}
-.palco .chamada.lista .linha.fala .avatar .foto{box-shadow:0 0 0 3px #5ee28b,0 0 0 5px var(--tinta)}
-.palco .chamada.lista.muitos{gap:6px}
-.palco .chamada.lista.muitos .avatar{width:50px;height:50px}
-.palco .chamada.lista.muitos .rotulo b{font-size:24px}
-.palco .chamada.lista.muitos .linha{padding:5px 18px 5px 5px}
-.palco .chamada.lista.muitos.direita .linha{padding:5px 5px 5px 18px}
+.palco .chamada.lista .linha{flex-direction:row;width:auto;gap:8px;padding:0;background:none;box-shadow:none;opacity:0;transform:translateX(-40px);
+  transition:opacity .3s calc(var(--i,0) * 60ms),transform .5s var(--solta) calc(var(--i,0) * 60ms)}
+.palco .chamada.lista.direita .linha{flex-direction:row-reverse;transform:translateX(40px)}
+.palco .chamada.lista .linha.on{opacity:.72;transform:none}
+.palco .chamada.lista .linha.on.fala{opacity:1}
+.palco .chamada.lista .avatar{width:46px;height:46px;flex:none}
+.palco .chamada.lista .avatar .foto{border:0;box-shadow:0 0 0 2px #1c0830cc,0 3px 10px #0008;transition:box-shadow .15s}
+.palco .chamada.lista .avatar .foto span{font-size:22px;-webkit-text-stroke:2px var(--tinta)}
+.palco .chamada.lista .avatar .onda{display:none}
+.palco .chamada.lista .linha.fala .avatar .foto{box-shadow:0 0 0 3px #43d17a,0 0 14px #43d17a99}
+.palco .chamada.lista .rotulo{padding:3px 9px 4px;border-radius:7px;background:#0e0618b3;box-shadow:none;gap:6px}
+.palco .chamada.lista .rotulo b{font:700 21px/1 var(--ui);letter-spacing:0;color:#fff;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 2px #000}
+.palco .chamada.lista .eq{display:none}
+.palco .chamada.lista .linha.fala .rotulo b{color:#9ff0bd}
+.palco .chamada.lista.muitos{gap:4px}
+.palco .chamada.lista.muitos .avatar{width:38px;height:38px}
+.palco .chamada.lista.muitos .rotulo b{font-size:18px}
 @media (prefers-reduced-motion:reduce){.palco .chamada.lista .linha{transition:opacity .3s}}
 /* a caixa da ligação não herda o estilo da faixa "pega a pipoca" (que também se chama .chamada) */
 .palco .chamada:not(.entra){margin:0;padding:0;background:none;border-radius:0;letter-spacing:normal;text-transform:none}
+
+/* ---------- fileira na câmera: bolinhas pequenas coladas na sua câmera; o nome aparece só de quem fala ---------- */
+.palco .chamada.mini{flex-direction:row;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;height:78px}
+.palco .chamada.mini .linha{position:relative;width:auto;gap:0;opacity:0;transform:scale(.3);transition:opacity .3s calc(var(--i,0) * 70ms),transform .55s var(--solta) calc(var(--i,0) * 70ms)}
+.palco .chamada.mini .linha.on{opacity:1;transform:none}
+.palco .chamada.mini .avatar{width:62px;height:62px}
+.palco .chamada.mini .avatar .foto{border:4px solid var(--tinta);box-shadow:0 0 0 3px #fff4e8,0 0 0 6px var(--tinta),0 8px 18px #1c083099;transition:transform .12s,box-shadow .15s}
+.palco .chamada.mini .avatar .foto span{font-size:28px;-webkit-text-stroke:3px var(--tinta)}
+.palco .chamada.mini .avatar .onda{inset:-9px;border-width:3px}
+.palco .chamada.mini .linha.fala .avatar .foto{box-shadow:0 0 0 3px var(--rosa),0 0 0 6px var(--tinta),0 0 22px #ff5fa288}
+.palco .chamada.mini .linha.mudo .avatar{filter:saturate(.75)}
+/* etiqueta do nome: sai da bolinha quando a pessoa fala (para fora da câmera) */
+.palco .chamada.mini .rotulo{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translate(-50%,8px) scale(.7);opacity:0;pointer-events:none;
+  padding:3px 12px 5px;border-radius:9px;background:var(--tinta);box-shadow:0 0 0 3px var(--rosa);transition:opacity .2s,transform .35s var(--solta);white-space:nowrap}
+.palco .chamada.mini.abaixo .rotulo{bottom:auto;top:calc(100% + 10px);transform:translate(-50%,-8px) scale(.7)}
+.palco .chamada.mini .rotulo b{font:400 24px/1 var(--gta);color:#fff;max-width:240px;overflow:hidden;text-overflow:ellipsis}
+.palco .chamada.mini .eq{display:none}
+.palco .chamada.mini .linha.fala .rotulo{opacity:1;transform:translate(-50%,0) scale(1)}
+.palco .chamada.mini.muitos{gap:6px}
+.palco .chamada.mini.muitos .avatar{width:50px;height:50px}
+@media (prefers-reduced-motion:reduce){.palco .chamada.mini .linha,.palco .chamada.mini .rotulo{transition:opacity .3s}}

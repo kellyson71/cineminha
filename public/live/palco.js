@@ -282,16 +282,17 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
 
   /* ---------- sua câmera na tela: canto e tamanho (o estúdio desenha a imagem no mesmo lugar) ---------- */
   const px = v => Math.round(v) + 'px'
+  const alturaLinha = n => n > 5 ? 42 : 52 // altura de cada pessoa na lista (com o espaço)
   function posiciona() {
     const R = camRect(st.camPos || {}), cam = $('.cam'), noJogo = st.cena === 'jogo'
     cam.style.setProperty('--cx', px(R.x)); cam.style.setProperty('--cy', px(R.y)); cam.style.setProperty('--s', R.s)
     cam.classList.toggle('oculta', !!st.camPos?.oculta)
     palco.classList.toggle('cam-esq', !R.direita); palco.classList.toggle('cam-cima', !R.embaixo)
     // a música fica grudada na câmera: em cima dela (câmera embaixo) ou embaixo (câmera em cima)
-    const tc = $('.tocando'), CH = 78, AVH = 205
+    const tc = $('.tocando'), CH = 78, AVH = (st.avatarPos || {}).estilo === 'cam' ? 78 : 205
     const semCam = !st.cam || st.camPos?.oculta
     const A = st.avatarPos || {}, gente = pessoasNaLinha().length
-    const filaNaCam = gente && !A.oculto && (!A.lugar || A.lugar === 'cam') && st.cena === 'jogo'
+    const filaNaCam = gente && !A.oculto && (A.estilo === 'cam' || (A.estilo === 'grande' && (!A.lugar || A.lugar === 'cam'))) && st.cena === 'jogo'
     // em cima da câmera (ou embaixo, se ela estiver no alto) fica a fileira da ligação; a música vem depois
     const baseCam = semCam ? R.y + R.h : R.embaixo ? R.y - 30 : R.y + R.h + 62 * R.s + 14
     const fileiraTopo = R.embaixo || semCam ? baseCam - AVH : baseCam
@@ -304,32 +305,38 @@ export function criaPalco(host, { comSom = false, composto = false, leve = false
     // fileira da ligação: em cima da sua câmera (padrão), num canto que ele escolher, ou escondida; aviso perto da música
     const ln = $('.chamada'), av = $('.aviso')
     ln.classList.toggle('oculta', !!A.oculto)
-    const lista = A.estilo !== 'grande' // padrão: lista no jeito do Discord (avatar pequeno e o nome do lado)
-    ln.classList.toggle('lista', lista); ln.classList.toggle('muitos', gente > 5)
+    const mini = A.estilo === 'cam' // fileira de bolinhas colada na câmera: o nome só aparece de quem está falando
+    const lista = !mini && A.estilo !== 'grande' // padrão: lista no jeito do Discord (avatar pequeno e o nome do lado)
+    ln.classList.toggle('lista', lista); ln.classList.toggle('mini', mini); ln.classList.toggle('muitos', gente > 5)
+    ln.classList.toggle('abaixo', mini && !(R.embaixo || semCam))
     let lado = R.direita
-    if (lista) {
+    if (mini) {
+      if (st.cena === 'camera') { ln.style.top = px(1080 - 60 - AVH); lado = true; ln.style.right = px(64); ln.style.left = 'auto'; ln.style.width = '' }
+      else { ln.style.top = px(fileiraTopo); ln.style.left = px(R.x); ln.style.right = 'auto'; ln.style.width = px(R.w) }
+    } else if (lista) {
       // altura da lista: uma linha por pessoa; nos cantos de baixo ela cresce para cima
-      const LH = gente > 5 ? 66 : 82, h = Math.max(1, gente) * LH
+      const h = Math.max(1, gente) * alturaLinha(gente)
       const lugar = A.lugar || 'tl'
       if (lugar === 'cam' && st.cena !== 'camera') { ln.style.top = px(R.embaixo || semCam ? baseCam - h : baseCam); lado = R.direita }
       else {
         const l = lugar === 'cam' ? 'br' : lugar, cima = l[0] === 't'; lado = l[1] === 'r'
-        ln.style.top = px(cima ? 150 : 1080 - (lado || st.cena !== 'jogo' ? 60 : 150) - h)
+        ln.style.top = px(cima ? 110 : 1080 - (lado || st.cena !== 'jogo' ? 48 : 150) - h)
       }
-      if (lado) { ln.style.right = px(lugar === 'cam' && st.cena !== 'camera' ? 1920 - R.x - R.w : 48); ln.style.left = 'auto' }
-      else { ln.style.left = px(lugar === 'cam' && st.cena !== 'camera' ? R.x : 48); ln.style.right = 'auto' }
+      if (lado) { ln.style.right = px(lugar === 'cam' && st.cena !== 'camera' ? 1920 - R.x - R.w : 32); ln.style.left = 'auto' }
+      else { ln.style.left = px(lugar === 'cam' && st.cena !== 'camera' ? R.x : 32); ln.style.right = 'auto' }
     } else if (A.lugar && A.lugar !== 'cam') {
       const cima = A.lugar[0] === 't'; lado = A.lugar[1] === 'r'
       ln.style.top = px(cima ? 70 : 1080 - 92 - AVH)
     } else if (st.cena === 'camera') {
       ln.style.top = px(1080 - 150 - AVH); lado = true
     } else ln.style.top = px(fileiraTopo)
-    if (!lista && lado) { ln.style.right = px(A.lugar && A.lugar !== 'cam' || st.cena === 'camera' ? 64 : 1920 - R.x - R.w); ln.style.left = 'auto' }
-    else if (!lista) { ln.style.left = px(A.lugar && A.lugar !== 'cam' ? 64 : R.x); ln.style.right = 'auto' }
+    if (!mini) ln.style.width = ''
+    if (!lista && !mini && lado) { ln.style.right = px(A.lugar && A.lugar !== 'cam' || st.cena === 'camera' ? 64 : 1920 - R.x - R.w); ln.style.left = 'auto' }
+    else if (!lista && !mini) { ln.style.left = px(A.lugar && A.lugar !== 'cam' ? 64 : R.x); ln.style.right = 'auto' }
     ln.classList.toggle('direita', lado)
-    if (lista && gente && !A.oculto) {
+    if ((lista || mini) && gente && !A.oculto && !(mini && st.cena !== 'camera')) {
       // o aviso "entrou na linha" acompanha a lista: embaixo dela (lista em cima) ou em cima (lista embaixo)
-      const t = parseFloat(ln.style.top) || 0, h = gente * (gente > 5 ? 66 : 82), emCima = t + h / 2 < 540
+      const t = parseFloat(ln.style.top) || 0, h = gente * alturaLinha(gente), emCima = t + h / 2 < 540
       av.style.top = px(emCima ? t + h + 14 : t - 66); av.style.bottom = 'auto'
       if (lado) { av.style.right = ln.style.right; av.style.left = 'auto' } else { av.style.left = ln.style.left; av.style.right = 'auto' }
     } else {
