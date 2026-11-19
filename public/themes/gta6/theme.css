@@ -92,6 +92,8 @@
 .tema-gta6 .curtain i { background: var(--curtain-img) center / cover, #2a0f45; filter: saturate(1.15); }
 .tema-gta6 .curtain__l { background-size: 196% auto !important; background-position: 0 55% !important; }
 .tema-gta6 .curtain__r { background-size: 196% auto !important; background-position: 100% 55% !important; }
+/* sem a sombra de dobra do veludo: as duas metades viram uma foto só (abrem para os lados quando alguém projeta) */
+.tema-gta6 .curtain i, .tema-gta6 .curtain__l, .tema-gta6 .curtain__r { box-shadow: none !important; }
 .tema-gta6 .empty { text-shadow: 0 2px 14px rgba(28, 8, 48, .9); }
 .tema-gta6 .empty__box .opt, .tema-gta6 .empty__box button { background: rgba(28, 8, 48, .72); border-color: rgba(255, 79, 163, .35); backdrop-filter: blur(6px); }
 .tema-gta6 .empty__box .opt:hover, .tema-gta6 .empty__box button:hover { border-color: var(--vi-sol); box-shadow: 0 0 0 2px rgba(255, 211, 107, .35), 0 10px 30px rgba(255, 79, 163, .25); }
