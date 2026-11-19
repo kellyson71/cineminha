@@ -124,7 +124,8 @@ function pinta() {
   const vivo = !!est.inicio
   $('#chipVivo').classList.toggle('vivo', vivo); $('#chipVivo span').textContent = vivo ? 'ao vivo' : 'fora do ar'
   $('#btnVivo').textContent = vivo ? 'Encerrar a live' : 'Começar a live'
-  $('#btnVivo').className = 'btn ' + (vivo ? 'perigo' : 'forte')
+  $('#btnVivo').className = 'btn ' + (vivo ? 'perigo' : 'forte chama')
+  pintaFora()
   $('#totalPix').textContent = reais(est.stats.pix) + ' em pix'
   $('#rTela').setAttribute('aria-pressed', est.mostrarMusica)
   $('#rJogo').setAttribute('aria-pressed', mix.radioJogo)
@@ -142,6 +143,20 @@ setInterval(() => {
   const falta = est.ate - Date.now()
   $('#cInfo').textContent = est.ate && falta > 0 ? `faltam ${minutos(falta / 1000)}` : ''
 }, 500)
+// fora do ar: faixa grande, título da aba e botão pulsando; com gente esperando, o aviso fica vermelho
+function pintaFora() {
+  const vivo = !!est.inicio, esperando = !vivo ? (live?.publico().length || 0) : 0
+  $('#avisoFora').hidden = vivo
+  $('#avisoFora').classList.toggle('esperando', esperando > 0)
+  $('#afTitulo').textContent = esperando ? `${esperando === 1 && live.quem('ela').length ? LIVE.ela + ' está' : esperando + (esperando === 1 ? ' pessoa está' : ' pessoas estão')} esperando` : 'a live ainda não começou'
+  $('#afTexto').textContent = esperando ? 'A live não começou: elas veem a tela de espera. Clique em Começar a live.' : 'Ninguém está te vendo ao vivo. Quando estiver pronto, clique em Começar a live.'
+  document.title = vivo ? '🔴 AO VIVO · estúdio' : esperando ? '⚠️ ESPERANDO VOCÊ · estúdio' : '⏸ fora do ar · estúdio'
+}
+setInterval(pintaFora, 2000)
+$('#afComecar').onclick = () => $('#btnVivo').click()
+// ajudante desligado: botão que copia o comando para colar no terminal
+const CMD_AJUDANTE = 'cd ~/projetos/cineminha && node scripts/live-local.mjs'
+$('#btnAjudante').onclick = () => navigator.clipboard.writeText(CMD_AJUDANTE).then(() => toast('Comando copiado: abra o terminal, cole (Ctrl+Shift+V), aperte Enter e deixe aberto', 6000)).catch(() => toast(CMD_AJUDANTE, 8000))
 $('#btnVivo').onclick = () => {
   retomaAudio(); comp.retomar()
   if (!est.inicio) { muda({ inicio: Date.now(), fimEm: 0, stats: { pix: 0, msgs: 0 } }); cena('comecando'); if (!radio.tocando) radio.play(); toast('Você está ao vivo pra ela') }
@@ -1126,10 +1141,11 @@ async function leTemp() {
   // publicado (https), o Chrome pede permissão de "rede local" para o site falar com o seu PC: é só permitir
   const r = await fetch('http://localhost:8792/sensores', { cache: 'no-store', targetAddressSpace: 'loopback' }).then(r => r.json()).catch(() => null)
   semSensor = r ? 0 : semSensor + 1
+  $('#btnAjudante').hidden = semSensor === 0
   if (r) teveSensor = true
   else if (teveSensor && semSensor === 2) {
     teveSensor = false
-    toast('O ajudante da live parou: sem termômetro e sem o som do jogo separado. Rode node scripts/live-local.mjs', 9000)
+    toast('O ajudante da live parou: sem termômetro e sem o som do jogo separado. Clique em Ligar ajudante (no topo) para copiar o comando.', 9000)
     poeMsg({ sis: true, txt: 'O ajudante da live parou (termômetro e som do jogo). Rode node scripts/live-local.mjs no PC.' })
   }
   temp = r?.temp ?? null
