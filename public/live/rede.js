@@ -63,7 +63,7 @@ export async function entraLive(codigo, papel, perfil = null) {
     papeis.set(id, p.papel)
     // extras: k = chave do link dela, ap = este aparelho (para remover de vez), conf = perfil confirmado (logado no Cineminha)
     const txt = (v, n) => typeof v === 'string' ? v.slice(0, n) : ''
-    const extra = { ap: txt(p.perfil?.ap, 40), conf: p.perfil?.conf === true }
+    const extra = { ap: txt(p.perfil?.ap, 40), conf: p.perfil?.conf === true, origem: p.perfil?.origem === 'cine' ? 'cine' : '' }
     if (p.papel === 'ela') perfis.set(id, { key: 'ela', nome: '', k: txt(p.perfil?.k, 40), ...extra })
     else if (p.papel === 'amigo' && typeof p.perfil?.key === 'string') perfis.set(id, { key: p.perfil.key.slice(0, 40), nome: String(p.perfil.nome || 'Convidado').replace(/[<>]/g, '').slice(0, 24), ...extra })
     if (novo) emite('papel', id, p.papel)

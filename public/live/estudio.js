@@ -154,13 +154,29 @@ function pintaFora() {
 }
 setInterval(pintaFora, 2000)
 $('#afComecar').onclick = () => $('#btnVivo').click()
+// no Cineminha: enquanto está ao vivo, avisa o servidor a cada 30 s (precisa do login de admin do Cineminha neste navegador)
+const admTok = () => { try { return JSON.parse(localStorage.getItem('cine.adm')) || '' } catch { return '' } }
+let cineAnunciado = false
+async function anunciaCine() {
+  const quer = !!est.inicio && pref.noCine !== false && !!admTok()
+  const nCine = (live?.publico() || []).filter(doCine).length
+  $('#btnCine').setAttribute('aria-pressed', pref.noCine !== false)
+  $('#cineInfo').textContent = !admTok() ? 'entre como admin no Cineminha (neste navegador) para aparecer lá'
+    : pref.noCine === false ? 'desligado' : !est.inicio ? 'aparece quando você começar a live' : nCine ? `assistindo pelo Cineminha: ${nCine}` : 'aparecendo no Cineminha'
+  if (!quer && !cineAnunciado) return
+  const body = quer ? { op: 'anuncia', tok: admTok(), codigo, titulo: est.titulo, inicio: est.inicio } : { op: 'para', tok: admTok() }
+  const r = await fetch('../api/live', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), keepalive: !quer }).catch(() => null)
+  if (r?.ok) cineAnunciado = quer
+}
+setInterval(anunciaCine, 30000); setTimeout(anunciaCine, 3000)
+$('#btnCine').onclick = () => { pref.noCine = pref.noCine === false; salva(); anunciaCine(); toast(pref.noCine !== false ? 'A live aparece no Cineminha enquanto você estiver ao vivo' : 'A live não aparece mais no Cineminha') }
 // ajudante desligado: botão que copia o comando para colar no terminal
 const CMD_AJUDANTE = 'cd ~/projetos/cineminha && node scripts/live-local.mjs'
 $('#btnAjudante').onclick = () => navigator.clipboard.writeText(CMD_AJUDANTE).then(() => toast('Comando copiado: abra o terminal, cole (Ctrl+Shift+V), aperte Enter e deixe aberto', 6000)).catch(() => toast(CMD_AJUDANTE, 8000))
 $('#btnVivo').onclick = () => {
   retomaAudio(); comp.retomar()
-  if (!est.inicio) { muda({ inicio: Date.now(), fimEm: 0, stats: { pix: 0, msgs: 0 } }); cena('comecando'); if (!radio.tocando) radio.play(); toast('Você está ao vivo pra ela') }
-  else if (confirmaFim()) { cena('fim'); setTimeout(() => muda({ inicio: 0 }), 60e3) }
+  if (!est.inicio) { muda({ inicio: Date.now(), fimEm: 0, stats: { pix: 0, msgs: 0 } }); cena('comecando'); if (!radio.tocando) radio.play(); toast('Você está ao vivo pra ela'); setTimeout(anunciaCine, 500) }
+  else if (confirmaFim()) { cena('fim'); setTimeout(() => { muda({ inicio: 0 }); anunciaCine() }, 60e3) }
 }
 let pedeFim = 0
 function confirmaFim() { if (Date.now() - pedeFim < 3000) return true; pedeFim = Date.now(); toast('Clique de novo para encerrar'); return false }
@@ -274,6 +290,7 @@ $('#btnJogo').onclick = async () => {
   somDaCaptura(at)
   $('#infoJogo').textContent = (vt.label || 'capturando') + (at ? ' · com som' : '')
   $('#btnJogo').textContent = 'Trocar o que aparece'
+  reenviaCine()
   if (aba && !at) toast('Essa aba entrou sem som. Para levar o som, capture de novo e marque "Compartilhar áudio da guia".', 6000)
   else if (at) toast('Som da aba entrando na live no lugar do som do jogo', 3500)
   vt.addEventListener('ended', () => {
@@ -281,6 +298,7 @@ $('#btnJogo').onclick = async () => {
     comp.jogo(null); capJogo = null; somDaCaptura(null)
     $('#infoJogo').textContent = 'sem captura'; $('#btnJogo').textContent = 'Capturar jogo, janela ou aba'
     if (modoTela()) reenvia()
+    reenviaCine()
   })
   if (modoTela()) reenvia()
 }
@@ -806,7 +824,7 @@ function pintaPessoas() {
   box.innerHTML = [...on].map(([k, nome]) => {
     const md = modDe(k), ligado = idsDe(k).length > 0
     const semConta = k !== 'ela' && !k.startsWith('g:') && idsDe(k).some(id => !live.perfis.get(id)?.conf)
-    const marcas = [semConta && '<em class="nc" title="Escolheu este perfil sem estar logado no Cineminha">?</em>', naLinha(k) && ic('phone'), md.calado && `${ic('timer')}${md.calado < SEMPRE ? minutos((md.calado - Date.now()) / 1000) : ''}`, md.semPix && ic('circle-x'), md.semLinha && ic('mic-off'), md.fora && '<em>fora</em>'].filter(Boolean).join('')
+    const marcas = [idsDe(k).some(doCine) && `<span title="Assistindo pela janelinha do Cineminha">${ic('monitor')}</span>`, semConta && '<em class="nc" title="Escolheu este perfil sem estar logado no Cineminha">?</em>', naLinha(k) && ic('phone'), md.calado && `${ic('timer')}${md.calado < SEMPRE ? minutos((md.calado - Date.now()) / 1000) : ''}`, md.semPix && ic('circle-x'), md.semLinha && ic('mic-off'), md.fora && '<em>fora</em>'].filter(Boolean).join('')
     return `<button class="pessoa${ligado ? '' : ' off'}" data-key="${esc(k)}" data-nome="${esc(nome)}" style="--c:${k === 'ela' ? '#ff9ccb' : corDe(k)}"><b>${esc(nome)}</b>${marcas ? `<span>${marcas}</span>` : ''}</button>`
   }).join('') || '<span class="vazio">ninguém na live ainda</span>'
 }
@@ -851,6 +869,7 @@ function quemE(id) {
   return { de: 'ela', key: 'ela', nome: LIVE.ela }
 }
 const publico = id => ['ela', 'amigo'].includes(live?.papeis.get(id))
+const doCine = id => live?.perfis.get(id)?.origem === 'cine'
 
 /* ---------- ligação: a voz de cada um ---------- */
 const vozes = new Map() // peerId → { audio, para, key }
@@ -899,7 +918,7 @@ async function conecta() {
       manda(id); live.acoes.mix.send({ abaixa: mix.abaixa }, id)
       live.acoes.chat.send({ hist: msgs.filter(m => !m.sis).slice(-80) }, id)
       setTimeout(ajustaEnvio, 1500)
-      poeMsg({ sis: true, txt: `${quemE(id).nome} entrou na live` }); pintaPessoas()
+      poeMsg({ sis: true, txt: `${quemE(id).nome} entrou na live${doCine(id) ? ' pelo Cineminha' : ''}` }); pintaPessoas()
     }
     if (p === 'cam') poeMsg({ sis: true, txt: 'Câmera do celular conectada' })
   })
@@ -915,13 +934,14 @@ async function conecta() {
       vozSai(id)
       if ((est.chamada || []).some(x => x.key === q.key)) { const lista = est.chamada.filter(x => x.key !== q.key); somLinha(false); muda({ chamada: lista, linha: lista.some(x => x.key === 'ela') }) }
     }
-    if (camDe.get(id)) { camDe.delete(id); if (!camDe.size) { camTrilha = null; comp.cam(null); muda({ cam: false }); if (modoTela()) reenvia() } }
+    if (camDe.get(id)) { camDe.delete(id); if (!camDe.size) { camTrilha = null; comp.cam(null); muda({ cam: false }); if (modoTela()) reenvia(); reenviaCine() } }
   })
   live.on('stream', (stream, id, meta) => {
     if (meta.cam) {
       const t = stream.getVideoTracks()[0]; if (!t) return
       camDe.set(id, t); camTrilha = t
       if (modoTela()) reenvia(); else comp.cam(t)
+      reenviaCine()
       muda({ cam: $('#btnCam').getAttribute('aria-pressed') === 'true' })
     }
     if (meta.voz && publico(id)) vozChegou(stream, id)
@@ -950,8 +970,8 @@ async function conecta() {
 
 // qualidade de envio: H.264 (circuito de vídeo), bitrate de acordo com a qualidade escolhida
 async function ajustaEnvio() {
-  const camT = streamCam?.getVideoTracks()[0]
-  const meus = [...comp.saida.getTracks(), ...(streamDireto?.getTracks() || []), ...(camT ? [camT] : [])]
+  const camT = camTrilha
+  const meus = [...comp.saida.getTracks(), ...(streamDireto?.getTracks() || []), ...(cineJogo?.getTracks() || []), ...(camT ? [camT] : [])]
   const pcs = live?.room.getPeers?.() || {}
   const kbps = (protegendo ? 1800 : pref.qualidade === 1080 ? 6000 : 3500) * 1000
   // cada pessoa custa uma codificação e o envio inteiro: ela recebe a qualidade cheia; os amigos, 480p mais leve
@@ -981,15 +1001,32 @@ function montaStreams() {
   streamDireto = modoTela() ? new MediaStream([...(vt ? [vt] : []), somSaida]) : null
   streamCam = modoTela() && camTrilha ? new MediaStream([camTrilha]) : null
 }
+// janelinha do Cineminha: jogo (com o som) e câmera separados, sempre; a janelinha mostra os dois, só um ou lado a lado
+let cineJogo = null, cineCam = null
+function montaCine() {
+  const vt = capJogo?.getVideoTracks()[0] || comp.saida.getVideoTracks()[0] // sem captura do jogo, vai o vídeo montado
+  cineJogo = new MediaStream([...(vt ? [vt] : []), somSaida])
+  cineCam = camTrilha ? new MediaStream([camTrilha]) : null
+}
+function reenviaCine() {
+  const ids = (live?.publico() || []).filter(doCine); if (!ids.length) return
+  for (const id of ids) for (const st of [cineJogo, cineCam]) if (st) live.tira(st, id)
+  montaCine(); ids.forEach(enviaPara)
+}
 function enviaPara(id) {
   if (!live) return
+  if (doCine(id)) {
+    if (!cineJogo) montaCine()
+    live.manda(cineJogo, id, { live: 1, cine: 1 }); if (cineCam) live.manda(cineCam, id, { cam: 1 })
+    setTimeout(ajustaEnvio, 1500); return
+  }
   if (modoTela()) { live.manda(streamDireto, id, { live: 1 }); if (streamCam) live.manda(streamCam, id, { cam: 1 }) }
   else live.manda(comp.saida, id, { live: 1 })
   setTimeout(ajustaEnvio, 1500)
 }
 let antigos = []
 function reenvia() {
-  const ids = live?.publico() || []
+  const ids = (live?.publico() || []).filter(id => !doCine(id)) // a janelinha do Cineminha tem o envio dela
   for (const id of ids) for (const st of [comp.saida, ...antigos]) if (st) live.tira(st, id)
   montaStreams(); antigos = [streamDireto, streamCam].filter(Boolean)
   previaEnvio()

@@ -1,0 +1,105 @@
+/* Tema GTA VI: Vice City ao pôr do sol. Roxo da noite no fundo, degradê rosa → laranja → amarelo do logo VI,
+   letreiros em Pricedown e palmeiras recortadas nos cantos. Usa as artes da live (public/live/assets). */
+@font-face { font-family: "Pricedown"; src: url("../../live/assets/pricedown-rsg.ttf") format("truetype"); font-display: swap; }
+
+.tema-gta6 {
+  --vi-rosa: #ff4fa3;
+  --vi-laranja: #ff9a4a;
+  --vi-sol: #ffd36b;
+  --vi-tinta: #1c0830;
+  --vi-grad: linear-gradient(135deg, #ff4fa3 0%, #ff7a6b 45%, #ff9a4a 70%, #ffd36b 100%);
+  --bg: #12061f;
+  --surface: #1c0b2e;
+  --surface-2: #26103d;
+  --card: rgba(30, 12, 48, .92);
+  --card-fg: #fff1fa;
+  --card-soft: rgba(255, 228, 244, .66);
+  --card-line: rgba(255, 79, 163, .22);
+  --field-bg: rgba(255, 255, 255, .06);
+  --fg: #fff1fa;
+  --fg-soft: rgba(255, 228, 244, .7);
+  --fg-faint: rgba(255, 228, 244, .45);
+  --line: rgba(255, 79, 163, .16);
+  --accent: #ff4fa3;
+  --accent-hi: #ff6db5;
+  --focus: #ffd36b;
+  --live: #ff4fa3;
+  --speak: #ffd36b;
+  --speak-glow: rgba(255, 179, 74, .65);
+  --pop-bg: rgba(24, 9, 38, .97);
+  --font-display: "Pricedown", Impact, "Arial Narrow", sans-serif;
+  --display-weight: 400;
+  --display-spacing: .02em;
+  background:
+    linear-gradient(180deg, rgba(18, 6, 31, .55) 0%, rgba(18, 6, 31, .82) 55%, #12061f 100%) fixed,
+    url("../../live/assets/fundo-orla.webp") center 30% / cover fixed,
+    #12061f;
+}
+/* palmeiras nos cantos e um brilho de sol no horizonte */
+.tema-gta6::before, .tema-gta6::after {
+  content: ""; position: fixed; bottom: -30px; z-index: -1; pointer-events: none; width: min(26vw, 340px); aspect-ratio: 538 / 917;
+  background: url("../../live/assets/palmeira-a.webp") bottom / contain no-repeat; filter: brightness(.25) saturate(1.4) drop-shadow(0 0 30px rgba(255, 79, 163, .25)); opacity: .9;
+}
+.tema-gta6::before { left: -40px; transform: scaleX(-1); }
+.tema-gta6::after { right: -50px; background-image: url("../../live/assets/palmeira-b.webp"); width: min(22vw, 300px); }
+
+/* título com o degradê do VI e contorno escuro */
+.tema-gta6 .brand {
+  background: var(--vi-grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(2px 2px 0 var(--vi-tinta)) drop-shadow(0 0 18px rgba(255, 79, 163, .45));
+  text-transform: lowercase; font-size: clamp(1.8rem, 4vw, 2.6rem); text-shadow: none; font-weight: 400; letter-spacing: .03em;
+}
+.tema-gta6 .top__brand { position: relative; }
+.tema-gta6 .top__brand::after {
+  content: ""; width: 44px; height: 34px; margin-left: 6px; align-self: center; flex: none;
+  background: url("../../live/assets/vi.webp") center / contain no-repeat; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .5));
+}
+.tema-gta6 .top { border-bottom: 1px solid rgba(255, 79, 163, .22); background: linear-gradient(180deg, rgba(18, 6, 31, .85), rgba(18, 6, 31, .55)); backdrop-filter: blur(8px); }
+
+/* botões: o principal no degradê do VI, com letra de letreiro */
+.tema-gta6 .btn { border-radius: 12px; }
+.tema-gta6 .btn--primary { background: var(--vi-grad); border-color: transparent; color: #fff; text-shadow: 0 1px 0 var(--vi-tinta); box-shadow: 0 0 0 2px var(--vi-tinta), 0 6px 18px rgba(255, 79, 163, .35); }
+.tema-gta6 .btn--primary:hover { filter: brightness(1.08); }
+.tema-gta6 .btn.on-air { border-color: var(--vi-rosa); color: var(--vi-rosa); }
+
+/* cartões e painéis: vidro roxo com filete rosa */
+.tema-gta6 .paper { border-color: rgba(255, 79, 163, .22); box-shadow: 0 12px 40px rgba(0, 0, 0, .35); backdrop-filter: blur(10px); }
+
+/* tela do filme: moldura de letreiro neon */
+.tema-gta6 .screen { background: #0b0414; border: 1px solid rgba(255, 211, 107, .25); box-shadow: 0 0 0 4px #0b0414, 0 0 0 6px rgba(255, 79, 163, .55), 0 0 40px rgba(255, 79, 163, .25), 0 24px 70px rgba(0, 0, 0, .6); }
+.tema-gta6 .theater:fullscreen .screen { border: 0; box-shadow: none; }
+
+/* sala vazia: placa de Vice City */
+.tema-gta6 .empty__box h2 { font-weight: 400; text-shadow: none; background: var(--vi-grad); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(2px 2px 0 var(--vi-tinta)); }
+.tema-gta6 .empty__box::after { content: "Bem-vindo a Leonida. Pega a pipoca e escolhe o que vai rolar."; display: inline-block; max-width: 40ch; margin: 14px auto 0; padding: 6px 14px; border-radius: 999px; background: rgba(28, 8, 48, .72); color: #fff1fa; font-size: .88rem; }
+
+/* chat: cabeçalho em letreiro */
+.tema-gta6 .chat { background: linear-gradient(180deg, rgba(30, 12, 48, .94), rgba(18, 6, 31, .96)); border-color: rgba(255, 79, 163, .18); }
+.tema-gta6 .chat__head { font-family: var(--font-display); letter-spacing: .04em; color: var(--vi-sol); }
+
+/* quem fala: brilho de pôr do sol (vem de --speak) */
+.tema-gta6 .seat__name { font-weight: 700; }
+
+/* entrada: a orla ao entardecer */
+.tema-gta6 .lobby__bg { background: linear-gradient(180deg, rgba(18, 6, 31, .3), rgba(18, 6, 31, .9) 75%), url("../../live/assets/fundo-orla.webp") center / cover, #12061f; }
+.tema-gta6 .lobby__title { font-weight: 400; letter-spacing: .03em; text-transform: lowercase; text-shadow: none; background: var(--vi-grad); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 0 var(--vi-tinta)) drop-shadow(0 0 28px rgba(255, 79, 163, .55)); padding: 0 .1em; }
+
+@media (max-width: 640px) { .tema-gta6::before, .tema-gta6::after { display: none; } .tema-gta6 .top__brand::after { display: none; } }
+@media (prefers-reduced-transparency: reduce) { .tema-gta6 .paper, .tema-gta6 .top { backdrop-filter: none; } }
+
+/* cortina da tela: o pôr do sol de Vice City no lugar do veludo vermelho */
+.tema-gta6 { --curtain-img: url("../../live/assets/fundo-ocean.webp"); --lat-bg: #170828; --lat-bg2: #12061f; }
+.tema-gta6 .curtain i { background: var(--curtain-img) center / cover, #2a0f45; filter: saturate(1.15); }
+.tema-gta6 .curtain__l { background-size: 196% auto !important; background-position: 0 55% !important; }
+.tema-gta6 .curtain__r { background-size: 196% auto !important; background-position: 100% 55% !important; }
+.tema-gta6 .empty { text-shadow: 0 2px 14px rgba(28, 8, 48, .9); }
+.tema-gta6 .empty__box .opt, .tema-gta6 .empty__box button { background: rgba(28, 8, 48, .72); border-color: rgba(255, 79, 163, .35); backdrop-filter: blur(6px); }
+.tema-gta6 .empty__box .opt:hover, .tema-gta6 .empty__box button:hover { border-color: var(--vi-sol); box-shadow: 0 0 0 2px rgba(255, 211, 107, .35), 0 10px 30px rgba(255, 79, 163, .25); }
+/* barra da esquerda e botões redondos em roxo, com o degradê ao passar o mouse */
+.tema-gta6 .lateral { border-right-color: rgba(255, 79, 163, .16); }
+.tema-gta6 .rail-b { background: #251038; color: rgba(255, 228, 244, .85); }
+.tema-gta6 .rail-b:hover { background: var(--vi-grad); color: #fff; }
+/* sair da call: rosa forte em vez do vermelho */
+.tema-gta6 .btn--sair { background: linear-gradient(135deg, #e8215f, #ff4fa3); border-color: transparent; }
+/* a orla aparece mais no fundo da sala */
+.tema-gta6.com-lateral { background: linear-gradient(180deg, rgba(18, 6, 31, .35) 0%, rgba(18, 6, 31, .72) 60%, #12061f 100%) fixed, url("../../live/assets/fundo-orla.webp") center 30% / cover fixed, #12061f; }
