@@ -105,3 +105,7 @@
 .tema-gta6 .btn--sair { background: linear-gradient(135deg, #e8215f, #ff4fa3); border-color: transparent; }
 /* a orla aparece mais no fundo da sala */
 .tema-gta6.com-lateral { background: linear-gradient(180deg, rgba(18, 6, 31, .35) 0%, rgba(18, 6, 31, .72) 60%, #12061f 100%) fixed, url("../../live/assets/fundo-orla.webp") center 30% / cover fixed, #12061f; }
+
+/* tela de "Reconectando…": a orla ao entardecer */
+.tema-gta6 .volta { background: linear-gradient(180deg, rgba(18, 6, 31, .45), rgba(18, 6, 31, .9) 75%), url("../../live/assets/fundo-orla.webp") center 30% / cover, #12061f; }
+.tema-gta6 .volta__card { background: rgba(28, 8, 48, .88); border-color: rgba(255, 79, 163, .35); }
