@@ -51,7 +51,8 @@ export async function monitorPadrao() {
 // ouvir o programa isolado direto no alto-falante (padrão) ou não (ex.: a live ouve pelo retorno do estúdio)
 export async function direto(on) {
   if (!saidaPadrao) return true
-  if (on && !repete) { repete = await pactl('load-module', 'module-loopback', `source=${SINK}.monitor`, `sink=${saidaPadrao}`, 'latency_msec=30'); modulos.push(repete) }
+  // sem sink= fixo: o som segue a saída padrão (trocou para o fone Bluetooth, vai junto; antes ficava preso na que era a padrão)
+  if (on && !repete) { repete = await pactl('load-module', 'module-loopback', `source=${SINK}.monitor`, 'latency_msec=30'); modulos.push(repete) }
   if (!on && repete) { await pactl('unload-module', repete).catch(() => {}); modulos = modulos.filter(m => m !== repete); repete = null }
   return !!repete
 }
