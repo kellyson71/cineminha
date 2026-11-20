@@ -109,3 +109,15 @@
 /* tela de "Reconectando…": a orla ao entardecer */
 .tema-gta6 .volta { background: linear-gradient(180deg, rgba(18, 6, 31, .45), rgba(18, 6, 31, .9) 75%), url("../../live/assets/fundo-orla.webp") center 30% / cover, #12061f; }
 .tema-gta6 .volta__card { background: rgba(28, 8, 48, .88); border-color: rgba(255, 79, 163, .35); }
+
+/* fundo igual ao da live: a orla e o oceano trocando devagar, desfocados, com o roxo da noite por cima */
+.tema-gta6.com-lateral, .tema-gta6 { background: #12061f; }
+.gta-fundo { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+.gta-fundo i { position: absolute; inset: -30px; background: center / cover; filter: blur(10px) saturate(1.15) brightness(.7); opacity: 0; animation: gtaTroca 60s linear infinite; }
+.gta-fundo i:nth-child(1) { background-image: url("../../live/assets/fundo-orla.webp"); animation-delay: -6s; }
+.gta-fundo i:nth-child(2) { background-image: url("../../live/assets/fundo-ocean.webp"); animation-delay: -36s; }
+.gta-fundo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28, 8, 48, .45), rgba(18, 6, 31, .25) 30%, rgba(18, 6, 31, .55) 75%, #12061f), radial-gradient(80% 70% at 45% 45%, transparent 40%, rgba(28, 8, 48, .6)); }
+@keyframes gtaTroca { 0% { opacity: 0 } 6%, 47% { opacity: 1 } 53%, 100% { opacity: 0 } }
+@media (prefers-reduced-motion: reduce) { .gta-fundo i { animation: none; } .gta-fundo i:nth-child(1) { opacity: 1; } }
+/* projeções na sala: moldura de letreiro */
+.tema-gta6 .tile { box-shadow: inset 0 0 0 1px rgba(255, 79, 163, .25); }

@@ -46,6 +46,15 @@ setInterval(async () => {
   for (const e of p?.entradas || []) await pactl('move-sink-input', String(e.index), SINK).catch(() => {})
 }, 5000)
 
+// o Greenlight é isolado sozinho assim que aparece tocando som (dá para projetar o jogo no Cineminha com o
+// "Som extra" na entrada Cineminha-Programa, sem abrir o estúdio). Se você soltar pelo estúdio, ele respeita.
+let soltouNaMao = false
+setInterval(async () => {
+  if (isolado || soltouNaMao || !temSom) return
+  const g = (await programas().catch(() => [])).find(x => /greenlight/i.test(x.id + x.nome))
+  if (g) await isola(g.id).catch(() => {})
+}, 5000)
+
 // nomes que dá para reconhecer (o Greenlight se apresenta como "Chromium")
 const amigavel = (id, nome) => /greenlight/i.test(id) ? 'Greenlight (Xbox)' : /chrome/i.test(id) && /google/i.test(nome) ? 'Google Chrome (o estúdio e a rádio)' : nome
 
@@ -74,9 +83,9 @@ http.createServer(async (req, res) => {
   try {
     if (url === '/sensores') return manda({ temp: lerTemp(), carga: Math.round(loadavg()[0] / cpus().length * 100) })
     if (url === '/som') return manda({ pactl: temSom, isolado, direto: !semDireto, programas: temSom ? (await programas()).filter(p => !/^loopback/i.test(p.id + p.nome)).map(({ id, nome }) => ({ id, nome: amigavel(id, nome) })) : [] })
-    if (url === '/som/isolar' && req.method === 'POST') { const { id } = await corpo(req); return manda(await isola(String(id || ''))) }
+    if (url === '/som/isolar' && req.method === 'POST') { const { id } = await corpo(req); soltouNaMao = false; return manda(await isola(String(id || ''))) }
     if (url === '/som/direto' && req.method === 'POST') { const { on } = await corpo(req); return manda({ direto: await poeDireto(on !== false) }) }
-    if (url === '/som/soltar' && req.method === 'POST') { await solta(); return manda({ ok: true }) }
+    if (url === '/som/soltar' && req.method === 'POST') { soltouNaMao = true; await solta(); return manda({ ok: true }) }
   } catch (e) { return manda({ erro: e.message || 'falhou' }, 500) }
   res.writeHead(404); res.end()
 }).on('error', e => { console.error(e.code === 'EADDRINUSE' ? `A porta ${AJUDA} já está em uso: o ajudante já está aberto em outro terminal?` : e.message); process.exit(1) })

@@ -7,8 +7,11 @@ function confere() {
   const tema = TEMAS.find(([re]) => re.test(sala))?.[1] || ''
   if (tema === atual) return
   if (atual) document.body.classList.remove('tema-' + atual)
+  document.querySelector('.gta-fundo')?.remove()
   atual = tema
   if (!tema) return
+  // fundo da live: a orla e o oceano trocando devagar (o CSS do tema anima)
+  if (tema === 'gta6') document.body.prepend(Object.assign(document.createElement('div'), { className: 'gta-fundo', innerHTML: '<i></i><i></i>', ariaHidden: 'true' }))
   if (!document.querySelector(`link[data-tema-sala="${tema}"]`)) {
     const l = Object.assign(document.createElement('link'), { rel: 'stylesheet', href: `themes/${tema}/theme.css` })
     l.dataset.temaSala = tema; document.head.append(l)

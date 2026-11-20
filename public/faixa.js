@@ -3,7 +3,11 @@
 // Dias: 5 músicas por dia (tools/faixa/diario.py). Dá para jogar um dia ou um combo de vários dias.
 // O host (quem começou) guarda o estado e manda para todos pela action 'jogo'.
 
+import CFG from './config.js'
+
 const BASE = 'jogos/faixa/'
+// músicas e capas: no projeto à parte da Vercel (CFG.midiaFaixa = https://cineminha-midia.vercel.app/faixa/) ou no próprio site
+const MIDIA = CFG.midiaFaixa || BASE
 const MODOS = {
   coletivo: { nome: 'Cooperativo', ic: 'users', dica: 'Todo mundo ouve o mesmo. Qualquer erro ou pulo abre o próximo instrumento para todos.' },
   individual: { nome: 'Cada um', ic: 'user', dica: 'Cada um no seu ritmo, vendo quem já acertou.' },
@@ -143,7 +147,7 @@ export function criaFaixa(ctx) {
   const leiN = () => S?.lei?.fase === 'ouve' ? S.lei.n : 0 // camadas que o leilão libera na hora do palpite
   const atualDe = () => S?.musicas[S.i]
   const musica = () => { const a = atualDe(); return a && dias?.[a.d]?.find(m => m.n === a.n) }
-  const pasta = () => { const a = atualDe(); return `${BASE}dias/${a.d}/${a.n}/` }
+  const pasta = () => { const a = atualDe(); return `${MIDIA}dias/${a.d}/${a.n}/` }
   const passos = () => { const m = musica(); return m ? passosDe(m) : [] }
   const total = () => passos().length || 6
   const valor = p => Math.max(100, (total() - p + 1) * 100)
