@@ -1,4 +1,914 @@
 {
+ "2026-01-13": [
+  {
+   "id": "strawberry-guy-mrs-magic",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Mrs Magic",
+   "a": "Strawberry Guy",
+   "album": "Taking My Time to Be",
+   "ano": 2019,
+   "dz": {
+    "t": 1567152892,
+    "a": 14510531
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 761684,
+   "generos": [
+    "Alternativo",
+    "Singer & Songwriter"
+   ],
+   "pais": "GB",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  }
+ ],
+ "2026-01-14": [
+  {
+   "id": "beyonce-haunted",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Haunted",
+   "a": "Beyoncé",
+   "album": "BEYONCÉ [Platinum Edition]",
+   "ano": 2013,
+   "dz": {
+    "t": 90408871,
+    "a": 145
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 782631,
+   "generos": [
+    "Pop",
+    "Pop internacional",
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "billie-eilish-bellyache",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "bellyache",
+   "a": "Billie Eilish",
+   "album": "Bellyache",
+   "ano": 2017,
+   "dz": {
+    "t": 142752898,
+    "a": 9635624
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 779446,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "frank-ocean-pyramids",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Pyramids",
+   "a": "Frank Ocean",
+   "album": "channel ORANGE",
+   "ano": 2012,
+   "dz": {
+    "t": 97328578,
+    "a": 1350335
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 772061,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "lana-del-rey-bleachers-margaret-feat-bleachers",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Margaret",
+   "a": "Lana Del Rey",
+   "album": "Did you know that there's a tunnel under Ocean Blvd",
+   "ano": 2023,
+   "dz": {
+    "t": 2202736607,
+    "a": 1424821
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 770781,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "daddy-yankee-rompe",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Rompe",
+   "a": "Daddy Yankee",
+   "album": "20 Number 1's Now",
+   "ano": 2005,
+   "dz": {
+    "t": 440252642,
+    "a": 3839
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 768820,
+   "generos": [
+    "Reggaeton"
+   ],
+   "pais": null,
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  }
+ ],
+ "2026-01-15": [
+  {
+   "id": "avril-lavigne-i-m-with-you",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "I'm with You",
+   "a": "Avril Lavigne",
+   "album": "Let Go",
+   "ano": 2002,
+   "dz": {
+    "t": 15587475,
+    "a": 35
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 840185,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "tyler-the-creator-lola-young-like-him-feat-lola-young",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Like Him (feat. Lola Young)",
+   "a": "Tyler, The Creator",
+   "album": "CHROMAKOPIA",
+   "ano": 2024,
+   "dz": {
+    "t": 3064010401,
+    "a": 1194083
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 826599,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "frankie-valli-can-t-take-my-eyes-off-you",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Can't Take My Eyes off You",
+   "a": "Frankie Valli",
+   "album": "The Very Best of Frankie Valli & The 4 Seasons",
+   "ano": 1967,
+   "dz": {
+    "t": 725689,
+    "a": 5690
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "disco-dance"
+    ],
+    "decada": 1960,
+    "vibes": [
+     "romantica",
+     "festa",
+     "hino"
+    ],
+    "fama": 5
+   },
+   "rank": 798791,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 1960,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "kate-bush-army-dreamers",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Army Dreamers",
+   "a": "Kate Bush",
+   "album": "Never for Ever",
+   "ano": 1980,
+   "dz": {
+    "t": 3127838,
+    "a": 1049
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 795097,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "destiny-s-child-bills-bills-bills",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Bills, Bills, Bills",
+   "a": "Destiny's Child",
+   "album": "The Writing's On The Wall",
+   "ano": 1999,
+   "dz": {
+    "t": 580889,
+    "a": 595
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 788081,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  }
+ ],
+ "2026-01-16": [
+  {
+   "id": "michael-jackson-chicago",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Chicago",
+   "a": "Michael Jackson",
+   "album": "XSCAPE",
+   "ano": 2014,
+   "dz": {
+    "t": 78213531,
+    "a": 259
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "tg": {
+    "pais": "US",
+    "generos": [
+     "pop",
+     "rnb-soul"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "energia",
+     "festa"
+    ],
+    "fama": 2
+   },
+   "rank": 898755,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "the-marias-no-one-noticed",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "No One Noticed",
+   "a": "The Marías",
+   "album": "Submarine",
+   "ano": 2024,
+   "dz": {
+    "t": 2816073752,
+    "a": 12607183
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 874867,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "rihanna-kiss-it-better",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Kiss It Better",
+   "a": "Rihanna",
+   "album": "ANTI (Deluxe)",
+   "ano": 2016,
+   "dz": {
+    "t": 118190296,
+    "a": 564
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 863679,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "sade-like-a-tattoo",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Like a Tattoo",
+   "a": "Sade",
+   "album": "The Best of Sade",
+   "ano": 1994,
+   "dz": {
+    "t": 1030652042,
+    "a": 202
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 844939,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "GB",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "soap-skin-me-and-the-devil",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Me and the Devil",
+   "a": "Soap&Skin",
+   "album": "Sugarbread",
+   "ano": 2013,
+   "dz": {
+    "t": 64321156,
+    "a": 258570
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "AT",
+    "generos": [
+     "indie",
+     "pop"
+    ],
+    "decada": 2010,
+    "vibes": [
+     "triste",
+     "viral"
+    ],
+    "fama": 2
+   },
+   "rank": 841091,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "DK",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  }
+ ],
  "2026-01-17": [
   {
    "id": "madonna-like-a-prayer",
@@ -48,6 +958,213 @@
    ],
    "pais": "US",
    "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris2"
+   ]
+  },
+  {
+   "id": "usher-lil-jon-ludacris-yeah-feat-lil-jon-ludacris",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Yeah! (feat. Lil Jon & Ludacris)",
+   "a": "Usher",
+   "album": "Confessions (Expanded Edition)",
+   "ano": 2004,
+   "dz": {
+    "t": 13783449,
+    "a": 17
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 910078,
+   "generos": [
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris2"
+   ]
+  },
+  {
+   "id": "pinkpantheress-zara-larsson-stateside-zara-larsson",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "Stateside + Zara Larsson",
+   "a": "PinkPantheress",
+   "album": "Fancy Some More?",
+   "ano": 2025,
+   "dz": {
+    "t": 3588926901,
+    "a": 122602052
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 909114,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris2",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "prince-royce-rechazame",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Rechazame",
+   "a": "Prince Royce",
+   "album": "Prince Royce",
+   "ano": 2010,
+   "dz": {
+    "t": 76036246,
+    "a": 380955
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 907907,
+   "generos": [],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris2"
+   ]
+  },
+  {
+   "id": "alicia-keys-if-i-ain-t-got-you",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "If I Ain't Got You",
+   "a": "Alicia Keys",
+   "album": "The Diary Of Alicia Keys",
+   "ano": 2003,
+   "dz": {
+    "t": 629466,
+    "a": 228
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 907742,
+   "generos": [
+    "Pop",
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 2000,
    "tags_ok": true,
    "de": [
     "meris2"
