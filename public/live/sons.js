@@ -24,6 +24,17 @@ export function somLinha(entrou) {
   })
 }
 
+// aviso de mensagem no chat (só no estúdio): um "tlim" curto e baixo, diferente do pix e da linha
+export function somMsg() {
+  const c = ac(), t = c.currentTime
+  if (c.state === 'suspended') c.resume().catch(() => {})
+  ;[[1046.5, 0], [1568, .07]].forEach(([f, d]) => {
+    const o = c.createOscillator(), g = c.createGain()
+    o.type = 'sine'; o.frequency.value = f
+    g.gain.setValueAtTime(0, t + d); g.gain.linearRampToValueAtTime(.16, t + d + .01); g.gain.exponentialRampToValueAtTime(.001, t + d + .35)
+    o.connect(g).connect(c.destination); o.start(t + d); o.stop(t + d + .4)
+  })
+}
 // voz lendo o pix: prefere a voz do Google em português
 let vozes = []
 const carrega = () => { vozes = speechSynthesis.getVoices() }

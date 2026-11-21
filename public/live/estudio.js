@@ -5,7 +5,7 @@ import { criaPalco, reais, relogio } from './palco.js'
 import { entraLive, codigoDaUrl, novoCodigo } from './rede.js'
 import { criaCompositor, QUALIDADES } from './compositor.js'
 import { criaPlayer, criaRadioEstudio, buscaMusica, minutos } from './radio.js'
-import { somPix, somLinha, falaPix, medidor, retomaAudio, ABERTURAS, vozValida } from './sons.js'
+import { somPix, somLinha, somMsg, falaPix, medidor, retomaAudio, ABERTURAS, vozValida } from './sons.js'
 import { ic, poeIcones } from './icones.js'
 import { corDe } from './pessoas.js'
 import { ligaSomReal, somRealLigado, potenciaReal } from './somreal.js'
@@ -158,10 +158,10 @@ $('#afComecar').onclick = () => $('#btnVivo').click()
 const admTok = () => { try { return JSON.parse(localStorage.getItem('cine.adm')) || '' } catch { return '' } }
 let cineAnunciado = false
 async function anunciaCine() {
-  const quer = !!est.inicio && pref.noCine !== false && !!admTok()
+  const quer = !!est.inicio && pref.noCine !== false && !trancada() && !!admTok()
   const nCine = (live?.publico() || []).filter(doCine).length
   $('#btnCine').setAttribute('aria-pressed', pref.noCine !== false)
-  $('#cineInfo').textContent = !admTok() ? 'entre como admin no Cineminha (neste navegador) para aparecer lá'
+  $('#cineInfo').textContent = trancada() ? 'não aparece enquanto a live estiver trancada' : !admTok() ? 'entre como admin no Cineminha (neste navegador) para aparecer lá'
     : pref.noCine === false ? 'desligado' : !est.inicio ? 'aparece quando você começar a live' : nCine ? `assistindo pelo Cineminha: ${nCine}` : 'aparecendo no Cineminha'
   if (!quer && !cineAnunciado) return
   const body = quer ? { op: 'anuncia', tok: admTok(), codigo, titulo: est.titulo, inicio: est.inicio } : { op: 'para', tok: admTok() }
@@ -668,6 +668,34 @@ $('#resultados').onclick = e => {
 /* ---------- chat, pix e pedidos ---------- */
 const msgs = []
 const nomeDe = m => m.de === 'ele' ? LIVE.streamer : m.de === 'amigo' ? (m.nome || 'Convidado') : LIVE.ela
+/* ---------- me avisar das mensagens (só no estúdio): som, ler em voz alta e aviso do sistema ----------
+   O pix já tem som e voz próprios, então fica de fora. O som sai só daqui (não vai para a live). */
+const av = { som: pref.avSom !== false, ler: !!pref.avLer, tela: !!pref.avTela }
+let ultimoSom = 0
+function pintaAvisos() { for (const [k, id] of [['som', 'avSom'], ['ler', 'avLer'], ['tela', 'avTela']]) $('#' + id).setAttribute('aria-pressed', av[k]) }
+function liga(k, on) { av[k] = on; pref['av' + k[0].toUpperCase() + k.slice(1)] = on; salva(); pintaAvisos() }
+$('#avSom').onclick = () => { liga('som', !av.som); if (av.som) { retomaAudio(); somMsg() } }
+$('#avLer').onclick = () => { liga('ler', !av.ler); if (!av.ler) speechSynthesis.cancel() }
+$('#avTela').onclick = async () => {
+  if (av.tela) return liga('tela', false)
+  if (!('Notification' in window)) return toast('Este navegador não mostra avisos na tela')
+  const ok = Notification.permission === 'granted' || await Notification.requestPermission() === 'granted'
+  if (!ok) return toast('O Chrome bloqueou os avisos: libere em Notificações no cadeado da barra de endereço', 6000)
+  liga('tela', true); toast('Pronto: com o estúdio fora da frente, a mensagem aparece num aviso do sistema')
+}
+pintaAvisos()
+function avisaMsg(m) {
+  const nome = nomeDe(m), txt = m.ped ? `pediu ${m.txt}` : m.txt
+  if (av.som && Date.now() - ultimoSom > 1200) { ultimoSom = Date.now(); try { somMsg() } catch {} }
+  if (av.ler && !m.ped) { try { const u = new SpeechSynthesisUtterance(`${nome}: ${txt}`); u.lang = 'pt-BR'; u.rate = 1.1; speechSynthesis.speak(u) } catch {} }
+  if (av.tela && Notification.permission === 'granted' && (document.hidden || !document.hasFocus())) {
+    try {
+      const n = new Notification(`${nome} no chat da live`, { body: txt, tag: 'live-chat', renotify: true, silent: true, icon: 'assets/vi.webp' })
+      n.onclick = () => { window.focus(); n.close() }
+      setTimeout(() => n.close(), 8000)
+    } catch {}
+  }
+}
 function poeMsg(m) {
   msgs.push(m); if (msgs.length > 120) msgs.shift()
   const d = document.createElement('div')
@@ -681,6 +709,7 @@ function poeMsg(m) {
   const box = $('#msgs'), embaixo = box.scrollHeight - box.scrollTop - box.clientHeight < 40
   box.append(d); if (embaixo) box.scrollTop = box.scrollHeight
   if (!m.sis && m.de !== 'ele') avisaAba('chat', '#bChat')
+  if (!m.sis && !m.pix && m.de !== 'ele' && !m.hist) avisaMsg(m)
   if (!m.sis && !m.ped && !m.hist) palco.chat({ id: m.id, de: m.de || 'ela', key: m.key, nome: m.nome, txt: m.txt, pix: m.pix })
 }
 $('#compor').onsubmit = e => {
@@ -889,6 +918,42 @@ function mudaChamada(id, on) {
   somLinha(on); muda({ chamada: lista, linha: lista.some(p => p.key === 'ela') })
 }
 
+/* ---------- live trancada: só ela (link com a chave) e a câmera do celular ----------
+   Quem mais chegar (amigo, convidado, link antigo, janelinha do Cineminha) sai na hora e não recebe vídeo nem voz:
+   o papel vira 'barrado', então nada que percorre o público (envio, ligação, chat, pix) chega nele. */
+const trancada = () => !!pref.trancada
+let pintaChips = () => {}
+function barra(id) {
+  if (!live) return
+  const q = quemE(id)
+  live.acoes.mod.send({ fora: true, trancada: true, regras }, id)
+  vozSai(id); if (volDe.delete(id)) pintaVolDela()
+  if (naLinha(q.key)) { const lista = est.chamada.filter(x => x.key !== q.key); somLinha(false); muda({ chamada: lista, linha: lista.some(x => x.key === 'ela') }) }
+  for (const st of [comp.saida, streamDireto, streamCam, cineJogo, cineCam, ...antigos]) if (st) live.tira(st, id)
+  live.papeis.set(id, 'barrado')
+  return q.nome
+}
+function pintaTranca() {
+  const t = trancada()
+  $('#btnTranca').setAttribute('aria-pressed', t)
+  $('#btnTranca').innerHTML = `${ic(t ? 'lock' : 'lock-open')}${t ? 'Live trancada' : 'Trancar a live'}`
+  $('#trancaInfo').textContent = t
+    ? `Só a ${LIVE.ela} (pelo link dela) e a câmera do celular entram. Amigos e links antigos ficam de fora e a live some do Cineminha.`
+    : 'Aberta: os amigos entram pelo link deles e a live pode aparecer no Cineminha. Trancando, só o link dela funciona.'
+  $('#chipTranca').hidden = !t
+  document.querySelector('.aba.links').classList.toggle('trancada', t)
+}
+$('#btnTranca').onclick = () => {
+  pref.trancada = !trancada(); salva(); pintaTranca(); anunciaCine()
+  if (trancada()) {
+    const fora = (live?.quem('amigo') || []).map(barra)
+    pintaChips(); pintaPessoas()
+    if (fora.length) poeMsg({ sis: true, txt: `Live trancada: ${fora.join(', ')} saí${fora.length > 1 ? 'ram' : 'u'}` })
+    toast(`Live trancada: só a ${LIVE.ela} entra${fora.length ? ` (${fora.length} saí${fora.length > 1 ? 'ram' : 'u'})` : ''}`)
+  } else toast('Live aberta: os amigos podem entrar pelo link deles')
+}
+pintaTranca()
+
 /* ---------- rede ---------- */
 const camDe = new Map()
 let camTrilha = null
@@ -903,12 +968,16 @@ async function conecta() {
     $('#infoSaida').textContent = ela || na ? `transmitindo para ${[ela ? LIVE.ela : '', na ? `${na} amigo${na === 1 ? '' : 's'}` : ''].filter(Boolean).join(' e ')}` : `esperando ${LIVE.ela} entrar`
     if (!live.quem('cam').length) $('#camInfo').textContent = 'desconectada'
   }
+  pintaChips = chips
   live.on('papel', (id, p) => {
     if (p === 'ela' && live.perfis.get(id)?.k !== pref.chaveEla) {
       // link sem a chave (antigo, ou alguém tirou o "&amigos"): entra como convidado
       live.papeis.set(id, 'amigo'); live.perfis.set(id, { key: 'g:link antigo', nome: 'Link antigo', ap: live.perfis.get(id)?.ap || '' }); p = 'amigo'
       live.acoes.mod.send({ linkAntigo: true, regras }, id)
       poeMsg({ sis: true, txt: `Alguém entrou com um link antigo dela. Se for a ${LIVE.ela}, mande o link novo (aba links).` })
+    }
+    if (p === 'amigo' && trancada()) {
+      poeMsg({ sis: true, txt: `${barra(id)} tentou entrar, mas a live está trancada` }); chips(); return
     }
     chips()
     if ((p === 'ela' || p === 'amigo') && (modDe(quemE(id).key).fora || foraAp.has(live.perfis.get(id)?.ap))) { expulsa(id); return }

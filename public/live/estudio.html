@@ -132,6 +132,8 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
 .msgs [data-key]>b{cursor:pointer;border-radius:4px}
 .msgs [data-key]>b:hover{text-decoration:underline;text-underline-offset:3px}
 .regras{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.regras.avisos{align-items:center}
+.regras .rot{font:700 11px var(--ui);letter-spacing:.14em;text-transform:uppercase;color:#fff8;margin-right:2px}
 .pessoas{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .pessoas .vazio{font:600 12px var(--ui);color:#fff6}
 .pessoa{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:5px 10px;background:#ffffff12;color:#fff;font:600 13px var(--ui);cursor:pointer;box-shadow:inset 3px 0 0 var(--c)}
@@ -174,6 +176,9 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
 .resultados{max-height:260px;overflow:auto;margin-top:8px}
 .vazio{font:600 14px var(--ui);color:#fff8;padding:10px 6px}
 .links .link{display:flex;gap:8px;align-items:center;margin-top:8px}
+.chip.tranca{background:var(--creme);color:var(--tinta)}
+.links .tranca-bloco{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #ffffff14}
+.links.trancada .so-aberta{opacity:.4}
 .links code{flex:1;font:500 13px var(--mono);background:#ffffff10;padding:8px 10px;border-radius:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--creme);color:var(--tinta);font:700 17px var(--ui);padding:10px 18px;border-radius:12px;box-shadow:0 10px 30px #000a;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9}
 .toast.on{opacity:1}
@@ -228,6 +233,7 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
     <span class="chip" id="chipEla"><i></i><span>amor</span></span>
     <span class="chip" id="chipAmigos" hidden><i></i><span></span></span>
     <span class="chip" id="chipCam"><i></i>celular</span>
+    <span class="chip tranca" id="chipTranca" hidden title="Live trancada: só ela entra"><i data-ic="lock"></i>privada</span>
     <span class="chip" id="chipVivo"><i></i><span>fora do ar</span></span>
     <span class="tempo" id="tempo"></span>
     <div class="dir">
@@ -374,6 +380,12 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
           <button class="btn mini liga" id="regLinha" aria-pressed="true">Linha</button>
           <button class="btn mini" id="limpaChat" title="Apaga todas as mensagens para todo mundo">Limpar chat</button>
         </div>
+        <div class="regras avisos" title="Só para você: avisa quando chega mensagem no chat">
+          <span class="rot">me avisar</span>
+          <button class="btn mini liga" id="avSom" aria-pressed="true" title="Toca um som quando chega mensagem"><i data-ic="bell"></i>Som</button>
+          <button class="btn mini liga" id="avLer" aria-pressed="false" title="Lê a mensagem em voz alta (só aqui no estúdio)"><i data-ic="volume-2"></i>Ler</button>
+          <button class="btn mini liga" id="avTela" aria-pressed="false" title="Aviso do sistema quando o estúdio não está na frente (você no jogo)"><i data-ic="monitor"></i>Na tela</button>
+        </div>
         <div class="pessoas" id="pessoas" title="Toque no nome para silenciar, bloquear pix, tirar da linha…"></div>
       </div>
       <div class="msgs" id="msgs"></div>
@@ -467,14 +479,23 @@ aside{grid-row:2/4;grid-column:2;display:flex;flex-direction:column;min-height:0
 
     <div class="aba links" data-aba="links" hidden>
       <div class="bloco">
+        <div class="tranca-bloco">
+          <h3>quem pode assistir</h3>
+          <button class="btn liga" id="btnTranca" aria-pressed="false"></button>
+          <p class="dica" id="trancaInfo"></p>
+        </div>
         <h3>link dela <span id="codigo"></span></h3>
         <div class="link"><code id="linkEla"></code><button class="btn mini" data-copia="linkEla">Copiar</button></div>
-        <h3 style="margin-top:14px">link dos amigos <span>escolhem o perfil do Cineminha ou entram como convidado</span></h3>
-        <div class="link"><code id="linkAmigos"></code><button class="btn mini" data-copia="linkAmigos">Copiar</button></div>
+        <div class="so-aberta">
+          <h3 style="margin-top:14px">link dos amigos <span>escolhem o perfil do Cineminha ou entram como convidado</span></h3>
+          <div class="link"><code id="linkAmigos"></code><button class="btn mini" data-copia="linkAmigos">Copiar</button></div>
+        </div>
         <h3 style="margin-top:14px">link do celular (câmera)</h3>
         <div class="link"><code id="linkCam"></code><button class="btn mini" data-copia="linkCam">Copiar</button></div>
+        <div class="so-aberta">
         <h3 style="margin-top:14px">no cineminha <span id="cineInfo">a janelinha aparece para quem está no Cineminha</span></h3>
         <button class="btn liga" id="btnCine" aria-pressed="true" title="Enquanto você estiver ao vivo, quem estiver no Cineminha vê a live numa janelinha no canto"><i data-ic="monitor"></i>Mostrar no Cineminha</button>
+        </div>
         <label class="campo" style="margin-top:14px"><span>Título da live</span><input type="text" id="titulo" maxlength="80"></label>
       </div>
     </div>

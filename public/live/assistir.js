@@ -384,8 +384,8 @@ function recebeMod(m) {
     live = null; estudioOn = false
     palco.setJogo(null); palco.setCam(null); somEstudio.srcObject = null; player.segue(null, false)
     $('#espera').classList.remove('some')
-    $('#espera b').textContent = 'você saiu da live'
-    $('#espera span').textContent = 'Quem faz a live tirou você desta transmissão.'
+    $('#espera b').textContent = m.trancada ? 'live privada' : 'você saiu da live'
+    $('#espera span').textContent = m.trancada ? 'Esta live está trancada agora: só quem foi convidado consegue assistir.' : 'Quem faz a live tirou você desta transmissão.'
     document.body.classList.add('fora-da-live')
   }
   pintaMod()
