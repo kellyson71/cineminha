@@ -5,3 +5,6 @@ tmp
 
 app/dist
 extensao/loja/*.zip
+
+# músicas e capas do Faixa a Faixa: ficam no bucket R2 (scripts/midia-r2.py)
+public/jogos/faixa/dias/

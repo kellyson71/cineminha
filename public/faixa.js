@@ -6,7 +6,7 @@
 import CFG from './config.js'
 
 const BASE = 'jogos/faixa/'
-// músicas e capas: no projeto à parte da Vercel (CFG.midiaFaixa = https://cineminha-midia.vercel.app/faixa/) ou no próprio site
+// músicas e capas: no bucket R2 da Cloudflare (CFG.midiaFaixa) ou no próprio site
 const MIDIA = CFG.midiaFaixa || BASE
 const MODOS = {
   coletivo: { nome: 'Cooperativo', ic: 'users', dica: 'Todo mundo ouve o mesmo. Qualquer erro ou pulo abre o próximo instrumento para todos.' },

@@ -23,6 +23,12 @@ else
   git diff --cached --quiet || git commit -q -m "${1:-Atualiza o site}"
 fi
 
+# Músicas e capas do Faixa a Faixa ficam no bucket R2 (fora do git e do pacote do site): manda as novas antes de
+# publicar a lista dos dias, senão o jogo procura uma música que ainda não subiu. Precisa das chaves R2_* no .env.local.
+if [ -d public/jogos/faixa/dias ]; then
+  uv run --with boto3 scripts/midia-r2.py || { echo "falhou o envio das músicas para o R2"; exit 1; }
+fi
+
 # Backup no GitHub: se falhar, avisa mas publica mesmo assim.
 if [ -n "$alvo" ]; then
   git push -q origin main || echo "aviso: o push para o GitHub falhou; publicando assim mesmo"

@@ -11,7 +11,7 @@ export default {
   adminHash: 'd8f92ee6a6cbc42e122fa7a4fe7794a870241e68678674627b5794813dff519a', // sha256("admin:" + senha de admin)
   giphyKey: '0yM0aIY5iVZWPygyynVoZcQAZPQ3oPv0',
   convidados: true,       // permite entrar digitando um nome
-  midiaFaixa: '',         // onde ficam as músicas do Faixa a Faixa (projeto cineminha-midia da Vercel); vazio = do próprio site
+  midiaFaixa: 'https://pub-2e6cf610416c45199c97d80798c5626e.r2.dev/faixa/', // músicas do Faixa a Faixa no bucket R2 (scripts/midia-r2.py); vazio = do próprio site
 
   // Pessoas fixas. "boneco" é a arte que aparece na fileira; sem ele, aparece a foto.
   // "poses" (opcional): pasta com base, palmas1, palmas2, celular, colo, dormindo e pipoca (.webp, mesmo tamanho).

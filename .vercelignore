@@ -10,3 +10,5 @@ RESUMO.md
 PLANO-UI.md
 deploy.sh
 app
+# músicas e capas do Faixa a Faixa: ficam no bucket R2 (scripts/midia-r2.py), não no pacote do site
+public/jogos/faixa/dias

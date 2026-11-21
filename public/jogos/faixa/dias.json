@@ -1,4 +1,1048 @@
 {
+ "2026-01-18": [
+  {
+   "id": "empire-of-the-sun-we-are-the-people",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "We Are The People",
+   "a": "Empire of the Sun",
+   "album": "Indie Hits",
+   "ano": 2020,
+   "dz": {
+    "t": 1107076512,
+    "a": 185473
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 926238,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "AU",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "maroon-5-wiz-khalifa-payphone",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Payphone",
+   "a": "Maroon 5",
+   "album": "Overexposed",
+   "ano": 2012,
+   "dz": {
+    "t": 38934641,
+    "a": 1188
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 919280,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "daft-punk-veridis-quo",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Veridis Quo",
+   "a": "Daft Punk",
+   "album": "Discovery",
+   "ano": 2001,
+   "dz": {
+    "t": 3135563,
+    "a": 27
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    }
+   ],
+   "rank": 917316,
+   "generos": [
+    "Electro"
+   ],
+   "pais": "FR",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "sean-paul-dua-lipa-no-lie",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "No Lie",
+   "a": "Sean Paul",
+   "album": "No Lie",
+   "ano": 2016,
+   "dz": {
+    "t": 136341512,
+    "a": 88
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 917076,
+   "generos": [
+    "Reggae"
+   ],
+   "pais": "JM",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
+ "2026-01-19": [
+  {
+   "id": "radiohead-no-surprises",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "No Surprises",
+   "a": "Radiohead",
+   "album": "No Surprises",
+   "ano": 1997,
+   "dz": {
+    "t": 138539157,
+    "a": 399
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 936980,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "meris"
+   ]
+  },
+  {
+   "id": "michael-jackson-dirty-diana",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dirty Diana (2012 Remaster)",
+   "a": "Michael Jackson",
+   "album": "Bad 25th Anniversary",
+   "ano": 2012,
+   "dz": {
+    "t": 59509611,
+    "a": 259
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 936950,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "nelly-furtado-say-it-right",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Say It Right",
+   "a": "Nelly Furtado",
+   "album": "Loose",
+   "ano": 2006,
+   "dz": {
+    "t": 1151147,
+    "a": 133
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 936041,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "the-strokes-the-adults-are-talking",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "The Adults Are Talking",
+   "a": "The Strokes",
+   "album": "The New Abnormal",
+   "ano": 2020,
+   "dz": {
+    "t": 921027292,
+    "a": 569
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 932793,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "US",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "michael-jackson-don-t-stop-til-you-get-enough",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Don't Stop 'Til You Get Enough",
+   "a": "Michael Jackson",
+   "album": "Off the Wall",
+   "ano": 1979,
+   "dz": {
+    "t": 15586296,
+    "a": 259
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 926325,
+   "generos": [
+    "Pop",
+    "Disco",
+    "Soul & Funk"
+   ],
+   "pais": null,
+   "decada": 1970,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
+ "2026-01-20": [
+  {
+   "id": "drake-wizkid-kyla-one-dance",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "One Dance",
+   "a": "Drake",
+   "album": "Views",
+   "ano": 2016,
+   "dz": {
+    "t": 124603270,
+    "a": 246791
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 956192,
+   "generos": [
+    "Rap/Hip Hop"
+   ],
+   "pais": "CA",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "phil-collins-another-day-in-paradise-2016-remaster",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Another Day in Paradise (2016 Remaster)",
+   "a": "Phil Collins",
+   "album": "The Singles (Expanded)",
+   "ano": 1989,
+   "dz": {
+    "t": 134036248,
+    "a": 186
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 949542,
+   "generos": [
+    "Pop",
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "shawn-mendes-treat-you-better",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Treat You Better",
+   "a": "Shawn Mendes",
+   "album": "Illuminate",
+   "ano": 2017,
+   "dz": {
+    "t": 351594981,
+    "a": 5962948
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 948673,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "CA",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "david-guetta-kid-cudi-memories-feat-kid-cudi",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Memories (feat. Kid Cudi)",
+   "a": "David Guetta",
+   "album": "Memories (feat. Kid Cudi)",
+   "ano": 2010,
+   "dz": {
+    "t": 5400243,
+    "a": 542
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 944459,
+   "generos": [
+    "Dance"
+   ],
+   "pais": "FR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "pitbull-afrojack-ne-yo-nayer-give-me-everything-feat-nayer",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Give Me Everything (feat. Nayer)",
+   "a": "Pitbull",
+   "album": "Give Me Everything (feat. Nayer)",
+   "ano": 2011,
+   "dz": {
+    "t": 10308117,
+    "a": 776
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 940597,
+   "generos": [
+    "Dance",
+    "Rap/Hip Hop",
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
+ "2026-01-21": [
+  {
+   "id": "bad-bunny-dtmf",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "DtMF",
+   "a": "Bad Bunny",
+   "album": "DeBÍ TiRAR MáS FOToS",
+   "ano": 2025,
+   "dz": {
+    "t": 3171003131,
+    "a": 10583405
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 981279,
+   "generos": [],
+   "pais": "PR",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "u2-with-or-without-you",
+   "n": 1,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "With Or Without You (Remastered 2007)",
+   "a": "U2",
+   "album": "The Joshua Tree",
+   "ano": 2007,
+   "dz": {
+    "t": 912486,
+    "a": 163
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 972705,
+   "generos": [
+    "Rock"
+   ],
+   "pais": "IE",
+   "decada": 2000,
+   "tags_ok": true,
+   "de": [
+    "otavio",
+    "meris"
+   ]
+  },
+  {
+   "id": "coolio-l-v-gangsta-s-paradise",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Gangsta's Paradise",
+   "a": "Coolio",
+   "album": "Gangsta's Paradise",
+   "ano": 1995,
+   "dz": {
+    "t": 1584416372,
+    "a": 99
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 968342,
+   "generos": [
+    "Rap/Hip Hop",
+    "R&B"
+   ],
+   "pais": "US",
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  },
+  {
+   "id": "tame-impala-dracula",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Dracula",
+   "a": "Tame Impala",
+   "album": "Dracula",
+   "ano": 2025,
+   "dz": {
+    "t": 3567385391,
+    "a": 134790
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "tg": {
+    "pais": "AU",
+    "generos": [
+     "indie",
+     "rock"
+    ],
+    "decada": 2020,
+    "vibes": [
+     "chill"
+    ],
+    "fama": 2
+   },
+   "rank": 962173,
+   "generos": [
+    "Alternativo"
+   ],
+   "pais": "AU",
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris",
+    "kellyson"
+   ]
+  },
+  {
+   "id": "mazzy-star-fade-into-you",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Fade Into You",
+   "a": "Mazzy Star",
+   "album": "So Tonight That I Might See",
+   "ano": 1993,
+   "dz": {
+    "t": 3360821,
+    "a": 1306
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "piano",
+     "nome": "Piano",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "4.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "5.webm"
+    }
+   ],
+   "rank": 960422,
+   "generos": [
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 1990,
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
+  }
+ ],
  "2026-01-22": [
   {
    "id": "ateez-pirate-king",
@@ -108,6 +1152,160 @@
    "tags_ok": true,
    "de": [
     "gabi"
+   ]
+  },
+  {
+   "id": "monsta-x-hero",
+   "n": 2,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "HERO",
+   "a": "Monsta X",
+   "album": "RUSH",
+   "ano": 2015,
+   "dz": {
+    "t": 1851227237,
+    "a": 5501870
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 450619,
+   "generos": [
+    "Música asiática",
+    "K-Pop"
+   ],
+   "pais": "KR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "clarice-falcao-oitavo-andar",
+   "n": 3,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Oitavo Andar",
+   "a": "Clarice Falcão",
+   "album": "Monomania",
+   "ano": 2012,
+   "dz": {
+    "t": 1509538582,
+    "a": 4244791
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "3.webm"
+    }
+   ],
+   "rank": 450612,
+   "generos": [],
+   "pais": "BR",
+   "decada": 2010,
+   "tags_ok": true,
+   "de": [
+    "gabi"
+   ]
+  },
+  {
+   "id": "djo-end-of-beginning",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "estudio",
+   "ano_ok": true,
+   "t": "End of Beginning",
+   "a": "Djo",
+   "album": "DECIDE",
+   "ano": 2022,
+   "dz": {
+    "t": 1899060227,
+    "a": 70227002
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "base",
+     "nome": "Baixo e base",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "teclado",
+     "nome": "Teclado",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 999711,
+   "generos": [
+    "Alternativo",
+    "Rock"
+   ],
+   "pais": null,
+   "decada": 2020,
+   "tags_ok": true,
+   "de": [
+    "meris"
    ]
   }
  ],
@@ -1810,7 +3008,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -7253,7 +8452,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -8050,7 +9250,8 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -8484,7 +9685,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -9036,7 +10238,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -9256,7 +10459,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -10026,6 +11230,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   }
@@ -18508,8 +19713,7 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris",
-    "kellyson"
+    "meris"
    ]
   }
  ],
@@ -20956,8 +22160,7 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris",
-    "kellyson"
+    "meris"
    ]
   },
   {
@@ -22443,7 +23646,8 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -22827,7 +24031,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -23161,6 +24366,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -23375,7 +24581,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -29310,7 +30517,10 @@
     "deezer": "https://www.deezer.com/track/413935112",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "kellyson"
+   ]
   },
   {
    "id": "concernedape-stardew-valley-overture",
@@ -30036,7 +31246,10 @@
     "deezer": "https://www.deezer.com/track/126884459",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "familia-dinossauros-familia-dinossauros-abertura",
@@ -30619,6 +31832,7 @@
     "stems": "https://www.enchor.us/?search=Love%20Me%20Like%20You%20Do%20%28From%20%22Fifty%20Shades%20Of%20Grey%22%29"
    },
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -32031,7 +33245,10 @@
     "deezer": "https://www.deezer.com/track/14499484",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "barenaked-ladies-big-bang-theory-theme",
@@ -32285,7 +33502,10 @@
     "deezer": "https://www.deezer.com/track/885544",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "aerosmith-i-don-t-want-to-miss-a-thing",
@@ -38731,6 +39951,9 @@
    },
    "obra_alt": [
     "LoL"
+   ],
+   "de": [
+    "meris"
    ]
   },
   {
@@ -40399,7 +41622,8 @@
     "stems": null
    },
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -41384,10 +42608,7 @@
     "deezer": "https://www.deezer.com/track/1248334362",
     "playlist": null,
     "stems": null
-   },
-   "de": [
-    "kellyson"
-   ]
+   }
   }
  ],
  "2026-06-18": [
@@ -43040,10 +44261,7 @@
     "deezer": "https://www.deezer.com/track/621152662",
     "playlist": null,
     "stems": null
-   },
-   "de": [
-    "kellyson"
-   ]
+   }
   },
   {
    "id": "oshi-no-ko-idol",
@@ -43744,7 +44962,8 @@
     "LoL"
    ],
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -45911,7 +47130,10 @@
     "deezer": "https://www.deezer.com/track/124237488",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "post-malone-sunflower-spider-man-into-the-spider-verse",
@@ -46734,7 +47956,10 @@
     "deezer": "https://www.deezer.com/track/14552280",
     "playlist": null,
     "stems": null
-   }
+   },
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "john-williams-hedwig-s-theme",
@@ -50972,6 +52197,7 @@
     "Steven Universe"
    ],
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -54100,6 +55326,9 @@
    },
    "alt": [
     "Homem Ser"
+   ],
+   "de": [
+    "meris"
    ]
   }
  ],
@@ -55309,7 +56538,10 @@
    ],
    "pais": "CA",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "mc-tuto-barbie",
@@ -55986,6 +57218,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -56396,7 +57629,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   }
  ],
  "2026-08-05": [
@@ -56602,6 +57838,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -57559,7 +58796,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "luisa-sonza-sagrado-profano",
@@ -57822,6 +59062,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -57878,7 +59119,10 @@
    ],
    "pais": "DE",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "rogerinho-tchuco-nela",
@@ -57975,7 +59219,10 @@
    ],
    "pais": "GB",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   }
  ],
  "2026-08-11": [
@@ -58125,7 +59372,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "jorge-mateus-eu-quero-so-voce-ao-vivo",
@@ -58296,6 +59546,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -58468,6 +59719,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -58679,6 +59931,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -59608,6 +60861,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -59721,6 +60975,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -59774,6 +61029,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -60429,6 +61685,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -60673,6 +61930,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -61102,6 +62360,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -61157,6 +62416,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -61256,6 +62516,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -61519,6 +62780,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -61579,6 +62841,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -61740,6 +63003,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -61796,6 +63060,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -62123,6 +63388,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -62228,6 +63494,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -62399,6 +63666,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -62678,6 +63946,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -65049,6 +66318,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -65383,6 +66653,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -65441,6 +66712,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -65495,6 +66767,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -65704,6 +66977,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -65969,6 +67243,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -66507,6 +67782,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -66681,6 +67957,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -66799,6 +68076,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -66905,6 +68183,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -67371,6 +68650,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -67474,6 +68754,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -67589,6 +68870,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -68014,6 +69296,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   }
@@ -68134,6 +69417,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -68612,6 +69896,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -68782,6 +70067,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -68886,6 +70172,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -68939,6 +70226,7 @@
    "decada": 1960,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -69310,6 +70598,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -69590,6 +70879,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -70042,6 +71332,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -70088,6 +71379,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -70142,6 +71434,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   }
@@ -71184,6 +72477,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -71862,10 +73156,7 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true,
-   "de": [
-    "kellyson"
-   ]
+   "tags_ok": true
   },
   {
    "id": "racionais-mc-s-vida-loka-pt-2",
@@ -72020,7 +73311,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   }
  ],
  "2026-10-02": [
@@ -72130,6 +73424,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -72814,6 +74109,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -73024,6 +74320,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -73335,6 +74632,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -73535,6 +74833,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -73672,6 +74971,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -74006,6 +75306,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -74072,6 +75373,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -74404,6 +75706,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -74469,6 +75772,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -76062,6 +77366,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -76134,6 +77439,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -76267,6 +77573,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -76891,6 +78198,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -77024,6 +78332,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -77800,7 +79109,8 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "otavio"
+    "otavio",
+    "meris"
    ]
   },
   {
@@ -78247,6 +79557,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -79951,6 +81262,7 @@
     "fama": 4
    },
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -80227,6 +81539,7 @@
     "fama": 5
    },
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -80365,6 +81678,7 @@
    },
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -80717,6 +82031,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -80844,6 +82159,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -81286,6 +82602,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -81874,6 +83191,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -82006,6 +83324,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -83202,6 +84521,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -83470,6 +84790,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -83532,6 +84853,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -83924,6 +85246,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -84200,6 +85523,7 @@
     "James Bond"
    ],
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -84474,6 +85798,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -84612,6 +85937,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -84752,6 +86078,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -85368,6 +86695,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -86170,6 +87498,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -86358,6 +87687,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -86705,6 +88035,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -86964,6 +88295,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -87165,6 +88497,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -87688,6 +89021,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -88431,6 +89765,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -88498,6 +89833,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -88832,6 +90168,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -88899,6 +90236,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -89767,6 +91105,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -90338,6 +91677,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -90479,6 +91819,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -90550,6 +91891,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -90957,6 +92299,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -91159,6 +92502,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -91623,6 +92967,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -91754,6 +93099,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -91826,6 +93172,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -92024,6 +93371,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -92281,6 +93629,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -93081,6 +94430,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -93616,6 +94966,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -93957,6 +95308,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -94088,6 +95440,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -94428,6 +95781,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -94500,6 +95854,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -94697,6 +96052,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -95106,6 +96462,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -95229,6 +96586,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -95432,6 +96790,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -95688,6 +97047,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -95823,6 +97183,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -96356,6 +97717,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -97579,6 +98941,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -97984,6 +99347,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -98407,6 +99771,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -99699,6 +101064,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -99769,6 +101135,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -99902,6 +101269,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -100032,6 +101400,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -100103,6 +101472,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -101390,6 +102760,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -101451,6 +102822,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -101665,6 +103037,7 @@
    "categoria": "filmes",
    "obra": "Mamma Mia!",
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -101781,6 +103154,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -101834,6 +103208,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -101987,6 +103362,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -102033,7 +103409,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "jorge-ben-jor-pais-tropical",
@@ -102339,6 +103718,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -102692,7 +104072,10 @@
    ],
    "pais": "GB",
    "decada": 1980,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "revelacao-deixa-acontecer",
@@ -102973,7 +104356,10 @@
    ],
    "pais": "US",
    "decada": 1970,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "red-hot-chili-peppers-californication",
@@ -103681,6 +105067,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -103779,7 +105166,10 @@
    ],
    "pais": "US",
    "decada": 2000,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "marilia-mendonca-o-que-falta-em-voce-sou-eu-ao-vivo",
@@ -103894,6 +105284,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -104914,6 +106305,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -105016,6 +106408,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -105124,6 +106517,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -105172,6 +106566,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -105378,6 +106773,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -105494,6 +106890,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -105915,6 +107312,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -105973,6 +107371,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -106334,6 +107733,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -106705,6 +108105,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -106763,6 +108164,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -106875,6 +108277,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -107136,6 +108539,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -107515,6 +108919,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -107901,6 +109306,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -108174,6 +109580,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -108227,6 +109634,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -108275,6 +109683,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -108383,6 +109792,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -108595,6 +110005,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -108979,6 +110390,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -109461,6 +110873,7 @@
    "tags_ok": true,
    "de": [
     "otavio",
+    "meris",
     "kellyson"
    ]
   },
@@ -109562,6 +110975,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -110450,6 +111864,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -110508,6 +111923,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -110740,6 +112156,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -110846,6 +112263,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -111166,6 +112584,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -111912,6 +113331,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -111960,6 +113380,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -112073,6 +113494,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -112288,6 +113710,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -112441,6 +113864,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -112597,6 +114021,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -112704,6 +114129,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -113070,6 +114496,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -113174,6 +114601,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -113450,6 +114878,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -113503,6 +114932,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -114034,6 +115464,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -114736,6 +116167,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
+    "meris",
     "kellyson"
    ]
   },
@@ -114947,6 +116379,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   }
@@ -115114,6 +116547,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -115572,6 +117006,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -115827,6 +117262,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -116268,6 +117704,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
+    "meris",
     "kellyson"
    ]
   },
@@ -117814,7 +119251,10 @@
    ],
    "pais": "BR",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "jorge-mateus-todo-seu",
@@ -117963,7 +119403,10 @@
    ],
    "pais": "US",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "henrique-juliano-briga-feia",
@@ -119304,7 +120747,8 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "gabi"
+    "gabi",
+    "meris"
    ]
   },
   {
@@ -119447,7 +120891,10 @@
    ],
    "pais": "GB",
    "decada": 2010,
-   "tags_ok": true
+   "tags_ok": true,
+   "de": [
+    "meris"
+   ]
   },
   {
    "id": "henrique-juliano-ate-voce-voltar",
