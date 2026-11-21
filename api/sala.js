@@ -5,8 +5,8 @@ import cfg from '../public/config.js'
 // Arrumação da sala (fileiras e poltronas reservadas), por sala. Só o admin muda.
 // Também guarda a presença de cada sala e a lista de canais.
 // quem mandou sinal nos últimos 45 s
-async function presenca(r, now, comEstado) {
-  const flat = (await redis('HGETALL', `pres:${r}`)) || []
+async function presenca(r, now, comEstado, flat) {
+  flat ??= (await redis('HGETALL', `pres:${r}`)) || []
   const out = []
   for (let i = 0; i < flat.length; i += 2) { try { const v = JSON.parse(flat[i + 1]); if (now - v.ts < 45e3) out.push({ key: flat[i], name: v.name, desde: v.desde || v.ts, ...(comEstado ? { est: v.est || null, ts: v.ts } : {}) }) } catch {} }
   return out
@@ -15,7 +15,18 @@ const okCanal = id => typeof id === 'string' && /^[\w-]{0,40}$/.test(id)
 const slugify = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30) || 'canal'
 const isAdmin = tok => createHash('sha256').update('admin:' + String(tok || '')).digest('hex') === cfg.adminHash
 const roomOf = (pw, id) => createHash('sha256').update('sala:' + pw + (id ? ':' + id : '')).digest('hex').slice(0, 24)
+// a lista de salas é pedida por todo mundo o tempo todo: a mesma instância reaproveita a resposta por alguns segundos
+// (gasta 2 comandos + 1 por sala a cada vez, e o Upstash cobra por comando)
+const cacheCanais = new Map()
 async function canais(pw, now) {
+  const c = cacheCanais.get(pw)
+  if (c && now - c.t < 5000) return c.v
+  const v = await canaisDoRedis(pw, now)
+  if (cacheCanais.size > 20) cacheCanais.clear()
+  cacheCanais.set(pw, { t: now, v })
+  return v
+}
+async function canaisDoRedis(pw, now) {
   const flat = (await redis('HGETALL', 'canais')) || []
   const list = [{ id: '', nome: 'Principal', criado: 0 }]
   for (let i = 0; i < flat.length; i += 2) { try { list.push(JSON.parse(flat[i + 1])) } catch {} }
@@ -64,23 +75,36 @@ export default async function handler(req, res) {
       if (b.op === 'aqui') {
         if (!okRoom(b.r) || typeof b.key !== 'string' || !b.key) return json(res, 400, { error: 'sala' })
         const key = b.key.slice(0, 40)
+        // Cada batida (a cada 15 s, por pessoa) gasta comandos do Upstash, que tem cota mensal: aqui vai o mínimo.
+        // A presença inteira vem num comando só e serve tanto para o "desde" quanto para a resposta.
+        const flat = (await redis('HGETALL', `pres:${b.r}`)) || []
         // desde quando a pessoa está online (sem pausa maior que 1 min)
         let antes = null
-        try { antes = JSON.parse(await redis('HGET', `pres:${b.r}`, key)) } catch {}
+        const i = flat.indexOf(key)
+        if (i >= 0 && i % 2 === 0) try { antes = JSON.parse(flat[i + 1]) } catch {}
         const desde = antes && now - antes.ts < 60e3 && antes.desde ? antes.desde : now
         const est = b.est && typeof b.est === 'object' && JSON.stringify(b.est).length < 6000 ? b.est : null
         const info = { name: String(b.name || '').slice(0, 24), ts: now, desde, est }
         await redis('HSET', `pres:${b.r}`, key, JSON.stringify(info))
         await redis('EXPIRE', `pres:${b.r}`, 3600)
-        // início da sessão: vale enquanto alguém continuar na sala (some 15 min depois do último sair)
-        await redis('SET', `callini:${b.r}`, String(now), 'NX', 'EX', 900)
-        await redis('EXPIRE', `callini:${b.r}`, 900)
-        const callIni = +(await redis('GET', `callini:${b.r}`)) || now
+        if (i >= 0 && i % 2 === 0) flat[i + 1] = JSON.stringify(info); else flat.push(key, JSON.stringify(info))
+        // início da sessão: vale enquanto alguém continuar na sala (some 15 min depois do último sair).
+        // GETEX lê e renova o prazo num comando só; só cria quando não existe.
+        let callIni = +(await redis('GETEX', `callini:${b.r}`, 'EX', 900)) || 0
+        if (!callIni) {
+          await redis('SET', `callini:${b.r}`, String(now), 'NX', 'EX', 900)
+          callIni = +(await redis('GET', `callini:${b.r}`)) || now
+        }
         // diário automático: quem esteve e o que foi projetado (salas de teste ficam de fora)
         if (b.registra) {
           const id = `${b.r}:${callIni}`, h = `cham:${id}`
-          await redis('HSETNX', h, 'ini', String(callIni))
-          await redis('HSET', h, 'fim', String(now), 'r', b.r, `p:${key}`, info.name || key)
+          // o HSET diz quantos campos são novos: só na primeira batida da pessoa nesta call precisa registrar a call e o prazo
+          const novos = await redis('HSET', h, 'fim', String(now), 'r', b.r, `p:${key}`, info.name || key)
+          if (novos > 0) {
+            await redis('HSETNX', h, 'ini', String(callIni))
+            await redis('ZADD', 'chamadas', 'NX', String(callIni), id)
+            await redis('EXPIRE', h, 180 * 86400)
+          }
           const pj = b.proj && typeof b.proj.t === 'string' && b.proj.t.trim() ? { t: b.proj.t.trim().slice(0, 140), k: String(b.proj.k || 'tela').slice(0, 12), m: metaProj(b.proj.m) } : null
           if (pj) {
             const campo = `x:${pj.t.toLowerCase()}`
@@ -100,8 +124,6 @@ export default async function handler(req, res) {
             const quem = { ...(x?.quem || {}), [key.slice(0, 40)]: String(info.name || key).slice(0, 24) }
             await redis('HSET', h, campo, JSON.stringify({ j: jg, ini: x?.ini || now, fim: now, ms, quem }))
           }
-          await redis('ZADD', 'chamadas', 'NX', String(callIni), id)
-          await redis('EXPIRE', h, 180 * 86400)
         }
         // eventos do navegador (entradas, quedas, erros) para o diagnóstico
         if (Array.isArray(b.ev) && b.ev.length) {
@@ -114,7 +136,7 @@ export default async function handler(req, res) {
         let cmd = null
         try { cmd = JSON.parse(await redis('HGET', `cmd:${b.r}`, key)) } catch {}
         if (cmd) await redis('HDEL', `cmd:${b.r}`, key)
-        return json(res, 200, { pres: await presenca(b.r, now), callIni, cmd: cmd && now - cmd.ts < 120e3 ? cmd : null })
+        return json(res, 200, { pres: await presenca(b.r, now, false, flat), callIni, cmd: cmd && now - cmd.ts < 120e3 ? cmd : null })
       }
       // Faixa do dia: resultado de cada um, música por música (hash faixa:<data>, campo = pessoa)
       // nota da sala para o episódio/filme que acabou (quem projetou manda as estrelas de todo mundo)
@@ -190,6 +212,7 @@ export default async function handler(req, res) {
         for (let i = 2; id === 'principal' || await redis('HEXISTS', 'canais', id); i++) id = `${base}-${i}`
         const canal = { id, nome, por: String(b.key || '').slice(0, 40), criado: now }
         await redis('HSET', 'canais', id, JSON.stringify(canal))
+        cacheCanais.clear()
         return json(res, 200, { canal })
       }
       // Chats de texto (como os canais de texto do Discord): não dependem da call; o histórico fica no
@@ -212,6 +235,7 @@ export default async function handler(req, res) {
       // renomear ou apagar sala/chat: quem criou ou o admin
       if (['canal-apagar', 'canal-renomear', 'texto-renomear', 'texto-apagar'].includes(b.op)) {
         const hash = b.op.startsWith('canal') ? 'canais' : 'textos'
+        cacheCanais.clear()
         if (!okCanal(b.id) || !b.id) return json(res, 400, { error: 'id' })
         let cur = null
         try { cur = JSON.parse(await redis('HGET', hash, b.id)) } catch {}

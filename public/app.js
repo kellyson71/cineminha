@@ -461,7 +461,7 @@ async function escolheSala() {
       grade, nova))
     let ocupado = false
     const atualiza = async () => {
-      if (ocupado) return // rede lenta: não empilha pedidos
+      if (ocupado || document.hidden) return // rede lenta: não empilha pedidos; aba escondida não gasta (volta em até 6 s)
       ocupado = true
       try {
         const r = await api('sala', { method: 'POST', body: { op: 'canais', pw: roomPw } })
@@ -730,6 +730,8 @@ const entrouEm = Date.now()
 // erros que o Trystero só joga no console também vão para o diário
 { const ce = console.error.bind(console); console.error = (...a) => { try { const t = a.map(String).join(' '); if (/Trystero|RTCPeerConnection|setRemoteDescription/.test(t)) evento('erro', t.slice(0, 200)) } catch {} ; ce(...a) } }
 document.addEventListener('visibilitychange', () => evento('aba', document.hidden ? 'aba em segundo plano' : 'voltou para a aba'))
+// a lista de salas não é atualizada com a aba escondida: ao voltar, pega na hora
+document.addEventListener('visibilitychange', () => { if (!document.hidden && room && document.body.classList.contains('com-lateral')) loadCanais() })
 const navegador = () => { const u = navigator.userAgent; const b = /Edg\//.test(u) ? 'Edge' : /OPR\//.test(u) ? 'Opera' : /Firefox\//.test(u) ? 'Firefox' : /Chrome\//.test(u) ? 'Chrome' : /Safari\//.test(u) ? 'Safari' : 'Outro'; const so = /Windows/.test(u) ? 'Windows' : /Android/.test(u) ? 'Android' : /iPhone|iPad/.test(u) ? 'iOS' : /Mac OS/.test(u) ? 'Mac' : /Linux/.test(u) ? 'Linux' : ''; return `${b}${so ? ' · ' + so : ''}` }
 const statsAntes = new Map() // peerId -> { t, ain, aout }
 async function coletaEstado() {
@@ -776,7 +778,8 @@ try { const por = sessionStorage.getItem('cine.reconectado'); if (por) { session
 let beats = 0
 async function heartbeat() {
   if (!room || !me.key || !roomPw) return
-  if (++beats % 2 === 0 && $('#canalPop').hidden) loadCanais() // atualiza quem está em cada canal a cada 30 s
+  // atualiza quem está em cada canal a cada 30 s (com a barra lateral, ela já faz isso sozinha)
+  if (++beats % 2 === 0 && $('#canalPop').hidden && !document.body.classList.contains('com-lateral') && !document.hidden) loadCanais()
   const est = await coletaEstado().catch(() => null)
   ultimoEst = est
   const ev = evBuf.splice(0)
@@ -3647,7 +3650,9 @@ async function abreChat(ch, grande) {
   $('#chat').classList.remove('troca'); void $('#chat').offsetWidth; $('#chat').classList.add('troca')
   await loadHistory()
   textoUltimo = Math.max(0, ...messages.map(m => m.ts || 0))
+  let voltas = 0
   if (ch) textoPoll = setInterval(async () => {
+    if (document.hidden && ++voltas % 3) return // aba escondida: olha a cada 15 s (ainda avisa das menções)
     const r = await api(`chat?r=${chatR()}&desde=${textoUltimo + 1}`)
     if (chatCh !== ch) return
     for (const m of r?.list || []) { if (!seen.has(m.id) && m.key !== me.key && mencionaMe(m.text)) avisaMencao(m, ch); addMsg(m); textoUltimo = Math.max(textoUltimo, m.ts || 0) }
@@ -4090,7 +4095,7 @@ function ligaLateral() {
   $('#chat .chat__head h2').textContent = 'Conversa da sala'; setIcon($('#chat .chat__head svg'), 'volume-2')
   renderChatCanais(); moveProjetar()
   loadCanais(); loadTextos()
-  clearInterval(lateralTimer); lateralTimer = setInterval(() => { if (!document.hidden) loadCanais() }, 10000)
+  clearInterval(lateralTimer); lateralTimer = setInterval(() => { if (!document.hidden) loadCanais() }, 20000)
 }
 
 /* ---------- Canais ----------
