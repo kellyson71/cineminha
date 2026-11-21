@@ -243,7 +243,9 @@ export function iniciaJanelaLive() {
     })
     el.classList.add('sem-cam')
     sala.acoes.estado.on((e, id) => { if (estudio(id) && e) { est = e; pintaCena(); atualizaTopo(atual); el?.classList.toggle('sem-cam', !e.cam && !$('.lj-cam', el)?.srcObject) } })
-    sala.acoes.mod.on((m, id) => { if (estudio(id) && m?.fora) { fechada = idLive(atual); some() } })
+    // removido (ou live trancada): fecha a janelinha, mas deixa a pílula para tentar de novo. Se o Kellyson
+    // deixar voltar, um clique nela entra outra vez; se ainda estiver fora, o estúdio tira de novo.
+    sala.acoes.mod.on((m, id) => { if (estudio(id) && m?.fora) { fechada = idLive(atual); some(); mostraPilula(true) } })
     sala.on('saiu', (id, p) => { if (p === 'estudio' && el) { $('.lj-espera', el).hidden = false; $('.lj-espera b', el).textContent = 'reconectando…' } })
   }
   function some() {
@@ -254,10 +256,10 @@ export function iniciaJanelaLive() {
     removeEventListener('resize', reencaixa)
     pilula?.remove(); pilula = null
   }
-  function mostraPilula() {
+  function mostraPilula(removido = false) {
     pilula?.remove()
     pilula = document.createElement('button')
-    pilula.className = 'lj-pilula'; pilula.title = 'Abrir a janelinha da live'
+    pilula.className = 'lj-pilula'; pilula.title = removido ? 'Você saiu da live. Toque para tentar entrar de novo' : 'Abrir a janelinha da live'
     pilula.innerHTML = `<i></i>${LIVE.streamer} ao vivo<span class="x" title="Esconder">×</span>`
     pilula.onclick = e => {
       if (e.target.closest('.x')) { pilula.remove(); pilula = null; return }
