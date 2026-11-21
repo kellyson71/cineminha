@@ -22,7 +22,8 @@ import fabrica as F, diario as D, leva as L, pesquisa as P
 AQUI = Path(__file__).parent
 PASTA = AQUI / 'listas' / 'pessoas'
 FILA = PASTA / 'fila.json'
-PESSOAS = {'gabi': 'Gabi', 'otavio': 'Otávio', 'meris': 'Meris', 'kellyson': 'Kellyson'}
+# a Meris tem duas playlists: meris (a primeira, mais rock) e meris2 (a segunda, pop e dance); viram duas categorias
+PESSOAS = {'gabi': 'Gabi', 'otavio': 'Otávio', 'meris': 'Meris (rock)', 'meris2': 'Meris (pop)', 'kellyson': 'Kellyson'}
 # Kellyson: as listas que abastecem o jogo desde o começo (mais ouvidas, curtidas e playlists do Spotify dele) e
 # tudo o que entrou por elas. Não vai para a fila: as músicas dele já entram pela leva e pelo diário
 ORIGENS = {'kellyson': {'top', 'sp-top', 'curtida', 'sp-playlist', 'antiga', 'estudio'}}

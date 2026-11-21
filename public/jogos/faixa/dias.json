@@ -1,4 +1,59 @@
 {
+ "2026-01-17": [
+  {
+   "id": "madonna-like-a-prayer",
+   "n": 0,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Like a Prayer",
+   "a": "Madonna",
+   "album": "Like a Prayer",
+   "ano": 1989,
+   "dz": {
+    "t": 664507,
+    "a": 290
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 911457,
+   "generos": [
+    "Pop"
+   ],
+   "pais": "US",
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris2"
+   ]
+  }
+ ],
  "2026-01-18": [
   {
    "id": "empire-of-the-sun-we-are-the-people",
@@ -55,7 +110,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -156,7 +211,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -209,7 +264,60 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
+   ]
+  },
+  {
+   "id": "desireless-voyage-voyage",
+   "n": 4,
+   "origem": "pessoa",
+   "fonte": "ia",
+   "ano_ok": true,
+   "t": "Voyage voyage",
+   "a": "Desireless",
+   "album": "François",
+   "ano": 1986,
+   "dz": {
+    "t": 4298172,
+    "a": 4593
+   },
+   "capa": "capa.jpg",
+   "camadas": [
+    {
+     "tipo": "bateria",
+     "nome": "Bateria",
+     "arq": "0.webm"
+    },
+    {
+     "tipo": "baixo",
+     "nome": "Baixo",
+     "arq": "1.webm"
+    },
+    {
+     "tipo": "guitarra",
+     "nome": "Guitarra",
+     "arq": "2.webm"
+    },
+    {
+     "tipo": "outros",
+     "nome": "Outros",
+     "arq": "3.webm"
+    },
+    {
+     "tipo": "voz",
+     "nome": "Voz",
+     "arq": "4.webm"
+    }
+   ],
+   "rank": 915543,
+   "generos": [
+    "Pop"
+   ],
+   "pais": null,
+   "decada": 1980,
+   "tags_ok": true,
+   "de": [
+    "meris2"
    ]
   }
  ],
@@ -318,7 +426,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -366,7 +474,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -419,7 +527,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -474,7 +582,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   }
  ],
@@ -524,7 +632,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -578,7 +686,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -631,7 +739,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -689,7 +797,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -749,7 +857,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   }
  ],
@@ -802,7 +910,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -910,7 +1018,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -980,7 +1088,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -1039,7 +1147,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   }
  ],
@@ -1305,7 +1413,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   }
  ],
@@ -3009,7 +3117,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -8453,7 +8561,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -9251,7 +9359,7 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -9686,7 +9794,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -10239,7 +10347,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -10460,7 +10568,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -11230,7 +11338,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -23647,7 +23755,7 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -24032,7 +24140,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -24366,7 +24474,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -24582,7 +24690,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -31248,7 +31356,7 @@
     "stems": null
    },
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -31832,7 +31940,7 @@
     "stems": "https://www.enchor.us/?search=Love%20Me%20Like%20You%20Do%20%28From%20%22Fifty%20Shades%20Of%20Grey%22%29"
    },
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -33247,7 +33355,7 @@
     "stems": null
    },
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -33504,7 +33612,7 @@
     "stems": null
    },
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -39953,7 +40061,7 @@
     "LoL"
    ],
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -41623,7 +41731,7 @@
    },
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -44963,7 +45071,7 @@
    ],
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -47132,7 +47240,7 @@
     "stems": null
    },
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -47958,7 +48066,7 @@
     "stems": null
    },
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -52197,7 +52305,7 @@
     "Steven Universe"
    ],
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -55328,7 +55436,7 @@
     "Homem Ser"
    ],
    "de": [
-    "meris"
+    "meris2"
    ]
   }
  ],
@@ -56540,7 +56648,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -57218,7 +57326,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -57631,7 +57739,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   }
  ],
@@ -57838,7 +57946,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -58798,7 +58906,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -59062,7 +59170,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -59121,7 +59229,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -59221,7 +59329,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   }
  ],
@@ -59374,7 +59482,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -59546,7 +59654,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -59719,7 +59827,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -59931,7 +60039,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -60861,7 +60969,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -60975,7 +61083,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -61029,7 +61137,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -61685,7 +61793,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -61930,7 +62038,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -62360,7 +62468,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -62416,7 +62524,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -62516,7 +62624,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -62780,7 +62888,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -62841,7 +62949,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -63003,7 +63111,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -63060,7 +63168,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -63388,7 +63496,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -63494,7 +63602,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -63666,7 +63774,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -63946,7 +64054,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -66318,7 +66426,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -66653,7 +66761,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -66712,7 +66820,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -66767,7 +66875,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -66977,7 +67085,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -67243,7 +67351,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -67782,7 +67890,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -67957,7 +68065,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -68076,7 +68184,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -68183,7 +68291,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -68650,7 +68758,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -68754,7 +68862,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -68870,7 +68978,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -69296,7 +69404,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -69417,7 +69525,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -69896,7 +70004,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -70067,7 +70175,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -70172,7 +70280,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -70226,7 +70334,7 @@
    "decada": 1960,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -70598,7 +70706,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -70879,7 +70987,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -71332,7 +71440,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -71379,7 +71487,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -71434,7 +71542,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -72477,7 +72585,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -73313,7 +73421,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   }
  ],
@@ -73424,7 +73532,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -74109,7 +74217,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -74320,7 +74428,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -74632,7 +74740,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -74833,7 +74941,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -74971,7 +75079,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -75306,7 +75414,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -75373,7 +75481,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -75706,7 +75814,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -75772,7 +75880,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -77366,7 +77474,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -77439,7 +77547,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -77573,7 +77681,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -78198,7 +78306,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -78332,7 +78440,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -79110,7 +79218,7 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -79557,7 +79665,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -81195,6 +81303,7 @@
    "de": [
     "otavio",
     "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -81262,7 +81371,7 @@
     "fama": 4
    },
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -81539,7 +81648,7 @@
     "fama": 5
    },
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -81678,7 +81787,7 @@
    },
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -82031,7 +82140,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -82159,7 +82268,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -82602,7 +82711,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -83191,7 +83300,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -83324,7 +83433,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -84521,7 +84630,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -84790,7 +84899,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -84853,7 +84962,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -85246,7 +85355,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -85523,7 +85632,7 @@
     "James Bond"
    ],
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -85798,7 +85907,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -85937,7 +86046,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -86078,7 +86187,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -86695,7 +86804,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -87498,7 +87607,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -87687,7 +87796,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -88035,7 +88144,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -88295,7 +88404,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -88497,7 +88606,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -89021,7 +89130,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -89765,7 +89874,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -89833,7 +89942,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -90168,7 +90277,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -90236,7 +90345,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -91105,7 +91214,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -91677,7 +91786,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -91819,7 +91928,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -91891,7 +92000,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -92299,7 +92408,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -92502,7 +92611,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -92967,7 +93076,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -93099,7 +93208,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -93172,7 +93281,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -93371,7 +93480,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -93629,7 +93738,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -94430,7 +94539,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -94966,7 +95075,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -95308,7 +95417,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -95440,7 +95549,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -95781,7 +95890,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -95854,7 +95963,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -96052,7 +96161,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -96462,7 +96571,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -96586,7 +96695,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -96790,7 +96899,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -97047,7 +97156,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -97183,7 +97292,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -97717,7 +97826,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -98941,7 +99050,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -99347,7 +99456,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -99771,7 +99880,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -101064,7 +101173,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -101135,7 +101244,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -101269,7 +101378,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -101400,7 +101509,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -101472,7 +101581,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -102760,7 +102869,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -102822,7 +102931,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -103037,7 +103146,7 @@
    "categoria": "filmes",
    "obra": "Mamma Mia!",
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -103154,7 +103263,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -103208,7 +103317,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -103362,7 +103471,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -103411,7 +103520,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -103718,7 +103827,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -104074,7 +104183,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -104358,7 +104467,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -105067,7 +105176,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -105168,7 +105277,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -105284,7 +105393,7 @@
    "decada": 1990,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -106305,7 +106414,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -106408,7 +106517,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -106517,7 +106626,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -106566,7 +106675,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -106773,7 +106882,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -106890,7 +106999,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -107312,7 +107421,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -107371,7 +107480,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -107733,7 +107842,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -108105,7 +108214,7 @@
    "decada": 1970,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -108164,7 +108273,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -108277,7 +108386,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -108539,7 +108648,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -108919,7 +109028,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -109306,7 +109415,7 @@
    "decada": 2020,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -109580,7 +109689,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -109634,7 +109743,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -109683,7 +109792,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -109792,7 +109901,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -110005,7 +110114,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -110390,7 +110499,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -110873,7 +110982,7 @@
    "tags_ok": true,
    "de": [
     "otavio",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -110975,7 +111084,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -111864,7 +111973,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -111923,7 +112032,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -112156,7 +112265,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -112263,7 +112372,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -112584,7 +112693,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -113331,7 +113440,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -113380,7 +113489,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -113494,7 +113603,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -113710,7 +113819,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -113864,7 +113973,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -114021,7 +114130,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -114129,7 +114238,7 @@
    "decada": 1980,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -114496,7 +114605,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -114601,7 +114710,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -114878,7 +114987,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -114932,7 +115041,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -115464,7 +115573,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -116167,7 +116276,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -116379,7 +116488,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   }
@@ -116547,7 +116656,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -117006,7 +117115,7 @@
    "decada": 2000,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -117262,7 +117371,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -117704,7 +117813,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris",
+    "meris2",
     "kellyson"
    ]
   },
@@ -119253,7 +119362,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -119405,7 +119514,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -120748,7 +120857,7 @@
    "tags_ok": true,
    "de": [
     "gabi",
-    "meris"
+    "meris2"
    ]
   },
   {
@@ -120893,7 +121002,7 @@
    "decada": 2010,
    "tags_ok": true,
    "de": [
-    "meris"
+    "meris2"
    ]
   },
   {
