@@ -577,8 +577,9 @@ setInterval(checkVersion, 20000)
 
 /* ---------- Rede (P2P via Trystero) ---------- */
 // servidores de sinalização (Nostr) da call: escolhidos a dedo. Os padrões do Trystero para o nosso appId estavam
-// 3 fora do ar e 1 bloqueando por excesso de pedidos (21/11/2026). Todo mundo precisa usar a mesma lista.
-const RELAYS = ['nos.lol', 'relay.damus.io', 'relay.primal.net', 'nostr.mom', 'nostr.red5d.dev', 'relay.snort.social'].map(h => 'wss://' + h)
+// 3 fora do ar e 1 bloqueando por excesso de pedidos (21/11/2026). Testados com dois navegadores se achando (≈1 s);
+// damus.io e red5d aceitam a conexão mas não repassam. Todo mundo precisa usar a mesma lista.
+const RELAYS = ['nos.lol', 'relay.primal.net', 'nostr.mom', 'relay.snort.social', 'cdn.satellite.earth', 'relay.flashapp.me'].map(h => 'wss://' + h)
 const peers = new Map() // peerId -> {key, name, speaking, muted, rtt}
 const shareInfo = new Map() // peerId -> {kind, game, paused, subs, n}
 let actions = null, room = null, roomId = ''
