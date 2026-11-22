@@ -41,11 +41,16 @@ async function turn() {
   return ice
 }
 
+// servidores de sinalização (Nostr): a mesma lista da call do Cineminha (app.js). Os padrões do Trystero para o nosso
+// appId estão fora do ar, bloqueando por excesso de pedidos ou sem repassar (21/11/2026). Todas as páginas da live
+// (estúdio, ela, amigos, câmera, janelinha do Cineminha) precisam usar a mesma lista.
+const RELAYS = ['nos.lol', 'relay.primal.net', 'nostr.mom', 'relay.snort.social', 'cdn.satellite.earth', 'relay.flashapp.me'].map(h => 'wss://' + h)
+
 export async function entraLive(codigo, papel, perfil = null) {
   const pw = 'live:' + codigo
   const roomId = await roomIdDe(pw, 'live')
   const ice = await Promise.race([turn(), new Promise(r => setTimeout(() => r([]), 6000))])
-  const room = joinRoom({ appId: CFG.appId, password: pw, rtcPolyfill: LivePC, turnConfig: ice }, roomId)
+  const room = joinRoom({ appId: CFG.appId, password: pw, rtcPolyfill: LivePC, turnConfig: ice, relayConfig: { urls: RELAYS } }, roomId)
   const papeis = new Map() // peerId → 'estudio' | 'ela' | 'amigo' | 'cam'
   const perfis = new Map() // peerId → { key, nome } (amigos: a conta do Cineminha)
   const ouvintes = { entrou: [], saiu: [], papel: [], stream: [] }
