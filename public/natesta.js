@@ -11,6 +11,7 @@ const SAIU_MS = 12000, HOST_MS = 10000, MIN_JOG = 2
 const PTS = [3, 2, 1] // pela ordem de quem acerta
 const CORES = ['#ffe66d', '#ff9ebb', '#9fe3ff', '#b6f28f', '#ffc285', '#d5b8ff']
 const RESP = { s: 'Sim', n: 'Não', t: 'Talvez' }
+const ADMIN = 'kellyson' // admin logado (painel Admin): um clique no logo mostra o próprio post-it (como o mapa no Codenames)
 
 const rnd = n => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n }
 const embaralha = a => { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]] } return a }
@@ -244,6 +245,8 @@ export function criaNaTesta(ctx) {
       js: G.js.map(j => ({ key: j.key, nome: j.nome, cor: j.cor, cat: j.cat, quem: j.quem && (j.key !== k || feito(j) || f === 'fim') ? j.quem[0] : null,
         escolhido: !!j.quem, escreve: j.escreve, porQuem: j.porQuem, notas: j.notas || [],
         acertou: j.acertou, desistiu: j.desistiu, pontos: j.pontos, hist: j.hist, chutes: j.chutes.slice(-3) })),
+      // o post-it do próprio admin vai só para ele, à parte (a tela só mostra se ele clicar no logo)
+      espia: k === ADMIN && f !== 'fim' ? G.js.find(j => j.key === k)?.quem?.[0] || null : null,
       vez: G.js[G.vez]?.key || null, perg: G.perg, vencedor: G.vencedor, log: G.log.slice(-30),
       // o nome no evento de acerto só vai para quem já pode ver
       ev: G.ev.map(e => (e.t === 'acertou' || e.t === 'desistiu') && e.key === k ? e : e.quem && e.key === k ? { ...e, quem: null } : e),
@@ -295,7 +298,8 @@ export function criaNaTesta(ctx) {
   }, 1500)
 
   /* ================================================================ cliente */
-  let V = null, ultEv = 0, dispensado = ''
+  let V = null, ultEv = 0, dispensado = '', espiaAdmin = false
+  const souAdmin = () => me.key === ADMIN && me.admin && V?.espia
   const vistos = new Set()
   const novo = k => vistos.has(k) ? false : (vistos.add(k), true)
   const souHost = () => V && V.host === me.key
@@ -321,6 +325,7 @@ export function criaNaTesta(ctx) {
   function aplica(v) {
     const antes = V
     if (v && (!antes || antes.id !== v.id)) ultEv = Math.max(0, ...v.ev.map(e => e.n))
+    if (!v || antes?.id !== v.id) espiaAdmin = false
     V = v
     const evs = v ? v.ev.filter(e => e.n > ultEv) : []
     if (v) ultEv = Math.max(ultEv, ...v.ev.map(e => e.n))
@@ -367,7 +372,7 @@ export function criaNaTesta(ctx) {
     const qualIn = ativo?.classList.contains('nt-nota__nova') ? `.nt-nota__nova[data-de="${ativo.dataset.de}"]` : ativo?.classList.contains('nt-nota__in') ? '.nt-nota__in:not(.nt-nota__nova)' : ativo?.classList.contains('nt-escreve__in') ? '.nt-escreve__in' : ativo?.classList.contains('nt-perg__in') ? '.nt-perg__in' : '.nt-chute__in'
     const sel = ativo && [ativo.selectionStart, ativo.selectionEnd]
     const topo = el('header', { className: 'nt-topo' },
-      el('span', { className: 'nt-logo' }, el('b', { textContent: 'Na Testa' }), el('i', { textContent: '?' })),
+      el('span', { className: 'nt-logo', onclick: () => { if (!souAdmin()) return; espiaAdmin = !espiaAdmin; ctx.logInterno?.(`post-it do admin ${espiaAdmin ? 'aberto' : 'fechado'}`); render() } }, el('b', { textContent: 'Na Testa' }), el('i', { textContent: '?' })),
       V.fase === 'jogo' || V.fase === 'escolha' ? el('span', { className: 'nt-cat', textContent: V.op.quem === 'galera' ? 'a galera escolheu' : V.op.cat === 'mistura' ? 'tudo misturado' : CATEGORIAS[V.op.cat]?.nome }) : '',
       el('span', { className: 'nt-grow' }),
       souHost() ? botao(icon('x'), encerrar, 'nt-btn--ic', 'Encerrar a mesa para todo mundo')
@@ -385,10 +390,11 @@ export function criaNaTesta(ctx) {
   // o post-it: cor de cada um, levemente torto, com o nome escrito à mão
   function postit(j, grande) {
     const meu = j.key === me.key, escondido = !j.quem
-    return el('div', { className: 'nt-postit' + (grande ? ' grande' : '') + (escondido ? ' escondido' : '') + (j.acertou ? ' certo' : '') + (j.desistiu ? ' desistiu' : ''), style: `--cor:${j.cor};--giro:${giro(j.key)}deg` },
-      el('span', { className: 'nt-postit__txt', textContent: escondido ? '???' : j.quem }),
+    const espiado = meu && escondido && espiaAdmin && souAdmin() ? V.espia : ''
+    return el('div', { className: 'nt-postit' + (grande ? ' grande' : '') + (escondido ? ' escondido' : '') + (espiado ? ' espiado' : '') + (j.acertou ? ' certo' : '') + (j.desistiu ? ' desistiu' : ''), style: `--cor:${j.cor};--giro:${giro(j.key)}deg` },
+      el('span', { className: 'nt-postit__txt', textContent: espiado || (escondido ? '???' : j.quem) }),
       j.acertou ? el('span', { className: 'nt-selo', textContent: `${j.acertou}º` }) : '',
-      meu && escondido ? el('small', { textContent: 'só você não vê' }) : '')
+      meu && escondido ? el('small', { textContent: espiado ? 'só você vê (admin)' : 'só você não vê' }) : '')
   }
   function convite() {
     const host = souHost()

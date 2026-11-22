@@ -50,6 +50,8 @@
 .nt-postit small { position: absolute; bottom: .3cqh; left: 0; right: 0; text-align: center; font: 600 1.25cqh var(--nt-corpo); opacity: .65; }
 .nt-postit.escondido { background: repeating-linear-gradient(-45deg, var(--cor) 0 1.4cqh, color-mix(in srgb, var(--cor) 82%, #fff) 1.4cqh 2.8cqh); }
 .nt-postit.escondido .nt-postit__txt { font-size: 4.4cqh; letter-spacing: .3cqh; animation: nt-interroga 2.4s ease-in-out infinite; }
+/* admin espiando o próprio post-it (clique no logo): o nome aparece, meio apagado, sem o pulo do ??? */
+.nt-postit.escondido.espiado .nt-postit__txt { font-size: clamp(14px, 3.2cqh, 34px); letter-spacing: 0; animation: none; opacity: .7; }
 @keyframes nt-interroga { 0%, 100% { transform: none; } 50% { transform: scale(1.12) rotate(-4deg); } }
 .nt-postit.desistiu .nt-postit__txt { text-decoration: line-through; text-decoration-thickness: .35cqh; opacity: .75; }
 .nt-selo { position: absolute; right: -1.6cqh; top: -1.6cqh; width: 5.4cqh; height: 5.4cqh; display: grid; place-items: center; border-radius: 50%; border: .35cqh solid #1c7c3a; color: #1c7c3a; background: rgba(251,246,234,.9); font: 400 2.6cqh/1 var(--nt-mao); rotate: 14deg; }
