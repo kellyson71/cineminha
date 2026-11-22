@@ -89,6 +89,8 @@ const CSS = `
 @media (max-width:640px){.lj{--w:min(92vw,360px)!important}}
 `
 
+const casa = () => document.fullscreenElement || document.body
+
 export function iniciaJanelaLive() {
   const st = document.createElement('style'); st.textContent = CSS; document.head.append(st)
   let atual = null      // { codigo, inicio, titulo } da live no ar
@@ -139,7 +141,7 @@ export function iniciaJanelaLive() {
         <input class="lj-vol" type="range" min="0" max="100" aria-label="Volume da live">
       </div>
       <div class="lj-alca" title="Arraste para mudar o tamanho"></div>`
-    document.body.append(el)
+    casa().append(el)
     el.style.setProperty('--w', cfg.w + 'px')
     posiciona(cfg.x, cfg.y)
     requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('nasce')))
@@ -266,8 +268,16 @@ export function iniciaJanelaLive() {
       fechada = ''; try { sessionStorage.removeItem('cine.liveFechada') } catch {}
       abre()
     }
-    document.body.append(pilula)
+    casa().append(pilula)
   }
+
+  // tela cheia (um jogo ou a projeção): só o que está dentro do elemento em tela cheia aparece, então a janelinha
+  // e a pílula mudam para dentro dele e voltam para o body na saída. Mover não para o vídeo, mas o play() garante.
+  document.addEventListener('fullscreenchange', () => {
+    for (const x of [el, pilula]) if (x?.isConnected && x.parentNode !== casa()) casa().append(x)
+    if (el) el.querySelectorAll('video').forEach(v => v.srcObject && v.play().catch(() => {}))
+    reencaixa()
+  })
 
   confere()
   setInterval(confere, 20000)
