@@ -576,6 +576,9 @@ checkVersion()
 setInterval(checkVersion, 20000)
 
 /* ---------- Rede (P2P via Trystero) ---------- */
+// servidores de sinalização (Nostr) da call: escolhidos a dedo. Os padrões do Trystero para o nosso appId estavam
+// 3 fora do ar e 1 bloqueando por excesso de pedidos (21/11/2026). Todo mundo precisa usar a mesma lista.
+const RELAYS = ['nos.lol', 'relay.damus.io', 'relay.primal.net', 'nostr.mom', 'nostr.red5d.dev', 'relay.snort.social'].map(h => 'wss://' + h)
 const peers = new Map() // peerId -> {key, name, speaking, muted, rtt}
 const shareInfo = new Map() // peerId -> {kind, game, paused, subs, n}
 let actions = null, room = null, roomId = ''
@@ -607,7 +610,7 @@ async function start(pw) {
   roomId = await roomIdDe(pw, extra)
   const ice = await Promise.race([turnServers(pw), new Promise(r => setTimeout(() => r([]), 8000))])
   if (!ice.length) console.warn('Sem ponte TURN: conexão só direta')
-  room = joinRoom({ appId: CFG.appId, password: pw, rtcPolyfill: FilmPC, turnConfig: ice }, roomId)
+  room = joinRoom({ appId: CFG.appId, password: pw, rtcPolyfill: FilmPC, turnConfig: ice, relayConfig: { urls: RELAYS } }, roomId)
   const mk = n => room.makeAction(n)
   actions = Object.fromEntries(ACOES.map(n => [n, mk(n)]))
   actions.cena.onMessage = (d, { peerId }) => companheiro.recebe(d, peerId)
