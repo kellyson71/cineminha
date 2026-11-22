@@ -145,9 +145,12 @@ export function criaCompositor({ fps = 30, qualidade = 720 } = {}) {
     return c
   }
   const C = { mic: canal('mic'), jogo: canal('jogo') }
+  // só o som do jogo, sem atraso e sem a sua voz: vai para o celular no modo TikTok (o microfone de lá já pega você)
+  const destinoJogo = ctx.createMediaStreamDestination(), volSoJogo = ctx.createGain()
+  volSoJogo.connect(destinoJogo)
   const liga = (c, trilha) => {
     c.src?.disconnect(); c.src = null
-    if (trilha) { c.src = ctx.createMediaStreamSource(new MediaStream([trilha])); c.src.connect(c.d) }
+    if (trilha) { c.src = ctx.createMediaStreamSource(new MediaStream([trilha])); c.src.connect(c.d); if (c === C.jogo) c.src.connect(volSoJogo) }
   }
   const mede = (an, buf) => { an.getFloatTimeDomainData(buf); let s = 0, pk = 0; for (const x of buf) { s += x * x; const a = Math.abs(x); if (a > pk) pk = a } return { rms: Math.sqrt(s / buf.length), pico: pk } }
   const db = v => 20 * Math.log10(Math.max(v, 1e-6))
@@ -184,12 +187,13 @@ export function criaCompositor({ fps = 30, qualidade = 720 } = {}) {
 
   return {
     saida,
+    soJogo: destinoJogo.stream.getAudioTracks()[0],
     jogo: trilha => lerJogo(trilha),
     cam: trilha => lerCam(trilha),
     somJogo: trilha => { ctx.resume(); liga(C.jogo, trilha) },
     mic: trilha => { ctx.resume(); liga(C.mic, trilha) },
-    volume: (qual, v) => C[qual === 'mic' ? 'mic' : 'jogo'].vol.gain.setTargetAtTime(v, ctx.currentTime, .05),
-    mudo: (qual, on) => C[qual].mudo.gain.setTargetAtTime(on ? 0 : 1, ctx.currentTime, .02),
+    volume: (qual, v) => { C[qual === 'mic' ? 'mic' : 'jogo'].vol.gain.setTargetAtTime(v, ctx.currentTime, .05); if (qual !== 'mic') volSoJogo.gain.setTargetAtTime(v, ctx.currentTime, .05) },
+    mudo: (qual, on) => { C[qual].mudo.gain.setTargetAtTime(on ? 0 : 1, ctx.currentTime, .02); if (qual === 'jogo') volSoJogo.gain.setTargetAtTime(on ? 0 : C.jogo.vol.gain.value, ctx.currentTime, .02) },
     atraso: ms => { atraso = Math.max(0, Math.min(1500, ms)); Object.values(C).forEach(c => c.d.delayTime.setTargetAtTime(atraso / 1000, ctx.currentTime, .05)) },
     automatico: ({ nivela, abaixa, aoAbaixar: f } = {}) => { if (nivela !== undefined) { nivelar = nivela; modoComp() } if (abaixa !== undefined) abaixar = abaixa; if (f) aoAbaixar = f },
     // nível do que sai para ela (0..1) e quanto o automático está mexendo

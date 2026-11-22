@@ -996,6 +996,7 @@ async function conecta() {
     if ((p === 'ela' || p === 'amigo') && m && typeof m.vol === 'number') { volDe.set(id, { nome: quemE(id).nome, vol: Math.round(Math.max(0, Math.min(100, m.vol))), mudo: !!m.mudo }); pintaVolDela() }
   })
   live.on('saiu', (id, p, pf) => {
+    if (tkIds.delete(id)) pintaTk()
     chips(); if (volDe.delete(id)) pintaVolDela(); setTimeout(pintaPessoas)
     if (p === 'ela' || p === 'amigo') {
       const q = p === 'amigo' ? { key: pf?.key, nome: pf?.nome || 'Convidado' } : { key: 'ela', nome: LIVE.ela }
@@ -1018,7 +1019,11 @@ async function conecta() {
   live.acoes.camcmd.on((c, id) => {
     if (live.papeis.get(id) !== 'cam' || !c?.estado) return
     const { frente, w, h } = c.estado
-    $('#camInfo').textContent = `${frente ? 'frontal' : 'traseira'} · ${w}×${h}${h > w ? ' (em pé)' : ''}`
+    $('#camInfo').textContent = `${frente ? 'frontal' : 'traseira'} · ${w}×${h}${h > w ? ' (em pé)' : ''}${c.tiktok ? ' · tela do TikTok' : ''}`
+    // modo TikTok: o celular da câmera virou a tela da live em pé; recebe o jogo e o estado das cenas
+    if (c.tiktok && !tkIds.has(id)) { tkIds.add(id); enviaTk(id); poeMsg({ sis: true, txt: 'O celular virou a tela do TikTok: as cenas daqui valem lá também' }) }
+    else if (!c.tiktok && tkIds.delete(id) && tkJogo) live.tira(tkJogo, id)
+    pintaTk()
   })
   live.acoes.chat.on((m, id) => {
     if (!publico(id) || typeof m?.txt !== 'string') return
@@ -1040,7 +1045,7 @@ async function conecta() {
 // qualidade de envio: H.264 (circuito de vídeo), bitrate de acordo com a qualidade escolhida
 async function ajustaEnvio() {
   const camT = camTrilha
-  const meus = [...comp.saida.getTracks(), ...(streamDireto?.getTracks() || []), ...(cineJogo?.getTracks() || []), ...(camT ? [camT] : [])]
+  const meus = [...comp.saida.getTracks(), ...(streamDireto?.getTracks() || []), ...(cineJogo?.getTracks() || []), ...(tkJogo?.getTracks() || []), ...(camT ? [camT] : [])]
   const pcs = live?.room.getPeers?.() || {}
   const kbps = (protegendo ? 1800 : pref.qualidade === 1080 ? 6000 : 3500) * 1000
   // cada pessoa custa uma codificação e o envio inteiro: ela recebe a qualidade cheia; os amigos, 480p mais leve
@@ -1077,7 +1082,17 @@ function montaCine() {
   cineJogo = new MediaStream([...(vt ? [vt] : []), somSaida])
   cineCam = camTrilha ? new MediaStream([camTrilha]) : null
 }
+/* ---------- TikTok: o celular da câmera vira a tela da live em pé (cam.html, "Modo TikTok") ----------
+   Ele recebe só o jogo: a imagem crua da captura e o som do jogo sem a sua voz (o microfone do celular já pega você)
+   e sem atraso (a câmera lá é a dele mesmo, ao vivo). As cenas chegam pelo estado, como para ela. */
+const tkIds = new Set()
+let tkJogo = null
+function montaTk() { const vt = capJogo?.getVideoTracks()[0] || comp.saida.getVideoTracks()[0]; tkJogo = new MediaStream([...(vt ? [vt] : []), comp.soJogo]) }
+function enviaTk(id) { if (!live) return; if (!tkJogo) montaTk(); live.manda(tkJogo, id, { live: 1, tk: 1 }); manda(id); setTimeout(ajustaEnvio, 1500) }
+function reenviaTk() { if (!tkIds.size) return; if (tkJogo) for (const id of tkIds) live.tira(tkJogo, id); montaTk(); tkIds.forEach(enviaTk) }
+function pintaTk() { $('#chipTk').hidden = !tkIds.size; $('#chipTk').classList.toggle('on', tkIds.size > 0) }
 function reenviaCine() {
+  reenviaTk()
   const ids = (live?.publico() || []).filter(doCine); if (!ids.length) return
   for (const id of ids) for (const st of [cineJogo, cineCam]) if (st) live.tira(st, id)
   montaCine(); ids.forEach(enviaPara)

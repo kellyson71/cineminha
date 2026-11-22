@@ -10,36 +10,101 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}
-html,body{height:100%;background:#000;color:#fff;font-family:var(--ui)}
-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+html,body{height:100%;background:#000;color:#fff;font-family:var(--ui);overflow:hidden}
+#v{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
 video.espelho{transform:scaleX(-1)}
 .barra{position:fixed;left:0;right:0;bottom:0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;background:linear-gradient(transparent,#000c)}
 .estado{flex:1;font:700 18px var(--ui);display:flex;align-items:center;gap:10px}
 .estado i{width:12px;height:12px;border-radius:50%;background:#fff5}
 .estado.on i{background:#4ade80;box-shadow:0 0 10px #4ade80}
 button{font:700 17px var(--ui);letter-spacing:.06em;text-transform:uppercase;border:0;border-radius:12px;padding:12px 16px;background:#ffffff22;color:#fff}
-.inicio{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px;background:#1c0830}
+.inicio{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px;background:#1c0830;z-index:5}
 .inicio b{display:block;font:400 40px/1 var(--gta);margin-bottom:12px}
 .inicio p{font:600 18px/1.35 var(--ui);color:#fffc;margin-bottom:22px}
-.inicio button{background:var(--vi);font-size:22px;padding:16px 28px;box-shadow:0 0 0 3px #fff3}
+.inicio button{display:block;width:100%;max-width:340px;margin:0 auto 12px;background:var(--vi);font-size:22px;padding:16px 28px;box-shadow:0 0 0 3px #fff3}
+.inicio button.tk{background:#ffffff14;box-shadow:0 0 0 2px #fff4}
+.inicio small{display:block;max-width:340px;margin:0 auto;font:600 14px/1.35 var(--ui);color:#fff9}
+
+/* ---------- modo TikTok: este celular é a tela da live (em pé), o TikTok transmite a tela ----------
+   O app do TikTok cobre o topo (perfil e quem assiste) e a parte de baixo (comentários): o jogo fica logo abaixo
+   do topo e o rosto na parte de cima da câmera. */
+#tk{display:none}
+body.tk #v,body.tk .barra{display:none}
+body.tk #tk{position:fixed;inset:0;display:flex;flex-direction:column;background:radial-gradient(120% 70% at 50% 0%,#3a1466 0%,#1c0830 55%,#0d0418 100%)}
+.tk-espaco{flex:0 0 calc(env(safe-area-inset-top) + 9vh)}
+.tk-faixa{display:flex;align-items:center;gap:8px;padding:0 12px 8px}
+.tk-faixa img{height:30px}
+.tk-vivo{display:inline-flex;align-items:center;gap:6px;padding:3px 9px 4px;border-radius:7px;background:var(--rosa);font:400 17px/1 var(--gta)}
+.tk-vivo i{width:7px;height:7px;border-radius:50%;background:#fff;animation:tkPulsa 1.4s infinite}
+@keyframes tkPulsa{50%{opacity:.35}}
+.tk-faixa .tk-tit{flex:1;min-width:0;font:700 15px/1.1 var(--ui);letter-spacing:.04em;text-transform:uppercase;color:#fffd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tk-tempo{font:600 14px var(--mono);color:#fffc}
+/* o jogo: encaixado (16:9 inteiro) ou preenchendo (corta as laterais, fica maior) */
+.tk-jogo{position:relative;flex:none;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0e0618;box-shadow:0 2px 0 #ff4fa355,0 -2px 0 #ff4fa355}
+body.preenche .tk-jogo{aspect-ratio:4/3}
+.tk-jogo .palco-host{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);aspect-ratio:16/9;height:100%}
+/* no TikTok só as cenas e o jogo: chat, pix, ligação, música e afins são da live dela */
+.tk-jogo .palco .cam,.tk-jogo .palco .chamada,.tk-jogo .palco .aviso,.tk-jogo .palco .tocando,.tk-jogo .palco .enquete,
+.tk-jogo .palco .chat-tela,.tk-jogo .palco .meta,.tk-jogo .palco .pix,.tk-jogo .palco .moldura-cheia{display:none!important}
+.tk-cam{position:relative;flex:1;min-height:0;margin:10px 10px 0;border-radius:18px 18px 0 0;overflow:hidden;background:#0e0618;box-shadow:0 0 0 3px var(--tinta),0 0 0 5px #ff4fa3aa}
+.tk-cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.tk-cam .sem{position:absolute;inset:0;display:grid;place-items:center;font:600 18px var(--ui);letter-spacing:.12em;text-transform:uppercase;color:#fff8}
+body.sem-cam .tk-cam video{display:none}
+body:not(.sem-cam) .tk-cam .sem{display:none}
+/* cena "só a câmera": o jogo some e a câmera ocupa tudo */
+body[data-cena=camera] .tk-jogo{display:none}
+body[data-cena=camera] .tk-cam{margin-top:0}
+/* controles: aparecem com um toque e somem sozinhos (senão entram na live) */
+.tk-ctl{position:fixed;left:0;right:0;bottom:0;padding:14px 12px calc(14px + env(safe-area-inset-bottom));display:flex;flex-wrap:wrap;gap:8px;justify-content:center;background:linear-gradient(transparent,#000e 35%);opacity:0;pointer-events:none;transition:opacity .25s}
+body.ctl .tk-ctl{opacity:1;pointer-events:auto}
+.tk-ctl button{font-size:15px;padding:10px 12px}
+.tk-ctl label{display:flex;align-items:center;gap:8px;width:100%;justify-content:center;font:700 14px var(--ui);text-transform:uppercase;letter-spacing:.06em}
+.tk-ctl input{width:55%;accent-color:var(--rosa)}
+.tk-ctl .info{width:100%;text-align:center;font:600 13px var(--ui);color:#fffa}
+.tk-toque{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);padding:14px 20px;border-radius:14px;background:#000b;font:700 16px var(--ui);text-align:center;pointer-events:none}
 </style>
 </head>
 <body>
 <video id="v" autoplay playsinline muted class="espelho"></video>
 <div class="barra"><span class="estado" id="estado"><i></i><span>conectando…</span></span><button id="virar">Virar</button></div>
+
+<div id="tk">
+  <div class="tk-espaco"></div>
+  <div class="tk-faixa"><img src="assets/vi.webp" alt=""><span class="tk-vivo"><i></i>ao vivo</span><span class="tk-tit" id="tkTit"></span><span class="tk-tempo" id="tkTempo">00:00:00</span></div>
+  <div class="tk-jogo" id="tkJogo"></div>
+  <div class="tk-cam"><video id="tkCam" autoplay playsinline muted class="espelho"></video><div class="sem">câmera desligada</div></div>
+  <div class="tk-toque" id="tkToque" hidden></div>
+  <div class="tk-ctl" id="tkCtl">
+    <span class="info" id="tkInfo">conectando ao estúdio…</span>
+    <button id="tkVirar">Virar câmera</button>
+    <button id="tkRecorte">Jogo maior</button>
+    <button id="tkCheia">Tela cheia</button>
+    <button id="tkSair">Sair do modo TikTok</button>
+    <label>Som do jogo <input type="range" id="tkVol" min="0" max="100" value="100"></label>
+  </div>
+</div>
+
 <div class="inicio" id="inicio"><div>
   <b>câmera da live</b>
   <p>Deixe o celular parado, de pé, apontando pra você. A tela pode ficar acesa: ela não aparece na live.</p>
   <button id="ligar">Ligar a câmera</button>
+  <button id="ligarTk" class="tk">Modo TikTok</button>
+  <small>No modo TikTok este celular vira a tela da live: jogo em cima, você embaixo. Comece a LIVE no TikTok transmitindo a tela, e o estúdio controla as cenas. A live dela continua igual.</small>
 </div></div>
 <script type="module">
 import { entraLive, codigoDaUrl } from './rede.js'
+import { criaPalco, relogio } from './palco.js'
+import LIVE from './config.js'
 const $ = s => document.querySelector(s)
 const codigo = codigoDaUrl()
-let frente = true, live = null, trava = null, trilha = null, mexendo = false
+const LS = 'live.camTk'
+const pref = (() => { try { return JSON.parse(localStorage.getItem(LS)) || {} } catch { return {} } })()
+const salva = () => { try { localStorage.setItem(LS, JSON.stringify(pref)) } catch {} }
+let frente = true, live = null, trava = null, trilha = null, mexendo = false, tk = false, palco = null, est = {}
 const stream = new MediaStream() // o mesmo stream a live inteira; trocar de câmera só troca a trilha dentro dele
-const status = (txt, on) => { $('#estado span').textContent = txt; $('#estado').classList.toggle('on', !!on) }
-const pede = facing => navigator.mediaDevices.getUserMedia({ video: { facingMode: facing, width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 30, max: 30 } }, audio: false })
+const status = (txt, on) => { $('#estado span').textContent = txt; $('#estado').classList.toggle('on', !!on); $('#tkInfo').textContent = txt }
+// no modo TikTok a câmera aparece grande aqui mesmo: pede mais resolução (o estúdio continua recebendo a mesma trilha)
+const pede = facing => navigator.mediaDevices.getUserMedia({ video: { facingMode: facing, width: { ideal: tk ? 1280 : 640 }, height: { ideal: tk ? 720 : 360 }, frameRate: { ideal: 30, max: 30 } }, audio: false })
 async function abre() {
   // muitos celulares não abrem duas câmeras ao mesmo tempo: solta a atual antes de pedir a outra
   const velha = trilha
@@ -56,9 +121,13 @@ async function abre() {
     live?.quem('estudio').forEach(id => live.room.replaceTrack(velha, t, { target: id }))
   } else stream.addTrack(t)
   trilha = t
-  $('#v').srcObject = stream; $('#v').classList.toggle('espelho', frente)
-  const { width: w, height: h } = t.getSettings()
-  live?.quem('estudio').forEach(id => live.acoes.camcmd.send({ estado: { frente, w, h } }, id))
+  for (const v of [$('#v'), $('#tkCam')]) { v.srcObject = stream; v.classList.toggle('espelho', frente) }
+  avisaEstudio()
+}
+const avisaEstudio = id => {
+  if (!live || !trilha) return
+  const { width: w, height: h } = trilha.getSettings()
+  for (const x of id ? [id] : live.quem('estudio')) live.acoes.camcmd.send({ estado: { frente, w, h }, tiktok: tk }, x)
 }
 async function virar() {
   if (mexendo) return
@@ -68,33 +137,78 @@ async function virar() {
 }
 async function acordado() { try { trava = await navigator.wakeLock?.request('screen') } catch {} }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') acordado() })
-$('#ligar').onclick = async () => {
+
+/* ---------- modo TikTok ---------- */
+function ligaTk() {
+  tk = true
+  document.body.classList.add('tk')
+  document.body.classList.toggle('preenche', !!pref.preenche)
+  $('#tkRecorte').textContent = pref.preenche ? 'Jogo inteiro' : 'Jogo maior'
+  const host = document.createElement('div'); $('#tkJogo').append(host) // o palco é 16:9; no "jogo maior" ele passa das bordas e corta
+  palco = criaPalco(host, { comSom: true })
+  vol()
+  $('#tkTit').textContent = LIVE.jogo
+  setInterval(() => { $('#tkTempo').textContent = est.inicio ? relogio((palco.agora() - est.inicio) / 1000) : '00:00:00' }, 500)
+  mostraCtl()
+}
+function aplica(e) {
+  est = e
+  if (!palco) return
+  if (e.semJogo) palco.setJogo(null)
+  palco.estado(e, e.relogio)
+  document.body.dataset.cena = e.cena || ''
+  // a câmera some quando o estúdio esconde ela (botão da câmera ou "esconder" da posição)
+  document.body.classList.toggle('sem-cam', e.cam === false || !!e.camPos?.oculta)
+  $('#tkTit').textContent = e.titulo || LIVE.jogo
+}
+const vol = () => { const v = $('#tkJogo video.jogo'); if (v) v.volume = (pref.vol ?? 100) / 100; $('#tkVol').value = pref.vol ?? 100 }
+let ctlT = 0
+function mostraCtl() { document.body.classList.add('ctl'); clearTimeout(ctlT); ctlT = setTimeout(() => document.body.classList.remove('ctl'), 4500) }
+$('#tk').addEventListener('click', e => { if (!e.target.closest('.tk-ctl')) mostraCtl() })
+$('#tkCtl').addEventListener('input', mostraCtl)
+$('#tkVirar').onclick = () => { mostraCtl(); virar() }
+$('#tkRecorte').onclick = () => { pref.preenche = !pref.preenche; salva(); document.body.classList.toggle('preenche', pref.preenche); $('#tkRecorte').textContent = pref.preenche ? 'Jogo inteiro' : 'Jogo maior'; mostraCtl() }
+$('#tkCheia').onclick = () => { (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.({ navigationUI: 'hide' }))?.catch?.(() => {}); setTimeout(() => document.body.classList.remove('ctl'), 300) }
+$('#tkSair').onclick = () => { pref.tk = false; salva(); location.reload() }
+$('#tkVol').oninput = e => { pref.vol = +e.target.value; salva(); vol() }
+
+async function comeca(modoTk) {
   if (!codigo) { $('#inicio p').textContent = 'Abra o link da câmera que aparece no estúdio.'; return }
   // sem https o navegador nem pergunta: só esconde a câmera
   if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
     $('#inicio p').textContent = 'O celular só libera a câmera em link https. Abra o link https da câmera (o que começa com https://).'; return
   }
+  tk = modoTk
   try { await abre() } catch (e) {
+    tk = false
     $('#inicio p').textContent = e?.name === 'NotAllowedError'
       ? 'A câmera foi bloqueada para este site. Toque no cadeado ao lado do endereço → Permissões → Câmera → Permitir, e tente de novo.'
       : e?.name === 'NotReadableError' ? 'Outro app está usando a câmera. Feche ele e tente de novo.'
       : 'Não deu para abrir a câmera (' + (e?.name || 'erro') + '). Tente de novo.'
     return
   }
+  pref.tk = modoTk; salva()
   $('#inicio').remove(); acordado()
+  if (tk) { ligaTk(); document.documentElement.requestFullscreen?.({ navigationUI: 'hide' }).catch(() => {}) }
   live = await entraLive(codigo, 'cam')
-  const atualiza = () => { const n = live.quem('estudio').length; status(n ? 'transmitindo pro estúdio' : 'esperando o estúdio abrir', n) }
+  const atualiza = () => { const n = live.quem('estudio').length; status(n ? (tk ? 'no ar pelo estúdio · toque para os controles' : 'transmitindo pro estúdio') : 'esperando o estúdio abrir', n) }
+  const doEstudio = id => live.papeis.get(id) === 'estudio'
   live.on('papel', (id, p) => {
     // só para o estúdio: lá a câmera é colada no jogo e vai num vídeo só para ela (sempre sincronizado)
-    if (p === 'estudio') live.manda(stream, id, { cam: 1 })
-    if (p === 'estudio') { const { width: w, height: h } = trilha.getSettings(); live.acoes.camcmd.send({ estado: { frente, w, h } }, id) }
+    if (p === 'estudio') { live.manda(stream, id, { cam: 1 }); avisaEstudio(id) }
     atualiza()
   })
+  // modo TikTok: o estúdio manda o jogo (imagem crua e só o som do jogo) e o estado das cenas
+  live.on('stream', (s, id, meta) => { if (tk && doEstudio(id) && meta.tk) { palco.setJogo(s); vol() } })
+  live.acoes.estado.on((e, id) => { if (tk && doEstudio(id) && e) aplica(e) })
   // o estúdio pode virar a câmera daqui
-  live.acoes.camcmd.on((c, id) => { if (live.papeis.get(id) === 'estudio' && c?.virar) virar() })
-  live.on('saiu', atualiza)
+  live.acoes.camcmd.on((c, id) => { if (doEstudio(id) && c?.virar) virar() })
+  live.on('saiu', (id, p) => { if (p === 'estudio' && tk) palco.setJogo(null); atualiza() })
   atualiza()
 }
+$('#ligar').onclick = () => comeca(false)
+$('#ligarTk').onclick = () => comeca(true)
+if (pref.tk) { $('#ligarTk').style.cssText = 'background:var(--vi);box-shadow:0 0 0 3px #fff3'; $('#ligar').classList.add('tk') }
 $('#virar').onclick = virar
 </script>
 </body>
