@@ -8,6 +8,8 @@ import CFG from './config.js'
 const BASE = 'jogos/faixa/'
 // músicas e capas: no bucket R2 da Cloudflare (CFG.midiaFaixa) ou no próprio site
 const MIDIA = CFG.midiaFaixa || BASE
+// muda quando o CORS do bucket muda: o navegador pode ter guardado (1 dia) a resposta que bloqueava
+const MIDIA_V = CFG.midiaFaixa ? '?c=2' : ''
 const MODOS = {
   coletivo: { nome: 'Cooperativo', ic: 'users', dica: 'Todo mundo ouve o mesmo. Qualquer erro ou pulo abre o próximo instrumento para todos.' },
   individual: { nome: 'Cada um', ic: 'user', dica: 'Cada um no seu ritmo, vendo quem já acertou.' },
@@ -468,7 +470,7 @@ export function criaFaixa(ctx) {
       const ac = ctx.audioCtx()
       P = { id }
       const base = pasta()
-      const bufs = await Promise.all(m.camadas.map(c => fetch(base + c.arq).then(r => r.arrayBuffer()).then(b => ac.decodeAudioData(b)).catch(() => null)))
+      const bufs = await Promise.all(m.camadas.map(c => fetch(base + c.arq + MIDIA_V).then(r => r.arrayBuffer()).then(b => ac.decodeAudioData(b)).catch(() => null)))
       if (P?.id !== id) return
       const mestre = ac.createGain(); mestre.gain.value = .9; mestre.connect(ctx.saida())
       const ganhos = bufs.map(() => { const g = ac.createGain(); g.gain.value = 0; g.connect(mestre); return g })
@@ -921,7 +923,7 @@ export function criaFaixa(ctx) {
     }
     return el('section', { className: 'fx-revela' },
       el('div', { className: 'fx-ingresso' },
-        m.capa ? el('img', { className: 'fx-ingresso__capa', src: pasta() + m.capa, alt: '' }) : el('div', { className: 'fx-ingresso__capa' }, icon('music')),
+        m.capa ? el('img', { className: 'fx-ingresso__capa', src: pasta() + m.capa + MIDIA_V, alt: '' }) : el('div', { className: 'fx-ingresso__capa' }, icon('music')),
         el('div', { className: 'fx-ingresso__main' },
           el('small', { className: 'fx-kicker', textContent: S.acertou ? `${S.acertou.key === me.key ? 'Você' : S.acertou.nome} acertou para todo mundo · era` : 'Era' }), el('b', { className: 'fx-ingresso__t', textContent: S.origem && m.obra ? m.obra : m.t }),
           el('span', { className: 'fx-ingresso__a', textContent: (S.origem && m.obra ? [m.t, m.a !== m.obra ? m.a : '', m.ano] : [m.a, m.obra || m.album, m.ano]).filter(Boolean).join(' · ') }),
